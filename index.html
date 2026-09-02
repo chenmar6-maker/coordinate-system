@@ -1260,7 +1260,7 @@ function renderTrainMCLevel(lvl){
       <p class="qtext" style="text-align:right;">${lvl.question}</p>
       <div class="gridbox" style="overflow-x:auto;">${buildTrainGraph(sub.answered ? lvl.highlight : null)}</div>
       <div class="mc-options" style="margin-top:14px;">
-        ${opts.map(opt=>`<button class="mc-btn" onclick="answerTrainMCGame('${opt.replace(/'/g,"\\'")}')" ${sub.answered?'disabled':''}>${opt}</button>`).join('')}
+        ${opts.map(opt=>`<button class="mc-btn" onclick="answerTrainMCGame('${opt.replace(/'/g,"\\'").replace(/"/g,'&quot;')}')" ${sub.answered?'disabled':''}>${opt}</button>`).join('')}
       </div>
       ${sub.answered ? `<div class="explain-box"><strong>${sub.picked===lvl.correct?'תשובה נכונה!':'לא מדויק.'}</strong> ${lvl.explain}</div><div class="btnrow"><button class="btn" onclick="nextLevel()">להמשך</button></div>` : ''}
     </div>
@@ -1362,7 +1362,7 @@ function renderQuiz(){
   if(q.type==='mc' || q.type==='trainMC'){
     const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : q.options;
     answerArea = `<div class="mc-options">
-      ${opts.map(opt=>`<button class="mc-btn" id="opt-${opt.replace(/[^a-zA-Zא-ת0-9]/g,'')}" onclick="answerMC('${opt.replace(/'/g,"\\'")}')" ${state.quizAnswered?'disabled':''}>${opt}</button>`).join('')}
+      ${opts.map(opt=>`<button class="mc-btn" id="opt-${opt.replace(/[^a-zA-Zא-ת0-9]/g,'')}" onclick="answerMC('${opt.replace(/'/g,"\\'").replace(/"/g,'&quot;')}')" ${state.quizAnswered?'disabled':''}>${opt}</button>`).join('')}
     </div>`;
   } else if(q.type==='input1'){
     answerArea = `<div class="inputs-row">
