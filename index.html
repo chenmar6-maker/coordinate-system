@@ -603,6 +603,24 @@ const quizQuestions3 = [
     correct:'200 ק"מ',
     highlight:{h:10,km:200},
     explain:'בשעה 10:00 רכבת א׳ נמצאת ב-200 ק"מ מאילת (4 שעות × 50 ק"מ), ורכבת ב׳ נמצאת בחיפה — 400 ק"מ מאילת. המרחק ביניהן: 400 פחות 200 = 200 ק"מ.'
+  },
+  {
+    type:'trainMC',
+    title:'קריאת גרף — עצירה בתחנה',
+    text:'הגרף מציג נסיעה של רכבת (הקו האדום מסמן חלק מהמסלול). מה מייצג החלק האדום האופקי?',
+    diagramFn:'buildStoppedTrainGraph',
+    options:['הרכבת נסעה מהר יותר','הרכבת עמדה בתחנה','הרכבת חזרה אחורה','הרכבת האיצה'],
+    correct:'הרכבת עמדה בתחנה',
+    explain:'קו אופקי בגרף תנועה-זמן מראה שהמיקום לא השתנה לאורך זמן — כלומר הרכבת עמדה על מקומה. כאן הרכבת עצרה בבאר שבע במשך 3 שעות (מ-8:00 עד 11:00) לפני שהמשיכה צפונה.'
+  },
+  {
+    type:'trainMC',
+    title:'גרף בלתי אפשרי',
+    text:'הגרף מציג קו אנכי (באדום). מה לא בסדר בגרף הזה?',
+    diagramFn:'buildVerticalTrainGraph',
+    options:['הרכבת נסעה מהר מדי','הרכבת לא הגיעה לתחנה','הגרף מראה שהרכבת נמצאת בכמה מקומות בו זמנית','הרכבת נסעה לאחור'],
+    correct:'הגרף מראה שהרכבת נמצאת בכמה מקומות בו זמנית',
+    explain:'קו אנכי מייצג שבאותה שעה בדיוק, הרכבת נמצאת בכמה מקומות שונים בעת ובעונה אחת — דבר שאינו אפשרי. בגרף תנועה-זמן, כל שעה יכולה להתאים רק למיקום אחד יחיד.'
   }
 ];
 
@@ -674,6 +692,57 @@ function buildTrainGraph(highlight){
   s+=`<text x="${sx(15)}" y="${sy(50)-6}" text-anchor="middle" font-size="10" fill="#48B08C">רכבת ב׳</text>`;
   // highlight
   if(highlight){ s+=`<circle cx="${sx(highlight.h)}" cy="${sy(highlight.km)}" r="6" fill="#E2604F" stroke="white" stroke-width="1.5"/>`; }
+  s+=`</svg>`;
+  return s;
+}
+
+function buildStoppedTrainGraph(){
+  const leftM=92, topM=18, rightM=10, bottomM=44;
+  const hScale=24, kmScale=0.44;
+  const plotW=12*hScale, plotH=500*kmScale;
+  const svgW=leftM+plotW+rightM, svgH=topM+plotH+bottomM;
+  const sx=h=>leftM+(h-6)*hScale;
+  const sy=km=>topM+plotH-km*kmScale;
+  const hours=[6,8,10,12,14,16,18];
+  const cities=[{n:'קרית שמונה',km:500},{n:'חיפה',km:400},{n:'תל אביב',km:300},{n:'באר שבע',km:100},{n:'אילת',km:0}];
+  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Assistant,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
+  hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(234,244,241,0.75)">${h}:00</text>`; });
+  s+=`<text x="${leftM+plotW/2}" y="${topM+plotH+32}" text-anchor="middle" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
+  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km} ק״מ</text>`; });
+  // diagonal → horizontal (stopped) → diagonal
+  s+=`<polyline points="${sx(6)},${sy(0)} ${sx(8)},${sy(100)} ${sx(11)},${sy(100)} ${sx(15)},${sy(300)}" fill="none" stroke="#EFA94A" stroke-width="2.5"/>`;
+  // highlight the horizontal segment in coral
+  s+=`<line x1="${sx(8)}" y1="${sy(100)}" x2="${sx(11)}" y2="${sy(100)}" stroke="#E2604F" stroke-width="3"/>`;
+  s+=`<text x="${sx(9.5)}" y="${sy(100)-10}" text-anchor="middle" font-size="10" fill="#E2604F">?</text>`;
+  s+=`</svg>`;
+  return s;
+}
+
+function buildVerticalTrainGraph(){
+  const leftM=92, topM=18, rightM=10, bottomM=44;
+  const hScale=24, kmScale=0.44;
+  const plotW=12*hScale, plotH=500*kmScale;
+  const svgW=leftM+plotW+rightM, svgH=topM+plotH+bottomM;
+  const sx=h=>leftM+(h-6)*hScale;
+  const sy=km=>topM+plotH-km*kmScale;
+  const hours=[6,8,10,12,14,16,18];
+  const cities=[{n:'קרית שמונה',km:500},{n:'חיפה',km:400},{n:'תל אביב',km:300},{n:'באר שבע',km:100},{n:'אילת',km:0}];
+  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Assistant,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
+  hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(234,244,241,0.75)">${h}:00</text>`; });
+  s+=`<text x="${leftM+plotW/2}" y="${topM+plotH+32}" text-anchor="middle" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
+  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km} ק״מ</text>`; });
+  // impossible vertical line at hour 10
+  s+=`<line x1="${sx(10)}" y1="${sy(50)}" x2="${sx(10)}" y2="${sy(430)}" stroke="#E2604F" stroke-width="3"/>`;
+  s+=`<circle cx="${sx(10)}" cy="${sy(50)}" r="4" fill="#E2604F"/>`;
+  s+=`<circle cx="${sx(10)}" cy="${sy(430)}" r="4" fill="#E2604F"/>`;
   s+=`</svg>`;
   return s;
 }
@@ -1373,7 +1442,11 @@ function renderQuiz(){
     quizGridCfg = g;
     diagram = `<div class="gridbox">${g.svg}</div>`;
   } else if(q.type==='trainMC'){
-    diagram = `<div class="gridbox" style="overflow-x:auto;">${buildTrainGraph(state.quizAnswered && q.highlight ? q.highlight : null)}</div>`;
+    if(q.diagramFn && window[q.diagramFn]){
+      diagram = `<div class="gridbox" style="overflow-x:auto;">${window[q.diagramFn]()}</div>`;
+    } else {
+      diagram = `<div class="gridbox" style="overflow-x:auto;">${buildTrainGraph(state.quizAnswered && q.highlight ? q.highlight : null)}</div>`;
+    }
   }
 
   let answerArea = '';
