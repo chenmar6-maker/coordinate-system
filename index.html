@@ -771,8 +771,8 @@ function renderReadLevel(lvl){
     ` : ''}
     <div class="feedback ${sub.feedback==='ok'?'ok':sub.feedback==='bad'?'bad':''}">${sub.feedback==='ok'?'תשובה נכונה! פוענח בהצלחה':sub.feedback==='bad'?`לא בדיוק. השיעור הנכון הוא (${target?target.x:''}, ${target?target.y:''})`:''}</div>
     <div class="btnrow">
-      ${sub.checked && !done ? `<button class="btn" onclick="nextReadTarget()">למוקש הבא</button>` : ''}
-      ${done ? `<button class="btn" onclick="nextLevel()">להמשך המשחק</button>` : ''}
+      ${sub.checked && !done && sub.targetIdx < lvl.targets.length - 1 ? `<button class="btn" onclick="nextReadTarget()">למוקש הבא</button>` : ''}
+      ${done || (sub.checked && sub.targetIdx === lvl.targets.length - 1) ? `<button class="btn" onclick="nextLevel()">להמשך המשחק</button>` : ''}
     </div>
   `;
 }
