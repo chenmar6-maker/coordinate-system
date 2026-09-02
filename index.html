@@ -588,21 +588,21 @@ const quizQuestions3 = [
   },
   {
     type:'trainMC',
-    title:'גרף רכבות — מיקום',
-    text:'בשעה 14:00 — היכן נמצאת רכבת ב׳ לפי הגרף?',
-    options:['חיפה','בין תל אביב לבאר שבע','תל אביב','באר שבע'],
-    correct:'בין תל אביב לבאר שבע',
-    highlight:{h:14,km:200},
-    explain:'רכבת ב׳ יוצאת מקרית שמונה (500 ק"מ) בשעה 8:00. עד שעה 14:00 עברו 6 שעות, ובמהירות 50 ק"מ/שעה נסעה 300 ק"מ. 500 פחות 300 = 200 ק"מ מאילת — מיקום שנמצא בין תל אביב (300) לבאר שבע (100).'
+    title:'גרף רכבות — עצירה בבאר שבע',
+    text:'הגרף מציג שתי רכבות. כמה שעות עצרה רכבת א׳ בבאר שבע לפני שהמשיכה?',
+    diagramFn:'buildCrossingTrainGraph',
+    options:['1 שעה','2 שעות','3 שעות','4 שעות'],
+    correct:'3 שעות',
+    explain:'לפי הגרף, רכבת א׳ (בצהוב) הגיעה לבאר שבע בשעה 8:00 והמשיכה בשעה 11:00. הקו האופקי מ-8:00 עד 11:00 מייצג עצירה של 3 שעות.'
   },
   {
     type:'trainMC',
-    title:'גרף רכבות — מרחק בין רכבות',
-    text:'בשעה 10:00 — מה המרחק בין שתי הרכבות?',
-    options:['100 ק"מ','150 ק"מ','200 ק"מ','250 ק"מ'],
-    correct:'200 ק"מ',
-    highlight:{h:10,km:200},
-    explain:'בשעה 10:00 רכבת א׳ נמצאת ב-200 ק"מ מאילת (4 שעות × 50 ק"מ), ורכבת ב׳ נמצאת בחיפה — 400 ק"מ מאילת. המרחק ביניהן: 400 פחות 200 = 200 ק"מ.'
+    title:'גרף רכבות — מפגש בתחנה',
+    text:'הגרף מציג שתי רכבות שעוברות זו את זו בבאר שבע (2 מסילות). באיזו שעה מתרחש המפגש?',
+    diagramFn:'buildCrossingTrainGraph',
+    options:['9:00','10:00','11:00','12:00'],
+    correct:'11:00',
+    explain:'נקודת המפגש (עיגול אדום) היא כאשר שתי הרכבות נמצאות באותו מקום באותו זמן — 100 ק"מ (באר שבע) בשעה 11:00. רכבת א׳ עמדה שם וחיכתה, ורכבת ב׳ עברה דרכה בשעה 11:00.'
   },
   {
     type:'trainMC',
@@ -743,6 +743,40 @@ function buildVerticalTrainGraph(){
   s+=`<line x1="${sx(10)}" y1="${sy(50)}" x2="${sx(10)}" y2="${sy(430)}" stroke="#E2604F" stroke-width="3"/>`;
   s+=`<circle cx="${sx(10)}" cy="${sy(50)}" r="4" fill="#E2604F"/>`;
   s+=`<circle cx="${sx(10)}" cy="${sy(430)}" r="4" fill="#E2604F"/>`;
+  s+=`</svg>`;
+  return s;
+}
+
+function buildCrossingTrainGraph(){
+  const leftM=92, topM=18, rightM=10, bottomM=44;
+  const hScale=24, kmScale=0.44;
+  const plotW=12*hScale, plotH=500*kmScale;
+  const svgW=leftM+plotW+rightM, svgH=topM+plotH+bottomM;
+  const sx=h=>leftM+(h-6)*hScale;
+  const sy=km=>topM+plotH-km*kmScale;
+  const hours=[6,8,10,12,14,16,18];
+  const cities=[{n:'קרית שמונה',km:500},{n:'חיפה',km:400},{n:'תל אביב',km:300},{n:'באר שבע',km:100},{n:'אילת',km:0}];
+  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Assistant,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
+  hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(234,244,241,0.75)">${h}:00</text>`; });
+  s+=`<text x="${leftM+plotW/2}" y="${topM+plotH+32}" text-anchor="middle" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
+  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km} ק״מ</text>`; });
+  // Beer Sheva double-track label
+  s+=`<rect x="${leftM+2}" y="${sy(100)-9}" width="52" height="13" rx="3" fill="rgba(78,205,196,0.18)"/>`;
+  s+=`<text x="${leftM+28}" y="${sy(100)+1}" text-anchor="middle" font-size="8" fill="#4ECDC4" font-weight="700">2 מסילות</text>`;
+  // Train A (gold): (6,0)→(8,100)→(11,100)→(17,400)
+  s+=`<polyline points="${sx(6)},${sy(0)} ${sx(8)},${sy(100)} ${sx(11)},${sy(100)} ${sx(17)},${sy(400)}" fill="none" stroke="#EFA94A" stroke-width="2.5"/>`;
+  s+=`<circle cx="${sx(6)}" cy="${sy(0)}" r="4" fill="#EFA94A"/>`;
+  s+=`<text x="${sx(6)+4}" y="${sy(0)-6}" font-size="9" fill="#EFA94A">א׳</text>`;
+  // Train B (seafoam): (7,300)→(11,100)→(13,0)
+  s+=`<polyline points="${sx(7)},${sy(300)} ${sx(11)},${sy(100)} ${sx(13)},${sy(0)}" fill="none" stroke="#4ECDC4" stroke-width="2.5"/>`;
+  s+=`<circle cx="${sx(7)}" cy="${sy(300)}" r="4" fill="#4ECDC4"/>`;
+  s+=`<text x="${sx(7)+4}" y="${sy(300)-6}" font-size="9" fill="#4ECDC4">ב׳</text>`;
+  // Crossing point at Beer Sheva (11:00, 100km)
+  s+=`<circle cx="${sx(11)}" cy="${sy(100)}" r="5" fill="none" stroke="#E2604F" stroke-width="2"/>`;
   s+=`</svg>`;
   return s;
 }
