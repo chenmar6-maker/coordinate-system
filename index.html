@@ -501,8 +501,95 @@ const quizQuestions2 = [
   }
 ];
 
-function currentGameLevels(){ return state.sequence===2 ? gameLevels2 : gameLevels1; }
-function currentQuizQuestions(){ return state.sequence===2 ? quizQuestions2 : quizQuestions1; }
+const gameLevels3 = [
+  {
+    id:'trainMC',
+    title:'גרף הרכבות',
+    question:'באיזו שעה מגיעה רכבת א׳ לתל אביב?',
+    options:['10:00','11:00','12:00','14:00'],
+    correct:'12:00',
+    highlight:{h:12,km:300},
+    explain:'רכבת א׳ יוצאת מאילת בשעה 6:00 ונוסעת 50 ק"מ לשעה. תל אביב נמצאת ב-300 ק"מ, ולכן הנסיעה אורכת 6 שעות — היא מגיעה בשעה 12:00.'
+  },
+  {
+    id:'trainMC',
+    title:'גרף הרכבות',
+    question:'באיזו עיר נמצאת רכבת ב׳ בשעה 10:00?',
+    options:['באר שבע','תל אביב','חיפה','קרית שמונה'],
+    correct:'חיפה',
+    highlight:{h:10,km:400},
+    explain:'רכבת ב׳ יוצאת מקרית שמונה (500 ק"מ) בשעה 8:00. אחרי שעתיים (בשעה 10:00) היא נסעה 100 ק"מ דרומה ונמצאת ב-400 ק"מ — זו חיפה.'
+  },
+  {
+    id:'trainMC',
+    title:'גרף הרכבות',
+    question:'כמה שעות נוסעת רכבת א׳ מאילת עד באר שבע?',
+    options:['1','2','3','4'],
+    correct:'2',
+    highlight:{h:8,km:100},
+    explain:'באר שבע נמצאת 100 ק"מ מאילת. רכבת א׳ נוסעת 50 ק"מ לשעה, לכן הנסיעה אורכת 2 שעות — מ-6:00 עד 8:00.'
+  },
+  {
+    id:'trainMC',
+    title:'גרף הרכבות',
+    question:'באיזו שעה נפגשות שתי הרכבות?',
+    options:['10:00','11:00','12:00','14:00'],
+    correct:'12:00',
+    highlight:{h:12,km:300},
+    explain:'שתי הרכבות נפגשות כשהן נמצאות באותה נקודה באותו זמן. זה קורה בשעה 12:00 בתל אביב — בדקו את נקודת החיתוך של שני הקווים בגרף.'
+  },
+  {
+    id:'trainMC',
+    title:'גרף הרכבות',
+    question:'באיזו עיר נפגשות שתי הרכבות?',
+    options:['באר שבע','תל אביב','חיפה','קרית שמונה'],
+    correct:'תל אביב',
+    highlight:{h:12,km:300},
+    explain:'בשעה 12:00 שתי הרכבות נמצאות ב-300 ק"מ מאילת — זו תל אביב. נקודת החיתוך של הקווים בגרף מראה בדיוק את מקום המפגש.'
+  }
+];
+
+const quizQuestions3 = [
+  {
+    type:'trainMC',
+    title:'גרף רכבות — קריאה',
+    text:'רכבת א׳ יוצאת מאילת בשעה 6:00. באיזו שעה היא מגיעה לחיפה?',
+    options:['12:00','13:00','14:00','15:00'],
+    correct:'14:00',
+    highlight:{h:14,km:400},
+    explain:'חיפה נמצאת ב-400 ק"מ מאילת. רכבת א׳ נוסעת 50 ק"מ לשעה, לכן הנסיעה אורכת 8 שעות — מ-6:00 מגיעים לחיפה ב-14:00.'
+  },
+  {
+    type:'trainMC',
+    title:'גרף רכבות — מרחק',
+    text:'מה המרחק בין חיפה לקרית שמונה לפי הגרף?',
+    options:['50 ק"מ','100 ק"מ','150 ק"מ','200 ק"מ'],
+    correct:'100 ק"מ',
+    highlight:null,
+    explain:'חיפה נמצאת ב-400 ק"מ מאילת, וקרית שמונה ב-500 ק"מ. ההפרש הוא 500 פחות 400 — כלומר 100 ק"מ.'
+  },
+  {
+    type:'trainMC',
+    title:'גרף רכבות — זמן נסיעה',
+    text:'כמה שעות לוקח לרכבת ב׳ לנסוע מקרית שמונה עד אילת?',
+    options:['6 שעות','8 שעות','10 שעות','12 שעות'],
+    correct:'10 שעות',
+    highlight:null,
+    explain:'רכבת ב׳ יוצאת בשעה 8:00 ומגיעה לאילת בשעה 18:00 — נסיעה של 10 שעות. אפשר גם לחשב: 500 ק"מ חלקי 50 ק"מ לשעה = 10 שעות.'
+  },
+  {
+    type:'trainMC',
+    title:'גרף רכבות — מיקום',
+    text:'בשעה 14:00 — היכן נמצאת רכבת ב׳ לפי הגרף?',
+    options:['חיפה','בין תל אביב לבאר שבע','תל אביב','באר שבע'],
+    correct:'בין תל אביב לבאר שבע',
+    highlight:{h:14,km:200},
+    explain:'רכבת ב׳ יוצאת מקרית שמונה (500 ק"מ) בשעה 8:00. עד שעה 14:00 עברו 6 שעות, ובמהירות 50 ק"מ/שעה נסעה 300 ק"מ. 500 פחות 300 = 200 ק"מ מאילת — מיקום שנמצא בין תל אביב (300) לבאר שבע (100).'
+  }
+];
+
+function currentGameLevels(){ return state.sequence===3 ? gameLevels3 : state.sequence===2 ? gameLevels2 : gameLevels1; }
+function currentQuizQuestions(){ return state.sequence===3 ? quizQuestions3 : state.sequence===2 ? quizQuestions2 : quizQuestions1; }
 
 /* ============ STATE ============ */
 let state = {
@@ -538,6 +625,39 @@ function buoyIcon(cx,cy,color){
     <circle r="9" fill="${color}" stroke="var(--deep-navy)" stroke-width="1.5"/>
     <circle r="3" fill="var(--deep-navy)"/>
   </g>`;
+}
+
+function buildTrainGraph(highlight){
+  const leftM=92, topM=18, rightM=10, bottomM=44;
+  const hScale=24, kmScale=0.44;
+  const plotW=12*hScale, plotH=500*kmScale;
+  const svgW=leftM+plotW+rightM, svgH=topM+plotH+bottomM;
+  const sx=h=>leftM+(h-6)*hScale;
+  const sy=km=>topM+plotH-km*kmScale;
+  const hours=[6,8,10,12,14,16,18];
+  const cities=[{n:'קרית שמונה',km:500},{n:'חיפה',km:400},{n:'תל אביב',km:300},{n:'באר שבע',km:100},{n:'אילת',km:0}];
+  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Assistant,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
+  // grid
+  hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  // axes
+  s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  // x labels
+  hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(234,244,241,0.75)">${h}:00</text>`; });
+  s+=`<text x="${leftM+plotW/2}" y="${topM+plotH+32}" text-anchor="middle" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
+  // y labels
+  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km} ק״מ</text>`; });
+  // train A (gold): (6,0)->(16,500)
+  s+=`<line x1="${sx(6)}" y1="${sy(0)}" x2="${sx(16)}" y2="${sy(500)}" stroke="#EFA94A" stroke-width="2.5"/>`;
+  s+=`<text x="${sx(7)}" y="${sy(50)-6}" text-anchor="middle" font-size="10" fill="#EFA94A">רכבת א׳</text>`;
+  // train B (seafoam): (8,500)->(18,0)
+  s+=`<line x1="${sx(8)}" y1="${sy(500)}" x2="${sx(18)}" y2="${sy(0)}" stroke="#48B08C" stroke-width="2.5"/>`;
+  s+=`<text x="${sx(15)}" y="${sy(50)-6}" text-anchor="middle" font-size="10" fill="#48B08C">רכבת ב׳</text>`;
+  // highlight
+  if(highlight){ s+=`<circle cx="${sx(highlight.h)}" cy="${sy(highlight.km)}" r="6" fill="#E2604F" stroke="white" stroke-width="1.5"/>`; }
+  s+=`</svg>`;
+  return s;
 }
 
 function buildGrid({id, size=10, cellPx=34, points=[], lines=[], interactive=false, missPoint=null}){
@@ -692,6 +812,25 @@ function renderHome(){
         </div>
       </div>
     </div>
+    <div class="sequence-section">
+      <div class="sequence-title">דוגמה שימושית — גרף רכבות</div>
+      <div class="cards">
+        <div class="card learn" onclick="state.sequence=3;goTo('learn')">
+          <span class="icon">🚂</span>
+          <h3>הקנייה - גרף רכבות</h3>
+        </div>
+        <div class="flow-arrow"><span class="wide-arrow">←</span><span class="narrow-arrow">↓</span></div>
+        <div class="card game" onclick="state.sequence=3;startGame()">
+          <span class="icon">🚢</span>
+          <h3>תרגול - שאלות על הגרף</h3>
+        </div>
+        <div class="flow-arrow"><span class="wide-arrow">←</span><span class="narrow-arrow">↓</span></div>
+        <div class="card quiz" onclick="state.sequence=3;startQuiz()">
+          <span class="icon">🗺️</span>
+          <h3>בוחן יחידה</h3>
+        </div>
+      </div>
+    </div>
   `;
 }
 
@@ -703,6 +842,7 @@ let learnGridCfg = null;
 let learnPoint = {x:4,y:3};
 
 function renderLearn(){
+  if(state.sequence===3) return renderLearn3();
   if(state.sequence===2) return renderLearn2();
   const g = buildGrid({id:'learnGrid', size:10, cellPx:34, points:[{...learnPoint, icon:'buoy', color:'var(--seafoam)'}], lines:[
     [{x:learnPoint.x,y:0},{x:learnPoint.x,y:learnPoint.y}],
@@ -734,7 +874,7 @@ function renderLearn(){
 }
 
 function postRenderLearn(){
-  if(state.sequence===2) return;
+  if(state.sequence===2 || state.sequence===3) return;
   attachGridClick('learnGrid', learnGridCfg, function(gx,gy){
     learnPoint = {x:gx,y:gy};
     render();
@@ -763,6 +903,30 @@ function renderLearn2(){
   `;
 }
 
+function renderLearn3(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle" style="text-align:right;">גרף רכבות — דוגמה שימושית למערכת הצירים</h2>
+      <p class="qtext" style="text-align:right;">🎬 סרטון הקנייה — מוזמנים לצפות.</p>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube-nocookie.com/embed/no50Tq1zgJI" title="גרף רכבות" referrerpolicy="strict-origin-when-cross-origin" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <p class="qtext" style="text-align:center;font-size:14px;opacity:.75;"><a href="https://youtube.com/shorts/no50Tq1zgJI" target="_blank" rel="noopener" style="color:var(--gold);">אם הסרטון לא נטען — לחצו כאן לצפייה ביוטיוב ↗</a></p>
+      <ul class="bullets">
+        <li>ציר ה-⁦x⁩ (האופקי) מייצג את השעה.</li>
+        <li>ציר ה-⁦y⁩ (האנכי) מייצג את המרחק מאילת בק"מ.</li>
+        <li>כל קו ישר בגרף הוא רכבת הנוסעת במהירות קבועה.</li>
+        <li>נקודת החיתוך של שני קווים מראה מתי ואיפה שתי רכבות נפגשות.</li>
+      </ul>
+      <div class="gridbox" style="overflow-x:auto;">${buildTrainGraph(null)}</div>
+      <div class="btnrow">
+        <button class="btn" onclick="startGame()">לתרגול 🚂</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לבית</button>
+      </div>
+    </div>
+  `;
+}
+
 /* ============ GAME ============ */
 
 function startGame(){
@@ -771,6 +935,9 @@ function startGame(){
   state.gameScore=0;
   state.gameTotal=0;
   state.levelSub = freshLevelSub(0);
+  const firstLvl = currentGameLevels()[0];
+  if(firstLvl && firstLvl.id==='trainMC') state.shuffledOptions = shuffleArr(firstLvl.options||[]);
+  else state.shuffledOptions = [];
   render();
 }
 
@@ -781,6 +948,7 @@ function freshLevelSub(levelIdx){
   if(lvl.id==='shape') return {placed:[], feedback:'', shapeAnswered:false, shapeCorrect:null, missPoint:null};
   if(lvl.id==='measure') return {vertical:'', horizontal:'', area:'', checked:false, results:null};
   if(lvl.id==='concept') return {qIdx:0, feedback:null, answered:false, correctCount:0};
+  if(lvl.id==='trainMC') return {answered:false, picked:null};
   return {};
 }
 
@@ -807,6 +975,7 @@ function renderGame(){
   else if(lvl.id==='shape') inner = renderShapeLevel(lvl);
   else if(lvl.id==='measure') inner = renderMeasureLevel(lvl);
   else if(lvl.id==='concept') inner = renderConceptLevel(lvl);
+  else if(lvl.id==='trainMC') return renderTrainMCLevel(lvl);
 
   return `
     <div class="progressdots">${dots}</div>
@@ -1075,6 +1244,40 @@ function checkMeasure(){
   render();
 }
 
+function renderTrainMCLevel(lvl){
+  const sub = state.levelSub;
+  const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : lvl.options;
+  const dots = currentGameLevels().map((l,i)=>{
+    let cls='dot';
+    if(i<state.levelIndex) cls+=' done';
+    else if(i===state.levelIndex) cls+=' active';
+    return `<button class="${cls} clickable" onclick="jumpToLevel(${i})" title="${l.title}" aria-label="${l.title}"></button>`;
+  }).join('');
+  return `
+    <div class="progressdots">${dots}</div>
+    <div class="panel" style="text-align:center;">
+      <h2 class="qtitle">${lvl.title}</h2>
+      <p class="qtext" style="text-align:right;">${lvl.question}</p>
+      <div class="gridbox" style="overflow-x:auto;">${buildTrainGraph(sub.answered ? lvl.highlight : null)}</div>
+      <div class="mc-options" style="margin-top:14px;">
+        ${opts.map(opt=>`<button class="mc-btn" onclick="answerTrainMCGame('${opt.replace(/'/g,"\\'")}')" ${sub.answered?'disabled':''}>${opt}</button>`).join('')}
+      </div>
+      ${sub.answered ? `<div class="explain-box"><strong>${sub.picked===lvl.correct?'תשובה נכונה!':'לא מדויק.'}</strong> ${lvl.explain}</div><div class="btnrow"><button class="btn" onclick="nextLevel()">להמשך</button></div>` : ''}
+    </div>
+  `;
+}
+
+function answerTrainMCGame(opt){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  if(sub.answered) return;
+  sub.answered = true;
+  sub.picked = opt;
+  if(opt === lvl.correct){ state.gameScore++; }
+  state.gameTotal++;
+  render();
+}
+
 function nextLevel(){
   state.levelIndex++;
   if(state.levelIndex >= currentGameLevels().length){
@@ -1082,6 +1285,8 @@ function nextLevel(){
     return;
   }
   state.levelSub = freshLevelSub(state.levelIndex);
+  const nextLvl = currentGameLevels()[state.levelIndex];
+  if(nextLvl && nextLvl.id==='trainMC') state.shuffledOptions = shuffleArr(nextLvl.options||[]);
   render();
 }
 
@@ -1149,10 +1354,12 @@ function renderQuiz(){
     ], lines:[[t.a,t.b],[t.b,t.c],[t.c,t.d],[t.d,t.a]], interactive:false});
     quizGridCfg = g;
     diagram = `<div class="gridbox">${g.svg}</div>`;
+  } else if(q.type==='trainMC'){
+    diagram = `<div class="gridbox" style="overflow-x:auto;">${buildTrainGraph(state.quizAnswered && q.highlight ? q.highlight : null)}</div>`;
   }
 
   let answerArea = '';
-  if(q.type==='mc'){
+  if(q.type==='mc' || q.type==='trainMC'){
     const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : q.options;
     answerArea = `<div class="mc-options">
       ${opts.map(opt=>`<button class="mc-btn" id="opt-${opt.replace(/[^a-zA-Zא-ת0-9]/g,'')}" onclick="answerMC('${opt.replace(/'/g,"\\'")}')" ${state.quizAnswered?'disabled':''}>${opt}</button>`).join('')}
