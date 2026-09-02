@@ -561,48 +561,21 @@ const gameLevels3 = [
 const quizQuestions3 = [
   {
     type:'trainMC',
-    title:'גרף רכבות — קריאה',
-    text:'לפי הגרף, באיזו שעה הגיעה רכבת א׳ לחיפה?',
+    title:'גרף רכבות — מרחק בין רכבות',
+    text:'בשעה 8:00 — מה המרחק בין שתי הרכבות בערך?',
     diagramFn:'buildCrossingTrainGraph',
-    options:['15:00','16:00','17:00','18:00'],
-    correct:'17:00',
-    explain:'רכבת א׳ יצאה מבאר שבע בשעה 11:00 לכיוון חיפה. חיפה נמצאת 300 ק"מ מבאר שבע (400 פחות 100), ובמהירות 50 ק"מ/שעה לוקח 6 שעות — היא מגיעה בשעה 17:00.'
+    options:['בערך 50 ק"מ','בערך 100 ק"מ','בערך 150 ק"מ','בערך 250 ק"מ'],
+    correct:'בערך 150 ק"מ',
+    explain:'בשעה 8:00 רכבת א׳ הגיעה לבאר שבע (100 ק"מ). רכבת ב׳ יצאה מתל אביב (300 ק"מ) בשעה 7:00 ואחרי שעה אחת נמצאת בערך ב-250 ק"מ. המרחק ביניהן: 250 פחות 100 = כ-150 ק"מ.'
   },
   {
     type:'trainMC',
-    title:'גרף רכבות — מרחק',
-    text:'מה המרחק שנסעה רכבת ב׳ מתל אביב עד אילת?',
+    title:'גרף רכבות — זמן כולל',
+    text:'כמה שעות ארכה נסיעת רכבת א׳ בסך הכל מאילת עד חיפה, כולל ההמתנה?',
     diagramFn:'buildCrossingTrainGraph',
-    options:['200 ק"מ','250 ק"מ','300 ק"מ','350 ק"מ'],
-    correct:'300 ק"מ',
-    explain:'תל אביב נמצאת ב-300 ק"מ מאילת. רכבת ב׳ יצאה מתל אביב ונסעה עד אילת (0 ק"מ) — מרחק של 300 ק"מ.'
-  },
-  {
-    type:'trainMC',
-    title:'גרף רכבות — זמן נסיעה',
-    text:'כמה שעות נסעה רכבת ב׳ בסך הכל מתל אביב עד אילת?',
-    diagramFn:'buildCrossingTrainGraph',
-    options:['4 שעות','5 שעות','6 שעות','7 שעות'],
-    correct:'6 שעות',
-    explain:'רכבת ב׳ יצאה מתל אביב בשעה 7:00 והגיעה לאילת בשעה 13:00 — נסיעה של 6 שעות. אפשר לבדוק: 300 ק"מ חלקי 50 ק"מ/שעה = 6 שעות.'
-  },
-  {
-    type:'trainMC',
-    title:'גרף רכבות — עצירה בבאר שבע',
-    text:'הגרף מציג שתי רכבות. כמה שעות עצרה רכבת א׳ בבאר שבע לפני שהמשיכה?',
-    diagramFn:'buildCrossingTrainGraph',
-    options:['1 שעה','2 שעות','3 שעות','4 שעות'],
-    correct:'3 שעות',
-    explain:'לפי הגרף, רכבת א׳ (בצהוב) הגיעה לבאר שבע בשעה 8:00 והמשיכה בשעה 11:00. הקו האופקי מ-8:00 עד 11:00 מייצג עצירה של 3 שעות.'
-  },
-  {
-    type:'trainMC',
-    title:'גרף רכבות — מפגש בתחנה',
-    text:'הגרף מציג שתי רכבות שעוברות זו את זו בבאר שבע (2 מסילות). באיזו שעה מתרחש המפגש?',
-    diagramFn:'buildCrossingTrainGraph',
-    options:['9:00','10:00','11:00','12:00'],
-    correct:'11:00',
-    explain:'נקודת המפגש (עיגול אדום) היא כאשר שתי הרכבות נמצאות באותו מקום באותו זמן — 100 ק"מ (באר שבע) בשעה 11:00. רכבת א׳ עמדה שם וחיכתה, ורכבת ב׳ עברה דרכה בשעה 11:00.'
+    options:['8 שעות','9 שעות','11 שעות','14 שעות'],
+    correct:'11 שעות',
+    explain:'רכבת א׳ יצאה מאילת בשעה 6:00 והגיעה לחיפה בשעה 17:00 — 11 שעות בסך הכל. מתוכן: 2 שעות נסיעה עד באר שבע, 3 שעות המתנה, ו-6 שעות נסיעה עד חיפה.'
   },
   {
     type:'trainMC',
@@ -681,9 +654,10 @@ function buildTrainGraph(highlight){
   s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
   // x labels
   hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(234,244,241,0.75)">${h}:00</text>`; });
-  s+=`<text x="${leftM+plotW/2}" y="${topM+plotH+32}" text-anchor="middle" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
+  s+=`<text x="${leftM+plotW}" y="${topM+plotH+32}" text-anchor="end" direction="ltr" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
   // y labels
-  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km} ק״מ</text>`; });
+  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" direction="ltr" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" direction="ltr" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km}</text>`; });
+  s+=`<text x="${leftM-5}" y="${topM+8}" text-anchor="end" direction="ltr" font-size="9" fill="rgba(239,169,74,0.75)">קילומטרים</text>`;
   // train A (gold): (6,0)->(16,500)
   s+=`<line x1="${sx(6)}" y1="${sy(0)}" x2="${sx(16)}" y2="${sy(500)}" stroke="#EFA94A" stroke-width="2.5"/>`;
   s+=`<text x="${sx(7)}" y="${sy(50)-6}" text-anchor="middle" font-size="10" fill="#EFA94A">רכבת א׳</text>`;
@@ -711,8 +685,9 @@ function buildStoppedTrainGraph(){
   s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
   s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
   hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(234,244,241,0.75)">${h}:00</text>`; });
-  s+=`<text x="${leftM+plotW/2}" y="${topM+plotH+32}" text-anchor="middle" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
-  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km} ק״מ</text>`; });
+  s+=`<text x="${leftM+plotW}" y="${topM+plotH+32}" text-anchor="end" direction="ltr" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
+  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" direction="ltr" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" direction="ltr" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km}</text>`; });
+  s+=`<text x="${leftM-5}" y="${topM+8}" text-anchor="end" direction="ltr" font-size="9" fill="rgba(239,169,74,0.75)">קילומטרים</text>`;
   // diagonal → horizontal (stopped) → diagonal
   s+=`<polyline points="${sx(6)},${sy(0)} ${sx(8)},${sy(100)} ${sx(11)},${sy(100)} ${sx(15)},${sy(300)}" fill="none" stroke="#EFA94A" stroke-width="2.5"/>`;
   // highlight the horizontal segment in coral
@@ -737,8 +712,9 @@ function buildVerticalTrainGraph(){
   s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
   s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
   hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(234,244,241,0.75)">${h}:00</text>`; });
-  s+=`<text x="${leftM+plotW/2}" y="${topM+plotH+32}" text-anchor="middle" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
-  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km} ק״מ</text>`; });
+  s+=`<text x="${leftM+plotW}" y="${topM+plotH+32}" text-anchor="end" direction="ltr" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
+  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" direction="ltr" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" direction="ltr" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km}</text>`; });
+  s+=`<text x="${leftM-5}" y="${topM+8}" text-anchor="end" direction="ltr" font-size="9" fill="rgba(239,169,74,0.75)">קילומטרים</text>`;
   // impossible vertical line at hour 10
   s+=`<line x1="${sx(10)}" y1="${sy(50)}" x2="${sx(10)}" y2="${sy(430)}" stroke="#E2604F" stroke-width="3"/>`;
   s+=`<circle cx="${sx(10)}" cy="${sy(50)}" r="4" fill="#E2604F"/>`;
@@ -765,9 +741,10 @@ function buildCrossingTrainGraph(){
   s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
   // hour labels
   hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(234,244,241,0.75)">${h}:00</text>`; });
-  s+=`<text x="${leftM+plotW/2}" y="${topM+plotH+32}" text-anchor="middle" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
+  s+=`<text x="${leftM+plotW}" y="${topM+plotH+32}" text-anchor="end" direction="ltr" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
   // city labels
-  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km} ק״מ</text>`; });
+  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" direction="ltr" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" direction="ltr" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km}</text>`; });
+  s+=`<text x="${leftM-5}" y="${topM+8}" text-anchor="end" direction="ltr" font-size="9" fill="rgba(239,169,74,0.75)">קילומטרים</text>`;
   // Train A (gold): אילת→באר שבע→wait→חיפה
   const aPoints=`${sx(6)},${sy(0)} ${sx(8)},${sy(100)} ${sx(11)},${sy(100)} ${sx(17)},${sy(400)}`;
   s+=`<polyline points="${aPoints}" fill="none" stroke="#EFA94A" stroke-width="2.5" stroke-linejoin="round"/>`;
