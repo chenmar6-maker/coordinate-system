@@ -4,7 +4,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>מערכת הצירים של הים</title>
+<title>מערכת הצירים בים</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700;800&display=swap');
 
@@ -597,27 +597,23 @@ function renderHome(){
   return `
     <div class="hero">
       <div class="logo-badge"><img src="${LOGO_URI}" alt="לוגו חן מרגלית - למידה אקטיבית"></div>
-      <h1 class="title">מערכת הצירים של הים</h1>
-      <p class="subtitle">לומדים לשוט ברביע הראשון</p>
+      <h1 class="title">מערכת הצירים בים</h1>
+      <p class="subtitle">לומדים לשחות ברביע הראשון</p>
     </div>
     <div class="cards">
       <div class="card learn" onclick="goTo('learn')">
         <span class="icon">🧭</span>
-        <h3>לומדים את שפת הים</h3>
-        <p>הסבר קצר על ציר ה-⁦x⁩ וציר ה-⁦y⁩, נקודת הראשית, וכתיבת שיעורי נקודה — עם דוגמה אינטראקטיבית.</p>
+        <h3>הקנייה - מערכת הצירים</h3>
       </div>
       <div class="flow-arrow"><span class="wide-arrow">←</span><span class="narrow-arrow">↓</span></div>
       <div class="card game" onclick="startGame()">
         <span class="icon">🚢</span>
-        <h3>משחק הצוללות</h3>
-        <p>מאתרים מטרות, מפענחים מיקומים, ומשרטטים צורות על הים</p>
+        <h3>משחק צוללות</h3>
       </div>
       <div class="flow-arrow"><span class="wide-arrow">←</span><span class="narrow-arrow">↓</span></div>
       <div class="card quiz" onclick="startQuiz()">
         <span class="icon">🗺️</span>
-        <h3>בוחן החוקרים</h3>
-        <p>שבע שאלות שיבדקו כמה טוב הכרתם את מערכת הצירים.</p>
-        <span class="tag">7 שאלות</span>
+        <h3>בוחן יחידה</h3>
       </div>
     </div>
   `;
