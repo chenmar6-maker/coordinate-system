@@ -768,32 +768,21 @@ function buildCrossingTrainGraph(){
   s+=`<text x="${leftM+plotW/2}" y="${topM+plotH+32}" text-anchor="middle" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
   // city labels
   cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km} ק״מ</text>`; });
-  // Beer Sheva double-track station: highlighted band + double rail lines
-  s+=`<rect x="${leftM}" y="${sy(100)-7}" width="${plotW}" height="14" rx="0" fill="rgba(78,205,196,0.10)"/>`;
-  s+=`<line x1="${leftM}" y1="${sy(100)-4}" x2="${leftM+plotW}" y2="${sy(100)-4}" stroke="rgba(78,205,196,0.45)" stroke-width="1.2"/>`;
-  s+=`<line x1="${leftM}" y1="${sy(100)+4}" x2="${leftM+plotW}" y2="${sy(100)+4}" stroke="rgba(78,205,196,0.45)" stroke-width="1.2"/>`;
-  // Station label
-  s+=`<rect x="${leftM+2}" y="${sy(100)+8}" width="76" height="14" rx="3" fill="rgba(78,205,196,0.22)"/>`;
-  s+=`<text x="${leftM+40}" y="${sy(100)+18}" text-anchor="middle" font-size="8.5" fill="#4ECDC4" font-weight="700">תחנה — 2 מסילות</text>`;
-  // Waiting zone annotation for Train A (8:00–11:00)
-  s+=`<rect x="${sx(8)}" y="${sy(100)-22}" width="${sx(11)-sx(8)}" height="13" rx="3" fill="rgba(239,169,74,0.15)"/>`;
-  s+=`<text x="${(sx(8)+sx(11))/2}" y="${sy(100)-13}" text-anchor="middle" font-size="8" fill="#EFA94A" font-weight="700">ממתינה</text>`;
-  // Train A (gold): אילת→באר שבע (upper rail, y-4)→wait (y-4)→חיפה
-  const aPoints=`${sx(6)},${sy(0)} ${sx(8)},${sy(100)-4} ${sx(11)},${sy(100)-4} ${sx(17)},${sy(400)}`;
+  // Train A (gold): אילת→באר שבע→wait→חיפה
+  const aPoints=`${sx(6)},${sy(0)} ${sx(8)},${sy(100)} ${sx(11)},${sy(100)} ${sx(17)},${sy(400)}`;
   s+=`<polyline points="${aPoints}" fill="none" stroke="#EFA94A" stroke-width="2.5" stroke-linejoin="round"/>`;
-  // Direction arrow on Train A diagonal (at 7:00 midpoint)
-  const ax1=sx(7), ay1=(sy(0)+sy(100))/2, ax2=sx(7.5), ay2=(sy(0)+sy(100))/2-10;
   s+=`<circle cx="${sx(6)}" cy="${sy(0)}" r="4" fill="#EFA94A"/>`;
-  s+=`<text x="${sx(6)+4}" y="${sy(0)-7}" font-size="9" fill="#EFA94A" font-weight="700">רכבת א׳ ↗</text>`;
-  // Train B (seafoam): תל אביב→באר שבע (lower rail, y+4)→אילת
-  const bPoints=`${sx(7)},${sy(300)} ${sx(11)},${sy(100)+4} ${sx(13)},${sy(0)}`;
+  // Train B (seafoam): תל אביב→באר שבע→אילת
+  const bPoints=`${sx(7)},${sy(300)} ${sx(11)},${sy(100)} ${sx(13)},${sy(0)}`;
   s+=`<polyline points="${bPoints}" fill="none" stroke="#4ECDC4" stroke-width="2.5" stroke-linejoin="round"/>`;
   s+=`<circle cx="${sx(7)}" cy="${sy(300)}" r="4" fill="#4ECDC4"/>`;
-  s+=`<text x="${sx(7)+5}" y="${sy(300)-7}" font-size="9" fill="#4ECDC4" font-weight="700">רכבת ב׳ ↘</text>`;
   // Meeting circle at Beer Sheva 11:00
   s+=`<circle cx="${sx(11)}" cy="${sy(100)}" r="7" fill="none" stroke="#E2604F" stroke-width="2"/>`;
-  s+=`<text x="${sx(11)+10}" y="${sy(100)+4}" font-size="8.5" fill="#E2604F" font-weight="700">מפגש</text>`;
   s+=`</svg>`;
+  s+=`<div style="display:flex;gap:18px;justify-content:center;margin-top:6px;font-size:12px;font-family:Assistant,sans-serif;">`;
+  s+=`<span style="color:#EFA94A;display:flex;align-items:center;gap:5px;"><svg width="20" height="4"><line x1="0" y1="2" x2="20" y2="2" stroke="#EFA94A" stroke-width="2.5"/></svg>רכבת א׳</span>`;
+  s+=`<span style="color:#4ECDC4;display:flex;align-items:center;gap:5px;"><svg width="20" height="4"><line x1="0" y1="2" x2="20" y2="2" stroke="#4ECDC4" stroke-width="2.5"/></svg>רכבת ב׳</span>`;
+  s+=`</div>`;
   return s;
 }
 
