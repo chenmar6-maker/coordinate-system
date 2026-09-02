@@ -505,56 +505,56 @@ const gameLevels3 = [
   {
     id:'trainMC',
     title:'גרף הרכבות',
-    question:'באיזו שעה מגיעה רכבת א׳ לתל אביב?',
-    options:['10:00','11:00','12:00','14:00'],
-    correct:'12:00',
-    highlight:{h:12,km:300},
-    explain:'רכבת א׳ יוצאת מאילת בשעה 6:00 ונוסעת 50 ק"מ לשעה. תל אביב נמצאת ב-300 ק"מ, ולכן הנסיעה אורכת 6 שעות — היא מגיעה בשעה 12:00.'
+    diagramFn:'buildCrossingTrainGraph',
+    question:'באיזו שעה הגיעה רכבת א׳ לבאר שבע?',
+    options:['7:00','8:00','9:00','10:00'],
+    correct:'8:00',
+    explain:'רכבת א׳ (הצהובה) יוצאת מאילת בשעה 6:00 ונוסעת 50 ק"מ לשעה. באר שבע נמצאת 100 ק"מ מאילת — נסיעה של שעתיים. לכן היא מגיעה בשעה 8:00.'
   },
   {
     id:'trainMC',
     title:'גרף הרכבות',
-    question:'באיזו עיר נמצאת רכבת ב׳ בשעה 10:00?',
-    options:['באר שבע','תל אביב','חיפה','קרית שמונה'],
-    correct:'חיפה',
-    highlight:{h:10,km:400},
-    explain:'רכבת ב׳ יוצאת מקרית שמונה (500 ק"מ) בשעה 8:00. אחרי שעתיים (בשעה 10:00) היא נסעה 100 ק"מ דרומה ונמצאת ב-400 ק"מ — זו חיפה.'
+    diagramFn:'buildCrossingTrainGraph',
+    question:'כמה שעות חיכתה רכבת א׳ בבאר שבע?',
+    options:['1 שעה','2 שעות','3 שעות','4 שעות'],
+    correct:'3 שעות',
+    explain:'לפי הגרף, רכבת א׳ הגיעה לבאר שבע בשעה 8:00 והמשיכה בשעה 11:00. הקו האופקי מייצג עצירה — 11 פחות 8 = 3 שעות של המתנה.'
   },
   {
     id:'trainMC',
     title:'גרף הרכבות',
-    question:'כמה שעות נוסעת רכבת א׳ מאילת עד באר שבע?',
-    options:['1','2','3','4'],
-    correct:'2',
-    highlight:{h:8,km:100},
-    explain:'באר שבע נמצאת 100 ק"מ מאילת. רכבת א׳ נוסעת 50 ק"מ לשעה, לכן הנסיעה אורכת 2 שעות — מ-6:00 עד 8:00.'
-  },
-  {
-    id:'trainMC',
-    title:'גרף הרכבות',
-    question:'באיזו שעה נפגשות שתי הרכבות?',
-    options:['10:00','11:00','12:00','14:00'],
-    correct:'12:00',
-    highlight:{h:12,km:300},
-    explain:'שתי הרכבות נפגשות כשהן נמצאות באותה נקודה באותו זמן. זה קורה בשעה 12:00 בתל אביב — בדקו את נקודת החיתוך של שני הקווים בגרף.'
-  },
-  {
-    id:'trainMC',
-    title:'גרף הרכבות',
-    question:'באיזו עיר נפגשות שתי הרכבות?',
-    options:['באר שבע','תל אביב','חיפה','קרית שמונה'],
+    diagramFn:'buildCrossingTrainGraph',
+    question:'מאיזו עיר יצאה רכבת ב׳?',
+    options:['אילת','באר שבע','תל אביב','חיפה'],
     correct:'תל אביב',
-    highlight:{h:12,km:300},
-    explain:'בשעה 12:00 שתי הרכבות נמצאות ב-300 ק"מ מאילת — זו תל אביב. נקודת החיתוך של הקווים בגרף מראה בדיוק את מקום המפגש.'
+    explain:'רכבת ב׳ (הטורקיז) מתחילה בשעה 7:00 ב-300 ק"מ מאילת — זו תל אביב. אפשר לראות את נקודת ההתחלה שלה בגרף.'
   },
   {
     id:'trainMC',
     title:'גרף הרכבות',
-    question:'בשעה 8:00 — מה המרחק בין שתי הרכבות?',
-    options:['100 ק"מ','200 ק"מ','300 ק"מ','400 ק"מ'],
-    correct:'400 ק"מ',
-    highlight:{h:8,km:100},
-    explain:'בשעה 8:00 רכבת א׳ נמצאת בבאר שבע (100 ק"מ מאילת), ורכבת ב׳ יצאה זה עתה מקרית שמונה (500 ק"מ). המרחק ביניהן: 500 פחות 100 = 400 ק"מ. אפשר לראות את שתי הנקודות בגרף.'
+    diagramFn:'buildCrossingTrainGraph',
+    question:'באיזו שעה עוברות הרכבות זו את זו בבאר שבע?',
+    options:['9:00','10:00','11:00','12:00'],
+    correct:'11:00',
+    explain:'העיגול האדום בגרף מסמן את נקודת המפגש. בשעה 11:00 שתי הרכבות נמצאות בבאר שבע — רכבת א׳ סיימה לחכות ורכבת ב׳ הגיעה. בזכות 2 המסילות הן עוברות זו את זו בבטחה.'
+  },
+  {
+    id:'trainMC',
+    title:'גרף הרכבות',
+    diagramFn:'buildCrossingTrainGraph',
+    question:'מה המרחק בין תל אביב לבאר שבע לפי הגרף?',
+    options:['100 ק"מ','150 ק"מ','200 ק"מ','250 ק"מ'],
+    correct:'200 ק"מ',
+    explain:'תל אביב נמצאת ב-300 ק"מ מאילת, ובאר שבע ב-100 ק"מ. ההפרש: 300 פחות 100 = 200 ק"מ.'
+  },
+  {
+    id:'trainMC',
+    title:'גרף הרכבות',
+    diagramFn:'buildCrossingTrainGraph',
+    question:'למה לא התנגשו הרכבות בנסיעה?',
+    options:['כי נסעו במהירויות שונות','כי בבאר שבע יש 2 מסילות ורכבת א׳ חיכתה','כי יצאו מאותה עיר','כי רכבת ב׳ עצרה לפני'],
+    correct:'כי בבאר שבע יש 2 מסילות ורכבת א׳ חיכתה',
+    explain:'בישראל רוב מסילות הרכבת הן חד-מסלול. כששתי רכבות בכיוונים מנוגדים צריכות לעבור, אחת מחכה בתחנה עם 2 מסילות עד שהשנייה עוברת — בדיוק כמו שרכבת א׳ עשתה בבאר שבע.'
   }
 ];
 
@@ -562,29 +562,29 @@ const quizQuestions3 = [
   {
     type:'trainMC',
     title:'גרף רכבות — קריאה',
-    text:'רכבת א׳ יוצאת מאילת בשעה 6:00. באיזו שעה היא מגיעה לחיפה?',
-    options:['12:00','13:00','14:00','15:00'],
-    correct:'14:00',
-    highlight:{h:14,km:400},
-    explain:'חיפה נמצאת ב-400 ק"מ מאילת. רכבת א׳ נוסעת 50 ק"מ לשעה, לכן הנסיעה אורכת 8 שעות — מ-6:00 מגיעים לחיפה ב-14:00.'
+    text:'לפי הגרף, באיזו שעה הגיעה רכבת א׳ לחיפה?',
+    diagramFn:'buildCrossingTrainGraph',
+    options:['15:00','16:00','17:00','18:00'],
+    correct:'17:00',
+    explain:'רכבת א׳ יצאה מבאר שבע בשעה 11:00 לכיוון חיפה. חיפה נמצאת 300 ק"מ מבאר שבע (400 פחות 100), ובמהירות 50 ק"מ/שעה לוקח 6 שעות — היא מגיעה בשעה 17:00.'
   },
   {
     type:'trainMC',
     title:'גרף רכבות — מרחק',
-    text:'מה המרחק בין חיפה לקרית שמונה לפי הגרף?',
-    options:['50 ק"מ','100 ק"מ','150 ק"מ','200 ק"מ'],
-    correct:'100 ק"מ',
-    highlight:null,
-    explain:'חיפה נמצאת ב-400 ק"מ מאילת, וקרית שמונה ב-500 ק"מ. ההפרש הוא 500 פחות 400 — כלומר 100 ק"מ.'
+    text:'מה המרחק שנסעה רכבת ב׳ מתל אביב עד אילת?',
+    diagramFn:'buildCrossingTrainGraph',
+    options:['200 ק"מ','250 ק"מ','300 ק"מ','350 ק"מ'],
+    correct:'300 ק"מ',
+    explain:'תל אביב נמצאת ב-300 ק"מ מאילת. רכבת ב׳ יצאה מתל אביב ונסעה עד אילת (0 ק"מ) — מרחק של 300 ק"מ.'
   },
   {
     type:'trainMC',
     title:'גרף רכבות — זמן נסיעה',
-    text:'כמה שעות לוקח לרכבת ב׳ לנסוע מקרית שמונה עד אילת?',
-    options:['6 שעות','8 שעות','10 שעות','12 שעות'],
-    correct:'10 שעות',
-    highlight:null,
-    explain:'רכבת ב׳ יוצאת בשעה 8:00 ומגיעה לאילת בשעה 18:00 — נסיעה של 10 שעות. אפשר גם לחשב: 500 ק"מ חלקי 50 ק"מ לשעה = 10 שעות.'
+    text:'כמה שעות נסעה רכבת ב׳ בסך הכל מתל אביב עד אילת?',
+    diagramFn:'buildCrossingTrainGraph',
+    options:['4 שעות','5 שעות','6 שעות','7 שעות'],
+    correct:'6 שעות',
+    explain:'רכבת ב׳ יצאה מתל אביב בשעה 7:00 והגיעה לאילת בשעה 13:00 — נסיעה של 6 שעות. אפשר לבדוק: 300 ק"מ חלקי 50 ק"מ/שעה = 6 שעות.'
   },
   {
     type:'trainMC',
@@ -757,26 +757,42 @@ function buildCrossingTrainGraph(){
   const hours=[6,8,10,12,14,16,18];
   const cities=[{n:'קרית שמונה',km:500},{n:'חיפה',km:400},{n:'תל אביב',km:300},{n:'באר שבע',km:100},{n:'אילת',km:0}];
   let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Assistant,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
+  // grid
   hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
   cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  // axes
   s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
   s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  // hour labels
   hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(234,244,241,0.75)">${h}:00</text>`; });
   s+=`<text x="${leftM+plotW/2}" y="${topM+plotH+32}" text-anchor="middle" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
+  // city labels
   cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km} ק״מ</text>`; });
-  // Beer Sheva double-track label
-  s+=`<rect x="${leftM+2}" y="${sy(100)-9}" width="52" height="13" rx="3" fill="rgba(78,205,196,0.18)"/>`;
-  s+=`<text x="${leftM+28}" y="${sy(100)+1}" text-anchor="middle" font-size="8" fill="#4ECDC4" font-weight="700">2 מסילות</text>`;
-  // Train A (gold): (6,0)→(8,100)→(11,100)→(17,400)
-  s+=`<polyline points="${sx(6)},${sy(0)} ${sx(8)},${sy(100)} ${sx(11)},${sy(100)} ${sx(17)},${sy(400)}" fill="none" stroke="#EFA94A" stroke-width="2.5"/>`;
+  // Beer Sheva double-track station: highlighted band + double rail lines
+  s+=`<rect x="${leftM}" y="${sy(100)-7}" width="${plotW}" height="14" rx="0" fill="rgba(78,205,196,0.10)"/>`;
+  s+=`<line x1="${leftM}" y1="${sy(100)-4}" x2="${leftM+plotW}" y2="${sy(100)-4}" stroke="rgba(78,205,196,0.45)" stroke-width="1.2"/>`;
+  s+=`<line x1="${leftM}" y1="${sy(100)+4}" x2="${leftM+plotW}" y2="${sy(100)+4}" stroke="rgba(78,205,196,0.45)" stroke-width="1.2"/>`;
+  // Station label
+  s+=`<rect x="${leftM+2}" y="${sy(100)+8}" width="76" height="14" rx="3" fill="rgba(78,205,196,0.22)"/>`;
+  s+=`<text x="${leftM+40}" y="${sy(100)+18}" text-anchor="middle" font-size="8.5" fill="#4ECDC4" font-weight="700">תחנה — 2 מסילות</text>`;
+  // Waiting zone annotation for Train A (8:00–11:00)
+  s+=`<rect x="${sx(8)}" y="${sy(100)-22}" width="${sx(11)-sx(8)}" height="13" rx="3" fill="rgba(239,169,74,0.15)"/>`;
+  s+=`<text x="${(sx(8)+sx(11))/2}" y="${sy(100)-13}" text-anchor="middle" font-size="8" fill="#EFA94A" font-weight="700">ממתינה</text>`;
+  // Train A (gold): אילת→באר שבע (upper rail, y-4)→wait (y-4)→חיפה
+  const aPoints=`${sx(6)},${sy(0)} ${sx(8)},${sy(100)-4} ${sx(11)},${sy(100)-4} ${sx(17)},${sy(400)}`;
+  s+=`<polyline points="${aPoints}" fill="none" stroke="#EFA94A" stroke-width="2.5" stroke-linejoin="round"/>`;
+  // Direction arrow on Train A diagonal (at 7:00 midpoint)
+  const ax1=sx(7), ay1=(sy(0)+sy(100))/2, ax2=sx(7.5), ay2=(sy(0)+sy(100))/2-10;
   s+=`<circle cx="${sx(6)}" cy="${sy(0)}" r="4" fill="#EFA94A"/>`;
-  s+=`<text x="${sx(6)+4}" y="${sy(0)-6}" font-size="9" fill="#EFA94A">א׳</text>`;
-  // Train B (seafoam): (7,300)→(11,100)→(13,0)
-  s+=`<polyline points="${sx(7)},${sy(300)} ${sx(11)},${sy(100)} ${sx(13)},${sy(0)}" fill="none" stroke="#4ECDC4" stroke-width="2.5"/>`;
+  s+=`<text x="${sx(6)+4}" y="${sy(0)-7}" font-size="9" fill="#EFA94A" font-weight="700">רכבת א׳ ↗</text>`;
+  // Train B (seafoam): תל אביב→באר שבע (lower rail, y+4)→אילת
+  const bPoints=`${sx(7)},${sy(300)} ${sx(11)},${sy(100)+4} ${sx(13)},${sy(0)}`;
+  s+=`<polyline points="${bPoints}" fill="none" stroke="#4ECDC4" stroke-width="2.5" stroke-linejoin="round"/>`;
   s+=`<circle cx="${sx(7)}" cy="${sy(300)}" r="4" fill="#4ECDC4"/>`;
-  s+=`<text x="${sx(7)+4}" y="${sy(300)-6}" font-size="9" fill="#4ECDC4">ב׳</text>`;
-  // Crossing point at Beer Sheva (11:00, 100km)
-  s+=`<circle cx="${sx(11)}" cy="${sy(100)}" r="5" fill="none" stroke="#E2604F" stroke-width="2"/>`;
+  s+=`<text x="${sx(7)+5}" y="${sy(300)-7}" font-size="9" fill="#4ECDC4" font-weight="700">רכבת ב׳ ↘</text>`;
+  // Meeting circle at Beer Sheva 11:00
+  s+=`<circle cx="${sx(11)}" cy="${sy(100)}" r="7" fill="none" stroke="#E2604F" stroke-width="2"/>`;
+  s+=`<text x="${sx(11)+10}" y="${sy(100)+4}" font-size="8.5" fill="#E2604F" font-weight="700">מפגש</text>`;
   s+=`</svg>`;
   return s;
 }
@@ -1379,7 +1395,7 @@ function renderTrainMCLevel(lvl){
     <div class="panel" style="text-align:center;">
       <h2 class="qtitle">${lvl.title}</h2>
       <p class="qtext" style="text-align:right;">${lvl.question}</p>
-      <div class="gridbox" style="overflow-x:auto;">${buildTrainGraph(sub.answered ? lvl.highlight : null)}</div>
+      <div class="gridbox" style="overflow-x:auto;">${lvl.diagramFn && window[lvl.diagramFn] ? window[lvl.diagramFn]() : buildTrainGraph(sub.answered ? lvl.highlight : null)}</div>
       <div class="mc-options" style="margin-top:14px;">
         ${opts.map(opt=>`<button class="mc-btn" onclick="answerTrainMCGame('${opt.replace(/'/g,"\\'").replace(/"/g,'&quot;')}')" ${sub.answered?'disabled':''}>${opt}</button>`).join('')}
       </div>
