@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ערך מוחלט ומספרים נגדיים</title>
+<title>מספרים מכוונים</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
 
@@ -112,6 +112,7 @@
   }
   .dot.done{background:var(--seafoam);}
   .dot.active{background:var(--gold);}
+  .dot:hover{opacity:.75;}
 
   .mc-options{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:16px auto 0;}
   .mc-btn{
@@ -530,6 +531,10 @@ const gameLevels3 = [
   { id:'dualModel', title:'שני מודלים — אותה תשובה',
     expr:'(−3) + 5', start:-3, addend:5, pos:5, neg:3, correct:2,
     explain:'גם על הציר (קפיצה ימינה 5 מ-(−3)) וגם בצ׳יפים (5 ירוקים, 3 אדומים) — שניהם נותנים 2.' },
+  { id:'typedSum', title:'חישוב ישיר', expr:'(−4) + 7', correct:3,
+    explain:'7−4=3. הגדול (7) חיובי → 3.' },
+  { id:'typedSum', title:'חישוב ישיר', expr:'(−6) + (−2)', correct:-8,
+    explain:'6+2=8, שניהם שליליים → (−8).' },
   { id:'mc', title:'מושג מסכם',
     question:'כשמחברים מספר שלילי למספר חיובי, התוצאה...',
     options:['תמיד שלילית','תמיד חיובית','תלוי בערכים המדויקים','תמיד אפס'],
@@ -1149,7 +1154,7 @@ function renderGame(){
     let cls = 'dot';
     if(i < state.levelIndex) cls += ' done';
     else if(i === state.levelIndex) cls += ' active';
-    return `<div class="${cls}"></div>`;
+    return `<div class="${cls}" onclick="jumpToLevel(${i})" style="cursor:pointer;" title="שלב ${i+1}"></div>`;
   }).join('');
 
   let content = '';
@@ -1629,17 +1634,18 @@ function buildNumberLineWithJump({min=-12, max=12, marked=[], highlight=null, in
     s += `<text x="${xFrom}" y="${axisY+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#0A2A43" font-family="Rubik,sans-serif">${jump.from}</text>`;
 
     if(jumpDone){
+      const arrowY = axisY - 12;
       s += `<defs>
-        <marker id="${markerId}" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-          <path d="M0,0 L0,6 L8,3 z" fill="#EFA94A"/>
+        <marker id="${markerId}" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#EFA94A"/>
         </marker>
       </defs>`;
-      s += `<path d="M${xFrom},${axisY-8} Q${mx},${axisY-8-arcH} ${xTo},${axisY-8}"
-        fill="none" stroke="#EFA94A" stroke-width="2.5"
-        stroke-dasharray="400 400" stroke-dashoffset="400"
-        marker-end="url(#${markerId})">
-        <animate attributeName="stroke-dashoffset" from="400" to="0" dur="0.6s" fill="freeze"/>
-      </path>`;
+      s += `<line x1="${xFrom}" y1="${arrowY}" x2="${xTo}" y2="${arrowY}"
+        stroke="#EFA94A" stroke-width="3"
+        marker-end="url(#${markerId})"
+        stroke-dasharray="500 500" stroke-dashoffset="500">
+        <animate attributeName="stroke-dashoffset" from="500" to="0" dur="0.5s" fill="freeze"/>
+      </line>`;
       // "to" dot in green
       s += `<circle cx="${xTo}" cy="${axisY}" r="8" fill="#48B08C" stroke="#48B08C" stroke-width="2"/>`;
       s += `<text x="${xTo}" y="${axisY+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="Rubik,sans-serif">${jump.to}</text>`;
@@ -1830,7 +1836,7 @@ function renderDualModel(lvl){
   }
   return `
     <h2 class="qtitle">${lvl.title}</h2>
-    <p class="qtext" style="font-size:20px;font-weight:700;">${wrapMath(lvl.expr)} = ?</p>
+    <p class="qtext" style="font-size:20px;font-weight:700;direction:ltr;unicode-bidi:embed;">${wrapMath(lvl.expr)} = ?</p>
     <div class="dual-models">
       <div class="dual-model-box">
         <div class="dual-model-label">ציר המספרים</div>
@@ -1877,7 +1883,7 @@ function renderTypedSum(lvl){
   }
   return `
     <h2 class="qtitle">${lvl.title}</h2>
-    <p class="qtext" style="font-size:24px;font-weight:700;">${wrapMath(lvl.expr)} = ?</p>
+    <p class="qtext" style="font-size:24px;font-weight:700;direction:ltr;unicode-bidi:embed;">${wrapMath(lvl.expr)} = ?</p>
     ${answerArea}
   `;
 }
