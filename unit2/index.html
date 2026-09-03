@@ -518,12 +518,14 @@ const quizQuestions2b = [
 /* ============ GAME LEVELS 3/4/5 ============ */
 
 const gameLevels3 = [
-  { id:'jumpClick', title:'קפיצה על ציר המספרים', start:3, addend:-5, correct:-2,
+  { id:'dragArrow', title:'גררו את החץ', start:3, addend:-5, correct:-2,
     explain:'מתחילים ב-3 וקופצים 5 יחידות שמאלה — מסיימים ב-(−2).' },
-  { id:'jumpClick', title:'קפיצה על ציר המספרים', start:-2, addend:4, correct:2,
+  { id:'dragArrow', title:'גררו את החץ', start:-2, addend:4, correct:2,
     explain:'מתחילים ב-(−2) וקופצים 4 יחידות ימינה — מסיימים ב-2.' },
-  { id:'jumpClick', title:'קפיצה על ציר המספרים', start:5, addend:-8, correct:-3,
+  { id:'dragArrow', title:'גררו את החץ', start:5, addend:-8, correct:-3,
     explain:'מתחילים ב-5 וקופצים 8 יחידות שמאלה — מסיימים ב-(−3).' },
+  { id:'dragArrow', title:'גררו את החץ', start:-3, addend:-4, correct:-7,
+    explain:'מתחילים ב-(−3) וקופצים 4 יחידות שמאלה — מסיימים ב-(−7).' },
   { id:'chipProfit', title:'רווח והפסד', scenario:'הרווחתם 4 ש"ח, ואז הפסדתם 7 ש"ח. מה המצב הכולל?',
     pos:4, neg:7, correct:-3, explain:'4 צ׳יפים ירוקים ו-7 אדומים — 4 זוגות מתבטלים, נשארים 3 אדומים → (−3).' },
   { id:'chipProfit', title:'רווח והפסד', scenario:'הפסדתם 5 ש"ח, ואז הרווחתם 9 ש"ח. מה המצב הכולל?',
@@ -982,7 +984,7 @@ function renderLearn1(){
         <li>מספר חיובי — הערך המוחלט שלו שווה לו עצמו. מספר שלילי — הערך המוחלט שלו שווה לנגדי שלו.</li>
         <li>הערך המוחלט של 0 הוא 0: <bdi style="direction:ltr;unicode-bidi:isolate;">|0| = 0</bdi>.</li>
       </ul>
-      <div class="learn-note">💡 שני מספרים שונים יכולים לקבל אותו ערך מוחלט — למשל 5 ו-(−5) נמצאים שניהם במרחק 5 מ-0.</div>
+      <div class="learn-note">💡 שני מספרים שונים יכולים לקבל אותו ערך מוחלט — למשל 5 ו-<bdi style="direction:ltr;unicode-bidi:isolate;">(−5)</bdi> נמצאים שניהם במרחק 5 מ-0.</div>
       <div class="btnrow" style="margin-top:20px;">
         <button class="btn" onclick="startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -1080,11 +1082,11 @@ function renderLearn6(){
       <h2 class="qtitle" style="text-align:right;">מיקום מספרים מכוונים על ציר המספרים</h2>
       <ul class="bullets">
         <li>כל מספר מכוון תופס מקום מדויק על ציר המספרים: חיוביים מימין ל-0, שליליים משמאל ל-0.</li>
-        <li>ככל שמספר שלילי גדול יותר בערכו המוחלט, הוא ממוקם <strong>רחוק יותר משמאל</strong> — ולכן הוא <strong>קטן יותר</strong>. למשל: <bdi style="direction:ltr;unicode-bidi:isolate;">(−7) &lt; (−3)</bdi> כי (−7) שמאלי יותר.</li>
+        <li>ככל שמספר שלילי גדול יותר בערכו המוחלט, הוא ממוקם <strong>רחוק יותר משמאל</strong> — ולכן הוא <strong>קטן יותר</strong>. למשל: <bdi style="direction:ltr;unicode-bidi:isolate;">(−7) &lt; (−3)</bdi> כי <bdi style="direction:ltr;unicode-bidi:isolate;">(−7)</bdi> שמאלי יותר.</li>
         <li>שברים ומספרים עשרוניים מכוונים נמצאים <strong>בין</strong> שלמים סמוכים. למשל: <bdi style="direction:ltr;unicode-bidi:isolate;">(−2.5)</bdi> נמצא בין <bdi style="direction:ltr;unicode-bidi:isolate;">(−3)</bdi> ל-<bdi style="direction:ltr;unicode-bidi:isolate;">(−2)</bdi>.</li>
         <li>הסדר על הציר (משמאל לימין) הוא הסדר מהקטן לגדול.</li>
       </ul>
-      <div class="learn-note">💡 מספר שלילי גדול יותר הוא <strong>פחות שלילי</strong> — כלומר, (−1) גדול יותר מ-(−100), כי הוא קרוב יותר ל-0.</div>
+      <div class="learn-note">💡 מספר שלילי גדול יותר הוא <strong>פחות שלילי</strong> — כלומר, <bdi style="direction:ltr;unicode-bidi:isolate;">(−1)</bdi> גדול יותר מ-<bdi style="direction:ltr;unicode-bidi:isolate;">(−100)</bdi>, כי הוא קרוב יותר ל-0.</div>
       <div class="btnrow" style="margin-top:20px;">
         <button class="btn" onclick="startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -1166,6 +1168,7 @@ function renderGame(){
   else if(lvl.id === 'oppZero') content = renderOppZero(lvl);
   else if(lvl.id === 'oppAbsMC') content = renderOppAbsMC(lvl);
   else if(lvl.id === 'jumpClick') content = renderJumpClick(lvl);
+  else if(lvl.id === 'dragArrow') content = renderDragArrow(lvl);
   else if(lvl.id === 'chipProfit') content = renderChipProfit(lvl);
   else if(lvl.id === 'dualModel') content = renderDualModel(lvl);
   else if(lvl.id === 'typedSum' || lvl.id === 'typedSum3') content = renderTypedSum(lvl);
@@ -1340,7 +1343,7 @@ function renderAbsMC(lvl){
       if(opt === lvl.correct) cls += ' correct';
       else if(opt === sub.picked && opt !== lvl.correct) cls += ' wrong';
     }
-    return `<button class="${cls}" onclick="answerAbsMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapMath(opt)}</button>`;
+    return `<button class="${cls}" onclick="answerAbsMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapOpt(opt)}</button>`;
   }).join('');
 
   let feedback = '';
@@ -1493,7 +1496,7 @@ function renderOppZero(lvl){
       if(opt === lvl.correct) cls += ' correct';
       else if(opt === sub.picked && opt !== lvl.correct) cls += ' wrong';
     }
-    return `<button class="${cls}" onclick="answerOppZero('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapMath(opt)}</button>`;
+    return `<button class="${cls}" onclick="answerOppZero('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapOpt(opt)}</button>`;
   }).join('');
 
   let feedback = '';
@@ -1535,7 +1538,7 @@ function renderOppAbsMC(lvl){
       if(opt === lvl.correct) cls += ' correct';
       else if(opt === sub.picked && opt !== lvl.correct) cls += ' wrong';
     }
-    return `<button class="${cls}" onclick="answerOppAbsMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapMath(opt)}</button>`;
+    return `<button class="${cls}" onclick="answerOppAbsMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapOpt(opt)}</button>`;
   }).join('');
 
   let feedback = '';
@@ -1708,9 +1711,10 @@ function renderJumpClick(lvl){
   if(!sub) return '';
   const absAddend = Math.abs(lvl.addend);
   const dirHe = lvl.addend < 0 ? 'שמאלה' : 'ימינה';
+  const startDisp = lvl.start < 0 ? bdi('(−' + Math.abs(lvl.start) + ')') : bdi(lvl.start);
   const exprStr = lvl.addend < 0
-    ? `${lvl.start} + ${bdi('(−' + absAddend + ')')}`
-    : `${lvl.start} + ${lvl.addend}`;
+    ? `${startDisp} + ${bdi('(−' + absAddend + ')')}`
+    : `${startDisp} + ${bdi(lvl.addend)}`;
   const nl = buildNumberLineWithJump({
     jump:{from:lvl.start, to:lvl.correct},
     jumpDone: !!(sub.answered && sub.correct),
@@ -1731,7 +1735,7 @@ function renderJumpClick(lvl){
   return `
     <h2 class="qtitle">${lvl.title}</h2>
     <p class="qtext">מתחילים ב-${bdi(lvl.start)}, קופצים ${absAddend} יחידות ${dirHe}</p>
-    <p class="qtext" style="font-size:20px;font-weight:700;">${exprStr} = ?</p>
+    <p class="qtext" style="font-size:20px;font-weight:700;direction:ltr;unicode-bidi:embed;">${exprStr} = ?</p>
     <div class="nl-wrap">${nl}</div>
     ${answerArea}
   `;
@@ -1751,6 +1755,155 @@ function clickJump(n){
     sub.errorAt = n;
     render();
     setTimeout(()=>{ if(state.levelSub) state.levelSub.errorAt = null; render(); }, 700);
+  }
+}
+
+/* ---- dragArrow ---- */
+let _dArrowCleanup = null;
+
+function renderDragArrow(lvl){
+  const sub = state.levelSub;
+  const MIN = -12, MAX = 12, SVG_W = 600, SVG_H = 110;
+  const LEFT_M = 30, STEP = (SVG_W - 60) / (MAX - MIN); // 22.5
+  const AXIS_Y = 80, ARROW_Y = 44;
+  function xOf(n){ return LEFT_M + (n - MIN) * STEP; }
+
+  const xStart = xOf(lvl.start);
+  const snapped = (sub.snapped !== undefined && sub.snapped !== null) ? sub.snapped : null;
+  const xHead = snapped !== null ? xOf(snapped) : xStart;
+  const arrowColor = sub.error ? '#E2604F' : '#EFA94A';
+  const MK = 'daMk';
+
+  let s = '';
+  // Axis
+  s += `<line x1="${LEFT_M}" y1="${AXIS_Y}" x2="${SVG_W-LEFT_M}" y2="${AXIS_Y}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  s += `<polygon points="${SVG_W-LEFT_M+2},${AXIS_Y} ${SVG_W-LEFT_M-7},${AXIS_Y-5} ${SVG_W-LEFT_M-7},${AXIS_Y+5}" fill="rgba(234,244,241,0.7)"/>`;
+  s += `<polygon points="${LEFT_M-2},${AXIS_Y} ${LEFT_M+7},${AXIS_Y-5} ${LEFT_M+7},${AXIS_Y+5}" fill="rgba(234,244,241,0.7)"/>`;
+  // Ticks
+  for(let n = MIN; n <= MAX; n++){
+    const x = xOf(n), iz = n===0, i5 = n%5===0;
+    const th = iz?14:i5?10:6, tw = iz?2.5:1.5;
+    s += `<line x1="${x}" y1="${AXIS_Y-th}" x2="${x}" y2="${AXIS_Y+th}" stroke="rgba(234,244,241,${iz?0.9:0.6})" stroke-width="${tw}"/>`;
+    if(n!==MIN && n!==MAX && (n===-10||n===-5||n===0||n===5||n===10))
+      s += `<text x="${x}" y="${AXIS_Y+24}" text-anchor="middle" font-size="13" fill="rgba(234,244,241,0.75)" font-family="Rubik,sans-serif">${n}</text>`;
+  }
+
+  if(sub.answered){
+    const xTo = xOf(lvl.correct);
+    s += `<defs><marker id="${MK}" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#48B08C"/></marker></defs>`;
+    s += `<line x1="${xStart}" y1="${ARROW_Y}" x2="${xTo}" y2="${ARROW_Y}" stroke="#48B08C" stroke-width="3" marker-end="url(#${MK})" stroke-dasharray="500 500" stroke-dashoffset="500"><animate attributeName="stroke-dashoffset" from="500" to="0" dur="0.5s" fill="freeze"/></line>`;
+    s += `<circle cx="${xStart}" cy="${AXIS_Y}" r="8" fill="#EFA94A" stroke="#EFA94A" stroke-width="2"/>`;
+    s += `<text x="${xStart}" y="${AXIS_Y+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#0A2A43" font-family="Rubik,sans-serif">${lvl.start}</text>`;
+    const endL = lvl.correct<0?`(−${Math.abs(lvl.correct)})`:String(lvl.correct);
+    s += `<circle cx="${xTo}" cy="${AXIS_Y}" r="8" fill="#48B08C" stroke="#48B08C" stroke-width="2"/>`;
+    s += `<text x="${xTo}" y="${AXIS_Y+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="Rubik,sans-serif">${endL}</text>`;
+  } else {
+    s += `<defs><marker id="${MK}" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="${arrowColor}"/></marker></defs>`;
+    // Arrow line (hidden when head == tail)
+    const showArrow = snapped !== null && snapped !== lvl.start;
+    s += `<line id="dArrowLine" x1="${xStart}" y1="${ARROW_Y}" x2="${xHead}" y2="${ARROW_Y}" stroke="${arrowColor}" stroke-width="3" marker-end="url(#${MK})" opacity="${showArrow?1:0}"/>`;
+    // Start dot
+    s += `<circle cx="${xStart}" cy="${AXIS_Y}" r="8" fill="#EFA94A" stroke="#EFA94A" stroke-width="2"/>`;
+    s += `<text x="${xStart}" y="${AXIS_Y+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#0A2A43" font-family="Rubik,sans-serif">${lvl.start}</text>`;
+    // Draggable head
+    s += `<circle id="dHead" cx="${xHead}" cy="${ARROW_Y}" r="15" fill="${showArrow?arrowColor:'rgba(239,169,74,0.18)'}" fill-opacity="${showArrow?0.75:1}" stroke="${arrowColor}" stroke-width="2.5" style="cursor:grab;"/>`;
+    // Value label above head
+    const headL = showArrow ? (snapped<0?`(−${Math.abs(snapped)})`:String(snapped)) : '?';
+    s += `<text id="dLabel" x="${xHead}" y="${ARROW_Y-20}" text-anchor="middle" font-size="14" font-weight="700" fill="${arrowColor}" font-family="Rubik,sans-serif">${headL}</text>`;
+  }
+
+  const absA = Math.abs(lvl.addend), dirHe = lvl.addend<0?'שמאלה':'ימינה';
+  const startD = lvl.start<0?bdi('(−'+Math.abs(lvl.start)+')'): bdi(lvl.start);
+  const addD   = lvl.addend<0?bdi('(−'+absA+')'):bdi(lvl.addend);
+  const exprStr = `${startD} + ${addD}`;
+
+  let answerArea = '';
+  if(!sub.answered){
+    answerArea = `
+      <p class="instr">גררו את ראש החץ אל נקודת הנחיתה</p>
+      ${sub.error?`<div class="feedback bad">לא מדויק — נסו שוב</div>`:''}
+      ${snapped!==null&&!sub.error?`<div class="btnrow"><button class="btn" onclick="submitDragArrow()">אשרו תשובה</button></div>`:''}`;
+  } else {
+    answerArea = `
+      <div class="feedback ok">נכון! מסיימים ב-${bdi(lvl.correct)}.</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  if(!sub.answered) setTimeout(()=>initDragArrow(MIN,MAX,STEP,LEFT_M,SVG_W,lvl.start),0);
+
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">מתחילים ב-${bdi(lvl.start)}, קופצים ${absA} יחידות ${dirHe}</p>
+    <p class="qtext" style="font-size:20px;font-weight:700;direction:ltr;unicode-bidi:embed;">${exprStr} = ?</p>
+    <div class="nl-wrap"><svg id="dragNL" viewBox="0 0 ${SVG_W} ${SVG_H}" style="width:100%;display:block;direction:ltr;" xmlns="http://www.w3.org/2000/svg">${s}</svg></div>
+    ${answerArea}
+  `;
+}
+
+function initDragArrow(MIN,MAX,STEP,LEFT_M,SVG_W,startN){
+  if(_dArrowCleanup){ _dArrowCleanup(); _dArrowCleanup=null; }
+  const svg = document.getElementById('dragNL');
+  const head = document.getElementById('dHead');
+  if(!svg||!head) return;
+  let dragging = false;
+  function xOf(n){ return LEFT_M+(n-MIN)*STEP; }
+  function toN(cx){
+    const r=svg.getBoundingClientRect(), sc=SVG_W/r.width;
+    const sx=(cx-r.left)*sc;
+    return Math.max(MIN+1,Math.min(MAX-1,Math.round(MIN+(sx-LEFT_M)/STEP)));
+  }
+  function updateDOM(cx){
+    const n=toN(cx), x=xOf(n);
+    const ln=document.getElementById('dArrowLine'), lb=document.getElementById('dLabel'), hd=document.getElementById('dHead');
+    if(hd) hd.setAttribute('cx',x);
+    if(ln){ ln.setAttribute('x2',x); ln.setAttribute('opacity',n!==startN?'1':'0'); }
+    if(lb){ lb.setAttribute('x',x); lb.textContent=n<0?`(−${Math.abs(n)})`:String(n); }
+    return n;
+  }
+  function onDown(e){ dragging=true; e.preventDefault(); }
+  function onMove(e){ if(!dragging) return; updateDOM(e.touches?e.touches[0].clientX:e.clientX); e.preventDefault(); }
+  function onUp(e){
+    if(!dragging) return;
+    dragging=false;
+    const cx=e.changedTouches?e.changedTouches[0].clientX:e.clientX;
+    const n=updateDOM(cx);
+    cleanup();
+    if(state.levelSub) state.levelSub.snapped=n;
+    render();
+    setTimeout(()=>initDragArrow(MIN,MAX,STEP,LEFT_M,SVG_W,startN),0);
+  }
+  function cleanup(){
+    document.removeEventListener('mousemove',onMove);
+    document.removeEventListener('mouseup',onUp);
+    document.removeEventListener('touchmove',onMove);
+    document.removeEventListener('touchend',onUp);
+    const h=document.getElementById('dHead');
+    if(h){ h.removeEventListener('mousedown',onDown); h.removeEventListener('touchstart',onDown); }
+  }
+  _dArrowCleanup=cleanup;
+  head.addEventListener('mousedown',onDown);
+  head.addEventListener('touchstart',onDown,{passive:false});
+  document.addEventListener('mousemove',onMove);
+  document.addEventListener('mouseup',onUp);
+  document.addEventListener('touchmove',onMove,{passive:false});
+  document.addEventListener('touchend',onUp);
+}
+
+function submitDragArrow(){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const sub=state.levelSub;
+  if(sub.snapped===null||sub.snapped===undefined) return;
+  if(sub.snapped===lvl.correct){
+    sub.answered=true; sub.correct=true;
+    state.gameScore++; state.gameTotal++;
+    render();
+  } else {
+    sub.error=true;
+    if(_dArrowCleanup){ _dArrowCleanup(); _dArrowCleanup=null; }
+    render();
+    setTimeout(()=>{
+      if(state.levelSub){ state.levelSub.error=false; render(); setTimeout(()=>initDragArrow(-12,12,22.5,30,600,lvl.start),0); }
+    },900);
   }
 }
 
@@ -2047,7 +2200,7 @@ function renderMC(lvl){
       if(opt===lvl.correct) cls += ' correct';
       else if(opt===sub.picked && opt!==lvl.correct) cls += ' wrong';
     }
-    return `<button class="${cls}" onclick="answerMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapMath(opt)}</button>`;
+    return `<button class="${cls}" onclick="answerMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapOpt(opt)}</button>`;
   }).join('');
   let feedback = '';
   if(sub.answered){
@@ -2130,7 +2283,7 @@ function renderReadFracMC(lvl){
       if(opt === lvl.correct) cls += ' correct';
       else if(opt === sub.picked && opt !== lvl.correct) cls += ' wrong';
     }
-    return `<button class="${cls}" onclick="answerReadFracMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapMath(opt)}</button>`;
+    return `<button class="${cls}" onclick="answerReadFracMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapOpt(opt)}</button>`;
   }).join('');
   let feedback = '';
   if(sub.answered){
@@ -2193,6 +2346,13 @@ function wrapMath(str){
     .replace(/\|[^|]+\|/g, m => `<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`)
     .replace(/\([-−][^)]+\)/g, m => `<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`);
 }
+/* Wrap an MC option for display: if it has no Hebrew letters it's a math expression → force LTR */
+function wrapOpt(opt){
+  if(!/[\u05d0-\u05ea]/.test(opt)){
+    return `<span style="direction:ltr;unicode-bidi:embed;display:inline-block;">${wrapMath(opt)}</span>`;
+  }
+  return wrapMath(opt);
+}
 
 function bdi(n){ return `<bdi style="direction:ltr;unicode-bidi:isolate;">${n}</bdi>`; }
 
@@ -2227,7 +2387,7 @@ function renderQuiz(){
 
   const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : q.options;
   const answerArea = `<div class="mc-options">
-    ${opts.map(opt => `<button class="mc-btn" id="opt-${safeId(opt)}" onclick="answerQuizMC('${escOpt(opt)}')" ${state.quizAnswered?'disabled':''}>${wrapMath(opt)}</button>`).join('')}
+    ${opts.map(opt => `<button class="mc-btn" id="opt-${safeId(opt)}" onclick="answerQuizMC('${escOpt(opt)}')" ${state.quizAnswered?'disabled':''}>${wrapOpt(opt)}</button>`).join('')}
   </div>`;
 
   const isLast = state.quizIndex === currentQuizQuestions().length - 1;
