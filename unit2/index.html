@@ -1099,6 +1099,15 @@ function shuffleArr(arr){
 
 function startQuiz(){
   state.quizAlt = false;
+  startQuizInternal();
+}
+
+function startQuizAlt(){
+  state.quizAlt = true;
+  startQuizInternal();
+}
+
+function startQuizInternal(){
   state.screen = 'quiz';
   state.quizIndex = 0;
   state.quizScore = 0;
@@ -1106,11 +1115,6 @@ function startQuiz(){
   state.quizLastCorrect = null;
   state.shuffledOptions = shuffleArr(currentQuizQuestions()[0].options || []);
   render();
-}
-
-function startQuizAlt(){
-  state.quizAlt = true;
-  startQuiz();
 }
 
 function renderQuiz(){
