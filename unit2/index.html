@@ -242,7 +242,7 @@
 </head>
 <body>
 <div class="topbar">
-  <div class="brand">פרק 6 — מספרים מכוונים</div>
+  <div class="brand">מספרים מכוונים</div>
   <button class="homebtn" onclick="goBack()">← חזרה</button>
 </div>
 <div class="wrap">
@@ -844,10 +844,11 @@ function render(){
 function renderHome(){
   return `
     <div class="hero">
-      <h1 class="title">ערך מוחלט ומספרים נגדיים</h1>
-      <p class="subtitle">פרק 6</p>
+      <h1 class="title">מספרים מכוונים</h1>
     </div>
-    <div class="sequence-section">
+
+    <div class="sequence-section" style="margin-bottom:32px;">
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">פרק מבוא — הכרת המספרים המכוונים</div>
       <div class="sequence-title">1. ערך מוחלט</div>
       <div class="cards">
         <div class="card learn" onclick="state.sequence=1;goTo('learn')">
@@ -866,9 +867,7 @@ function renderHome(){
           <h3>מבדק שליטה חלופי</h3>
         </div>
       </div>
-    </div>
-    <div class="sequence-section">
-      <div class="sequence-title">2. מספרים נגדיים</div>
+      <div class="sequence-title" style="margin-top:18px;">2. מספרים נגדיים</div>
       <div class="cards">
         <div class="card learn" onclick="state.sequence=2;goTo('learn')">
           <h3>הקנייה</h3>
@@ -886,9 +885,7 @@ function renderHome(){
           <h3>מבדק שליטה חלופי</h3>
         </div>
       </div>
-    </div>
-    <div class="sequence-section">
-      <div class="sequence-title">6. מיקום מספרים מכוונים על ציר המספרים (כולל שברים)</div>
+      <div class="sequence-title" style="margin-top:18px;">3. מיקום על ציר המספרים (כולל שברים)</div>
       <div class="cards">
         <div class="card learn" onclick="state.sequence=6;goTo('learn')">
           <h3>הקנייה</h3>
@@ -903,9 +900,10 @@ function renderHome(){
         </div>
       </div>
     </div>
-    <div class="sequence-section" style="margin-top:32px;">
-      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">פרק 7 — חיבור מספרים מכוונים</div>
-      <div class="sequence-title">3. מודלים לחיבור</div>
+
+    <div class="sequence-section">
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">פרק ב׳ — פעולות במספרים מכוונים</div>
+      <div class="sequence-title">1. מודלים לחיבור</div>
       <div class="cards">
         <div class="card learn" onclick="state.sequence=3;goTo('learn')">
           <h3>הקנייה</h3>
@@ -919,7 +917,7 @@ function renderHome(){
           <h3>מבדק שליטה</h3>
         </div>
       </div>
-      <div class="sequence-title" style="margin-top:18px;">4. חיבור — חישוב ישיר</div>
+      <div class="sequence-title" style="margin-top:18px;">2. חיבור — חישוב ישיר</div>
       <div class="cards">
         <div class="card learn" onclick="state.sequence=4;goTo('learn')">
           <h3>הקנייה</h3>
@@ -933,7 +931,7 @@ function renderHome(){
           <h3>מבדק שליטה</h3>
         </div>
       </div>
-      <div class="sequence-title" style="margin-top:18px;">5. יותר משני מחוברים</div>
+      <div class="sequence-title" style="margin-top:18px;">3. יותר משני מחוברים</div>
       <div class="cards">
         <div class="card learn" onclick="state.sequence=5;goTo('learn')">
           <h3>הקנייה</h3>
