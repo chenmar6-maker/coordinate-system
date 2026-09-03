@@ -1763,18 +1763,24 @@ let _dArrowCleanup = null;
 
 function renderDragArrow(lvl){
   const sub = state.levelSub;
-  const MIN = -12, MAX = 12, SVG_W = 600, SVG_H = 110;
+  const MIN = -12, MAX = 12, SVG_W = 600, SVG_H = 132;
   const LEFT_M = 30, STEP = (SVG_W - 60) / (MAX - MIN); // 22.5
-  const AXIS_Y = 80, ARROW_Y = 44;
+  const AXIS_Y = 96, A1Y = 72, A2Y = 46; // axis, arrow-1 row, arrow-2 row
   function xOf(n){ return LEFT_M + (n - MIN) * STEP; }
 
-  const xStart = xOf(lvl.start);
-  const snapped = (sub.snapped !== undefined && sub.snapped !== null) ? sub.snapped : null;
-  const xHead = snapped !== null ? xOf(snapped) : xStart;
-  const arrowColor = sub.error ? '#E2604F' : '#EFA94A';
-  const MK = 'daMk';
+  const xOrigin = xOf(0);
+  const xStart  = xOf(lvl.start);
+  const snapped = (sub.snapped !== null && sub.snapped !== undefined) ? sub.snapped : null;
+  const xHead   = snapped !== null ? xOf(snapped) : xStart;
+
+  // Green for rightward (positive), red for leftward (negative)
+  const C_GREEN = '#48B08C', C_RED = '#E2604F';
+  const color1 = lvl.start  >= 0 ? C_GREEN : C_RED;
+  const color2 = lvl.addend >= 0 ? C_GREEN : C_RED;
+  const MK1 = 'da1Mk', MK2 = 'da2Mk';
 
   let s = '';
+
   // Axis
   s += `<line x1="${LEFT_M}" y1="${AXIS_Y}" x2="${SVG_W-LEFT_M}" y2="${AXIS_Y}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
   s += `<polygon points="${SVG_W-LEFT_M+2},${AXIS_Y} ${SVG_W-LEFT_M-7},${AXIS_Y-5} ${SVG_W-LEFT_M-7},${AXIS_Y+5}" fill="rgba(234,244,241,0.7)"/>`;
@@ -1788,39 +1794,47 @@ function renderDragArrow(lvl){
       s += `<text x="${x}" y="${AXIS_Y+24}" text-anchor="middle" font-size="13" fill="rgba(234,244,241,0.75)" font-family="Rubik,sans-serif">${n}</text>`;
   }
 
+  // --- ARROW 1 (fixed): 0 → start ---
+  s += `<defs><marker id="${MK1}" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="${color1}"/></marker></defs>`;
+  s += `<line x1="${xOrigin}" y1="${A1Y}" x2="${xStart}" y2="${A1Y}" stroke="${color1}" stroke-width="3" marker-end="url(#${MK1})"/>`;
+  // Dot at 0 (tail of arrow 1)
+  s += `<circle cx="${xOrigin}" cy="${AXIS_Y}" r="5" fill="rgba(234,244,241,0.45)" stroke="rgba(234,244,241,0.7)" stroke-width="1.5"/>`;
+  // Dot at start (head of arrow 1 / tail of arrow 2)
+  s += `<circle cx="${xStart}" cy="${AXIS_Y}" r="7" fill="${color1}" stroke="${color1}" stroke-width="2"/>`;
+  // Dashed vertical connector from arrow-1 head to arrow-2 tail
+  s += `<line x1="${xStart}" y1="${A1Y}" x2="${xStart}" y2="${A2Y+2}" stroke="rgba(234,244,241,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>`;
+  // Start label (shown below arrow 1, above axis)
+  const startLbl = lvl.start<0?`(−${Math.abs(lvl.start)})`:String(lvl.start);
+  s += `<text x="${xStart}" y="${A1Y+16}" text-anchor="middle" font-size="11" fill="${color1}" font-weight="700" font-family="Rubik,sans-serif">${startLbl}</text>`;
+
+  // --- ARROW 2 ---
+  s += `<defs><marker id="${MK2}" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="${color2}"/></marker></defs>`;
+
   if(sub.answered){
     const xTo = xOf(lvl.correct);
-    s += `<defs><marker id="${MK}" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#48B08C"/></marker></defs>`;
-    s += `<line x1="${xStart}" y1="${ARROW_Y}" x2="${xTo}" y2="${ARROW_Y}" stroke="#48B08C" stroke-width="3" marker-end="url(#${MK})" stroke-dasharray="500 500" stroke-dashoffset="500"><animate attributeName="stroke-dashoffset" from="500" to="0" dur="0.5s" fill="freeze"/></line>`;
-    s += `<circle cx="${xStart}" cy="${AXIS_Y}" r="8" fill="#EFA94A" stroke="#EFA94A" stroke-width="2"/>`;
-    s += `<text x="${xStart}" y="${AXIS_Y+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#0A2A43" font-family="Rubik,sans-serif">${lvl.start}</text>`;
-    const endL = lvl.correct<0?`(−${Math.abs(lvl.correct)})`:String(lvl.correct);
-    s += `<circle cx="${xTo}" cy="${AXIS_Y}" r="8" fill="#48B08C" stroke="#48B08C" stroke-width="2"/>`;
-    s += `<text x="${xTo}" y="${AXIS_Y+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="Rubik,sans-serif">${endL}</text>`;
+    s += `<line x1="${xStart}" y1="${A2Y}" x2="${xTo}" y2="${A2Y}" stroke="${color2}" stroke-width="3" marker-end="url(#${MK2})" stroke-dasharray="500 500" stroke-dashoffset="500"><animate attributeName="stroke-dashoffset" from="500" to="0" dur="0.5s" fill="freeze"/></line>`;
+    const resLbl = lvl.correct<0?`(−${Math.abs(lvl.correct)})`:String(lvl.correct);
+    s += `<circle cx="${xTo}" cy="${AXIS_Y}" r="7" fill="${color2}" stroke="${color2}" stroke-width="2"/>`;
+    s += `<text x="${xTo}" y="${AXIS_Y+4}" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" font-family="Rubik,sans-serif">${resLbl}</text>`;
+    s += `<text x="${xTo}" y="${A2Y-14}" text-anchor="middle" font-size="12" fill="${color2}" font-weight="700" font-family="Rubik,sans-serif">${resLbl}</text>`;
   } else {
-    s += `<defs><marker id="${MK}" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="${arrowColor}"/></marker></defs>`;
-    // Arrow line (hidden when head == tail)
-    const showArrow = snapped !== null && snapped !== lvl.start;
-    s += `<line id="dArrowLine" x1="${xStart}" y1="${ARROW_Y}" x2="${xHead}" y2="${ARROW_Y}" stroke="${arrowColor}" stroke-width="3" marker-end="url(#${MK})" opacity="${showArrow?1:0}"/>`;
-    // Start dot
-    s += `<circle cx="${xStart}" cy="${AXIS_Y}" r="8" fill="#EFA94A" stroke="#EFA94A" stroke-width="2"/>`;
-    s += `<text x="${xStart}" y="${AXIS_Y+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#0A2A43" font-family="Rubik,sans-serif">${lvl.start}</text>`;
-    // Draggable head
-    s += `<circle id="dHead" cx="${xHead}" cy="${ARROW_Y}" r="15" fill="${showArrow?arrowColor:'rgba(239,169,74,0.18)'}" fill-opacity="${showArrow?0.75:1}" stroke="${arrowColor}" stroke-width="2.5" style="cursor:grab;"/>`;
-    // Value label above head
-    const headL = showArrow ? (snapped<0?`(−${Math.abs(snapped)})`:String(snapped)) : '?';
-    s += `<text id="dLabel" x="${xHead}" y="${ARROW_Y-20}" text-anchor="middle" font-size="14" font-weight="700" fill="${arrowColor}" font-family="Rubik,sans-serif">${headL}</text>`;
+    const showA2 = snapped !== null && snapped !== lvl.start;
+    s += `<line id="dArrowLine" x1="${xStart}" y1="${A2Y}" x2="${xHead}" y2="${A2Y}" stroke="${color2}" stroke-width="3" marker-end="url(#${MK2})" opacity="${showA2?1:0}"/>`;
+    // Draggable head circle
+    s += `<circle id="dHead" cx="${xHead}" cy="${A2Y}" r="15" fill="${color2}" fill-opacity="${showA2?0.6:0.15}" stroke="${color2}" stroke-width="2.5" style="cursor:grab;"/>`;
+    // Label above head
+    const headL = showA2 ? (snapped<0?`(−${Math.abs(snapped)})`:String(snapped)) : '?';
+    s += `<text id="dLabel" x="${xHead}" y="${A2Y-20}" text-anchor="middle" font-size="14" font-weight="700" fill="${color2}" font-family="Rubik,sans-serif">${headL}</text>`;
   }
 
   const absA = Math.abs(lvl.addend), dirHe = lvl.addend<0?'שמאלה':'ימינה';
   const startD = lvl.start<0?bdi('(−'+Math.abs(lvl.start)+')'): bdi(lvl.start);
   const addD   = lvl.addend<0?bdi('(−'+absA+')'):bdi(lvl.addend);
-  const exprStr = `${startD} + ${addD}`;
 
   let answerArea = '';
   if(!sub.answered){
     answerArea = `
-      <p class="instr">גררו את ראש החץ אל נקודת הנחיתה</p>
+      <p class="instr">גררו את ראש החץ ${dirHe} אל נקודת הנחיתה</p>
       ${sub.error?`<div class="feedback bad">לא מדויק — נסו שוב</div>`:''}
       ${snapped!==null&&!sub.error?`<div class="btnrow"><button class="btn" onclick="submitDragArrow()">אשרו תשובה</button></div>`:''}`;
   } else {
@@ -1833,8 +1847,7 @@ function renderDragArrow(lvl){
 
   return `
     <h2 class="qtitle">${lvl.title}</h2>
-    <p class="qtext">מתחילים ב-${bdi(lvl.start)}, קופצים ${absA} יחידות ${dirHe}</p>
-    <p class="qtext" style="font-size:20px;font-weight:700;direction:ltr;unicode-bidi:embed;">${exprStr} = ?</p>
+    <p class="qtext" style="font-size:20px;font-weight:700;direction:ltr;unicode-bidi:embed;">${startD} + ${addD} = ?</p>
     <div class="nl-wrap"><svg id="dragNL" viewBox="0 0 ${SVG_W} ${SVG_H}" style="width:100%;display:block;direction:ltr;" xmlns="http://www.w3.org/2000/svg">${s}</svg></div>
     ${answerArea}
   `;
