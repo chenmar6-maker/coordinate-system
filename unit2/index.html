@@ -712,7 +712,7 @@ function renderAbsInput(lvl){
     const feedbackText = sub.correct ? 'נכון!' : `לא מדויק. התשובה הנכונה: ${lvl.correct}`;
     answerArea = `
       <div class="feedback ${feedbackClass}">${feedbackText}</div>
-      <div class="explain-box">${lvl.explain}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
       <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
   }
   return `
@@ -750,17 +750,17 @@ function renderAbsTwoPoints(lvl){
     statusArea = `<div class="feedback bad">לא נכון — נסו שוב</div>`;
   }
   if(!sub.answered){
-    statusArea += `<p class="instr">לחצו על שני המספרים שמקיימים |x| = ${lvl.absValue}</p>
+    statusArea += `<p class="instr">לחצו על שני המספרים שמקיימים <bdi style="direction:ltr;unicode-bidi:isolate;">|x| = ${lvl.absValue}</bdi></p>
     <p class="instr" style="opacity:.6;font-size:13px;">בחרתם: ${sub.clicked.length > 0 ? sub.clicked.join(', ') : '—'}</p>`;
   } else {
     statusArea = `
       <div class="feedback ok">כל הכבוד! מצאתם את שני המספרים.</div>
-      <div class="explain-box">${lvl.explain}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
       <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
   }
   return `
     <h2 class="qtitle">${lvl.title}</h2>
-    <p class="qtext">|x| = ${lvl.absValue} — לחצו על ציר המספרים</p>
+    <p class="qtext"><bdi style="direction:ltr;unicode-bidi:isolate;">|x| = ${lvl.absValue}</bdi> — לחצו על ציר המספרים</p>
     <div class="nl-wrap">${nl}</div>
     ${statusArea}
   `;
@@ -815,7 +815,7 @@ function renderAbsMax(lvl){
     const feedbackText = sub.correct ? 'נכון!' : `לא מדויק. הנכון: ${correctLetter} (${lvl.correct})`;
     feedback = `
       <div class="feedback ${feedbackClass}">${feedbackText}</div>
-      <div class="explain-box">${lvl.explain}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
       <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
   }
   return `
@@ -849,7 +849,7 @@ function renderAbsMC(lvl){
       if(opt === lvl.correct) cls += ' correct';
       else if(opt === sub.picked && opt !== lvl.correct) cls += ' wrong';
     }
-    return `<button class="${cls}" onclick="answerAbsMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${opt}</button>`;
+    return `<button class="${cls}" onclick="answerAbsMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapMath(opt)}</button>`;
   }).join('');
 
   let feedback = '';
@@ -857,12 +857,12 @@ function renderAbsMC(lvl){
     const feedbackClass = sub.correct ? 'ok' : 'bad';
     feedback = `
       <div class="feedback ${feedbackClass}">${sub.correct ? 'נכון!' : 'לא מדויק.'}</div>
-      <div class="explain-box">${lvl.explain}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
       <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
   }
   return `
     <h2 class="qtitle">${lvl.title}</h2>
-    <p class="qtext">${lvl.question}</p>
+    <p class="qtext">${wrapMath(lvl.question)}</p>
     <div class="mc-options">${btns}</div>
     ${feedback}
   `;
@@ -896,7 +896,7 @@ function renderOppClick(lvl){
     const feedbackText = sub.correct ? `נכון! ${lvl.correct} הוא הנגדי של ${lvl.number}` : `לא מדויק. הנגדי של ${lvl.number} הוא ${lvl.correct}`;
     feedback = `
       <div class="feedback ${feedbackClass}">${feedbackText}</div>
-      <div class="explain-box">${lvl.explain}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
       <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
   } else {
     feedback = `<p class="instr">לחצו על הנגדי של ${lvl.number} על הציר</p>`;
@@ -949,7 +949,7 @@ function renderOppPair(lvl){
   } else {
     statusArea = `
       <div class="feedback ok">מצוין! מצאתם את כל הזוגות הנגדיים.</div>
-      <div class="explain-box">${lvl.explain}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
       <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
   }
   return `
@@ -1002,7 +1002,7 @@ function renderOppZero(lvl){
       if(opt === lvl.correct) cls += ' correct';
       else if(opt === sub.picked && opt !== lvl.correct) cls += ' wrong';
     }
-    return `<button class="${cls}" onclick="answerOppZero('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${opt}</button>`;
+    return `<button class="${cls}" onclick="answerOppZero('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapMath(opt)}</button>`;
   }).join('');
 
   let feedback = '';
@@ -1010,12 +1010,12 @@ function renderOppZero(lvl){
     const feedbackClass = sub.correct ? 'ok' : 'bad';
     feedback = `
       <div class="feedback ${feedbackClass}">${sub.correct ? 'נכון!' : 'לא מדויק.'}</div>
-      <div class="explain-box">${lvl.explain}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
       <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
   }
   return `
     <h2 class="qtitle">${lvl.title}</h2>
-    <p class="qtext">${lvl.question}</p>
+    <p class="qtext">${wrapMath(lvl.question)}</p>
     <div class="nl-wrap">${nl}</div>
     <div class="mc-options">${btns}</div>
     ${feedback}
@@ -1044,7 +1044,7 @@ function renderOppAbsMC(lvl){
       if(opt === lvl.correct) cls += ' correct';
       else if(opt === sub.picked && opt !== lvl.correct) cls += ' wrong';
     }
-    return `<button class="${cls}" onclick="answerOppAbsMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${opt}</button>`;
+    return `<button class="${cls}" onclick="answerOppAbsMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapMath(opt)}</button>`;
   }).join('');
 
   let feedback = '';
@@ -1052,12 +1052,12 @@ function renderOppAbsMC(lvl){
     const feedbackClass = sub.correct ? 'ok' : 'bad';
     feedback = `
       <div class="feedback ${feedbackClass}">${sub.correct ? 'נכון!' : 'לא מדויק.'}</div>
-      <div class="explain-box">${lvl.explain}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
       <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
   }
   return `
     <h2 class="qtitle">${lvl.title}</h2>
-    <p class="qtext">${lvl.question}</p>
+    <p class="qtext">${wrapMath(lvl.question)}</p>
     <div class="mc-options">${btns}</div>
     ${feedback}
   `;
@@ -1103,6 +1103,11 @@ function shuffleArr(arr){
   return a;
 }
 
+function wrapMath(str){
+  if(!str) return str;
+  return str.replace(/\|[^|]+\|/g, m => `<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`);
+}
+
 function startQuiz(){
   state.quizAlt = false;
   startQuizInternal();
@@ -1134,7 +1139,7 @@ function renderQuiz(){
 
   const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : q.options;
   const answerArea = `<div class="mc-options">
-    ${opts.map(opt => `<button class="mc-btn" id="opt-${safeId(opt)}" onclick="answerQuizMC('${escOpt(opt)}')" ${state.quizAnswered?'disabled':''}>${opt}</button>`).join('')}
+    ${opts.map(opt => `<button class="mc-btn" id="opt-${safeId(opt)}" onclick="answerQuizMC('${escOpt(opt)}')" ${state.quizAnswered?'disabled':''}>${wrapMath(opt)}</button>`).join('')}
   </div>`;
 
   const isLast = state.quizIndex === currentQuizQuestions().length - 1;
@@ -1144,10 +1149,10 @@ function renderQuiz(){
     <div class="panel">
       <div class="qmeta">שאלה ${state.quizIndex+1} מתוך ${currentQuizQuestions().length}</div>
       <h2 class="qtitle">${q.title}</h2>
-      <p class="qtext">${q.text}</p>
+      <p class="qtext">${wrapMath(q.text)}</p>
       ${answerArea}
       ${state.quizAnswered ? `
-        <div class="explain-box"><strong>${state.quizLastCorrect ? 'תשובה נכונה!' : 'לא מדויק.'}</strong> ${q.explain}</div>
+        <div class="explain-box"><strong>${state.quizLastCorrect ? 'תשובה נכונה!' : 'לא מדויק.'}</strong> ${wrapMath(q.explain)}</div>
         <div class="btnrow"><button class="btn" onclick="${isLast ? 'finishQuiz()' : 'nextQuizQuestion()'}">${isLast ? 'לתוצאות' : 'לשאלה הבאה'}</button></div>
       ` : ''}
     </div>
