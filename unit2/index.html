@@ -163,6 +163,20 @@
     margin:8px 0 4px;
   }
 
+  .video-placeholder{
+    background:rgba(0,0,0,0.3);border-radius:10px;padding:60px 20px;
+    margin:16px 0;color:rgba(234,244,241,0.4);font-size:15px;text-align:center;
+  }
+
+  ul.bullets{list-style:none;margin:18px 0 6px;padding:0;text-align:right;}
+  ul.bullets li{position:relative;padding-right:22px;margin-bottom:10px;font-size:16px;line-height:1.55;}
+  ul.bullets li::before{content:"•";color:var(--gold);position:absolute;right:0;top:0;font-size:18px;}
+
+  .learn-note{
+    background:rgba(239,169,74,0.1);border-right:4px solid var(--gold);
+    border-radius:6px;padding:12px 16px;margin-top:16px;font-size:15px;text-align:right;
+  }
+
   @keyframes popIn{
     0%{transform:scale(.55);opacity:0;}
     65%{transform:scale(1.18);opacity:1;}
@@ -626,11 +640,50 @@ function goTo(screen){ state.screen = screen; render(); }
 /* ============ LEARN ============ */
 
 function renderLearn(){
-  return `<div class="panel" style="text-align:center;">
-    <h2>הקנייה — ${state.sequence===1?'ערך מוחלט':'מספרים נגדיים'}</h2>
-    <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:60px 20px;margin:20px 0;color:rgba(234,244,241,0.4);font-size:15px;">הסרטון יתווסף בקרוב</div>
-    <div class="btnrow"><button class="btn" onclick="startGame()">למשחק ←</button></div>
-  </div>`;
+  return state.sequence === 2 ? renderLearn2() : renderLearn1();
+}
+
+function renderLearn1(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle" style="text-align:right;">ערך מוחלט — המרחק מ-0</h2>
+      <p class="qtext" style="text-align:right;">🎬 סרטון הקנייה יתווסף בקרוב.</p>
+      <div class="video-placeholder">הסרטון יתווסף בקרוב</div>
+      <ul class="bullets">
+        <li>הערך המוחלט של מספר הוא <strong>המרחק שלו מ-0</strong> על ציר המספרים — תמיד מספר אי-שלילי.</li>
+        <li>מסמנים ערך מוחלט עם קו אנכי משני הצדדים: <bdi style="direction:ltr;unicode-bidi:isolate;">|מספר|</bdi>. למשל: <bdi style="direction:ltr;unicode-bidi:isolate;">|−5| = 5</bdi> וגם <bdi style="direction:ltr;unicode-bidi:isolate;">|5| = 5</bdi>.</li>
+        <li>מספר חיובי — הערך המוחלט שלו שווה לו עצמו. מספר שלילי — הערך המוחלט שלו שווה לנגדי שלו.</li>
+        <li>הערך המוחלט של 0 הוא 0: <bdi style="direction:ltr;unicode-bidi:isolate;">|0| = 0</bdi>.</li>
+      </ul>
+      <div class="learn-note">💡 שני מספרים שונים יכולים לקבל אותו ערך מוחלט — למשל 5 ו-(−5) נמצאים שניהם במרחק 5 מ-0.</div>
+      <div class="btnrow" style="margin-top:20px;">
+        <button class="btn" onclick="startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn2(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle" style="text-align:right;">מספרים נגדיים — שני צדדים, אותו מרחק</h2>
+      <p class="qtext" style="text-align:right;">🎬 סרטון הקנייה יתווסף בקרוב.</p>
+      <div class="video-placeholder">הסרטון יתווסף בקרוב</div>
+      <ul class="bullets">
+        <li>שני מספרים הם <strong>נגדיים</strong> אם הם נמצאים באותו מרחק מ-0, אך בכיוונים הפוכים על ציר המספרים.</li>
+        <li>הנגדי של מספר חיובי הוא שלילי, והנגדי של מספר שלילי הוא חיובי. למשל: הנגדי של 6 הוא (−6), והנגדי של (−6) הוא 6.</li>
+        <li>סכום שני מספרים נגדיים שווה תמיד <strong>0</strong>: <bdi style="direction:ltr;unicode-bidi:isolate;">6 + (−6) = 0</bdi>.</li>
+        <li>0 הוא המספר היחיד שהוא הנגדי של עצמו.</li>
+        <li>הנגדי של הנגדי של מספר שווה תמיד למספר המקורי: <bdi style="direction:ltr;unicode-bidi:isolate;">−(−6) = 6</bdi>.</li>
+      </ul>
+      <div class="learn-note">💡 מספרים נגדיים תמיד שווים בערך המוחלט שלהם — כי שניהם נמצאים באותו מרחק מ-0.</div>
+      <div class="btnrow" style="margin-top:20px;">
+        <button class="btn" onclick="startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
 }
 
 /* ============ GAME INIT ============ */
