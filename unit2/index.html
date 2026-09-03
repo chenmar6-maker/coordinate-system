@@ -1178,12 +1178,31 @@ function renderGame(){
   else if(lvl.id === 'placeNum') content = renderPlaceNum(lvl);
   else if(lvl.id === 'readFracMC') content = renderReadFracMC(lvl);
 
+  const sub = state.levelSub || {};
+  const isAnswered = !!sub.answered;
+  const isLastLvl = state.levelIndex >= levels.length - 1;
+  const skipBtn = (!isAnswered && !isLastLvl)
+    ? `<div style="text-align:center;margin-top:10px;"><button class="btn secondary" onclick="skipLevel()" style="font-size:13px;padding:6px 18px;">דלג לתרגיל הבא ←</button></div>`
+    : '';
+
   return `
     <div class="progressdots">${dots}</div>
     <div class="panel">
       ${content}
+      ${skipBtn}
     </div>
   `;
+}
+
+function skipLevel(){
+  const levels = currentGameLevels();
+  if(state.levelIndex >= levels.length - 1) return;
+  if(_dArrowCleanup){ _dArrowCleanup(); _dArrowCleanup = null; }
+  state.levelIndex++;
+  state.levelSub = freshLevelSub(state.levelIndex);
+  const next = levels[state.levelIndex];
+  if(next && next.options) state.shuffledOptions = shuffleArr(next.options.slice());
+  render();
 }
 
 /* ---- absInput ---- */
@@ -1803,9 +1822,16 @@ function renderDragArrow(lvl){
   s += `<circle cx="${xStart}" cy="${AXIS_Y}" r="7" fill="${color1}" stroke="${color1}" stroke-width="2"/>`;
   // Dashed vertical connector from arrow-1 head to arrow-2 tail
   s += `<line x1="${xStart}" y1="${A1Y}" x2="${xStart}" y2="${A2Y+2}" stroke="rgba(234,244,241,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>`;
-  // Start label (shown below arrow 1, above axis)
+  // Start label at head of arrow 1 (below the arrow line)
   const startLbl = lvl.start<0?`(−${Math.abs(lvl.start)})`:String(lvl.start);
   s += `<text x="${xStart}" y="${A1Y+16}" text-anchor="middle" font-size="11" fill="${color1}" font-weight="700" font-family="Rubik,sans-serif">${startLbl}</text>`;
+  // Size label for arrow 1: |start| shown below the arrow, between arrow 1 and axis
+  const xMid1 = (xOrigin + xStart) / 2;
+  s += `<text x="${xMid1}" y="${A1Y+10}" text-anchor="middle" font-size="12" fill="${color1}" font-weight="600" font-family="Rubik,sans-serif">|${Math.abs(lvl.start)}|</text>`;
+
+  // Size label for arrow 2: |addend| shown below arrow 2, between arrow 2 and arrow 1
+  const xMid2 = (xStart + xOf(lvl.correct)) / 2;
+  s += `<text x="${xMid2}" y="${A2Y+12}" text-anchor="middle" font-size="12" fill="${color2}" font-weight="600" font-family="Rubik,sans-serif">|${Math.abs(lvl.addend)}|</text>`;
 
   // --- ARROW 2 ---
   s += `<defs><marker id="${MK2}" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="${color2}"/></marker></defs>`;
@@ -1816,15 +1842,15 @@ function renderDragArrow(lvl){
     const resLbl = lvl.correct<0?`(−${Math.abs(lvl.correct)})`:String(lvl.correct);
     s += `<circle cx="${xTo}" cy="${AXIS_Y}" r="7" fill="${color2}" stroke="${color2}" stroke-width="2"/>`;
     s += `<text x="${xTo}" y="${AXIS_Y+4}" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" font-family="Rubik,sans-serif">${resLbl}</text>`;
-    s += `<text x="${xTo}" y="${A2Y-14}" text-anchor="middle" font-size="12" fill="${color2}" font-weight="700" font-family="Rubik,sans-serif">${resLbl}</text>`;
+    s += `<text x="${xTo}" y="${A2Y-22}" text-anchor="middle" font-size="12" fill="${color2}" font-weight="700" font-family="Rubik,sans-serif">${resLbl}</text>`;
   } else {
     const showA2 = snapped !== null && snapped !== lvl.start;
     s += `<line id="dArrowLine" x1="${xStart}" y1="${A2Y}" x2="${xHead}" y2="${A2Y}" stroke="${color2}" stroke-width="3" marker-end="url(#${MK2})" opacity="${showA2?1:0}"/>`;
     // Draggable head circle
     s += `<circle id="dHead" cx="${xHead}" cy="${A2Y}" r="15" fill="${color2}" fill-opacity="${showA2?0.6:0.15}" stroke="${color2}" stroke-width="2.5" style="cursor:grab;"/>`;
-    // Label above head
+    // Label above head (current snapped value)
     const headL = showA2 ? (snapped<0?`(−${Math.abs(snapped)})`:String(snapped)) : '?';
-    s += `<text id="dLabel" x="${xHead}" y="${A2Y-20}" text-anchor="middle" font-size="14" font-weight="700" fill="${color2}" font-family="Rubik,sans-serif">${headL}</text>`;
+    s += `<text id="dLabel" x="${xHead}" y="${A2Y-22}" text-anchor="middle" font-size="14" font-weight="700" fill="${color2}" font-family="Rubik,sans-serif">${headL}</text>`;
   }
 
   const absA = Math.abs(lvl.addend), dirHe = lvl.addend<0?'שמאלה':'ימינה';
@@ -1935,13 +1961,22 @@ function renderChipProfit(lvl){
           <button class="btn" onclick="cancelChipPairs()">בטלו זוגות ✕</button>
         </div>`;
     } else {
+      // Generate MC options: correct, wrong-sign, total-pos, neg-total
+      const rawOpts = [lvl.correct, -lvl.correct, lvl.pos, -lvl.neg];
+      const chipMCOpts = shuffleArr([...new Set(rawOpts)].slice(0, 4));
+      const chipBtns = chipMCOpts.map(opt => {
+        let cls = 'mc-btn';
+        if(sub.chipPicked !== undefined){
+          if(opt === lvl.correct) cls += ' correct';
+          else if(opt === sub.chipPicked) cls += ' wrong';
+        }
+        const lbl = opt < 0 ? `(−${Math.abs(opt)})` : String(opt);
+        return `<button class="${cls}" onclick="answerChipMC(${opt})" ${sub.chipPicked!==undefined?'disabled':''}>${lbl}</button>`;
+      }).join('');
       answerArea = `
         <p class="qtext">נשארו ${remaining} צ׳יפים — מה הסכום?</p>
-        <div class="abs-input-row">
-          <input type="number" id="chipInput" placeholder="?" style="width:80px;">
-          <button class="btn" onclick="submitChipAnswer()">בדיקה</button>
-        </div>
-        ${sub.inputError ? '<div class="feedback bad">יש להזין מספר תקין.</div>' : ''}`;
+        <div class="mc-options">${chipBtns}</div>
+        ${sub.chipWrong ? '<div class="feedback bad">לא מדויק.</div>' : ''}`;
     }
   } else {
     answerArea = `
@@ -1962,17 +1997,24 @@ function cancelChipPairs(){
   render();
 }
 
-function submitChipAnswer(){
+function answerChipMC(val){
   const lvl = currentGameLevels()[state.levelIndex];
   const sub = state.levelSub;
-  const field = document.getElementById('chipInput');
-  const val = parseInt(field ? field.value : '');
-  if(isNaN(val)){ sub.inputError = true; render(); return; }
-  sub.answered = true;
-  sub.correct = val === lvl.correct;
-  if(sub.correct) state.gameScore++;
-  state.gameTotal++;
-  render();
+  if(sub.chipPicked !== undefined) return;
+  sub.chipPicked = val;
+  if(val === lvl.correct){
+    sub.answered = true;
+    sub.correct = true;
+    state.gameScore++;
+    state.gameTotal++;
+    render();
+  } else {
+    sub.chipWrong = true;
+    render();
+    setTimeout(() => {
+      if(state.levelSub){ state.levelSub.chipWrong = false; state.levelSub.chipPicked = undefined; render(); }
+    }, 900);
+  }
 }
 
 /* ---- dualModel ---- */

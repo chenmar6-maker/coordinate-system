@@ -1207,6 +1207,14 @@ function renderGame(){
   else if(lvl.id==='concept') inner = renderConceptLevel(lvl);
   else if(lvl.id==='trainMC') return renderTrainMCLevel(lvl);
 
+  const levels1 = currentGameLevels();
+  const sub1 = state.levelSub || {};
+  const isAnswered1 = !!sub1.answered;
+  const isLastLvl1 = state.levelIndex >= levels1.length - 1;
+  const skipBtn1 = (!isAnswered1 && !isLastLvl1)
+    ? `<div style="text-align:center;margin-top:10px;"><button class="btn secondary" onclick="skipLevel()" style="font-size:13px;padding:6px 18px;">דלג לתרגיל הבא ←</button></div>`
+    : '';
+
   return `
     <div class="progressdots">${dots}</div>
     <div class="panel">
@@ -1217,8 +1225,17 @@ function renderGame(){
       </details>
       <p class="qtext" style="text-align:right;">${lvl.instructions}</p>
       ${inner}
+      ${skipBtn1}
     </div>
   `;
+}
+
+function skipLevel(){
+  const levels = currentGameLevels();
+  if(state.levelIndex >= levels.length - 1) return;
+  state.levelIndex++;
+  state.levelSub = freshLevelSub(state.levelIndex);
+  render();
 }
 
 function renderPlaceLevel(lvl){
