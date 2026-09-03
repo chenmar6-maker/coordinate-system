@@ -173,7 +173,7 @@
 <body>
 <div class="topbar">
   <div class="brand">פרק 6 — מספרים מכוונים</div>
-  <a href="../" class="homebtn">← חזרה לקורס</a>
+  <button class="homebtn" onclick="goBack()">בית</button>
 </div>
 <div class="wrap">
   <div id="app"></div>
@@ -508,6 +508,10 @@ function renderHome(){
   `;
 }
 
+function goBack(){
+  if(state.screen==='home') window.location.href='../';
+  else goHome();
+}
 function goHome(){
   state = {screen:'home', sequence:1, levelIndex:0, levelSub:{}, gameScore:0, gameTotal:0, quizIndex:0, quizScore:0, quizAnswered:false, quizLastCorrect:null, shuffledOptions:[]};
   render();

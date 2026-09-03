@@ -282,7 +282,7 @@
     <img id="topbarLogo" class="topbar-logo" alt="לוגו חן מרגלית - למידה אקטיבית">
     <span class="brand">⚓ מערכת הצירים של הים</span>
   </div>
-  <a class="homebtn" href="../">בית</a>
+  <button class="homebtn" onclick="goBack()">בית</button>
 </div>
 <div id="app" class="wrap"></div>
 
@@ -599,6 +599,10 @@ let state = {
 function goHome(){
   state = {screen:'home', sequence:1, levelIndex:0, levelSub:{}, gameScore:0, gameTotal:0, quizIndex:0, quizScore:0, quizAnswered:false, quizLastCorrect:null};
   render();
+}
+function goBack(){
+  if(state.screen==='home') window.location.href='../';
+  else goHome();
 }
 
 /* ============ SVG GRID ENGINE ============ */
