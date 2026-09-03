@@ -751,7 +751,7 @@ function renderAbsTwoPoints(lvl){
   }
   if(!sub.answered){
     statusArea += `<p class="instr">לחצו על שני המספרים שמקיימים <bdi style="direction:ltr;unicode-bidi:isolate;">|x| = ${lvl.absValue}</bdi></p>
-    <p class="instr" style="opacity:.6;font-size:13px;">בחרתם: ${sub.clicked.length > 0 ? sub.clicked.join(', ') : '—'}</p>`;
+    <p class="instr" style="opacity:.6;font-size:13px;">בחרתם: ${sub.clicked.length > 0 ? sub.clicked.map(n => bdi(n)).join(', ') : '—'}</p>`;
   } else {
     statusArea = `
       <div class="feedback ok">כל הכבוד! מצאתם את שני המספרים.</div>
@@ -812,7 +812,7 @@ function renderAbsMax(lvl){
   if(sub.answered){
     const feedbackClass = sub.correct ? 'ok' : 'bad';
     const correctLetter = heLetters[lvl.numbers.indexOf(lvl.correct)];
-    const feedbackText = sub.correct ? 'נכון!' : `לא מדויק. הנכון: ${correctLetter} (${lvl.correct})`;
+    const feedbackText = sub.correct ? 'נכון!' : `לא מדויק. הנכון: ${correctLetter} ${bdi('('+lvl.correct+')')}`;
     feedback = `
       <div class="feedback ${feedbackClass}">${feedbackText}</div>
       <div class="explain-box">${wrapMath(lvl.explain)}</div>
@@ -893,17 +893,17 @@ function renderOppClick(lvl){
   let feedback = '';
   if(sub.answered){
     const feedbackClass = sub.correct ? 'ok' : 'bad';
-    const feedbackText = sub.correct ? `נכון! ${lvl.correct} הוא הנגדי של ${lvl.number}` : `לא מדויק. הנגדי של ${lvl.number} הוא ${lvl.correct}`;
+    const feedbackText = sub.correct ? `נכון! ${bdi(lvl.correct)} הוא הנגדי של ${bdi(lvl.number)}` : `לא מדויק. הנגדי של ${bdi(lvl.number)} הוא ${bdi(lvl.correct)}`;
     feedback = `
       <div class="feedback ${feedbackClass}">${feedbackText}</div>
       <div class="explain-box">${wrapMath(lvl.explain)}</div>
       <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
   } else {
-    feedback = `<p class="instr">לחצו על הנגדי של ${lvl.number} על הציר</p>`;
+    feedback = `<p class="instr">לחצו על הנגדי של ${bdi(lvl.number)} על הציר</p>`;
   }
   return `
     <h2 class="qtitle">${lvl.title}</h2>
-    <p class="qtext">מה הנגדי של <strong>${lvl.number}</strong>? לחצו על הנקודה המתאימה.</p>
+    <p class="qtext">מה הנגדי של <strong style="direction:ltr;unicode-bidi:isolate;">${lvl.number}</strong>? לחצו על הנקודה המתאימה.</p>
     <div class="nl-wrap">${nl}</div>
     ${feedback}
   `;
@@ -944,7 +944,7 @@ function renderOppPair(lvl){
     const pairsLeft = lvl.pairs.length - sub.matched.length;
     if(!sub.error){
       statusArea = `<p class="instr">לחצו על כל זוג מספרים נגדיים (נותרו ${pairsLeft} זוגות)</p>`;
-      if(sub.firstClick !== null) statusArea += `<p class="instr" style="opacity:.7;font-size:13px;">בחרתם: ${sub.firstClick} — לחצו על הנגדי שלו</p>`;
+      if(sub.firstClick !== null) statusArea += `<p class="instr" style="opacity:.7;font-size:13px;">בחרתם: ${bdi(sub.firstClick)} — לחצו על הנגדי שלו</p>`;
     }
   } else {
     statusArea = `
@@ -1109,6 +1109,8 @@ function wrapMath(str){
     .replace(/\|[^|]+\|/g, m => `<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`)
     .replace(/\([-−][^)]+\)/g, m => `<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`);
 }
+
+function bdi(n){ return `<bdi style="direction:ltr;unicode-bidi:isolate;">${n}</bdi>`; }
 
 function startQuiz(){
   state.quizAlt = false;
