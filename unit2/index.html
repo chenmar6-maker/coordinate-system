@@ -182,6 +182,61 @@
     65%{transform:scale(1.18);opacity:1;}
     100%{transform:scale(1);}
   }
+
+  /* Jump arc animation */
+  .jump-arc { animation: drawArc 0.6s ease forwards; }
+  @keyframes drawArc {
+    from { stroke-dashoffset: 400; }
+    to   { stroke-dashoffset: 0; }
+  }
+
+  /* Chip board */
+  .chip-board { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0; }
+  .chip {
+    width:40px; height:40px; border-radius:50%; display:flex; align-items:center;
+    justify-content:center; font-size:20px; font-weight:700; position:relative;
+    user-select:none;
+  }
+  .chip.pos { background:#48B08C; color:#fff; }
+  .chip.neg { background:#E2604F; color:#fff; }
+  .chip.dim { opacity:0.25; }
+  .chip-x { position:absolute; font-size:13px; top:-4px; right:-4px;
+    background:rgba(0,0,0,0.5); border-radius:50%; width:16px; height:16px;
+    display:flex; align-items:center; justify-content:center; }
+
+  /* Group sort */
+  .addend-tiles { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:16px 0; }
+  .addend-tile {
+    padding:10px 18px; border-radius:8px; font-size:18px; font-weight:700;
+    cursor:pointer; border:2px solid rgba(234,244,241,0.3);
+    background:rgba(234,244,241,0.1); color:var(--foam);
+    transition: background .15s, border-color .15s;
+    direction:ltr; unicode-bidi:isolate;
+  }
+  .addend-tile.pos-group { background:rgba(72,176,140,0.3); border-color:var(--seafoam); color:var(--seafoam); }
+  .addend-tile.neg-group { background:rgba(226,96,79,0.3); border-color:var(--coral); color:var(--coral); }
+
+  .group-areas { display:flex; gap:16px; justify-content:center; margin:12px 0; flex-wrap:wrap; }
+  .group-area {
+    flex:1; min-width:120px; max-width:200px;
+    border-radius:10px; padding:12px; text-align:center;
+  }
+  .group-area.pos { background:rgba(72,176,140,0.1); border:1.5px solid var(--seafoam); }
+  .group-area.neg { background:rgba(226,96,79,0.1); border:1.5px solid var(--coral); }
+  .group-label { font-size:13px; font-weight:700; margin-bottom:8px; }
+  .group-area.pos .group-label { color:var(--seafoam); }
+  .group-area.neg .group-label { color:var(--coral); }
+  .group-nums { font-size:18px; font-weight:700; min-height:28px; direction:ltr; }
+  .group-sums { display:flex; gap:24px; justify-content:center; font-size:17px; font-weight:700; margin:10px 0; }
+
+  /* Dual model layout */
+  .dual-models { display:flex; gap:16px; margin:14px 0; flex-wrap:wrap; }
+  .dual-model-box {
+    flex:1; min-width:260px;
+    background:rgba(234,244,241,0.05); border:1px solid rgba(234,244,241,0.15);
+    border-radius:10px; padding:14px; text-align:center;
+  }
+  .dual-model-label { font-size:13px; font-weight:700; color:rgba(234,244,241,0.6); margin-bottom:8px; }
 </style>
 </head>
 <body>
@@ -459,13 +514,136 @@ const quizQuestions2b = [
   }
 ];
 
+/* ============ GAME LEVELS 3/4/5 ============ */
+
+const gameLevels3 = [
+  { id:'jumpClick', title:'קפיצה על ציר המספרים', start:3, addend:-5, correct:-2,
+    explain:'מתחילים ב-3 וקופצים 5 יחידות שמאלה — מסיימים ב-(−2).' },
+  { id:'jumpClick', title:'קפיצה על ציר המספרים', start:-2, addend:4, correct:2,
+    explain:'מתחילים ב-(−2) וקופצים 4 יחידות ימינה — מסיימים ב-2.' },
+  { id:'jumpClick', title:'קפיצה על ציר המספרים', start:5, addend:-8, correct:-3,
+    explain:'מתחילים ב-5 וקופצים 8 יחידות שמאלה — מסיימים ב-(−3).' },
+  { id:'chipProfit', title:'רווח והפסד', scenario:'הרווחתם 4 ש"ח, ואז הפסדתם 7 ש"ח. מה המצב הכולל?',
+    pos:4, neg:7, correct:-3, explain:'4 צ׳יפים ירוקים ו-7 אדומים — 4 זוגות מתבטלים, נשארים 3 אדומים → (−3).' },
+  { id:'chipProfit', title:'רווח והפסד', scenario:'הפסדתם 5 ש"ח, ואז הרווחתם 9 ש"ח. מה המצב הכולל?',
+    pos:9, neg:5, correct:4, explain:'9 ירוקים ו-5 אדומים — 5 זוגות מתבטלים, נשארים 4 ירוקים → 4.' },
+  { id:'dualModel', title:'שני מודלים — אותה תשובה',
+    expr:'(−3) + 5', start:-3, addend:5, pos:5, neg:3, correct:2,
+    explain:'גם על הציר (קפיצה ימינה 5 מ-(−3)) וגם בצ׳יפים (5 ירוקים, 3 אדומים) — שניהם נותנים 2.' },
+  { id:'mc', title:'מושג מסכם',
+    question:'כשמחברים מספר שלילי למספר חיובי, התוצאה...',
+    options:['תמיד שלילית','תמיד חיובית','תלוי בערכים המדויקים','תמיד אפס'],
+    correct:'תלוי בערכים המדויקים',
+    explain:'אם |חיובי| > |שלילי| — תוצאה חיובית. אם |שלילי| > |חיובי| — תוצאה שלילית. אי אפשר לדעת ללא הערכים.' }
+];
+
+const gameLevels4 = [
+  { id:'typedSum', title:'אותו סימן', expr:'(−4) + (−6)', correct:-10,
+    explain:'4+6=10, שניהם שליליים → (−10).' },
+  { id:'typedSum', title:'אותו סימן', expr:'(−3) + (−8)', correct:-11,
+    explain:'3+8=11, שניהם שליליים → (−11).' },
+  { id:'typedSum', title:'סימנים שונים', expr:'(−2) + 9', correct:7, dominantSign:'חיובי',
+    explain:'9−2=7. הגדול (9) חיובי → 7.' },
+  { id:'typedSum', title:'סימנים שונים', expr:'5 + (−8)', correct:-3, dominantSign:'שלילי',
+    explain:'8−5=3. הגדול (8) שלילי → (−3).' },
+  { id:'typedSum', title:'תרגול מעורב', expr:'(−6) + 4', correct:-2,
+    explain:'6−4=2. הגדול (−6) שלילי → (−2).' },
+  { id:'typedSum', title:'תרגול מעורב', expr:'7 + (−3)', correct:4,
+    explain:'7−3=4. הגדול (7) חיובי → 4.' },
+  { id:'typedSum', title:'תרגול מעורב', expr:'(−5) + (−5)', correct:-10,
+    explain:'5+5=10, שניהם שליליים → (−10).' },
+  { id:'mc', title:'כשהסימנים שונים',
+    question:'כשהסימנים שונים, איך יודעים איזה סימן תהיה לתוצאה?',
+    options:['תמיד שלילי','תמיד חיובי','לפי המספר עם הערך המוחלט הגדול יותר','לפי המספר הראשון בתרגיל'],
+    correct:'לפי המספר עם הערך המוחלט הגדול יותר',
+    explain:'התוצאה "נמשכת" לכיוון של המספר עם הערך המוחלט הגדול יותר.' }
+];
+
+const gameLevels5 = [
+  { id:'groupSort', title:'קבצו לפי סימן', addends:[5,-3,-7,2], correct:-3,
+    explain:'חיוביים: 5+2=7. שליליים: 3+7=10. 7−10=(−3).' },
+  { id:'groupSort', title:'קבצו לפי סימן', addends:[-4,6,-2,3], correct:3,
+    explain:'חיוביים: 6+3=9. שליליים: 4+2=6. 9−6=3.' },
+  { id:'typedSum3', title:'חישוב ישיר', expr:'(−4) + (−4) + 8 + (−1)', addends:[-4,-4,8,-1], correct:-1,
+    explain:'חיוביים: 8. שליליים: 4+4+1=9. 8−9=(−1).' },
+  { id:'typedSum3', title:'חישוב ישיר', expr:'3 + (−6) + 5 + (−1)', addends:[3,-6,5,-1], correct:1,
+    explain:'חיוביים: 3+5=8. שליליים: 6+1=7. 8−7=1.' },
+  { id:'buildSum', title:'בנו תרגיל', target:4, minAddends:3, requireNeg:true,
+    explain:'כל תרגיל עם לפחות 3 מחוברים, אחד שלילי לפחות, שסכומו 4 — נכון!' },
+  { id:'buildSum', title:'בנו תרגיל', target:-3, minAddends:3, requireNeg:true,
+    explain:'כל תרגיל עם לפחות 3 מחוברים, אחד שלילי לפחות, שסכומו (−3) — נכון!' },
+  { id:'mc', title:'אסטרטגיית קיבוץ',
+    question:'למה נוח לקבץ קודם את כל החיוביים ואת כל השליליים בנפרד?',
+    options:['כי זה חוק חובה','כי כך מפשטים לשני חישובים פשוטים במקום הרבה שלבים','כי זה עובד רק עם שלושה מחוברים','אין יתרון'],
+    correct:'כי כך מפשטים לשני חישובים פשוטים במקום הרבה שלבים',
+    explain:'חוק הקיבוץ מאפשר לסדר מחדש. קיבוץ לפי סימן הופך כל תרגיל לשני שלבים פשוטים.' }
+];
+
+/* ============ QUIZ QUESTIONS 3/4/5 ============ */
+
+const quizQuestions3 = [
+  { type:'mc', title:'ציר המספרים', text:'מתחילים בנקודה 3 וקופצים 5 יחידות שמאלה. באיזו נקודה מסיימים?',
+    options:['8','2','(−2)','(−8)'], correct:'(−2)',
+    explain:'3 + (−5) = (−2). קפיצה שמאלה = חיבור שלילי.' },
+  { type:'mc', title:'אותו סימן', text:'מהי תוצאת (−4) + (−6)?',
+    options:['(−10)','10','(−2)','2'], correct:'(−10)',
+    explain:'שני שליליים: 4+6=10, שומרים מינוס → (−10).' },
+  { type:'mc', title:'סימנים שונים', text:'מהי תוצאת (−2) + 9?',
+    options:['11','(−11)','7','(−7)'], correct:'7',
+    explain:'9−2=7. הסימן של הגדול (9) הוא חיובי.' },
+  { type:'mc', title:'מודל הצ׳יפים', text:'איזה מודל הכי מתאים להסביר למה 6 + (−6) = 0?',
+    options:['6 צ׳יפים ירוקים ו-6 אדומים מתבטלים בזוגות','אין דרך מוחשית','רק הציר יכול','אין לזה משמעות'],
+    correct:'6 צ׳יפים ירוקים ו-6 אדומים מתבטלים בזוגות',
+    explain:'כל זוג ירוק+אדום = 0 (זוג אפס). 6 זוגות → תוצאה 0.' }
+];
+
+const quizQuestions4 = [
+  { type:'mc', title:'אותו סימן', text:'(−7) + (−3) = ?',
+    options:['(−10)','10','(−4)','4'], correct:'(−10)',
+    explain:'7+3=10, שניהם שליליים → (−10).' },
+  { type:'mc', title:'סימנים שונים', text:'8 + (−3) = ?',
+    options:['11','(−11)','5','(−5)'], correct:'5',
+    explain:'8−3=5, הגדול (8) חיובי → 5.' },
+  { type:'mc', title:'סימנים שונים', text:'(−8) + 3 = ?',
+    options:['11','(−11)','5','(−5)'], correct:'(−5)',
+    explain:'8−3=5, הגדול (−8) שלילי → (−5).' },
+  { type:'mc', title:'זוג נגדי', text:'(−15) + 15 = ?',
+    options:['30','(−30)','0','1'], correct:'0',
+    explain:'מספרים נגדיים תמיד מתבטלים לאפס.' },
+  { type:'mc', title:'כלל הסימן', text:'בתרגיל (−20) + 4, מה ניתן לדעת על סימן התוצאה מראש?',
+    options:['חיובית','שלילית','אפס','אי אפשר לדעת'], correct:'שלילית',
+    explain:'|−20|=20 גדול מ-|4|=4. הגדול שלילי → התוצאה שלילית.' }
+];
+
+const quizQuestions5 = [
+  { type:'mc', title:'שלושה מחוברים ומעלה', text:'5 + (−3) + (−7) + 2 = ?',
+    options:['(−3)','3','(−7)','7'], correct:'(−3)',
+    explain:'חיוביים: 5+2=7. שליליים: 3+7=10. 7−10=(−3).' },
+  { type:'mc', title:'ארבעה מחוברים', text:'(−4) + (−4) + 8 + (−1) = ?',
+    options:['(−1)','1','(−9)','9'], correct:'(−1)',
+    explain:'חיוביים: 8. שליליים: 9. 8−9=(−1).' },
+  { type:'mc', title:'מי אינו שווה ל-(−2)?', text:'איזה מהביטויים אינו שווה ל-(−2)?',
+    options:['3 + (−5) + 0','(−6) + 1 + 4','(−1) + (−1) + 1','2 + (−4) + 0'],
+    correct:'(−6) + 1 + 4',
+    explain:'(−6)+1+4 = (−1), לא (−2). שאר האפשרויות שוות ל-(−2).' },
+  { type:'mc', title:'בעיית המעלית', text:'מעלית עלתה 3 קומות, ירדה 5, ואז עלתה עוד 4. מה השינוי הכולל?',
+    options:['עלתה 2','ירדה 2','עלתה 12','ירדה 4'], correct:'עלתה 2',
+    explain:'3 + (−5) + 4 = 2. המעלית עלתה 2 קומות סה"כ.' }
+];
+
 /* ============ DISPATCH HELPERS ============ */
 
 function currentGameLevels(){
-  return state.sequence === 2 ? gameLevels2 : gameLevels1;
+  if(state.sequence===3) return gameLevels3;
+  if(state.sequence===4) return gameLevels4;
+  if(state.sequence===5) return gameLevels5;
+  return state.sequence===2 ? gameLevels2 : gameLevels1;
 }
 
 function currentQuizQuestions(){
+  if(state.sequence===3) return quizQuestions3;
+  if(state.sequence===4) return quizQuestions4;
+  if(state.sequence===5) return quizQuestions5;
   if(state.sequence===2) return state.quizAlt ? quizQuestions2b : quizQuestions2;
   return state.quizAlt ? quizQuestions1b : quizQuestions1;
 }
@@ -623,6 +801,51 @@ function renderHome(){
         </div>
       </div>
     </div>
+    <div class="sequence-section" style="margin-top:32px;">
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">פרק 7 — חיבור מספרים מכוונים</div>
+      <div class="sequence-title">3. מודלים לחיבור</div>
+      <div class="cards">
+        <div class="card learn" onclick="state.sequence=3;goTo('learn')">
+          <h3>הקנייה</h3>
+        </div>
+        <div class="flow-arrow">←</div>
+        <div class="card game" onclick="state.sequence=3;startGame()">
+          <h3>תרגול</h3>
+        </div>
+        <div class="flow-arrow">←</div>
+        <div class="card quiz" onclick="state.sequence=3;startQuiz()">
+          <h3>מבדק שליטה</h3>
+        </div>
+      </div>
+      <div class="sequence-title" style="margin-top:18px;">4. חיבור — חישוב ישיר</div>
+      <div class="cards">
+        <div class="card learn" onclick="state.sequence=4;goTo('learn')">
+          <h3>הקנייה</h3>
+        </div>
+        <div class="flow-arrow">←</div>
+        <div class="card game" onclick="state.sequence=4;startGame()">
+          <h3>תרגול</h3>
+        </div>
+        <div class="flow-arrow">←</div>
+        <div class="card quiz" onclick="state.sequence=4;startQuiz()">
+          <h3>מבדק שליטה</h3>
+        </div>
+      </div>
+      <div class="sequence-title" style="margin-top:18px;">5. יותר משני מחוברים</div>
+      <div class="cards">
+        <div class="card learn" onclick="state.sequence=5;goTo('learn')">
+          <h3>הקנייה</h3>
+        </div>
+        <div class="flow-arrow">←</div>
+        <div class="card game" onclick="state.sequence=5;startGame()">
+          <h3>תרגול</h3>
+        </div>
+        <div class="flow-arrow">←</div>
+        <div class="card quiz" onclick="state.sequence=5;startQuiz()">
+          <h3>מבדק שליטה</h3>
+        </div>
+      </div>
+    </div>
   `;
 }
 
@@ -640,7 +863,10 @@ function goTo(screen){ state.screen = screen; render(); }
 /* ============ LEARN ============ */
 
 function renderLearn(){
-  return state.sequence === 2 ? renderLearn2() : renderLearn1();
+  if(state.sequence===3) return renderLearn3();
+  if(state.sequence===4) return renderLearn4();
+  if(state.sequence===5) return renderLearn5();
+  return state.sequence===2 ? renderLearn2() : renderLearn1();
 }
 
 function renderLearn1(){
@@ -686,6 +912,67 @@ function renderLearn2(){
   `;
 }
 
+function renderLearn3(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle" style="text-align:right;">מודלים לחיבור מספרים מכוונים</h2>
+      <p class="qtext" style="text-align:right;">🎬 סרטון הקנייה יתווסף בקרוב.</p>
+      <div class="video-placeholder">הסרטון יתווסף בקרוב</div>
+      <ul class="bullets">
+        <li>ציר המספרים כמודל: קפיצה ימינה = חיבור חיובי, קפיצה שמאלה = חיבור שלילי.</li>
+        <li>מודל רווח והפסד: ירוק = חיובי, אדום = שלילי. זוגות שמתבטלים = אפס.</li>
+        <li>שני המודלים נותנים תמיד את אותה תשובה.</li>
+      </ul>
+      <div class="learn-note">💡 כשמחברים <bdi style="direction:ltr;unicode-bidi:isolate;">(−3) + 5</bdi> — על הציר מתחילים ב-<bdi style="direction:ltr;unicode-bidi:isolate;">(−3)</bdi> וקופצים 5 ימינה. בצ׳יפים: 5 ירוקים ו-3 אדומים, 3 זוגות מתבטלים, נשארים 2 ירוקים → 2.</div>
+      <div class="btnrow" style="margin-top:20px;">
+        <button class="btn" onclick="startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn4(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle" style="text-align:right;">חיבור מספרים מכוונים — שני כללים</h2>
+      <p class="qtext" style="text-align:right;">🎬 סרטון הקנייה יתווסף בקרוב.</p>
+      <div class="video-placeholder">הסרטון יתווסף בקרוב</div>
+      <ul class="bullets">
+        <li>אותו סימן: מחברים ערכים מוחלטים, שומרים את הסימן המשותף.</li>
+        <li>סימנים שונים: מחסרים את הקטן מהגדול, התוצאה בסימן של הגדול בערך מוחלט.</li>
+        <li><bdi style="direction:ltr;unicode-bidi:isolate;">(−4) + (−6) = (−10)</bdi> כי 4+6=10, שניהם שליליים.</li>
+        <li><bdi style="direction:ltr;unicode-bidi:isolate;">(−2) + 9 = 7</bdi> כי 9−2=7, והגדול (9) חיובי.</li>
+      </ul>
+      <div class="learn-note">💡 הסימן של התוצאה "נמשך" תמיד לכיוון המספר עם הערך המוחלט הגדול יותר.</div>
+      <div class="btnrow" style="margin-top:20px;">
+        <button class="btn" onclick="startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn5(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle" style="text-align:right;">חיבור עם יותר משני מחוברים</h2>
+      <p class="qtext" style="text-align:right;">🎬 סרטון הקנייה יתווסף בקרוב.</p>
+      <div class="video-placeholder">הסרטון יתווסף בקרוב</div>
+      <ul class="bullets">
+        <li>קבצו חיוביים יחד ושליליים יחד (חוק הקיבוץ).</li>
+        <li>חשבו כל קבוצה בנפרד, ואז חברו את שני הסכומים.</li>
+        <li><bdi style="direction:ltr;unicode-bidi:isolate;">5 + (−3) + (−7) + 2 = (5+2) + ((−3)+(−7)) = 7 + (−10) = (−3)</bdi>.</li>
+      </ul>
+      <div class="learn-note">💡 חוק הקיבוץ מאפשר לסדר מחדש כל חיבור — קיבוץ לפי סימן הופך כל תרגיל לשני שלבים פשוטים.</div>
+      <div class="btnrow" style="margin-top:20px;">
+        <button class="btn" onclick="startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
 /* ============ GAME INIT ============ */
 
 function startGame(){
@@ -697,6 +984,7 @@ function startGame(){
   const firstLvl = currentGameLevels()[0];
   if(firstLvl && firstLvl.id === 'absMC') state.shuffledOptions = shuffleArr(firstLvl.options || []);
   else if(firstLvl && (firstLvl.id === 'oppZero' || firstLvl.id === 'oppAbsMC')) state.shuffledOptions = shuffleArr(firstLvl.options || []);
+  else if(firstLvl && firstLvl.id === 'mc') state.shuffledOptions = shuffleArr(firstLvl.options || []);
   render();
 }
 
@@ -705,6 +993,9 @@ function freshLevelSub(levelIdx){
   if(!lvl) return {};
   if(lvl.id === 'absTwoPoints') return {clicked:[], answered:false, correct:false, error:false};
   if(lvl.id === 'oppPair') return {firstClick:null, matched:[], answered:false, error:false};
+  if(lvl.id === 'groupSort') return {groups:{}, sumSubmitted:false, answered:false, correct:false};
+  if(lvl.id === 'chipProfit') return {cancelled:false, answered:false, correct:false};
+  if(lvl.id === 'buildSum') return {answered:false, correct:false, buildError:null};
   return {answered:false, correct:false};
 }
 
@@ -719,6 +1010,7 @@ function nextLevel(){
   if(nextLvl && (nextLvl.id === 'absMC' || nextLvl.id === 'oppZero' || nextLvl.id === 'oppAbsMC')){
     state.shuffledOptions = shuffleArr(nextLvl.options || []);
   }
+  if(nextLvl && nextLvl.id === 'mc') state.shuffledOptions = shuffleArr(nextLvl.options || []);
   render();
 }
 
@@ -749,6 +1041,13 @@ function renderGame(){
   else if(lvl.id === 'oppPair') content = renderOppPair(lvl);
   else if(lvl.id === 'oppZero') content = renderOppZero(lvl);
   else if(lvl.id === 'oppAbsMC') content = renderOppAbsMC(lvl);
+  else if(lvl.id === 'jumpClick') content = renderJumpClick(lvl);
+  else if(lvl.id === 'chipProfit') content = renderChipProfit(lvl);
+  else if(lvl.id === 'dualModel') content = renderDualModel(lvl);
+  else if(lvl.id === 'typedSum' || lvl.id === 'typedSum3') content = renderTypedSum(lvl);
+  else if(lvl.id === 'groupSort') content = renderGroupSort(lvl);
+  else if(lvl.id === 'buildSum') content = renderBuildSum(lvl);
+  else if(lvl.id === 'mc') content = renderMC(lvl);
 
   return `
     <div class="progressdots">${dots}</div>
@@ -1130,6 +1429,515 @@ function renderOppAbsMC(lvl){
 }
 
 function answerOppAbsMC(opt){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  if(sub.answered) return;
+  sub.answered = true;
+  sub.picked = opt;
+  sub.correct = opt === lvl.correct;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ---- buildNumberLine with jump arc ---- */
+/* (Override existing to add jump support) */
+const _buildNumberLineOrig = buildNumberLine;
+
+function buildNumberLineWithJump({min=-12, max=12, marked=[], highlight=null, interactive=false, clickFn=null, matchedPairs=[], firstClick=null, errorNums=[], markedLabels={}, jump=null, jumpDone=false}={}){
+  const svgW = 600;
+  const svgH = 80;
+  const leftM = 30;
+  const rightM = 30;
+  const plotW = svgW - leftM - rightM;
+  const axisY = 50;
+  const totalNums = max - min;
+  const step = plotW / totalNums;
+
+  function xOf(n){ return leftM + (n - min) * step; }
+
+  let s = `<svg width="${svgW}" height="${svgH}" xmlns="http://www.w3.org/2000/svg" style="font-family:Rubik,sans-serif;display:block;direction:ltr;">`;
+
+  if(highlight !== null && highlight !== 0){
+    const x0 = xOf(0);
+    const xH = xOf(highlight);
+    s += `<line x1="${x0}" y1="${axisY}" x2="${xH}" y2="${axisY}" stroke="#E2604F" stroke-width="4" stroke-linecap="round"/>`;
+  }
+
+  s += `<line x1="${leftM}" y1="${axisY}" x2="${svgW - rightM}" y2="${axisY}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  s += `<polygon points="${svgW-rightM+2},${axisY} ${svgW-rightM-7},${axisY-5} ${svgW-rightM-7},${axisY+5}" fill="rgba(234,244,241,0.7)"/>`;
+  s += `<polygon points="${leftM-2},${axisY} ${leftM+7},${axisY-5} ${leftM+7},${axisY+5}" fill="rgba(234,244,241,0.7)"/>`;
+
+  for(let n = min; n <= max; n++){
+    const x = xOf(n);
+    const isZero = n === 0;
+    const isFive = n % 5 === 0;
+    const tickH = isZero ? 14 : isFive ? 10 : 6;
+    const tickW = isZero ? 2.5 : 1.5;
+    s += `<line x1="${x}" y1="${axisY - tickH}" x2="${x}" y2="${axisY + tickH}" stroke="rgba(234,244,241,${isZero?0.9:0.6})" stroke-width="${tickW}"/>`;
+    if(n !== min && n !== max && (n === -10 || n === -5 || n === 0 || n === 5 || n === 10)){
+      s += `<text x="${x}" y="${axisY + 28}" text-anchor="middle" font-size="13" fill="rgba(234,244,241,0.75)" font-family="Rubik,sans-serif">${n}</text>`;
+    }
+  }
+
+  matchedPairs.forEach(pair => {
+    const x0 = xOf(0);
+    const neg = pair[0] < pair[1] ? pair[0] : pair[1];
+    const pos = pair[0] < pair[1] ? pair[1] : pair[0];
+    const xNeg = xOf(neg);
+    const xPos = xOf(pos);
+    const arcH = Math.max(14, Math.abs(pos) * 2.5);
+    const mx1 = (x0 + xPos) / 2;
+    const mx2 = (x0 + xNeg) / 2;
+    s += `<path d="M${x0},${axisY-8} Q${mx1},${axisY-8-arcH} ${xPos},${axisY-8}" fill="none" stroke="#48B08C" stroke-width="2.5" stroke-dasharray="5,3"/>`;
+    s += `<path d="M${x0},${axisY-8} Q${mx2},${axisY-8-arcH} ${xNeg},${axisY-8}" fill="none" stroke="#48B08C" stroke-width="2.5" stroke-dasharray="5,3"/>`;
+  });
+
+  // Jump arc
+  if(jump !== null){
+    const xFrom = xOf(jump.from);
+    const xTo = xOf(jump.to);
+    const arcH = Math.min(35, Math.max(18, Math.abs(jump.to - jump.from) * 2));
+    const mx = (xFrom + xTo) / 2;
+    const markerId = `jmp${jump.from}_${jump.to}`.replace(/-/g,'n');
+
+    // Always show the "from" dot in gold
+    s += `<circle cx="${xFrom}" cy="${axisY}" r="8" fill="#EFA94A" stroke="#EFA94A" stroke-width="2"/>`;
+    s += `<text x="${xFrom}" y="${axisY+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#0A2A43" font-family="Rubik,sans-serif">${jump.from}</text>`;
+
+    if(jumpDone){
+      s += `<defs>
+        <marker id="${markerId}" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#EFA94A"/>
+        </marker>
+      </defs>`;
+      s += `<path d="M${xFrom},${axisY-8} Q${mx},${axisY-8-arcH} ${xTo},${axisY-8}"
+        fill="none" stroke="#EFA94A" stroke-width="2.5"
+        stroke-dasharray="400 400" stroke-dashoffset="400"
+        marker-end="url(#${markerId})">
+        <animate attributeName="stroke-dashoffset" from="400" to="0" dur="0.6s" fill="freeze"/>
+      </path>`;
+      // "to" dot in green
+      s += `<circle cx="${xTo}" cy="${axisY}" r="8" fill="#48B08C" stroke="#48B08C" stroke-width="2"/>`;
+      s += `<text x="${xTo}" y="${axisY+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="Rubik,sans-serif">${jump.to}</text>`;
+    }
+  }
+
+  if(firstClick !== null){
+    const xfc = xOf(firstClick);
+    s += `<circle cx="${xfc}" cy="${axisY}" r="11" fill="rgba(239,169,74,0.35)" stroke="#EFA94A" stroke-width="2.5"/>`;
+    s += `<text x="${xfc}" y="${axisY+4}" text-anchor="middle" font-size="12" font-weight="700" fill="#EFA94A" font-family="Rubik,sans-serif">${firstClick}</text>`;
+  }
+
+  const matchedFlat = matchedPairs.flat();
+  marked.forEach(n => {
+    const x = xOf(n);
+    const isMatched = matchedFlat.includes(n);
+    const isError = errorNums.includes(n);
+    const isFirst = firstClick === n;
+    // Skip if this is the jump.from (already drawn)
+    if(jump !== null && n === jump.from) return;
+    if(isFirst) return;
+    const fillColor = isMatched ? '#48B08C' : isError ? '#E2604F' : '#EFA94A';
+    const strokeColor = isMatched ? '#48B08C' : isError ? '#E2604F' : '#EFA94A';
+    const dotLabel = markedLabels[n] !== undefined ? markedLabels[n] : n;
+    s += `<circle cx="${x}" cy="${axisY}" r="8" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2"/>`;
+    s += `<text x="${x}" y="${axisY+4}" text-anchor="middle" font-size="11" font-weight="700" fill="${isMatched||isError?'#fff':'#0A2A43'}" font-family="Rubik,sans-serif">${dotLabel}</text>`;
+  });
+
+  if(interactive && clickFn){
+    for(let n = min + 1; n < max; n++){
+      const x = xOf(n);
+      s += `<circle cx="${x}" cy="${axisY}" r="14" fill="transparent" style="cursor:pointer;" onclick="window['${clickFn}'](${n})"/>`;
+    }
+  }
+
+  s += `</svg>`;
+  return s;
+}
+
+/* ---- chipBoard ---- */
+function buildChipBoard(pos, neg, cancelled=false){
+  const pairs = Math.min(pos, neg);
+  let html = '<div class="chip-board">';
+  if(cancelled){
+    for(let i=0;i<pairs;i++){
+      html += `<div class="chip pos dim">+<span class="chip-x">×</span></div>`;
+      html += `<div class="chip neg dim">−<span class="chip-x">×</span></div>`;
+    }
+    for(let i=0;i<pos-pairs;i++) html += `<div class="chip pos">+</div>`;
+    for(let i=0;i<neg-pairs;i++) html += `<div class="chip neg">−</div>`;
+  } else {
+    for(let i=0;i<pos;i++) html += `<div class="chip pos">+</div>`;
+    for(let i=0;i<neg;i++) html += `<div class="chip neg">−</div>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+/* ---- jumpClick ---- */
+function renderJumpClick(lvl){
+  const sub = state.levelSub;
+  if(!sub) return '';
+  const absAddend = Math.abs(lvl.addend);
+  const dirHe = lvl.addend < 0 ? 'שמאלה' : 'ימינה';
+  const exprStr = lvl.addend < 0
+    ? `${lvl.start} + ${bdi('(−' + absAddend + ')')}`
+    : `${lvl.start} + ${lvl.addend}`;
+  const nl = buildNumberLineWithJump({
+    jump:{from:lvl.start, to:lvl.correct},
+    jumpDone: !!(sub.answered && sub.correct),
+    interactive: !sub.answered,
+    clickFn: 'clickJump',
+    errorNums: sub.errorAt != null ? [sub.errorAt] : []
+  });
+
+  let answerArea = '';
+  if(!sub.answered){
+    answerArea = `<p class="instr">לחצו על נקודת הנחיתה של הקפיצה</p>`;
+  } else {
+    answerArea = `
+      <div class="feedback ok">נכון! מסיימים ב-${bdi(lvl.correct)}.</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">מתחילים ב-${bdi(lvl.start)}, קופצים ${absAddend} יחידות ${dirHe}</p>
+    <p class="qtext" style="font-size:20px;font-weight:700;">${exprStr} = ?</p>
+    <div class="nl-wrap">${nl}</div>
+    ${answerArea}
+  `;
+}
+
+function clickJump(n){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  if(sub.answered) return;
+  if(n === lvl.correct){
+    sub.answered = true;
+    sub.correct = true;
+    state.gameScore++;
+    state.gameTotal++;
+    render();
+  } else {
+    sub.errorAt = n;
+    render();
+    setTimeout(()=>{ if(state.levelSub) state.levelSub.errorAt = null; render(); }, 700);
+  }
+}
+
+/* ---- chipProfit ---- */
+function renderChipProfit(lvl){
+  const sub = state.levelSub;
+  const isCancelled = sub.cancelled || sub.answered;
+  const pairs = Math.min(lvl.pos, lvl.neg);
+  const remaining = Math.abs(lvl.correct);
+
+  let answerArea = '';
+  if(!sub.answered){
+    if(!sub.cancelled){
+      answerArea = `
+        <div class="btnrow">
+          <button class="btn" onclick="cancelChipPairs()">בטלו זוגות ✕</button>
+        </div>`;
+    } else {
+      answerArea = `
+        <p class="qtext">נשארו ${remaining} צ׳יפים — מה הסכום?</p>
+        <div class="abs-input-row">
+          <input type="number" id="chipInput" placeholder="?" style="width:80px;">
+          <button class="btn" onclick="submitChipAnswer()">בדיקה</button>
+        </div>
+        ${sub.inputError ? '<div class="feedback bad">יש להזין מספר תקין.</div>' : ''}`;
+    }
+  } else {
+    answerArea = `
+      <div class="feedback ${sub.correct?'ok':'bad'}">${sub.correct?'נכון!':'לא מדויק. התשובה: '+bdi(lvl.correct)}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">${lvl.scenario}</p>
+    ${buildChipBoard(lvl.pos, lvl.neg, isCancelled)}
+    ${answerArea}
+  `;
+}
+
+function cancelChipPairs(){
+  state.levelSub.cancelled = true;
+  render();
+}
+
+function submitChipAnswer(){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  const field = document.getElementById('chipInput');
+  const val = parseInt(field ? field.value : '');
+  if(isNaN(val)){ sub.inputError = true; render(); return; }
+  sub.answered = true;
+  sub.correct = val === lvl.correct;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ---- dualModel ---- */
+function renderDualModel(lvl){
+  const sub = state.levelSub;
+  const nlHtml = buildNumberLineWithJump({
+    jump:{from:lvl.start, to:lvl.correct},
+    jumpDone: !!sub.answered
+  });
+  const chipHtml = buildChipBoard(lvl.pos, lvl.neg, !!sub.answered);
+
+  let answerArea = '';
+  if(!sub.answered){
+    answerArea = `
+      <div class="abs-input-row">
+        <label style="font-size:18px;font-weight:700;">${wrapMath(lvl.expr)} = </label>
+        <input type="number" id="dualInput" placeholder="?" style="width:80px;">
+        <button class="btn" onclick="submitDualModel()">בדיקה</button>
+      </div>`;
+  } else {
+    answerArea = `
+      <div class="feedback ${sub.correct?'ok':'bad'}">${sub.correct?'נכון! שני המודלים נותנים אותה תשובה.':'לא מדויק. התשובה: '+bdi(lvl.correct)}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext" style="font-size:20px;font-weight:700;">${wrapMath(lvl.expr)} = ?</p>
+    <div class="dual-models">
+      <div class="dual-model-box">
+        <div class="dual-model-label">ציר המספרים</div>
+        <div class="nl-wrap" style="margin:0;">${nlHtml}</div>
+      </div>
+      <div class="dual-model-box">
+        <div class="dual-model-label">לוח הצ׳יפים</div>
+        ${chipHtml}
+      </div>
+    </div>
+    ${answerArea}
+  `;
+}
+
+function submitDualModel(){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  const field = document.getElementById('dualInput');
+  const val = parseInt(field ? field.value : '');
+  if(isNaN(val)){ render(); return; }
+  sub.answered = true;
+  sub.correct = val === lvl.correct;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ---- typedSum (sequences 4 & 5) ---- */
+function renderTypedSum(lvl){
+  const sub = state.levelSub;
+  let answerArea = '';
+  if(!sub.answered){
+    answerArea = `
+      ${lvl.dominantSign ? `<p class="instr">💡 הסימן של התוצאה יהיה ${lvl.dominantSign}</p>` : ''}
+      <div class="abs-input-row">
+        <input type="number" id="sumInput" placeholder="?" style="width:80px;">
+        <button class="btn" onclick="submitTypedSum()">בדיקה</button>
+      </div>`;
+  } else {
+    answerArea = `
+      <div class="feedback ${sub.correct?'ok':'bad'}">${sub.correct?'נכון!':'לא מדויק. התשובה: '+bdi(lvl.correct)}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext" style="font-size:24px;font-weight:700;">${wrapMath(lvl.expr)} = ?</p>
+    ${answerArea}
+  `;
+}
+
+function submitTypedSum(){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  const field = document.getElementById('sumInput');
+  const val = parseInt(field ? field.value : '');
+  if(isNaN(val)){ render(); return; }
+  sub.answered = true;
+  sub.correct = val === lvl.correct;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ---- groupSort (sequence 5) ---- */
+function renderGroupSort(lvl){
+  const sub = state.levelSub;
+  if(!sub.groups) sub.groups = {};
+
+  const tiles = lvl.addends.map((n,i) => {
+    let cls = 'addend-tile';
+    if(sub.groups[i] === 'pos') cls += ' pos-group';
+    else if(sub.groups[i] === 'neg') cls += ' neg-group';
+    return `<div class="${cls}" onclick="toggleGroup(${i})">${n >= 0 ? n : '(−'+Math.abs(n)+')'}</div>`;
+  }).join('');
+
+  const posNums = lvl.addends.filter((_,i) => sub.groups[i]==='pos');
+  const negNums = lvl.addends.filter((_,i) => sub.groups[i]==='neg');
+  const posSum = posNums.reduce((a,b)=>a+b,0);
+  const negSum = negNums.reduce((a,b)=>a+b,0);
+  const allAssigned = lvl.addends.every((_,i) => sub.groups[i]==='pos' || sub.groups[i]==='neg');
+
+  let content = '';
+  if(!sub.sumSubmitted){
+    content = `
+      <p class="instr">לחצו על כל מחובר כדי לשייכו לחיוביים (ירוק) או שליליים (אדום)</p>
+      <div class="addend-tiles">${tiles}</div>
+      <div class="group-areas">
+        <div class="group-area pos">
+          <div class="group-label">חיוביים +</div>
+          <div class="group-nums">${posNums.join(', ') || '—'}</div>
+        </div>
+        <div class="group-area neg">
+          <div class="group-label">שליליים −</div>
+          <div class="group-nums">${negNums.map(n=>'(−'+Math.abs(n)+')').join(', ') || '—'}</div>
+        </div>
+      </div>
+      <div class="btnrow">
+        <button class="btn" onclick="submitGroups()" ${allAssigned?'':'disabled'}>חשבו ←</button>
+      </div>`;
+  } else if(!sub.answered){
+    content = `
+      <div class="group-sums">
+        <span style="color:var(--seafoam);">חיוביים: ${posSum}</span>
+        <span style="color:var(--coral);">שליליים: ${negSum}</span>
+      </div>
+      <p class="qtext">מה הסכום הכולל?</p>
+      <div class="abs-input-row">
+        <input type="number" id="groupSumInput" placeholder="?" style="width:80px;">
+        <button class="btn" onclick="submitGroupSum()">בדיקה</button>
+      </div>`;
+  } else {
+    content = `
+      <div class="feedback ${sub.correct?'ok':'bad'}">${sub.correct?'נכון!':'לא מדויק. התשובה: '+bdi(lvl.correct)}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    ${content}
+  `;
+}
+
+function toggleGroup(i){
+  const sub = state.levelSub;
+  if(!sub.groups) sub.groups = {};
+  if(!sub.groups[i]) sub.groups[i] = 'pos';
+  else if(sub.groups[i]==='pos') sub.groups[i] = 'neg';
+  else sub.groups[i] = null;
+  render();
+}
+
+function submitGroups(){
+  const sub = state.levelSub;
+  const lvl = currentGameLevels()[state.levelIndex];
+  const allAssigned = lvl.addends.every((_,i) => sub.groups[i]==='pos' || sub.groups[i]==='neg');
+  if(!allAssigned) return;
+  sub.sumSubmitted = true;
+  render();
+}
+
+function submitGroupSum(){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  const field = document.getElementById('groupSumInput');
+  const val = parseInt(field ? field.value : '');
+  if(isNaN(val)){ render(); return; }
+  sub.answered = true;
+  sub.correct = val === lvl.correct;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ---- buildSum (sequence 5) ---- */
+function renderBuildSum(lvl){
+  const sub = state.levelSub;
+  const targetStr = lvl.target < 0 ? bdi('(−'+Math.abs(lvl.target)+')') : String(lvl.target);
+
+  let answerArea = '';
+  if(!sub.answered){
+    answerArea = `
+      <p class="instr">כתבו לפחות ${lvl.minAddends} מחוברים מופרדים בפסיק שסכומם ${targetStr}</p>
+      <p class="instr" style="font-size:13px;opacity:.7;">לדוגמה: 3, -5, 6</p>
+      <div class="abs-input-row">
+        <input type="text" id="buildInput" placeholder="מספרים מופרדים בפסיק" style="width:200px;direction:ltr;">
+        <button class="btn" onclick="submitBuildSum()">בדיקה</button>
+      </div>
+      ${sub.buildError ? `<div class="feedback bad">${sub.buildError}</div>` : ''}`;
+  } else {
+    answerArea = `
+      <div class="feedback ok">נכון! ${wrapMath(sub.userExpr)} = ${targetStr}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext" style="font-size:24px;font-weight:700;color:var(--gold);">יעד: ${targetStr}</p>
+    ${answerArea}
+  `;
+}
+
+function submitBuildSum(){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  const field = document.getElementById('buildInput');
+  const raw = field ? field.value : '';
+  const parts = raw.split(',').map(s => s.trim()).filter(s => s !== '');
+  const nums = parts.map(s => parseInt(s));
+  if(nums.some(isNaN)){ sub.buildError = 'יש ערכים לא תקינים — כתבו מספרים שלמים מופרדים בפסיק.'; render(); return; }
+  if(nums.length < lvl.minAddends){ sub.buildError = `יש להזין לפחות ${lvl.minAddends} מחוברים.`; render(); return; }
+  if(lvl.requireNeg && !nums.some(n => n < 0)){ sub.buildError = 'יש לכלול לפחות מחובר שלילי אחד.'; render(); return; }
+  const sum = nums.reduce((a,b)=>a+b,0);
+  if(sum !== lvl.target){ sub.buildError = `הסכום שלכם הוא ${sum}, לא ${lvl.target}. נסו שוב.`; render(); return; }
+  sub.answered = true;
+  sub.correct = true;
+  sub.userExpr = parts.join(' + ');
+  state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ---- mc (generic, for sequences 3/4/5) ---- */
+function renderMC(lvl){
+  const sub = state.levelSub;
+  const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : lvl.options;
+  const btns = opts.map(opt => {
+    let cls = 'mc-btn';
+    if(sub.answered){
+      if(opt===lvl.correct) cls += ' correct';
+      else if(opt===sub.picked && opt!==lvl.correct) cls += ' wrong';
+    }
+    return `<button class="${cls}" onclick="answerMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapMath(opt)}</button>`;
+  }).join('');
+  let feedback = '';
+  if(sub.answered){
+    feedback = `
+      <div class="feedback ${sub.correct?'ok':'bad'}">${sub.correct?'נכון!':'לא מדויק.'}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">${wrapMath(lvl.question)}</p>
+    <div class="mc-options">${btns}</div>
+    ${feedback}
+  `;
+}
+
+function answerMC(opt){
   const lvl = currentGameLevels()[state.levelIndex];
   const sub = state.levelSub;
   if(sub.answered) return;
