@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>מערכת הצירים בים</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
 
   :root{
     --navy:#0A2A43;
@@ -28,7 +28,7 @@
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    font-family:'Assistant',sans-serif;
+    font-family:'Rubik',sans-serif;
     background: radial-gradient(ellipse at 50% -10%, var(--teal) 0%, var(--navy) 45%, var(--deep-navy) 100%);
     color: var(--foam);
     direction: rtl;
@@ -45,7 +45,7 @@
   .brand-group{display:flex;align-items:center;gap:10px;}
   .topbar-logo{height:30px;width:auto;display:block;}
   .brand{
-    font-family:'Frank Ruhl Libre',serif;font-size:19px;color:var(--gold);
+    font-family:'Rubik',sans-serif;font-size:19px;color:var(--gold);
     text-align:right;
   }
   .logo-badge{
@@ -54,14 +54,14 @@
   .logo-badge img{height:54px;width:auto;display:block;}
   .homebtn{
     background:transparent;border:1.5px solid var(--foam);color:var(--foam);
-    padding:7px 16px;border-radius:20px;font-family:'Assistant',sans-serif;
+    padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;
     font-size:14px;cursor:pointer;opacity:.85;
   }
   .homebtn:hover{opacity:1;border-color:var(--gold);color:var(--gold);}
 
   .hero{text-align:center;padding:18px 10px 10px;}
   h1.title{
-    font-family:'Frank Ruhl Libre',serif;font-weight:700;
+    font-family:'Rubik',sans-serif;font-weight:800;
     font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:var(--gold);
     text-align:center;
   }
@@ -73,50 +73,32 @@
   ul.bullets li{position:relative;padding-right:20px;margin-bottom:9px;font-size:16px;}
   ul.bullets li::before{content:"•";color:var(--gold);position:absolute;right:0;top:0;font-size:18px;}
 
-  .cards{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:28px;}
-  .sequence-section { margin-bottom: 36px; }
-  .sequence-title {
-    font-family:'Frank Ruhl Libre',serif;
-    font-size:20px; color:var(--gold);
-    text-align:center; margin:0 0 16px;
+  .cards{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+  .sequence-section{margin-bottom:28px;background:rgba(234,244,241,0.04);border-radius:14px;padding:18px 20px;}
+  .sequence-title{
+    font-family:'Rubik',sans-serif;font-weight:700;
+    font-size:17px;color:var(--foam);
+    text-align:center;margin:0 0 14px;opacity:.9;
   }
 
-  .flow-arrow{
-    display:flex;align-items:center;justify-content:center;
-    font-size:34px;font-weight:700;color:var(--gold);flex-shrink:0;
-    text-shadow:0 0 10px rgba(239,169,74,0.5);
-  }
+  .flow-arrow{display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(239,169,74,0.5);flex-shrink:0;}
   .flow-arrow .narrow-arrow{display:none;}
 
   .card{
-    background:var(--paper);color:var(--ink);cursor:pointer;
-    text-align:right;transition:transform .15s ease, box-shadow .15s ease;
-    box-shadow:0 6px 0 rgba(0,0,0,.18);
+    display:flex;align-items:center;gap:10px;
+    padding:12px 20px;border-radius:50px;cursor:pointer;
+    font-family:'Rubik',sans-serif;font-weight:600;font-size:15px;
+    transition:transform .15s ease, box-shadow .15s ease;
+    border:none;
   }
-  .card:hover{transform:translateY(-4px);}
-  .card h3{font-family:'Frank Ruhl Libre',serif;font-size:20px;margin:0 0 8px;}
-  .card p{font-size:14.5px;line-height:1.5;margin:0;color:#3c4a52;}
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.25);}
+  .card h3{font-family:'Rubik',sans-serif;font-size:15px;font-weight:600;margin:0;}
+  .card p{display:none;}
 
-  .card.learn{
-    width:230px;padding:22px 22px 26px;border-right:6px solid var(--teal);
-    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
-  }
-  .card.quiz{
-    width:230px;padding:22px 22px 26px;border-right:6px solid var(--coral);
-    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
-  }
-  .card.quiz .tag{
-    display:inline-block;margin-top:10px;background:var(--coral);color:var(--foam);
-    font-size:12px;padding:3px 10px;border-radius:12px;
-  }
-  .card.game{
-    width:220px;height:220px;border-radius:50%;
-    border:6px solid var(--navy);outline:3px solid var(--gold);outline-offset:4px;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;padding:20px;
-  }
-  .card.game h3{text-align:center;}
-  .card.game p{text-align:center;}
+  .card.learn{background:rgba(28,110,140,0.25);border:1.5px solid var(--teal);color:var(--foam);}
+  .card.game{background:rgba(239,169,74,0.18);border:1.5px solid var(--gold);color:var(--gold);}
+  .card.quiz{background:rgba(226,96,79,0.18);border:1.5px solid var(--coral);color:var(--coral);}
+  .card.quiz .tag{display:none;}
 
   .icon{font-size:30px;margin-bottom:8px;display:block;text-align:inherit;}
 
@@ -150,7 +132,7 @@
   }
   .coord-input-row input{
     width:58px;padding:6px 4px;font-size:18px;border-radius:6px;border:1.5px solid var(--teal);
-    text-align:center;font-family:'Assistant',sans-serif;background:var(--foam);color:var(--ink);
+    text-align:center;font-family:'Rubik',sans-serif;background:var(--foam);color:var(--ink);
   }
   .coord-input-row input:focus{outline:2px solid var(--gold);}
   .coord-input-row .paren, .coord-input-row .comma{color:var(--foam);}
@@ -168,7 +150,7 @@
   .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
   .btn{
     background:var(--gold);color:var(--deep-navy);border:none;font-weight:700;
-    font-family:'Assistant',sans-serif;font-size:15px;padding:11px 26px;
+    font-family:'Rubik',sans-serif;font-size:15px;padding:11px 26px;
     border-radius:24px;cursor:pointer;transition:transform .12s ease;
   }
   .btn:hover{transform:translateY(-2px);}
@@ -189,7 +171,7 @@
   }
   .target-pop .coord-big{
     display:inline-block;font-size:32px;font-weight:800;
-    font-family:'Assistant',sans-serif;
+    font-family:'Rubik',sans-serif;
   }
   .target-wrap{
     display:flex;align-items:center;justify-content:center;gap:16px;
@@ -246,7 +228,7 @@
   .inputs-row label{font-size:15px;display:flex;align-items:center;gap:6px;}
   .inputs-row input{
     width:70px;padding:8px 10px;font-size:16px;border-radius:6px;border:1.5px solid var(--teal);
-    text-align:center;font-family:'Assistant',sans-serif;background:var(--foam);color:var(--ink);
+    text-align:center;font-family:'Rubik',sans-serif;background:var(--foam);color:var(--ink);
   }
   .inputs-row input:focus{outline:2px solid var(--gold);}
 
@@ -254,7 +236,7 @@
   .mc-btn{
     background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);
     color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;
-    cursor:pointer;font-family:'Assistant',sans-serif;
+    cursor:pointer;font-family:'Rubik',sans-serif;
     text-align:center;
   }
   .mc-btn:hover{border-color:var(--gold);}
@@ -273,7 +255,7 @@
 
   .coord{direction:ltr;display:inline-block;font-weight:700;color:var(--gold);}
 
-  .scorebig{font-family:'Frank Ruhl Libre',serif;font-size:52px;color:var(--gold);text-align:center;margin:10px 0;}
+  .scorebig{font-family:'Rubik',sans-serif;font-size:52px;color:var(--gold);text-align:center;margin:10px 0;}
 
   .targetlist{max-width:300px;margin:14px auto;}
   .targetlist .t{
@@ -645,7 +627,7 @@ function buildTrainGraph(highlight){
   const sy=km=>topM+plotH-km*kmScale;
   const hours=[6,8,10,12,14,16,18];
   const cities=[{n:'קרית שמונה',km:500},{n:'חיפה',km:400},{n:'תל אביב',km:300},{n:'באר שבע',km:100},{n:'אילת',km:0}];
-  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Assistant,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
+  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Rubik,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
   // grid
   hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
   cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
@@ -679,7 +661,7 @@ function buildStoppedTrainGraph(){
   const sy=km=>topM+plotH-km*kmScale;
   const hours=[6,8,10,12,14,16,18];
   const cities=[{n:'קרית שמונה',km:500},{n:'חיפה',km:400},{n:'תל אביב',km:300},{n:'באר שבע',km:100},{n:'אילת',km:0}];
-  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Assistant,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
+  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Rubik,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
   hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
   cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
   s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
@@ -706,7 +688,7 @@ function buildVerticalTrainGraph(){
   const sy=km=>topM+plotH-km*kmScale;
   const hours=[6,8,10,12,14,16,18];
   const cities=[{n:'קרית שמונה',km:500},{n:'חיפה',km:400},{n:'תל אביב',km:300},{n:'באר שבע',km:100},{n:'אילת',km:0}];
-  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Assistant,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
+  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Rubik,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
   hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
   cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
   s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
@@ -732,7 +714,7 @@ function buildCrossingTrainGraph(){
   const sy=km=>topM+plotH-km*kmScale;
   const hours=[6,8,10,12,14,16,18];
   const cities=[{n:'קרית שמונה',km:500},{n:'חיפה',km:400},{n:'תל אביב',km:300},{n:'באר שבע',km:100},{n:'אילת',km:0}];
-  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Assistant,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
+  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Rubik,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
   // grid
   hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
   cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
@@ -756,7 +738,7 @@ function buildCrossingTrainGraph(){
   // Meeting circle at Beer Sheva 11:00
   s+=`<circle cx="${sx(11)}" cy="${sy(100)}" r="7" fill="none" stroke="#E2604F" stroke-width="2"/>`;
   s+=`</svg>`;
-  s+=`<div style="display:flex;gap:18px;justify-content:center;margin-top:6px;font-size:12px;font-family:Assistant,sans-serif;">`;
+  s+=`<div style="display:flex;gap:18px;justify-content:center;margin-top:6px;font-size:12px;font-family:Rubik,sans-serif;">`;
   s+=`<span style="color:#EFA94A;display:flex;align-items:center;gap:5px;"><svg width="20" height="4"><line x1="0" y1="2" x2="20" y2="2" stroke="#EFA94A" stroke-width="2.5"/></svg>רכבת א׳</span>`;
   s+=`<span style="color:#4ECDC4;display:flex;align-items:center;gap:5px;"><svg width="20" height="4"><line x1="0" y1="2" x2="20" y2="2" stroke="#4ECDC4" stroke-width="2.5"/></svg>רכבת ב׳</span>`;
   s+=`</div>`;
@@ -873,7 +855,6 @@ function render(){
 function renderHome(){
   return `
     <div class="hero">
-      <div class="logo-badge"><img src="${LOGO_URI}" alt="לוגו חן מרגלית - למידה אקטיבית"></div>
       <h1 class="title">מערכת הצירים בים</h1>
       <p class="subtitle">לומדים לשחות ברביע הראשון</p>
     </div>
