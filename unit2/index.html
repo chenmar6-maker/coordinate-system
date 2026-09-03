@@ -1105,7 +1105,9 @@ function shuffleArr(arr){
 
 function wrapMath(str){
   if(!str) return str;
-  return str.replace(/\|[^|]+\|/g, m => `<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`);
+  return str
+    .replace(/\|[^|]+\|/g, m => `<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`)
+    .replace(/\([-−][^)]+\)/g, m => `<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`);
 }
 
 function startQuiz(){
