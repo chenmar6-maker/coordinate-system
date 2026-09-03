@@ -859,7 +859,7 @@ function renderHome(){
       <p class="subtitle">לומדים לשחות ברביע הראשון</p>
     </div>
     <div class="sequence-section">
-      <div class="sequence-title">נקודות על מערכת הצירים</div>
+      <div class="sequence-title">1. נקודות על מערכת הצירים</div>
       <div class="cards">
         <div class="card learn" onclick="state.sequence=1;goTo('learn')">
           <h3>הקנייה - מערכת הצירים</h3>
@@ -870,12 +870,12 @@ function renderHome(){
         </div>
         <div class="flow-arrow"><span class="wide-arrow">←</span><span class="narrow-arrow">↓</span></div>
         <div class="card quiz" onclick="state.sequence=1;startQuiz()">
-          <h3>בוחן יחידה</h3>
+          <h3>מבדק שליטה</h3>
         </div>
       </div>
     </div>
     <div class="sequence-section">
-      <div class="sequence-title">אורכים ושטחים</div>
+      <div class="sequence-title">2. אורכים ושטחים</div>
       <div class="cards">
         <div class="card learn" onclick="state.sequence=2;goTo('learn')">
           <h3>הקנייה - אורכים ושטחים</h3>
@@ -886,12 +886,12 @@ function renderHome(){
         </div>
         <div class="flow-arrow"><span class="wide-arrow">←</span><span class="narrow-arrow">↓</span></div>
         <div class="card quiz" onclick="state.sequence=2;startQuiz()">
-          <h3>בוחן יחידה</h3>
+          <h3>מבדק שליטה</h3>
         </div>
       </div>
     </div>
     <div class="sequence-section">
-      <div class="sequence-title">דוגמה שימושית — גרף רכבות</div>
+      <div class="sequence-title">3. דוגמה שימושית — גרף רכבות</div>
       <div class="cards">
         <div class="card learn" onclick="state.sequence=3;goTo('learn')">
           <h3>הקנייה - גרף רכבות</h3>
@@ -902,7 +902,7 @@ function renderHome(){
         </div>
         <div class="flow-arrow"><span class="wide-arrow">←</span><span class="narrow-arrow">↓</span></div>
         <div class="card quiz" onclick="state.sequence=3;startQuiz()">
-          <h3>בוחן יחידה</h3>
+          <h3>מבדק שליטה</h3>
         </div>
       </div>
     </div>
@@ -1375,7 +1375,7 @@ function renderGameResults(){
     <div class="panel" style="text-align:center;">
       <h2 class="qtitle">סיימתם את משחק הצוללות! 🎉</h2>
       <div class="scorebig">${state.gameScore} / ${state.gameTotal}</div>
-      <p class="qtext">עכשיו אפשר לבדוק את הידע שלכם בבוחן החוקרים.</p>
+      <p class="qtext">עכשיו אפשר לבדוק את הידע שלכם במבדק שליטה.</p>
       <div class="btnrow">
         <button class="btn" onclick="startQuiz()">לבוחן היחידה 🗺️</button>
         <button class="btn secondary" onclick="goHome()">חזרה לבית</button>
@@ -1468,7 +1468,7 @@ function renderQuiz(){
       ${answerArea}
       ${state.quizAnswered ? `
         <div class="explain-box"><strong>${state.quizLastCorrect?'תשובה נכונה!':'לא מדויק.'}</strong> ${q.explain}</div>
-        <div class="btnrow"><button class="btn" onclick="${isLast?'finishQuiz()':'nextQuizQuestion()'}">${isLast?'לתוצאות הבוחן':'לשאלה הבאה'}</button></div>
+        <div class="btnrow"><button class="btn" onclick="${isLast?'finishQuiz()':'nextQuizQuestion()'}">${isLast?'לתוצאות':'לשאלה הבאה'}</button></div>
       ` : ''}
     </div>
   `;
@@ -1533,7 +1533,7 @@ function renderQuizResults(){
   else if(pct>=60) msg = 'עבודה טובה, עוד קצת תרגול ותהיו רבי חובלים!';
   return `
     <div class="panel" style="text-align:center;">
-      <h2 class="qtitle">תוצאות בוחן החוקרים 🗺️</h2>
+      <h2 class="qtitle">תוצאות מבדק שליטה 🗺️</h2>
       <div class="scorebig" dir="ltr">${state.quizScore} / ${currentQuizQuestions().length}</div>
       <p class="qtext">${msg}</p>
       <div class="btnrow">
