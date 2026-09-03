@@ -501,13 +501,18 @@ function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactiv
     }
   }
 
-  // Matched pair lines (green arcs/connectors)
+  // Matched pair arcs — two arcs from 0 outward, one per side
   matchedPairs.forEach(pair => {
-    const xa = xOf(pair[0]);
-    const xb = xOf(pair[1]);
-    const mx = (xa + xb) / 2;
-    const arcH = 18;
-    s += `<path d="M${xa},${axisY-8} Q${mx},${axisY-8-arcH} ${xb},${axisY-8}" fill="none" stroke="#48B08C" stroke-width="2" stroke-dasharray="4,2"/>`;
+    const x0 = xOf(0);
+    const neg = pair[0] < pair[1] ? pair[0] : pair[1];
+    const pos = pair[0] < pair[1] ? pair[1] : pair[0];
+    const xNeg = xOf(neg);
+    const xPos = xOf(pos);
+    const arcH = Math.max(14, Math.abs(pos) * 2.5);
+    const mx1 = (x0 + xPos) / 2;
+    const mx2 = (x0 + xNeg) / 2;
+    s += `<path d="M${x0},${axisY-8} Q${mx1},${axisY-8-arcH} ${xPos},${axisY-8}" fill="none" stroke="#48B08C" stroke-width="2.5" stroke-dasharray="5,3"/>`;
+    s += `<path d="M${x0},${axisY-8} Q${mx2},${axisY-8-arcH} ${xNeg},${axisY-8}" fill="none" stroke="#48B08C" stroke-width="2.5" stroke-dasharray="5,3"/>`;
   });
 
   // firstClick highlight
