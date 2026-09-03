@@ -631,12 +631,75 @@ const quizQuestions5 = [
     explain:'3 + (−5) + 4 = 2. המעלית עלתה 2 קומות סה"כ.' }
 ];
 
+/* ============ GAME LEVELS 6 ============ */
+
+const gameLevels6 = [
+  { id:'placeNum', title:'סמנו על הציר', number:-4,
+    explain:'(−4) נמצא 4 יחידות שמאלית ל-0, בין (−5) ל-(−3).' },
+  { id:'placeNum', title:'סמנו על הציר', number:-7,
+    explain:'(−7) נמצא 7 יחידות שמאלית ל-0.' },
+  { id:'placeNum', title:'סמנו על הציר', number:3,
+    explain:'3 נמצא 3 יחידות ימינה מ-0.' },
+  { id:'mc', title:'מי גדול יותר?',
+    question:'מי גדול יותר: (−3) או (−8)?',
+    options:['(−3)','(−8)','הם שווים','אי אפשר להשוות'],
+    correct:'(−3)',
+    explain:'על ציר המספרים (−3) נמצא ימינה מ-(−8) — לכן הוא גדול יותר.' },
+  { id:'mc', title:'מי קטן יותר?',
+    question:'מי קטן יותר: (−1) או (−5)?',
+    options:['(−5)','(−1)','הם שווים','אי אפשר לדעת'],
+    correct:'(−5)',
+    explain:'(−5) נמצא שמאלה מ-(−1) — לכן הוא קטן יותר.' },
+  { id:'readFracMC', title:'קראו מהציר', marked:-2.5,
+    question:'איזה מספר מסומן על הציר?',
+    options:['(−2.5)','(−3.5)','(−1.5)','(−2)'],
+    correct:'(−2.5)',
+    explain:'הנקודה נמצאת בדיוק באמצע בין (−3) ל-(−2) — זהו (−2.5).' },
+  { id:'readFracMC', title:'קראו מהציר', marked:1.5,
+    question:'איזה מספר מסומן על הציר?',
+    options:['1.5','2.5','0.5','1'],
+    correct:'1.5',
+    explain:'הנקודה נמצאת באמצע בין 1 ל-2 — זהו 1.5.' },
+  { id:'readFracMC', title:'קראו מהציר', marked:-0.5,
+    question:'איזה מספר מסומן על הציר?',
+    options:['(−0.5)','(−1.5)','0.5','(−1)'],
+    correct:'(−0.5)',
+    explain:'הנקודה נמצאת בין (−1) ל-0, בדיוק באמצע — זהו (−0.5).' },
+  { id:'mc', title:'מיון מספרים',
+    question:'מהו הסדר הנכון מהקטן לגדול: (−2.5), 1, (−1)?',
+    options:['(−2.5), (−1), 1','1, (−1), (−2.5)','(−1), (−2.5), 1','(−2.5), 1, (−1)'],
+    correct:'(−2.5), (−1), 1',
+    explain:'על הציר משמאל לימין: (−2.5) הכי שמאלי, אחריו (−1), ואז 1.' }
+];
+
+/* ============ QUIZ QUESTIONS 6 ============ */
+
+const quizQuestions6 = [
+  { type:'mc', title:'מיון מספרים', text:'מה הסדר הנכון מהקטן לגדול?',
+    options:['(−7), (−3), 0, 2','2, 0, (−3), (−7)','(−3), (−7), 0, 2','0, (−3), (−7), 2'],
+    correct:'(−7), (−3), 0, 2',
+    explain:'על ציר המספרים — שמאל לימין הוא מהקטן לגדול.' },
+  { type:'mc', title:'שבר על הציר', text:'מהי הנקודה שנמצאת בדיוק בין (−2) ל-(−1)?',
+    options:['(−1.5)','(−2.5)','(−0.5)','0.5'],
+    correct:'(−1.5)',
+    explain:'בדיוק באמצע בין (−2) ל-(−1) נמצא (−1.5).' },
+  { type:'mc', title:'השוואת מספרים', text:'מי גדול יותר: (−0.5) או (−3)?',
+    options:['(−0.5)','(−3)','הם שווים','תלוי בהקשר'],
+    correct:'(−0.5)',
+    explain:'(−0.5) קרוב יותר ל-0 ונמצא ימינה — לכן הוא גדול יותר.' },
+  { type:'mc', title:'מיקום שבר', text:'בין אילו שלמים נמצא (−3.5)?',
+    options:['בין (−4) ל-(−3)','בין (−3) ל-(−2)','שמאל ל-(−4)','ימין ל-(−3)'],
+    correct:'בין (−4) ל-(−3)',
+    explain:'(−3.5) נמצא בדיוק באמצע בין (−4) ל-(−3).' }
+];
+
 /* ============ DISPATCH HELPERS ============ */
 
 function currentGameLevels(){
   if(state.sequence===3) return gameLevels3;
   if(state.sequence===4) return gameLevels4;
   if(state.sequence===5) return gameLevels5;
+  if(state.sequence===6) return gameLevels6;
   return state.sequence===2 ? gameLevels2 : gameLevels1;
 }
 
@@ -644,6 +707,7 @@ function currentQuizQuestions(){
   if(state.sequence===3) return quizQuestions3;
   if(state.sequence===4) return quizQuestions4;
   if(state.sequence===5) return quizQuestions5;
+  if(state.sequence===6) return quizQuestions6;
   if(state.sequence===2) return state.quizAlt ? quizQuestions2b : quizQuestions2;
   return state.quizAlt ? quizQuestions1b : quizQuestions1;
 }
@@ -693,6 +757,16 @@ function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactiv
     }
   }
 
+  // Half-unit ticks when fractions are present
+  const hasNonInt = marked.some(n => n !== Math.floor(n)) ||
+                    (highlight !== null && highlight !== Math.floor(highlight));
+  if(hasNonInt){
+    for(let n = min; n < max; n++){
+      const xh = xOf(n + 0.5);
+      s += `<line x1="${xh}" y1="${axisY-5}" x2="${xh}" y2="${axisY+5}" stroke="rgba(234,244,241,0.4)" stroke-width="1"/>`;
+    }
+  }
+
   // Matched pair arcs — two arcs from 0 outward, one per side
   matchedPairs.forEach(pair => {
     const x0 = xOf(0);
@@ -723,10 +797,17 @@ function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactiv
     const isFirst = firstClick === n;
     if(isFirst) return; // already drawn above
     const fillColor = isMatched ? '#48B08C' : isError ? '#E2604F' : '#EFA94A';
-    const strokeColor = isMatched ? '#48B08C' : isError ? '#E2604F' : '#EFA94A';
+    const strokeColor = fillColor;
     const dotLabel = markedLabels[n] !== undefined ? markedLabels[n] : n;
-    s += `<circle cx="${x}" cy="${axisY}" r="8" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2"/>`;
-    s += `<text x="${x}" y="${axisY+4}" text-anchor="middle" font-size="11" font-weight="700" fill="${isMatched||isError?'#fff':'#0A2A43'}" font-family="Rubik,sans-serif">${dotLabel}</text>`;
+    const isFrac = n !== Math.floor(n);
+    if(isFrac){
+      // Small dot, label below axis
+      s += `<circle cx="${x}" cy="${axisY}" r="6" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2"/>`;
+      s += `<text x="${x}" y="${axisY+26}" text-anchor="middle" font-size="11" fill="${fillColor}" font-family="Rubik,sans-serif">${dotLabel}</text>`;
+    } else {
+      s += `<circle cx="${x}" cy="${axisY}" r="8" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2"/>`;
+      s += `<text x="${x}" y="${axisY+4}" text-anchor="middle" font-size="11" font-weight="700" fill="${isMatched||isError?'#fff':'#0A2A43'}" font-family="Rubik,sans-serif">${dotLabel}</text>`;
+    }
   });
 
   // Interactive click targets
@@ -801,6 +882,22 @@ function renderHome(){
         </div>
       </div>
     </div>
+    <div class="sequence-section">
+      <div class="sequence-title">6. מיקום מספרים מכוונים על ציר המספרים (כולל שברים)</div>
+      <div class="cards">
+        <div class="card learn" onclick="state.sequence=6;goTo('learn')">
+          <h3>הקנייה</h3>
+        </div>
+        <div class="flow-arrow">←</div>
+        <div class="card game" onclick="state.sequence=6;startGame()">
+          <h3>תרגול</h3>
+        </div>
+        <div class="flow-arrow">←</div>
+        <div class="card quiz" onclick="state.sequence=6;startQuiz()">
+          <h3>מבדק שליטה</h3>
+        </div>
+      </div>
+    </div>
     <div class="sequence-section" style="margin-top:32px;">
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">פרק 7 — חיבור מספרים מכוונים</div>
       <div class="sequence-title">3. מודלים לחיבור</div>
@@ -866,6 +963,7 @@ function renderLearn(){
   if(state.sequence===3) return renderLearn3();
   if(state.sequence===4) return renderLearn4();
   if(state.sequence===5) return renderLearn5();
+  if(state.sequence===6) return renderLearn6();
   return state.sequence===2 ? renderLearn2() : renderLearn1();
 }
 
@@ -973,6 +1071,25 @@ function renderLearn5(){
   `;
 }
 
+function renderLearn6(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle" style="text-align:right;">מיקום מספרים מכוונים על ציר המספרים</h2>
+      <ul class="bullets">
+        <li>כל מספר מכוון תופס מקום מדויק על ציר המספרים: חיוביים מימין ל-0, שליליים משמאל ל-0.</li>
+        <li>ככל שמספר שלילי גדול יותר בערכו המוחלט, הוא ממוקם <strong>רחוק יותר משמאל</strong> — ולכן הוא <strong>קטן יותר</strong>. למשל: <bdi style="direction:ltr;unicode-bidi:isolate;">(−7) &lt; (−3)</bdi> כי (−7) שמאלי יותר.</li>
+        <li>שברים ומספרים עשרוניים מכוונים נמצאים <strong>בין</strong> שלמים סמוכים. למשל: <bdi style="direction:ltr;unicode-bidi:isolate;">(−2.5)</bdi> נמצא בין <bdi style="direction:ltr;unicode-bidi:isolate;">(−3)</bdi> ל-<bdi style="direction:ltr;unicode-bidi:isolate;">(−2)</bdi>.</li>
+        <li>הסדר על הציר (משמאל לימין) הוא הסדר מהקטן לגדול.</li>
+      </ul>
+      <div class="learn-note">💡 מספר שלילי גדול יותר הוא <strong>פחות שלילי</strong> — כלומר, (−1) גדול יותר מ-(−100), כי הוא קרוב יותר ל-0.</div>
+      <div class="btnrow" style="margin-top:20px;">
+        <button class="btn" onclick="startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
 /* ============ GAME INIT ============ */
 
 function startGame(){
@@ -985,6 +1102,7 @@ function startGame(){
   if(firstLvl && firstLvl.id === 'absMC') state.shuffledOptions = shuffleArr(firstLvl.options || []);
   else if(firstLvl && (firstLvl.id === 'oppZero' || firstLvl.id === 'oppAbsMC')) state.shuffledOptions = shuffleArr(firstLvl.options || []);
   else if(firstLvl && firstLvl.id === 'mc') state.shuffledOptions = shuffleArr(firstLvl.options || []);
+  else if(firstLvl && firstLvl.id === 'readFracMC') state.shuffledOptions = shuffleArr(firstLvl.options || []);
   render();
 }
 
@@ -996,6 +1114,8 @@ function freshLevelSub(levelIdx){
   if(lvl.id === 'groupSort') return {groups:{}, sumSubmitted:false, answered:false, correct:false};
   if(lvl.id === 'chipProfit') return {cancelled:false, answered:false, correct:false};
   if(lvl.id === 'buildSum') return {answered:false, correct:false, buildError:null};
+  if(lvl.id === 'placeNum') return {answered:false, correct:false, errorAt:null};
+  if(lvl.id === 'readFracMC') return {answered:false, correct:false, picked:null};
   return {answered:false, correct:false};
 }
 
@@ -1011,6 +1131,7 @@ function nextLevel(){
     state.shuffledOptions = shuffleArr(nextLvl.options || []);
   }
   if(nextLvl && nextLvl.id === 'mc') state.shuffledOptions = shuffleArr(nextLvl.options || []);
+  if(nextLvl && nextLvl.id === 'readFracMC') state.shuffledOptions = shuffleArr(nextLvl.options || []);
   render();
 }
 
@@ -1048,6 +1169,8 @@ function renderGame(){
   else if(lvl.id === 'groupSort') content = renderGroupSort(lvl);
   else if(lvl.id === 'buildSum') content = renderBuildSum(lvl);
   else if(lvl.id === 'mc') content = renderMC(lvl);
+  else if(lvl.id === 'placeNum') content = renderPlaceNum(lvl);
+  else if(lvl.id === 'readFracMC') content = renderReadFracMC(lvl);
 
   return `
     <div class="progressdots">${dots}</div>
@@ -1943,6 +2066,89 @@ function answerMC(opt){
   if(sub.answered) return;
   sub.answered = true;
   sub.picked = opt;
+  sub.correct = opt === lvl.correct;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ---- placeNum (sequence 6) ---- */
+function renderPlaceNum(lvl){
+  const sub = state.levelSub;
+  const nl = buildNumberLine({
+    marked: sub.answered ? [lvl.number] : [],
+    interactive: !sub.answered,
+    clickFn: 'clickPlaceNum',
+    errorNums: sub.errorAt != null ? [sub.errorAt] : []
+  });
+  let answerArea = '';
+  if(!sub.answered){
+    answerArea = `<p class="instr">לחצו על המיקום המתאים על הציר</p>`;
+  } else {
+    answerArea = `
+      <div class="feedback ok">נכון!</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">סמנו את המספר ${bdi(lvl.number)} על ציר המספרים</p>
+    <div class="nl-wrap">${nl}</div>
+    ${answerArea}
+  `;
+}
+
+function clickPlaceNum(n){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  if(sub.answered) return;
+  if(n === lvl.number){
+    sub.answered = true; sub.correct = true;
+    state.gameScore++; state.gameTotal++;
+    render();
+  } else {
+    sub.errorAt = n; render();
+    setTimeout(()=>{ if(state.levelSub) state.levelSub.errorAt = null; render(); }, 700);
+  }
+}
+
+/* ---- readFracMC (sequence 6) ---- */
+function renderReadFracMC(lvl){
+  const sub = state.levelSub;
+  const nl = buildNumberLine({
+    marked: [lvl.marked],
+    highlight: lvl.marked
+  });
+  const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : lvl.options;
+  const btns = opts.map(opt => {
+    let cls = 'mc-btn';
+    if(sub.answered){
+      if(opt === lvl.correct) cls += ' correct';
+      else if(opt === sub.picked && opt !== lvl.correct) cls += ' wrong';
+    }
+    return `<button class="${cls}" onclick="answerReadFracMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapMath(opt)}</button>`;
+  }).join('');
+  let feedback = '';
+  if(sub.answered){
+    feedback = `
+      <div class="feedback ${sub.correct?'ok':'bad'}">${sub.correct?'נכון!':'לא מדויק.'}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <div class="nl-wrap">${nl}</div>
+    <p class="qtext">${wrapMath(lvl.question)}</p>
+    <div class="mc-options">${btns}</div>
+    ${feedback}
+  `;
+}
+
+function answerReadFracMC(opt){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  if(sub.answered) return;
+  sub.answered = true; sub.picked = opt;
   sub.correct = opt === lvl.correct;
   if(sub.correct) state.gameScore++;
   state.gameTotal++;
