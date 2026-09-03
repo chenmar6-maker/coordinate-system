@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ערך מוחלט ומספרים נגדיים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --navy:#1E1B2E;
+    --deep-navy:#0F0D1A;
+    --teal:#4A4080;
+    --light-teal:#3AA0C4;
+    --foam:#EAF4F1;
+    --gold:#EFA94A;
+    --coral:#E2604F;
+    --seafoam:#48B08C;
+    --paper:#EFE7D3;
+    --ink:#0A2A43;
+    --gridline: rgba(234,244,241,0.14);
+    --axislabel: rgba(234,244,241,0.68);
+    --axis:#EAF4F1;
+    --linecolor:#EFA94A;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Rubik',sans-serif;
+    background: radial-gradient(ellipse at 50% -10%, #3D3568 0%, #1E1B2E 50%, #0F0D1A 100%);
+    color: var(--foam);
+    direction: rtl;
+    min-height:100vh;
+    line-height:1.6;
+  }
+
+  .wrap{max-width:900px;margin:0 auto;padding:20px 18px 70px;}
+
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 18px;max-width:900px;margin:0 auto;
+  }
+  .brand{
+    font-family:'Rubik',sans-serif;font-size:19px;color:var(--gold);
+    text-align:right;
+  }
+  .homebtn{
+    background:transparent;border:1.5px solid var(--foam);color:var(--foam);
+    padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;
+    font-size:14px;cursor:pointer;opacity:.85;text-decoration:none;display:inline-block;
+  }
+  .homebtn:hover{opacity:1;border-color:var(--gold);color:var(--gold);}
+
+  .hero{text-align:center;padding:18px 10px 10px;}
+  h1.title{
+    font-family:'Rubik',sans-serif;font-weight:800;
+    font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:#FFFFFF;
+    text-align:center;letter-spacing:-0.5px;
+  }
+  p.subtitle{font-size:17px;color:var(--foam);opacity:.85;margin:0 0 8px;text-align:center;}
+
+  .cards{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+  .sequence-section{margin-bottom:28px;background:rgba(234,244,241,0.04);border-radius:14px;padding:18px 20px;}
+  .sequence-title{
+    font-family:'Rubik',sans-serif;font-weight:700;
+    font-size:17px;color:var(--foam);
+    text-align:center;margin:0 0 14px;opacity:.9;
+  }
+
+  .flow-arrow{display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(239,169,74,0.5);flex-shrink:0;}
+
+  .card{
+    display:flex;align-items:center;gap:10px;
+    padding:12px 20px;border-radius:50px;cursor:pointer;
+    font-family:'Rubik',sans-serif;font-weight:600;font-size:15px;
+    transition:transform .15s ease, box-shadow .15s ease;
+    border:none;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.25);}
+  .card h3{font-family:'Rubik',sans-serif;font-size:15px;font-weight:600;margin:0;}
+  .card p{display:none;}
+
+  .card.learn{background:rgba(28,110,140,0.25);border:1.5px solid var(--teal);color:var(--foam);}
+  .card.game{background:rgba(239,169,74,0.18);border:1.5px solid var(--gold);color:var(--gold);}
+  .card.quiz{background:rgba(226,96,79,0.18);border:1.5px solid var(--coral);color:var(--coral);}
+
+  .panel{
+    background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.15);
+    border-radius:10px;padding:22px;margin:18px 0;
+  }
+
+  .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+  .btn{
+    background:var(--gold);color:var(--deep-navy);border:none;font-weight:700;
+    font-family:'Rubik',sans-serif;font-size:15px;padding:11px 26px;
+    border-radius:24px;cursor:pointer;transition:transform .12s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn.secondary{background:transparent;border:1.5px solid var(--foam);color:var(--foam);}
+  .btn.secondary:hover{border-color:var(--gold);color:var(--gold);}
+  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+  .feedback{text-align:center;font-size:16px;font-weight:700;margin:14px 0;min-height:24px;}
+  .feedback.ok{color:var(--seafoam);}
+  .feedback.bad{color:var(--coral);}
+
+  .progressdots{display:flex;gap:8px;justify-content:center;margin-bottom:6px;}
+  .dot{
+    width:11px;height:11px;border-radius:50%;background:rgba(234,244,241,0.25);
+    border:none;padding:0;
+  }
+  .dot.done{background:var(--seafoam);}
+  .dot.active{background:var(--gold);}
+
+  .mc-options{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:16px auto 0;}
+  .mc-btn{
+    background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);
+    color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;
+    cursor:pointer;font-family:'Rubik',sans-serif;
+    text-align:center;
+  }
+  .mc-btn:hover{border-color:var(--gold);}
+  .mc-btn.correct{background:rgba(72,176,140,0.3);border-color:var(--seafoam);}
+  .mc-btn.wrong{background:rgba(226,96,79,0.3);border-color:var(--coral);}
+  .mc-btn:disabled{cursor:default;}
+
+  .explain-box{
+    background:rgba(72,176,140,0.1);border-right:4px solid var(--seafoam);
+    border-radius:6px;padding:12px 16px;margin-top:14px;text-align:right;font-size:15px;
+  }
+
+  .qmeta{text-align:center;font-size:14px;opacity:.75;margin-bottom:6px;}
+  .qtitle{font-size:18px;font-weight:700;text-align:center;margin:6px 0 4px;}
+  .qtext{font-size:16px;text-align:center;margin:0 0 6px;max-width:560px;margin-left:auto;margin-right:auto;}
+
+  .scorebig{font-family:'Rubik',sans-serif;font-size:52px;color:var(--gold);text-align:center;margin:10px 0;}
+
+  .nl-wrap{display:flex;justify-content:center;margin:16px 0;overflow-x:auto;}
+  .nl-wrap svg{max-width:100%;}
+
+  .abs-input-row{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px 0;}
+  .abs-input-row input{
+    width:80px;padding:8px 10px;font-size:18px;border-radius:6px;border:1.5px solid var(--teal);
+    text-align:center;font-family:'Rubik',sans-serif;background:var(--foam);color:var(--ink);
+  }
+  .abs-input-row input:focus{outline:2px solid var(--gold);}
+
+  .mc-btns-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0;}
+  .ans-btn{
+    background:rgba(234,244,241,0.1);border:1.5px solid rgba(234,244,241,0.35);
+    color:var(--foam);padding:10px 20px;border-radius:8px;font-size:16px;
+    cursor:pointer;font-family:'Rubik',sans-serif;font-weight:600;
+    transition:border-color .12s ease, background .12s ease;
+  }
+  .ans-btn:hover{border-color:var(--gold);}
+  .ans-btn.correct{background:rgba(72,176,140,0.3);border-color:var(--seafoam);color:var(--seafoam);}
+  .ans-btn.wrong{background:rgba(226,96,79,0.3);border-color:var(--coral);color:var(--coral);}
+  .ans-btn:disabled{cursor:default;}
+
+  .instr{
+    text-align:center;font-size:15px;color:var(--foam);opacity:.85;
+    margin:8px 0 4px;
+  }
+
+  @keyframes popIn{
+    0%{transform:scale(.55);opacity:0;}
+    65%{transform:scale(1.18);opacity:1;}
+    100%{transform:scale(1);}
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">פרק 6 — מספרים מכוונים</div>
+  <a href="../" class="homebtn">← חזרה לקורס</a>
+</div>
+<div class="wrap">
+  <div id="app"></div>
+</div>
+
+<script>
+/* ============ STATE ============ */
+let state = {
+  screen:'home',
+  sequence:1,
+  levelIndex:0,
+  levelSub:{},
+  gameScore:0,
+  gameTotal:0,
+  quizIndex:0,
+  quizScore:0,
+  quizAnswered:false,
+  quizLastCorrect:null,
+  shuffledOptions:[]
+};
+
+/* ============ GAME LEVELS ============ */
+
+const gameLevels1 = [
+  {
+    id:'absInput',
+    title:'מדדו את המרחק',
+    number:-6,
+    correct:6,
+    explain:'הערך המוחלט של (−6) הוא 6 — המרחק מ-0 על הציר. מרחק הוא תמיד מספר אי-שלילי.'
+  },
+  {
+    id:'absTwoPoints',
+    title:'שני מספרים, ערך אחד',
+    absValue:5,
+    correct:[5,-5],
+    explain:'גם 5 וגם (−5) נמצאים במרחק 5 יחידות מ-0 — לכן לשניהם אותו ערך מוחלט.'
+  },
+  {
+    id:'absMax',
+    title:'הערך המוחלט הגדול ביותר',
+    numbers:[-8, 3, -2, 6],
+    correct:-8,
+    explain:'לפי ערך מוחלט: |(−8)|=8, |3|=3, |(−2)|=2, |6|=6. הגדול ביותר הוא 8 — ולכן (−8) הוא התשובה, אפילו שהוא שלילי.'
+  },
+  {
+    id:'absMC',
+    title:'מושג מסכם',
+    question:'הערך המוחלט של מספר הוא...',
+    options:['המספר בלי הסימן שלו','המרחק של המספר מ-0','המספר החיובי המקביל','המספר כפול (−1)'],
+    correct:'המרחק של המספר מ-0',
+    explain:'הגדרה מדויקת: הערך המוחלט = המרחק מ-0 על ציר המספרים. תמיד אי-שלילי, גם אם המספר המקורי שלילי.'
+  }
+];
+
+const gameLevels2 = [
+  {
+    id:'oppClick',
+    title:'מצאו את הנגדי',
+    number:6,
+    correct:-6,
+    explain:'הנגדי של 6 הוא (−6) — אותו מרחק מ-0, כיוון הפוך.'
+  },
+  {
+    id:'oppClick',
+    title:'מצאו את הנגדי',
+    number:-4,
+    correct:4,
+    explain:'הנגדי של (−4) הוא 4 — אותו מרחק מ-0, כיוון הפוך.'
+  },
+  {
+    id:'oppClick',
+    title:'מצאו את הנגדי',
+    number:3,
+    correct:-3,
+    explain:'הנגדי של 3 הוא (−3) — אותו מרחק מ-0, כיוון הפוך.'
+  },
+  {
+    id:'oppPair',
+    title:'זוגות נגדיים',
+    numbers:[5,-3,3,-5,2],
+    pairs:[[5,-5],[-3,3]],
+    explain:'5 ו-(−5) הם זוג נגדי, וגם (−3) ו-3 — אותו מרחק מ-0, כיוונים הפוכים.'
+  },
+  {
+    id:'oppZero',
+    title:'המקרה המיוחד',
+    question:'מה הנגדי של 0?',
+    options:['1','(−1)','0','אין לאפס נגדי'],
+    correct:'0',
+    explain:'0 הוא היחיד שהוא הנגדי של עצמו — אין לו "צד שני" על הציר, כי הוא בדיוק באמצע.'
+  },
+  {
+    id:'oppAbsMC',
+    title:'חיבור בין המושגים',
+    question:'אם שני מספרים הם מספרים נגדיים, מה בהכרח נכון לגבי הערך המוחלט שלהם?',
+    options:['הערך המוחלט שלהם שווה','הערך המוחלט שלהם שונה','סכומם שווה לערך המוחלט שלהם','אחד מהם חייב להיות 0'],
+    correct:'הערך המוחלט שלהם שווה',
+    explain:'מספרים נגדיים נמצאים באותו מרחק מ-0 — לכן הערך המוחלט שלהם תמיד זהה.'
+  }
+];
+
+/* ============ QUIZ QUESTIONS ============ */
+
+const quizQuestions1 = [
+  {
+    type:'mc',
+    title:'מבדק שליטה — ערך מוחלט',
+    text:'מה הערך המוחלט של (−9)?',
+    options:['(−9)','9','0','אי אפשר לדעת'],
+    correct:'9',
+    explain:'הערך המוחלט הוא המרחק מ-0 — תמיד אי-שלילי. |(−9)| = 9.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה — ערך מוחלט',
+    text:'מה הערך המוחלט של 7?',
+    options:['(−7)','7','0','14'],
+    correct:'7',
+    explain:'מספר חיובי — הערך המוחלט שלו שווה לו עצמו. |7| = 7.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה — ערך מוחלט',
+    text:'לאילו מספרים הערך המוחלט שווה ל-4?',
+    options:['רק 4','רק (−4)','גם 4 וגם (−4)','אין מספר כזה'],
+    correct:'גם 4 וגם (−4)',
+    explain:'גם 4 וגם (−4) נמצאים במרחק 4 יחידות מ-0, אחד מכל צד.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה — ערך מוחלט',
+    text:'מי גדול יותר: |−7| או 5?',
+    options:['|−7|, כי 7 גדול מ-5','5, כי (−7) הוא שלילי','הם שווים','אי אפשר להשוות'],
+    correct:'|−7|, כי 7 גדול מ-5',
+    explain:'|−7| = 7, וזה מספר חיובי רגיל. 7 גדול מ-5 — לכן |−7| גדול יותר.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה — ערך מוחלט',
+    text:'מה הערך המוחלט של 0?',
+    options:['0','(−0)','אין לאפס ערך מוחלט','1'],
+    correct:'0',
+    explain:'המרחק של 0 מ-0 הוא 0. |0| = 0.'
+  }
+];
+
+const quizQuestions2 = [
+  {
+    type:'mc',
+    title:'מבדק שליטה — מספרים נגדיים',
+    text:'מה הנגדי של 8?',
+    options:['8','(−8)','0','1/8'],
+    correct:'(−8)',
+    explain:'הנגדי של מספר הוא אותו מרחק מ-0, כיוון הפוך. הנגדי של 8 הוא (−8).'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה — מספרים נגדיים',
+    text:'מה הנגדי של (−3)?',
+    options:['(−3)','3','0','(−6)'],
+    correct:'3',
+    explain:'הנגדי של (−3) הוא 3 — אותו מרחק מ-0, כיוון הפוך.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה — מספרים נגדיים',
+    text:'מה הנגדי של 0?',
+    options:['אין לאפס נגדי','(−0) — מספר שונה מ-0','0 עצמו','1'],
+    correct:'0 עצמו',
+    explain:'0 הוא היחיד שהוא הנגדי של עצמו — הוא בדיוק באמצע הציר.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה — מספרים נגדיים',
+    text:'נתון ש-a ו-b הם מספרים נגדיים (שונים מ-0). מה בהכרח נכון?',
+    options:['a = b','|a| = |b|','a + b = 1','אחד מהם חייב להיות 0'],
+    correct:'|a| = |b|',
+    explain:'מספרים נגדיים נמצאים באותו מרחק מ-0 — לכן הערך המוחלט שלהם תמיד שווה.'
+  }
+];
+
+/* ============ DISPATCH HELPERS ============ */
+
+function currentGameLevels(){
+  return state.sequence === 2 ? gameLevels2 : gameLevels1;
+}
+
+function currentQuizQuestions(){
+  return state.sequence === 2 ? quizQuestions2 : quizQuestions1;
+}
+
+/* ============ NUMBER LINE SVG ============ */
+
+function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactive=false, clickFn=null, matchedPairs=[], firstClick=null, errorNums=[]}={}){
+  const svgW = 600;
+  const svgH = 80;
+  const leftM = 30;
+  const rightM = 30;
+  const plotW = svgW - leftM - rightM;
+  const axisY = 50;
+  const totalNums = max - min; // 24
+  const step = plotW / totalNums;
+
+  function xOf(n){ return leftM + (n - min) * step; }
+
+  let s = `<svg width="${svgW}" height="${svgH}" xmlns="http://www.w3.org/2000/svg" style="font-family:Rubik,sans-serif;display:block;">`;
+
+  // Highlight segment from 0 to highlight value (coral)
+  if(highlight !== null && highlight !== 0){
+    const x0 = xOf(0);
+    const xH = xOf(highlight);
+    s += `<line x1="${x0}" y1="${axisY}" x2="${xH}" y2="${axisY}" stroke="#E2604F" stroke-width="4" stroke-linecap="round"/>`;
+  }
+
+  // Main axis line
+  s += `<line x1="${leftM}" y1="${axisY}" x2="${svgW - rightM}" y2="${axisY}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+
+  // Arrow heads
+  s += `<polygon points="${svgW-rightM+2},${axisY} ${svgW-rightM-7},${axisY-5} ${svgW-rightM-7},${axisY+5}" fill="rgba(234,244,241,0.7)"/>`;
+  s += `<polygon points="${leftM-2},${axisY} ${leftM+7},${axisY-5} ${leftM+7},${axisY+5}" fill="rgba(234,244,241,0.7)"/>`;
+
+  // Tick marks and labels
+  for(let n = min; n <= max; n++){
+    const x = xOf(n);
+    const isZero = n === 0;
+    const isFive = n % 5 === 0;
+    const tickH = isZero ? 14 : isFive ? 10 : 6;
+    const tickW = isZero ? 2.5 : 1.5;
+    s += `<line x1="${x}" y1="${axisY - tickH}" x2="${x}" y2="${axisY + tickH}" stroke="rgba(234,244,241,${isZero?0.9:0.6})" stroke-width="${tickW}"/>`;
+
+    // Labels only at -10,-5,0,5,10
+    if(n !== min && n !== max && (n === -10 || n === -5 || n === 0 || n === 5 || n === 10)){
+      s += `<text x="${x}" y="${axisY + 28}" text-anchor="middle" font-size="13" fill="rgba(234,244,241,0.75)" font-family="Rubik,sans-serif">${n}</text>`;
+    }
+  }
+
+  // Matched pair lines (green arcs/connectors)
+  matchedPairs.forEach(pair => {
+    const xa = xOf(pair[0]);
+    const xb = xOf(pair[1]);
+    const mx = (xa + xb) / 2;
+    const arcH = 18;
+    s += `<path d="M${xa},${axisY-8} Q${mx},${axisY-8-arcH} ${xb},${axisY-8}" fill="none" stroke="#48B08C" stroke-width="2" stroke-dasharray="4,2"/>`;
+  });
+
+  // firstClick highlight
+  if(firstClick !== null){
+    const xfc = xOf(firstClick);
+    s += `<circle cx="${xfc}" cy="${axisY}" r="11" fill="rgba(239,169,74,0.35)" stroke="#EFA94A" stroke-width="2.5"/>`;
+    s += `<text x="${xfc}" y="${axisY+4}" text-anchor="middle" font-size="12" font-weight="700" fill="#EFA94A" font-family="Rubik,sans-serif">${firstClick}</text>`;
+  }
+
+  // Marked circles
+  const matchedFlat = matchedPairs.flat();
+  marked.forEach(n => {
+    const x = xOf(n);
+    const isMatched = matchedFlat.includes(n);
+    const isError = errorNums.includes(n);
+    const isFirst = firstClick === n;
+    if(isFirst) return; // already drawn above
+    const fillColor = isMatched ? '#48B08C' : isError ? '#E2604F' : '#EFA94A';
+    const strokeColor = isMatched ? '#48B08C' : isError ? '#E2604F' : '#EFA94A';
+    s += `<circle cx="${x}" cy="${axisY}" r="8" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2"/>`;
+    s += `<text x="${x}" y="${axisY+4}" text-anchor="middle" font-size="11" font-weight="700" fill="${isMatched||isError?'#fff':'#0A2A43'}" font-family="Rubik,sans-serif">${n}</text>`;
+  });
+
+  // Interactive click targets
+  if(interactive && clickFn){
+    for(let n = min + 1; n < max; n++){
+      const x = xOf(n);
+      s += `<circle cx="${x}" cy="${axisY}" r="14" fill="transparent" style="cursor:pointer;" onclick="window['${clickFn}'](${n})"/>`;
+    }
+  }
+
+  s += `</svg>`;
+  return s;
+}
+
+/* ============ RENDER DISPATCH ============ */
+
+function render(){
+  const app = document.getElementById('app');
+  if(state.screen==='home') app.innerHTML = renderHome();
+  else if(state.screen==='learn') app.innerHTML = renderLearn();
+  else if(state.screen==='game') app.innerHTML = renderGame();
+  else if(state.screen==='gameResults') app.innerHTML = renderGameResults();
+  else if(state.screen==='quiz') app.innerHTML = renderQuiz();
+  else if(state.screen==='quizResults') app.innerHTML = renderQuizResults();
+}
+
+/* ============ HOME ============ */
+
+function renderHome(){
+  return `
+    <div class="hero">
+      <h1 class="title">ערך מוחלט ומספרים נגדיים</h1>
+      <p class="subtitle">פרק 6</p>
+    </div>
+    <div class="sequence-section">
+      <div class="sequence-title">1. ערך מוחלט</div>
+      <div class="cards">
+        <div class="card learn" onclick="state.sequence=1;goTo('learn')">
+          <h3>הקנייה</h3>
+        </div>
+        <div class="flow-arrow">←</div>
+        <div class="card game" onclick="state.sequence=1;startGame()">
+          <h3>תרגול</h3>
+        </div>
+        <div class="flow-arrow">←</div>
+        <div class="card quiz" onclick="state.sequence=1;startQuiz()">
+          <h3>מבדק שליטה</h3>
+        </div>
+      </div>
+    </div>
+    <div class="sequence-section">
+      <div class="sequence-title">2. מספרים נגדיים</div>
+      <div class="cards">
+        <div class="card learn" onclick="state.sequence=2;goTo('learn')">
+          <h3>הקנייה</h3>
+        </div>
+        <div class="flow-arrow">←</div>
+        <div class="card game" onclick="state.sequence=2;startGame()">
+          <h3>תרגול</h3>
+        </div>
+        <div class="flow-arrow">←</div>
+        <div class="card quiz" onclick="state.sequence=2;startQuiz()">
+          <h3>מבדק שליטה</h3>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function goHome(){
+  state = {screen:'home', sequence:1, levelIndex:0, levelSub:{}, gameScore:0, gameTotal:0, quizIndex:0, quizScore:0, quizAnswered:false, quizLastCorrect:null, shuffledOptions:[]};
+  render();
+}
+
+function goTo(screen){ state.screen = screen; render(); }
+
+/* ============ LEARN ============ */
+
+function renderLearn(){
+  return `<div class="panel" style="text-align:center;">
+    <h2>הקנייה — ${state.sequence===1?'ערך מוחלט':'מספרים נגדיים'}</h2>
+    <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:60px 20px;margin:20px 0;color:rgba(234,244,241,0.4);font-size:15px;">הסרטון יתווסף בקרוב</div>
+    <div class="btnrow"><button class="btn" onclick="startGame()">למשחק ←</button></div>
+  </div>`;
+}
+
+/* ============ GAME INIT ============ */
+
+function startGame(){
+  state.screen = 'game';
+  state.levelIndex = 0;
+  state.gameScore = 0;
+  state.gameTotal = 0;
+  state.levelSub = freshLevelSub(0);
+  const firstLvl = currentGameLevels()[0];
+  if(firstLvl && firstLvl.id === 'absMC') state.shuffledOptions = shuffleArr(firstLvl.options || []);
+  else if(firstLvl && (firstLvl.id === 'oppZero' || firstLvl.id === 'oppAbsMC')) state.shuffledOptions = shuffleArr(firstLvl.options || []);
+  render();
+}
+
+function freshLevelSub(levelIdx){
+  const lvl = currentGameLevels()[levelIdx];
+  if(!lvl) return {};
+  if(lvl.id === 'absTwoPoints') return {clicked:[], answered:false, correct:false, error:false};
+  if(lvl.id === 'oppPair') return {firstClick:null, matched:[], answered:false, error:false};
+  return {answered:false, correct:false};
+}
+
+function nextLevel(){
+  state.levelIndex++;
+  if(state.levelIndex >= currentGameLevels().length){
+    finishGame();
+    return;
+  }
+  state.levelSub = freshLevelSub(state.levelIndex);
+  const nextLvl = currentGameLevels()[state.levelIndex];
+  if(nextLvl && (nextLvl.id === 'absMC' || nextLvl.id === 'oppZero' || nextLvl.id === 'oppAbsMC')){
+    state.shuffledOptions = shuffleArr(nextLvl.options || []);
+  }
+  render();
+}
+
+function finishGame(){
+  state.screen = 'gameResults';
+  render();
+}
+
+/* ============ GAME RENDER ============ */
+
+function renderGame(){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const levels = currentGameLevels();
+  const dots = levels.map((_,i)=>{
+    let cls = 'dot';
+    if(i < state.levelIndex) cls += ' done';
+    else if(i === state.levelIndex) cls += ' active';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
+  let content = '';
+  if(!lvl){ content = '<p>שגיאה: אין שלב</p>'; }
+  else if(lvl.id === 'absInput') content = renderAbsInput(lvl);
+  else if(lvl.id === 'absTwoPoints') content = renderAbsTwoPoints(lvl);
+  else if(lvl.id === 'absMax') content = renderAbsMax(lvl);
+  else if(lvl.id === 'absMC') content = renderAbsMC(lvl);
+  else if(lvl.id === 'oppClick') content = renderOppClick(lvl);
+  else if(lvl.id === 'oppPair') content = renderOppPair(lvl);
+  else if(lvl.id === 'oppZero') content = renderOppZero(lvl);
+  else if(lvl.id === 'oppAbsMC') content = renderOppAbsMC(lvl);
+
+  return `
+    <div class="progressdots">${dots}</div>
+    <div class="panel">
+      ${content}
+    </div>
+  `;
+}
+
+/* ---- absInput ---- */
+function renderAbsInput(lvl){
+  const sub = state.levelSub;
+  const nl = buildNumberLine({
+    marked:[lvl.number],
+    highlight:lvl.number
+  });
+  let answerArea = '';
+  if(!sub.answered){
+    answerArea = `
+      <div class="abs-input-row">
+        <label style="font-size:16px;">|${lvl.number}| = </label>
+        <input type="number" id="absInputField" placeholder="?" min="0">
+        <button class="btn" onclick="submitAbsInput()">בדיקה</button>
+      </div>`;
+  } else {
+    const feedbackClass = sub.correct ? 'ok' : 'bad';
+    const feedbackText = sub.correct ? 'נכון!' : `לא מדויק. התשובה הנכונה: ${lvl.correct}`;
+    answerArea = `
+      <div class="feedback ${feedbackClass}">${feedbackText}</div>
+      <div class="explain-box">${lvl.explain}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">מה המרחק של הנקודה מ-0? (כלומר: מה הערך המוחלט?)</p>
+    <div class="nl-wrap">${nl}</div>
+    ${answerArea}
+  `;
+}
+
+function submitAbsInput(){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const field = document.getElementById('absInputField');
+  const val = parseInt(field ? field.value : 0);
+  const sub = state.levelSub;
+  if(sub.answered) return;
+  sub.answered = true;
+  sub.correct = val === lvl.correct;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ---- absTwoPoints ---- */
+function renderAbsTwoPoints(lvl){
+  const sub = state.levelSub;
+  if(!sub.clicked) sub.clicked = [];
+  const nl = buildNumberLine({
+    marked: sub.clicked,
+    interactive: !sub.answered,
+    clickFn: 'clickAbsPoint'
+  });
+  let statusArea = '';
+  if(sub.error){
+    statusArea = `<div class="feedback bad">לא נכון — נסו שוב</div>`;
+  }
+  if(!sub.answered){
+    statusArea += `<p class="instr">לחצו על שני המספרים שמקיימים |x| = ${lvl.absValue}</p>
+    <p class="instr" style="opacity:.6;font-size:13px;">בחרתם: ${sub.clicked.length > 0 ? sub.clicked.join(', ') : '—'}</p>`;
+  } else {
+    statusArea = `
+      <div class="feedback ok">כל הכבוד! מצאתם את שני המספרים.</div>
+      <div class="explain-box">${lvl.explain}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">|x| = ${lvl.absValue} — לחצו על ציר המספרים</p>
+    <div class="nl-wrap">${nl}</div>
+    ${statusArea}
+  `;
+}
+
+function clickAbsPoint(n){
+  const sub = state.levelSub;
+  if(sub.answered) return;
+  if(!sub.clicked) sub.clicked = [];
+  const idx = sub.clicked.indexOf(n);
+  if(idx >= 0){ sub.clicked.splice(idx, 1); }
+  else { sub.clicked.push(n); }
+  const lvl = currentGameLevels()[state.levelIndex];
+  if(sub.clicked.length === 2){
+    const sorted1 = [...sub.clicked].sort((a,b)=>a-b);
+    const sorted2 = [...lvl.correct].sort((a,b)=>a-b);
+    if(sorted1[0]===sorted2[0] && sorted1[1]===sorted2[1]){
+      sub.answered = true;
+      sub.correct = true;
+      state.gameScore++;
+      state.gameTotal++;
+    } else {
+      sub.clicked = [];
+      sub.error = true;
+      setTimeout(()=>{ if(state.levelSub) state.levelSub.error = false; render(); }, 900);
+    }
+  }
+  render();
+}
+
+/* ---- absMax ---- */
+function renderAbsMax(lvl){
+  const sub = state.levelSub;
+  const nl = buildNumberLine({ marked: lvl.numbers });
+  const btns = lvl.numbers.map(n => {
+    let cls = 'ans-btn';
+    if(sub.answered){
+      if(n === lvl.correct) cls += ' correct';
+      else if(n === sub.picked && n !== lvl.correct) cls += ' wrong';
+    }
+    return `<button class="${cls}" onclick="answerAbsMax(${n})" ${sub.answered?'disabled':''}>${n}</button>`;
+  }).join('');
+
+  let feedback = '';
+  if(sub.answered){
+    const feedbackClass = sub.correct ? 'ok' : 'bad';
+    const feedbackText = sub.correct ? 'נכון!' : `לא מדויק. הנכון: ${lvl.correct}`;
+    feedback = `
+      <div class="feedback ${feedbackClass}">${feedbackText}</div>
+      <div class="explain-box">${lvl.explain}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">לאיזה מספר יש הערך המוחלט הגדול ביותר?</p>
+    <div class="nl-wrap">${nl}</div>
+    <div class="mc-btns-row">${btns}</div>
+    ${feedback}
+  `;
+}
+
+function answerAbsMax(n){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  if(sub.answered) return;
+  sub.answered = true;
+  sub.picked = n;
+  sub.correct = n === lvl.correct;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ---- absMC ---- */
+function renderAbsMC(lvl){
+  const sub = state.levelSub;
+  const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : lvl.options;
+  const btns = opts.map(opt => {
+    let cls = 'mc-btn';
+    if(sub.answered){
+      if(opt === lvl.correct) cls += ' correct';
+      else if(opt === sub.picked && opt !== lvl.correct) cls += ' wrong';
+    }
+    return `<button class="${cls}" onclick="answerAbsMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${opt}</button>`;
+  }).join('');
+
+  let feedback = '';
+  if(sub.answered){
+    const feedbackClass = sub.correct ? 'ok' : 'bad';
+    feedback = `
+      <div class="feedback ${feedbackClass}">${sub.correct ? 'נכון!' : 'לא מדויק.'}</div>
+      <div class="explain-box">${lvl.explain}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">${lvl.question}</p>
+    <div class="mc-options">${btns}</div>
+    ${feedback}
+  `;
+}
+
+function answerAbsMC(opt){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  if(sub.answered) return;
+  sub.answered = true;
+  sub.picked = opt;
+  sub.correct = opt === lvl.correct;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ---- oppClick ---- */
+function renderOppClick(lvl){
+  const sub = state.levelSub;
+  const markedOpp = sub.answered ? [lvl.number, lvl.correct] : [lvl.number];
+  const nl = buildNumberLine({
+    marked: markedOpp,
+    interactive: !sub.answered,
+    clickFn: 'clickOppPoint'
+  });
+
+  let feedback = '';
+  if(sub.answered){
+    const feedbackClass = sub.correct ? 'ok' : 'bad';
+    const feedbackText = sub.correct ? `נכון! ${lvl.correct} הוא הנגדי של ${lvl.number}` : `לא מדויק. הנגדי של ${lvl.number} הוא ${lvl.correct}`;
+    feedback = `
+      <div class="feedback ${feedbackClass}">${feedbackText}</div>
+      <div class="explain-box">${lvl.explain}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  } else {
+    feedback = `<p class="instr">לחצו על הנגדי של ${lvl.number} על הציר</p>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">מה הנגדי של <strong>${lvl.number}</strong>? לחצו על הנקודה המתאימה.</p>
+    <div class="nl-wrap">${nl}</div>
+    ${feedback}
+  `;
+}
+
+function clickOppPoint(n){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  if(sub.answered) return;
+  sub.answered = true;
+  sub.picked = n;
+  sub.correct = n === lvl.correct;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ---- oppPair ---- */
+function renderOppPair(lvl){
+  const sub = state.levelSub;
+  if(!sub.matched) sub.matched = [];
+  const matchedFlat = sub.matched.flat();
+
+  // Build marked with special rendering
+  const nl = buildNumberLine({
+    marked: lvl.numbers,
+    interactive: !sub.answered,
+    clickFn: 'clickPairPoint',
+    matchedPairs: sub.matched,
+    firstClick: sub.firstClick
+  });
+
+  let statusArea = '';
+  if(sub.error){
+    statusArea = `<div class="feedback bad">אלה לא מספרים נגדיים — נסו שנית</div>`;
+  }
+  if(!sub.answered){
+    const pairsLeft = lvl.pairs.length - sub.matched.length;
+    if(!sub.error){
+      statusArea = `<p class="instr">לחצו על כל זוג מספרים נגדיים (נותרו ${pairsLeft} זוגות)</p>`;
+      if(sub.firstClick !== null) statusArea += `<p class="instr" style="opacity:.7;font-size:13px;">בחרתם: ${sub.firstClick} — לחצו על הנגדי שלו</p>`;
+    }
+  } else {
+    statusArea = `
+      <div class="feedback ok">מצוין! מצאתם את כל הזוגות הנגדיים.</div>
+      <div class="explain-box">${lvl.explain}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">לחצו על כל זוג מספרים נגדיים</p>
+    <div class="nl-wrap">${nl}</div>
+    ${statusArea}
+  `;
+}
+
+function clickPairPoint(n){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  if(!sub.matched) sub.matched = [];
+  if(sub.answered) return;
+  if(sub.matched.flat().includes(n)) return;
+  if(sub.firstClick === null){
+    sub.firstClick = n;
+    sub.error = false;
+  } else {
+    const a = sub.firstClick;
+    const b = n;
+    sub.firstClick = null;
+    if(a === b){ sub.error = false; render(); return; }
+    const isPair = lvl.pairs.some(p => (p[0]===a&&p[1]===b)||(p[0]===b&&p[1]===a));
+    if(isPair){
+      sub.matched.push([a, b]);
+      sub.error = false;
+      if(sub.matched.length === lvl.pairs.length){
+        sub.answered = true;
+        state.gameScore++;
+        state.gameTotal++;
+      }
+    } else {
+      sub.error = true;
+      setTimeout(()=>{ if(state.levelSub) state.levelSub.error = false; render(); }, 900);
+    }
+  }
+  render();
+}
+
+/* ---- oppZero ---- */
+function renderOppZero(lvl){
+  const sub = state.levelSub;
+  const nl = buildNumberLine({ marked: [0] });
+  const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : lvl.options;
+  const btns = opts.map(opt => {
+    let cls = 'mc-btn';
+    if(sub.answered){
+      if(opt === lvl.correct) cls += ' correct';
+      else if(opt === sub.picked && opt !== lvl.correct) cls += ' wrong';
+    }
+    return `<button class="${cls}" onclick="answerOppZero('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${opt}</button>`;
+  }).join('');
+
+  let feedback = '';
+  if(sub.answered){
+    const feedbackClass = sub.correct ? 'ok' : 'bad';
+    feedback = `
+      <div class="feedback ${feedbackClass}">${sub.correct ? 'נכון!' : 'לא מדויק.'}</div>
+      <div class="explain-box">${lvl.explain}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">${lvl.question}</p>
+    <div class="nl-wrap">${nl}</div>
+    <div class="mc-options">${btns}</div>
+    ${feedback}
+  `;
+}
+
+function answerOppZero(opt){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  if(sub.answered) return;
+  sub.answered = true;
+  sub.picked = opt;
+  sub.correct = opt === lvl.correct;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ---- oppAbsMC ---- */
+function renderOppAbsMC(lvl){
+  const sub = state.levelSub;
+  const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : lvl.options;
+  const btns = opts.map(opt => {
+    let cls = 'mc-btn';
+    if(sub.answered){
+      if(opt === lvl.correct) cls += ' correct';
+      else if(opt === sub.picked && opt !== lvl.correct) cls += ' wrong';
+    }
+    return `<button class="${cls}" onclick="answerOppAbsMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${opt}</button>`;
+  }).join('');
+
+  let feedback = '';
+  if(sub.answered){
+    const feedbackClass = sub.correct ? 'ok' : 'bad';
+    feedback = `
+      <div class="feedback ${feedbackClass}">${sub.correct ? 'נכון!' : 'לא מדויק.'}</div>
+      <div class="explain-box">${lvl.explain}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">${lvl.question}</p>
+    <div class="mc-options">${btns}</div>
+    ${feedback}
+  `;
+}
+
+function answerOppAbsMC(opt){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  if(sub.answered) return;
+  sub.answered = true;
+  sub.picked = opt;
+  sub.correct = opt === lvl.correct;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ============ GAME RESULTS ============ */
+
+function renderGameResults(){
+  const total = state.gameTotal || currentGameLevels().length;
+  return `
+    <div class="panel" style="text-align:center;">
+      <h2 class="qtitle">סיימתם את התרגול!</h2>
+      <div class="scorebig">${state.gameScore} / ${total}</div>
+      <p class="qtext">עכשיו אפשר לבדוק את הידע שלכם במבדק שליטה.</p>
+      <div class="btnrow">
+        <button class="btn" onclick="startQuiz()">למבדק שליטה ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+/* ============ QUIZ ============ */
+
+function shuffleArr(arr){
+  const a = [...arr];
+  for(let i = a.length-1; i > 0; i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function startQuiz(){
+  state.screen = 'quiz';
+  state.quizIndex = 0;
+  state.quizScore = 0;
+  state.quizAnswered = false;
+  state.quizLastCorrect = null;
+  state.shuffledOptions = shuffleArr(currentQuizQuestions()[0].options || []);
+  render();
+}
+
+function renderQuiz(){
+  const q = currentQuizQuestions()[state.quizIndex];
+  const dots = currentQuizQuestions().map((_,i) => {
+    let cls = 'dot';
+    if(i < state.quizIndex) cls += ' done';
+    else if(i === state.quizIndex) cls += ' active';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
+  const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : q.options;
+  const answerArea = `<div class="mc-options">
+    ${opts.map(opt => `<button class="mc-btn" id="opt-${safeId(opt)}" onclick="answerQuizMC('${escOpt(opt)}')" ${state.quizAnswered?'disabled':''}>${opt}</button>`).join('')}
+  </div>`;
+
+  const isLast = state.quizIndex === currentQuizQuestions().length - 1;
+
+  return `
+    <div class="progressdots">${dots}</div>
+    <div class="panel">
+      <div class="qmeta">שאלה ${state.quizIndex+1} מתוך ${currentQuizQuestions().length}</div>
+      <h2 class="qtitle">${q.title}</h2>
+      <p class="qtext">${q.text}</p>
+      ${answerArea}
+      ${state.quizAnswered ? `
+        <div class="explain-box"><strong>${state.quizLastCorrect ? 'תשובה נכונה!' : 'לא מדויק.'}</strong> ${q.explain}</div>
+        <div class="btnrow"><button class="btn" onclick="${isLast ? 'finishQuiz()' : 'nextQuizQuestion()'}">${isLast ? 'לתוצאות' : 'לשאלה הבאה'}</button></div>
+      ` : ''}
+    </div>
+  `;
+}
+
+function answerQuizMC(opt){
+  if(state.quizAnswered) return;
+  const q = currentQuizQuestions()[state.quizIndex];
+  state.quizAnswered = true;
+  const correct = (opt === q.correct);
+  state.quizLastCorrect = correct;
+  if(correct) state.quizScore++;
+  document.querySelectorAll('.mc-btn').forEach(btn => {
+    btn.disabled = true;
+    if(btn.textContent === q.correct) btn.classList.add('correct');
+    else if(btn.textContent === opt && !correct) btn.classList.add('wrong');
+  });
+  setTimeout(render, 350);
+}
+
+function nextQuizQuestion(){
+  state.quizIndex++;
+  state.quizAnswered = false;
+  state.quizLastCorrect = null;
+  const q = currentQuizQuestions()[state.quizIndex];
+  state.shuffledOptions = shuffleArr(q.options || []);
+  render();
+}
+
+function finishQuiz(){
+  state.screen = 'quizResults';
+  render();
+}
+
+/* ============ QUIZ RESULTS ============ */
+
+function renderQuizResults(){
+  const total = currentQuizQuestions().length;
+  const pct = Math.round((state.quizScore / total) * 100);
+  let msg = 'המשך להתאמן, אתם בדרך הנכונה!';
+  if(pct >= 85) msg = 'כל הכבוד! שליטה מעולה בחומר.';
+  else if(pct >= 60) msg = 'עבודה טובה! עוד קצת תרגול ותהיו מומחים.';
+  return `
+    <div class="panel" style="text-align:center;">
+      <h2 class="qtitle">תוצאות מבדק שליטה</h2>
+      <div class="scorebig" dir="ltr">${state.quizScore} / ${total}</div>
+      <p class="qtext">${msg}</p>
+      <div class="btnrow">
+        <button class="btn" onclick="startQuiz()">לנסות שוב</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+/* ============ UTILS ============ */
+
+function escOpt(s){
+  return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');
+}
+
+function safeId(s){
+  return s.replace(/[^a-zA-Zא-ת0-9]/g,'_');
+}
+
+/* ============ INIT ============ */
+render();
+</script>
+</body>
+</html>
