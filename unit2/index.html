@@ -2236,7 +2236,7 @@ function renderQuiz(){
     <div class="progressdots">${dots}</div>
     <div class="panel">
       <div class="qmeta">שאלה ${state.quizIndex+1} מתוך ${currentQuizQuestions().length}</div>
-      <h2 class="qtitle">${q.title}</h2>
+      <h2 class="qtitle">${wrapMath(q.title)}</h2>
       <p class="qtext"${/= \?$/.test(q.text) ? ' style="direction:ltr;unicode-bidi:embed;"' : ''}>${wrapMath(q.text)}</p>
       ${answerArea}
       ${state.quizAnswered ? `
