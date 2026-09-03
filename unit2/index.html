@@ -136,7 +136,7 @@
 
   .scorebig{font-family:'Rubik',sans-serif;font-size:52px;color:var(--gold);text-align:center;margin:10px 0;}
 
-  .nl-wrap{display:flex;justify-content:center;margin:16px 0;overflow-x:auto;}
+  .nl-wrap{display:flex;justify-content:center;margin:16px 0;overflow-x:auto;direction:ltr;}
   .nl-wrap svg{max-width:100%;}
 
   .abs-input-row{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px 0;}
@@ -450,7 +450,7 @@ function currentQuizQuestions(){
 
 /* ============ NUMBER LINE SVG ============ */
 
-function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactive=false, clickFn=null, matchedPairs=[], firstClick=null, errorNums=[]}={}){
+function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactive=false, clickFn=null, matchedPairs=[], firstClick=null, errorNums=[], markedLabels={}}={}){
   const svgW = 600;
   const svgH = 80;
   const leftM = 30;
@@ -462,7 +462,7 @@ function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactiv
 
   function xOf(n){ return leftM + (n - min) * step; }
 
-  let s = `<svg width="${svgW}" height="${svgH}" xmlns="http://www.w3.org/2000/svg" style="font-family:Rubik,sans-serif;display:block;">`;
+  let s = `<svg width="${svgW}" height="${svgH}" xmlns="http://www.w3.org/2000/svg" style="font-family:Rubik,sans-serif;display:block;direction:ltr;">`;
 
   // Highlight segment from 0 to highlight value (coral)
   if(highlight !== null && highlight !== 0){
@@ -519,8 +519,9 @@ function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactiv
     if(isFirst) return; // already drawn above
     const fillColor = isMatched ? '#48B08C' : isError ? '#E2604F' : '#EFA94A';
     const strokeColor = isMatched ? '#48B08C' : isError ? '#E2604F' : '#EFA94A';
+    const dotLabel = markedLabels[n] !== undefined ? markedLabels[n] : n;
     s += `<circle cx="${x}" cy="${axisY}" r="8" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2"/>`;
-    s += `<text x="${x}" y="${axisY+4}" text-anchor="middle" font-size="11" font-weight="700" fill="${isMatched||isError?'#fff':'#0A2A43'}" font-family="Rubik,sans-serif">${n}</text>`;
+    s += `<text x="${x}" y="${axisY+4}" text-anchor="middle" font-size="11" font-weight="700" fill="${isMatched||isError?'#fff':'#0A2A43'}" font-family="Rubik,sans-serif">${dotLabel}</text>`;
   });
 
   // Interactive click targets
@@ -793,20 +794,25 @@ function clickAbsPoint(n){
 /* ---- absMax ---- */
 function renderAbsMax(lvl){
   const sub = state.levelSub;
-  const nl = buildNumberLine({ marked: lvl.numbers });
-  const btns = lvl.numbers.map(n => {
+  const heLetters = ['א','ב','ג','ד'];
+  const markedLabels = {};
+  lvl.numbers.forEach((n,i) => markedLabels[n] = heLetters[i]);
+  const nl = buildNumberLine({ marked: lvl.numbers, markedLabels });
+  const btns = lvl.numbers.map((n,i) => {
     let cls = 'ans-btn';
     if(sub.answered){
       if(n === lvl.correct) cls += ' correct';
       else if(n === sub.picked && n !== lvl.correct) cls += ' wrong';
     }
-    return `<button class="${cls}" onclick="answerAbsMax(${n})" ${sub.answered?'disabled':''}>${n}</button>`;
+    const label = sub.answered ? `${heLetters[i]} (${n})` : heLetters[i];
+    return `<button class="${cls}" onclick="answerAbsMax(${n})" ${sub.answered?'disabled':''}>${label}</button>`;
   }).join('');
 
   let feedback = '';
   if(sub.answered){
     const feedbackClass = sub.correct ? 'ok' : 'bad';
-    const feedbackText = sub.correct ? 'נכון!' : `לא מדויק. הנכון: ${lvl.correct}`;
+    const correctLetter = heLetters[lvl.numbers.indexOf(lvl.correct)];
+    const feedbackText = sub.correct ? 'נכון!' : `לא מדויק. הנכון: ${correctLetter} (${lvl.correct})`;
     feedback = `
       <div class="feedback ${feedbackClass}">${feedbackText}</div>
       <div class="explain-box">${lvl.explain}</div>
@@ -814,7 +820,7 @@ function renderAbsMax(lvl){
   }
   return `
     <h2 class="qtitle">${lvl.title}</h2>
-    <p class="qtext">לאיזה מספר יש הערך המוחלט הגדול ביותר?</p>
+    <p class="qtext">לאיזה נקודה יש הערך המוחלט הגדול ביותר?</p>
     <div class="nl-wrap">${nl}</div>
     <div class="mc-btns-row">${btns}</div>
     ${feedback}
