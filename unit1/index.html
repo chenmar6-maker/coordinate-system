@@ -579,8 +579,147 @@ const quizQuestions3 = [
   }
 ];
 
+/* ============ ALTERNATIVE QUIZ QUESTIONS ============ */
+
+const quizQuestions1b = [
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — נקודות',
+    text:'מהן הקואורדינטות של נקודה שנמצאת 3 צעדים ימינה ו-7 צעדים למעלה מראשית הצירים?',
+    options:['(7,3)','(3,7)','(0,3)','(7,0)'],
+    correct:'(3,7)',
+    explain:'הקואורדינטה הראשונה (x) מציינת תזוזה ימינה — 3. הקואורדינטה השנייה (y) מציינת תזוזה למעלה — 7. לכן הנקודה היא (3,7).'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — נקודות',
+    text:'נקודה A נמצאת ב-(0,5). היכן היא ממוקמת?',
+    options:['על ציר ה-x','על ציר ה-y','בראשית הצירים','ברביע הראשון'],
+    correct:'על ציר ה-y',
+    explain:'כאשר הקואורדינטה x שווה ל-0, הנקודה ממוקמת על ציר ה-y. הערך y=5 אומר שהיא 5 יחידות מעל ראשית הצירים.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — נקודות',
+    text:'איזו נקודה נמצאת על ציר ה-x?',
+    options:['(4,4)','(0,6)','(8,0)','(3,3)'],
+    correct:'(8,0)',
+    explain:'נקודה על ציר ה-x חייבת שהקואורדינטה y שלה תהיה 0. רק (8,0) מקיימת זאת.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — נקודות',
+    text:'נקודה B נמצאת ב-(6,2) ונקודה C נמצאת ב-(6,8). מה המרחק ביניהן?',
+    options:['2','6','8','אי אפשר לדעת'],
+    correct:'6',
+    explain:'שתי הנקודות חולקות את אותה קואורדינטה x, לכן הן על קו אנכי. המרחק הוא ההפרש של קואורדינטות ה-y: 8 פחות 2 = 6.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — נקודות',
+    text:'ראשית הצירים היא הנקודה...',
+    options:['(1,1)','(0,1)','(1,0)','(0,0)'],
+    correct:'(0,0)',
+    explain:'ראשית הצירים היא נקודת החיתוך של שני הצירים — המקום שבו x=0 וגם y=0, כלומר (0,0).'
+  }
+];
+
+const quizQuestions2b = [
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — אורכים ושטחים',
+    text:'שתי נקודות: D=(2,3) ו-E=(2,9). מה אורך קטע DE?',
+    options:['2','3','6','9'],
+    correct:'6',
+    explain:'הנקודות חולקות קואורדינטה x זהה — לכן הקטע אנכי. האורך הוא הפרש קואורדינטות ה-y: 9 פחות 3 = 6.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — אורכים ושטחים',
+    text:'שתי נקודות: F=(1,4) ו-G=(7,4). מה אורך קטע FG?',
+    options:['1','4','6','7'],
+    correct:'6',
+    explain:'הנקודות חולקות קואורדינטה y זהה — הקטע אופקי. האורך: 7 פחות 1 = 6.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — אורכים ושטחים',
+    text:'ריבוע עם קודקודים ב-(1,1), (5,1), (5,5), (1,5). מה אורך צלע הריבוע?',
+    options:['1','4','5','16'],
+    correct:'4',
+    explain:'אורך צלע: מ-x=1 עד x=5 = 4 יחידות (או מ-y=1 עד y=5 = 4 יחידות).'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — אורכים ושטחים',
+    text:'מלבן עם קודקודים ב-(0,0), (6,0), (6,3), (0,3). מה שטחו?',
+    options:['9','12','18','36'],
+    correct:'18',
+    explain:'אורך = 6, רוחב = 3. שטח = 6 × 3 = 18 יחידות רבועות.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — אורכים ושטחים',
+    text:'מלבן עם קודקודים ב-(2,1), (8,1), (8,6), (2,6). מה היקפו?',
+    options:['11','22','30','36'],
+    correct:'22',
+    explain:'אורך = 8-2 = 6, רוחב = 6-1 = 5. היקף = 2×(6+5) = 2×11 = 22.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — אורכים ושטחים',
+    text:'ריבוע עם שטח 25 יחידות רבועות. מה אורך צלעו?',
+    options:['4','5','6','25'],
+    correct:'5',
+    explain:'שטח ריבוע = צלע². אם השטח הוא 25, אז הצלע = √25 = 5.'
+  }
+];
+
+const quizQuestions3b = [
+  {
+    type:'trainMC',
+    title:'מבדק שליטה חלופי — גרף רכבות',
+    text:'באיזו שעה יצאה רכבת ב׳ מתל אביב?',
+    diagramFn:'buildCrossingTrainGraph',
+    options:['6:00','7:00','8:00','9:00'],
+    correct:'7:00',
+    explain:'נקודת ההתחלה של רכבת ב׳ (הקו הטורקיז) נמצאת בשעה 7:00 ב-300 ק"מ — זו תל אביב.'
+  },
+  {
+    type:'trainMC',
+    title:'מבדק שליטה חלופי — גרף רכבות',
+    text:'מה המהירות של רכבת א׳ לפני העצירה בבאר שבע?',
+    diagramFn:'buildCrossingTrainGraph',
+    options:['25 ק"מ לשעה','50 ק"מ לשעה','100 ק"מ לשעה','200 ק"מ לשעה'],
+    correct:'50 ק"מ לשעה',
+    explain:'רכבת א׳ נסעה 100 ק"מ (מאילת לבאר שבע) ב-2 שעות (6:00 עד 8:00). 100 חלקי 2 = 50 ק"מ לשעה.'
+  },
+  {
+    type:'trainMC',
+    title:'מבדק שליטה חלופי — גרף רכבות',
+    text:'מה מייצג הקו האופקי במסלול רכבת א׳?',
+    diagramFn:'buildStoppedTrainGraph',
+    options:['הרכבת נסעה לאחור','הרכבת עמדה במקום','הרכבת האיצה','הרכבת הגיעה ליעד'],
+    correct:'הרכבת עמדה במקום',
+    explain:'קו אופקי בגרף מרחק-זמן מראה שהמיקום לא השתנה — הרכבת עמדה. המיקום נשאר קבוע לאורך הזמן.'
+  },
+  {
+    type:'trainMC',
+    title:'מבדק שליטה חלופי — גרף רכבות',
+    text:'מה הגרף האנכי מראה שאינו אפשרי?',
+    diagramFn:'buildVerticalTrainGraph',
+    options:['מהירות גבוהה מדי','נסיעה לאחור','הרכבת בשני מקומות בו-זמנית','הרכבת עצרה פתאום'],
+    correct:'הרכבת בשני מקומות בו-זמנית',
+    explain:'קו אנכי אומר שבאותה שעה הרכבת נמצאת במרחקים שונים — דבר שאינו אפשרי פיזיקלית.'
+  }
+];
+
 function currentGameLevels(){ return state.sequence===3 ? gameLevels3 : state.sequence===2 ? gameLevels2 : gameLevels1; }
-function currentQuizQuestions(){ return state.sequence===3 ? quizQuestions3 : state.sequence===2 ? quizQuestions2 : quizQuestions1; }
+function currentQuizQuestions(){
+  if(state.sequence===3) return state.quizAlt ? quizQuestions3b : quizQuestions3;
+  if(state.sequence===2) return state.quizAlt ? quizQuestions2b : quizQuestions2;
+  return state.quizAlt ? quizQuestions1b : quizQuestions1;
+}
 
 /* ============ STATE ============ */
 let state = {
@@ -593,7 +732,8 @@ let state = {
   quizIndex:0,
   quizScore:0,
   quizAnswered:false,
-  quizLastCorrect:null
+  quizLastCorrect:null,
+  quizAlt:false
 };
 
 function goHome(){
@@ -875,6 +1015,10 @@ function renderHome(){
         <div class="card quiz" onclick="state.sequence=1;startQuiz()">
           <h3>מבדק שליטה</h3>
         </div>
+        <div class="flow-arrow"><span class="wide-arrow">←</span><span class="narrow-arrow">↓</span></div>
+        <div class="card quiz" onclick="state.sequence=1;startQuizAlt()">
+          <h3>מבדק שליטה חלופי</h3>
+        </div>
       </div>
     </div>
     <div class="sequence-section">
@@ -891,6 +1035,10 @@ function renderHome(){
         <div class="card quiz" onclick="state.sequence=2;startQuiz()">
           <h3>מבדק שליטה</h3>
         </div>
+        <div class="flow-arrow"><span class="wide-arrow">←</span><span class="narrow-arrow">↓</span></div>
+        <div class="card quiz" onclick="state.sequence=2;startQuizAlt()">
+          <h3>מבדק שליטה חלופי</h3>
+        </div>
       </div>
     </div>
     <div class="sequence-section">
@@ -906,6 +1054,10 @@ function renderHome(){
         <div class="flow-arrow"><span class="wide-arrow">←</span><span class="narrow-arrow">↓</span></div>
         <div class="card quiz" onclick="state.sequence=3;startQuiz()">
           <h3>מבדק שליטה</h3>
+        </div>
+        <div class="flow-arrow"><span class="wide-arrow">←</span><span class="narrow-arrow">↓</span></div>
+        <div class="card quiz" onclick="state.sequence=3;startQuizAlt()">
+          <h3>מבדק שליטה חלופי</h3>
         </div>
       </div>
     </div>
@@ -1396,6 +1548,7 @@ function shuffleArr(arr){
 }
 
 function startQuiz(){
+  state.quizAlt = false;
   state.screen='quiz';
   state.quizIndex=0;
   state.quizScore=0;
@@ -1403,6 +1556,11 @@ function startQuiz(){
   state.quizLastCorrect=null;
   state.shuffledOptions = shuffleArr(currentQuizQuestions()[0].options||[]);
   render();
+}
+
+function startQuizAlt(){
+  state.quizAlt = true;
+  startQuiz();
 }
 
 let quizGridCfg = null;

@@ -192,7 +192,8 @@ let state = {
   quizScore:0,
   quizAnswered:false,
   quizLastCorrect:null,
-  shuffledOptions:[]
+  shuffledOptions:[],
+  quizAlt:false
 };
 
 /* ============ GAME LEVELS ============ */
@@ -356,6 +357,86 @@ const quizQuestions2 = [
   }
 ];
 
+/* ============ ALTERNATIVE QUIZ QUESTIONS ============ */
+
+const quizQuestions1b = [
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — ערך מוחלט',
+    text:'מה הערך המוחלט של (-13)?',
+    options:['(-13)','13','0','26'],
+    correct:'13',
+    explain:'הערך המוחלט הוא המרחק מ-0 — תמיד אי-שלילי. |(-13)| = 13.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — ערך מוחלט',
+    text:'מה הערך המוחלט של (-4)?',
+    options:['(-4)','0','4','8'],
+    correct:'4',
+    explain:'|(-4)| = 4. המרחק של (-4) מ-0 על הציר הוא 4 יחידות.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — ערך מוחלט',
+    text:'לאילו מספרים הערך המוחלט שווה ל-6?',
+    options:['רק 6','רק (-6)','גם 6 וגם (-6)','אין מספר כזה'],
+    correct:'גם 6 וגם (-6)',
+    explain:'גם 6 וגם (-6) נמצאים במרחק 6 יחידות מ-0 — לכן לשניהם |x| = 6.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — ערך מוחלט',
+    text:'מי גדול יותר: |-10| או 8?',
+    options:['|-10|, כי 10 גדול מ-8','8, כי (-10) שלילי','הם שווים','אי אפשר להשוות'],
+    correct:'|-10|, כי 10 גדול מ-8',
+    explain:'|-10| = 10. השוואה: 10 מול 8 — 10 גדול יותר.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — ערך מוחלט',
+    text:'לאיזה מספר מבין האפשרויות יש הערך המוחלט הגדול ביותר?',
+    options:['(-3)','5','(-11)','9'],
+    correct:'(-11)',
+    explain:'|(-3)|=3, |5|=5, |(-11)|=11, |9|=9. הגדול ביותר הוא 11 — לכן (-11).'
+  }
+];
+
+const quizQuestions2b = [
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — מספרים נגדיים',
+    text:'מה הנגדי של 15?',
+    options:['15','(-15)','0','1/15'],
+    correct:'(-15)',
+    explain:'הנגדי של מספר חיובי הוא המספר השלילי המקביל — אותו מרחק מ-0, כיוון הפוך.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — מספרים נגדיים',
+    text:'מה הנגדי של (-7)?',
+    options:['(-7)','(-14)','0','7'],
+    correct:'7',
+    explain:'הנגדי של (-7) הוא 7 — אותו מרחק מ-0 (7 יחידות), כיוון הפוך.'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — מספרים נגדיים',
+    text:'אם הנגדי של a הוא (-9), מה הוא a?',
+    options:['(-9)','0','9','18'],
+    correct:'9',
+    explain:'אם הנגדי של a הוא (-9), אז a = 9. הנגדי של 9 הוא (-9).'
+  },
+  {
+    type:'mc',
+    title:'מבדק שליטה חלופי — מספרים נגדיים',
+    text:'נתון ש-a ו-b הם מספרים נגדיים. מה שווה a + b?',
+    options:['1','(-1)','0','תלוי בערך של a'],
+    correct:'0',
+    explain:'מספרים נגדיים הם בעלי אותו מרחק מ-0 אך סימנים הפוכים — סכומם תמיד 0. לדוגמה: 5 + (-5) = 0.'
+  }
+];
+
 /* ============ DISPATCH HELPERS ============ */
 
 function currentGameLevels(){
@@ -363,7 +444,8 @@ function currentGameLevels(){
 }
 
 function currentQuizQuestions(){
-  return state.sequence === 2 ? quizQuestions2 : quizQuestions1;
+  if(state.sequence===2) return state.quizAlt ? quizQuestions2b : quizQuestions2;
+  return state.quizAlt ? quizQuestions1b : quizQuestions1;
 }
 
 /* ============ NUMBER LINE SVG ============ */
@@ -487,6 +569,10 @@ function renderHome(){
         <div class="card quiz" onclick="state.sequence=1;startQuiz()">
           <h3>מבדק שליטה</h3>
         </div>
+        <div class="flow-arrow">←</div>
+        <div class="card quiz" onclick="state.sequence=1;startQuizAlt()">
+          <h3>מבדק שליטה חלופי</h3>
+        </div>
       </div>
     </div>
     <div class="sequence-section">
@@ -502,6 +588,10 @@ function renderHome(){
         <div class="flow-arrow">←</div>
         <div class="card quiz" onclick="state.sequence=2;startQuiz()">
           <h3>מבדק שליטה</h3>
+        </div>
+        <div class="flow-arrow">←</div>
+        <div class="card quiz" onclick="state.sequence=2;startQuizAlt()">
+          <h3>מבדק שליטה חלופי</h3>
         </div>
       </div>
     </div>
@@ -1008,6 +1098,7 @@ function shuffleArr(arr){
 }
 
 function startQuiz(){
+  state.quizAlt = false;
   state.screen = 'quiz';
   state.quizIndex = 0;
   state.quizScore = 0;
@@ -1015,6 +1106,11 @@ function startQuiz(){
   state.quizLastCorrect = null;
   state.shuffledOptions = shuffleArr(currentQuizQuestions()[0].options || []);
   render();
+}
+
+function startQuizAlt(){
+  state.quizAlt = true;
+  startQuiz();
 }
 
 function renderQuiz(){
