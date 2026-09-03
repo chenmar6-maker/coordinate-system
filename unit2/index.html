@@ -2237,7 +2237,7 @@ function renderQuiz(){
     <div class="panel">
       <div class="qmeta">שאלה ${state.quizIndex+1} מתוך ${currentQuizQuestions().length}</div>
       <h2 class="qtitle">${q.title}</h2>
-      <p class="qtext">${wrapMath(q.text)}</p>
+      <p class="qtext"${/= \?$/.test(q.text) ? ' style="direction:ltr;unicode-bidi:embed;"' : ''}>${wrapMath(q.text)}</p>
       ${answerArea}
       ${state.quizAnswered ? `
         <div class="explain-box"><strong>${state.quizLastCorrect ? 'תשובה נכונה!' : 'לא מדויק.'}</strong> ${wrapMath(q.explain)}</div>
