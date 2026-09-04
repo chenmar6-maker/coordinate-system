@@ -272,9 +272,30 @@ const gameLevels1 = [
   {
     id:'absInput',
     title:'מדדו את המרחק',
+    number:-4,
+    correct:4,
+    explain:'הערך המוחלט של (−4) הוא 4 — המרחק מ-0 על הציר. מרחק הוא תמיד מספר אי-שלילי.'
+  },
+  {
+    id:'absInput',
+    title:'מדדו את המרחק',
     number:-6,
     correct:6,
     explain:'הערך המוחלט של (−6) הוא 6 — המרחק מ-0 על הציר. מרחק הוא תמיד מספר אי-שלילי.'
+  },
+  {
+    id:'absInput',
+    title:'מדדו את המרחק',
+    number:9,
+    correct:9,
+    explain:'הערך המוחלט של 9 הוא 9 — מספר חיובי שווה לעצמו. |9| = 9.'
+  },
+  {
+    id:'absTwoPoints',
+    title:'שני מספרים, ערך אחד',
+    absValue:3,
+    correct:[3,-3],
+    explain:'גם 3 וגם (−3) נמצאים במרחק 3 יחידות מ-0 — לכן לשניהם אותו ערך מוחלט.'
   },
   {
     id:'absTwoPoints',
@@ -282,6 +303,13 @@ const gameLevels1 = [
     absValue:5,
     correct:[5,-5],
     explain:'גם 5 וגם (−5) נמצאים במרחק 5 יחידות מ-0 — לכן לשניהם אותו ערך מוחלט.'
+  },
+  {
+    id:'absMax',
+    title:'הערך המוחלט הגדול ביותר',
+    numbers:[-5, 12, -3, 7],
+    correct:12,
+    explain:'לפי ערך מוחלט: |−5|=5, |12|=12, |−3|=3, |7|=7. הגדול ביותר הוא 12 — ולכן 12 הוא התשובה.'
   },
   {
     id:'absMax',
@@ -359,20 +387,11 @@ const gameLevels2 = [
 
 const quizQuestions1 = [
   {
-    type:'mc',
+    type:'input',
     title:'מבדק שליטה — ערך מוחלט',
     text:'מה הערך המוחלט של (−9)?',
-    options:['(−9)','9','0','אי אפשר לדעת'],
-    correct:'9',
+    correct:9,
     explain:'הערך המוחלט הוא המרחק מ-0 — תמיד אי-שלילי. |−9| = 9.'
-  },
-  {
-    type:'mc',
-    title:'מבדק שליטה — ערך מוחלט',
-    text:'מה הערך המוחלט של 7?',
-    options:['(−7)','7','0','14'],
-    correct:'7',
-    explain:'מספר חיובי — הערך המוחלט שלו שווה לו עצמו. |7| = 7.'
   },
   {
     type:'mc',
@@ -383,20 +402,11 @@ const quizQuestions1 = [
     explain:'גם 4 וגם (−4) נמצאים במרחק 4 יחידות מ-0, אחד מכל צד.'
   },
   {
-    type:'mc',
+    type:'input',
     title:'מבדק שליטה — ערך מוחלט',
-    text:'מי גדול יותר: |−7| או 5?',
-    options:['|−7|, כי 7 גדול מ-5','5, כי (−7) הוא שלילי','הם שווים','אי אפשר להשוות'],
-    correct:'|−7|, כי 7 גדול מ-5',
-    explain:'|−7| = 7, וזה מספר חיובי רגיל. 7 גדול מ-5 — לכן |−7| גדול יותר.'
-  },
-  {
-    type:'mc',
-    title:'מבדק שליטה — ערך מוחלט',
-    text:'מה הערך המוחלט של 0?',
-    options:['0','(−0)','אין לאפס ערך מוחלט','1'],
-    correct:'0',
-    explain:'המרחק של 0 מ-0 הוא 0. |0| = 0.'
+    text:'מה הערך המוחלט של (−3.5)?',
+    correct:3.5,
+    explain:'|−3.5| = 3.5. המרחק של (−3.5) מ-0 על הציר הוא 3.5 יחידות — גם לשברים עשרוניים הכלל זהה.'
   },
   {
     type:'mc',
@@ -409,10 +419,10 @@ const quizQuestions1 = [
   {
     type:'mc',
     title:'מבדק שליטה — ערך מוחלט',
-    text:'מה הערך המוחלט של (−3.5)?',
-    options:['(−3.5)','3.5','3','4'],
-    correct:'3.5',
-    explain:'|−3.5| = 3.5. המרחק של (−3.5) מ-0 על הציר הוא 3.5 יחידות — גם לשברים עשרוניים הכלל זהה.'
+    text:'מי גדול יותר: |−7| או 5?',
+    options:['|−7|, כי 7 גדול מ-5','5, כי (−7) הוא שלילי','הם שווים','אי אפשר להשוות'],
+    correct:'|−7|, כי 7 גדול מ-5',
+    explain:'|−7| = 7, וזה מספר חיובי רגיל. 7 גדול מ-5 — לכן |−7| גדול יותר.'
   }
 ];
 
@@ -455,44 +465,26 @@ const quizQuestions2 = [
 
 const quizQuestions1b = [
   {
-    type:'mc',
+    type:'input',
     title:'מבדק שליטה חלופי — ערך מוחלט',
-    text:'מה הערך המוחלט של (-13)?',
-    options:['(-13)','13','0','26'],
-    correct:'13',
+    text:'מה הערך המוחלט של (−13)?',
+    correct:13,
     explain:'הערך המוחלט הוא המרחק מ-0 — תמיד אי-שלילי. |−13| = 13.'
   },
   {
     type:'mc',
     title:'מבדק שליטה חלופי — ערך מוחלט',
-    text:'מה הערך המוחלט של (-4)?',
-    options:['(-4)','0','4','8'],
-    correct:'4',
-    explain:'|−4| = 4. המרחק של (−4) מ-0 על הציר הוא 4 יחידות.'
-  },
-  {
-    type:'mc',
-    title:'מבדק שליטה חלופי — ערך מוחלט',
     text:'לאילו מספרים הערך המוחלט שווה ל-6?',
-    options:['רק 6','רק (-6)','גם 6 וגם (-6)','אין מספר כזה'],
-    correct:'גם 6 וגם (-6)',
-    explain:'גם 6 וגם (-6) נמצאים במרחק 6 יחידות מ-0 — לכן לשניהם |x| = 6.'
+    options:['רק 6','רק (−6)','גם 6 וגם (−6)','אין מספר כזה'],
+    correct:'גם 6 וגם (−6)',
+    explain:'גם 6 וגם (−6) נמצאים במרחק 6 יחידות מ-0 — לכן לשניהם |x| = 6.'
   },
   {
-    type:'mc',
+    type:'input',
     title:'מבדק שליטה חלופי — ערך מוחלט',
-    text:'מי גדול יותר: |-10| או 8?',
-    options:['|-10|, כי 10 גדול מ-8','8, כי (-10) שלילי','הם שווים','אי אפשר להשוות'],
-    correct:'|-10|, כי 10 גדול מ-8',
-    explain:'|-10| = 10. השוואה: 10 מול 8 — 10 גדול יותר.'
-  },
-  {
-    type:'mc',
-    title:'מבדק שליטה חלופי — ערך מוחלט',
-    text:'לאיזה מספר מבין האפשרויות יש הערך המוחלט הגדול ביותר?',
-    options:['(-3)','5','(-11)','9'],
-    correct:'(-11)',
-    explain:'|−3|=3, |5|=5, |−11|=11, |9|=9. הגדול ביותר הוא 11 — לכן (−11).'
+    text:'מה הערך המוחלט של (−7.5)?',
+    correct:7.5,
+    explain:'|−7.5| = 7.5. המרחק של (−7.5) מ-0 הוא 7.5 יחידות — הכלל חל גם על שברים עשרוניים.'
   },
   {
     type:'mc',
@@ -505,10 +497,10 @@ const quizQuestions1b = [
   {
     type:'mc',
     title:'מבדק שליטה חלופי — ערך מוחלט',
-    text:'מה הערך המוחלט של (−7.5)?',
-    options:['(−7.5)','7.5','7','8'],
-    correct:'7.5',
-    explain:'|−7.5| = 7.5. המרחק של (−7.5) מ-0 הוא 7.5 יחידות — הכלל חל גם על שברים עשרוניים.'
+    text:'מי גדול יותר: |−10| או 8?',
+    options:['|−10|, כי 10 גדול מ-8','8, כי (−10) שלילי','הם שווים','אי אפשר להשוות'],
+    correct:'|−10|, כי 10 גדול מ-8',
+    explain:'|−10| = 10. השוואה: 10 מול 8 — 10 גדול יותר.'
   }
 ];
 
@@ -2475,10 +2467,21 @@ function renderQuiz(){
     return `<div class="${cls}"></div>`;
   }).join('');
 
-  const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : q.options;
-  const answerArea = `<div class="mc-options">
-    ${opts.map(opt => `<button class="mc-btn" id="opt-${safeId(opt)}" onclick="answerQuizMC('${escOpt(opt)}')" ${state.quizAnswered?'disabled':''}>${wrapOpt(opt)}</button>`).join('')}
-  </div>`;
+  let answerArea;
+  if(q.type === 'input'){
+    answerArea = `<div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:16px;">
+      <input id="quiz-input" type="number" step="any" inputmode="decimal"
+        style="font-size:22px;padding:10px 18px;border-radius:10px;border:1.5px solid rgba(234,244,241,0.3);background:rgba(234,244,241,0.08);color:var(--foam);font-family:'Rubik',sans-serif;text-align:center;width:140px;"
+        placeholder="?" ${state.quizAnswered?'disabled':''}
+        onkeydown="if(event.key==='Enter')submitQuizInput()">
+      ${!state.quizAnswered ? `<button class="btn" onclick="submitQuizInput()">בדוק</button>` : ''}
+    </div>`;
+  } else {
+    const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : q.options;
+    answerArea = `<div class="mc-options">
+      ${opts.map(opt => `<button class="mc-btn" id="opt-${safeId(opt)}" onclick="answerQuizMC('${escOpt(opt)}')" ${state.quizAnswered?'disabled':''}>${wrapOpt(opt)}</button>`).join('')}
+    </div>`;
+  }
 
   const isLast = state.quizIndex === currentQuizQuestions().length - 1;
 
@@ -2490,7 +2493,7 @@ function renderQuiz(){
       <p class="qtext"${/= \?$/.test(q.text) ? ' style="direction:ltr;unicode-bidi:embed;"' : ''}>${wrapMath(q.text)}</p>
       ${answerArea}
       ${state.quizAnswered ? `
-        <div class="explain-box"><strong>${state.quizLastCorrect ? 'תשובה נכונה!' : 'לא מדויק.'}</strong> ${wrapMath(q.explain)}</div>
+        <div class="explain-box"><strong>${state.quizLastCorrect ? 'תשובה נכונה!' : `לא מדויק. התשובה הנכונה: <bdi style="direction:ltr;unicode-bidi:embed;">${q.correct}</bdi>`}</strong> ${wrapMath(q.explain)}</div>
         <div class="btnrow"><button class="btn" onclick="${isLast ? 'finishQuiz()' : 'nextQuizQuestion()'}">${isLast ? 'לתוצאות' : 'לשאלה הבאה'}</button></div>
       ` : ''}
     </div>
@@ -2510,6 +2513,19 @@ function answerQuizMC(opt){
     else if(btn.textContent === opt && !correct) btn.classList.add('wrong');
   });
   setTimeout(render, 350);
+}
+
+function submitQuizInput(){
+  if(state.quizAnswered) return;
+  const q = currentQuizQuestions()[state.quizIndex];
+  const input = document.getElementById('quiz-input');
+  if(!input || input.value === '') return;
+  const val = parseFloat(input.value.replace(',', '.'));
+  const correct = (val === parseFloat(q.correct));
+  state.quizAnswered = true;
+  state.quizLastCorrect = correct;
+  if(correct) state.quizScore++;
+  render();
 }
 
 function nextQuizQuestion(){
