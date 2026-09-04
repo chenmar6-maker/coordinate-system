@@ -1510,6 +1510,7 @@ function renderTrainMCLevel(lvl){
         ${opts.map(opt=>`<button class="mc-btn" onclick="answerTrainMCGame('${opt.replace(/'/g,"\\'").replace(/"/g,'&quot;')}')" ${sub.answered?'disabled':''}>${opt}</button>`).join('')}
       </div>
       ${sub.answered ? `<div class="explain-box"><strong>${sub.picked===lvl.correct?'תשובה נכונה!':'לא מדויק.'}</strong> ${lvl.explain}</div><div class="btnrow"><button class="btn" onclick="nextLevel()">להמשך</button></div>` : ''}
+      ${!sub.answered && state.levelIndex < currentGameLevels().length - 1 ? `<div style="text-align:center;margin-top:10px;"><button class="btn secondary" onclick="skipLevel()" style="font-size:13px;padding:6px 18px;">דלג לתרגיל הבא ←</button></div>` : ''}
     </div>
   `;
 }
