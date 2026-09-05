@@ -19,9 +19,9 @@
     --seafoam:#48B08C;
     --paper:#EFE7D3;
     --ink:#0A2A43;
-    --gridline: rgba(30,27,46,0.12);
-    --axislabel: rgba(30,27,46,0.6);
-    --axis:#1E1B2E;
+    --gridline: rgba(234,244,241,0.14);
+    --axislabel: rgba(234,244,241,0.68);
+    --axis:#EAF4F1;
     --linecolor:#EFA94A;
   }
 
@@ -29,8 +29,8 @@
   html,body{margin:0;padding:0;}
   body{
     font-family:'Rubik',sans-serif;
-    background: linear-gradient(135deg, #F5F4FC 0%, #EDF0FA 60%, #F0EEF9 100%);
-    color: var(--navy);
+    background: radial-gradient(ellipse at 50% -10%, #3D3568 0%, #1E1B2E 50%, #0F0D1A 100%);
+    color: var(--foam);
     direction: rtl;
     min-height:100vh;
     line-height:1.6;
@@ -53,19 +53,19 @@
   }
   .logo-badge img{height:54px;width:auto;display:block;}
   .homebtn{
-    background:transparent;border:1.5px solid var(--navy);color:var(--navy);
+    background:transparent;border:1.5px solid var(--foam);color:var(--foam);
     padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;
-    font-size:14px;cursor:pointer;opacity:.75;
+    font-size:14px;cursor:pointer;opacity:.85;
   }
   .homebtn:hover{opacity:1;border-color:var(--gold);color:var(--gold);}
 
   .hero{text-align:center;padding:18px 10px 10px;}
   h1.title{
     font-family:'Rubik',sans-serif;font-weight:800;
-    font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:var(--navy);
+    font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:#FFFFFF;
     text-align:center;letter-spacing:-0.5px;
   }
-  p.subtitle{font-size:17px;color:var(--navy);opacity:.7;margin:0 0 8px;text-align:center;}
+  p.subtitle{font-size:17px;color:var(--foam);opacity:.85;margin:0 0 8px;text-align:center;}
 
   .rtl-text{text-align:right;direction:rtl;}
 
@@ -74,10 +74,10 @@
   ul.bullets li::before{content:"•";color:var(--gold);position:absolute;right:0;top:0;font-size:18px;}
 
   .cards{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
-  .sequence-section{margin-bottom:28px;background:rgba(30,27,46,0.04);border-radius:14px;padding:18px 20px;}
+  .sequence-section{margin-bottom:28px;background:rgba(234,244,241,0.04);border-radius:14px;padding:18px 20px;}
   .sequence-title{
     font-family:'Rubik',sans-serif;font-weight:700;
-    font-size:17px;color:var(--navy);
+    font-size:17px;color:var(--foam);
     text-align:center;margin:0 0 14px;opacity:.9;
   }
 
@@ -95,15 +95,15 @@
   .card h3{font-family:'Rubik',sans-serif;font-size:15px;font-weight:600;margin:0;}
   .card p{display:none;}
 
-  .card.learn{background:rgba(28,110,140,0.1);border:1.5px solid var(--light-teal);color:#1a5276;}
-  .card.game{background:rgba(239,169,74,0.15);border:1.5px solid var(--gold);color:#8a5a10;}
-  .card.quiz{background:rgba(226,96,79,0.12);border:1.5px solid var(--coral);color:#9b2915;}
+  .card.learn{background:rgba(28,110,140,0.25);border:1.5px solid var(--teal);color:var(--foam);}
+  .card.game{background:rgba(239,169,74,0.18);border:1.5px solid var(--gold);color:var(--gold);}
+  .card.quiz{background:rgba(226,96,79,0.18);border:1.5px solid var(--coral);color:var(--coral);}
   .card.quiz .tag{display:none;}
 
   .icon{font-size:30px;margin-bottom:8px;display:block;text-align:inherit;}
 
   .panel{
-    background:rgba(30,27,46,0.04);border:1px solid rgba(30,27,46,0.12);
+    background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.15);
     border-radius:10px;padding:22px;margin:18px 0;
   }
 
@@ -135,10 +135,10 @@
     text-align:center;font-family:'Rubik',sans-serif;background:var(--foam);color:var(--ink);
   }
   .coord-input-row input:focus{outline:2px solid var(--gold);}
-  .coord-input-row .paren, .coord-input-row .comma{color:var(--navy);}
+  .coord-input-row .paren, .coord-input-row .comma{color:var(--foam);}
 
   .gridbox{display:flex;justify-content:center;margin:16px 0;}
-  .gridbox svg{background:rgba(240,238,249,0.8);border-radius:8px;border:1px solid rgba(30,27,46,0.1);}
+  .gridbox svg{background:rgba(10,42,67,0.35);border-radius:8px;}
 
   .video-wrap{
     position:relative;width:100%;max-width:520px;margin:0 auto 20px;
@@ -154,7 +154,7 @@
     border-radius:24px;cursor:pointer;transition:transform .12s ease;
   }
   .btn:hover{transform:translateY(-2px);}
-  .btn.secondary{background:transparent;border:1.5px solid var(--navy);color:var(--navy);}
+  .btn.secondary{background:transparent;border:1.5px solid var(--foam);color:var(--foam);}
   .btn.secondary:hover{border-color:var(--gold);color:var(--gold);}
   .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
 
@@ -167,7 +167,7 @@
     animation: popIn .45s cubic-bezier(.34,1.56,.64,1);
   }
   .target-pop .label{
-    display:block;font-size:14px;color:var(--navy);opacity:.8;margin-bottom:4px;
+    display:block;font-size:14px;color:var(--foam);opacity:.8;margin-bottom:4px;
   }
   .target-pop .coord-big{
     display:inline-block;font-size:32px;font-weight:800;
@@ -184,7 +184,7 @@
     line-height:1.05;animation: popIn .45s cubic-bezier(.34,1.56,.64,1);
   }
   .target-counter-badge .num{font-size:22px;font-weight:800;color:var(--gold);}
-  .target-counter-badge .of{font-size:10px;color:var(--navy);opacity:.8;margin-top:1px;}
+  .target-counter-badge .of{font-size:10px;color:var(--foam);opacity:.8;margin-top:1px;}
   @keyframes popIn{
     0%{transform:scale(.55);opacity:0;}
     65%{transform:scale(1.18);opacity:1;}
@@ -212,13 +212,13 @@
 
   .progressdots{display:flex;gap:8px;justify-content:center;margin-bottom:6px;}
   .dot{
-    width:11px;height:11px;border-radius:50%;background:rgba(30,27,46,0.18);
+    width:11px;height:11px;border-radius:50%;background:rgba(234,244,241,0.25);
     border:none;padding:0;
   }
   .dot.clickable{cursor:pointer;transition:transform .12s ease, background .12s ease;}
-  .dot.clickable:hover{transform:scale(1.4);background:rgba(30,27,46,0.35);}
+  .dot.clickable:hover{transform:scale(1.4);background:rgba(234,244,241,0.5);}
   .dots-hint{
-    text-align:center;font-size:12.5px;color:var(--navy);opacity:.6;
+    text-align:center;font-size:12.5px;color:var(--foam);opacity:.6;
     margin:0 0 16px;
   }
   .dot.done{background:var(--seafoam);}
@@ -234,8 +234,8 @@
 
   .mc-options{display:flex;flex-direction:column;gap:10px;max-width:340px;margin:16px auto 0;}
   .mc-btn{
-    background:rgba(30,27,46,0.05);border:1.5px solid rgba(30,27,46,0.18);
-    color:var(--navy);padding:12px 16px;border-radius:8px;font-size:16px;
+    background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);
+    color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;
     cursor:pointer;font-family:'Rubik',sans-serif;
     text-align:center;
   }
@@ -260,7 +260,7 @@
   .targetlist{max-width:300px;margin:14px auto;}
   .targetlist .t{
     display:flex;justify-content:space-between;padding:7px 12px;font-size:15px;
-    border-bottom:1px solid rgba(30,27,46,0.12);
+    border-bottom:1px solid rgba(234,244,241,0.15);
   }
   .targetlist .t.hit{color:var(--seafoam);}
 
@@ -749,15 +749,15 @@ function goBack(){
 
 function shipIcon(cx,cy,color){
   return `<g transform="translate(${cx},${cy})">
-    <path d="M -11,-2 L 11,-2 L 8,9 L -8,9 Z" fill="${color}" stroke="var(--navy)" stroke-width="1.5"/>
+    <path d="M -11,-2 L 11,-2 L 8,9 L -8,9 Z" fill="${color}" stroke="var(--deep-navy)" stroke-width="1.5"/>
     <rect x="-2" y="-11" width="4" height="10" fill="${color}"/>
     <path d="M 2,-11 L 10,-6 L 2,-4 Z" fill="${color}"/>
   </g>`;
 }
 function buoyIcon(cx,cy,color){
   return `<g transform="translate(${cx},${cy})">
-    <circle r="9" fill="${color}" stroke="var(--navy)" stroke-width="1.5"/>
-    <circle r="3" fill="var(--navy)"/>
+    <circle r="9" fill="${color}" stroke="var(--deep-navy)" stroke-width="1.5"/>
+    <circle r="3" fill="var(--deep-navy)"/>
   </g>`;
 }
 
@@ -770,18 +770,18 @@ function buildTrainGraph(highlight){
   const sy=km=>topM+plotH-km*kmScale;
   const hours=[6,8,10,12,14,16,18];
   const cities=[{n:'קרית שמונה',km:500},{n:'חיפה',km:400},{n:'תל אביב',km:300},{n:'באר שבע',km:100},{n:'אילת',km:0}];
-  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(240,238,249,0.85);border-radius:8px;font-family:Rubik,sans-serif;border:1px solid rgba(30,27,46,0.1);" xmlns="http://www.w3.org/2000/svg">`;
+  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Rubik,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
   // grid
-  hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(30,27,46,0.1)" stroke-width="1"/>`; });
-  cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(30,27,46,0.1)" stroke-width="1"/>`; });
+  hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
   // axes
-  s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(30,27,46,0.65)" stroke-width="2"/>`;
-  s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(30,27,46,0.65)" stroke-width="2"/>`;
+  s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
   // x labels
-  hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(30,27,46,0.75)">${h}:00</text>`; });
+  hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(234,244,241,0.75)">${h}:00</text>`; });
   s+=`<text x="${leftM+plotW}" y="${topM+plotH+32}" text-anchor="end" direction="ltr" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
   // y labels
-  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" direction="ltr" font-size="9.5" fill="rgba(30,27,46,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" direction="ltr" font-size="8.5" fill="rgba(30,27,46,0.5)">${c.km}</text>`; });
+  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" direction="ltr" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" direction="ltr" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km}</text>`; });
   s+=`<text x="${leftM-5}" y="${topM+8}" text-anchor="end" direction="ltr" font-size="9" fill="rgba(239,169,74,0.75)">קילומטרים</text>`;
   // train A (gold): (6,0)->(16,500)
   s+=`<line x1="${sx(6)}" y1="${sy(0)}" x2="${sx(16)}" y2="${sy(500)}" stroke="#EFA94A" stroke-width="2.5"/>`;
@@ -804,14 +804,14 @@ function buildStoppedTrainGraph(){
   const sy=km=>topM+plotH-km*kmScale;
   const hours=[6,8,10,12,14,16,18];
   const cities=[{n:'קרית שמונה',km:500},{n:'חיפה',km:400},{n:'תל אביב',km:300},{n:'באר שבע',km:100},{n:'אילת',km:0}];
-  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(240,238,249,0.85);border-radius:8px;font-family:Rubik,sans-serif;border:1px solid rgba(30,27,46,0.1);" xmlns="http://www.w3.org/2000/svg">`;
-  hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(30,27,46,0.1)" stroke-width="1"/>`; });
-  cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(30,27,46,0.1)" stroke-width="1"/>`; });
-  s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(30,27,46,0.65)" stroke-width="2"/>`;
-  s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(30,27,46,0.65)" stroke-width="2"/>`;
-  hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(30,27,46,0.75)">${h}:00</text>`; });
+  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Rubik,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
+  hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(234,244,241,0.75)">${h}:00</text>`; });
   s+=`<text x="${leftM+plotW}" y="${topM+plotH+32}" text-anchor="end" direction="ltr" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
-  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" direction="ltr" font-size="9.5" fill="rgba(30,27,46,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" direction="ltr" font-size="8.5" fill="rgba(30,27,46,0.5)">${c.km}</text>`; });
+  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" direction="ltr" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" direction="ltr" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km}</text>`; });
   s+=`<text x="${leftM-5}" y="${topM+8}" text-anchor="end" direction="ltr" font-size="9" fill="rgba(239,169,74,0.75)">קילומטרים</text>`;
   // diagonal → horizontal (stopped) → diagonal
   s+=`<polyline points="${sx(6)},${sy(0)} ${sx(8)},${sy(100)} ${sx(11)},${sy(100)} ${sx(15)},${sy(300)}" fill="none" stroke="#EFA94A" stroke-width="2.5"/>`;
@@ -831,14 +831,14 @@ function buildVerticalTrainGraph(){
   const sy=km=>topM+plotH-km*kmScale;
   const hours=[6,8,10,12,14,16,18];
   const cities=[{n:'קרית שמונה',km:500},{n:'חיפה',km:400},{n:'תל אביב',km:300},{n:'באר שבע',km:100},{n:'אילת',km:0}];
-  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(240,238,249,0.85);border-radius:8px;font-family:Rubik,sans-serif;border:1px solid rgba(30,27,46,0.1);" xmlns="http://www.w3.org/2000/svg">`;
-  hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(30,27,46,0.1)" stroke-width="1"/>`; });
-  cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(30,27,46,0.1)" stroke-width="1"/>`; });
-  s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(30,27,46,0.65)" stroke-width="2"/>`;
-  s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(30,27,46,0.65)" stroke-width="2"/>`;
-  hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(30,27,46,0.75)">${h}:00</text>`; });
+  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Rubik,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
+  hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(234,244,241,0.75)">${h}:00</text>`; });
   s+=`<text x="${leftM+plotW}" y="${topM+plotH+32}" text-anchor="end" direction="ltr" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
-  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" direction="ltr" font-size="9.5" fill="rgba(30,27,46,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" direction="ltr" font-size="8.5" fill="rgba(30,27,46,0.5)">${c.km}</text>`; });
+  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" direction="ltr" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" direction="ltr" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km}</text>`; });
   s+=`<text x="${leftM-5}" y="${topM+8}" text-anchor="end" direction="ltr" font-size="9" fill="rgba(239,169,74,0.75)">קילומטרים</text>`;
   // impossible vertical line at hour 10
   s+=`<line x1="${sx(10)}" y1="${sy(50)}" x2="${sx(10)}" y2="${sy(430)}" stroke="#E2604F" stroke-width="3"/>`;
@@ -857,18 +857,18 @@ function buildCrossingTrainGraph(){
   const sy=km=>topM+plotH-km*kmScale;
   const hours=[6,8,10,12,14,16,18];
   const cities=[{n:'קרית שמונה',km:500},{n:'חיפה',km:400},{n:'תל אביב',km:300},{n:'באר שבע',km:100},{n:'אילת',km:0}];
-  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(240,238,249,0.85);border-radius:8px;font-family:Rubik,sans-serif;border:1px solid rgba(30,27,46,0.1);" xmlns="http://www.w3.org/2000/svg">`;
+  let s=`<svg width="${svgW}" height="${svgH}" style="background:rgba(10,42,67,0.4);border-radius:8px;font-family:Rubik,sans-serif;" xmlns="http://www.w3.org/2000/svg">`;
   // grid
-  hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(30,27,46,0.1)" stroke-width="1"/>`; });
-  cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(30,27,46,0.1)" stroke-width="1"/>`; });
+  hours.forEach(h=>{ s+=`<line x1="${sx(h)}" y1="${topM}" x2="${sx(h)}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
+  cities.forEach(c=>{ s+=`<line x1="${leftM}" y1="${sy(c.km)}" x2="${leftM+plotW}" y2="${sy(c.km)}" stroke="rgba(234,244,241,0.12)" stroke-width="1"/>`; });
   // axes
-  s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(30,27,46,0.65)" stroke-width="2"/>`;
-  s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(30,27,46,0.65)" stroke-width="2"/>`;
+  s+=`<line x1="${leftM}" y1="${topM}" x2="${leftM}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  s+=`<line x1="${leftM}" y1="${topM+plotH}" x2="${leftM+plotW}" y2="${topM+plotH}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
   // hour labels
-  hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(30,27,46,0.75)">${h}:00</text>`; });
+  hours.forEach(h=>{ s+=`<text x="${sx(h)}" y="${topM+plotH+16}" text-anchor="middle" font-size="10" fill="rgba(234,244,241,0.75)">${h}:00</text>`; });
   s+=`<text x="${leftM+plotW}" y="${topM+plotH+32}" text-anchor="end" direction="ltr" font-size="10" fill="rgba(239,169,74,0.9)">שעה</text>`;
   // city labels
-  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" direction="ltr" font-size="9.5" fill="rgba(30,27,46,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" direction="ltr" font-size="8.5" fill="rgba(30,27,46,0.5)">${c.km}</text>`; });
+  cities.forEach(c=>{ s+=`<text x="${leftM-5}" y="${sy(c.km)-6}" text-anchor="end" direction="ltr" font-size="9.5" fill="rgba(234,244,241,0.85)">${c.n}</text><text x="${leftM-5}" y="${sy(c.km)+6}" text-anchor="end" direction="ltr" font-size="8.5" fill="rgba(234,244,241,0.5)">${c.km}</text>`; });
   s+=`<text x="${leftM-5}" y="${topM+8}" text-anchor="end" direction="ltr" font-size="9" fill="rgba(239,169,74,0.75)">קילומטרים</text>`;
   // Train A (gold): אילת→באר שבע→wait→חיפה
   const aPoints=`${sx(6)},${sy(0)} ${sx(8)},${sy(100)} ${sx(11)},${sy(100)} ${sx(17)},${sy(400)}`;
@@ -931,7 +931,7 @@ function buildGrid({id, size=10, cellPx=34, points=[], lines=[], interactive=fal
     else if(p.icon==='unknown'){
       pointsMarkup += `<circle cx="${cx}" cy="${cy}" r="12" fill="none" stroke="${color}" stroke-width="2" stroke-dasharray="3,3"/><text x="${cx}" y="${cy+5}" text-anchor="middle" font-size="15" fill="${color}" font-weight="700" font-family="Assistant">?</text>`;
     } else {
-      pointsMarkup += `<circle cx="${cx}" cy="${cy}" r="6" fill="${color}" stroke="var(--navy)" stroke-width="1.5"/>`;
+      pointsMarkup += `<circle cx="${cx}" cy="${cy}" r="6" fill="${color}" stroke="var(--deep-navy)" stroke-width="1.5"/>`;
     }
     if(p.label){
       pointsMarkup += `<text x="${cx}" y="${cy-14}" text-anchor="middle" font-size="13" fill="var(--foam)" font-weight="700" font-family="Assistant">${p.label}</text>`;

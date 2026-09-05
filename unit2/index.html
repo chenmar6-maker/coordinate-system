@@ -18,9 +18,9 @@
     --seafoam:#48B08C;
     --paper:#EFE7D3;
     --ink:#0A2A43;
-    --gridline: rgba(30,27,46,0.12);
-    --axislabel: rgba(30,27,46,0.6);
-    --axis:#1E1B2E;
+    --gridline: rgba(234,244,241,0.14);
+    --axislabel: rgba(234,244,241,0.68);
+    --axis:#EAF4F1;
     --linecolor:#EFA94A;
   }
 
@@ -28,8 +28,8 @@
   html,body{margin:0;padding:0;}
   body{
     font-family:'Rubik',sans-serif;
-    background: linear-gradient(135deg, #F5F4FC 0%, #EDF0FA 60%, #F0EEF9 100%);
-    color: var(--navy);
+    background: radial-gradient(ellipse at 50% -10%, #3D3568 0%, #1E1B2E 50%, #0F0D1A 100%);
+    color: var(--foam);
     direction: rtl;
     min-height:100vh;
     line-height:1.6;
@@ -46,25 +46,25 @@
     text-align:right;
   }
   .homebtn{
-    background:transparent;border:1.5px solid var(--navy);color:var(--navy);
+    background:transparent;border:1.5px solid var(--foam);color:var(--foam);
     padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;
-    font-size:14px;cursor:pointer;opacity:.75;text-decoration:none;display:inline-block;
+    font-size:14px;cursor:pointer;opacity:.85;text-decoration:none;display:inline-block;
   }
   .homebtn:hover{opacity:1;border-color:var(--gold);color:var(--gold);}
 
   .hero{text-align:center;padding:18px 10px 10px;}
   h1.title{
     font-family:'Rubik',sans-serif;font-weight:800;
-    font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:var(--navy);
+    font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:#FFFFFF;
     text-align:center;letter-spacing:-0.5px;
   }
-  p.subtitle{font-size:17px;color:var(--navy);opacity:.7;margin:0 0 8px;text-align:center;}
+  p.subtitle{font-size:17px;color:var(--foam);opacity:.85;margin:0 0 8px;text-align:center;}
 
   .cards{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
-  .sequence-section{margin-bottom:28px;background:rgba(30,27,46,0.04);border-radius:14px;padding:18px 20px;}
+  .sequence-section{margin-bottom:28px;background:rgba(234,244,241,0.04);border-radius:14px;padding:18px 20px;}
   .sequence-title{
     font-family:'Rubik',sans-serif;font-weight:700;
-    font-size:17px;color:var(--navy);
+    font-size:17px;color:var(--foam);
     text-align:center;margin:0 0 14px;opacity:.9;
   }
 
@@ -81,12 +81,12 @@
   .card h3{font-family:'Rubik',sans-serif;font-size:15px;font-weight:600;margin:0;}
   .card p{display:none;}
 
-  .card.learn{background:rgba(28,110,140,0.1);border:1.5px solid var(--light-teal);color:#1a5276;}
-  .card.game{background:rgba(239,169,74,0.15);border:1.5px solid var(--gold);color:#8a5a10;}
-  .card.quiz{background:rgba(226,96,79,0.12);border:1.5px solid var(--coral);color:#9b2915;}
+  .card.learn{background:rgba(28,110,140,0.25);border:1.5px solid var(--teal);color:var(--foam);}
+  .card.game{background:rgba(239,169,74,0.18);border:1.5px solid var(--gold);color:var(--gold);}
+  .card.quiz{background:rgba(226,96,79,0.18);border:1.5px solid var(--coral);color:var(--coral);}
 
   .panel{
-    background:rgba(30,27,46,0.04);border:1px solid rgba(30,27,46,0.12);
+    background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.15);
     border-radius:10px;padding:22px;margin:18px 0;
   }
 
@@ -97,7 +97,7 @@
     border-radius:24px;cursor:pointer;transition:transform .12s ease;
   }
   .btn:hover{transform:translateY(-2px);}
-  .btn.secondary{background:transparent;border:1.5px solid var(--navy);color:var(--navy);}
+  .btn.secondary{background:transparent;border:1.5px solid var(--foam);color:var(--foam);}
   .btn.secondary:hover{border-color:var(--gold);color:var(--gold);}
   .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
 
@@ -107,7 +107,7 @@
 
   .progressdots{display:flex;gap:8px;justify-content:center;margin-bottom:6px;}
   .dot{
-    width:11px;height:11px;border-radius:50%;background:rgba(30,27,46,0.18);
+    width:11px;height:11px;border-radius:50%;background:rgba(234,244,241,0.25);
     border:none;padding:0;
   }
   .dot.done{background:var(--seafoam);}
@@ -116,8 +116,8 @@
 
   .mc-options{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:16px auto 0;}
   .mc-btn{
-    background:rgba(30,27,46,0.05);border:1.5px solid rgba(30,27,46,0.18);
-    color:var(--navy);padding:12px 16px;border-radius:8px;font-size:16px;
+    background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);
+    color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;
     cursor:pointer;font-family:'Rubik',sans-serif;
     text-align:center;
   }
@@ -149,24 +149,24 @@
 
   .mc-btns-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0;}
   .ans-btn{
-    background:rgba(30,27,46,0.06);border:1.5px solid rgba(30,27,46,0.22);
-    color:var(--navy);padding:10px 20px;border-radius:8px;font-size:16px;
+    background:rgba(234,244,241,0.1);border:1.5px solid rgba(234,244,241,0.35);
+    color:var(--foam);padding:10px 20px;border-radius:8px;font-size:16px;
     cursor:pointer;font-family:'Rubik',sans-serif;font-weight:600;
     transition:border-color .12s ease, background .12s ease;
   }
   .ans-btn:hover{border-color:var(--gold);}
-  .ans-btn.correct{background:rgba(72,176,140,0.25);border-color:var(--seafoam);color:#1e6348;}
-  .ans-btn.wrong{background:rgba(226,96,79,0.2);border-color:var(--coral);color:#9b2915;}
+  .ans-btn.correct{background:rgba(72,176,140,0.3);border-color:var(--seafoam);color:var(--seafoam);}
+  .ans-btn.wrong{background:rgba(226,96,79,0.3);border-color:var(--coral);color:var(--coral);}
   .ans-btn:disabled{cursor:default;}
 
   .instr{
-    text-align:center;font-size:15px;color:var(--navy);opacity:.8;
+    text-align:center;font-size:15px;color:var(--foam);opacity:.85;
     margin:8px 0 4px;
   }
 
   .video-placeholder{
-    background:rgba(30,27,46,0.06);border-radius:10px;padding:60px 20px;
-    margin:16px 0;color:rgba(30,27,46,0.4);font-size:15px;text-align:center;
+    background:rgba(0,0,0,0.3);border-radius:10px;padding:60px 20px;
+    margin:16px 0;color:rgba(234,244,241,0.4);font-size:15px;text-align:center;
   }
 
   ul.bullets{list-style:none;margin:18px 0 6px;padding:0;text-align:right;}
@@ -209,8 +209,8 @@
   .addend-tiles { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:16px 0; }
   .addend-tile {
     padding:10px 18px; border-radius:8px; font-size:18px; font-weight:700;
-    cursor:pointer; border:2px solid rgba(30,27,46,0.2);
-    background:rgba(30,27,46,0.06); color:var(--navy);
+    cursor:pointer; border:2px solid rgba(234,244,241,0.3);
+    background:rgba(234,244,241,0.1); color:var(--foam);
     transition: background .15s, border-color .15s;
     direction:ltr; unicode-bidi:isolate;
   }
@@ -234,10 +234,10 @@
   .dual-models { display:flex; gap:16px; margin:14px 0; flex-wrap:wrap; }
   .dual-model-box {
     flex:1; min-width:260px;
-    background:rgba(30,27,46,0.04); border:1px solid rgba(30,27,46,0.12);
+    background:rgba(234,244,241,0.05); border:1px solid rgba(234,244,241,0.15);
     border-radius:10px; padding:14px; text-align:center;
   }
-  .dual-model-label { font-size:13px; font-weight:700; color:rgba(30,27,46,0.6); margin-bottom:8px; }
+  .dual-model-label { font-size:13px; font-weight:700; color:rgba(234,244,241,0.6); margin-bottom:8px; }
 </style>
 </head>
 <body>
@@ -767,11 +767,11 @@ function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactiv
   }
 
   // Main axis line
-  s += `<line x1="${leftM}" y1="${axisY}" x2="${svgW - rightM}" y2="${axisY}" stroke="rgba(30,27,46,0.65)" stroke-width="2"/>`;
+  s += `<line x1="${leftM}" y1="${axisY}" x2="${svgW - rightM}" y2="${axisY}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
 
   // Arrow heads
-  s += `<polygon points="${svgW-rightM+2},${axisY} ${svgW-rightM-7},${axisY-5} ${svgW-rightM-7},${axisY+5}" fill="rgba(30,27,46,0.65)"/>`;
-  s += `<polygon points="${leftM-2},${axisY} ${leftM+7},${axisY-5} ${leftM+7},${axisY+5}" fill="rgba(30,27,46,0.65)"/>`;
+  s += `<polygon points="${svgW-rightM+2},${axisY} ${svgW-rightM-7},${axisY-5} ${svgW-rightM-7},${axisY+5}" fill="rgba(234,244,241,0.7)"/>`;
+  s += `<polygon points="${leftM-2},${axisY} ${leftM+7},${axisY-5} ${leftM+7},${axisY+5}" fill="rgba(234,244,241,0.7)"/>`;
 
   // Tick marks and labels
   for(let n = min; n <= max; n++){
@@ -780,11 +780,11 @@ function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactiv
     const isFive = n % 5 === 0;
     const tickH = isZero ? 14 : isFive ? 10 : 6;
     const tickW = isZero ? 2.5 : 1.5;
-    s += `<line x1="${x}" y1="${axisY - tickH}" x2="${x}" y2="${axisY + tickH}" stroke="rgba(30,27,46,${isZero?0.85:0.55})" stroke-width="${tickW}"/>`;
+    s += `<line x1="${x}" y1="${axisY - tickH}" x2="${x}" y2="${axisY + tickH}" stroke="rgba(234,244,241,${isZero?0.9:0.6})" stroke-width="${tickW}"/>`;
 
     // Labels only at -10,-5,0,5,10
     if(n !== min && n !== max && (n === -10 || n === -5 || n === 0 || n === 5 || n === 10)){
-      s += `<text x="${x}" y="${axisY + 28}" text-anchor="middle" font-size="13" fill="rgba(30,27,46,0.75)" font-family="Rubik,sans-serif">${n}</text>`;
+      s += `<text x="${x}" y="${axisY + 28}" text-anchor="middle" font-size="13" fill="rgba(234,244,241,0.75)" font-family="Rubik,sans-serif">${n}</text>`;
     }
   }
 
@@ -794,7 +794,7 @@ function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactiv
   if(hasNonInt){
     for(let n = min; n < max; n++){
       const xh = xOf(n + 0.5);
-      s += `<line x1="${xh}" y1="${axisY-5}" x2="${xh}" y2="${axisY+5}" stroke="rgba(30,27,46,0.35)" stroke-width="1"/>`;
+      s += `<line x1="${xh}" y1="${axisY-5}" x2="${xh}" y2="${axisY+5}" stroke="rgba(234,244,241,0.4)" stroke-width="1"/>`;
     }
   }
 
@@ -1642,9 +1642,9 @@ function buildNumberLineWithJump({min=-12, max=12, marked=[], highlight=null, in
     s += `<line x1="${x0}" y1="${axisY}" x2="${xH}" y2="${axisY}" stroke="#E2604F" stroke-width="4" stroke-linecap="round"/>`;
   }
 
-  s += `<line x1="${leftM}" y1="${axisY}" x2="${svgW - rightM}" y2="${axisY}" stroke="rgba(30,27,46,0.65)" stroke-width="2"/>`;
-  s += `<polygon points="${svgW-rightM+2},${axisY} ${svgW-rightM-7},${axisY-5} ${svgW-rightM-7},${axisY+5}" fill="rgba(30,27,46,0.65)"/>`;
-  s += `<polygon points="${leftM-2},${axisY} ${leftM+7},${axisY-5} ${leftM+7},${axisY+5}" fill="rgba(30,27,46,0.65)"/>`;
+  s += `<line x1="${leftM}" y1="${axisY}" x2="${svgW - rightM}" y2="${axisY}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  s += `<polygon points="${svgW-rightM+2},${axisY} ${svgW-rightM-7},${axisY-5} ${svgW-rightM-7},${axisY+5}" fill="rgba(234,244,241,0.7)"/>`;
+  s += `<polygon points="${leftM-2},${axisY} ${leftM+7},${axisY-5} ${leftM+7},${axisY+5}" fill="rgba(234,244,241,0.7)"/>`;
 
   for(let n = min; n <= max; n++){
     const x = xOf(n);
@@ -1652,9 +1652,9 @@ function buildNumberLineWithJump({min=-12, max=12, marked=[], highlight=null, in
     const isFive = n % 5 === 0;
     const tickH = isZero ? 14 : isFive ? 10 : 6;
     const tickW = isZero ? 2.5 : 1.5;
-    s += `<line x1="${x}" y1="${axisY - tickH}" x2="${x}" y2="${axisY + tickH}" stroke="rgba(30,27,46,${isZero?0.85:0.55})" stroke-width="${tickW}"/>`;
+    s += `<line x1="${x}" y1="${axisY - tickH}" x2="${x}" y2="${axisY + tickH}" stroke="rgba(234,244,241,${isZero?0.9:0.6})" stroke-width="${tickW}"/>`;
     if(n !== min && n !== max && (n === -10 || n === -5 || n === 0 || n === 5 || n === 10)){
-      s += `<text x="${x}" y="${axisY + 28}" text-anchor="middle" font-size="13" fill="rgba(30,27,46,0.75)" font-family="Rubik,sans-serif">${n}</text>`;
+      s += `<text x="${x}" y="${axisY + 28}" text-anchor="middle" font-size="13" fill="rgba(234,244,241,0.75)" font-family="Rubik,sans-serif">${n}</text>`;
     }
   }
 
@@ -1831,27 +1831,27 @@ function renderDragArrow(lvl){
   let s = '';
 
   // Axis
-  s += `<line x1="${LEFT_M}" y1="${AXIS_Y}" x2="${SVG_W-LEFT_M}" y2="${AXIS_Y}" stroke="rgba(30,27,46,0.65)" stroke-width="2"/>`;
-  s += `<polygon points="${SVG_W-LEFT_M+2},${AXIS_Y} ${SVG_W-LEFT_M-7},${AXIS_Y-5} ${SVG_W-LEFT_M-7},${AXIS_Y+5}" fill="rgba(30,27,46,0.65)"/>`;
-  s += `<polygon points="${LEFT_M-2},${AXIS_Y} ${LEFT_M+7},${AXIS_Y-5} ${LEFT_M+7},${AXIS_Y+5}" fill="rgba(30,27,46,0.65)"/>`;
+  s += `<line x1="${LEFT_M}" y1="${AXIS_Y}" x2="${SVG_W-LEFT_M}" y2="${AXIS_Y}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  s += `<polygon points="${SVG_W-LEFT_M+2},${AXIS_Y} ${SVG_W-LEFT_M-7},${AXIS_Y-5} ${SVG_W-LEFT_M-7},${AXIS_Y+5}" fill="rgba(234,244,241,0.7)"/>`;
+  s += `<polygon points="${LEFT_M-2},${AXIS_Y} ${LEFT_M+7},${AXIS_Y-5} ${LEFT_M+7},${AXIS_Y+5}" fill="rgba(234,244,241,0.7)"/>`;
   // Ticks
   for(let n = MIN; n <= MAX; n++){
     const x = xOf(n), iz = n===0, i5 = n%5===0;
     const th = iz?14:i5?10:6, tw = iz?2.5:1.5;
-    s += `<line x1="${x}" y1="${AXIS_Y-th}" x2="${x}" y2="${AXIS_Y+th}" stroke="rgba(30,27,46,${iz?0.85:0.55})" stroke-width="${tw}"/>`;
+    s += `<line x1="${x}" y1="${AXIS_Y-th}" x2="${x}" y2="${AXIS_Y+th}" stroke="rgba(234,244,241,${iz?0.9:0.6})" stroke-width="${tw}"/>`;
     if(n!==MIN && n!==MAX && (n===-10||n===-5||n===0||n===5||n===10))
-      s += `<text x="${x}" y="${AXIS_Y+24}" text-anchor="middle" font-size="13" fill="rgba(30,27,46,0.75)" font-family="Rubik,sans-serif">${n}</text>`;
+      s += `<text x="${x}" y="${AXIS_Y+24}" text-anchor="middle" font-size="13" fill="rgba(234,244,241,0.75)" font-family="Rubik,sans-serif">${n}</text>`;
   }
 
   // --- ARROW 1 (fixed): 0 → start ---
   s += `<defs><marker id="${MK1}" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="${color1}"/></marker></defs>`;
   s += `<line x1="${xOrigin}" y1="${A1Y}" x2="${xStart}" y2="${A1Y}" stroke="${color1}" stroke-width="3" marker-end="url(#${MK1})"/>`;
   // Dot at 0 (tail of arrow 1)
-  s += `<circle cx="${xOrigin}" cy="${AXIS_Y}" r="5" fill="rgba(30,27,46,0.35)" stroke="rgba(30,27,46,0.65)" stroke-width="1.5"/>`;
+  s += `<circle cx="${xOrigin}" cy="${AXIS_Y}" r="5" fill="rgba(234,244,241,0.45)" stroke="rgba(234,244,241,0.7)" stroke-width="1.5"/>`;
   // Dot at start (head of arrow 1 / tail of arrow 2)
   s += `<circle cx="${xStart}" cy="${AXIS_Y}" r="7" fill="${color1}" stroke="${color1}" stroke-width="2"/>`;
   // Dashed vertical connector from arrow-1 head to arrow-2 tail
-  s += `<line x1="${xStart}" y1="${A1Y}" x2="${xStart}" y2="${A2Y+2}" stroke="rgba(30,27,46,0.25)" stroke-width="1.5" stroke-dasharray="3,3"/>`;
+  s += `<line x1="${xStart}" y1="${A1Y}" x2="${xStart}" y2="${A2Y+2}" stroke="rgba(234,244,241,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>`;
   // Start label at head of arrow 1 (below the arrow line)
   const startLbl = lvl.start<0?`(−${Math.abs(lvl.start)})`:String(lvl.start);
   s += `<text x="${xStart}" y="${A1Y+16}" text-anchor="middle" font-size="11" fill="${color1}" font-weight="700" font-family="Rubik,sans-serif">${startLbl}</text>`;
@@ -2474,7 +2474,7 @@ function renderQuiz(){
   if(q.type === 'input'){
     answerArea = `<div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:16px;">
       <input id="quiz-input" type="number" step="any" inputmode="decimal"
-        style="font-size:22px;padding:10px 18px;border-radius:10px;border:1.5px solid rgba(30,27,46,0.2);background:rgba(30,27,46,0.05);color:var(--navy);font-family:'Rubik',sans-serif;text-align:center;width:140px;"
+        style="font-size:22px;padding:10px 18px;border-radius:10px;border:1.5px solid rgba(234,244,241,0.3);background:rgba(234,244,241,0.08);color:var(--foam);font-family:'Rubik',sans-serif;text-align:center;width:140px;"
         placeholder="?" ${state.quizAnswered?'disabled':''}
         onkeydown="if(event.key==='Enter')submitQuizInput()">
       ${!state.quizAnswered ? `<button class="btn" onclick="submitQuizInput()">בדוק</button>` : ''}
