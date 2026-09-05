@@ -11,8 +11,8 @@
   html,body{margin:0;padding:0;}
   body{
     font-family:'Rubik',sans-serif;
-    background: radial-gradient(ellipse at 50% -10%, #3D3568 0%, #1E1B2E 50%, #0F0D1A 100%);
-    color:#EAF4F1;
+    background: linear-gradient(135deg, #F5F4FC 0%, #EDF0FA 60%, #F0EEF9 100%);
+    color:#1E1B2E;
     direction:rtl;
     min-height:100vh;
     line-height:1.6;
@@ -23,28 +23,28 @@
   .hero{text-align:center;margin-bottom:56px;}
   .course-label{
     font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
-    color:rgba(234,244,241,0.45);margin-bottom:14px;
+    color:rgba(30,27,46,0.45);margin-bottom:14px;
   }
   h1{
     font-size:clamp(28px,5vw,44px);font-weight:800;
-    color:#FFFFFF;margin:0 0 10px;letter-spacing:-0.5px;
+    color:#1E1B2E;margin:0 0 10px;letter-spacing:-0.5px;
   }
-  .subtitle{font-size:16px;color:rgba(234,244,241,0.6);margin:0;}
+  .subtitle{font-size:16px;color:rgba(30,27,46,0.6);margin:0;}
 
   .units{display:flex;flex-direction:column;gap:16px;}
 
   .unit-card{
     display:flex;align-items:center;justify-content:space-between;
-    background:rgba(234,244,241,0.05);
-    border:1.5px solid rgba(234,244,241,0.1);
+    background:rgba(30,27,46,0.04);
+    border:1.5px solid rgba(30,27,46,0.1);
     border-radius:14px;padding:22px 26px;
     cursor:pointer;text-decoration:none;color:inherit;
     transition:transform .15s ease, background .15s ease, border-color .15s ease;
   }
   .unit-card:hover{
     transform:translateY(-3px);
-    background:rgba(234,244,241,0.09);
-    border-color:rgba(234,244,241,0.22);
+    background:rgba(30,27,46,0.08);
+    border-color:rgba(30,27,46,0.22);
   }
   .unit-card.disabled{
     opacity:0.4;cursor:not-allowed;pointer-events:none;
@@ -53,20 +53,20 @@
   .unit-left{display:flex;align-items:center;gap:18px;}
   .unit-num{
     font-size:13px;font-weight:700;letter-spacing:1px;
-    color:rgba(234,244,241,0.35);min-width:24px;
+    color:rgba(30,27,46,0.35);min-width:24px;
   }
-  .unit-name{font-size:18px;font-weight:700;color:#FFFFFF;}
-  .unit-sub{font-size:13px;color:rgba(234,244,241,0.5);margin-top:2px;}
+  .unit-name{font-size:18px;font-weight:700;color:#1E1B2E;}
+  .unit-sub{font-size:13px;color:rgba(30,27,46,0.5);margin-top:2px;}
 
   .unit-arrow{
-    font-size:20px;color:rgba(234,244,241,0.3);
+    font-size:20px;color:rgba(30,27,46,0.3);
     transition:color .15s ease;
   }
-  .unit-card:hover .unit-arrow{color:rgba(234,244,241,0.7);}
+  .unit-card:hover .unit-arrow{color:rgba(30,27,46,0.7);}
 
   .coming-soon{
     font-size:11px;font-weight:600;letter-spacing:1px;
-    background:rgba(234,244,241,0.08);color:rgba(234,244,241,0.4);
+    background:rgba(30,27,46,0.06);color:rgba(30,27,46,0.4);
     padding:3px 10px;border-radius:20px;
   }
 </style>
