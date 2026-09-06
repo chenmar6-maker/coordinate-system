@@ -263,7 +263,8 @@ let state = {
   quizAnswered:false,
   quizLastCorrect:null,
   shuffledOptions:[],
-  quizAlt:false
+  quizAlt:false,
+  challengeAnswers:false
 };
 
 /* ============ GAME LEVELS ============ */
@@ -863,6 +864,7 @@ function render(){
   else if(state.screen==='gameResults') app.innerHTML = renderGameResults();
   else if(state.screen==='quiz') app.innerHTML = renderQuiz();
   else if(state.screen==='quizResults') app.innerHTML = renderQuizResults();
+  else if(state.screen==='challenge') app.innerHTML = renderChallenge();
 }
 
 /* ============ HOME ============ */
@@ -925,6 +927,15 @@ function renderHome(){
           <h3>מבדק שליטה</h3>
         </div>
       </div>
+
+      <div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(234,244,241,0.12);">
+        <div class="sequence-title" style="margin-bottom:12px;">★ אתגר — לתלמידים שסיימו מהר</div>
+        <div class="cards">
+          <div class="card" onclick="goTo('challenge')" style="background:rgba(192,57,43,0.18);border:1.5px solid #c0392b;color:#c0392b;font-size:15px;">
+            <h3>דף אתגר — שלושת הנושאים</h3>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="sequence-section">
@@ -980,11 +991,92 @@ function goBack(){
   else goHome();
 }
 function goHome(){
-  state = {screen:'home', sequence:1, levelIndex:0, levelSub:{}, gameScore:0, gameTotal:0, quizIndex:0, quizScore:0, quizAnswered:false, quizLastCorrect:null, shuffledOptions:[]};
+  state = {screen:'home', sequence:1, levelIndex:0, levelSub:{}, gameScore:0, gameTotal:0, quizIndex:0, quizScore:0, quizAnswered:false, quizLastCorrect:null, shuffledOptions:[], quizAlt:false, challengeAnswers:false};
   render();
 }
 
 function goTo(screen){ state.screen = screen; render(); }
+
+/* ============ CHALLENGE ============ */
+
+function toggleChallengeAnswers(){
+  state.challengeAnswers = !state.challengeAnswers;
+  render();
+}
+
+function renderChallenge(){
+  const sh = state.challengeAnswers;
+  const col = (head, cls, questions) => {
+    const qs = questions.map((q,i) => `
+      <div style="margin-bottom:${i===questions.length-1?'0':'12px'};padding-bottom:${i===questions.length-1?'0':'12px'};border-bottom:${i===questions.length-1?'none':'1px dashed rgba(234,244,241,0.12)'};">
+        <div style="font-size:13px;line-height:1.55;">
+          <span style="font-weight:700;margin-left:4px;">${i+1}.</span>${q.q}
+        </div>
+        ${sh ? `<div style="margin-top:5px;font-size:12px;color:var(--seafoam);font-weight:600;direction:ltr;unicode-bidi:isolate;">${q.a}</div>` : ''}
+      </div>`).join('');
+    return `
+      <div style="border:1.5px solid rgba(234,244,241,0.18);border-radius:8px;overflow:hidden;min-width:0;">
+        <div style="padding:7px 12px;font-size:13px;font-weight:700;color:#fff;text-align:center;background:${cls};">${head}</div>
+        <div style="padding:12px 14px;font-size:13px;">${qs}</div>
+      </div>`;
+  };
+
+  const abs = [
+    {q:`חשב: <span dir="ltr" style="unicode-bidi:isolate;">|−|−9||</span>`, a:'9 &nbsp;<span style="color:rgba(234,244,241,0.5);font-weight:400;">|−|−9|| = |−9| = 9</span>'},
+    {q:`אם <span dir="ltr" style="unicode-bidi:isolate;">|x| &lt; 4</span>, רשום את כל ערכי x השלמים.`, a:'−3, −2, −1, 0, 1, 2, 3'},
+    {q:`חשב: <span dir="ltr" style="unicode-bidi:isolate;">|3 − 8| + |−2 + 5|</span>`, a:'8 &nbsp;<span style="color:rgba(234,244,241,0.5);font-weight:400;">|−5| + |3| = 5 + 3</span>'},
+    {q:`האם תמיד נכון: <span dir="ltr" style="unicode-bidi:isolate;">|a + b| = |a| + |b|</span>? הבא דוגמה נגדית.`, a:'לא. למשל a=3, b=−3 → |0|=0 אך |3|+|−3|=6'},
+    {q:`אם <span dir="ltr" style="unicode-bidi:isolate;">|a| = |b|</span> ו-<span dir="ltr" style="unicode-bidi:isolate;">a ≠ b</span>, מה הקשר ביניהם?`, a:'הם מספרים נגדיים זה של זה'},
+    {q:`אם <span dir="ltr" style="unicode-bidi:isolate;">|a − 3| = 5</span>, מצא את כל הערכים האפשריים של a.`, a:'a = 8 או a = −2'},
+    {q:`אם <span dir="ltr" style="unicode-bidi:isolate;">|x| = x</span>, מה ניתן להסיק על x?`, a:'x ≥ 0 (x אי-שלילי)'},
+    {q:'מצא זוג מספרים שסכום ערכיהם המוחלטים הוא 10, אך ערך מוחלט <strong>סכומם</strong> הוא 2.', a:'למשל 6 ו-−4: |6|+|−4|=10, |6+(−4)|=|2|=2'},
+    {q:`האם תמיד נכון: <span dir="ltr" style="unicode-bidi:isolate;">|a| + |b| ≥ |a + b|</span>? הסבר.`, a:'כן, תמיד (אי-שוויון המשולש)'},
+    {q:`נכון/לא נכון: <span dir="ltr" style="unicode-bidi:isolate;">(−a)² = a²</span> לכל a.`, a:'נכון — (−a)² = (−1)²·a² = a²'}
+  ];
+
+  const opp = [
+    {q:`מה הנגדי של הנגדי של הנגדי של <span dir="ltr" style="unicode-bidi:isolate;">5</span>?`, a:'−5'},
+    {q:`אם a הוא הנגדי של b, מה שווה <span dir="ltr" style="unicode-bidi:isolate;">|a| − |b|</span>?`, a:'0 — לנגדיים אותו ערך מוחלט'},
+    {q:'שני מספרים נגדיים. המרחק ביניהם הוא 14. מהם המספרים?', a:'7 ו-−7'},
+    {q:`נכון/לא נכון: "לכל מספר יש נגדי שונה ממנו." הסבר.`, a:'לא נכון — רק 0 שווה לנגדי שלו'},
+    {q:`אם <span dir="ltr" style="unicode-bidi:isolate;">a &lt; 0</span> ו-<span dir="ltr" style="unicode-bidi:isolate;">|a| &gt; 3</span>, רשום שלושה ערכים אפשריים.`, a:'למשל −4, −5, −10'},
+    {q:`אם <span dir="ltr" style="unicode-bidi:isolate;">a = −b</span> ו-<span dir="ltr" style="unicode-bidi:isolate;">a + b + c = 0</span>, מה שווה c?`, a:'c = 0'},
+    {q:`אם a ו-b נגדיים ו-<span dir="ltr" style="unicode-bidi:isolate;">|a| = 7</span>, מה שווה <span dir="ltr" style="unicode-bidi:isolate;">(a + b)²</span>?`, a:'0 — כי a+b=0'},
+    {q:`אם הנגדי של x גדול מ-x, מה ניתן להסיק על x?`, a:'x < 0 (x שלילי)'},
+    {q:`אם <span dir="ltr" style="unicode-bidi:isolate;">a &lt; 0</span>, מה גדול יותר: a או <span dir="ltr" style="unicode-bidi:isolate;">−a</span>? הסבר.`, a:'−a גדול יותר — הוא חיובי'},
+    {q:`אם a ו-b נגדיים ו-<span dir="ltr" style="unicode-bidi:isolate;">a &gt; 0</span>, סדר מהקטן לגדול: a, b, |a|, |b|`, a:'b, |b|, |a|, a'}
+  ];
+
+  const line = [
+    {q:`מצא את המספר הנמצא בדיוק באמצע בין <span dir="ltr" style="unicode-bidi:isolate;">−7</span> לבין <span dir="ltr" style="unicode-bidi:isolate;">−1</span>.`, a:'−4 &nbsp;<span style="color:rgba(234,244,241,0.5);font-weight:400;">(−7+(−1))÷2</span>'},
+    {q:`כתוב את כל המספרים השלמים בין <span dir="ltr" style="unicode-bidi:isolate;">−3.5</span> לבין <span dir="ltr" style="unicode-bidi:isolate;">1.5</span>.`, a:'−3, −2, −1, 0, 1'},
+    {q:`המרחק בין שתי נקודות הוא 8. אחת היא <span dir="ltr" style="unicode-bidi:isolate;">−3</span>. מהן שתי האפשרויות?`, a:'5 או −11'},
+    {q:`אם <span dir="ltr" style="unicode-bidi:isolate;">−5 &lt; a &lt; −2</span> ו-a שלם, כמה ערכים אפשריים?`, a:'2 ערכים: a=−4 או a=−3'},
+    {q:`אם <span dir="ltr" style="unicode-bidi:isolate;">a &lt; b &lt; 0</span>, סדר מהקטן לגדול: a, b, |a|, |b|`, a:'a, b, |b|, |a|'},
+    {q:`a נמצאת 4 יחידות משמאל ל-b, ו-<span dir="ltr" style="unicode-bidi:isolate;">b = −1</span>. מהו a?`, a:'a = −5'},
+    {q:`מצא x כך שהמרחק שלו מ-0 שווה למרחקו מ-6.`, a:'x = 3 (נקודת האמצע)'},
+    {q:`כתוב שלושה מספרים לא שלמים בין <span dir="ltr" style="unicode-bidi:isolate;">−2</span> לבין <span dir="ltr" style="unicode-bidi:isolate;">−1</span>.`, a:'למשל −1.2, −1.5, −1.8'},
+    {q:`אם <span dir="ltr" style="unicode-bidi:isolate;">a &lt; 0 &lt; b</span> ו-<span dir="ltr" style="unicode-bidi:isolate;">|a| = |b|</span>, היכן נמצא הממוצע של a ו-b?`, a:'ב-0'},
+    {q:`סדר מהקטן לגדול: <span dir="ltr" style="unicode-bidi:isolate;">|−3|, −|−5|, −(−2), −|4|, |−1|</span>`, a:'−5, −4, 1, 2, 3'}
+  ];
+
+  return `
+    <div class="hero" style="padding-bottom:4px;">
+      <h1 class="title" style="font-size:clamp(22px,4vw,32px);">דף אתגר — מספרים מכוונים</h1>
+      <p class="subtitle" style="font-size:14px;">לתלמידים שסיימו מהר &nbsp;|&nbsp; כיתה ז׳</p>
+    </div>
+    <div style="display:flex;justify-content:center;margin-bottom:16px;">
+      <button class="btn" onclick="toggleChallengeAnswers()" style="font-size:14px;padding:9px 22px;">
+        ${sh ? '🙈 הסתר תשובות' : '✓ הצג תשובות'}
+      </button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:start;">
+      ${col('ערך מוחלט', '#1a5276', abs)}
+      ${col('מספרים נגדיים', '#1e8449', opp)}
+      ${col('מיקום על ציר המספרים', '#6c3483', line)}
+    </div>
+  `;
+}
 
 /* ============ LEARN ============ */
 
