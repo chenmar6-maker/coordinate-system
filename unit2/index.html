@@ -1061,7 +1061,8 @@ function render(){
   else if(state.screen==='learn') app.innerHTML = renderLearn();
   else if(state.screen==='game'){
     app.innerHTML = renderGame();
-    if(state.sequence===4) initRuleDiscovery4();
+    if(state.sequence===3) initArrowChainGame();
+    else if(state.sequence===4) initRuleDiscovery4();
     else if(state.sequence===5) initRuleDiscovery5();
   }
   else if(state.screen==='gameResults') app.innerHTML = renderGameResults();
@@ -1573,6 +1574,7 @@ function finishGame(){
 /* ============ GAME RENDER ============ */
 
 function renderGame(){
+  if(state.sequence===3) return renderGameArrowChain();
   if(state.sequence===4) return renderGameRuleDiscovery4();
   if(state.sequence===5) return renderGameRuleDiscovery5();
 
@@ -2973,13 +2975,12 @@ function renderGameArrowChain(){
     </div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
       <h2 class="qtitle" style="margin:0;">שרשרת החצים</h2>
-      <span class="ac-score-badge">🏅 <span id="arrow-score">0</span> נפתרו</span>
+      <span class="ac-score-badge" id="arrow-progress">תרגיל 1 מתוך 6</span>
     </div>
     <div class="panel">
       <div style="text-align:right;font-size:14px;color:rgba(234,244,241,0.65);margin-bottom:6px;">התרגיל לפתרון:</div>
       <div id="arrow-exercise-expr" style="font-size:clamp(20px,5vw,28px);font-weight:700;text-align:center;direction:ltr;unicode-bidi:isolate;color:var(--foam);"></div>
     </div>
-    <p class="instr" style="font-size:13px;opacity:.7;margin-bottom:6px;">כל החצים נעים מעל הציר. בכל פעם שהכיוון מתחלף, החץ הבא עולה קומה.</p>
     <div class="panel" style="padding:14px;">
       <div class="ac-track-wrap">
         <svg id="arrow-track-svg" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="min-width:320px;">
@@ -3011,9 +3012,9 @@ function renderGameArrowChain(){
     <div class="btnrow">
       <button class="btn" id="arrow-btn-check">בדקו תשובה</button>
       <button class="btn secondary" id="arrow-btn-reset">איפוס</button>
-      <button class="btn secondary" id="arrow-btn-new">תרגיל חדש</button>
+      <button class="btn" id="arrow-btn-next" style="display:none;">הבא ←</button>
     </div>
-    <div class="btnrow" style="margin-top:10px;">
+    <div id="arrow-done-area" style="display:none;margin-top:14px;" class="btnrow">
       <button class="btn" onclick="startQuiz()">למבדק שליטה ←</button>
     </div>
   `;
@@ -3040,15 +3041,24 @@ function initArrowChainGame(){
   const builtLineEl = document.getElementById('arrow-built-line');
   const feedbackEl = document.getElementById('arrow-feedback');
   const answerInput = document.getElementById('arrow-answer-input');
-  const scoreEl = document.getElementById('arrow-score');
+  const progressEl = document.getElementById('arrow-progress');
 
   if(!svg || !trayEl) return;
+
+  const EXERCISES = [
+    [3, -5],
+    [-2, 4],
+    [5, -8],
+    [-3, -4],
+    [-4, 7, -2],
+    [5, -3, -4]
+  ];
+  let exerciseIdx = 0;
 
   let acState = {
     terms: [],
     trayItems: [],
     chain: [],
-    score: 0,
     solvedThisRound: false,
     revealed: false
   };
@@ -3375,8 +3385,11 @@ function initArrowChainGame(){
       feedbackEl.className='ac-feedback ok';
       if(!acState.solvedThisRound){
         acState.solvedThisRound=true;
-        acState.score++;
-        if(scoreEl) scoreEl.textContent=acState.score;
+        const btnNextEl=document.getElementById('arrow-btn-next');
+        if(btnNextEl){
+          btnNextEl.style.display='';
+          btnNextEl.textContent=exerciseIdx+1>=EXERCISES.length?'סיום ←':'הבא ←';
+        }
       }
     } else {
       feedbackEl.textContent='לא בדיוק — בדקו שוב את הראש של החץ האחרון.';
@@ -3393,8 +3406,8 @@ function initArrowChainGame(){
     renderTray(); updateLayout(); renderBuiltLine();
   }
 
-  function newExercise(){
-    const terms=generateExercise();
+  function loadExercise(idx){
+    const terms=EXERCISES[idx];
     const decoys=generateDecoys(terms);
     const allValues=shuffle(terms.concat(decoys));
     acState.terms=terms;
@@ -3404,18 +3417,33 @@ function initArrowChainGame(){
     acState.solvedThisRound=false;
     if(answerInput) answerInput.value='';
     feedbackEl.textContent=''; feedbackEl.className='ac-feedback';
+    if(progressEl) progressEl.textContent='תרגיל '+(idx+1)+' מתוך '+EXERCISES.length;
+    const btnNext=document.getElementById('arrow-btn-next');
+    if(btnNext) btnNext.style.display='none';
     renderExpression(); renderTray(); updateLayout(); renderBuiltLine();
   }
 
   const btnCheck=document.getElementById('arrow-btn-check');
   const btnReset=document.getElementById('arrow-btn-reset');
-  const btnNew=document.getElementById('arrow-btn-new');
+  const btnNext=document.getElementById('arrow-btn-next');
   if(btnCheck) btnCheck.addEventListener('click',checkAnswer);
   if(btnReset) btnReset.addEventListener('click',resetCurrent);
-  if(btnNew) btnNew.addEventListener('click',newExercise);
+  if(btnNext) btnNext.addEventListener('click',()=>{
+    exerciseIdx++;
+    if(exerciseIdx>=EXERCISES.length){
+      const doneArea=document.getElementById('arrow-done-area');
+      if(doneArea) doneArea.style.display='flex';
+      feedbackEl.textContent='כל הכבוד! סיימתם את כל התרגילים 🎉';
+      feedbackEl.className='ac-feedback ok';
+      if(btnNext) btnNext.style.display='none';
+      if(btnCheck) btnCheck.disabled=true;
+    } else {
+      loadExercise(exerciseIdx);
+    }
+  });
   if(answerInput) answerInput.addEventListener('keydown',(e)=>{ if(e.key==='Enter') checkAnswer(); });
 
-  newExercise();
+  loadExercise(0);
 }
 
 /* ============ SEQUENCE 4 GAME: RULE DISCOVERY ============ */
