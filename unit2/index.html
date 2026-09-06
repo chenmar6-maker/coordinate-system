@@ -752,7 +752,12 @@ const gameLevels3 = [
     question:'כשמחברים מספר שלילי למספר חיובי, התוצאה...',
     options:['תמיד שלילית','תמיד חיובית','תלוי בערכים המדויקים','תמיד אפס'],
     correct:'תלוי בערכים המדויקים',
-    explain:'אם |חיובי| > |שלילי| — תוצאה חיובית. אם |שלילי| > |חיובי| — תוצאה שלילית. אי אפשר לדעת ללא הערכים.' }
+    explain:'אם |חיובי| > |שלילי| — תוצאה חיובית. אם |שלילי| > |חיובי| — תוצאה שלילית. אי אפשר לדעת ללא הערכים.' },
+  { id:'mc', title:'בעיית מילים',
+    question:'מצב החשבון של עידו הוא (−13,000) ש"ח. בחודש האחרון הוא הרוויח 8,000 ש"ח והוסיף אותם לחשבון. מה מצב החוב שלו עכשיו?',
+    options:['(−5,000) ש"ח','(−21,000) ש"ח','5,000 ש"ח','(−8,000) ש"ח'],
+    correct:'(−5,000) ש"ח',
+    explain:'(−13,000) + 8,000 = (−5,000). עידו עדיין חייב 5,000 ש"ח.' }
 ];
 
 const gameLevels4 = [
@@ -814,7 +819,12 @@ const quizQuestions3 = [
     explain:'חץ ימינה 7, אז חץ שמאלה 10. נסיים ב-(−3).' },
   { type:'mc', title:'שרשרת שלושה', text:'(−2) + 5 + (−4) = ?',
     options:['(−1)','1','11','(−11)'], correct:'(−1)',
-    explain:'(−2)+5=3, ואז 3+(−4)=(−1).' }
+    explain:'(−2)+5=3, ואז 3+(−4)=(−1).' },
+  { type:'mc', title:'בעיית מילים',
+    text:'מצב החשבון של עידו הוא (−13,000) ש"ח. הוא הרוויח 8,000 ש"ח והוסיף אותם לחשבון. מה מצב החוב שלו עכשיו?',
+    options:['(−5,000) ש"ח','(−21,000) ש"ח','5,000 ש"ח','(−8,000) ש"ח'],
+    correct:'(−5,000) ש"ח',
+    explain:'(−13,000) + 8,000 = (−5,000). עידו עדיין חייב 5,000 ש"ח.' }
 ];
 
 const quizQuestions4 = [
@@ -1051,8 +1061,7 @@ function render(){
   else if(state.screen==='learn') app.innerHTML = renderLearn();
   else if(state.screen==='game'){
     app.innerHTML = renderGame();
-    if(state.sequence===3) initArrowChainGame();
-    else if(state.sequence===4) initRuleDiscovery4();
+    if(state.sequence===4) initRuleDiscovery4();
     else if(state.sequence===5) initRuleDiscovery5();
   }
   else if(state.screen==='gameResults') app.innerHTML = renderGameResults();
@@ -1564,7 +1573,6 @@ function finishGame(){
 /* ============ GAME RENDER ============ */
 
 function renderGame(){
-  if(state.sequence===3) return renderGameArrowChain();
   if(state.sequence===4) return renderGameRuleDiscovery4();
   if(state.sequence===5) return renderGameRuleDiscovery5();
 
