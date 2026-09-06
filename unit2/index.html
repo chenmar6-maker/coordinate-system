@@ -191,6 +191,192 @@
     to   { stroke-dashoffset: 0; }
   }
 
+  /* Arrow chain game (sequence 3) */
+  .ac-track-wrap {
+    position: relative;
+    width: 100%;
+    touch-action: none;
+    overflow-x: auto;
+  }
+  #arrow-track-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    user-select: none;
+    -webkit-user-select: none;
+    min-width: 320px;
+  }
+  .ac-built-line {
+    text-align: right;
+    font-size: 14px;
+    color: rgba(234,244,241,0.65);
+    margin-top: 8px;
+    min-height: 20px;
+  }
+  .ac-built-line .val { direction: ltr; unicode-bidi: isolate; font-weight: 700; color: var(--foam); }
+  .ac-tray {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    align-items: center;
+    min-height: 70px;
+    padding: 10px 6px 4px;
+  }
+  .ac-tile {
+    touch-action: none;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .ac-tile:active { cursor: grabbing; }
+  .ac-answer-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0 4px;
+    direction: ltr;
+  }
+  .ac-answer-row input {
+    width: 70px;
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Rubik', sans-serif;
+    padding: 6px 8px;
+    border-radius: 10px;
+    border: 2px solid rgba(234,244,241,0.25);
+    background: rgba(234,244,241,0.08);
+    color: var(--foam);
+  }
+  .ac-answer-row input:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+  .ac-feedback {
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+    min-height: 24px;
+    margin-bottom: 4px;
+  }
+  .ac-feedback.ok  { color: var(--seafoam); }
+  .ac-feedback.bad { color: var(--coral); }
+  .ac-score-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(234,244,241,0.07);
+    border: 1.5px solid var(--gold);
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-weight: 600;
+    color: var(--gold);
+    font-size: 14px;
+  }
+  /* Rule discovery panels (sequences 4 & 5) */
+  .rd-panel {
+    background: rgba(234,244,241,0.06);
+    border: 1px solid rgba(234,244,241,0.18);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+  }
+  .rd-section-title {
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--gold);
+    text-align: right;
+    margin: 0 0 14px;
+  }
+  .rd-expr-pair {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .rd-expr-box {
+    flex: 1 1 200px;
+    max-width: 280px;
+    background: rgba(234,244,241,0.04);
+    border: 1px solid rgba(234,244,241,0.15);
+    border-radius: 10px;
+    padding: 12px 14px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    direction: ltr;
+    unicode-bidi: isolate;
+    color: var(--foam);
+  }
+  .rd-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 10px 0;
+  }
+  .rd-option {
+    text-align: right;
+    background: rgba(234,244,241,0.07);
+    border: 1.5px solid rgba(234,244,241,0.25);
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    color: var(--foam);
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .rd-option:hover { border-color: var(--gold); }
+  .rd-option.correct { border-color: var(--seafoam); background: rgba(72,176,140,0.2); color: var(--seafoam); }
+  .rd-option.incorrect { border-color: var(--coral); background: rgba(226,96,79,0.2); color: var(--coral); }
+  .rd-option:disabled, .rd-option[disabled] { cursor: default; }
+  .rd-explain {
+    background: rgba(72,176,140,0.1);
+    border-right: 4px solid var(--seafoam);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.65;
+    text-align: right;
+    color: var(--foam);
+  }
+  .rd-practice-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: rgba(234,244,241,0.8);
+    text-align: right;
+    margin: 16px 0 8px;
+  }
+  .rd-practice-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .rd-practice-expr {
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--foam);
+  }
+  .rd-practice-input {
+    width: 65px;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Rubik', sans-serif;
+    padding: 5px 8px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(234,244,241,0.25);
+    background: rgba(234,244,241,0.08);
+    color: var(--foam);
+  }
+  .rd-practice-input:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+  .rd-practice-fb { font-size: 14px; font-weight: 700; }
+  .rd-practice-fb.ok  { color: var(--seafoam); }
+  .rd-practice-fb.bad { color: var(--coral); }
+
   /* Chip board */
   .chip-board { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0; }
   .chip {
@@ -614,53 +800,56 @@ const gameLevels5 = [
 /* ============ QUIZ QUESTIONS 3/4/5 ============ */
 
 const quizQuestions3 = [
-  { type:'mc', title:'ציר המספרים', text:'מתחילים בנקודה 3 וקופצים 5 יחידות שמאלה. באיזו נקודה מסיימים?',
-    options:['8','2','(−2)','(−8)'], correct:'(−2)',
-    explain:'3 + (−5) = (−2). קפיצה שמאלה = חיבור שלילי.' },
-  { type:'mc', title:'אותו סימן', text:'מהי תוצאת (−4) + (−6)?',
-    options:['(−10)','10','(−2)','2'], correct:'(−10)',
-    explain:'שני שליליים: 4+6=10, שומרים מינוס → (−10).' },
-  { type:'mc', title:'סימנים שונים', text:'מהי תוצאת (−2) + 9?',
-    options:['11','(−11)','7','(−7)'], correct:'7',
-    explain:'9−2=7. הסימן של הגדול (9) הוא חיובי.' },
-  { type:'mc', title:'מודל הצ׳יפים', text:'איזה מודל הכי מתאים להסביר למה 6 + (−6) = 0?',
-    options:['6 צ׳יפים ירוקים ו-6 אדומים מתבטלים בזוגות','אין דרך מוחשית','רק הציר יכול','אין לזה משמעות'],
-    correct:'6 צ׳יפים ירוקים ו-6 אדומים מתבטלים בזוגות',
-    explain:'כל זוג ירוק+אדום = 0 (זוג אפס). 6 זוגות → תוצאה 0.' }
+  { type:'mc', title:'מודל החצים', text:'על ציר המספרים, חץ שמאלה מייצג...',
+    options:['חיבור חיובי','חיבור שלילי','חיסור','כפל'], correct:'חיבור שלילי',
+    explain:'חיבור מספר שלילי = קפיצה שמאלה על הציר.' },
+  { type:'mc', title:'שרשרת החצים', text:'(−3) + 5 = ?',
+    options:['8','(−8)','2','(−2)'], correct:'2',
+    explain:'מתחילים ב-0, קפיצה שמאלה 3 → (−3), קפיצה ימינה 5 → 2.' },
+  { type:'mc', title:'קריאת תוצאה', text:'(−4) + (−3) = ?',
+    options:['7','(−7)','1','(−1)'], correct:'(−7)',
+    explain:'שני חצים שמאלה: 4 + 3 = 7 יחידות שמאלה → (−7).' },
+  { type:'mc', title:'חצים מנוגדים', text:'7 + (−10) = ?',
+    options:['17','(−17)','3','(−3)'], correct:'(−3)',
+    explain:'חץ ימינה 7, אז חץ שמאלה 10. נסיים ב-(−3).' },
+  { type:'mc', title:'שרשרת שלושה', text:'(−2) + 5 + (−4) = ?',
+    options:['(−1)','1','11','(−11)'], correct:'(−1)',
+    explain:'(−2)+5=3, ואז 3+(−4)=(−1).' }
 ];
 
 const quizQuestions4 = [
-  { type:'mc', title:'אותו סימן', text:'(−7) + (−3) = ?',
-    options:['(−10)','10','(−4)','4'], correct:'(−10)',
-    explain:'7+3=10, שניהם שליליים → (−10).' },
-  { type:'mc', title:'סימנים שונים', text:'8 + (−3) = ?',
-    options:['11','(−11)','5','(−5)'], correct:'5',
-    explain:'8−3=5, הגדול (8) חיובי → 5.' },
-  { type:'mc', title:'סימנים שונים', text:'(−8) + 3 = ?',
-    options:['11','(−11)','5','(−5)'], correct:'(−5)',
-    explain:'8−3=5, הגדול (−8) שלילי → (−5).' },
-  { type:'mc', title:'זוג נגדי', text:'(−15) + 15 = ?',
-    options:['30','(−30)','0','1'], correct:'0',
-    explain:'מספרים נגדיים תמיד מתבטלים לאפס.' },
-  { type:'mc', title:'כלל הסימן', text:'בתרגיל (−20) + 4, מה ניתן לדעת על סימן התוצאה מראש?',
-    options:['חיובית','שלילית','אפס','אי אפשר לדעת'], correct:'שלילית',
-    explain:'|−20|=20 גדול מ-|4|=4. הגדול שלילי → התוצאה שלילית.' }
+  { type:'mc', title:'אותו סימן — שלילי', text:'(−5) + (−8) = ?',
+    options:['13','(−13)','3','(−3)'], correct:'(−13)',
+    explain:'5+8=13, שניהם שליליים → (−13).' },
+  { type:'mc', title:'אותו סימן — חיובי', text:'6 + 9 = ?',
+    options:['15','(−15)','3','(−3)'], correct:'15',
+    explain:'6+9=15, שניהם חיוביים → 15.' },
+  { type:'mc', title:'סימנים שונים', text:'(−9) + 4 = ?',
+    options:['13','(−13)','5','(−5)'], correct:'(−5)',
+    explain:'9−4=5. הגדול (−9) שלילי → (−5).' },
+  { type:'mc', title:'סימנים שונים', text:'3 + (−11) = ?',
+    options:['14','(−14)','8','(−8)'], correct:'(−8)',
+    explain:'11−3=8. הגדול (−11) שלילי → (−8).' },
+  { type:'mc', title:'כלל הסימן', text:'כשמחברים (−2) + 15, מה ניתן לדעת על סימן התוצאה מראש?',
+    options:['שלילית','חיובית','אפס','אי אפשר לדעת'], correct:'חיובית',
+    explain:'|15|=15 גדול מ-|−2|=2. הגדול חיובי → תוצאה חיובית.' }
 ];
 
 const quizQuestions5 = [
-  { type:'mc', title:'שלושה מחוברים ומעלה', text:'5 + (−3) + (−7) + 2 = ?',
-    options:['(−3)','3','(−7)','7'], correct:'(−3)',
-    explain:'חיוביים: 5+2=7. שליליים: 3+7=10. 7−10=(−3).' },
-  { type:'mc', title:'ארבעה מחוברים', text:'(−4) + (−4) + 8 + (−1) = ?',
-    options:['(−1)','1','(−9)','9'], correct:'(−1)',
-    explain:'חיוביים: 8. שליליים: 9. 8−9=(−1).' },
-  { type:'mc', title:'מי אינו שווה ל-(−2)?', text:'איזה מהביטויים אינו שווה ל-(−2)?',
-    options:['3 + (−5) + 0','(−6) + 1 + 4','(−1) + (−1) + 1','2 + (−4) + 0'],
-    correct:'(−6) + 1 + 4',
-    explain:'(−6)+1+4 = (−1), לא (−2). שאר האפשרויות שוות ל-(−2).' },
-  { type:'mc', title:'בעיית המעלית', text:'מעלית עלתה 3 קומות, ירדה 5, ואז עלתה עוד 4. מה השינוי הכולל?',
-    options:['עלתה 2','ירדה 2','עלתה 12','ירדה 4'], correct:'עלתה 2',
-    explain:'3 + (−5) + 4 = 2. המעלית עלתה 2 קומות סה"כ.' }
+  { type:'mc', title:'חוק החילוף', text:'האם (−3) + 7 = 7 + (−3)?',
+    options:['כן, תמיד','לא, שינוי סדר משנה את התוצאה','רק כשהמספרים חיוביים','תלוי בערכים'],
+    correct:'כן, תמיד',
+    explain:'חוק החילוף: סדר החיבור לא משנה, גם עם מספרים שליליים.' },
+  { type:'mc', title:'יישום החוק', text:'מה נוח יותר לחשב: (−7) + 3 + 7?',
+    options:['מחשבים משמאל לימין','קודם (−7) + 7 = 0, ואז 0 + 3 = 3','שתי הדרכים שוות','אי אפשר לשנות סדר'],
+    correct:'קודם (−7) + 7 = 0, ואז 0 + 3 = 3',
+    explain:'חוק החילוף מאפשר לקבץ מספרים נגדיים שמתבטלים — מפשט מאוד.' },
+  { type:'mc', title:'שלושה מחוברים', text:'5 + (−3) + (−2) = ?',
+    options:['10','0','4','(−4)'], correct:'0',
+    explain:'5+(−3)+(−2)=5+(−5)=0. אפשר גם לשנות סדר: (−3)+(−2)+5=(−5)+5=0.' },
+  { type:'mc', title:'ארבעה מחוברים', text:'(−4) + 9 + 4 + (−6) = ?',
+    options:['3','(−3)','23','(−5)'], correct:'3',
+    explain:'קיבוץ: (−4)+4=0, ו-9+(−6)=3. סה"כ 0+3=3.' }
 ];
 
 /* ============ GAME LEVELS 6 ============ */
@@ -860,7 +1049,12 @@ function render(){
   const app = document.getElementById('app');
   if(state.screen==='home') app.innerHTML = renderHome();
   else if(state.screen==='learn') app.innerHTML = renderLearn();
-  else if(state.screen==='game') app.innerHTML = renderGame();
+  else if(state.screen==='game'){
+    app.innerHTML = renderGame();
+    if(state.sequence===3) initArrowChainGame();
+    else if(state.sequence===4) initRuleDiscovery4();
+    else if(state.sequence===5) initRuleDiscovery5();
+  }
   else if(state.screen==='gameResults') app.innerHTML = renderGameResults();
   else if(state.screen==='quiz') app.innerHTML = renderQuiz();
   else if(state.screen==='quizResults') app.innerHTML = renderQuizResults();
@@ -939,8 +1133,8 @@ function renderHome(){
     </div>
 
     <div class="sequence-section">
-      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">פרק ב׳ — פעולות במספרים מכוונים</div>
-      <div class="sequence-title">1. מודלים לחיבור</div>
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">חיבור מספרים מכוונים</div>
+      <div class="sequence-title">1. חיבור מספרים מכוונים — מודל החצים</div>
       <div class="cards">
         <div class="card learn" onclick="state.sequence=3;goTo('learn')">
           <h3>הקנייה</h3>
@@ -954,7 +1148,7 @@ function renderHome(){
           <h3>מבדק שליטה</h3>
         </div>
       </div>
-      <div class="sequence-title" style="margin-top:18px;">2. חיבור — חישוב ישיר</div>
+      <div class="sequence-title" style="margin-top:18px;">2. אותו סימן או סימנים שונים</div>
       <div class="cards">
         <div class="card learn" onclick="state.sequence=4;goTo('learn')">
           <h3>הקנייה</h3>
@@ -968,7 +1162,7 @@ function renderHome(){
           <h3>מבדק שליטה</h3>
         </div>
       </div>
-      <div class="sequence-title" style="margin-top:18px;">3. יותר משני מחוברים</div>
+      <div class="sequence-title" style="margin-top:18px;">3. שימוש בחוק החילוף בחיבור</div>
       <div class="cards">
         <div class="card learn" onclick="state.sequence=5;goTo('learn')">
           <h3>הקנייה</h3>
@@ -1137,15 +1331,67 @@ function renderLearn2(){
 function renderLearn3(){
   return `
     <div class="panel">
-      <h2 class="qtitle" style="text-align:right;">מודלים לחיבור מספרים מכוונים</h2>
-      <p class="qtext" style="text-align:right;">🎬 סרטון הקנייה יתווסף בקרוב.</p>
-      <div class="video-placeholder">הסרטון יתווסף בקרוב</div>
+      <h2 class="qtitle" style="text-align:right;">חיבור מספרים מכוונים — מודל החצים</h2>
+      <div class="video-placeholder">🎬 הסרטון יתווסף בקרוב</div>
+      <p style="text-align:right;font-size:15px;margin:14px 0 6px;font-weight:700;color:var(--gold);">דוגמה: (−3) + 5 = 2 על ציר החצים</p>
+      <div class="nl-wrap" style="margin:10px 0 18px;">
+        <svg viewBox="0 0 600 110" style="width:100%;display:block;direction:ltr;" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="lrn3-head-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <polygon points="0 0,10 5,0 10" fill="#E2604F"/>
+            </marker>
+            <marker id="lrn3-head-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <polygon points="0 0,10 5,0 10" fill="#48B08C"/>
+            </marker>
+          </defs>
+          <!-- axis -->
+          <line x1="30" y1="82" x2="570" y2="82" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>
+          <polygon points="572,82 563,77 563,87" fill="rgba(234,244,241,0.7)"/>
+          <polygon points="28,82 37,77 37,87" fill="rgba(234,244,241,0.7)"/>
+          <!-- ticks and labels -6..6 -->
+          <line x1="30" y1="76" x2="30" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
+          <line x1="75" y1="76" x2="75" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
+          <line x1="120" y1="74" x2="120" y2="90" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
+          <text x="120" y="100" text-anchor="middle" font-size="12" fill="rgba(234,244,241,0.7)" font-family="Rubik,sans-serif">−5</text>
+          <line x1="165" y1="76" x2="165" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
+          <line x1="210" y1="76" x2="210" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
+          <line x1="255" y1="76" x2="255" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
+          <!-- 0 tick (gold) -->
+          <line x1="300" y1="70" x2="300" y2="94" stroke="rgba(239,169,74,0.9)" stroke-width="2.5"/>
+          <text x="300" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#EFA94A" font-family="Rubik,sans-serif">0</text>
+          <line x1="345" y1="76" x2="345" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
+          <line x1="390" y1="76" x2="390" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
+          <line x1="435" y1="76" x2="435" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
+          <line x1="480" y1="74" x2="480" y2="90" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
+          <text x="480" y="100" text-anchor="middle" font-size="12" fill="rgba(234,244,241,0.7)" font-family="Rubik,sans-serif">5</text>
+          <line x1="525" y1="76" x2="525" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
+          <line x1="570" y1="76" x2="570" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
+          <!-- labels for key points -->
+          <text x="210" y="100" text-anchor="middle" font-size="12" fill="#E2604F" font-family="Rubik,sans-serif" font-weight="700">−3</text>
+          <text x="390" y="100" text-anchor="middle" font-size="12" fill="#48B08C" font-family="Rubik,sans-serif" font-weight="700">2</text>
+          <!-- Arrow 1: 0 → −3 (red, upper row y=54) -->
+          <line x1="300" y1="82" x2="300" y2="56" stroke="rgba(234,244,241,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="210" y1="82" x2="210" y2="56" stroke="rgba(234,244,241,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="300" y1="54" x2="218" y2="54" stroke="#E2604F" stroke-width="3.5" marker-end="url(#lrn3-head-red)"/>
+          <text x="255" y="46" text-anchor="middle" font-size="12" font-weight="700" fill="#E2604F" font-family="Rubik,sans-serif">−3</text>
+          <!-- Arrow 2: −3 → 2 (green, upper row y=28) -->
+          <line x1="210" y1="54" x2="210" y2="30" stroke="rgba(234,244,241,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="390" y1="82" x2="390" y2="54" stroke="rgba(234,244,241,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="210" y1="28" x2="382" y2="28" stroke="#48B08C" stroke-width="3.5" marker-end="url(#lrn3-head-green)"/>
+          <text x="300" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="#48B08C" font-family="Rubik,sans-serif">+5</text>
+          <!-- result pin -->
+          <polygon points="390,48 397,38 383,38" fill="#EFA94A"/>
+          <text x="390" y="35" text-anchor="middle" font-size="13" font-weight="700" fill="#EFA94A" font-family="Rubik,sans-serif">2</text>
+        </svg>
+      </div>
       <ul class="bullets">
-        <li>ציר המספרים כמודל: קפיצה ימינה = חיבור חיובי, קפיצה שמאלה = חיבור שלילי.</li>
-        <li>מודל רווח והפסד: ירוק = חיובי, אדום = שלילי. זוגות שמתבטלים = אפס.</li>
-        <li>שני המודלים נותנים תמיד את אותה תשובה.</li>
+        <li>כל חץ אדום = מחובר שלילי (קפיצה שמאלה). כל חץ ירוק = מחובר חיובי (קפיצה ימינה).</li>
+        <li>מניחים חצים <strong>ראש לזנב</strong>: כל חץ מתחיל בדיוק איפה שהקודם נגמר.</li>
+        <li>כאשר כיוון מתחלף, החץ הבא עולה קומה אחת — כדי שהחצים לא יתנגשו.</li>
+        <li>המספר שמתחת לראש החץ האחרון (ולמות הסיכה הזהובה) הוא <strong>תוצאת החיבור</strong>.</li>
+        <li>דוגמה: <bdi style="direction:ltr;unicode-bidi:isolate;">(−3) + 5 = 2</bdi> — חץ אדום שמאלה 3, ואז חץ ירוק ימינה 5, מגיעים ל-2.</li>
       </ul>
-      <div class="learn-note">💡 כשמחברים <bdi style="direction:ltr;unicode-bidi:isolate;">(−3) + 5</bdi> — על הציר מתחילים ב-<bdi style="direction:ltr;unicode-bidi:isolate;">(−3)</bdi> וקופצים 5 ימינה. בצ׳יפים: 5 ירוקים ו-3 אדומים, 3 זוגות מתבטלים, נשארים 2 ירוקים → 2.</div>
+      <div class="learn-note">💡 לא חייבים להתחיל מ-0! אפשר להניח את הזנב של החץ הראשון בכל נקודה — אבל בתרגול שלנו תמיד מתחילים מ-0.</div>
       <div class="btnrow" style="margin-top:20px;">
         <button class="btn" onclick="startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -1157,16 +1403,43 @@ function renderLearn3(){
 function renderLearn4(){
   return `
     <div class="panel">
-      <h2 class="qtitle" style="text-align:right;">חיבור מספרים מכוונים — שני כללים</h2>
-      <p class="qtext" style="text-align:right;">🎬 סרטון הקנייה יתווסף בקרוב.</p>
-      <div class="video-placeholder">הסרטון יתווסף בקרוב</div>
+      <h2 class="qtitle" style="text-align:right;">אותו סימן או סימנים שונים</h2>
+      <div class="video-placeholder">🎬 הסרטון יתווסף בקרוב</div>
+
+      <p style="text-align:right;font-size:15px;margin:18px 0 8px;font-weight:700;color:var(--gold);">כלל 1 — אותו סימן: מחברים ערכים מוחלטים, שומרים את הסימן</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;">
+        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(72,176,140,0.08);border:1px solid rgba(72,176,140,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">שני חיוביים</div>
+          <div style="font-size:20px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--seafoam);">4 + 6 = 10</div>
+          <div style="font-size:13px;margin-top:6px;color:rgba(234,244,241,0.65);">4 + 6 = 10, שניהם חיוביים → 10</div>
+        </div>
+        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(226,96,79,0.08);border:1px solid rgba(226,96,79,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">שני שליליים</div>
+          <div style="font-size:20px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--coral);">(−4) + (−6) = (−10)</div>
+          <div style="font-size:13px;margin-top:6px;color:rgba(234,244,241,0.65);">4 + 6 = 10, שניהם שליליים → (−10)</div>
+        </div>
+      </div>
+
+      <p style="text-align:right;font-size:15px;margin:4px 0 8px;font-weight:700;color:var(--gold);">כלל 2 — סימנים שונים: מחסרים ערכים מוחלטים, הסימן של הגדול</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;">
+        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(72,176,140,0.08);border:1px solid rgba(72,176,140,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">הגדול חיובי → תוצאה חיובית</div>
+          <div style="font-size:20px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--seafoam);">(−2) + 9 = 7</div>
+          <div style="font-size:13px;margin-top:6px;color:rgba(234,244,241,0.65);">9 − 2 = 7, הגדול (9) חיובי → 7</div>
+        </div>
+        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(226,96,79,0.08);border:1px solid rgba(226,96,79,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">הגדול שלילי → תוצאה שלילית</div>
+          <div style="font-size:20px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--coral);">5 + (−8) = (−3)</div>
+          <div style="font-size:13px;margin-top:6px;color:rgba(234,244,241,0.65);">8 − 5 = 3, הגדול (8) שלילי → (−3)</div>
+        </div>
+      </div>
+
       <ul class="bullets">
-        <li>אותו סימן: מחברים ערכים מוחלטים, שומרים את הסימן המשותף.</li>
-        <li>סימנים שונים: מחסרים את הקטן מהגדול, התוצאה בסימן של הגדול בערך מוחלט.</li>
-        <li><bdi style="direction:ltr;unicode-bidi:isolate;">(−4) + (−6) = (−10)</bdi> כי 4+6=10, שניהם שליליים.</li>
-        <li><bdi style="direction:ltr;unicode-bidi:isolate;">(−2) + 9 = 7</bdi> כי 9−2=7, והגדול (9) חיובי.</li>
+        <li><strong>אותו סימן:</strong> מחברים ערכים מוחלטים ושומרים את הסימן המשותף.</li>
+        <li><strong>סימנים שונים:</strong> מחסרים את הקטן מהגדול (בערכים מוחלטים), ונותנים לתוצאה את הסימן של בעל הערך המוחלט הגדול.</li>
+        <li>כשמספרים נגדיים (אותו ערך מוחלט, סימנים שונים) — תמיד מקבלים 0: <bdi style="direction:ltr;unicode-bidi:isolate;">7 + (−7) = 0</bdi>.</li>
       </ul>
-      <div class="learn-note">💡 הסימן של התוצאה "נמשך" תמיד לכיוון המספר עם הערך המוחלט הגדול יותר.</div>
+      <div class="learn-note">💡 הסימן של התוצאה "נמשך" לכיוון המספר עם הערך המוחלט הגדול יותר — כי הוא "חזק" יותר.</div>
       <div class="btnrow" style="margin-top:20px;">
         <button class="btn" onclick="startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -1178,15 +1451,37 @@ function renderLearn4(){
 function renderLearn5(){
   return `
     <div class="panel">
-      <h2 class="qtitle" style="text-align:right;">חיבור עם יותר משני מחוברים</h2>
-      <p class="qtext" style="text-align:right;">🎬 סרטון הקנייה יתווסף בקרוב.</p>
-      <div class="video-placeholder">הסרטון יתווסף בקרוב</div>
+      <h2 class="qtitle" style="text-align:right;">שימוש בחוק החילוף בחיבור</h2>
+      <div class="video-placeholder">🎬 הסרטון יתווסף בקרוב</div>
+
+      <p style="text-align:right;font-size:15px;margin:18px 0 8px;font-weight:700;color:var(--gold);">חוק החילוף: סדר החיבור לא משנה — גם עם מספרים שליליים</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;">
+        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">סדר ראשון</div>
+          <div style="font-size:17px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--foam);">3 + (−5) + (−2)</div>
+          <div style="font-size:15px;margin-top:6px;direction:ltr;unicode-bidi:isolate;color:var(--gold);">= (−4)</div>
+        </div>
+        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">סדר שונה — אותה תוצאה</div>
+          <div style="font-size:17px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--foam);">(−5) + 3 + (−2)</div>
+          <div style="font-size:15px;margin-top:6px;direction:ltr;unicode-bidi:isolate;color:var(--gold);">= (−4)</div>
+        </div>
+      </div>
+
+      <p style="text-align:right;font-size:15px;margin:4px 0 8px;font-weight:700;color:var(--gold);">טריק שימושי: חפשו זוגות שמתבטלים!</p>
+      <div style="background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:14px;text-align:center;margin-bottom:16px;">
+        <div style="font-size:17px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--foam);">(−7) + 3 + 7</div>
+        <div style="font-size:14px;margin-top:8px;color:rgba(234,244,241,0.7);">מסדרים מחדש: <span style="direction:ltr;unicode-bidi:isolate;color:var(--seafoam);">3 + 7 + (−7)</span></div>
+        <div style="font-size:14px;margin-top:4px;color:rgba(234,244,241,0.7);">קודם: <span style="direction:ltr;unicode-bidi:isolate;color:var(--seafoam);">7 + (−7) = 0</span>, ואז <span style="direction:ltr;unicode-bidi:isolate;color:var(--gold);">3 + 0 = 3</span></div>
+      </div>
+
       <ul class="bullets">
-        <li>קבצו חיוביים יחד ושליליים יחד (חוק הקיבוץ).</li>
-        <li>חשבו כל קבוצה בנפרד, ואז חברו את שני הסכומים.</li>
-        <li><bdi style="direction:ltr;unicode-bidi:isolate;">5 + (−3) + (−7) + 2 = (5+2) + ((−3)+(−7)) = 7 + (−10) = (−3)</bdi>.</li>
+        <li><strong>חוק החילוף:</strong> בחיבור אפשר לשנות סדר ללא הגבלה — התוצאה תמיד זהה.</li>
+        <li>חוק החילוף תקף גם כשיש מספרים שליליים בין המחוברים.</li>
+        <li>שימוש חכם: מחפשים מספרים נגדיים (סכום 0) וקובצים אותם ראשונים — זה מפשט את החישוב.</li>
+        <li>דוגמה: <bdi style="direction:ltr;unicode-bidi:isolate;">5 + (−3) + (−2) = 5 + (−3 + −2) = 5 + (−5) = 0</bdi>.</li>
       </ul>
-      <div class="learn-note">💡 חוק הקיבוץ מאפשר לסדר מחדש כל חיבור — קיבוץ לפי סימן הופך כל תרגיל לשני שלבים פשוטים.</div>
+      <div class="learn-note">💡 כשיש הרבה מחוברים — ראשית קבצו את כל החיוביים ביחד ואת כל השליליים ביחד, ואז חברו בין שתי הקבוצות.</div>
       <div class="btnrow" style="margin-top:20px;">
         <button class="btn" onclick="startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -1270,6 +1565,10 @@ function finishGame(){
 /* ============ GAME RENDER ============ */
 
 function renderGame(){
+  if(state.sequence===3) return renderGameArrowChain();
+  if(state.sequence===4) return renderGameRuleDiscovery4();
+  if(state.sequence===5) return renderGameRuleDiscovery5();
+
   const lvl = currentGameLevels()[state.levelIndex];
   const levels = currentGameLevels();
   const dots = levels.map((_,i)=>{
@@ -2656,6 +2955,822 @@ function renderQuizResults(){
       </div>
     </div>
   `;
+}
+
+/* ============ SEQUENCE 3 GAME: ARROW CHAIN ============ */
+
+function renderGameArrowChain(){
+  return `
+    <div style="margin-bottom:12px;">
+      <button class="btn secondary" onclick="goHome()">← חזרה</button>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+      <h2 class="qtitle" style="margin:0;">שרשרת החצים</h2>
+      <span class="ac-score-badge">🏅 <span id="arrow-score">0</span> נפתרו</span>
+    </div>
+    <div class="panel">
+      <div style="text-align:right;font-size:14px;color:rgba(234,244,241,0.65);margin-bottom:6px;">התרגיל לפתרון:</div>
+      <div id="arrow-exercise-expr" style="font-size:clamp(20px,5vw,28px);font-weight:700;text-align:center;direction:ltr;unicode-bidi:isolate;color:var(--foam);"></div>
+    </div>
+    <p class="instr" style="font-size:13px;opacity:.7;margin-bottom:6px;">כל החצים נעים מעל הציר. בכל פעם שהכיוון מתחלף, החץ הבא עולה קומה.</p>
+    <div class="panel" style="padding:14px;">
+      <div class="ac-track-wrap">
+        <svg id="arrow-track-svg" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="min-width:320px;">
+          <defs>
+            <marker id="arrow-head-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M0,1.5 L9,5 L0,8.5 z" fill="#48B08C"/>
+            </marker>
+            <marker id="arrow-head-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M0,1.5 L9,5 L0,8.5 z" fill="#E2604F"/>
+            </marker>
+          </defs>
+          <g id="arrow-axis-layer"></g>
+          <g id="arrow-chain-layer"></g>
+          <g id="arrow-tip-layer"></g>
+        </svg>
+      </div>
+      <div class="ac-built-line" id="arrow-built-line"></div>
+    </div>
+    <p class="instr" style="font-size:13px;opacity:.7;">אוסף החצים — גררו את החצים המתאימים אל הציר:</p>
+    <p class="instr" style="font-size:12px;opacity:.55;">💡 יש בקבוצה גם חצים שאינם שייכים לתרגיל הנוכחי.</p>
+    <div class="panel" style="padding:12px;">
+      <div class="ac-tray" id="arrow-tray"></div>
+    </div>
+    <div class="ac-answer-row">
+      <label for="arrow-answer-input" style="font-size:14px;color:rgba(234,244,241,0.7);direction:rtl;unicode-bidi:isolate;">התוצאה שקראתי מהציר:</label>
+      <input type="number" id="arrow-answer-input" inputmode="numeric">
+    </div>
+    <div class="ac-feedback" id="arrow-feedback"></div>
+    <div class="btnrow">
+      <button class="btn" id="arrow-btn-check">בדקו תשובה</button>
+      <button class="btn secondary" id="arrow-btn-reset">איפוס</button>
+      <button class="btn secondary" id="arrow-btn-new">תרגיל חדש</button>
+    </div>
+    <div class="btnrow" style="margin-top:10px;">
+      <button class="btn" onclick="startQuiz()">למבדק שליטה ←</button>
+    </div>
+  `;
+}
+
+function initArrowChainGame(){
+  const PX = 26;
+  const X0 = 400;
+  const BASE_OFFSET = 56;
+  const ROW_GAP = 34;
+  const TOP_MARGIN = 26;
+  const BOTTOM_MARGIN = 40;
+  const TRAY_PX = 20;
+  const TILE_H = 46;
+
+  let AXIS_Y = BASE_OFFSET + TOP_MARGIN;
+
+  const svg = document.getElementById('arrow-track-svg');
+  const axisLayer = document.getElementById('arrow-axis-layer');
+  const chainLayer = document.getElementById('arrow-chain-layer');
+  const tipLayer = document.getElementById('arrow-tip-layer');
+  const trayEl = document.getElementById('arrow-tray');
+  const exprEl = document.getElementById('arrow-exercise-expr');
+  const builtLineEl = document.getElementById('arrow-built-line');
+  const feedbackEl = document.getElementById('arrow-feedback');
+  const answerInput = document.getElementById('arrow-answer-input');
+  const scoreEl = document.getElementById('arrow-score');
+
+  if(!svg || !trayEl) return;
+
+  let acState = {
+    terms: [],
+    trayItems: [],
+    chain: [],
+    score: 0,
+    solvedThisRound: false,
+    revealed: false
+  };
+
+  function randInt(min, max){ return Math.floor(Math.random()*(max-min+1))+min; }
+  function randNonZero(min, max){ let v=0; while(v===0){v=randInt(min,max);} return v; }
+
+  function generateExercise(){
+    let terms, ok=false, guard=0;
+    while(!ok && guard<500){
+      guard++;
+      const n = Math.random()<0.55?2:3;
+      terms = [];
+      for(let i=0;i<n;i++) terms.push(randNonZero(-9,9));
+      let running=0, within=true;
+      for(const t of terms){ running+=t; if(Math.abs(running)>10){within=false;break;} }
+      if(within && Math.abs(running)<=9) ok=true;
+    }
+    return terms;
+  }
+
+  function generateDecoys(terms){
+    const decoys=[];
+    let guard=0;
+    while(decoys.length<2 && guard<200){
+      guard++;
+      const v=randNonZero(-9,9);
+      if(!terms.includes(v)&&!decoys.includes(v)) decoys.push(v);
+    }
+    return decoys;
+  }
+
+  function shuffle(arr){
+    const a=arr.slice();
+    for(let i=a.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [a[i],a[j]]=[a[j],a[i]];
+    }
+    return a;
+  }
+
+  function fmtSigned(v){ return v>0?('+'+v):String(v); }
+  function formatTerm(v){ return v<0?('('+v+')'):String(v); }
+
+  function renderExpression(){
+    exprEl.innerHTML='';
+    acState.terms.forEach((t,idx)=>{
+      if(idx>0){
+        const op=document.createElement('span');
+        op.style.color='rgba(234,244,241,0.6)';
+        op.style.margin='0 6px';
+        op.textContent='+';
+        exprEl.appendChild(op);
+      }
+      const span=document.createElement('span');
+      span.style.color = t<0?'#E2604F':'#48B08C';
+      span.textContent=formatTerm(t);
+      exprEl.appendChild(span);
+    });
+    const eq=document.createElement('span');
+    eq.style.color='rgba(234,244,241,0.6)';
+    eq.style.marginLeft='6px';
+    eq.textContent='= ?';
+    exprEl.appendChild(eq);
+  }
+
+  function floorY(i){ return AXIS_Y-BASE_OFFSET-i*ROW_GAP; }
+
+  function computeMaxFloor(chain){
+    if(chain.length===0) return 0;
+    let floor=0, prevSign=null;
+    chain.forEach((item,idx)=>{
+      const sign=item.value<0?-1:1;
+      if(idx>0&&sign!==prevSign) floor+=1;
+      prevSign=sign;
+    });
+    return floor;
+  }
+
+  function updateLayout(){
+    const maxFloor=computeMaxFloor(acState.chain);
+    AXIS_Y=BASE_OFFSET+maxFloor*ROW_GAP+TOP_MARGIN;
+    svg.setAttribute('viewBox',`0 0 800 ${AXIS_Y+BOTTOM_MARGIN}`);
+    drawAxis();
+    drawChain();
+  }
+
+  function drawAxis(){
+    axisLayer.innerHTML='';
+    const MIN=-12, MAX=12;
+    const svgNS='http://www.w3.org/2000/svg';
+    const line=document.createElementNS(svgNS,'line');
+    line.setAttribute('x1',X0+MIN*PX); line.setAttribute('x2',X0+MAX*PX);
+    line.setAttribute('y1',AXIS_Y); line.setAttribute('y2',AXIS_Y);
+    line.setAttribute('stroke','rgba(234,244,241,0.7)'); line.setAttribute('stroke-width','2');
+    axisLayer.appendChild(line);
+    for(let i=MIN;i<=MAX;i++){
+      const x=X0+i*PX;
+      const isMajor=(i%5===0);
+      const tick=document.createElementNS(svgNS,'line');
+      tick.setAttribute('x1',x); tick.setAttribute('x2',x);
+      tick.setAttribute('y1',AXIS_Y-(isMajor?9:5)); tick.setAttribute('y2',AXIS_Y+(isMajor?9:5));
+      tick.setAttribute('stroke',i===0?'#EFA94A':'rgba(234,244,241,0.5)');
+      tick.setAttribute('stroke-width',i===0?'3':'1.5');
+      axisLayer.appendChild(tick);
+      if(isMajor||i===0){
+        const label=document.createElementNS(svgNS,'text');
+        label.setAttribute('x',x); label.setAttribute('y',AXIS_Y+20);
+        label.setAttribute('text-anchor','middle');
+        label.setAttribute('font-size',i===0?'15':'13');
+        label.setAttribute('font-weight',i===0?'700':'500');
+        label.setAttribute('fill',i===0?'#EFA94A':'rgba(234,244,241,0.75)');
+        label.setAttribute('font-family','Rubik,sans-serif');
+        label.textContent=i;
+        axisLayer.appendChild(label);
+      }
+    }
+  }
+
+  function buildTile(value,id){
+    const wrapper=document.createElement('div');
+    wrapper.className='ac-tile';
+    wrapper.dataset.id=id;
+    wrapper.dataset.value=value;
+    const w=Math.max(Math.abs(value)*TRAY_PX,46);
+    const color=value<0?'#E2604F':'#48B08C';
+    const svgNS='http://www.w3.org/2000/svg';
+    const s=document.createElementNS(svgNS,'svg');
+    s.setAttribute('width',w); s.setAttribute('height',TILE_H);
+    s.setAttribute('viewBox',`0 0 ${w} ${TILE_H}`);
+    const marker=value<0?'url(#arrow-head-red)':'url(#arrow-head-green)';
+    const y=TILE_H/2+6;
+    const ln=document.createElementNS(svgNS,'line');
+    if(value<0){ ln.setAttribute('x1',w-4); ln.setAttribute('x2',6); }
+    else { ln.setAttribute('x1',4); ln.setAttribute('x2',w-6); }
+    ln.setAttribute('y1',y); ln.setAttribute('y2',y);
+    ln.setAttribute('stroke',color); ln.setAttribute('stroke-width',3.5);
+    ln.setAttribute('stroke-linecap','round'); ln.setAttribute('marker-end',marker);
+    s.appendChild(ln);
+    const lbl=document.createElementNS(svgNS,'text');
+    lbl.setAttribute('x',w/2); lbl.setAttribute('y',15);
+    lbl.setAttribute('text-anchor','middle');
+    lbl.setAttribute('font-weight','700'); lbl.setAttribute('font-size','15');
+    lbl.setAttribute('fill',color); lbl.setAttribute('font-family','Rubik,sans-serif');
+    lbl.textContent=fmtSigned(value);
+    s.appendChild(lbl);
+    wrapper.appendChild(s);
+    return wrapper;
+  }
+
+  function renderTray(){
+    trayEl.innerHTML='';
+    acState.trayItems.filter(it=>!it.used).forEach(it=>{
+      const tile=buildTile(it.value,it.id);
+      attachDrag(tile,it);
+      trayEl.appendChild(tile);
+    });
+  }
+
+  function renderBuiltLine(){
+    if(acState.chain.length===0){ builtLineEl.textContent=''; return; }
+    const seq=acState.chain.map(c=>formatTerm(c.value)).join(' + ');
+    builtLineEl.innerHTML='התרגיל שיצרתם: <span class="val">'+seq+'</span>';
+  }
+
+  function drawChain(){
+    chainLayer.innerHTML=''; tipLayer.innerHTML='';
+    let running=0, prevY=AXIS_Y, prevSign=null, floorIndex=-1;
+    const svgNS='http://www.w3.org/2000/svg';
+    acState.chain.forEach((item,idx)=>{
+      const sign=item.value<0?-1:1;
+      if(idx===0){ floorIndex=0; }
+      else if(sign!==prevSign){ floorIndex+=1; }
+      const rowY=floorY(floorIndex);
+      const startX=X0+running*PX;
+      running+=item.value;
+      const endX=X0+running*PX;
+      const color=item.value<0?'#E2604F':'#48B08C';
+      const marker=item.value<0?'url(#arrow-head-red)':'url(#arrow-head-green)';
+      const g=document.createElementNS(svgNS,'g');
+      g.style.cursor='pointer';
+      g.addEventListener('click',()=>removeFromChain(item.id));
+      if(rowY!==prevY){
+        const conn=document.createElementNS(svgNS,'line');
+        conn.setAttribute('x1',startX); conn.setAttribute('x2',startX);
+        conn.setAttribute('y1',prevY); conn.setAttribute('y2',rowY);
+        conn.setAttribute('stroke','rgba(234,244,241,0.3)');
+        conn.setAttribute('stroke-width',1.5);
+        conn.setAttribute('stroke-dasharray','3,3');
+        g.appendChild(conn);
+      }
+      const guide=document.createElementNS(svgNS,'line');
+      guide.setAttribute('x1',endX); guide.setAttribute('x2',endX);
+      guide.setAttribute('y1',rowY); guide.setAttribute('y2',AXIS_Y);
+      guide.setAttribute('stroke','rgba(234,244,241,0.3)');
+      guide.setAttribute('stroke-width',1.5);
+      guide.setAttribute('stroke-dasharray','3,3');
+      if(idx===acState.chain.length-1) g.appendChild(guide);
+      const ln=document.createElementNS(svgNS,'line');
+      ln.setAttribute('x1',startX); ln.setAttribute('x2',endX);
+      ln.setAttribute('y1',rowY); ln.setAttribute('y2',rowY);
+      ln.setAttribute('stroke',color); ln.setAttribute('stroke-width',4);
+      ln.setAttribute('stroke-linecap','round'); ln.setAttribute('marker-end',marker);
+      g.appendChild(ln);
+      const lbl=document.createElementNS(svgNS,'text');
+      lbl.setAttribute('x',(startX+endX)/2); lbl.setAttribute('y',rowY-10);
+      lbl.setAttribute('text-anchor','middle');
+      lbl.setAttribute('font-weight','700'); lbl.setAttribute('font-size','14');
+      lbl.setAttribute('fill',color); lbl.setAttribute('font-family','Rubik,sans-serif');
+      lbl.textContent=fmtSigned(item.value);
+      g.appendChild(lbl);
+      chainLayer.appendChild(g);
+      prevY=rowY; prevSign=sign;
+    });
+    if(acState.chain.length>0){
+      const tipX=X0+running*PX;
+      const pin=document.createElementNS(svgNS,'path');
+      pin.setAttribute('d',`M ${tipX} ${prevY-6} l 8 -14 l -16 0 z`);
+      pin.setAttribute('fill','#EFA94A');
+      tipLayer.appendChild(pin);
+      const q=document.createElementNS(svgNS,'text');
+      q.setAttribute('x',tipX); q.setAttribute('y',prevY-24);
+      q.setAttribute('text-anchor','middle'); q.setAttribute('font-size','16');
+      q.setAttribute('font-weight','700'); q.setAttribute('fill','#EFA94A');
+      q.setAttribute('font-family','Rubik,sans-serif');
+      q.textContent=acState.revealed?String(running):'?';
+      tipLayer.appendChild(q);
+    }
+    return running;
+  }
+
+  function removeFromChain(id){
+    const idx=acState.chain.findIndex(c=>c.id===id);
+    if(idx===-1) return;
+    const removedIds=acState.chain.slice(idx).map(c=>c.id);
+    acState.chain=acState.chain.slice(0,idx);
+    removedIds.forEach(rid=>{ const it=acState.trayItems.find(t=>t.id===rid); if(it) it.used=false; });
+    acState.revealed=false;
+    feedbackEl.textContent=''; feedbackEl.className='ac-feedback';
+    renderTray(); updateLayout(); renderBuiltLine();
+  }
+
+  function commitDrop(id){
+    const it=acState.trayItems.find(t=>t.id===id);
+    if(!it||it.used) return;
+    it.used=true;
+    acState.chain.push({id:it.id,value:it.value});
+    acState.revealed=false;
+    feedbackEl.textContent=''; feedbackEl.className='ac-feedback';
+    renderTray(); updateLayout(); renderBuiltLine();
+  }
+
+  let _acDragging=null;
+
+  function attachDrag(tileEl,item){
+    tileEl.addEventListener('pointerdown',(e)=>{
+      e.preventDefault();
+      const rect=tileEl.getBoundingClientRect();
+      _acDragging={id:item.id,el:tileEl,offsetX:e.clientX-rect.left,offsetY:e.clientY-rect.top};
+      tileEl.style.position='fixed';
+      tileEl.style.left=rect.left+'px';
+      tileEl.style.top=rect.top+'px';
+      tileEl.style.width=rect.width+'px';
+      tileEl.style.zIndex=1000;
+      document.body.appendChild(tileEl);
+      tileEl.setPointerCapture(e.pointerId);
+    });
+    tileEl.addEventListener('pointermove',(e)=>{
+      if(!_acDragging||_acDragging.id!==item.id) return;
+      _acDragging.el.style.left=(e.clientX-_acDragging.offsetX)+'px';
+      _acDragging.el.style.top=(e.clientY-_acDragging.offsetY)+'px';
+    });
+    tileEl.addEventListener('pointerup',(e)=>{
+      if(!_acDragging||_acDragging.id!==item.id) return;
+      const svgRect=svg.getBoundingClientRect();
+      const inside=e.clientX>=svgRect.left&&e.clientX<=svgRect.right&&
+                   e.clientY>=svgRect.top&&e.clientY<=svgRect.bottom;
+      _acDragging.el.style.position='';
+      _acDragging.el.style.left='';
+      _acDragging.el.style.top='';
+      _acDragging.el.style.width='';
+      _acDragging.el.style.zIndex='';
+      _acDragging.el.remove();
+      _acDragging=null;
+      if(inside) commitDrop(item.id);
+      else renderTray();
+    });
+    tileEl.addEventListener('pointercancel',()=>{
+      if(_acDragging) _acDragging.el.remove();
+      _acDragging=null;
+      renderTray();
+    });
+  }
+
+  function checkAnswer(){
+    const chainSum=acState.chain.reduce((s,c)=>s+c.value,0);
+    const targetSum=acState.terms.reduce((s,t)=>s+t,0);
+    const chainVals=acState.chain.map(c=>c.value).slice().sort((a,b)=>a-b);
+    const targetVals=acState.terms.slice().sort((a,b)=>a-b);
+    const sameSet=chainVals.length===targetVals.length&&chainVals.every((v,i)=>v===targetVals[i]);
+    const typed=answerInput.value.trim();
+    const typedNum=typed===''?null:Number(typed);
+    acState.revealed=true;
+    updateLayout();
+    if(acState.chain.length===0){
+      feedbackEl.textContent='קודם גררו חצים אל הציר.';
+      feedbackEl.className='ac-feedback bad';
+      return;
+    }
+    if(!sameSet){
+      feedbackEl.textContent='החצים שבחרתם לא תואמים בדיוק את התרגיל — נסו שוב.';
+      feedbackEl.className='ac-feedback bad';
+      return;
+    }
+    if(typedNum===null){
+      feedbackEl.textContent='התוצאה על הציר נכונה: '+chainSum+'. הקלידו אותה בתיבה כדי לאשר.';
+      feedbackEl.className='ac-feedback';
+      return;
+    }
+    if(typedNum===chainSum&&chainSum===targetSum){
+      feedbackEl.textContent='תשובה נכונה! 🎉';
+      feedbackEl.className='ac-feedback ok';
+      if(!acState.solvedThisRound){
+        acState.solvedThisRound=true;
+        acState.score++;
+        if(scoreEl) scoreEl.textContent=acState.score;
+      }
+    } else {
+      feedbackEl.textContent='לא בדיוק — בדקו שוב את הראש של החץ האחרון.';
+      feedbackEl.className='ac-feedback bad';
+    }
+  }
+
+  function resetCurrent(){
+    acState.chain=[];
+    acState.trayItems.forEach(it=>it.used=false);
+    acState.revealed=false;
+    if(answerInput) answerInput.value='';
+    feedbackEl.textContent=''; feedbackEl.className='ac-feedback';
+    renderTray(); updateLayout(); renderBuiltLine();
+  }
+
+  function newExercise(){
+    const terms=generateExercise();
+    const decoys=generateDecoys(terms);
+    const allValues=shuffle(terms.concat(decoys));
+    acState.terms=terms;
+    acState.trayItems=allValues.map((v,i)=>({id:'ac'+Date.now()+'_'+i,value:v,used:false}));
+    acState.chain=[];
+    acState.revealed=false;
+    acState.solvedThisRound=false;
+    if(answerInput) answerInput.value='';
+    feedbackEl.textContent=''; feedbackEl.className='ac-feedback';
+    renderExpression(); renderTray(); updateLayout(); renderBuiltLine();
+  }
+
+  const btnCheck=document.getElementById('arrow-btn-check');
+  const btnReset=document.getElementById('arrow-btn-reset');
+  const btnNew=document.getElementById('arrow-btn-new');
+  if(btnCheck) btnCheck.addEventListener('click',checkAnswer);
+  if(btnReset) btnReset.addEventListener('click',resetCurrent);
+  if(btnNew) btnNew.addEventListener('click',newExercise);
+  if(answerInput) answerInput.addEventListener('keydown',(e)=>{ if(e.key==='Enter') checkAnswer(); });
+
+  newExercise();
+}
+
+/* ============ SEQUENCE 4 GAME: RULE DISCOVERY ============ */
+
+function renderGameRuleDiscovery4(){
+  return `
+    <div style="margin-bottom:12px;">
+      <button class="btn secondary" onclick="goHome()">← חזרה</button>
+    </div>
+    <div class="rd-panel">
+      <div class="rd-section-title">גילוי כלל 1: חיבור מספרים עם אותו סימן</div>
+      <p style="text-align:right;font-size:14px;color:rgba(234,244,241,0.65);margin:0 0 12px;">שני התרגילים בנויים מאותם ערכים מוחלטים — אחד עם חיוביים, אחד עם שליליים. השוו ביניהם:</p>
+      <div class="rd-expr-pair">
+        <div class="rd-expr-box"><span id="rd4-expr1-pos"></span></div>
+        <div class="rd-expr-box"><span id="rd4-expr1-neg"></span></div>
+      </div>
+      <p style="text-align:right;font-weight:600;font-size:15px;margin:10px 0 8px;">מה אפשר להסיק מכך על חיבור מספרים בעלי אותו סימן?</p>
+      <div class="rd-options" id="rd4-opts1"></div>
+      <div class="rd-explain" id="rd4-explain1" style="display:none;"></div>
+      <div style="text-align:left;margin-top:10px;">
+        <button class="btn secondary" style="font-size:13px;padding:6px 14px;" id="rd4-btn-new1">דוגמה חדשה</button>
+      </div>
+    </div>
+    <div class="rd-panel">
+      <div class="rd-section-title">גילוי כלל 2: חיבור מספרים בעלי סימנים שונים</div>
+      <p style="text-align:right;font-size:14px;color:rgba(234,244,241,0.65);margin:0 0 12px;">שני התרגילים בנויים מאותם ערכים מוחלטים — אבל התפקידים מתחלפים. שימו לב לסימן התוצאה:</p>
+      <div class="rd-expr-pair">
+        <div class="rd-expr-box"><span id="rd4-expr2-a"></span></div>
+        <div class="rd-expr-box"><span id="rd4-expr2-b"></span></div>
+      </div>
+      <p style="text-align:right;font-weight:600;font-size:15px;margin:10px 0 8px;">מה אפשר להסיק מכך על חיבור מספרים בעלי סימנים שונים?</p>
+      <div class="rd-options" id="rd4-opts2"></div>
+      <div class="rd-explain" id="rd4-explain2" style="display:none;"></div>
+      <div style="text-align:left;margin-top:10px;">
+        <button class="btn secondary" style="font-size:13px;padding:6px 14px;" id="rd4-btn-new2">דוגמה חדשה</button>
+      </div>
+    </div>
+    <div class="btnrow" id="rd4-quiz-btn" style="display:none;">
+      <button class="btn" onclick="startQuiz()">לבדיקת שליטה ←</button>
+    </div>
+  `;
+}
+
+function initRuleDiscovery4(){
+  let rd4Rule1Done=false, rd4Rule2Done=false;
+
+  function randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
+
+  function formatTerm(v){return v<0?('('+v+')'):String(v);}
+
+  function renderExprText(el,vals,signs){
+    el.innerHTML='';
+    vals.forEach((m,idx)=>{
+      if(idx>0){const sp=document.createElement('span');sp.textContent=' + ';el.appendChild(sp);}
+      const v=signs[idx]*m;
+      const span=document.createElement('span');
+      span.style.color=v<0?'#E2604F':'#48B08C';
+      span.style.fontWeight='700';
+      span.textContent=formatTerm(v);
+      el.appendChild(span);
+    });
+    const total=vals.reduce((a,b,i)=>a+signs[i]*b,0);
+    const eq=document.createElement('span');
+    eq.style.color=total<0?'#E2604F':total>0?'#48B08C':'rgba(234,244,241,0.8)';
+    eq.style.fontWeight='700';
+    eq.textContent=' = '+total;
+    el.appendChild(eq);
+  }
+
+  // --- Rule 1: same-sign ---
+  let rd4Mags=[];
+  const RULE1_OPTS=[
+    {text:'מחברים את הערכים המוחלטים, והתוצאה מקבלת את הסימן המשותף',correct:true},
+    {text:'מחסרים בין הערכים המוחלטים',correct:false},
+    {text:'התוצאה תמיד יוצאת חיובית',correct:false},
+    {text:'אי אפשר לדעת מראש מה יהיה סימן התוצאה',correct:false}
+  ];
+
+  function genRd4Mags(){
+    let mags,S,guard=0;
+    do{mags=[randInt(1,6),randInt(1,6),randInt(1,6)];S=mags.reduce((a,b)=>a+b,0);guard++;}
+    while((S<4||S>12||new Set(mags).size<3)&&guard<300);
+    return mags;
+  }
+
+  function shuffleLocal(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+  function newRule1Example(){
+    rd4Mags=genRd4Mags();
+    const posEl=document.getElementById('rd4-expr1-pos');
+    const negEl=document.getElementById('rd4-expr1-neg');
+    if(posEl) renderExprText(posEl,rd4Mags,rd4Mags.map(()=>1));
+    if(negEl) renderExprText(negEl,rd4Mags,rd4Mags.map(()=>-1));
+    const optsEl=document.getElementById('rd4-opts1');
+    const explEl=document.getElementById('rd4-explain1');
+    if(!optsEl) return;
+    optsEl.innerHTML='';
+    if(explEl){explEl.style.display='none';explEl.textContent='';}
+    shuffleLocal(RULE1_OPTS).forEach(opt=>{
+      const btn=document.createElement('button');
+      btn.className='rd-option';
+      btn.textContent=opt.text;
+      btn.addEventListener('click',()=>{
+        Array.from(optsEl.children).forEach(b=>{b.disabled=true;});
+        const S=rd4Mags.reduce((a,b)=>a+b,0);
+        if(opt.correct){
+          btn.classList.add('correct');
+          if(explEl){explEl.textContent='נכון! '+rd4Mags.join(' + ')+'='+S+'. חיוביים → '+S+', שליליים → ('+(-S)+').';explEl.style.display='block';}
+        } else {
+          btn.classList.add('incorrect');
+          const correctBtn=Array.from(optsEl.children).find(b=>b.textContent===RULE1_OPTS.find(o=>o.correct).text);
+          if(correctBtn) correctBtn.classList.add('correct');
+          if(explEl){explEl.textContent='לא בדיוק. הכלל: מחברים ערכים מוחלטים ('+rd4Mags.join('+')+' = '+S+') ונותנים לתוצאה את הסימן המשותף.';explEl.style.display='block';}
+        }
+        rd4Rule1Done=true;
+        checkShowQuizBtn();
+      });
+      optsEl.appendChild(btn);
+    });
+  }
+
+  // --- Rule 2: different signs ---
+  let rd4Data=null;
+  const RULE2_OPTS=[
+    {text:'מחסרים את הערך המוחלט הקטן מהגדול, והתוצאה מקבלת את הסימן של המספר בעל הערך המוחלט הגדול',correct:true},
+    {text:'מחברים את שני הערכים המוחלטים יחד',correct:false},
+    {text:'התוצאה תמיד יוצאת אפס',correct:false},
+    {text:'הסימן של התוצאה תמיד זהה לסימן של האיבר הראשון',correct:false}
+  ];
+
+  function genRd4Data(){
+    let p,q,guard=0;
+    do{p=randInt(4,9);q=randInt(2,7);guard++;}while(p===q&&guard<300);
+    if(p<q){const t=p;p=q;q=t;}
+    const domFirst=Math.random()<0.5;
+    return{p,q,domFirst};
+  }
+
+  function makeRd4Terms(data,mirror){
+    const base=data.domFirst?[data.p,-data.q]:[-data.q,data.p];
+    return base.map(v=>v*mirror);
+  }
+
+  function newRule2Example(){
+    rd4Data=genRd4Data();
+    const termsA=makeRd4Terms(rd4Data,1);
+    const termsB=makeRd4Terms(rd4Data,-1);
+    const elA=document.getElementById('rd4-expr2-a');
+    const elB=document.getElementById('rd4-expr2-b');
+    if(elA) renderExprText(elA,termsA.map(Math.abs),termsA.map(v=>v<0?-1:1));
+    if(elB) renderExprText(elB,termsB.map(Math.abs),termsB.map(v=>v<0?-1:1));
+    const optsEl=document.getElementById('rd4-opts2');
+    const explEl=document.getElementById('rd4-explain2');
+    if(!optsEl) return;
+    optsEl.innerHTML='';
+    if(explEl){explEl.style.display='none';explEl.textContent='';}
+    shuffleLocal(RULE2_OPTS).forEach(opt=>{
+      const btn=document.createElement('button');
+      btn.className='rd-option';
+      btn.textContent=opt.text;
+      btn.addEventListener('click',()=>{
+        Array.from(optsEl.children).forEach(b=>{b.disabled=true;});
+        const diff=rd4Data.p-rd4Data.q;
+        const msg='הערך המוחלט הגדול הוא '+rd4Data.p+' והקטן הוא '+rd4Data.q+'. ההפרש ביניהם: '+diff+'. בתרגיל הראשון קיבלנו '+(diff>0?'+':'')+diff+', בשני '+((-diff)>0?'+':'')+(-diff)+'.';
+        if(opt.correct){
+          btn.classList.add('correct');
+          if(explEl){explEl.textContent='נכון! '+msg;explEl.style.display='block';}
+        } else {
+          btn.classList.add('incorrect');
+          const correctBtn=Array.from(optsEl.children).find(b=>b.textContent===RULE2_OPTS.find(o=>o.correct).text);
+          if(correctBtn) correctBtn.classList.add('correct');
+          if(explEl){explEl.textContent='לא בדיוק. '+msg;explEl.style.display='block';}
+        }
+        rd4Rule2Done=true;
+        checkShowQuizBtn();
+      });
+      optsEl.appendChild(btn);
+    });
+  }
+
+  function checkShowQuizBtn(){
+    if(rd4Rule1Done&&rd4Rule2Done){
+      const qb=document.getElementById('rd4-quiz-btn');
+      if(qb) qb.style.display='flex';
+    }
+  }
+
+  const btn1=document.getElementById('rd4-btn-new1');
+  const btn2=document.getElementById('rd4-btn-new2');
+  if(btn1) btn1.addEventListener('click',newRule1Example);
+  if(btn2) btn2.addEventListener('click',newRule2Example);
+
+  newRule1Example();
+  newRule2Example();
+}
+
+/* ============ SEQUENCE 5 GAME: COMMUTATIVITY DISCOVERY ============ */
+
+function renderGameRuleDiscovery5(){
+  return `
+    <div style="margin-bottom:12px;">
+      <button class="btn secondary" onclick="goHome()">← חזרה</button>
+    </div>
+    <div class="rd-panel">
+      <div class="rd-section-title">גילוי כלל: חוק החילוף בחיבור</div>
+      <p style="text-align:right;font-size:14px;color:rgba(234,244,241,0.65);margin:0 0 12px;">שני התרגילים בנויים מאותם שלושה איברים בדיוק — רק בסדר שונה. השוו בין התוצאות:</p>
+      <div class="rd-expr-pair">
+        <div class="rd-expr-box"><span id="rd5-expr-a"></span></div>
+        <div class="rd-expr-box"><span id="rd5-expr-b"></span></div>
+      </div>
+      <p style="text-align:right;font-weight:600;font-size:15px;margin:10px 0 8px;">מה אפשר להסיק מכך על סדר החיבור, גם כשיש מספרים שליליים?</p>
+      <div class="rd-options" id="rd5-opts"></div>
+      <div class="rd-explain" id="rd5-explain" style="display:none;"></div>
+      <div id="rd5-practice" style="display:none;margin-top:16px;">
+        <div class="rd-practice-title">תרגלו — חשבו את הסכומים (שנו סדר אם זה עוזר):</div>
+      </div>
+      <div style="text-align:left;margin-top:10px;">
+        <button class="btn secondary" style="font-size:13px;padding:6px 14px;" id="rd5-btn-new">דוגמה חדשה</button>
+      </div>
+    </div>
+    <div class="btnrow" id="rd5-quiz-btn" style="display:none;">
+      <button class="btn" onclick="startQuiz()">לבדיקת שליטה ←</button>
+    </div>
+  `;
+}
+
+function initRuleDiscovery5(){
+  function randNonZero(min,max){let v=0;while(v===0){v=Math.floor(Math.random()*(max-min+1))+min;}return v;}
+  function formatTerm(v){return v<0?('('+v+')'):String(v);}
+  function shuffleLocal(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+  function renderExprText(el,terms){
+    el.innerHTML='';
+    terms.forEach((t,idx)=>{
+      if(idx>0){const sp=document.createElement('span');sp.textContent=' + ';el.appendChild(sp);}
+      const span=document.createElement('span');
+      span.style.color=t<0?'#E2604F':'#48B08C';
+      span.style.fontWeight='700';
+      span.textContent=formatTerm(t);
+      el.appendChild(span);
+    });
+    const total=terms.reduce((a,b)=>a+b,0);
+    const eq=document.createElement('span');
+    eq.style.color=total<0?'#E2604F':total>0?'#48B08C':'rgba(234,244,241,0.8)';
+    eq.style.fontWeight='700';
+    eq.textContent=' = '+total;
+    el.appendChild(eq);
+  }
+
+  function genCommuteTerms(){
+    let terms,guard=0;
+    while(guard<500){
+      guard++;
+      terms=[randNonZero(-8,8),randNonZero(-8,8),randNonZero(-8,8)];
+      const hasPos=terms.some(t=>t>0),hasNeg=terms.some(t=>t<0);
+      if(!hasPos||!hasNeg) continue;
+      let running=0,within=true;
+      for(const t of terms){running+=t;if(Math.abs(running)>12){within=false;break;}}
+      if(within&&Math.abs(running)<=10) break;
+    }
+    return terms;
+  }
+
+  function differentOrder(terms){
+    let order=shuffleLocal(terms),guard=0;
+    while(order.every((v,i)=>v===terms[i])&&guard<30){order=shuffleLocal(terms);guard++;}
+    return order;
+  }
+
+  const RULE3_OPTS=[
+    {text:'אפשר לשנות את סדר האיברים גם כשיש ביניהם מספרים שליליים, והתוצאה תישאר זהה',correct:true},
+    {text:'שינוי הסדר משנה את התוצאה ברגע שיש מספר שלילי',correct:false},
+    {text:'חוק החילוף תקף רק כשכל האיברים חיוביים',correct:false},
+    {text:'צריך תמיד לחבר קודם את החיוביים ורק אחר כך את השליליים',correct:false}
+  ];
+
+  let rd5Sum=0;
+
+  // Practice exercises
+  const PRACTICE_EXERCISES=[
+    {expr:'(−7) + 3 + 7', answer:3},
+    {expr:'5 + (−3) + (−2)', answer:0},
+    {expr:'(−4) + 9 + 4 + (−6)', answer:3}
+  ];
+  let practiceDone=new Array(PRACTICE_EXERCISES.length).fill(false);
+
+  function renderPractice(){
+    const practiceEl=document.getElementById('rd5-practice');
+    if(!practiceEl) return;
+    practiceEl.style.display='block';
+    PRACTICE_EXERCISES.forEach((ex,i)=>{
+      const itemId='rd5-pr-'+i;
+      if(document.getElementById(itemId)) return;
+      const div=document.createElement('div');
+      div.className='rd-practice-item';
+      div.id=itemId;
+      div.innerHTML=`
+        <span class="rd-practice-expr">${ex.expr} =</span>
+        <input class="rd-practice-input" id="rd5-pr-inp-${i}" type="number" inputmode="numeric" placeholder="?">
+        <button class="btn" style="font-size:13px;padding:5px 12px;" onclick="rd5CheckPractice(${i})">בדוק</button>
+        <span class="rd-practice-fb" id="rd5-pr-fb-${i}"></span>
+      `;
+      practiceEl.appendChild(div);
+    });
+  }
+
+  window.rd5CheckPractice=function(i){
+    const inp=document.getElementById('rd5-pr-inp-'+i);
+    const fb=document.getElementById('rd5-pr-fb-'+i);
+    if(!inp||!fb) return;
+    const val=parseInt(inp.value);
+    if(isNaN(val)) return;
+    if(val===PRACTICE_EXERCISES[i].answer){
+      fb.textContent='נכון!';
+      fb.className='rd-practice-fb ok';
+      inp.disabled=true;
+      practiceDone[i]=true;
+    } else {
+      fb.textContent='לא מדויק — נסו שוב.';
+      fb.className='rd-practice-fb bad';
+    }
+  };
+
+  function newRule3Example(){
+    const base=genCommuteTerms();
+    const orderA=base.slice();
+    const orderB=differentOrder(base);
+    rd5Sum=base.reduce((a,b)=>a+b,0);
+    const elA=document.getElementById('rd5-expr-a');
+    const elB=document.getElementById('rd5-expr-b');
+    if(elA) renderExprText(elA,orderA);
+    if(elB) renderExprText(elB,orderB);
+    const optsEl=document.getElementById('rd5-opts');
+    const explEl=document.getElementById('rd5-explain');
+    if(!optsEl) return;
+    optsEl.innerHTML='';
+    if(explEl){explEl.style.display='none';explEl.textContent='';}
+    shuffleLocal(RULE3_OPTS).forEach(opt=>{
+      const btn=document.createElement('button');
+      btn.className='rd-option';
+      btn.textContent=opt.text;
+      btn.addEventListener('click',()=>{
+        Array.from(optsEl.children).forEach(b=>{b.disabled=true;});
+        const msg='בשני התרגילים הופיעו אותם שלושה איברים בסדר שונה — ובכל זאת שני הסכומים יצאו '+rd5Sum+'. חוק החילוף תקף גם עם מספרים שליליים.';
+        if(opt.correct){
+          btn.classList.add('correct');
+          if(explEl){explEl.textContent='נכון! '+msg;explEl.style.display='block';}
+        } else {
+          btn.classList.add('incorrect');
+          const correctBtn=Array.from(optsEl.children).find(b=>b.textContent===RULE3_OPTS.find(o=>o.correct).text);
+          if(correctBtn) correctBtn.classList.add('correct');
+          if(explEl){explEl.textContent='לא בדיוק. '+msg;explEl.style.display='block';}
+        }
+        renderPractice();
+        const qb=document.getElementById('rd5-quiz-btn');
+        if(qb) qb.style.display='flex';
+      });
+      optsEl.appendChild(btn);
+    });
+  }
+
+  const btn=document.getElementById('rd5-btn-new');
+  if(btn) btn.addEventListener('click',newRule3Example);
+  newRule3Example();
 }
 
 /* ============ UTILS ============ */
