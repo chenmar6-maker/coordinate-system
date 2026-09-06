@@ -3180,13 +3180,6 @@ function initArrowChainGame(){
     ln.setAttribute('stroke',color); ln.setAttribute('stroke-width',3.5);
     ln.setAttribute('stroke-linecap','round'); ln.setAttribute('marker-end',marker);
     s.appendChild(ln);
-    const lbl=document.createElementNS(svgNS,'text');
-    lbl.setAttribute('x',w/2); lbl.setAttribute('y',15);
-    lbl.setAttribute('text-anchor','middle');
-    lbl.setAttribute('font-weight','700'); lbl.setAttribute('font-size','15');
-    lbl.setAttribute('fill',color); lbl.setAttribute('font-family','Rubik,sans-serif');
-    lbl.textContent=fmtSigned(value);
-    s.appendChild(lbl);
     wrapper.appendChild(s);
     return wrapper;
   }
@@ -3245,13 +3238,6 @@ function initArrowChainGame(){
       ln.setAttribute('stroke',color); ln.setAttribute('stroke-width',4);
       ln.setAttribute('stroke-linecap','round'); ln.setAttribute('marker-end',marker);
       g.appendChild(ln);
-      const lbl=document.createElementNS(svgNS,'text');
-      lbl.setAttribute('x',(startX+endX)/2); lbl.setAttribute('y',rowY-10);
-      lbl.setAttribute('text-anchor','middle');
-      lbl.setAttribute('font-weight','700'); lbl.setAttribute('font-size','14');
-      lbl.setAttribute('fill',color); lbl.setAttribute('font-family','Rubik,sans-serif');
-      lbl.textContent=fmtSigned(item.value);
-      g.appendChild(lbl);
       chainLayer.appendChild(g);
       prevY=rowY; prevSign=sign;
     });
