@@ -3185,6 +3185,7 @@ function initArrowChainGame(){
     lbl.setAttribute('text-anchor','middle');
     lbl.setAttribute('font-weight','700'); lbl.setAttribute('font-size','15');
     lbl.setAttribute('fill',color); lbl.setAttribute('font-family','Rubik,sans-serif');
+    lbl.setAttribute('direction','ltr'); lbl.setAttribute('unicode-bidi','isolate');
     lbl.textContent=value<0?String(value):String(value);
     s.appendChild(lbl);
     wrapper.appendChild(s);
@@ -3250,6 +3251,7 @@ function initArrowChainGame(){
       lbl.setAttribute('text-anchor','middle');
       lbl.setAttribute('font-weight','700'); lbl.setAttribute('font-size','14');
       lbl.setAttribute('fill',color); lbl.setAttribute('font-family','Rubik,sans-serif');
+      lbl.setAttribute('direction','ltr'); lbl.setAttribute('unicode-bidi','isolate');
       lbl.textContent=item.value<0?String(item.value):String(item.value);
       g.appendChild(lbl);
       chainLayer.appendChild(g);
