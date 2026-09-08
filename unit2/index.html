@@ -924,22 +924,22 @@ const gameLevels6 = [
 
   /* — השוואה — */
   { id:'mc', title:'השוואת מספרים',
-    question:'<span style="font-size:11.5px;opacity:0.6;">תזכורת: &nbsp;<b>&gt;</b> גדול מ, לדוגמה: 3 &gt; 1 &nbsp;&nbsp;|&nbsp;&nbsp; <b>&lt;</b> קטן מ, לדוגמה: (−2) &lt; 0</span><br>מה נכון: (−3) <span style="font-size:1.5em;line-height:1;vertical-align:middle;">○</span> (−8)?',
+    question:'<span style="font-size:11.5px;opacity:0.6;">תזכורת: &nbsp;<b>&gt;</b> גדול מ, לדוגמה: 5 &gt; 3 &nbsp;&nbsp;|&nbsp;&nbsp; <b>&lt;</b> קטן מ, לדוגמה: 2 &lt; 7</span><br>מה נכון: (−3) <span style="font-size:1.5em;line-height:1;vertical-align:middle;">○</span> (−8)?',
     options:['(−3) > (−8)','(−3) < (−8)','(−3) = (−8)'],
     correct:'(−3) > (−8)',
     explain:'על הציר (−3) נמצא ימינה מ-(−8) — קרוב יותר ל-0, ולכן גדול יותר.' },
   { id:'mc', title:'השוואת מספרים',
-    question:'<span style="font-size:11.5px;opacity:0.6;">תזכורת: &nbsp;<b>&gt;</b> גדול מ, לדוגמה: 3 &gt; 1 &nbsp;&nbsp;|&nbsp;&nbsp; <b>&lt;</b> קטן מ, לדוגמה: (−2) &lt; 0</span><br>מה נכון: (−8) <span style="font-size:1.5em;line-height:1;vertical-align:middle;">○</span> 2?',
+    question:'<span style="font-size:11.5px;opacity:0.6;">תזכורת: &nbsp;<b>&gt;</b> גדול מ, לדוגמה: 5 &gt; 3 &nbsp;&nbsp;|&nbsp;&nbsp; <b>&lt;</b> קטן מ, לדוגמה: 2 &lt; 7</span><br>מה נכון: (−8) <span style="font-size:1.5em;line-height:1;vertical-align:middle;">○</span> 2?',
     options:['(−8) < 2','(−8) > 2','(−8) = 2'],
     correct:'(−8) < 2',
     explain:'כל מספר שלילי קטן מכל מספר חיובי. (−8) < 2.' },
   { id:'mc', title:'השוואת עשרוניים שליליים',
-    question:'<span style="font-size:11.5px;opacity:0.6;">תזכורת: &nbsp;<b>&gt;</b> גדול מ, לדוגמה: 3 &gt; 1 &nbsp;&nbsp;|&nbsp;&nbsp; <b>&lt;</b> קטן מ, לדוגמה: (−2) &lt; 0</span><br>מה נכון: (−2.5) <span style="font-size:1.5em;line-height:1;vertical-align:middle;">○</span> (−2)?',
+    question:'<span style="font-size:11.5px;opacity:0.6;">תזכורת: &nbsp;<b>&gt;</b> גדול מ, לדוגמה: 5 &gt; 3 &nbsp;&nbsp;|&nbsp;&nbsp; <b>&lt;</b> קטן מ, לדוגמה: 2 &lt; 7</span><br>מה נכון: (−2.5) <span style="font-size:1.5em;line-height:1;vertical-align:middle;">○</span> (−2)?',
     options:['(−2.5) < (−2)','(−2.5) > (−2)','(−2.5) = (−2)'],
     correct:'(−2.5) < (−2)',
     explain:'(−2.5) נמצא שמאלה מ-(−2) על הציר — לכן הוא קטן יותר.' },
   { id:'mc', title:'השוואת עשרוניים שליליים',
-    question:'<span style="font-size:11.5px;opacity:0.6;">תזכורת: &nbsp;<b>&gt;</b> גדול מ, לדוגמה: 3 &gt; 1 &nbsp;&nbsp;|&nbsp;&nbsp; <b>&lt;</b> קטן מ, לדוגמה: (−2) &lt; 0</span><br>מה נכון: (−1) <span style="font-size:1.5em;line-height:1;vertical-align:middle;">○</span> (−1.5)?',
+    question:'<span style="font-size:11.5px;opacity:0.6;">תזכורת: &nbsp;<b>&gt;</b> גדול מ, לדוגמה: 5 &gt; 3 &nbsp;&nbsp;|&nbsp;&nbsp; <b>&lt;</b> קטן מ, לדוגמה: 2 &lt; 7</span><br>מה נכון: (−1) <span style="font-size:1.5em;line-height:1;vertical-align:middle;">○</span> (−1.5)?',
     options:['(−1) > (−1.5)','(−1) < (−1.5)','(−1) = (−1.5)'],
     correct:'(−1) > (−1.5)',
     explain:'(−1) קרוב יותר ל-0, ולכן גדול יותר מ-(−1.5).' },
@@ -1028,7 +1028,7 @@ function currentQuizQuestions(){
 
 /* ============ NUMBER LINE SVG ============ */
 
-function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactive=false, clickFn=null, matchedPairs=[], firstClick=null, errorNums=[], markedLabels={}}={}){
+function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactive=false, clickFn=null, matchedPairs=[], firstClick=null, errorNums=[], markedLabels={}, labelAll=false}={}){
   const svgW = 600;
   const svgH = 80;
   const leftM = 30;
@@ -1065,8 +1065,9 @@ function buildNumberLine({min=-12, max=12, marked=[], highlight=null, interactiv
     const tickW = isZero ? 2.5 : 1.5;
     s += `<line x1="${x}" y1="${axisY - tickH}" x2="${x}" y2="${axisY + tickH}" stroke="rgba(234,244,241,${isZero?0.9:0.6})" stroke-width="${tickW}"/>`;
 
-    // Labels only at -10,-5,0,5,10
-    if(n !== min && n !== max && (n === -10 || n === -5 || n === 0 || n === 5 || n === 10)){
+    // Labels: all integers when labelAll=true, otherwise only at -10,-5,0,5,10
+    const showLabel = n !== min && n !== max && (labelAll || n === -10 || n === -5 || n === 0 || n === 5 || n === 10);
+    if(showLabel){
       s += `<text x="${x}" y="${axisY + 28}" text-anchor="middle" font-size="13" fill="rgba(234,244,241,0.75)" font-family="Rubik,sans-serif">${n}</text>`;
     }
   }
@@ -2831,9 +2832,11 @@ function renderReadFracMC(lvl){
   const labelOverride = {};
   labelOverride[lvl.marked] = sub.answered ? lvl.marked : '?';
   const nl = buildNumberLine({
+    min: -6, max: 6,
     marked: [lvl.marked],
     highlight: sub.answered ? lvl.marked : null,
-    markedLabels: labelOverride
+    markedLabels: labelOverride,
+    labelAll: true
   });
   const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : lvl.options;
   const btns = opts.map(opt => {
