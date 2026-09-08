@@ -1225,48 +1225,36 @@ function renderHome(){
       </div>
     </div>
 
-    <div class="sequence-section">
-      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">חיבור מספרים מכוונים</div>
-      <div class="sequence-title">1. חיבור מספרים מכוונים — מודל החצים</div>
-      <div class="cards">
-        <div class="card learn" onclick="state.sequence=3;goTo('learn')">
-          <h3>הקנייה</h3>
-        </div>
-        <div class="flow-arrow">←</div>
-        <div class="card game" onclick="state.sequence=3;startGame()">
-          <h3>תרגול</h3>
-        </div>
-        <div class="flow-arrow">←</div>
-        <div class="card quiz" onclick="state.sequence=3;startQuiz()">
-          <h3>מבדק שליטה</h3>
-        </div>
+    <div class="sequence-section" style="position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:rgba(15,13,26,0.72);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;z-index:10;pointer-events:all;">
+        <div style="font-size:22px;font-weight:800;color:var(--foam);opacity:0.5;">בקרוב</div>
+        <div style="font-size:13px;color:rgba(234,244,241,0.35);">פרק זה טרם נפתח</div>
       </div>
-      <div class="sequence-title" style="margin-top:18px;">2. אותו סימן או סימנים שונים</div>
-      <div class="cards">
-        <div class="card learn" onclick="state.sequence=4;goTo('learn')">
-          <h3>הקנייה</h3>
+      <div style="pointer-events:none;opacity:0.3;">
+        <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">חיבור מספרים מכוונים</div>
+        <div class="sequence-title">1. חיבור מספרים מכוונים — מודל החצים</div>
+        <div class="cards">
+          <div class="card learn"><h3>הקנייה</h3></div>
+          <div class="flow-arrow">←</div>
+          <div class="card game"><h3>תרגול</h3></div>
+          <div class="flow-arrow">←</div>
+          <div class="card quiz"><h3>מבדק שליטה</h3></div>
         </div>
-        <div class="flow-arrow">←</div>
-        <div class="card game" onclick="state.sequence=4;startGame()">
-          <h3>תרגול</h3>
+        <div class="sequence-title" style="margin-top:18px;">2. אותו סימן או סימנים שונים</div>
+        <div class="cards">
+          <div class="card learn"><h3>הקנייה</h3></div>
+          <div class="flow-arrow">←</div>
+          <div class="card game"><h3>תרגול</h3></div>
+          <div class="flow-arrow">←</div>
+          <div class="card quiz"><h3>מבדק שליטה</h3></div>
         </div>
-        <div class="flow-arrow">←</div>
-        <div class="card quiz" onclick="state.sequence=4;startQuiz()">
-          <h3>מבדק שליטה</h3>
-        </div>
-      </div>
-      <div class="sequence-title" style="margin-top:18px;">3. שימוש בחוק החילוף בחיבור</div>
-      <div class="cards">
-        <div class="card learn" onclick="state.sequence=5;goTo('learn')">
-          <h3>הקנייה</h3>
-        </div>
-        <div class="flow-arrow">←</div>
-        <div class="card game" onclick="state.sequence=5;startGame()">
-          <h3>תרגול</h3>
-        </div>
-        <div class="flow-arrow">←</div>
-        <div class="card quiz" onclick="state.sequence=5;startQuiz()">
-          <h3>מבדק שליטה</h3>
+        <div class="sequence-title" style="margin-top:18px;">3. שימוש בחוק החילוף בחיבור</div>
+        <div class="cards">
+          <div class="card learn"><h3>הקנייה</h3></div>
+          <div class="flow-arrow">←</div>
+          <div class="card game"><h3>תרגול</h3></div>
+          <div class="flow-arrow">←</div>
+          <div class="card quiz"><h3>מבדק שליטה</h3></div>
         </div>
       </div>
     </div>
