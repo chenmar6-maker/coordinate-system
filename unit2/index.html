@@ -1316,6 +1316,36 @@ function render(){
 
 /* ============ HOME ============ */
 
+let openSections = new Set();
+
+function toggleSection(key){
+  if(openSections.has(key)) openSections.delete(key);
+  else openSections.add(key);
+  render();
+}
+
+function seqRow(seqNum, label, opts={}){
+  const isOpen = openSections.has(seqNum);
+  const chevron = isOpen ? '▾' : '◂';
+  let cards = '';
+  if(isOpen){
+    cards = `<div class="cards" style="margin-bottom:6px;">
+      <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
+      <div class="flow-arrow">←</div>
+      <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
+      <div class="flow-arrow">←</div>
+      <div class="card quiz" onclick="state.sequence=${seqNum};startQuiz()"><h3>מבדק שליטה</h3></div>
+      ${opts.quizAlt ? `<div class="flow-arrow">←</div><div class="card quiz" onclick="state.sequence=${seqNum};startQuizAlt()"><h3>מבדק שליטה חלופי</h3></div>` : ''}
+    </div>`;
+  }
+  return `
+    <div onclick="toggleSection(${seqNum})" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:10px 4px 10px;border-bottom:1px solid rgba(234,244,241,0.08);user-select:none;">
+      <span class="sequence-title" style="margin:0;">${label}</span>
+      <span style="font-size:20px;color:rgba(234,244,241,0.4);transition:transform .15s;">${chevron}</span>
+    </div>
+    ${cards}`;
+}
+
 function renderHome(){
   return `
     <div class="hero">
@@ -1323,57 +1353,10 @@ function renderHome(){
     </div>
 
     <div class="sequence-section" style="margin-bottom:32px;">
-      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">פרק מבוא — הכרת המספרים המכוונים</div>
-      <div class="sequence-title">1. ערך מוחלט</div>
-      <div class="cards">
-        <div class="card learn" onclick="state.sequence=1;goTo('learn')">
-          <h3>הקנייה</h3>
-        </div>
-        <div class="flow-arrow">←</div>
-        <div class="card game" onclick="state.sequence=1;startGame()">
-          <h3>תרגול</h3>
-        </div>
-        <div class="flow-arrow">←</div>
-        <div class="card quiz" onclick="state.sequence=1;startQuiz()">
-          <h3>מבדק שליטה</h3>
-        </div>
-        <div class="flow-arrow">←</div>
-        <div class="card quiz" onclick="state.sequence=1;startQuizAlt()">
-          <h3>מבדק שליטה חלופי</h3>
-        </div>
-      </div>
-      <div class="sequence-title" style="margin-top:18px;">2. מספרים נגדיים</div>
-      <div class="cards">
-        <div class="card learn" onclick="state.sequence=2;goTo('learn')">
-          <h3>הקנייה</h3>
-        </div>
-        <div class="flow-arrow">←</div>
-        <div class="card game" onclick="state.sequence=2;startGame()">
-          <h3>תרגול</h3>
-        </div>
-        <div class="flow-arrow">←</div>
-        <div class="card quiz" onclick="state.sequence=2;startQuiz()">
-          <h3>מבדק שליטה</h3>
-        </div>
-        <div class="flow-arrow">←</div>
-        <div class="card quiz" onclick="state.sequence=2;startQuizAlt()">
-          <h3>מבדק שליטה חלופי</h3>
-        </div>
-      </div>
-      <div class="sequence-title" style="margin-top:18px;">3. מיקום על ציר המספרים (כולל שברים)</div>
-      <div class="cards">
-        <div class="card learn" onclick="state.sequence=6;goTo('learn')">
-          <h3>הקנייה</h3>
-        </div>
-        <div class="flow-arrow">←</div>
-        <div class="card game" onclick="state.sequence=6;startGame()">
-          <h3>תרגול</h3>
-        </div>
-        <div class="flow-arrow">←</div>
-        <div class="card quiz" onclick="state.sequence=6;startQuiz()">
-          <h3>מבדק שליטה</h3>
-        </div>
-      </div>
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">פרק מבוא — הכרת המספרים המכוונים</div>
+      ${seqRow(1, '1. ערך מוחלט', {quizAlt:true})}
+      ${seqRow(2, '2. מספרים נגדיים', {quizAlt:true})}
+      ${seqRow(6, '3. מיקום על ציר המספרים (כולל שברים)')}
 
       <div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(234,244,241,0.12);">
         <div class="sequence-title" style="margin-bottom:12px;">★ שאלות אתגר — לתלמידים שמוכנים לצלול עמוק יותר</div>
@@ -1385,44 +1368,16 @@ function renderHome(){
       </div>
     </div>
 
-    <div class="sequence-section">
-        <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">חיבור מספרים מכוונים</div>
-        <div class="sequence-title">חלק א׳ — מודל החצים וכלל הסימן</div>
-        <div class="cards">
-          <div class="card learn" onclick="state.sequence=3;goTo('learn')"><h3>הקנייה</h3></div>
-          <div class="flow-arrow">←</div>
-          <div class="card game" onclick="state.sequence=3;startGame()"><h3>תרגול</h3></div>
-          <div class="flow-arrow">←</div>
-          <div class="card quiz" onclick="state.sequence=3;startQuiz()"><h3>מבדק שליטה</h3></div>
-        </div>
-        <div class="sequence-title" style="margin-top:18px;">חלק ב׳ — שרשראות וחוק החילוף</div>
-        <div class="cards">
-          <div class="card learn" onclick="state.sequence=4;goTo('learn')"><h3>הקנייה</h3></div>
-          <div class="flow-arrow">←</div>
-          <div class="card game" onclick="state.sequence=4;startGame()"><h3>תרגול</h3></div>
-          <div class="flow-arrow">←</div>
-          <div class="card quiz" onclick="state.sequence=4;startQuiz()"><h3>מבדק שליטה</h3></div>
-        </div>
+    <div class="sequence-section" style="margin-bottom:32px;">
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">חיבור מספרים מכוונים</div>
+      ${seqRow(3, 'חלק א׳ — מודל החצים וכלל הסימן')}
+      ${seqRow(4, 'חלק ב׳ — שרשראות וחוק החילוף')}
     </div>
 
     <div class="sequence-section">
-        <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">חיסור מספרים מכוונים</div>
-        <div class="sequence-title">חלק א׳ — חיסור = חיבור הנגדי</div>
-        <div class="cards">
-          <div class="card learn" onclick="state.sequence=7;goTo('learn')"><h3>הקנייה</h3></div>
-          <div class="flow-arrow">←</div>
-          <div class="card game" onclick="state.sequence=7;startGame()"><h3>תרגול</h3></div>
-          <div class="flow-arrow">←</div>
-          <div class="card quiz" onclick="state.sequence=7;startQuiz()"><h3>מבדק שליטה</h3></div>
-        </div>
-        <div class="sequence-title" style="margin-top:18px;">חלק ב׳ — שרשראות וכתיבה ללא סוגריים</div>
-        <div class="cards">
-          <div class="card learn" onclick="state.sequence=8;goTo('learn')"><h3>הקנייה</h3></div>
-          <div class="flow-arrow">←</div>
-          <div class="card game" onclick="state.sequence=8;startGame()"><h3>תרגול</h3></div>
-          <div class="flow-arrow">←</div>
-          <div class="card quiz" onclick="state.sequence=8;startQuiz()"><h3>מבדק שליטה</h3></div>
-        </div>
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">חיסור מספרים מכוונים</div>
+      ${seqRow(7, 'חלק א׳ — חיסור = חיבור הנגדי')}
+      ${seqRow(8, 'חלק ב׳ — שרשראות וכתיבה ללא סוגריים')}
     </div>
   `;
 }
