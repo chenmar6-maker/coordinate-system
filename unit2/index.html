@@ -769,11 +769,11 @@ const quizQuestions2b = [
 /* ============ GAME LEVELS 3/4/5 ============ */
 
 const gameLevels3 = [
-  /* — 2 תרגילי חצים כרמז עזר (אפשר לדלג) — */
-  { id:'dragArrow', title:'כלי עזר — מודל החצים', start:3, addend:-5, correct:-2,
-    explain:'מתחילים ב-3, קפיצה שמאלה 5 — מסיימים ב-(−2).' },
-  { id:'dragArrow', title:'כלי עזר — מודל החצים', start:-2, addend:-4, correct:-6,
-    explain:'מתחילים ב-(−2), קפיצה שמאלה 4 — מסיימים ב-(−6).' },
+  /* — 2 תרגילי שרשרת חצים כרמז עזר — */
+  { id:'arrowChain', title:'כלי עזר — מודל החצים', terms:[3,-5], decoys:[-3,4], correct:-2,
+    explain:'מ-0, קפיצה ימינה 3 ל-3, ואז שמאלה 5 — מסיימים ב-(−2).' },
+  { id:'arrowChain', title:'כלי עזר — מודל החצים', terms:[-2,-4], decoys:[2,-6], correct:-6,
+    explain:'מ-0, קפיצה שמאלה 2 ל-(−2), ואז שמאלה 4 — מסיימים ב-(−6).' },
   /* — תרגילי חישוב ישיר (מקביל ל-Q1 בדף) — */
   { id:'typedSum', title:'פתרו', expr:'−3 + (−5)', correct:-8,
     explain:'שניהם שליליים: 3+5=8 → −8.' },
@@ -1863,6 +1863,7 @@ function freshLevelSub(levelIdx){
   if(lvl.id === 'absTwoPoints') return {clicked:[], answered:false, correct:false, error:false};
   if(lvl.id === 'oppPair') return {firstClick:null, matched:[], answered:false, error:false};
   if(lvl.id === 'groupSort') return {groups:{}, sumSubmitted:false, answered:false, correct:false};
+  if(lvl.id === 'arrowChain') return {trayItems:[], chain:[], answered:false, correct:false, error:false, _initialized:false};
   if(lvl.id === 'chipProfit') return {cancelled:false, answered:false, correct:false};
   if(lvl.id === 'buildSum') return {answered:false, correct:false, buildError:null};
   if(lvl.id === 'placeNum') return {answered:false, correct:false, errorAt:null};
@@ -1917,6 +1918,7 @@ function renderGame(){
   else if(lvl.id === 'oppZero') content = renderOppZero(lvl);
   else if(lvl.id === 'oppAbsMC') content = renderOppAbsMC(lvl);
   else if(lvl.id === 'jumpClick') content = renderJumpClick(lvl);
+  else if(lvl.id === 'arrowChain') content = renderArrowChain(lvl);
   else if(lvl.id === 'dragArrow') content = renderDragArrow(lvl);
   else if(lvl.id === 'chipProfit') content = renderChipProfit(lvl);
   else if(lvl.id === 'dualModel') content = renderDualModel(lvl);
@@ -2695,6 +2697,226 @@ function submitDragArrow(){
   }
 }
 
+
+/* ---- arrowChain ---- */
+let _achDrag = null;
+
+function renderArrowChain(lvl){
+  const sub = state.levelSub;
+
+  /* initialise tray once */
+  if(!sub._initialized){
+    const all = shuffleArr([...lvl.terms, ...lvl.decoys]);
+    sub.trayItems = all.map((v,i) => ({id:'ach'+i, value:v, used:false}));
+    sub._initialized = true;
+  }
+
+  /* ---- SVG chain ---- */
+  const PX=26, X0=310, BASE_OFFSET=48, ROW_GAP=34, TOP_MARGIN=18, BOT_MARGIN=36, SVG_W=640;
+  function floorY(i,axY){ return axY - BASE_OFFSET - i*ROW_GAP; }
+  function xOf(n){ return X0 + n*PX; }
+
+  /* compute needed height */
+  let maxFloor=0, ps=null;
+  sub.chain.forEach((c,i)=>{ const s=c.value<0?-1:1; if(i>0&&s!==ps) maxFloor++; ps=s; });
+  const axisY = BASE_OFFSET + maxFloor*ROW_GAP + TOP_MARGIN;
+  const SVG_H = axisY + BOT_MARGIN;
+
+  /* defs */
+  let s=`<defs>
+    <marker id="achG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,1.5 L9,5 L0,8.5 z" fill="#48B08C"/></marker>
+    <marker id="achR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,1.5 L9,5 L0,8.5 z" fill="#E2604F"/></marker>
+  </defs>`;
+
+  /* axis */
+  const MIN=-10, MAX=10;
+  s+=`<line x1="${xOf(MIN)}" y1="${axisY}" x2="${xOf(MAX)}" y2="${axisY}" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>`;
+  for(let n=MIN;n<=MAX;n++){
+    const x=xOf(n), iz=n===0, i5=n%5===0;
+    s+=`<line x1="${x}" y1="${axisY-(iz?12:i5?8:5)}" x2="${x}" y2="${axisY+(iz?12:i5?8:5)}" stroke="${iz?'#C9A227':'rgba(234,244,241,0.45)'}" stroke-width="${iz?2.5:1.5}"/>`;
+    if(i5||iz) s+=`<text x="${x}" y="${axisY+20}" text-anchor="middle" font-size="${iz?14:12}" font-weight="${iz?700:500}" fill="${iz?'#C9A227':'rgba(234,244,241,0.65)'}" font-family="Rubik,sans-serif">${n}</text>`;
+  }
+
+  /* chain arrows */
+  let running=0, prevY=axisY, prevSign=null, floorIdx=-1;
+  sub.chain.forEach((item,idx)=>{
+    const sign=item.value<0?-1:1;
+    if(idx===0) floorIdx=0;
+    else if(sign!==prevSign) floorIdx++;
+    const rowY=floorY(floorIdx,axisY);
+    const col=item.value<0?'#E2604F':'#48B08C';
+    const mk=item.value<0?'url(#achR)':'url(#achG)';
+    const sx=xOf(running); running+=item.value; const ex=xOf(running);
+    if(rowY!==prevY) s+=`<line x1="${sx}" y1="${prevY}" x2="${sx}" y2="${rowY}" stroke="rgba(234,244,241,0.2)" stroke-width="1.5" stroke-dasharray="3,3"/>`;
+    if(idx===sub.chain.length-1) s+=`<line x1="${ex}" y1="${rowY}" x2="${ex}" y2="${axisY}" stroke="rgba(234,244,241,0.2)" stroke-width="1.5" stroke-dasharray="3,3"/>`;
+    s+=`<line x1="${sx}" y1="${rowY}" x2="${ex}" y2="${rowY}" stroke="${col}" stroke-width="4" stroke-linecap="round" marker-end="${mk}" style="cursor:pointer;" onclick="removeFromArrowChain('${item.id}')"/>`;
+    const lbl=item.value<0?`−${Math.abs(item.value)}`:`+${item.value}`;
+    s+=`<text x="${(sx+ex)/2}" y="${rowY-9}" text-anchor="middle" font-size="13" font-weight="700" fill="${col}" font-family="Rubik,sans-serif" style="pointer-events:none;">${lbl}</text>`;
+    prevY=rowY; prevSign=sign;
+  });
+
+  /* tip */
+  if(sub.chain.length>0){
+    const tx=xOf(running);
+    s+=`<path d="M ${tx} ${prevY-6} l 8 -14 l -16 0 z" fill="#C9A227" style="pointer-events:none;"/>`;
+    s+=`<text x="${tx}" y="${prevY-24}" text-anchor="middle" font-size="15" font-weight="700" fill="#C9A227" font-family="Rubik,sans-serif" style="pointer-events:none;">${running}</text>`;
+  }
+
+  /* tray tiles */
+  const TILE_PX=20, TILE_H=46;
+  const trayHTML = sub.trayItems.filter(it=>!it.used).map(it=>{
+    const v=it.value, abs=Math.abs(v), col=v<0?'#E2604F':'#48B08C';
+    const w=Math.max(abs*TILE_PX+16,52), y=TILE_H/2+6;
+    const x1=v<0?w-4:4, x2=v<0?6:w-6;
+    const mk=v<0?'url(#achTR)':'url(#achTG)';
+    const lbl=v<0?`−${abs}`:`+${abs}`;
+    return `
+      <div class="ach-tile" data-id="${it.id}" data-value="${v}" style="display:inline-block;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;">
+        <svg width="${w}" height="${TILE_H}" viewBox="0 0 ${w} ${TILE_H}" style="display:block;overflow:visible;">
+          <defs>
+            <marker id="achTG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,1.5 L9,5 L0,8.5 z" fill="#48B08C"/></marker>
+            <marker id="achTR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,1.5 L9,5 L0,8.5 z" fill="#E2604F"/></marker>
+          </defs>
+          <line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="${col}" stroke-width="3.5" stroke-linecap="round" marker-end="${mk}" style="pointer-events:none;"/>
+          <text x="${w/2}" y="16" text-anchor="middle" font-family="Rubik,sans-serif" font-size="13" font-weight="700" fill="${col}" style="pointer-events:none;">${lbl}</text>
+        </svg>
+      </div>`;
+  }).join('');
+
+  /* expression display */
+  const exprStr = lvl.terms.map((t,i)=>{
+    const abs=Math.abs(t);
+    if(i===0) return t<0?`(−${abs})`:String(t);
+    return t<0?` + (−${abs})`:` + ${t}`;
+  }).join('');
+
+  /* chain built display */
+  const chainExpr = sub.chain.length>0
+    ? sub.chain.map(c=>c.value<0?`(−${Math.abs(c.value)})`:String(c.value)).join(' + ')
+    : '';
+
+  let answerArea='';
+  if(!sub.answered){
+    const dropHint = sub.chain.length===0
+      ? `<p style="text-align:center;opacity:0.45;font-size:14px;margin:6px 0;">גררו חץ אל ציר המספרים</p>`
+      : `<div style="text-align:center;margin-top:6px;font-size:14px;color:rgba(234,244,241,0.55);">בניתם: <bdi style="direction:ltr;unicode-bidi:isolate;">${chainExpr}</bdi></div>`;
+    const inputRow = sub.chain.length>0 ? `
+      <div class="btnrow" style="gap:10px;align-items:center;margin-top:8px;">
+        <input type="number" id="achInput" placeholder="?" dir="ltr" style="width:70px;text-align:center;font-size:20px;padding:6px;border-radius:8px;border:1.5px solid rgba(234,244,241,0.3);background:rgba(255,255,255,0.06);color:#fff;">
+        <button class="btn" onclick="submitArrowChain()">אשרו</button>
+        <button class="btn" onclick="resetArrowChain()" style="background:rgba(234,244,241,0.08);font-size:13px;padding:8px 14px;">איפוס</button>
+      </div>` : '';
+    answerArea=`
+      <p class="instr" style="text-align:center;">גררו את החצים המתאימים אל הציר — ראש לזנב. קראו את המספר שמתחת לחץ האחרון.</p>
+      ${sub.error?`<div class="feedback bad">לא נכון — נסו שוב</div>`:''}
+      ${dropHint}${inputRow}`;
+  } else {
+    answerArea=`
+      <div class="feedback ok">נכון! התוצאה היא ${bdi(lvl.correct)}.</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+
+  if(!sub.answered) setTimeout(()=>initArrowChainDrag(),0);
+
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext" style="font-size:20px;font-weight:700;">${bdi(exprStr + ' = ?')}</p>
+    <div class="nl-wrap" id="achSvgWrap">
+      <svg id="achSvg" viewBox="0 0 ${SVG_W} ${SVG_H}" style="width:100%;display:block;direction:ltr;" xmlns="http://www.w3.org/2000/svg">${s}</svg>
+    </div>
+    <div style="background:rgba(234,244,241,0.04);border:1.5px solid rgba(234,244,241,0.1);border-radius:12px;padding:12px 10px 8px;margin-top:10px;">
+      <div style="text-align:right;font-size:12px;color:rgba(234,244,241,0.4);margin-bottom:6px;">מגש החצים — גררו אל הציר:</div>
+      <div id="achTray" style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;min-height:56px;padding:4px;">${trayHTML}</div>
+    </div>
+    ${answerArea}
+  `;
+}
+
+function initArrowChainDrag(){
+  const tiles = document.querySelectorAll('.ach-tile');
+  tiles.forEach(tile=>{
+    const id=tile.dataset.id;
+    tile.addEventListener('pointerdown',(e)=>{
+      e.preventDefault();
+      const rect=tile.getBoundingClientRect();
+      const clone=tile.cloneNode(true);
+      clone.style.cssText=`position:fixed;left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;z-index:2000;pointer-events:none;opacity:0.85;`;
+      document.body.appendChild(clone);
+      tile.style.opacity='0.25';
+      _achDrag={id, clone, offsetX:e.clientX-rect.left, offsetY:e.clientY-rect.top};
+      tile.setPointerCapture(e.pointerId);
+    });
+    tile.addEventListener('pointermove',(e)=>{
+      if(!_achDrag||_achDrag.id!==id) return;
+      _achDrag.clone.style.left=(e.clientX-_achDrag.offsetX)+'px';
+      _achDrag.clone.style.top=(e.clientY-_achDrag.offsetY)+'px';
+    });
+    tile.addEventListener('pointerup',(e)=>{
+      if(!_achDrag||_achDrag.id!==id) return;
+      _achDrag.clone.remove();
+      tile.style.opacity='';
+      const svgEl=document.getElementById('achSvg');
+      let dropped=false;
+      if(svgEl){
+        const r=svgEl.getBoundingClientRect();
+        if(e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom){
+          const sub=state.levelSub;
+          const it=sub.trayItems.find(t=>t.id===_achDrag.id);
+          if(it&&!it.used){ it.used=true; sub.chain.push({id:it.id,value:it.value}); dropped=true; }
+        }
+      }
+      _achDrag=null;
+      if(dropped){ state.levelSub.error=false; render(); }
+      else setTimeout(()=>initArrowChainDrag(),0);
+    });
+    tile.addEventListener('pointercancel',()=>{
+      if(_achDrag){ _achDrag.clone.remove(); tile.style.opacity=''; }
+      _achDrag=null;
+      render();
+    });
+  });
+}
+
+function removeFromArrowChain(id){
+  const sub=state.levelSub;
+  const idx=sub.chain.findIndex(c=>c.id===id);
+  if(idx===-1) return;
+  sub.chain.slice(idx).forEach(c=>{ const it=sub.trayItems.find(t=>t.id===c.id); if(it) it.used=false; });
+  sub.chain=sub.chain.slice(0,idx);
+  sub.error=false;
+  render();
+}
+
+function resetArrowChain(){
+  const sub=state.levelSub;
+  sub.chain=[];
+  sub.trayItems.forEach(it=>it.used=false);
+  sub.error=false;
+  render();
+}
+
+function submitArrowChain(){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const sub=state.levelSub;
+  const chainVals=sub.chain.map(c=>c.value).slice().sort((a,b)=>a-b);
+  const termVals=lvl.terms.slice().sort((a,b)=>a-b);
+  if(chainVals.length!==termVals.length||!chainVals.every((v,i)=>v===termVals[i])){
+    sub.error=true; render();
+    setTimeout(()=>{ if(state.levelSub){state.levelSub.error=false; render();} },1200);
+    return;
+  }
+  const field=document.getElementById('achInput');
+  const val=parseFloat(field?field.value:'');
+  if(isNaN(val)){ sub.error=true; render(); return; }
+  if(Math.abs(val-lvl.correct)<0.001){
+    sub.answered=true; sub.correct=true; state.gameScore++; state.gameTotal++;
+    render();
+  } else {
+    sub.error=true; render();
+    setTimeout(()=>{ if(state.levelSub){state.levelSub.error=false; render();} },900);
+  }
+}
 
 /* ---- chipProfit ---- */
 function renderChipProfit(lvl){
