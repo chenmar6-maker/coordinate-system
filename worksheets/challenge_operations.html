@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>דף אתגר — פעולות חשבון עם מספרים מכוונים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 11.5px;
+    color: #111;
+    direction: rtl;
+    background: #fff;
+    padding: 14px 18px 10px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+  }
+  .header-title { font-size: 16px; font-weight: 800; }
+  .header-sub { font-size: 10.5px; color: #555; margin-top: 1px; }
+  .header-tag {
+    font-size: 10.5px; font-weight: 700; color: #fff;
+    background: #c0392b; padding: 2px 9px; border-radius: 20px;
+  }
+  .name-field { font-size: 11px; }
+  .name-field span {
+    display: inline-block;
+    border-bottom: 1px solid #555;
+    min-width: 130px;
+    margin-right: 4px;
+  }
+
+  .three-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 8px;
+  }
+
+  .section {
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .section-head {
+    padding: 4px 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+  }
+  .section-head.add  { background: #0e6655; }
+  .section-head.sub  { background: #1a5276; }
+  .section-head.mul  { background: #7b241c; }
+
+  .section-body { padding: 5px 8px; }
+
+  .q {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #e0e0e0;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+  .q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .qnum { font-weight: 700; }
+  .m { direction: ltr; unicode-bidi: isolate; }
+
+  .al {
+    display: block;
+    border-bottom: 1px solid #999;
+    margin-top: 3px;
+    height: 13px;
+  }
+  .al2 {
+    display: block;
+    border-bottom: 1px solid #999;
+    margin-top: 3px;
+    height: 13px;
+  }
+  .al2 + .al2 { margin-top: 5px; }
+  .ali {
+    display: inline-block;
+    border-bottom: 1px solid #999;
+    min-width: 44px;
+  }
+
+  .brand-line { font-size: 10.5px; font-weight: 700; color: #333; margin-top: 5px; text-align: left; }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 0; }
+  }
+  .page-scaler {
+    transform: scale(0.72);
+    transform-origin: top right;
+    width: calc(100% / 0.72);
+  }
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #111; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="page-scaler">
+
+<div class="header">
+  <div>
+    <div class="header-title">דף אתגר — פעולות חשבון עם מספרים מכוונים</div>
+    <div class="header-sub">חיבור · חיסור · כפל · חילוק &nbsp;|&nbsp; כיתה ז׳</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span class="header-tag">★ מתקדמים</span>
+    <div class="name-field">שם: <span>&nbsp;</span></div>
+  </div>
+</div>
+
+<div class="three-sections">
+
+  <!-- ===== חיבור מספרים מכוונים ===== -->
+  <div class="section">
+    <div class="section-head add">חיבור מספרים מכוונים</div>
+    <div class="section-body">
+
+      <div class="q">
+        <span class="qnum">1.</span> חשב: <span class="m">−8 + (−5)</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">2.</span> חשב: <span class="m">6 + (−10)</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">3.</span> חשב: <span class="m">−½ + (−¾)</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">4.</span> שרשרת: <span class="m">−3 + (−5) + 8 + (−2) + 7</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">5.</span> מצא <span class="m">x</span>: <span class="m">x + (−7) = −2</span>
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">6.</span> בלי לחשב — מי גדול יותר?<br>
+        <span class="m">−100 + 3</span> &nbsp;או&nbsp; <span class="m">3 + (−100)</span><br>
+        <span style="font-size:10px;color:#555;">הסבר בשורה אחת:</span>
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">7.</span> שני מספרים שלמים. סכומם <span class="m">−6</span> וסכום ערכיהם המוחלטים הוא <span class="m">10</span>. מהם המספרים?
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">8.</span> אם <span class="m">a &lt; 0</span> ו-<span class="m">b &lt; 0</span>, האם <span class="m">a + b</span> יכול להיות חיובי? הסבר.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">9.</span> הטמפרטורה עמדה על <span class="m">−4°</span>. בצהריים עלתה ב-<span class="m">7°</span>, בערב ירדה ב-<span class="m">11°</span>. מה הטמפרטורה הסופית?
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">10.</span> ★ חשב:<br>
+        <span class="m">(−1+2)+(−2+3)+(−3+4)+⋯+(−9+10)</span>
+        <span class="al"></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== חיסור מספרים מכוונים ===== -->
+  <div class="section">
+    <div class="section-head sub">חיסור מספרים מכוונים</div>
+    <div class="section-body">
+
+      <div class="q">
+        <span class="qnum">1.</span> חשב: <span class="m">5 − 12</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">2.</span> חשב: <span class="m">−3 − (−8)</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">3.</span> חשב: <span class="m">−6 − (−6)</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">4.</span> חשב: <span class="m">−2.5 − 1.5</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">5.</span> מצא <span class="m">x</span>: <span class="m">x − (−4) = 1</span>
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">6.</span> בלי לחשב — מי גדול יותר?<br>
+        <span class="m">3 − 8</span> &nbsp;או&nbsp; <span class="m">−3 − (−8)</span>
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">7.</span> שרשרת: <span class="m">2 − (−3) − 7 − (−1)</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">8.</span> אם <span class="m">a &gt; 0</span> ו-<span class="m">b &lt; 0</span>, מה הסימן של <span class="m">a − b</span>? הסבר.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">9.</span> בחינה: תשובה נכונה = <span class="m">+4</span> נקודות, שגיאה = <span class="m">−2</span> נקודות. דן ענה נכון על 8 שאלות וטעה ב-5. כמה קיבל?
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">10.</span> ★ מצא שני מספרים שלמים <span class="m">a</span> ו-<span class="m">b</span> כך ש-<span class="m">a − b = −10</span> ו-<span class="m">|a| = |b|</span>.
+        <span class="al"></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== כפל וחילוק מספרים מכוונים ===== -->
+  <div class="section">
+    <div class="section-head mul">כפל וחילוק מספרים מכוונים</div>
+    <div class="section-body">
+
+      <div class="q">
+        <span class="qnum">1.</span> חשב: <span class="m">(−4) · (−5)</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">2.</span> חשב: <span class="m">3 · (−7)</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">3.</span> חשב: <span class="m">(−24) ÷ (−6)</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">4.</span> חשב: <span class="m">(−3) · 4 · (−2)</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">5.</span> חשב: <span class="m">(−2)³</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">6.</span> מצא <span class="m">x</span>: <span class="m">(−3) · x = 15</span>
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">7.</span> בלי לחשב — מה הסימן של המכפלה?<br>
+        <span class="m">(−2)·(−3)·(−4)·(−1)·(−5)</span>
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">8.</span> אם <span class="m">(−1)ⁿ = −1</span>, מה ניתן להסיק על <span class="m">n</span>?
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">9.</span> מצא שני מספרים שלמים שמכפלתם <span class="m">12</span> וסכומם <span class="m">−7</span>.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">10.</span> ★ סדר פעולות:<br>
+        <span class="m">[(−3) + (−4)] · [(−1) − 2]</span> = <span class="ali"></span>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- end three-sections -->
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-scaler -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+
+</body>
+</html>
