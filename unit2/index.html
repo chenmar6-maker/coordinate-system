@@ -2716,13 +2716,12 @@ function renderArrowChain(lvl){
     s+=`<path d="M ${tx} ${prevY-6} l 8 -14 l -16 0 z" fill="#C9A227" style="pointer-events:none;"/>`;
   }
 
-  /* tray tiles — arrowheads drawn as inline polygons (no marker IDs needed) */
-  const TILE_PX=22, TILE_H=60;
+  /* tray tiles — label div above SVG arrow so they never overlap */
+  const TILE_PX=22, TILE_H=36;
   const trayHTML = sub.trayItems.filter(it=>!it.used).map(it=>{
     const v=it.value, abs=Math.abs(v), col=v<0?'#E2604F':'#48B08C';
-    const w=Math.max(abs*TILE_PX+28,64), sy=42; /* arrow lower, label at top */
+    const w=Math.max(abs*TILE_PX+28,64), sy=20;
     const lbl=v<0?`−${abs}`:`+${abs}`;
-    // shaft + inline arrowhead (no marker IDs)
     let shaftLine, arrowHead;
     if(v>0){
       shaftLine=`<line x1="4" y1="${sy}" x2="${w-14}" y2="${sy}" stroke="${col}" stroke-width="3.5" stroke-linecap="round" style="pointer-events:none;"/>`;
@@ -2732,10 +2731,10 @@ function renderArrowChain(lvl){
       arrowHead=`<polygon points="14,${sy-6} 4,${sy} 14,${sy+6}" fill="${col}" style="pointer-events:none;"/>`;
     }
     return `
-      <div class="ach-tile" data-id="${it.id}" data-value="${v}" style="display:inline-block;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;">
+      <div class="ach-tile" data-id="${it.id}" data-value="${v}" style="display:inline-flex;flex-direction:column;align-items:center;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;gap:4px;">
+        <div style="font-family:'Rubik',sans-serif;font-size:17px;font-weight:700;color:${col};line-height:1;pointer-events:none;">${lbl}</div>
         <svg width="${w}" height="${TILE_H}" viewBox="0 0 ${w} ${TILE_H}" style="display:block;">
           ${shaftLine}${arrowHead}
-          <text x="${w/2}" y="18" text-anchor="middle" font-family="Rubik,sans-serif" font-size="16" font-weight="700" fill="${col}" style="pointer-events:none;">${lbl}</text>
         </svg>
       </div>`;
   }).join('');
