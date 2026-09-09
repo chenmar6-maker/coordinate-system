@@ -1015,6 +1015,116 @@ const quizQuestions6 = [
     explain:'(−3.5) נמצא בדיוק באמצע בין (−4) ל-(−3).' }
 ];
 
+/* ============ GAME LEVELS 7/8 — חיסור מספרים מכוונים ============ */
+
+const gameLevels7 = [
+  { id:'mc', title:'הכלל: חיסור = חיבור הנגדי',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">4 − (−7)</bdi>?',
+    options:['4 − 7 = (−3)', '4 + 7 = 11', '−4 + 7 = 3', '4 · (−7) = (−28)'],
+    correct:'4 + 7 = 11',
+    explain:'חיסור = חיבור הנגדי: 4 − (−7) = 4 + 7 = 11. כשמחסרים שלילי — זה כמו לחבר חיובי.' },
+  { id:'typedSum', title:'פתרו', expr:'6 − (−5)', correct:11,
+    explain:'6 − (−5) = 6 + 5 = 11.' },
+  { id:'typedSum', title:'פתרו', expr:'−8 − 3', correct:-11,
+    explain:'−8 − 3 = −8 + (−3) = −11.' },
+  { id:'typedSum', title:'פתרו', expr:'−1 − (−10)', correct:9,
+    explain:'−1 − (−10) = −1 + 10 = 9.' },
+  { id:'typedSum', title:'פתרו', expr:'0 − (−9)', correct:9,
+    explain:'0 − (−9) = 0 + 9 = 9.' },
+  { id:'mc', title:'פתרו עם שבר',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">−3 − (−½)</bdi>?',
+    options:['(−3½)','(−2½)','3½','2½'],
+    correct:'(−2½)',
+    explain:'−3 − (−½) = −3 + ½ = −2½.' },
+  { id:'mc', title:'מבלי לחשב — מה הסימן?',
+    question:'מה יהיה סימן התוצאה של: <bdi style="direction:ltr;unicode-bidi:isolate;">2.0145 − (−2.0345)</bdi>? (לא צריך לחשב!)',
+    options:['חיובי','שלילי','אפס','אי אפשר לדעת'],
+    correct:'חיובי',
+    explain:'2.0145 − (−2.0345) = 2.0145 + 2.0345 — חיבור שני חיוביים → תמיד חיובי.' },
+  { id:'mc', title:'כלל מסכם',
+    question:'כשמחסרים מספר שלילי ממספר כלשהו, התוצאה תמיד...',
+    options:['קטנה יותר מהמספר המקורי','גדולה יותר מהמספר המקורי','שווה למספר המקורי','תלוי במספרים'],
+    correct:'גדולה יותר מהמספר המקורי',
+    explain:'חיסור שלילי = חיבור חיובי → מוסיפים ערך חיובי → התוצאה תמיד גדולה מהמקורי.' }
+];
+
+const gameLevels8 = [
+  { id:'typedSum', title:'פתרו', expr:'3 − 8', correct:-5,
+    explain:'3 − 8 = 3 + (−8) = −5.' },
+  { id:'typedSum', title:'פתרו', expr:'−5 − 3', correct:-8,
+    explain:'−5 − 3 = −8.' },
+  { id:'typedSum', title:'פתרו', expr:'−4 − (−9)', correct:5,
+    explain:'−4 − (−9) = −4 + 9 = 5.' },
+  { id:'mc', title:'כתיבה ללא סוגריים',
+    question:'מהו הביטוי ללא סוגריים של: <bdi style="direction:ltr;unicode-bidi:isolate;">5 + (−3) − (−2) + (−7)</bdi>?',
+    options:['5 − 3 + 2 − 7','5 − 3 − 2 − 7','5 + 3 + 2 − 7','5 + 3 − 2 + 7'],
+    correct:'5 − 3 + 2 − 7',
+    explain:'+(−3)→ −3, −(−2)→ +2, +(−7)→ −7. ללא סוגריים: 5 − 3 + 2 − 7 = −3.' },
+  { id:'mc', title:'שרשרת',
+    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">8 − (−4) + (−7) − 3 − (−2) = ?</bdi>',
+    options:['4','(−4)','6','(−6)'],
+    correct:'4',
+    explain:'ללא סוגריים: 8 + 4 − 7 − 3 + 2. חיוביים: 8+4+2=14. שליליים: 7+3=10. 14−10=4.' },
+  { id:'mc', title:'שרשרת עם שברים',
+    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">2¼ − (−3¾) − 7½ = ?</bdi>',
+    options:['(−1½)','1½','(−1)','6'],
+    correct:'(−1½)',
+    explain:'2¼ + 3¾ − 7½ = 6 − 7½ = −1½.' },
+  { id:'mc', title:'שאלת מילים',
+    question:'בירושלים ביום חורפי, הטמפרטורה בלילה הייתה (−3)°C ובצהריים 8°C. מה ההפרש בין טמפרטורת הצהריים לטמפרטורת הלילה?',
+    options:['5°C','11°C','(−11)°C','(−5)°C'],
+    correct:'11°C',
+    explain:'8 − (−3) = 8 + 3 = 11°C.' },
+  { id:'mc', title:'ממעוף הציפור',
+    question:'רן אומר: "חיסור מספר שלילי זה כמו להוסיף מספר חיובי — כך שאפשר להגיד שחיסור הוא רק סוג של חיבור." האם הוא צודק?',
+    options:['כן — a − b = a + (−b) תמיד','לא — חיסור הוא פעולה שונה לגמרי','כן, אבל רק כשb שלילי','לא, עובד רק עם מספרים שלמים'],
+    correct:'כן — a − b = a + (−b) תמיד',
+    explain:'רן צודק. a − b = a + (−b) לכל מספרים a ו-b. חיסור הוא תמיד חיבור הנגדי.' }
+];
+
+/* ============ QUIZ QUESTIONS 7/8 — חיסור ============ */
+
+const quizQuestions7 = [
+  { type:'mc', title:'חישוב ישיר', text:'6 − (−5) = ?',
+    options:['1','(−1)','11','(−11)'], correct:'11',
+    explain:'6 − (−5) = 6 + 5 = 11.' },
+  { type:'mc', title:'חישוב ישיר', text:'−3 − 5 = ?',
+    options:['2','(−2)','8','(−8)'], correct:'(−8)',
+    explain:'−3 − 5 = −3 + (−5) = −8.' },
+  { type:'mc', title:'חישוב ישיר', text:'−6 − (−2) = ?',
+    options:['(−8)','8','(−4)','4'], correct:'(−4)',
+    explain:'−6 − (−2) = −6 + 2 = −4.' },
+  { type:'mc', title:'מבלי לחשב',
+    text:'מה סימן התוצאה של −2.0145 − (−2.0345)?',
+    options:['חיובי','שלילי','אפס','אי אפשר לדעת'], correct:'חיובי',
+    explain:'−2.0145 − (−2.0345) = −2.0145 + 2.0345. |2.0345| > |2.0145|, הגדול חיובי → תוצאה חיובית.' },
+  { type:'mc', title:'כלל',
+    text:'כשמחסרים מספר שלילי ממספר כלשהו, התוצאה תמיד:',
+    options:['קטנה מהמקורי','גדולה מהמקורי','שווה למקורי','תלוי במספרים'],
+    correct:'גדולה מהמקורי',
+    explain:'חיסור שלילי = חיבור חיובי → התוצאה תמיד גדולה מהמקורי.' }
+];
+
+const quizQuestions8 = [
+  { type:'mc', title:'שרשרת',
+    text:'8 − (−4) + (−7) − 3 − (−2) = ?',
+    options:['4','(−4)','6','(−6)'], correct:'4',
+    explain:'ללא סוגריים: 8 + 4 − 7 − 3 + 2. חיוביים: 14. שליליים: 10. 14−10=4.' },
+  { type:'mc', title:'חישוב ישיר',
+    text:'−4 − (−9) + 3 − 5 = ?',
+    options:['3','(−3)','7','(−7)'], correct:'3',
+    explain:'−4 + 9 + 3 − 5 = 3.' },
+  { type:'mc', title:'שאלת מילים',
+    text:'הטמפרטורה בלילה הייתה (−3)°C ובצהריים 8°C. מה ההפרש?',
+    options:['5°C','11°C','(−11)°C','(−5)°C'], correct:'11°C',
+    explain:'8 − (−3) = 8 + 3 = 11°C.' },
+  { type:'mc', title:'ללא סוגריים',
+    text:'מהו הביטוי ללא סוגריים של: −4 − (−6) + (−3) − (−1)?',
+    options:['−4 + 6 − 3 + 1','−4 − 6 − 3 − 1','−4 + 6 + 3 + 1','−4 − 6 + 3 + 1'],
+    correct:'−4 + 6 − 3 + 1',
+    explain:'−(−6)→+6, +(−3)→−3, −(−1)→+1. ללא סוגריים: −4 + 6 − 3 + 1 = 0.' }
+];
+
 /* ============ DISPATCH HELPERS ============ */
 
 function currentGameLevels(){
@@ -1022,6 +1132,8 @@ function currentGameLevels(){
   if(state.sequence===4) return gameLevels4;
   if(state.sequence===5) return gameLevels5;
   if(state.sequence===6) return gameLevels6;
+  if(state.sequence===7) return gameLevels7;
+  if(state.sequence===8) return gameLevels8;
   return state.sequence===2 ? gameLevels2 : gameLevels1;
 }
 
@@ -1030,6 +1142,8 @@ function currentQuizQuestions(){
   if(state.sequence===4) return quizQuestions4;
   if(state.sequence===5) return quizQuestions5;
   if(state.sequence===6) return quizQuestions6;
+  if(state.sequence===7) return quizQuestions7;
+  if(state.sequence===8) return quizQuestions8;
   if(state.sequence===2) return state.quizAlt ? quizQuestions2b : quizQuestions2;
   return state.quizAlt ? quizQuestions1b : quizQuestions1;
 }
@@ -1253,6 +1367,26 @@ function renderHome(){
           <div class="card quiz" onclick="state.sequence=4;startQuiz()"><h3>מבדק שליטה</h3></div>
         </div>
     </div>
+
+    <div class="sequence-section">
+        <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">חיסור מספרים מכוונים</div>
+        <div class="sequence-title">חלק א׳ — חיסור = חיבור הנגדי</div>
+        <div class="cards">
+          <div class="card learn" onclick="state.sequence=7;goTo('learn')"><h3>הקנייה</h3></div>
+          <div class="flow-arrow">←</div>
+          <div class="card game" onclick="state.sequence=7;startGame()"><h3>תרגול</h3></div>
+          <div class="flow-arrow">←</div>
+          <div class="card quiz" onclick="state.sequence=7;startQuiz()"><h3>מבדק שליטה</h3></div>
+        </div>
+        <div class="sequence-title" style="margin-top:18px;">חלק ב׳ — שרשראות וכתיבה ללא סוגריים</div>
+        <div class="cards">
+          <div class="card learn" onclick="state.sequence=8;goTo('learn')"><h3>הקנייה</h3></div>
+          <div class="flow-arrow">←</div>
+          <div class="card game" onclick="state.sequence=8;startGame()"><h3>תרגול</h3></div>
+          <div class="flow-arrow">←</div>
+          <div class="card quiz" onclick="state.sequence=8;startQuiz()"><h3>מבדק שליטה</h3></div>
+        </div>
+    </div>
   `;
 }
 
@@ -1355,6 +1489,8 @@ function renderLearn(){
   if(state.sequence===4) return renderLearn4();
   if(state.sequence===5) return renderLearn5();
   if(state.sequence===6) return renderLearn6();
+  if(state.sequence===7) return renderLearn7();
+  if(state.sequence===8) return renderLearn8();
   return state.sequence===2 ? renderLearn2() : renderLearn1();
 }
 
@@ -1578,6 +1714,88 @@ function renderLearn6(){
       <div style="margin-top:22px;border-radius:12px;overflow:hidden;aspect-ratio:16/9;">
         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/cy1VzKxeRjQ" title="מיקום על ציר המספרים" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display:block;"></iframe>
       </div>
+      <div class="btnrow" style="margin-top:20px;">
+        <button class="btn" onclick="startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn7(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle" style="text-align:right;">חיסור מספרים מכוונים — חיסור = חיבור הנגדי</h2>
+      <div class="video-placeholder">🎬 הסרטון יתווסף בקרוב</div>
+
+      <p style="text-align:right;font-size:15px;margin:18px 0 8px;font-weight:700;color:var(--gold);">הכלל הבסיסי</p>
+      <div style="background:rgba(239,169,74,0.1);border:1.5px solid rgba(239,169,74,0.4);border-radius:10px;padding:14px;text-align:center;margin-bottom:16px;">
+        <div style="font-size:19px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--gold);">a − b = a + (−b)</div>
+        <div style="font-size:13px;margin-top:8px;color:rgba(234,244,241,0.7);">חיסור = חיבור הנגדי. תמיד.</div>
+      </div>
+
+      <p style="text-align:right;font-size:15px;margin:4px 0 8px;font-weight:700;color:var(--gold);">דוגמאות</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;">
+        <div style="flex:1;min-width:190px;max-width:250px;background:rgba(72,176,140,0.08);border:1px solid rgba(72,176,140,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:13px;font-weight:700;color:rgba(234,244,241,0.55);margin-bottom:6px;">חיסור מינוס</div>
+          <div style="font-size:17px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--seafoam);">4 − (−7)</div>
+          <div style="font-size:15px;margin-top:6px;direction:ltr;unicode-bidi:isolate;color:var(--gold);">= 4 + 7 = 11</div>
+          <div style="font-size:12px;margin-top:4px;color:rgba(234,244,241,0.55);">מינוס מינוס = פלוס</div>
+        </div>
+        <div style="flex:1;min-width:190px;max-width:250px;background:rgba(226,96,79,0.08);border:1px solid rgba(226,96,79,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:13px;font-weight:700;color:rgba(234,244,241,0.55);margin-bottom:6px;">חיסור פלוס</div>
+          <div style="font-size:17px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--coral);">−8 − 3</div>
+          <div style="font-size:15px;margin-top:6px;direction:ltr;unicode-bidi:isolate;color:var(--gold);">= −8 + (−3) = −11</div>
+          <div style="font-size:12px;margin-top:4px;color:rgba(234,244,241,0.55);">חיסור חיובי = חיבור שלילי</div>
+        </div>
+      </div>
+
+      <ul class="bullets">
+        <li><strong>הכלל:</strong> חיסור = חיבור הנגדי — <bdi style="direction:ltr;unicode-bidi:isolate;">a − b = a + (−b)</bdi>.</li>
+        <li>חיסור מספר <strong>שלילי</strong> שקול לחיבור <strong>חיובי</strong>: <bdi style="direction:ltr;unicode-bidi:isolate;">5 − (−3) = 5 + 3 = 8</bdi>.</li>
+        <li>חיסור מספר <strong>חיובי</strong> שקול לחיבור <strong>שלילי</strong>: <bdi style="direction:ltr;unicode-bidi:isolate;">5 − 3 = 5 + (−3) = 2</bdi>.</li>
+        <li>כשמחסרים שלילי — התוצאה תמיד <strong>גדולה</strong> מהמספר שממנו מחסרים.</li>
+      </ul>
+      <div class="learn-note">💡 "מינוס מינוס = פלוס" — שתי הפיכות סימן מתבטלות: − (−b) = +b.</div>
+      <div class="btnrow" style="margin-top:20px;">
+        <button class="btn" onclick="startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn8(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle" style="text-align:right;">שרשראות וכתיבה ללא סוגריים</h2>
+      <div class="video-placeholder">🎬 הסרטון יתווסף בקרוב</div>
+
+      <p style="text-align:right;font-size:15px;margin:18px 0 8px;font-weight:700;color:var(--gold);">כתיבה ללא סוגריים — כללי ההמרה</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;">
+        <div style="flex:1;min-width:190px;max-width:250px;background:rgba(72,176,140,0.08);border:1px solid rgba(72,176,140,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:13px;font-weight:700;color:rgba(234,244,241,0.55);margin-bottom:6px;">מינוס מינוס → פלוס</div>
+          <div style="font-size:16px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--seafoam);">− (−5) → + 5</div>
+        </div>
+        <div style="flex:1;min-width:190px;max-width:250px;background:rgba(226,96,79,0.08);border:1px solid rgba(226,96,79,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:13px;font-weight:700;color:rgba(234,244,241,0.55);margin-bottom:6px;">פלוס מינוס → מינוס</div>
+          <div style="font-size:16px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--coral);">+ (−5) → − 5</div>
+        </div>
+      </div>
+
+      <p style="text-align:right;font-size:15px;margin:4px 0 8px;font-weight:700;color:var(--gold);">דוגמה — שרשרת מלאה</p>
+      <div style="background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:14px;text-align:center;margin-bottom:16px;">
+        <div style="font-size:15px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--foam);">3 + (−5) − (−2) + (−7)</div>
+        <div style="font-size:13px;margin-top:8px;color:rgba(234,244,241,0.65);">ללא סוגריים: <span style="color:var(--gold);font-weight:700;direction:ltr;unicode-bidi:isolate;">3 − 5 + 2 − 7 = −7</span></div>
+        <div style="font-size:12px;margin-top:4px;color:rgba(234,244,241,0.5);">+(−5)→−5 &nbsp;|&nbsp; −(−2)→+2 &nbsp;|&nbsp; +(−7)→−7</div>
+      </div>
+
+      <ul class="bullets">
+        <li><strong>ללא סוגריים:</strong> כל <bdi style="direction:ltr;unicode-bidi:isolate;">+(−x)</bdi> הופך ל-<bdi style="direction:ltr;unicode-bidi:isolate;">−x</bdi>, וכל <bdi style="direction:ltr;unicode-bidi:isolate;">−(−x)</bdi> הופך ל-<bdi style="direction:ltr;unicode-bidi:isolate;">+x</bdi>.</li>
+        <li>בשרשרות ארוכות — קבצו חיוביים ושליליים בנפרד לאחר ההמרה.</li>
+        <li>הסדר לא משנה (חוק החילוף) — חפשו זוגות שמתבטלים.</li>
+      </ul>
+      <div class="learn-note">💡 טריק לבדיקה: ספרו כמה פעמים המינוס מופיע לפני סוגריים — אם מספר פעמים אי-זוגי → סימן שלילי, זוגי → חיובי.</div>
       <div class="btnrow" style="margin-top:20px;">
         <button class="btn" onclick="startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
