@@ -1285,8 +1285,7 @@ function render(){
   else if(state.screen==='learn') app.innerHTML = renderLearn();
   else if(state.screen==='game'){
     app.innerHTML = renderGame();
-    if(state.sequence===3) initArrowChainGame();
-    else if(state.sequence===4) initRuleDiscovery4();
+    if(state.sequence===4) initRuleDiscovery4();
     else if(state.sequence===5) initRuleDiscovery5();
   }
   else if(state.screen==='gameResults') app.innerHTML = renderGameResults();
@@ -1563,7 +1562,7 @@ function renderLearn3(){
     <div class="panel">
       <h2 class="qtitle" style="text-align:right;">חיבור מספרים מכוונים — מודל החצים וכלל הסימן</h2>
       <div class="video-placeholder">🎬 הסרטון יתווסף בקרוב</div>
-      <p style="text-align:right;font-size:15px;margin:14px 0 6px;font-weight:700;color:var(--gold);">מודל החצים: (−3) + 5 = 2</p>
+      <p style="text-align:right;font-size:15px;margin:14px 0 6px;font-weight:700;color:var(--gold);">מודל החצים: <bdi style="direction:ltr;unicode-bidi:isolate;">(−3) + 5 = 2</bdi></p>
       <div class="nl-wrap" style="margin:10px 0 18px;">
         <svg viewBox="0 0 600 110" style="width:100%;display:block;direction:ltr;" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -1875,7 +1874,6 @@ function finishGame(){
 /* ============ GAME RENDER ============ */
 
 function renderGame(){
-  if(state.sequence===3) return renderGameArrowChain();
   if(state.sequence===4) return renderGameRuleDiscovery4();
   if(state.sequence===5) return renderGameRuleDiscovery5();
 
@@ -2591,9 +2589,13 @@ function renderDragArrow(lvl){
   let answerArea = '';
   if(!sub.answered){
     answerArea = `
-      <p class="instr">גררו את ראש החץ ${dirHe} אל נקודת הנחיתה</p>
+      <p class="instr">גררו את ראש החץ ${dirHe} אל נקודת הנחיתה — או הקלידו ישירות:</p>
       ${sub.error?`<div class="feedback bad">לא מדויק — נסו שוב</div>`:''}
-      ${snapped!==null&&!sub.error?`<div class="btnrow"><button class="btn" onclick="submitDragArrow()">אשרו תשובה</button></div>`:''}`;
+      <div class="btnrow" style="gap:10px;align-items:center;">
+        <input type="number" id="dragTypedInput" placeholder="?" dir="ltr" style="width:80px;text-align:center;font-size:20px;padding:6px;border-radius:8px;border:1.5px solid var(--gold);background:#1a1730;color:#fff;">
+        <button class="btn" onclick="submitDragArrowTyped()">אשרו</button>
+        ${snapped!==null&&!sub.error?`<button class="btn" style="background:rgba(234,244,241,0.1);" onclick="submitDragArrow()">אשרו גרירה</button>`:''}
+      </div>`;
   } else {
     answerArea = `
       <div class="feedback ok">נכון! מסיימים ב-${bdi(lvl.correct)}.</div>
@@ -2670,6 +2672,25 @@ function submitDragArrow(){
   } else {
     sub.error=true;
     if(_dArrowCleanup){ _dArrowCleanup(); _dArrowCleanup=null; }
+    render();
+    setTimeout(()=>{
+      if(state.levelSub){ state.levelSub.error=false; render(); setTimeout(()=>initDragArrow(-12,12,22.5,30,600,lvl.start),0); }
+    },900);
+  }
+}
+
+function submitDragArrowTyped(){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const sub=state.levelSub;
+  const field=document.getElementById('dragTypedInput');
+  const val=parseFloat(field?field.value:'');
+  if(isNaN(val)){ render(); return; }
+  if(Math.abs(val-lvl.correct)<0.001){
+    sub.answered=true; sub.correct=true;
+    state.gameScore++; state.gameTotal++;
+    render();
+  } else {
+    sub.error=true;
     render();
     setTimeout(()=>{
       if(state.levelSub){ state.levelSub.error=false; render(); setTimeout(()=>initDragArrow(-12,12,22.5,30,600,lvl.start),0); }
