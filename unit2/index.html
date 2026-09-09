@@ -1389,8 +1389,8 @@ function renderAnswers(){
 
   const row = (num, ans) => `
     <tr>
-      <td style="padding:7px 14px;border-bottom:1px solid rgba(234,244,241,0.1);font-weight:700;color:var(--gold);text-align:right;">${num}</td>
-      <td style="padding:7px 14px;border-bottom:1px solid rgba(234,244,241,0.1);direction:ltr;unicode-bidi:isolate;color:var(--foam);">${ans}</td>
+      <td style="padding:6px 0 6px 24px;border-bottom:1px solid rgba(234,244,241,0.1);font-weight:700;color:var(--gold);white-space:nowrap;text-align:right;">${num}</td>
+      <td style="padding:6px 0;border-bottom:1px solid rgba(234,244,241,0.1);color:var(--foam);text-align:right;">${ans}</td>
     </tr>`;
 
   let rows = '';
@@ -1431,11 +1431,11 @@ function renderAnswers(){
   return `
     <div class="panel">
       <h2 class="qtitle" style="text-align:right;">${title}</h2>
-      <table style="width:100%;border-collapse:collapse;margin:16px 0;">
+      <table style="border-collapse:collapse;margin:16px 0;direction:rtl;">
         <thead>
           <tr>
-            <th style="padding:7px 14px;border-bottom:2px solid rgba(234,244,241,0.2);text-align:right;color:rgba(234,244,241,0.6);font-size:13px;">שאלה</th>
-            <th style="padding:7px 14px;border-bottom:2px solid rgba(234,244,241,0.2);text-align:right;color:rgba(234,244,241,0.6);font-size:13px;">תשובה</th>
+            <th style="padding:6px 0 6px 24px;border-bottom:2px solid rgba(234,244,241,0.2);text-align:right;color:rgba(234,244,241,0.6);font-size:13px;">שאלה</th>
+            <th style="padding:6px 0;border-bottom:2px solid rgba(234,244,241,0.2);text-align:right;color:rgba(234,244,241,0.6);font-size:13px;">תשובה</th>
           </tr>
         </thead>
         <tbody>
