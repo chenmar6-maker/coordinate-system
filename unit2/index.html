@@ -2706,6 +2706,7 @@ function renderArrowChain(lvl){
     if(idx===sub.chain.length-1) s+=`<line x1="${ex}" y1="${rowY}" x2="${ex}" y2="${axisY}" stroke="rgba(234,244,241,0.2)" stroke-width="1.5" stroke-dasharray="3,3"/>`;
     s+=`<line x1="${sx}" y1="${rowY}" x2="${ex}" y2="${rowY}" stroke="${col}" stroke-width="4" stroke-linecap="round" marker-end="${mk}" style="cursor:pointer;" onclick="removeFromArrowChain('${item.id}')"/>`;
     const lbl=item.value<0?`−${Math.abs(item.value)}`:`+${item.value}`;
+    s+=`<text x="${(sx+ex)/2}" y="${rowY-14}" text-anchor="middle" font-size="15" font-weight="700" fill="${col}" font-family="Rubik,sans-serif" style="pointer-events:none;">${lbl}</text>`;
     prevY=rowY; prevSign=sign;
   });
 
@@ -2717,10 +2718,10 @@ function renderArrowChain(lvl){
   }
 
   /* tray tiles — arrowheads drawn as inline polygons (no marker IDs needed) */
-  const TILE_PX=20, TILE_H=54;
+  const TILE_PX=22, TILE_H=60;
   const trayHTML = sub.trayItems.filter(it=>!it.used).map(it=>{
     const v=it.value, abs=Math.abs(v), col=v<0?'#E2604F':'#48B08C';
-    const w=Math.max(abs*TILE_PX+24,56), sy=38; /* arrow lower, label at top */
+    const w=Math.max(abs*TILE_PX+28,64), sy=42; /* arrow lower, label at top */
     const lbl=v<0?`−${abs}`:`+${abs}`;
     // shaft + inline arrowhead (no marker IDs)
     let shaftLine, arrowHead;
@@ -2735,7 +2736,7 @@ function renderArrowChain(lvl){
       <div class="ach-tile" data-id="${it.id}" data-value="${v}" style="display:inline-block;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;">
         <svg width="${w}" height="${TILE_H}" viewBox="0 0 ${w} ${TILE_H}" style="display:block;">
           ${shaftLine}${arrowHead}
-          <text x="${w/2}" y="16" text-anchor="middle" font-family="Rubik,sans-serif" font-size="13" font-weight="700" fill="${col}" style="pointer-events:none;">${lbl}</text>
+          <text x="${w/2}" y="18" text-anchor="middle" font-family="Rubik,sans-serif" font-size="16" font-weight="700" fill="${col}" style="pointer-events:none;">${lbl}</text>
         </svg>
       </div>`;
   }).join('');
