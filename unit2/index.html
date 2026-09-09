@@ -801,7 +801,7 @@ const gameLevels3 = [
     explain:'5−2.5=2.5. הגדול (−5) שלילי → −2.5.' },
   /* — שאלת מילים (מקביל ל-Q2 בדף) — */
   { id:'mc', title:'שאלת מילים',
-    question:'מצב החשבון של דנה הוא −1,500 ש"ח. היא הפקידה 600 ש"ח. מה מצב החשבון שלה עכשיו?',
+    question:'מצב החשבון של דנה הוא <bdi style="direction:ltr;unicode-bidi:isolate;">−1,500</bdi> ש"ח. היא הפקידה 600 ש"ח. מה מצב החשבון שלה עכשיו?',
     options:['−900 ש"ח','−2,100 ש"ח','900 ש"ח','−600 ש"ח'],
     correct:'−900 ש"ח',
     explain:'(−1,500) + 600 = −900. דנה עדיין במינוס 900 ש"ח.' },
@@ -2706,7 +2706,7 @@ function renderArrowChain(lvl){
     if(idx===sub.chain.length-1) s+=`<line x1="${ex}" y1="${rowY}" x2="${ex}" y2="${axisY}" stroke="rgba(234,244,241,0.2)" stroke-width="1.5" stroke-dasharray="3,3"/>`;
     s+=`<line x1="${sx}" y1="${rowY}" x2="${ex}" y2="${rowY}" stroke="${col}" stroke-width="4" stroke-linecap="round" marker-end="${mk}" style="cursor:pointer;" onclick="removeFromArrowChain('${item.id}')"/>`;
     const lbl=item.value<0?`−${Math.abs(item.value)}`:`+${item.value}`;
-    s+=`<text x="${(sx+ex)/2}" y="${rowY-9}" text-anchor="middle" font-size="13" font-weight="700" fill="${col}" font-family="Rubik,sans-serif" style="pointer-events:none;">${lbl}</text>`;
+    s+=`<text x="${(sx+ex)/2}" y="${rowY-18}" text-anchor="middle" font-size="13" font-weight="700" fill="${col}" font-family="Rubik,sans-serif" style="pointer-events:none;">${lbl}</text>`;
     prevY=rowY; prevSign=sign;
   });
 
@@ -2717,22 +2717,25 @@ function renderArrowChain(lvl){
     s+=`<text x="${tx}" y="${prevY-24}" text-anchor="middle" font-size="15" font-weight="700" fill="#C9A227" font-family="Rubik,sans-serif" style="pointer-events:none;">${running}</text>`;
   }
 
-  /* tray tiles */
+  /* tray tiles — arrowheads drawn as inline polygons (no marker IDs needed) */
   const TILE_PX=20, TILE_H=46;
   const trayHTML = sub.trayItems.filter(it=>!it.used).map(it=>{
     const v=it.value, abs=Math.abs(v), col=v<0?'#E2604F':'#48B08C';
-    const w=Math.max(abs*TILE_PX+16,52), y=TILE_H/2+6;
-    const x1=v<0?w-4:4, x2=v<0?6:w-6;
-    const mk=v<0?'url(#achTR)':'url(#achTG)';
+    const w=Math.max(abs*TILE_PX+24,56), sy=TILE_H/2+6;
     const lbl=v<0?`−${abs}`:`+${abs}`;
+    // shaft + inline arrowhead (no marker IDs)
+    let shaftLine, arrowHead;
+    if(v>0){
+      shaftLine=`<line x1="4" y1="${sy}" x2="${w-14}" y2="${sy}" stroke="${col}" stroke-width="3.5" stroke-linecap="round" style="pointer-events:none;"/>`;
+      arrowHead=`<polygon points="${w-14},${sy-6} ${w-4},${sy} ${w-14},${sy+6}" fill="${col}" style="pointer-events:none;"/>`;
+    } else {
+      shaftLine=`<line x1="${w-4}" y1="${sy}" x2="14" y2="${sy}" stroke="${col}" stroke-width="3.5" stroke-linecap="round" style="pointer-events:none;"/>`;
+      arrowHead=`<polygon points="14,${sy-6} 4,${sy} 14,${sy+6}" fill="${col}" style="pointer-events:none;"/>`;
+    }
     return `
       <div class="ach-tile" data-id="${it.id}" data-value="${v}" style="display:inline-block;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;">
-        <svg width="${w}" height="${TILE_H}" viewBox="0 0 ${w} ${TILE_H}" style="display:block;overflow:visible;">
-          <defs>
-            <marker id="achTG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,1.5 L9,5 L0,8.5 z" fill="#48B08C"/></marker>
-            <marker id="achTR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,1.5 L9,5 L0,8.5 z" fill="#E2604F"/></marker>
-          </defs>
-          <line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="${col}" stroke-width="3.5" stroke-linecap="round" marker-end="${mk}" style="pointer-events:none;"/>
+        <svg width="${w}" height="${TILE_H}" viewBox="0 0 ${w} ${TILE_H}" style="display:block;">
+          ${shaftLine}${arrowHead}
           <text x="${w/2}" y="16" text-anchor="middle" font-family="Rubik,sans-serif" font-size="13" font-weight="700" fill="${col}" style="pointer-events:none;">${lbl}</text>
         </svg>
       </div>`;
