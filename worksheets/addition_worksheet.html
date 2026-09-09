@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>דף עבודה — חיבור מספרים מכוונים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+    color: #111;
+    direction: rtl;
+    background: #fff;
+    padding: 18px 22px 14px;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .header-title { font-size: 18px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: #444; margin-top: 2px; }
+  .header-fields { font-size: 12px; line-height: 2.1; text-align: left; direction: ltr; }
+  .header-fields span { display: inline-block; border-bottom: 1px solid #555; min-width: 110px; margin-right: 4px; }
+
+  /* ===== SECTION LABELS ===== */
+  .part-label {
+    font-size: 13px; font-weight: 700;
+    background: #111; color: #fff;
+    padding: 3px 10px; border-radius: 3px;
+    display: inline-block; margin-bottom: 7px;
+  }
+  .section-title {
+    font-size: 12.5px; font-weight: 700;
+    margin: 10px 0 5px;
+    border-right: 3px solid #111;
+    padding-right: 6px;
+  }
+
+  /* ===== MC QUESTIONS ===== */
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 6px 9px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 12.5px;
+  }
+  .quiz-q .qrow {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+  .quiz-q .qnum { font-weight: 700; min-width: 18px; flex-shrink: 0; }
+  .quiz-q .qtitle { font-size: 11px; color: #666; margin-bottom: 2px; }
+  .quiz-q .qtext { direction: rtl; }
+  .quiz-q .math { direction: ltr; unicode-bidi: embed; font-weight: 600; }
+
+  .mc-opts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 18px;
+    margin-top: 4px;
+    padding-right: 22px;
+  }
+  .mc-opt {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12.5px;
+  }
+  .mc-opt .circ {
+    width: 13px; height: 13px;
+    border: 1.5px solid #444;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .mc-opt .math { direction: ltr; unicode-bidi: embed; }
+
+  /* ===== DIVIDER ===== */
+  .divider {
+    border: none;
+    border-top: 2px dashed #aaa;
+    margin: 11px 0;
+  }
+
+  /* ===== SCORE BAR ===== */
+  .score-bar {
+    display: flex;
+    gap: 18px;
+    justify-content: flex-end;
+    font-size: 12px;
+    margin-top: 8px;
+    color: #444;
+    border-top: 1px solid #ccc;
+    padding-top: 6px;
+  }
+  .score-field {
+    border-bottom: 1px solid #555;
+    min-width: 40px;
+    display: inline-block;
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 0; }
+  }
+
+  .page-scaler {
+    transform: scale(0.74);
+    transform-origin: top right;
+    width: calc(100% / 0.74);
+  }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #111; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  }
+  .print-btn:hover { background: #333; }
+</style>
+</head>
+<body>
+<div class="page-scaler">
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div>
+    <div class="header-title">דף עבודה — חיבור מספרים מכוונים</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מספרים מכוונים</div>
+  </div>
+  <div class="header-fields" dir="ltr">
+    Name: <span>&nbsp;</span><br>
+    Date: <span style="min-width:70px;">&nbsp;</span> &nbsp; Class: <span style="min-width:50px;">&nbsp;</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PART A — מבדק שליטה: מודל החצים
+══════════════════════════════════════ -->
+
+<span class="part-label">חלק א׳ — מבדק שליטה: מודל החצים</span>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">על ציר המספרים, חץ שמאלה מייצג...</span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span>חיבור מספר חיובי</span></div>
+    <div class="mc-opt"><div class="circ"></div><span>חיבור מספר שלילי</span></div>
+    <div class="mc-opt"><div class="circ"></div><span>חיסור</span></div>
+    <div class="mc-opt"><div class="circ"></div><span>כפל</span></div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">פתרו את התרגיל ללא שימוש בחצים (אפשר לדמיין אותם): <span class="math">(−3) + 5 = ?</span></span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span class="math">8</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−8)</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">2</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−2)</span></div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">פתרו: <span class="math">(−4) + (−3) = ?</span></span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span class="math">7</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−7)</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">1</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−1)</span></div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">4.</span><span class="qtext">פתרו: <span class="math">7 + (−10) = ?</span></span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span class="math">17</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−17)</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">3</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−3)</span></div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">5.</span><span class="qtext">פתרו: <span class="math">(−2) + 5 + (−4) = ?</span></span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−1)</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">1</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">11</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−11)</span></div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">6.</span><span class="qtext">מצב החשבון של עידו הוא <span class="math">(−13,000)</span> ש"ח. הוא הרוויח <span class="math">8,000</span> ש"ח והוסיף אותם לחשבון. מה מצב החשבון שלו עכשיו?</span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−5,000)</span><span> ש"ח</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−21,000)</span><span> ש"ח</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">5,000</span><span> ש"ח</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−8,000)</span><span> ש"ח</span></div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">7.</span><span class="qtext">פתרו: <span class="math">(−½) + 2 = ?</span></span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span class="math">1½</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−1½)</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">2½</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−2½)</span></div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">8.</span><span class="qtext">פתרו: <span class="math">(−3) + 1.5 = ?</span></span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−1.5)</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">1.5</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−4.5)</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">4.5</span></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+     PART B — מבדק שליטה: חוק החילוף בחיבור
+══════════════════════════════════════ -->
+
+<span class="part-label">חלק ב׳ — מבדק שליטה: שימוש בחוק החילוף בחיבור</span>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">האם <span class="math">(−3) + 7 = 7 + (−3)</span>?</span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span>כן, תמיד</span></div>
+    <div class="mc-opt"><div class="circ"></div><span>לא, שינוי סדר משנה את התוצאה</span></div>
+    <div class="mc-opt"><div class="circ"></div><span>רק כשהמספרים חיוביים</span></div>
+    <div class="mc-opt"><div class="circ"></div><span>תלוי בערכים</span></div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">מה נוח יותר לחשב: <span class="math">(−7) + 3 + 7</span>?</span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span>מחשבים משמאל לימין</span></div>
+    <div class="mc-opt"><div class="circ"></div><span>קודם <span class="math">(−7) + 7 = 0</span>, ואז <span class="math">0 + 3 = 3</span></span></div>
+    <div class="mc-opt"><div class="circ"></div><span>שתי הדרכים שוות</span></div>
+    <div class="mc-opt"><div class="circ"></div><span>אי אפשר לשנות סדר</span></div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">פתרו: <span class="math">5 + (−3) + (−2) = ?</span></span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span class="math">10</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">0</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">4</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−4)</span></div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">4.</span><span class="qtext">פתרו: <span class="math">(−4) + 9 + 4 + (−6) = ?</span></span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span class="math">3</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−3)</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">23</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−5)</span></div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">5.</span><span class="qtext">פתרו (שימו לב לשברים!): <span class="math">(−1½) + (−½) + 3 = ?</span></span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span class="math">1</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−1)</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">2</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−2)</span></div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">6.</span><span class="qtext">פתרו (שימו לב לעשרוניים!): <span class="math">(−2.5) + 1 + (−0.5) = ?</span></span></div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−2)</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">2</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">0</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="math">(−3)</span></div>
+  </div>
+</div>
+
+<!-- ===== SCORE BAR ===== -->
+<div class="score-bar">
+  <span>חלק א׳: <span class="score-field">&nbsp;</span> / 8</span>
+  <span>חלק ב׳: <span class="score-field">&nbsp;</span> / 6</span>
+  <span>סה"כ: <span class="score-field">&nbsp;</span> / 14</span>
+</div>
+
+</div><!-- end page-scaler -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨 הדפסה</button>
+
+</body>
+</html>
