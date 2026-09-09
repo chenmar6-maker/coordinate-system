@@ -2794,30 +2794,47 @@ function initArrowChainDrag(){
   const tiles = document.querySelectorAll('.ach-tile');
   tiles.forEach(tile=>{
     const id=tile.dataset.id;
-    tile.addEventListener('pointerdown',(e)=>{
+
+    function onDown(e){
       e.preventDefault();
       const rect=tile.getBoundingClientRect();
       const clone=tile.cloneNode(true);
       clone.style.cssText=`position:fixed;left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;z-index:2000;pointer-events:none;opacity:0.85;`;
       document.body.appendChild(clone);
       tile.style.opacity='0.25';
-      _achDrag={id, clone, offsetX:e.clientX-rect.left, offsetY:e.clientY-rect.top};
-      tile.setPointerCapture(e.pointerId);
-    });
-    tile.addEventListener('pointermove',(e)=>{
-      if(!_achDrag||_achDrag.id!==id) return;
-      _achDrag.clone.style.left=(e.clientX-_achDrag.offsetX)+'px';
-      _achDrag.clone.style.top=(e.clientY-_achDrag.offsetY)+'px';
-    });
-    tile.addEventListener('pointerup',(e)=>{
-      if(!_achDrag||_achDrag.id!==id) return;
+      const cx=e.touches?e.touches[0].clientX:e.clientX;
+      const cy=e.touches?e.touches[0].clientY:e.clientY;
+      _achDrag={id, clone, offsetX:cx-rect.left, offsetY:cy-rect.top};
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+      document.addEventListener('touchmove', onMove, {passive:false});
+      document.addEventListener('touchend', onUp);
+    }
+
+    function onMove(e){
+      if(!_achDrag) return;
+      const cx=e.touches?e.touches[0].clientX:e.clientX;
+      const cy=e.touches?e.touches[0].clientY:e.clientY;
+      _achDrag.clone.style.left=(cx-_achDrag.offsetX)+'px';
+      _achDrag.clone.style.top=(cy-_achDrag.offsetY)+'px';
+      e.preventDefault();
+    }
+
+    function onUp(e){
+      if(!_achDrag) return;
       _achDrag.clone.remove();
       tile.style.opacity='';
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onUp);
+      const cx=e.changedTouches?e.changedTouches[0].clientX:e.clientX;
+      const cy=e.changedTouches?e.changedTouches[0].clientY:e.clientY;
       const svgEl=document.getElementById('achSvg');
       let dropped=false;
       if(svgEl){
         const r=svgEl.getBoundingClientRect();
-        if(e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom){
+        if(cx>=r.left&&cx<=r.right&&cy>=r.top&&cy<=r.bottom){
           const sub=state.levelSub;
           const it=sub.trayItems.find(t=>t.id===_achDrag.id);
           if(it&&!it.used){ it.used=true; sub.chain.push({id:it.id,value:it.value}); dropped=true; }
@@ -2826,12 +2843,10 @@ function initArrowChainDrag(){
       _achDrag=null;
       if(dropped){ state.levelSub.error=false; render(); }
       else setTimeout(()=>initArrowChainDrag(),0);
-    });
-    tile.addEventListener('pointercancel',()=>{
-      if(_achDrag){ _achDrag.clone.remove(); tile.style.opacity=''; }
-      _achDrag=null;
-      render();
-    });
+    }
+
+    tile.addEventListener('mousedown', onDown);
+    tile.addEventListener('touchstart', onDown, {passive:false});
   });
 }
 
