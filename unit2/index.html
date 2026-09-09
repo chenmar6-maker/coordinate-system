@@ -3590,7 +3590,9 @@ function renderGameResults(){
       <div class="scorebig" dir="ltr">${state.gameScore} / ${total}</div>
       <p class="qtext">עכשיו אפשר לבדוק את הידע שלכם במבדק שליטה.</p>
       <div class="btnrow">
-        <button class="btn" onclick="startQuiz()">למבדק שליטה ←</button>
+        ${state.sequence===9 ? `<button class="btn" onclick="window.open('../worksheets/mult_part_a_exam.html','_blank')">למבדק שליטה ←</button>` :
+          state.sequence===10 ? `<button class="btn" onclick="window.open('../worksheets/mult_part_b_exam.html','_blank')">למבדק שליטה ←</button>` :
+          `<button class="btn" onclick="startQuiz()">למבדק שליטה ←</button>`}
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
       </div>
     </div>
