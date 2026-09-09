@@ -2705,7 +2705,7 @@ function renderArrowChain(lvl){
     if(rowY!==prevY) s+=`<line x1="${sx}" y1="${prevY}" x2="${sx}" y2="${rowY}" stroke="rgba(234,244,241,0.2)" stroke-width="1.5" stroke-dasharray="3,3"/>`;
     if(idx===sub.chain.length-1) s+=`<line x1="${ex}" y1="${rowY}" x2="${ex}" y2="${axisY}" stroke="rgba(234,244,241,0.2)" stroke-width="1.5" stroke-dasharray="3,3"/>`;
     s+=`<line x1="${sx}" y1="${rowY}" x2="${ex}" y2="${rowY}" stroke="${col}" stroke-width="4" stroke-linecap="round" marker-end="${mk}" style="cursor:pointer;" onclick="removeFromArrowChain('${item.id}')"/>`;
-    const lbl=item.value<0?`−${Math.abs(item.value)}`:`+${item.value}`;
+    const lbl=item.value<0?`\u200E−${Math.abs(item.value)}`:`${item.value}`;
     s+=`<text x="${(sx+ex)/2}" y="${rowY-14}" text-anchor="middle" font-size="15" font-weight="700" fill="${col}" font-family="Rubik,sans-serif" style="pointer-events:none;">${lbl}</text>`;
     prevY=rowY; prevSign=sign;
   });
@@ -2721,7 +2721,7 @@ function renderArrowChain(lvl){
   const trayHTML = sub.trayItems.filter(it=>!it.used).map(it=>{
     const v=it.value, abs=Math.abs(v), col=v<0?'#E2604F':'#48B08C';
     const w=Math.max(abs*TILE_PX+28,64), sy=20;
-    const lbl=v<0?`−${abs}`:`+${abs}`;
+    const lbl=v<0?`\u200E−${abs}`:`${abs}`;
     let shaftLine, arrowHead;
     if(v>0){
       shaftLine=`<line x1="4" y1="${sy}" x2="${w-14}" y2="${sy}" stroke="${col}" stroke-width="3.5" stroke-linecap="round" style="pointer-events:none;"/>`;
