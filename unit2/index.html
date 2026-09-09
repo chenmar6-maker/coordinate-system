@@ -2706,7 +2706,6 @@ function renderArrowChain(lvl){
     if(idx===sub.chain.length-1) s+=`<line x1="${ex}" y1="${rowY}" x2="${ex}" y2="${axisY}" stroke="rgba(234,244,241,0.2)" stroke-width="1.5" stroke-dasharray="3,3"/>`;
     s+=`<line x1="${sx}" y1="${rowY}" x2="${ex}" y2="${rowY}" stroke="${col}" stroke-width="4" stroke-linecap="round" marker-end="${mk}" style="cursor:pointer;" onclick="removeFromArrowChain('${item.id}')"/>`;
     const lbl=item.value<0?`−${Math.abs(item.value)}`:`+${item.value}`;
-    s+=`<text x="${(sx+ex)/2}" y="${rowY-26}" text-anchor="middle" font-size="13" font-weight="700" fill="${col}" font-family="Rubik,sans-serif" style="pointer-events:none;">${lbl}</text>`;
     prevY=rowY; prevSign=sign;
   });
 
