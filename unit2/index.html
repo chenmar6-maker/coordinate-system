@@ -1120,6 +1120,70 @@ const gameLevels8 = [
     explain:'נועם צודק. a − b = a + (−b) תקף לכל שני מספרים — זו הגדרת החיסור. לכן כל חיסור הוא חיבור הנגדי.' }
 ];
 
+/* ============ GAME LEVELS 9 — כפל וחילוק ============ */
+
+const gameLevels9 = [
+  { id:'mc', title:'כלל הסימנים — מבלי לחשב',
+    question:'מה סימן התוצאה של <bdi style="direction:ltr;unicode-bidi:isolate;">−4 · (−7)</bdi>?',
+    options:['חיובי','שלילי','0','אי אפשר לדעת'], correct:'חיובי',
+    explain:'שני שליליים — סימנים שווים → תוצאה חיובית. 4·7=28, אז (−4)·(−7)=28.' },
+  { id:'mc', title:'כלל הסימנים — מבלי לחשב',
+    question:'מה סימן התוצאה של <bdi style="direction:ltr;unicode-bidi:isolate;">5 · (−3)</bdi>?',
+    options:['חיובי','שלילי','0','תלוי בערכים'], correct:'שלילי',
+    explain:'סימנים שונים → תוצאה שלילית. 5·3=15, אז 5·(−3)=−15.' },
+  { id:'typedSum', title:'פתרו', expr:'−3 · 5', correct:-15,
+    explain:'סימנים שונים → שלילי. 3·5=15 → −15.' },
+  { id:'typedSum', title:'פתרו', expr:'−6 · (−4)', correct:24,
+    explain:'סימנים שווים (שני שליליים) → חיובי. 6·4=24.' },
+  { id:'typedSum', title:'פתרו — חילוק', expr:'−18 ÷ 3', correct:-6,
+    explain:'סימנים שונים → שלילי. 18÷3=6 → −6.' },
+  { id:'typedSum', title:'פתרו — חילוק', expr:'20 ÷ (−5)', correct:-4,
+    explain:'סימנים שונים → שלילי. 20÷5=4 → −4.' },
+  { id:'mc', title:'מבלי לחשב — כמה שליליים?',
+    question:'מה סימן התוצאה של <bdi style="direction:ltr;unicode-bidi:isolate;">−2 · (−5) · (−1)</bdi>?',
+    options:['חיובי','שלילי','0'], correct:'שלילי',
+    explain:'3 גורמים שליליים — מספר אי-זוגי → תוצאה שלילית. (−2)·(−5)=10, ואז 10·(−1)=−10.' },
+  { id:'mc', title:'מבלי לחשב — כמה שליליים?',
+    question:'מה סימן התוצאה של <bdi style="direction:ltr;unicode-bidi:isolate;">−3 · (−4) · (−2) · (−1)</bdi>?',
+    options:['חיובי','שלילי','0'], correct:'חיובי',
+    explain:'4 גורמים שליליים — מספר זוגי → תוצאה חיובית.' },
+  { id:'mc', title:'שאלה מילולית',
+    question:'מניות של חברה ירדו ב-4 נקודות ביום, במשך 6 ימים. מה סך הירידה?',
+    options:['−24','24','−10','10'], correct:'−24',
+    explain:'(−4) · 6 = −24. ירידה של 4 כל יום במשך 6 ימים = ירידה כוללת של 24 נקודות.' },
+  { id:'mc', title:'נכון / לא נכון',
+    question:'מכפלת שלושה מספרים שליליים תמיד שלילית.',
+    options:['נכון','לא נכון'], correct:'נכון',
+    explain:'3 שליליים = מספר אי-זוגי של שליליים → תוצאה שלילית תמיד.' },
+];
+
+/* ============ GAME LEVELS 10 — סדר פעולות ============ */
+
+const gameLevels10 = [
+  { id:'typedSum', title:'שבר = חילוק — פתרו', expr:'(−3 · 4) ÷ (−2)', correct:6,
+    explain:'מונה: −3·4=−12. −12÷(−2)=6. סימנים שווים → חיובי.' },
+  { id:'typedSum', title:'שבר = חילוק — פתרו', expr:'12 ÷ (−3) · (−2)', correct:8,
+    explain:'12÷(−3)=−4. ואז (−4)·(−2)=8. סימנים שווים → חיובי.' },
+  { id:'mc', title:'פתרו — סוגריים קודם',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">3 · (−4 + (−2))</bdi>?',
+    options:['−18','18','−14','6'], correct:'−18',
+    explain:'סוגריים קודם: −4+(−2)=−6. ואז 3·(−6)=−18.' },
+  { id:'mc', title:'פתרו — שני זוגות סוגריים',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(−5 + 3) · (−7 − (−3))</bdi>?',
+    options:['8','−8','40','−40'], correct:'8',
+    explain:'זוג א׳: −5+3=−2. זוג ב׳: −7−(−3)=−7+3=−4. ואז (−2)·(−4)=8.' },
+  { id:'typedSum', title:'פתרו — ביטוי מורכב', expr:'−2·(3−(−7))+(−5)·(−2)', correct:-10,
+    explain:'שלב א׳: 3−(−7)=3+7=10. שלב ב׳: −2·10=−20. שלב ג׳: (−5)·(−2)=10. סה"כ: −20+10=−10.' },
+  { id:'mc', title:'שאלה מילולית',
+    question:'מניות של חברה ירדו בסה"כ 24 נקודות ב-6 ימים שווים. מה השינוי היומי הממוצע?',
+    options:['−4','4','−18','18'], correct:'−4',
+    explain:'−24÷6=−4. ירידה של 4 נקודות ביום בממוצע.' },
+  { id:'mc', title:'אתגר — ביטוי מורכב',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">((−20+2)÷3)·(−6)−4</bdi>?',
+    options:['32','−32','40','−40'], correct:'32',
+    explain:'שלב א׳: −20+2=−18. שלב ב׳: −18÷3=−6. שלב ג׳: (−6)·(−6)=36. שלב ד׳: 36−4=32.' },
+];
+
 /* ============ QUIZ QUESTIONS 7/8 — חיסור ============ */
 
 const quizQuestions7 = [
@@ -1172,6 +1236,8 @@ function currentGameLevels(){
   if(state.sequence===6) return gameLevels6;
   if(state.sequence===7) return gameLevels7;
   if(state.sequence===8) return gameLevels8;
+  if(state.sequence===9) return gameLevels9;
+  if(state.sequence===10) return gameLevels10;
   return state.sequence===2 ? gameLevels2 : gameLevels1;
 }
 
@@ -1312,6 +1378,75 @@ function render(){
   else if(state.screen==='quiz') app.innerHTML = renderQuiz();
   else if(state.screen==='quizResults') app.innerHTML = renderQuizResults();
   else if(state.screen==='challenge') app.innerHTML = renderChallenge();
+  else if(state.screen==='answers') app.innerHTML = renderAnswers();
+}
+
+/* ============ ANSWERS ============ */
+
+function renderAnswers(){
+  const isSeq9 = state.sequence === 9;
+  const title = isSeq9 ? 'תשובות — חלק א׳: כפל וחילוק מספרים מכוונים' : 'תשובות — חלק ב׳: סדר פעולות חשבון עם מספרים מכוונים';
+
+  const row = (num, ans) => `
+    <tr>
+      <td style="padding:7px 14px;border-bottom:1px solid rgba(234,244,241,0.1);font-weight:700;color:var(--gold);text-align:right;">${num}</td>
+      <td style="padding:7px 14px;border-bottom:1px solid rgba(234,244,241,0.1);direction:ltr;unicode-bidi:isolate;color:var(--foam);">${ans}</td>
+    </tr>`;
+
+  let rows = '';
+  if(isSeq9){
+    rows = `
+      ${row('1א', '−15')}
+      ${row('1ב', '−24')}
+      ${row('1ג', '24')}
+      ${row('1ד', '−6')}
+      ${row('1ה', '98')}
+      ${row('1ו', '−4')}
+      ${row('1ז', '−3')}
+      ${row('1ח', '4')}
+      ${row('2א', 'שלילי')}
+      ${row('2ב', 'חיובי')}
+      ${row('2ג', '0')}
+      ${row('3', 'ג — שניהם בעלי אותו סימן')}
+      ${row('4א', '2')}
+      ${row('4ב', '3')}
+      ${row('4ג', '−2')}
+      ${row('5א', 'נכון')}
+      ${row('5ב', 'לא נכון (שלושה שליליים = שלילי)')}
+      ${row('5ג', 'נכון')}`;
+  } else {
+    rows = `
+      ${row('1א', '6')}
+      ${row('1ב', '8')}
+      ${row('1ג', '4')}
+      ${row('2א', '−18')}
+      ${row('2ב', '8')}
+      ${row('2ג', '−10')}
+      ${row('2ד', '32')}
+      ${row('3', '−4 נקודות ביום')}
+      ${row('4', 'כן — כאשר a ו-b הם מספרים נגדיים (למשל 3 ו-−3), אז a÷b = b÷a = −1')}
+      ${row('5', 'שאלה פתוחה')}`;
+  }
+
+  return `
+    <div class="panel">
+      <h2 class="qtitle" style="text-align:right;">${title}</h2>
+      <table style="width:100%;border-collapse:collapse;margin:16px 0;">
+        <thead>
+          <tr>
+            <th style="padding:7px 14px;border-bottom:2px solid rgba(234,244,241,0.2);text-align:right;color:rgba(234,244,241,0.6);font-size:13px;">שאלה</th>
+            <th style="padding:7px 14px;border-bottom:2px solid rgba(234,244,241,0.2);text-align:right;color:rgba(234,244,241,0.6);font-size:13px;">תשובה</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows}
+        </tbody>
+      </table>
+      <div class="btnrow" style="margin-top:20px;">
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
 }
 
 /* ============ HOME ============ */
@@ -1329,13 +1464,20 @@ function seqRow(seqNum, label, opts={}){
   const chevron = isOpen ? '▾' : '◂';
   let cards = '';
   if(isOpen){
+    const quizCard = opts.worksheetUrl
+      ? `<div class="card quiz" onclick="window.open('${opts.worksheetUrl}','_blank')"><h3>מבדק שליטה</h3></div>`
+      : `<div class="card quiz" onclick="state.sequence=${seqNum};startQuiz()"><h3>מבדק שליטה</h3></div>`;
+    const answersCard = opts.showAnswers
+      ? `<div class="flow-arrow">←</div><div class="card" onclick="state.sequence=${seqNum};goTo('answers')" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>תשובות</h3></div>`
+      : '';
     cards = `<div class="cards" style="margin-bottom:6px;">
       <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
       <div class="flow-arrow">←</div>
       <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
       <div class="flow-arrow">←</div>
-      <div class="card quiz" onclick="state.sequence=${seqNum};startQuiz()"><h3>מבדק שליטה</h3></div>
+      ${quizCard}
       ${opts.quizAlt ? `<div class="flow-arrow">←</div><div class="card quiz" onclick="state.sequence=${seqNum};startQuizAlt()"><h3>מבדק שליטה חלופי</h3></div>` : ''}
+      ${answersCard}
     </div>`;
   }
   return `
@@ -1374,10 +1516,16 @@ function renderHome(){
       ${seqRow(4, '2. תרגילים ארוכים וחוק החילוף')}
     </div>
 
-    <div class="sequence-section">
+    <div class="sequence-section" style="margin-bottom:32px;">
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">חיסור מספרים מכוונים</div>
       ${seqRow(7, '1. חיסור = חיבור הנגדי')}
       ${seqRow(8, '2. תרגילים ארוכים וכתיבה ללא סוגריים')}
+    </div>
+
+    <div class="sequence-section" style="margin-bottom:32px;">
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">כפל וחילוק מספרים מכוונים</div>
+      ${seqRow(9, '1. כפל וחילוק מספרים מכוונים', {worksheetUrl:'../worksheets/mult_part_a_exam.html', showAnswers:true})}
+      ${seqRow(10, '2. סדר פעולות חשבון', {worksheetUrl:'../worksheets/mult_part_b_exam.html', showAnswers:true})}
     </div>
   `;
 }
@@ -1483,6 +1631,8 @@ function renderLearn(){
   if(state.sequence===6) return renderLearn6();
   if(state.sequence===7) return renderLearn7();
   if(state.sequence===8) return renderLearn8();
+  if(state.sequence===9) return renderLearn9();
+  if(state.sequence===10) return renderLearn10();
   return state.sequence===2 ? renderLearn2() : renderLearn1();
 }
 
@@ -1788,6 +1938,121 @@ function renderLearn8(){
         <li>הסדר לא משנה (חוק החילוף) — חפשו זוגות שמתבטלים.</li>
       </ul>
       <div class="learn-note">💡 טריק לבדיקה: ספרו כמה פעמים המינוס מופיע לפני סוגריים — אם מספר פעמים אי-זוגי → סימן שלילי, זוגי → חיובי.</div>
+      <div class="btnrow" style="margin-top:20px;">
+        <button class="btn" onclick="startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn9(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle" style="text-align:right;">כפל וחילוק מספרים מכוונים — כלל הסימנים</h2>
+      <div class="video-placeholder">הסרטון יתווסף בקרוב</div>
+
+      <div style="background:rgba(239,169,74,0.12);border:2px solid var(--gold);border-radius:10px;padding:14px 18px;text-align:center;margin:16px 0;font-size:16px;font-weight:700;">
+        סימנים שווים → תוצאה חיובית &nbsp;|&nbsp; סימנים שונים → תוצאה שלילית
+      </div>
+
+      <p style="text-align:right;font-size:15px;margin:4px 0 10px;font-weight:700;color:var(--gold);">דוגמאות</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+        <div style="background:rgba(72,176,140,0.1);border:1px solid rgba(72,176,140,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:12px;font-weight:700;color:rgba(234,244,241,0.55);margin-bottom:5px;">חיובי × חיובי</div>
+          <div style="font-size:17px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--seafoam);">3 · 5 = 15 ✓</div>
+        </div>
+        <div style="background:rgba(72,176,140,0.1);border:1px solid rgba(72,176,140,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:12px;font-weight:700;color:rgba(234,244,241,0.55);margin-bottom:5px;">שלילי × שלילי</div>
+          <div style="font-size:17px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--seafoam);">−3 · (−5) = 15 ✓</div>
+        </div>
+        <div style="background:rgba(226,96,79,0.08);border:1px solid rgba(226,96,79,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:12px;font-weight:700;color:rgba(234,244,241,0.55);margin-bottom:5px;">חיובי × שלילי</div>
+          <div style="font-size:17px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--coral);">3 · (−5) = −15 ✗</div>
+        </div>
+        <div style="background:rgba(226,96,79,0.08);border:1px solid rgba(226,96,79,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:12px;font-weight:700;color:rgba(234,244,241,0.55);margin-bottom:5px;">שלילי × חיובי</div>
+          <div style="font-size:17px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--coral);">−3 · 5 = −15 ✗</div>
+        </div>
+      </div>
+
+      <p style="text-align:right;font-size:15px;margin:4px 0 8px;font-weight:700;color:var(--gold);">כלל לספירת שליליים בכפל/חילוק מרובה</p>
+      <div style="background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:12px 16px;margin-bottom:14px;text-align:right;font-size:15px;">
+        <strong>מספר זוגי של שליליים</strong> → תוצאה חיובית<br>
+        <strong>מספר אי-זוגי של שליליים</strong> → תוצאה שלילית
+      </div>
+
+      <p style="text-align:right;font-size:15px;margin:4px 0 8px;font-weight:700;color:var(--gold);">חילוק — אותם כללי סימנים</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;">
+        <div style="flex:1;min-width:190px;max-width:280px;background:rgba(226,96,79,0.08);border:1px solid rgba(226,96,79,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:12px;font-weight:700;color:rgba(234,244,241,0.55);margin-bottom:6px;">סימנים שונים → שלילי</div>
+          <div style="font-size:16px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--coral);">−18 ÷ 3 = −6</div>
+        </div>
+        <div style="flex:1;min-width:190px;max-width:280px;background:rgba(72,176,140,0.1);border:1px solid rgba(72,176,140,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:12px;font-weight:700;color:rgba(234,244,241,0.55);margin-bottom:6px;">סימנים שווים → חיובי</div>
+          <div style="font-size:16px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--seafoam);">−18 ÷ (−3) = 6</div>
+        </div>
+      </div>
+
+      <ul class="bullets">
+        <li>הכלל חל על כפל <strong>וגם</strong> על חילוק — בדיוק אותם סימנים.</li>
+        <li>כדי לדעת את הסימן, מספיק לספור כמה גורמים שליליים יש — אין צורך לחשב.</li>
+        <li>כל מספר כפול 0 יוצא 0, ללא קשר לסימן.</li>
+      </ul>
+      <div class="learn-note">טיפ: בכפל של שרשרת ארוכה — ספרו את כמות השליליים בלבד. זוגי → חיובי, אי-זוגי → שלילי.</div>
+      <div class="btnrow" style="margin-top:20px;">
+        <button class="btn" onclick="startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn10(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle" style="text-align:right;">סדר פעולות חשבון עם מספרים מכוונים</h2>
+      <div class="video-placeholder">הסרטון יתווסף בקרוב</div>
+
+      <div style="background:rgba(239,169,74,0.12);border:2px solid var(--gold);border-radius:10px;padding:14px 18px;text-align:center;margin:16px 0;font-size:16px;font-weight:700;">
+        סדר הפעולות: סוגריים → כפל וחילוק → חיבור וחיסור
+      </div>
+
+      <p style="text-align:right;font-size:15px;margin:4px 0 8px;font-weight:700;color:var(--gold);">שבר = חילוק</p>
+      <div class="learn-note" style="margin-bottom:14px;">שבר הוא חילוק: יש לחשב תחילה את המונה ואת המכנה בנפרד, ואז לחלק.</div>
+
+      <p style="text-align:right;font-size:15px;margin:4px 0 10px;font-weight:700;color:var(--gold);">דוגמאות מפורטות</p>
+
+      <div style="background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:14px;margin-bottom:10px;">
+        <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:8px;">דוגמה 1</div>
+        <div style="font-size:15px;direction:ltr;unicode-bidi:isolate;text-align:center;color:var(--foam);">(−3·4) ÷ (−2)</div>
+        <div style="font-size:13px;color:rgba(234,244,241,0.7);margin-top:6px;text-align:right;">מונה: −3·4 = −12 &nbsp;→&nbsp; −12 ÷ (−2) = 6 (סימנים שווים → חיובי)</div>
+      </div>
+
+      <div style="background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:14px;margin-bottom:10px;">
+        <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:8px;">דוגמה 2</div>
+        <div style="font-size:15px;direction:ltr;unicode-bidi:isolate;text-align:center;color:var(--foam);">3 · (−4 + (−2))</div>
+        <div style="font-size:13px;color:rgba(234,244,241,0.7);margin-top:6px;text-align:right;">סוגריים קודם: −4+(−2) = −6 &nbsp;→&nbsp; 3·(−6) = −18</div>
+      </div>
+
+      <div style="background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:14px;margin-bottom:14px;">
+        <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:8px;">דוגמה 3 — מורכבת</div>
+        <div style="font-size:15px;direction:ltr;unicode-bidi:isolate;text-align:center;color:var(--foam);">−2·(3−(−7))+(−5)·(−2)</div>
+        <div style="font-size:13px;color:rgba(234,244,241,0.7);margin-top:6px;text-align:right;">
+          שלב א׳: 3−(−7) = 3+7 = 10<br>
+          שלב ב׳: −2·10 = −20<br>
+          שלב ג׳: (−5)·(−2) = 10<br>
+          סה"כ: −20+10 = −10
+        </div>
+      </div>
+
+      <ul class="bullets">
+        <li>תמיד פתחו סוגריים פנימיים לפני חיצוניים.</li>
+        <li>שבר = חילוק — חשבו מונה ומכנה בנפרד לפני החילוק.</li>
+        <li>חיסור של שלילי = חיבור חיובי: <bdi style="direction:ltr;unicode-bidi:isolate;">a−(−b) = a+b</bdi>.</li>
+        <li>לאחר הוצאת הסוגריים — החילו כלל סימנים על כל כפל/חילוק.</li>
+      </ul>
+      <div class="learn-note">טיפ: עבדו שלב-שלב וכתבו את החישוב בשורות נפרדות כדי להימנע מטעויות.</div>
       <div class="btnrow" style="margin-top:20px;">
         <button class="btn" onclick="startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
