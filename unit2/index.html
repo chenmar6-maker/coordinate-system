@@ -1384,8 +1384,14 @@ function render(){
 /* ============ ANSWERS ============ */
 
 function renderAnswers(){
-  const isSeq9 = state.sequence === 9;
-  const title = isSeq9 ? 'תשובות — חלק א׳: כפל וחילוק מספרים מכוונים' : 'תשובות — חלק ב׳: סדר פעולות חשבון עם מספרים מכוונים';
+  const seq = state.sequence;
+  let title = '';
+  if(seq===3) title = 'תשובות — מבדק שליטה: מודל החצים';
+  else if(seq===4) title = 'תשובות — מבדק שליטה: חוק החילוף בחיבור';
+  else if(seq===7) title = 'תשובות — מבדק שליטה: חיסור = חיבור הנגדי';
+  else if(seq===8) title = 'תשובות — מבדק שליטה: חישובים, שרשרות וכתיבה ללא סוגריים';
+  else if(seq===9) title = 'תשובות — חלק א׳: כפל וחילוק מספרים מכוונים';
+  else title = 'תשובות — חלק ב׳: סדר פעולות חשבון עם מספרים מכוונים';
 
   const row = (num, ans) => `
     <tr>
@@ -1395,7 +1401,58 @@ function renderAnswers(){
 
   const m = s => `<bdi style="direction:ltr;unicode-bidi:isolate;">${s}</bdi>`;
   let rows = '';
-  if(isSeq9){
+  if(seq===3){
+    rows = `
+      ${row('1א', m('−7'))}
+      ${row('1ב', m('−3'))}
+      ${row('1ג', `${m('−3')} (אותה תוצאה כמו ב׳ — חוק החילוף!)`)}
+      ${row('1ד', '1½')}
+      ${row('1ה', m('−1.5'))}
+      ${row('2', `${m('−5,000')} ש"ח`)}
+      ${row('3', m('−20'))}
+      ${row('4', 'שלילי')}
+      ${row('5', 'ג')}`;
+  } else if(seq===4){
+    rows = `
+      ${row('1', '5')}
+      ${row('2', m('−4½'))}
+      ${row('3', `במינוס של ${m('500')} ש"ח`)}
+      ${row('4', 'שאלת חשיבה פתוחה')}`;
+  } else if(seq===7){
+    rows = `
+      ${row('1א', '7')}
+      ${row('1ב', m('−5'))}
+      ${row('1ג', '2')}
+      ${row('1ד', '9')}
+      ${row('1ה', 'b')}
+      ${row('2א', '11')}
+      ${row('2ב', m('−11'))}
+      ${row('2ג', '9')}
+      ${row('2ד', m('−2½'))}
+      ${row('2ה', m('−12'))}
+      ${row('3א', 'חיובי')}
+      ${row('3ב', 'חיובי')}
+      ${row('4', 'ב')}
+      ${row('5', 'שאלת חשיבה פתוחה')}`;
+  } else if(seq===8){
+    rows = `
+      <tr><td colspan="2" style="padding:8px 0 4px;font-weight:700;color:var(--gold);font-size:12px;">חלק ב׳</td></tr>
+      ${row('ב-1א', m('−5'))}
+      ${row('ב-1ב', m('−8'))}
+      ${row('ב-1ג', '5')}
+      ${row('ב-1ד', m('−¾'))}
+      ${row('ב-1ה', '4')}
+      ${row('ב-2', '4')}
+      ${row('ב-3', m('−1½'))}
+      ${row('ב-4', '11°C')}
+      ${row('ב-5', 'שאלה פתוחה')}
+      <tr><td colspan="2" style="padding:8px 0 4px;font-weight:700;color:var(--gold);font-size:12px;">חלק ג׳</td></tr>
+      ${row('ג-1א', `${m('5 − 3 + 2 − 7 = −3')}`)}
+      ${row('ג-1ב', `${m('−4 + 6 − 3 + 1 = 0')}`)}
+      ${row('ג-2א', '9')}
+      ${row('ג-2ב', '2')}
+      ${row('ג-2ג', '1')}`;
+  } else if(seq===9){
     rows = `
       ${row('1א', m('−15'))}
       ${row('1ב', m('−24'))}
@@ -1513,14 +1570,14 @@ function renderHome(){
 
     <div class="sequence-section" style="margin-bottom:32px;">
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">חיבור מספרים מכוונים</div>
-      ${seqRow(3, '1. מודל החצים וכלל הסימן')}
-      ${seqRow(4, '2. תרגילים ארוכים וחוק החילוף')}
+      ${seqRow(3, '1. מודל החצים וכלל הסימן', {worksheetUrl:'../worksheets/add_part_a_exam.html', showAnswers:true})}
+      ${seqRow(4, '2. תרגילים ארוכים וחוק החילוף', {worksheetUrl:'../worksheets/add_part_b_exam.html', showAnswers:true})}
     </div>
 
     <div class="sequence-section" style="margin-bottom:32px;">
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">חיסור מספרים מכוונים</div>
-      ${seqRow(7, '1. חיסור = חיבור הנגדי')}
-      ${seqRow(8, '2. תרגילים ארוכים וכתיבה ללא סוגריים')}
+      ${seqRow(7, '1. חיסור = חיבור הנגדי', {worksheetUrl:'../worksheets/sub_part_a_exam.html', showAnswers:true})}
+      ${seqRow(8, '2. תרגילים ארוכים וכתיבה ללא סוגריים', {worksheetUrl:'../worksheets/sub_part_b_c_exam.html', showAnswers:true})}
     </div>
 
     <div class="sequence-section" style="margin-bottom:32px;">
@@ -3604,7 +3661,11 @@ function renderGameResults(){
       <div class="scorebig" dir="ltr">${state.gameScore} / ${total}</div>
       <p class="qtext">עכשיו אפשר לבדוק את הידע שלכם במבדק שליטה.</p>
       <div class="btnrow">
-        ${state.sequence===9 ? `<button class="btn" onclick="window.open('../worksheets/mult_part_a_exam.html','_blank')">למבדק שליטה ←</button>` :
+        ${state.sequence===3 ? `<button class="btn" onclick="window.open('../worksheets/add_part_a_exam.html','_blank')">למבדק שליטה ←</button>` :
+          state.sequence===4 ? `<button class="btn" onclick="window.open('../worksheets/add_part_b_exam.html','_blank')">למבדק שליטה ←</button>` :
+          state.sequence===7 ? `<button class="btn" onclick="window.open('../worksheets/sub_part_a_exam.html','_blank')">למבדק שליטה ←</button>` :
+          state.sequence===8 ? `<button class="btn" onclick="window.open('../worksheets/sub_part_b_c_exam.html','_blank')">למבדק שליטה ←</button>` :
+          state.sequence===9 ? `<button class="btn" onclick="window.open('../worksheets/mult_part_a_exam.html','_blank')">למבדק שליטה ←</button>` :
           state.sequence===10 ? `<button class="btn" onclick="window.open('../worksheets/mult_part_b_exam.html','_blank')">למבדק שליטה ←</button>` :
           `<button class="btn" onclick="startQuiz()">למבדק שליטה ←</button>`}
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>

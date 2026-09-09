@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>מבדק שליטה — חוק החילוף בחיבור</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+    color: #111;
+    direction: rtl;
+    background: #fff;
+    padding: 18px 22px 14px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .header-title { font-size: 18px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: #444; margin-top: 2px; }
+  .header-fields { font-size: 12px; line-height: 2.1; text-align: left; direction: ltr; }
+  .header-fields span { display: inline-block; border-bottom: 1px solid #555; min-width: 110px; margin-right: 4px; }
+
+  .part-label {
+    font-size: 13px; font-weight: 700;
+    background: #111; color: #fff;
+    padding: 3px 10px; border-radius: 3px;
+    display: inline-block; margin-bottom: 7px;
+  }
+
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 6px 9px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 12.5px;
+  }
+  .quiz-q .qrow {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+  .quiz-q .qnum { font-weight: 700; min-width: 18px; flex-shrink: 0; }
+  .quiz-q .qtext { direction: rtl; }
+  .quiz-q .math { direction: ltr; unicode-bidi: embed; font-weight: 600; }
+
+  .calc-expr {
+    direction: ltr;
+    text-align: right;
+    padding-right: 22px;
+    margin-top: 3px;
+    font-size: 12.5px;
+  }
+
+  .ans-line {
+    display: inline-block;
+    border-bottom: 1.5px solid #555;
+    min-width: 70px;
+    margin-right: 2px;
+    vertical-align: bottom;
+  }
+  .ans-block {
+    margin-top: 6px;
+    padding-right: 22px;
+    font-size: 12.5px;
+  }
+  .think-area { margin-top: 6px; padding-right: 22px; font-size: 12.5px; }
+  .think-line { display: block; border-bottom: 1px solid #bbb; margin-top: 14px; height: 1px; }
+
+  .divider { border: none; border-top: 2px dashed #aaa; margin: 11px 0; }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 0; }
+  }
+
+  .page-scaler {
+    transform: scale(0.74);
+    transform-origin: top right;
+    width: calc(100% / 0.74);
+  }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #111; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  }
+  .print-btn:hover { background: #333; }
+</style>
+</head>
+<body>
+<div class="page-scaler">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — חוק החילוף בחיבור</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; חיבור מספרים מכוונים</div>
+  </div>
+  <div class="header-fields" dir="ltr">
+    Name: <span>&nbsp;</span><br>
+    Date: <span style="min-width:70px;">&nbsp;</span> &nbsp; Class: <span style="min-width:50px;">&nbsp;</span>
+  </div>
+</div>
+
+<span class="part-label">חלק ב׳ — מבדק שליטה: שימוש בחוק החילוף בחיבור</span>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">פתרו:</span></div>
+  <div class="calc-expr"><span class="math">−6 + 8 + (−4) + 2 + (−3) + 9 + (−2) + 1 = </span><span class="ans-line">&nbsp;</span></div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">פתרו (שימו לב לשבר!):</span></div>
+  <div class="calc-expr"><span class="math">−7½ + 5⅓ + (−2½) + 4⅔ + (−6¼) + 2¼ + (−3¾) + 3¼ = </span><span class="ans-line">&nbsp;</span></div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext" style="font-weight:700;">שאלת מילים — הרווחים והחובות של עידו:</span></div>
+  <div class="qrow" style="margin-top:5px;"><span class="qtext">עידו עוקב אחרי הרווחים והחובות שלו ב-8 השבועות האחרונים:</span></div>
+  <div style="margin:6px 0 4px 0;padding-right:16px;font-size:12px;line-height:2;">
+    שבוע 1: קיבל משכורת חלקית &nbsp;←&nbsp; <span class="math">+400</span> ש"ח<br>
+    שבוע 2: שילם שכירות &nbsp;←&nbsp; <span class="math">(−800)</span> ש"ח<br>
+    שבוע 3: מכר ציוד ישן &nbsp;←&nbsp; <span class="math">+600</span> ש"ח<br>
+    שבוע 4: שילם חוב לחבר &nbsp;←&nbsp; <span class="math">(−300)</span> ש"ח<br>
+    שבוע 5: קיבל בונוס &nbsp;←&nbsp; <span class="math">+150</span> ש"ח<br>
+    שבוע 6: תיקון רכב &nbsp;←&nbsp; <span class="math">(−700)</span> ש"ח<br>
+    שבוע 7: עבודה נוספת &nbsp;←&nbsp; <span class="math">+350</span> ש"ח<br>
+    שבוע 8: חשבון חשמל וטלפון &nbsp;←&nbsp; <span class="math">(−200)</span> ש"ח
+  </div>
+  <div class="qrow" style="margin-top:2px;"><span class="qtext">האם עידו בפלוס או במינוס בסוף 8 השבועות? ובכמה?</span></div>
+  <div class="ans-block" style="margin-top:6px;">תשובה: <span class="ans-line" style="min-width:120px;">&nbsp;</span></div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">4.</span><span class="qtext" style="font-weight:700;">שאלת חשיבה:</span></div>
+  <div class="qrow" style="margin-top:4px;"><span class="qtext">מיכל טוענת: "כדי לחשב ביטוי ארוך של חיבור מספרים מכוונים, מספיק לחבר בנפרד את כל החיוביים ובנפרד את כל השליליים, ואז לחבר את שתי התוצאות — לא משנה מה הסדר המקורי." האם היא צודקת? הסבירו.</span></div>
+  <div class="think-area">
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+  </div>
+</div>
+
+</div><!-- end page-scaler -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨 הדפסה</button>
+
+</body>
+</html>
