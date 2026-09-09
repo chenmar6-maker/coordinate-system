@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>דף עבודה — כפל וחילוק מספרים מכוונים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+    color: #111;
+    direction: rtl;
+    background: #fff;
+    padding: 18px 22px 14px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .header-title { font-size: 18px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: #444; margin-top: 2px; }
+  .header-fields { font-size: 12px; line-height: 2.1; text-align: left; direction: ltr; }
+  .header-fields span { display: inline-block; border-bottom: 1px solid #555; min-width: 110px; margin-right: 4px; }
+
+  .part-label {
+    font-size: 13px; font-weight: 700;
+    background: #111; color: #fff;
+    padding: 3px 10px; border-radius: 3px;
+    display: inline-block; margin-bottom: 7px;
+  }
+
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 6px 9px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 12.5px;
+  }
+  .quiz-q .qrow {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+  .quiz-q .qnum { font-weight: 700; min-width: 18px; flex-shrink: 0; }
+  .quiz-q .qtext { direction: rtl; }
+  .quiz-q .math { direction: ltr; unicode-bidi: embed; font-weight: 600; }
+
+  .calc-expr {
+    direction: ltr;
+    text-align: right;
+    padding-right: 22px;
+    margin-top: 3px;
+    font-size: 12.5px;
+  }
+
+  .ans-line {
+    display: inline-block;
+    border-bottom: 1.5px solid #555;
+    min-width: 70px;
+    margin-right: 2px;
+    vertical-align: bottom;
+  }
+  .ans-block {
+    margin-top: 6px;
+    padding-right: 22px;
+    font-size: 12.5px;
+  }
+  .think-area { margin-top: 6px; padding-right: 22px; font-size: 12.5px; }
+  .think-line { display: block; border-bottom: 1px solid #bbb; margin-top: 14px; height: 1px; }
+
+  .divider { border: none; border-top: 2px dashed #aaa; margin: 11px 0; }
+
+  .score-bar {
+    display: flex;
+    gap: 18px;
+    justify-content: flex-end;
+    font-size: 12px;
+    margin-top: 8px;
+    color: #444;
+    border-top: 1px solid #ccc;
+    padding-top: 6px;
+  }
+  .score-field { border-bottom: 1px solid #555; min-width: 40px; display: inline-block; }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 0; }
+  }
+
+  .page-scaler {
+    transform: scale(0.74);
+    transform-origin: top right;
+    width: calc(100% / 0.74);
+  }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #111; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  }
+  .print-btn:hover { background: #333; }
+</style>
+</head>
+<body>
+<div class="page-scaler">
+
+<div class="header">
+  <div>
+    <div class="header-title">דף עבודה — כפל וחילוק מספרים מכוונים</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מספרים מכוונים</div>
+  </div>
+  <div class="header-fields" dir="ltr">
+    Name: <span>&nbsp;</span><br>
+    Date: <span style="min-width:70px;">&nbsp;</span> &nbsp; Class: <span style="min-width:50px;">&nbsp;</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PART A — כפל מספרים מכוונים
+══════════════════════════════════════ -->
+
+<span class="part-label">חלק א׳ — כפל מספרים מכוונים</span>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">פתרו:</span></div>
+  <div style="margin-top:5px;padding-right:8px;display:flex;flex-direction:column;gap:5px;">
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">א.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">−4 × 3 = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ב.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">5 × (−6) = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ג.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">−2 × (−7) = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ד.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">−½ × 6 = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ה.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">−3 × (−0.5) = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext"><b>מבלי לחשב</b> — הקיפו את סימן התוצאה:</span></div>
+  <div style="margin-top:6px;padding-right:8px;display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">א.</span>
+      <div style="flex:1;">
+        <div style="direction:ltr;text-align:right;font-size:12.5px;font-weight:600;">−2 × (−5) × (−1)</div>
+        <div class="ans-block" style="padding-right:0;margin-top:4px;">
+          <span style="border:1px solid #aaa;border-radius:12px;padding:1px 8px;margin-left:6px;">חיובי</span>
+          <span style="border:1px solid #aaa;border-radius:12px;padding:1px 8px;">שלילי</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ב.</span>
+      <div style="flex:1;">
+        <div style="direction:ltr;text-align:right;font-size:12.5px;font-weight:600;">−3 × (−4) × (−2) × (−1)</div>
+        <div class="ans-block" style="padding-right:0;margin-top:4px;">
+          <span style="border:1px solid #aaa;border-radius:12px;padding:1px 8px;margin-left:6px;">חיובי</span>
+          <span style="border:1px solid #aaa;border-radius:12px;padding:1px 8px;">שלילי</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="font-size:11px;color:#666;margin-top:7px;padding-right:8px;">השוו א׳ ו-ב׳ — מה ההבדל? מה קבע את הסימן?</div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">כשמכפילים שני מספרים שליליים, התוצאה תמיד:</span></div>
+  <div class="ans-block" style="line-height:2.2;">
+    <div><span style="border:1px solid #aaa;border-radius:12px;padding:1px 8px;margin-left:8px;">א</span> שלילית</div>
+    <div><span style="border:1px solid #aaa;border-radius:12px;padding:1px 8px;margin-left:8px;">ב</span> חיובית</div>
+    <div><span style="border:1px solid #aaa;border-radius:12px;padding:1px 8px;margin-left:8px;">ג</span> תלוי בגדלים</div>
+    <div><span style="border:1px solid #aaa;border-radius:12px;padding:1px 8px;margin-left:8px;">ד</span> אפס</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+     PART B — חילוק מספרים מכוונים
+══════════════════════════════════════ -->
+
+<span class="part-label">חלק ב׳ — חילוק מספרים מכוונים</span>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">פתרו:</span></div>
+  <div style="margin-top:5px;padding-right:8px;display:flex;flex-direction:column;gap:5px;">
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">א.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">−12 ÷ 3 = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ב.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">20 ÷ (−4) = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ג.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">−15 ÷ (−3) = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ד.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">−¾ ÷ 3 = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ה.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">−3.6 ÷ (−0.9) = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">מניות של חברה ירדו בסה"כ <span class="math">24</span> נקודות ב-<span class="math">6</span> ימים שווים. מה השינוי היומי הממוצע?</span></div>
+  <div class="ans-block" style="margin-top:6px;">תשובה: <span class="ans-line" style="min-width:120px;">&nbsp;</span></div>
+  <div style="direction:ltr;text-align:right;padding-right:22px;margin-top:12px;">
+    <span style="display:block;border-bottom:1px solid #ccc;"></span>
+    <span style="display:block;border-bottom:1px solid #ccc;margin-top:16px;"></span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+     PART C — שילוב כפל, חילוק, חיבור וחיסור
+══════════════════════════════════════ -->
+
+<span class="part-label">חלק ג׳ — שילוב פעולות</span>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">פתרו (שימו לב לסדר הפעולות!):</span></div>
+  <div style="margin-top:5px;padding-right:8px;display:flex;flex-direction:column;gap:5px;">
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">א.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">−3 × 4 ÷ (−2) = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ב.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">12 ÷ (−3) × (−2) = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ג.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">−2 × (−3) × (−1) ÷ 6 = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">פתרו (כפל/חילוק לפני חיבור/חיסור!):</span></div>
+  <div style="margin-top:5px;padding-right:8px;display:flex;flex-direction:column;gap:5px;">
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">א.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">2 × (−3) + 4 × 5 = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:18px;"></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ב.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math">−18 ÷ 3 − (−2) × 4 = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:18px;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext" style="font-weight:700;">שאלה ממעוף הציפור:</span></div>
+  <div class="qrow" style="margin-top:4px;"><span class="qtext">רן טוען: "כפל של מספר שלילי תמיד נותן תוצאה שלילית." האם הוא צודק? הסבירו ותנו דוגמה נגדית אם לא.</span></div>
+  <div class="think-area">
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">4.</span><span class="qtext">נסחו שאלה מהחיים האמיתיים שמשתמשת בכפל או חילוק של מספרים מכוונים — ופתרו אותה.</span></div>
+  <div class="think-area">
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+  </div>
+</div>
+
+<!-- ===== SCORE BAR ===== -->
+<div class="score-bar">
+  <span>חלק א׳: <span class="score-field">&nbsp;</span> / 10</span>
+  <span>חלק ב׳: <span class="score-field">&nbsp;</span> / 7</span>
+  <span>חלק ג׳: <span class="score-field">&nbsp;</span> / 8</span>
+  <span>סה"כ: <span class="score-field">&nbsp;</span> / 25</span>
+</div>
+
+</div><!-- end page-scaler -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨 הדפסה</button>
+
+</body>
+</html>
