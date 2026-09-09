@@ -2710,11 +2710,10 @@ function renderArrowChain(lvl){
     prevY=rowY; prevSign=sign;
   });
 
-  /* tip */
+  /* tip — gold pin only, no number shown (student reads from axis) */
   if(sub.chain.length>0){
     const tx=xOf(running);
     s+=`<path d="M ${tx} ${prevY-6} l 8 -14 l -16 0 z" fill="#C9A227" style="pointer-events:none;"/>`;
-    s+=`<text x="${tx}" y="${prevY-24}" text-anchor="middle" font-size="15" font-weight="700" fill="#C9A227" font-family="Rubik,sans-serif" style="pointer-events:none;">${running}</text>`;
   }
 
   /* tray tiles — arrowheads drawn as inline polygons (no marker IDs needed) */
