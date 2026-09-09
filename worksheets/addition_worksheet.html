@@ -85,6 +85,15 @@
   }
   .mc-opt .math { direction: ltr; unicode-bidi: embed; }
 
+  /* ===== CALC EXPRESSION ROW ===== */
+  .calc-expr {
+    direction: ltr;
+    text-align: right;
+    padding-right: 22px;
+    margin-top: 3px;
+    font-size: 12.5px;
+  }
+
   /* ===== OPEN ANSWER ===== */
   .ans-line {
     display: inline-block;
@@ -178,15 +187,18 @@
 <span class="part-label">חלק א׳ — מבדק שליטה: מודל החצים</span>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">1.</span><span class="qtext">פתרו: <span class="math">(−4) + (−3) = </span><span class="ans-line">&nbsp;</span></span></div>
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">פתרו:</span></div>
+  <div class="calc-expr"><span class="math">(−4) + (−3) = </span><span class="ans-line">&nbsp;</span></div>
 </div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">2.</span><span class="qtext">פתרו: <span class="math">7 + (−10) = </span><span class="ans-line">&nbsp;</span></span></div>
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">פתרו:</span></div>
+  <div class="calc-expr"><span class="math">7 + (−10) = </span><span class="ans-line">&nbsp;</span></div>
 </div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">3.</span><span class="qtext">פתרו: <span class="math">(−2) + 5 + (−4) = </span><span class="ans-line">&nbsp;</span></span></div>
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">פתרו:</span></div>
+  <div class="calc-expr"><span class="math">(−2) + 5 + (−4) = </span><span class="ans-line">&nbsp;</span></div>
 </div>
 
 <div class="quiz-q">
@@ -195,15 +207,18 @@
 </div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">5.</span><span class="qtext">פתרו: <span class="math">(−½) + 2 = </span><span class="ans-line">&nbsp;</span></span></div>
+  <div class="qrow"><span class="qnum">5.</span><span class="qtext">פתרו:</span></div>
+  <div class="calc-expr"><span class="math">(−½) + 2 = </span><span class="ans-line">&nbsp;</span></div>
 </div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">6.</span><span class="qtext">פתרו: <span class="math">(−3) + 1.5 = </span><span class="ans-line">&nbsp;</span></span></div>
+  <div class="qrow"><span class="qnum">6.</span><span class="qtext">פתרו:</span></div>
+  <div class="calc-expr"><span class="math">(−3) + 1.5 = </span><span class="ans-line">&nbsp;</span></div>
 </div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">7.</span><span class="qtext">פתרו את השרשרת: <span class="math">(−3) + (−7) + (−5) + (−5) = </span><span class="ans-line">&nbsp;</span></span></div>
+  <div class="qrow"><span class="qnum">7.</span><span class="qtext">פתרו את השרשרת:</span></div>
+  <div class="calc-expr"><span class="math">(−3) + (−7) + (−5) + (−5) = </span><span class="ans-line">&nbsp;</span></div>
 </div>
 
 <hr class="divider">
@@ -215,25 +230,27 @@
 <span class="part-label">חלק ב׳ — מבדק שליטה: שימוש בחוק החילוף בחיבור</span>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">1.</span><span class="qtext">פתרו — רמז: שווה לשנות את הסדר לפני החישוב!<br><span class="math">(−6) + 8 + (−4) + 2 + (−3) + 9 + (−2) + 1 = </span><span class="ans-line">&nbsp;</span></span></div>
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">פתרו — רמז: שווה לשנות את הסדר לפני החישוב!</span></div>
+  <div class="calc-expr"><span class="math">(−6) + 8 + (−4) + 2 + (−3) + 9 + (−2) + 1 = </span><span class="ans-line">&nbsp;</span></div>
 </div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">2.</span><span class="qtext">פתרו (שימו לב לשבר!) — רמז: שווה לשנות את הסדר לפני החישוב!<br><span class="math">(−8) + 6 + (−2) + 4 + (−5) + 3½ + (−5) + 1½ = </span><span class="ans-line">&nbsp;</span></span></div>
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">פתרו (שימו לב לשבר!) — רמז: שווה לשנות את הסדר לפני החישוב!</span></div>
+  <div class="calc-expr"><span class="math">(−8) + 6 + (−2) + 4 + (−5) + 3½ + (−5) + 1½ = </span><span class="ans-line">&nbsp;</span></div>
 </div>
 
 <div class="quiz-q">
   <div class="qrow"><span class="qnum">3.</span><span class="qtext" style="font-weight:700;">שאלת מילים — הרווחים והחובות של עידו:</span></div>
   <div class="qrow" style="margin-top:5px;"><span class="qtext">עידו עוקב אחרי הרווחים והחובות שלו ב-8 השבועות האחרונים:</span></div>
   <div style="margin:6px 0 4px 0;padding-right:16px;font-size:12px;line-height:2;">
-    שבוע 1: קיבל משכורת חלקית &nbsp;→&nbsp; <span class="math">+400</span> ש"ח<br>
-    שבוע 2: שילם שכירות &nbsp;→&nbsp; <span class="math">(−800)</span> ש"ח<br>
-    שבוע 3: מכר ציוד ישן &nbsp;→&nbsp; <span class="math">+600</span> ש"ח<br>
-    שבוע 4: שילם חוב לחבר &nbsp;→&nbsp; <span class="math">(−300)</span> ש"ח<br>
-    שבוע 5: קיבל בונוס &nbsp;→&nbsp; <span class="math">+150</span> ש"ח<br>
-    שבוע 6: תיקון רכב &nbsp;→&nbsp; <span class="math">(−700)</span> ש"ח<br>
-    שבוע 7: עבודה נוספת &nbsp;→&nbsp; <span class="math">+350</span> ש"ח<br>
-    שבוע 8: חשבון חשמל וטלפון &nbsp;→&nbsp; <span class="math">(−200)</span> ש"ח
+    שבוע 1: קיבל משכורת חלקית &nbsp;←&nbsp; <span class="math">+400</span> ש"ח<br>
+    שבוע 2: שילם שכירות &nbsp;←&nbsp; <span class="math">(−800)</span> ש"ח<br>
+    שבוע 3: מכר ציוד ישן &nbsp;←&nbsp; <span class="math">+600</span> ש"ח<br>
+    שבוע 4: שילם חוב לחבר &nbsp;←&nbsp; <span class="math">(−300)</span> ש"ח<br>
+    שבוע 5: קיבל בונוס &nbsp;←&nbsp; <span class="math">+150</span> ש"ח<br>
+    שבוע 6: תיקון רכב &nbsp;←&nbsp; <span class="math">(−700)</span> ש"ח<br>
+    שבוע 7: עבודה נוספת &nbsp;←&nbsp; <span class="math">+350</span> ש"ח<br>
+    שבוע 8: חשבון חשמל וטלפון &nbsp;←&nbsp; <span class="math">(−200)</span> ש"ח
   </div>
   <div class="qrow" style="margin-top:2px;"><span class="qtext">האם עידו בפלוס או במינוס בסוף 8 השבועות? ובכמה?</span></div>
   <div class="ans-block" style="margin-top:6px;">תשובה: <span class="ans-line" style="min-width:120px;">&nbsp;</span></div>
