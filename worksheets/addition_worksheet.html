@@ -85,6 +85,31 @@
   }
   .mc-opt .math { direction: ltr; unicode-bidi: embed; }
 
+  /* ===== OPEN ANSWER ===== */
+  .ans-line {
+    display: inline-block;
+    border-bottom: 1.5px solid #555;
+    min-width: 70px;
+    margin-right: 2px;
+    vertical-align: bottom;
+  }
+  .ans-block {
+    margin-top: 6px;
+    padding-right: 22px;
+    font-size: 12.5px;
+  }
+  .think-area {
+    margin-top: 6px;
+    padding-right: 22px;
+    font-size: 12.5px;
+  }
+  .think-line {
+    display: block;
+    border-bottom: 1px solid #bbb;
+    margin-top: 14px;
+    height: 1px;
+  }
+
   /* ===== DIVIDER ===== */
   .divider {
     border: none;
@@ -153,83 +178,32 @@
 <span class="part-label">חלק א׳ — מבדק שליטה: מודל החצים</span>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">1.</span><span class="qtext">על ציר המספרים, חץ שמאלה מייצג...</span></div>
-  <div class="mc-opts">
-    <div class="mc-opt"><div class="circ"></div><span>חיבור מספר חיובי</span></div>
-    <div class="mc-opt"><div class="circ"></div><span>חיבור מספר שלילי</span></div>
-    <div class="mc-opt"><div class="circ"></div><span>חיסור</span></div>
-    <div class="mc-opt"><div class="circ"></div><span>כפל</span></div>
-  </div>
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">פתרו: <span class="math">(−4) + (−3) = </span><span class="ans-line">&nbsp;</span></span></div>
 </div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">2.</span><span class="qtext">פתרו את התרגיל ללא שימוש בחצים (אפשר לדמיין אותם): <span class="math">(−3) + 5 = ?</span></span></div>
-  <div class="mc-opts">
-    <div class="mc-opt"><div class="circ"></div><span class="math">8</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−8)</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">2</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−2)</span></div>
-  </div>
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">פתרו: <span class="math">7 + (−10) = </span><span class="ans-line">&nbsp;</span></span></div>
 </div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">3.</span><span class="qtext">פתרו: <span class="math">(−4) + (−3) = ?</span></span></div>
-  <div class="mc-opts">
-    <div class="mc-opt"><div class="circ"></div><span class="math">7</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−7)</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">1</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−1)</span></div>
-  </div>
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">פתרו: <span class="math">(−2) + 5 + (−4) = </span><span class="ans-line">&nbsp;</span></span></div>
 </div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">4.</span><span class="qtext">פתרו: <span class="math">7 + (−10) = ?</span></span></div>
-  <div class="mc-opts">
-    <div class="mc-opt"><div class="circ"></div><span class="math">17</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−17)</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">3</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−3)</span></div>
-  </div>
+  <div class="qrow"><span class="qnum">4.</span><span class="qtext">מצב החשבון של עידו הוא <span class="math">(−13,000)</span> ש"ח. הוא הרוויח <span class="math">8,000</span> ש"ח והוסיף אותם לחשבון. מה מצב החשבון שלו עכשיו?</span></div>
+  <div class="ans-block">תשובה: <span class="ans-line" style="min-width:100px;">&nbsp;</span> ש"ח</div>
 </div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">5.</span><span class="qtext">פתרו: <span class="math">(−2) + 5 + (−4) = ?</span></span></div>
-  <div class="mc-opts">
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−1)</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">1</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">11</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−11)</span></div>
-  </div>
+  <div class="qrow"><span class="qnum">5.</span><span class="qtext">פתרו: <span class="math">(−½) + 2 = </span><span class="ans-line">&nbsp;</span></span></div>
 </div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">6.</span><span class="qtext">מצב החשבון של עידו הוא <span class="math">(−13,000)</span> ש"ח. הוא הרוויח <span class="math">8,000</span> ש"ח והוסיף אותם לחשבון. מה מצב החשבון שלו עכשיו?</span></div>
-  <div class="mc-opts">
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−5,000)</span><span> ש"ח</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−21,000)</span><span> ש"ח</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">5,000</span><span> ש"ח</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−8,000)</span><span> ש"ח</span></div>
-  </div>
+  <div class="qrow"><span class="qnum">6.</span><span class="qtext">פתרו: <span class="math">(−3) + 1.5 = </span><span class="ans-line">&nbsp;</span></span></div>
 </div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">7.</span><span class="qtext">פתרו: <span class="math">(−½) + 2 = ?</span></span></div>
-  <div class="mc-opts">
-    <div class="mc-opt"><div class="circ"></div><span class="math">1½</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−1½)</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">2½</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−2½)</span></div>
-  </div>
-</div>
-
-<div class="quiz-q">
-  <div class="qrow"><span class="qnum">8.</span><span class="qtext">פתרו: <span class="math">(−3) + 1.5 = ?</span></span></div>
-  <div class="mc-opts">
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−1.5)</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">1.5</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">(−4.5)</span></div>
-    <div class="mc-opt"><div class="circ"></div><span class="math">4.5</span></div>
-  </div>
+  <div class="qrow"><span class="qnum">7.</span><span class="qtext">פתרו את השרשרת: <span class="math">(−3) + (−7) + (−5) + (−5) = </span><span class="ans-line">&nbsp;</span></span></div>
 </div>
 
 <hr class="divider">
@@ -241,27 +215,7 @@
 <span class="part-label">חלק ב׳ — מבדק שליטה: שימוש בחוק החילוף בחיבור</span>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">1.</span><span class="qtext">האם <span class="math">(−3) + 7 = 7 + (−3)</span>?</span></div>
-  <div class="mc-opts">
-    <div class="mc-opt"><div class="circ"></div><span>כן, תמיד</span></div>
-    <div class="mc-opt"><div class="circ"></div><span>לא, שינוי סדר משנה את התוצאה</span></div>
-    <div class="mc-opt"><div class="circ"></div><span>רק כשהמספרים חיוביים</span></div>
-    <div class="mc-opt"><div class="circ"></div><span>תלוי בערכים</span></div>
-  </div>
-</div>
-
-<div class="quiz-q">
-  <div class="qrow"><span class="qnum">2.</span><span class="qtext">מה נוח יותר לחשב: <span class="math">(−7) + 3 + 7</span>?</span></div>
-  <div class="mc-opts">
-    <div class="mc-opt"><div class="circ"></div><span>מחשבים משמאל לימין</span></div>
-    <div class="mc-opt"><div class="circ"></div><span>קודם <span class="math">(−7) + 7 = 0</span>, ואז <span class="math">0 + 3 = 3</span></span></div>
-    <div class="mc-opt"><div class="circ"></div><span>שתי הדרכים שוות</span></div>
-    <div class="mc-opt"><div class="circ"></div><span>אי אפשר לשנות סדר</span></div>
-  </div>
-</div>
-
-<div class="quiz-q">
-  <div class="qrow"><span class="qnum">3.</span><span class="qtext">פתרו — רמז: שווה לשנות את הסדר לפני החישוב!<br><span class="math">(−6) + 8 + (−4) + 2 + (−3) + 9 + (−2) + 1 = ?</span></span></div>
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">פתרו — רמז: שווה לשנות את הסדר לפני החישוב!<br><span class="math">(−6) + 8 + (−4) + 2 + (−3) + 9 + (−2) + 1 = ?</span></span></div>
   <div class="mc-opts">
     <div class="mc-opt"><div class="circ"></div><span class="math">5</span></div>
     <div class="mc-opt"><div class="circ"></div><span class="math">(−5)</span></div>
@@ -271,7 +225,7 @@
 </div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">4.</span><span class="qtext">פתרו (שימו לב לשבר!) — רמז: שווה לשנות את הסדר לפני החישוב!<br><span class="math">(−8) + 6 + (−2) + 4 + (−5) + 3½ + (−5) + 1½ = ?</span></span></div>
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">פתרו (שימו לב לשבר!) — רמז: שווה לשנות את הסדר לפני החישוב!<br><span class="math">(−8) + 6 + (−2) + 4 + (−5) + 3½ + (−5) + 1½ = ?</span></span></div>
   <div class="mc-opts">
     <div class="mc-opt"><div class="circ"></div><span class="math">(−5)</span></div>
     <div class="mc-opt"><div class="circ"></div><span class="math">5</span></div>
@@ -280,11 +234,21 @@
   </div>
 </div>
 
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext" style="font-weight:700;">שאלת חשיבה:</span></div>
+  <div class="qrow" style="margin-top:4px;"><span class="qtext">מיכל טוענת: "כדי לחשב ביטוי ארוך של חיבור מספרים מכוונים, מספיק לחבר בנפרד את כל החיוביים ובנפרד את כל השליליים, ואז לחבר את שתי התוצאות — לא משנה מה הסדר המקורי." האם היא צודקת? הסבירו.</span></div>
+  <div class="think-area">
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+  </div>
+</div>
+
 <!-- ===== SCORE BAR ===== -->
 <div class="score-bar">
-  <span>חלק א׳: <span class="score-field">&nbsp;</span> / 8</span>
-  <span>חלק ב׳: <span class="score-field">&nbsp;</span> / 4</span>
-  <span>סה"כ: <span class="score-field">&nbsp;</span> / 12</span>
+  <span>חלק א׳: <span class="score-field">&nbsp;</span> / 7</span>
+  <span>חלק ב׳: <span class="score-field">&nbsp;</span> / 2</span>
+  <span>סה"כ: <span class="score-field">&nbsp;</span> / 9</span>
 </div>
 
 </div><!-- end page-scaler -->
