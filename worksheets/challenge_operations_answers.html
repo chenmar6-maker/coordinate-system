@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>תשובות — דף אתגר פעולות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 11.5px;
+    color: #111;
+    direction: rtl;
+    background: #fff;
+    padding: 14px 18px 10px;
+  }
+
+  /* ── PIN screen ── */
+  .pin-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    gap: 16px;
+  }
+  .pin-title { font-size: 20px; font-weight: 800; }
+  .pin-sub { font-size: 13px; color: #555; }
+  #pinInput {
+    font-size: 24px;
+    letter-spacing: 10px;
+    width: 150px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #aaa;
+    font-family: 'Rubik', sans-serif;
+    direction: ltr;
+  }
+  .pin-btn {
+    background: #111; color: #fff; border: none;
+    padding: 8px 24px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer;
+  }
+  #pinErr { color: #c0392b; font-size: 13px; min-height: 18px; }
+
+  /* ── Answers page ── */
+  .answers-page { display: none; }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 6px;
+    margin-bottom: 7px;
+  }
+  .header-title { font-size: 16px; font-weight: 800; }
+  .header-sub { font-size: 10.5px; color: #555; margin-top: 1px; }
+  .header-tag {
+    font-size: 10.5px; font-weight: 700; color: #fff;
+    background: #c0392b; padding: 2px 9px; border-radius: 20px;
+  }
+
+  .three-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 8px;
+  }
+
+  .section {
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .section-head {
+    padding: 4px 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+  }
+  .section-head.add  { background: #0e6655; }
+  .section-head.sub  { background: #1a5276; }
+  .section-head.mul  { background: #7b241c; }
+
+  .section-body { padding: 5px 8px; }
+
+  .a {
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed #e0e0e0;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+  .a:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .anum { font-weight: 700; }
+  .ans { color: #0e6655; font-weight: 700; }
+  .m { direction: ltr; unicode-bidi: isolate; }
+
+  .brand-line { font-size: 10.5px; font-weight: 700; color: #333; margin-top: 5px; text-align: left; }
+
+  @media print {
+    .no-print { display: none; }
+    .pin-screen { display: none !important; }
+    .answers-page { display: block !important; }
+    @page { size: A4; margin: 0; }
+  }
+  .page-scaler {
+    transform: scale(0.72);
+    transform-origin: top right;
+    width: calc(100% / 0.72);
+  }
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #111; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<!-- PIN screen -->
+<div class="pin-screen" id="pinScreen">
+  <div class="pin-title">תשובות לדף האתגר</div>
+  <div class="pin-sub">הזינו את הקוד כדי לצפות בתשובות</div>
+  <input id="pinInput" type="password" maxlength="6" placeholder="• • • •"
+    onkeydown="if(event.key==='Enter') checkPin()">
+  <button class="pin-btn" onclick="checkPin()">כניסה</button>
+  <div id="pinErr"></div>
+</div>
+
+<!-- Answers (hidden until correct PIN) -->
+<div class="answers-page" id="answersPage">
+<div class="page-scaler">
+
+<div class="header">
+  <div>
+    <div class="header-title">תשובות — דף אתגר פעולות עם מספרים מכוונים</div>
+    <div class="header-sub">חיבור · חיסור · כפל · חילוק &nbsp;|&nbsp; כיתה ז׳</div>
+  </div>
+  <span class="header-tag">★ אוהבי האתגרים</span>
+</div>
+
+<div class="three-sections">
+
+  <!-- ===== חיבור ===== -->
+  <div class="section">
+    <div class="section-head add">חיבור מספרים מכוונים</div>
+    <div class="section-body">
+
+      <div class="a">
+        <span class="anum">1.</span> <span class="m">−½ + (−¾) + ⅓</span> = <span class="ans m">−<sup>11</sup>/<sub>12</sub></span>
+      </div>
+      <div class="a">
+        <span class="anum">2.</span> <span class="m">−1+2−3+4−⋯+10</span> = <span class="ans m">5</span>
+        <span style="font-size:9.5px;color:#555;"> (5 זוגות של +1)</span>
+      </div>
+      <div class="a">
+        <span class="anum">3.</span> <span class="m"><span style="text-decoration:underline;">&nbsp;&nbsp;&nbsp;&nbsp;</span> + (−7) + 3 = −8</span> ← <span class="ans m">−4</span>
+      </div>
+      <div class="a">
+        <span class="anum">4.</span> <span class="ans m">2</span> ו-<span class="ans m">−8</span>
+        <span style="font-size:9.5px;color:#555;"> (שונה סימן → פועלים כמו מאזניים)</span>
+      </div>
+      <div class="a">
+        <span class="anum">5.</span> <span class="ans m">a = −2, b = −3</span>
+        <span style="font-size:9.5px;color:#555;"> (מחברים/מחסרים שתי המשוואות)</span>
+      </div>
+      <div class="a">
+        <span class="anum">6.</span> <span class="m">−12+5−9+3−7</span> = <span class="ans m">−20°</span>
+      </div>
+      <div class="a">
+        <span class="anum">7.</span> <span class="m">(−50+49)+(−48+47)+(−46+45)</span> = <span class="ans m">−3</span>
+      </div>
+      <div class="a">
+        <span class="anum">8.</span> <span class="ans m">|a|+|b|</span> גדול יותר — הוא חיובי, <span class="m">a+b</span> שלילי
+      </div>
+      <div class="a">
+        <span class="anum">9.</span> <span class="m">(−3−7+2−4) ÷ 4 = −12 ÷ 4</span> = <span class="ans m">−3°</span>
+      </div>
+      <div class="a">
+        <span class="anum">10.</span> כל זוג שווה <span class="m">1</span>, יש 9 זוגות → <span class="ans m">9</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== חיסור ===== -->
+  <div class="section">
+    <div class="section-head sub">חיסור מספרים מכוונים</div>
+    <div class="section-body">
+
+      <div class="a">
+        <span class="anum">1.</span> <span class="m">−2.5+1.5−3.5</span> = <span class="ans m">−4.5</span>
+      </div>
+      <div class="a">
+        <span class="anum">2.</span> <span class="m">−5−x = −1 → x = −4</span>
+      </div>
+      <div class="a">
+        <span class="anum">3.</span> <span class="m">2+3−7+1−4+6</span> = <span class="ans m">1</span>
+      </div>
+      <div class="a">
+        <span class="anum">4.</span> <span class="m">−3−(−8) = 5</span> גדול יותר מ-<span class="m">3−8 = −5</span>
+      </div>
+      <div class="a">
+        <span class="anum">5.</span> <span class="m">a−b</span> חיובי, <span class="m">b−a</span> שלילי
+        <span style="font-size:9.5px;color:#555;"> (a−b = a+|b| > 0)</span>
+      </div>
+      <div class="a">
+        <span class="anum">6.</span> <span class="m">a = −5, b = 5</span>
+        <span style="font-size:9.5px;color:#555;"> (|a|=|b| → a=−b, ואז 2a=−10)</span>
+      </div>
+      <div class="a">
+        <span class="anum">7.</span> מרחק = <span class="ans m">8</span>; נקודת אמצע = <span class="ans m">1</span>
+      </div>
+      <div class="a">
+        <span class="anum">8.</span> <span class="m">10</span> זוגות, כל זוג = <span class="m">−1</span> → <span class="ans m">−10</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== כפל וחילוק ===== -->
+  <div class="section">
+    <div class="section-head mul">כפל וחילוק מספרים מכוונים</div>
+    <div class="section-body">
+
+      <div class="a">
+        <span class="anum">1.</span> <span class="m">12−(−10)</span> = <span class="ans m">22</span>
+      </div>
+      <div class="a">
+        <span class="anum">2.</span> <span class="m">8÷(−2)</span> = <span class="ans m">−4</span>
+      </div>
+      <div class="a">
+        <span class="anum">3.</span> <span class="m">16−(−8)</span> = <span class="ans m">24</span>
+      </div>
+      <div class="a">
+        <span class="anum">4.</span> 5 גורמים שליליים → <span class="ans">שלילי</span>
+      </div>
+      <div class="a">
+        <span class="anum">5.</span> <span class="m">(−3)x = −15 → x = </span><span class="ans m">5</span>
+      </div>
+      <div class="a">
+        <span class="anum">6.</span> <span class="m">n</span> חייב להיות <span class="ans">אי-זוגי</span>
+      </div>
+      <div class="a">
+        <span class="anum">7.</span> <span class="ans m">−3</span> ו-<span class="ans m">−4</span>
+        <span style="font-size:9.5px;color:#555;"> (מכפלה 12, סכום −7)</span>
+      </div>
+      <div class="a">
+        <span class="anum">8.</span> <span class="m">[−7]·[−3]</span> = <span class="ans m">21</span>
+      </div>
+      <div class="a">
+        <span class="anum">9.</span> אחד חיובי ואחד שלילי; החיובי <span class="ans">גדול יותר</span> בערך מוחלט
+      </div>
+      <div class="a">
+        <span class="anum">10.</span> <span class="m">a·b = −a² = −25</span>; <span class="m">(a+b)² = 0</span> → <span class="ans m">−25</span>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- end three-sections -->
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-scaler -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+</div><!-- end answers-page -->
+
+<script>
+function checkPin() {
+  const v = document.getElementById('pinInput').value;
+  if (v === '2357') {
+    document.getElementById('pinScreen').style.display = 'none';
+    document.getElementById('answersPage').style.display = 'block';
+  } else {
+    document.getElementById('pinErr').textContent = 'קוד שגוי — נסו שוב';
+    document.getElementById('pinInput').value = '';
+    document.getElementById('pinInput').focus();
+  }
+}
+</script>
+</body>
+</html>
