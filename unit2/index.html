@@ -769,57 +769,58 @@ const quizQuestions2b = [
 /* ============ GAME LEVELS 3/4/5 ============ */
 
 const gameLevels3 = [
-  { id:'dragArrow', title:'גררו את החץ', start:3, addend:-5, correct:-2,
-    explain:'מתחילים ב-3 וקופצים 5 יחידות שמאלה — מסיימים ב-(−2).' },
-  { id:'dragArrow', title:'גררו את החץ', start:-2, addend:4, correct:2,
-    explain:'מתחילים ב-(−2) וקופצים 4 יחידות ימינה — מסיימים ב-2.' },
-  { id:'dragArrow', title:'גררו את החץ', start:5, addend:-8, correct:-3,
-    explain:'מתחילים ב-5 וקופצים 8 יחידות שמאלה — מסיימים ב-(−3).' },
-  { id:'dragArrow', title:'גררו את החץ', start:-3, addend:-4, correct:-7,
-    explain:'מתחילים ב-(−3) וקופצים 4 יחידות שמאלה — מסיימים ב-(−7).' },
-  { id:'chipProfit', title:'רווח והפסד', scenario:'הרווחתם 4 ש"ח, ואז הפסדתם 7 ש"ח. מה המצב הכולל?',
-    pos:4, neg:7, correct:-3, explain:'4 צ׳יפים ירוקים ו-7 אדומים — 4 זוגות מתבטלים, נשארים 3 אדומים → (−3).' },
-  { id:'chipProfit', title:'רווח והפסד', scenario:'הפסדתם 5 ש"ח, ואז הרווחתם 9 ש"ח. מה המצב הכולל?',
-    pos:9, neg:5, correct:4, explain:'9 ירוקים ו-5 אדומים — 5 זוגות מתבטלים, נשארים 4 ירוקים → 4.' },
-  { id:'dualModel', title:'שני מודלים — אותה תשובה',
-    expr:'(−3) + 5', start:-3, addend:5, pos:5, neg:3, correct:2,
-    explain:'גם על הציר (קפיצה ימינה 5 מ-(−3)) וגם בצ׳יפים (5 ירוקים, 3 אדומים) — שניהם נותנים 2.' },
-  { id:'typedSum', title:'חישוב ישיר', expr:'(−4) + 7', correct:3,
-    explain:'7−4=3. הגדול (7) חיובי → 3.' },
-  { id:'typedSum', title:'חישוב ישיר', expr:'(−6) + (−2)', correct:-8,
-    explain:'6+2=8, שניהם שליליים → (−8).' },
-  { id:'mc', title:'מושג מסכם',
-    question:'כשמחברים מספר שלילי למספר חיובי, התוצאה...',
-    options:['תמיד שלילית','תמיד חיובית','תלוי בערכים המדויקים','תמיד אפס'],
-    correct:'תלוי בערכים המדויקים',
-    explain:'אם |חיובי| > |שלילי| — תוצאה חיובית. אם |שלילי| > |חיובי| — תוצאה שלילית. אי אפשר לדעת ללא הערכים.' },
-  { id:'mc', title:'בעיית מילים',
-    question:'מצב החשבון של עידו הוא (−13,000) ש"ח. בחודש האחרון הוא הרוויח 8,000 ש"ח והוסיף אותם לחשבון. מה מצב החוב שלו עכשיו?',
-    options:['(−5,000) ש"ח','(−21,000) ש"ח','5,000 ש"ח','(−8,000) ש"ח'],
-    correct:'(−5,000) ש"ח',
-    explain:'(−13,000) + 8,000 = (−5,000). עידו עדיין חייב 5,000 ש"ח.' }
+  { id:'dragArrow', title:'מודל החצים', start:0, addend:-4, correct:-4,
+    explain:'מ-0, קפיצה שמאלה 4 → (−4).' },
+  { id:'dragArrow', title:'מודל החצים', start:-2, addend:5, correct:3,
+    explain:'מ-(−2), קפיצה ימינה 5 → 3.' },
+  { id:'dragArrow', title:'מודל החצים', start:3, addend:-7, correct:-4,
+    explain:'מ-3, קפיצה שמאלה 7 → (−4).' },
+  { id:'typedSum', title:'חישוב ישיר', expr:'(−5) + (−8)', correct:-13,
+    explain:'שניהם שליליים: 5+8=13 → (−13).' },
+  { id:'typedSum', title:'חישוב ישיר', expr:'6 + (−9)', correct:-3,
+    explain:'9−6=3. הגדול (−9) שלילי → (−3).' },
+  { id:'typedSum', title:'חישוב ישיר', expr:'(−11) + 4', correct:-7,
+    explain:'11−4=7. הגדול (−11) שלילי → (−7).' },
+  { id:'typedSum', title:'שבר', expr:'(−½) + 2', correct:1.5,
+    explain:'2 − ½ = 1½. הגדול (2) חיובי → 1.5.' },
+  { id:'typedSum', title:'עשרוני', expr:'(−4) + 1.5', correct:-2.5,
+    explain:'4 − 1.5 = 2.5. הגדול (−4) שלילי → (−2.5).' },
+  { id:'mc', title:'שאלת מילים',
+    question:'מצב החשבון של מיה הוא (−800) ש"ח. היא קיבלה 500 ש"ח ממשכורת והוסיפה לחשבון. מה מצב החשבון שלה עכשיו?',
+    options:['(−300) ש"ח','(−1,300) ש"ח','300 ש"ח','(−500) ש"ח'],
+    correct:'(−300) ש"ח',
+    explain:'(−800) + 500 = (−300). מיה עדיין במינוס 300 ש"ח.' },
+  { id:'mc', title:'מבלי לחשב — מה הסימן?',
+    question:'מה יהיה סימן התוצאה של: 3⅓ + (−3¼)? (לא צריך לחשב!)',
+    options:['חיובי','שלילי','אפס','אי אפשר לדעת'],
+    correct:'חיובי',
+    explain:'|3⅓| ≈ 3.33 גדול מ-|3¼| = 3.25. הגדול (3⅓) חיובי → תוצאה חיובית.' },
+  { id:'mc', title:'כלל הסימן',
+    question:'כשמחברים מספר שלילי ומספר חיובי — מה יקבע את סימן התוצאה?',
+    options:['המספר החיובי תמיד מנצח','המספר השלילי תמיד מנצח','מי שהערך המוחלט שלו גדול יותר','סדר המספרים בתרגיל'],
+    correct:'מי שהערך המוחלט שלו גדול יותר',
+    explain:'הסימן של התוצאה נקבע לפי המספר עם הערך המוחלט הגדול יותר — לא לפי הסדר ולא לפי "חיובי מנצח שלילי".' }
 ];
 
 const gameLevels4 = [
-  { id:'typedSum', title:'אותו סימן', expr:'(−4) + (−6)', correct:-10,
-    explain:'4+6=10, שניהם שליליים → (−10).' },
-  { id:'typedSum', title:'אותו סימן', expr:'(−3) + (−8)', correct:-11,
-    explain:'3+8=11, שניהם שליליים → (−11).' },
-  { id:'typedSum', title:'סימנים שונים', expr:'(−2) + 9', correct:7, dominantSign:'חיובי',
-    explain:'9−2=7. הגדול (9) חיובי → 7.' },
-  { id:'typedSum', title:'סימנים שונים', expr:'5 + (−8)', correct:-3, dominantSign:'שלילי',
-    explain:'8−5=3. הגדול (8) שלילי → (−3).' },
-  { id:'typedSum', title:'תרגול מעורב', expr:'(−6) + 4', correct:-2,
-    explain:'6−4=2. הגדול (−6) שלילי → (−2).' },
-  { id:'typedSum', title:'תרגול מעורב', expr:'7 + (−3)', correct:4,
-    explain:'7−3=4. הגדול (7) חיובי → 4.' },
-  { id:'typedSum', title:'תרגול מעורב', expr:'(−5) + (−5)', correct:-10,
-    explain:'5+5=10, שניהם שליליים → (−10).' },
-  { id:'mc', title:'כשהסימנים שונים',
-    question:'כשהסימנים שונים, איך יודעים איזה סימן תהיה לתוצאה?',
-    options:['תמיד שלילי','תמיד חיובי','לפי המספר עם הערך המוחלט הגדול יותר','לפי המספר הראשון בתרגיל'],
-    correct:'לפי המספר עם הערך המוחלט הגדול יותר',
-    explain:'התוצאה "נמשכת" לכיוון של המספר עם הערך המוחלט הגדול יותר.' }
+  { id:'groupSort', title:'קבצו לפי סימן', addends:[3,-5,-2,8], correct:4,
+    explain:'חיוביים: 3+8=11. שליליים: 5+2=7. 11−7=4.' },
+  { id:'groupSort', title:'קבצו לפי סימן', addends:[-6,4,-3,7], correct:2,
+    explain:'חיוביים: 4+7=11. שליליים: 6+3=9. 11−9=2.' },
+  { id:'typedSum3', title:'שרשרת', expr:'(−4) + 7 + (−6) + 3 + (−2) + 5', addends:[-4,7,-6,3,-2,5], correct:3,
+    explain:'חיוביים: 7+3+5=15. שליליים: 4+6+2=12. 15−12=3.' },
+  { id:'typedSum3', title:'שרשרת ארוכה', expr:'(−5) + 8 + (−3) + (−7) + 4 + (−2) + 6', addends:[-5,8,-3,-7,4,-2,6], correct:1,
+    explain:'חיוביים: 8+4+6=18. שליליים: 5+3+7+2=17. 18−17=1.' },
+  { id:'mc', title:'שאלת מילים',
+    question:'גד עקב אחרי ההוצאות וההכנסות שלו השבוע: קיבל 500 ש"ח, שילם 200 ש"ח, קיבל 300 ש"ח, שילם 450 ש"ח. מה מצבו בסוף השבוע?',
+    options:['150 ש"ח בפלוס','150 ש"ח במינוס','350 ש"ח בפלוס','(−50) ש"ח'],
+    correct:'150 ש"ח בפלוס',
+    explain:'הכנסות: 500+300=800. הוצאות: 200+450=650. 800−650=150 בפלוס.' },
+  { id:'mc', title:'אסטרטגיית קיבוץ',
+    question:'למה כדאי לקבץ קודם את החיוביים יחד ואת השליליים יחד לפני שמחשבים שרשרת ארוכה?',
+    options:['כי זה חוק חובה','כי זה מפשט לשני חישובים פשוטים','כי עובד רק ל-3 מחוברים','אין יתרון — הסדר משנה'],
+    correct:'כי זה מפשט לשני חישובים פשוטים',
+    explain:'חוק החילוף מאפשר לשנות סדר. קיבוץ לפי סימן הופך כל שרשרת לשני חישובים פשוטים.' }
 ];
 
 const gameLevels5 = [
@@ -845,44 +846,51 @@ const gameLevels5 = [
 /* ============ QUIZ QUESTIONS 3/4/5 ============ */
 
 const quizQuestions3 = [
-  { type:'mc', title:'מודל החצים', text:'על ציר המספרים, חץ שמאלה מייצג...',
-    options:['חיבור מספר חיובי','חיבור מספר שלילי','חיסור','כפל'], correct:'חיבור מספר שלילי',
-    explain:'חיבור מספר שלילי = קפיצה שמאלה על הציר.' },
-  { type:'mc', title:'שרשרת החצים', text:'פתרו את התרגיל ללא שימוש בחצים (אפשר לדמיין אותם): (−3) + 5 = ?',
-    options:['8','(−8)','2','(−2)'], correct:'2',
-    explain:'מתחילים ב-0, קפיצה שמאלה 3 ← (−3), קפיצה ימינה 5 → 2.' },
-  { type:'mc', title:'קריאת תוצאה', text:'פתרו: (−4) + (−3) = ?',
-    options:['7','(−7)','1','(−1)'], correct:'(−7)',
-    explain:'שני חצים שמאלה: 4 + 3 = 7 יחידות שמאלה → (−7).' },
-  { type:'mc', title:'חצים מנוגדים', text:'פתרו: 7 + (−10) = ?',
-    options:['17','(−17)','3','(−3)'], correct:'(−3)',
-    explain:'חץ ימינה 7, אז חץ שמאלה 10. נסיים ב-(−3).' },
-  { type:'mc', title:'שרשרת שלושה', text:'(−2) + 5 + (−4) = ?',
-    options:['(−1)','1','11','(−11)'], correct:'(−1)',
-    explain:'(−2)+5=3, ואז 3+(−4)=(−1).' },
-  { type:'mc', title:'בעיית מילים',
-    text:'מצב החשבון של עידו הוא (−13,000) ש"ח. הוא הרוויח 8,000 ש"ח והוסיף אותם לחשבון. מה מצב החוב שלו עכשיו?',
-    options:['(−5,000) ש"ח','(−21,000) ש"ח','5,000 ש"ח','(−8,000) ש"ח'],
-    correct:'(−5,000) ש"ח',
-    explain:'(−13,000) + 8,000 = (−5,000). עידו עדיין חייב 5,000 ש"ח.' }
+  { type:'mc', title:'חישוב ישיר', text:'(−6) + (−4) = ?',
+    options:['10','(−10)','2','(−2)'], correct:'(−10)',
+    explain:'שניהם שליליים: 6+4=10 → (−10).' },
+  { type:'mc', title:'חישוב ישיר', text:'8 + (−11) = ?',
+    options:['19','(−19)','3','(−3)'], correct:'(−3)',
+    explain:'11−8=3. הגדול (−11) שלילי → (−3).' },
+  { type:'mc', title:'חישוב ישיר', text:'(−9) + 4 = ?',
+    options:['13','(−13)','5','(−5)'], correct:'(−5)',
+    explain:'9−4=5. הגדול (−9) שלילי → (−5).' },
+  { type:'mc', title:'שאלת מילים',
+    text:'מצב החשבון של ניר הוא (−2,000) ש"ח. הוא קיבל 700 ש"ח. מה מצב החשבון שלו עכשיו?',
+    options:['(−1,300) ש"ח','(−2,700) ש"ח','1,300 ש"ח','700 ש"ח'],
+    correct:'(−1,300) ש"ח',
+    explain:'(−2,000) + 700 = (−1,300). ניר עדיין במינוס 1,300 ש"ח.' },
+  { type:'mc', title:'מבלי לחשב',
+    text:'מה יהיה סימן התוצאה של: 5¼ + (−5⅓)?',
+    options:['חיובי','שלילי','אפס','אי אפשר לדעת'],
+    correct:'שלילי',
+    explain:'|5¼| = 5.25 קטן מ-|5⅓| ≈ 5.33. הגדול שלילי → תוצאה שלילית.' },
+  { type:'mc', title:'כלל הסימן',
+    text:'כשמחברים (−2) + 15, מה ניתן לדעת על סימן התוצאה מראש?',
+    options:['שלילית','חיובית','אפס','אי אפשר לדעת'],
+    correct:'חיובית',
+    explain:'|15| = 15 גדול מ-|−2| = 2. הגדול (15) חיובי → תוצאה חיובית.' }
 ];
 
 const quizQuestions4 = [
-  { type:'mc', title:'אותו סימן — שלילי', text:'(−5) + (−8) = ?',
-    options:['13','(−13)','3','(−3)'], correct:'(−13)',
-    explain:'5+8=13, שניהם שליליים → (−13).' },
-  { type:'mc', title:'אותו סימן — חיובי', text:'6 + 9 = ?',
-    options:['15','(−15)','3','(−3)'], correct:'15',
-    explain:'6+9=15, שניהם חיוביים → 15.' },
-  { type:'mc', title:'סימנים שונים', text:'(−9) + 4 = ?',
-    options:['13','(−13)','5','(−5)'], correct:'(−5)',
-    explain:'9−4=5. הגדול (−9) שלילי → (−5).' },
-  { type:'mc', title:'סימנים שונים', text:'3 + (−11) = ?',
-    options:['14','(−14)','8','(−8)'], correct:'(−8)',
-    explain:'11−3=8. הגדול (−11) שלילי → (−8).' },
-  { type:'mc', title:'כלל הסימן', text:'כשמחברים (−2) + 15, מה ניתן לדעת על סימן התוצאה מראש?',
-    options:['שלילית','חיובית','אפס','אי אפשר לדעת'], correct:'חיובית',
-    explain:'|15|=15 גדול מ-|−2|=2. הגדול חיובי → תוצאה חיובית.' }
+  { type:'mc', title:'שרשרת',
+    text:'(−3) + 7 + (−5) + 4 + (−8) + 6 = ?',
+    options:['1','(−1)','3','(−3)'], correct:'1',
+    explain:'חיוביים: 7+4+6=17. שליליים: 3+5+8=16. 17−16=1.' },
+  { type:'mc', title:'שרשרת עם שברים',
+    text:'(−2½) + 3¾ + (−1¼) + 2 = ?',
+    options:['2','(−2)','5','(−5)'], correct:'2',
+    explain:'חיוביים: 3¾+2=5¾. שליליים: 2½+1¼=3¾. 5¾−3¾=2.' },
+  { type:'mc', title:'שאלת מילים',
+    text:'ליאור קיבל 400 ש"ח, שילם 150 ש"ח, הרוויח 250 ש"ח, שילם 600 ש"ח. מה מצבו הכולל?',
+    options:['(−100) ש"ח','100 ש"ח','(−300) ש"ח','300 ש"ח'],
+    correct:'(−100) ש"ח',
+    explain:'הכנסות: 400+250=650. הוצאות: 150+600=750. 650−750=(−100).' },
+  { type:'mc', title:'שאלת חשיבה',
+    text:'נועה אומרת: "בחיבור ארוך אפשר לחבר את כל החיוביים בנפרד ואת כל השליליים בנפרד ואז לחבר את שתי התוצאות." האם היא צודקת?',
+    options:['כן, תמיד','לא, עובד רק עם 3 מחוברים','כן, בזכות חוק החילוף','לא, חייב לחשב לפי הסדר'],
+    correct:'כן, בזכות חוק החילוף',
+    explain:'חוק החילוף מאפשר לשנות סדר וקיבוץ. נועה צודקת — זו אסטרטגיה מצוינת לחישוב שרשראות.' }
 ];
 
 const quizQuestions5 = [
@@ -1228,7 +1236,7 @@ function renderHome(){
 
     <div class="sequence-section">
         <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:20px;">חיבור מספרים מכוונים</div>
-        <div class="sequence-title">1. חיבור מספרים מכוונים — מודל החצים</div>
+        <div class="sequence-title">חלק א׳ — מודל החצים וכלל הסימן</div>
         <div class="cards">
           <div class="card learn" onclick="state.sequence=3;goTo('learn')"><h3>הקנייה</h3></div>
           <div class="flow-arrow">←</div>
@@ -1236,21 +1244,13 @@ function renderHome(){
           <div class="flow-arrow">←</div>
           <div class="card quiz" onclick="state.sequence=3;startQuiz()"><h3>מבדק שליטה</h3></div>
         </div>
-        <div class="sequence-title" style="margin-top:18px;">2. אותו סימן או סימנים שונים</div>
+        <div class="sequence-title" style="margin-top:18px;">חלק ב׳ — שרשראות וחוק החילוף</div>
         <div class="cards">
           <div class="card learn" onclick="state.sequence=4;goTo('learn')"><h3>הקנייה</h3></div>
           <div class="flow-arrow">←</div>
           <div class="card game" onclick="state.sequence=4;startGame()"><h3>תרגול</h3></div>
           <div class="flow-arrow">←</div>
           <div class="card quiz" onclick="state.sequence=4;startQuiz()"><h3>מבדק שליטה</h3></div>
-        </div>
-        <div class="sequence-title" style="margin-top:18px;">3. שימוש בחוק החילוף בחיבור</div>
-        <div class="cards">
-          <div class="card learn" onclick="state.sequence=5;goTo('learn')"><h3>הקנייה</h3></div>
-          <div class="flow-arrow">←</div>
-          <div class="card game" onclick="state.sequence=5;startGame()"><h3>תרגול</h3></div>
-          <div class="flow-arrow">←</div>
-          <div class="card quiz" onclick="state.sequence=5;startQuiz()"><h3>מבדק שליטה</h3></div>
         </div>
     </div>
   `;
@@ -1407,9 +1407,9 @@ function renderLearn2(){
 function renderLearn3(){
   return `
     <div class="panel">
-      <h2 class="qtitle" style="text-align:right;">חיבור מספרים מכוונים — מודל החצים</h2>
+      <h2 class="qtitle" style="text-align:right;">חיבור מספרים מכוונים — מודל החצים וכלל הסימן</h2>
       <div class="video-placeholder">🎬 הסרטון יתווסף בקרוב</div>
-      <p style="text-align:right;font-size:15px;margin:14px 0 6px;font-weight:700;color:var(--gold);">דוגמה: (−3) + 5 = 2 על ציר החצים</p>
+      <p style="text-align:right;font-size:15px;margin:14px 0 6px;font-weight:700;color:var(--gold);">מודל החצים: (−3) + 5 = 2</p>
       <div class="nl-wrap" style="margin:10px 0 18px;">
         <svg viewBox="0 0 600 110" style="width:100%;display:block;direction:ltr;" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -1420,11 +1420,9 @@ function renderLearn3(){
               <polygon points="0 0,10 5,0 10" fill="#48B08C"/>
             </marker>
           </defs>
-          <!-- axis -->
           <line x1="30" y1="82" x2="570" y2="82" stroke="rgba(234,244,241,0.7)" stroke-width="2"/>
           <polygon points="572,82 563,77 563,87" fill="rgba(234,244,241,0.7)"/>
           <polygon points="28,82 37,77 37,87" fill="rgba(234,244,241,0.7)"/>
-          <!-- ticks and labels -6..6 -->
           <line x1="30" y1="76" x2="30" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
           <line x1="75" y1="76" x2="75" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
           <line x1="120" y1="74" x2="120" y2="90" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
@@ -1432,7 +1430,6 @@ function renderLearn3(){
           <line x1="165" y1="76" x2="165" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
           <line x1="210" y1="76" x2="210" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
           <line x1="255" y1="76" x2="255" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
-          <!-- 0 tick (gold) -->
           <line x1="300" y1="70" x2="300" y2="94" stroke="rgba(239,169,74,0.9)" stroke-width="2.5"/>
           <text x="300" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#EFA94A" font-family="Rubik,sans-serif">0</text>
           <line x1="345" y1="76" x2="345" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
@@ -1442,31 +1439,39 @@ function renderLearn3(){
           <text x="480" y="100" text-anchor="middle" font-size="12" fill="rgba(234,244,241,0.7)" font-family="Rubik,sans-serif">5</text>
           <line x1="525" y1="76" x2="525" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
           <line x1="570" y1="76" x2="570" y2="88" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
-          <!-- labels for key points -->
           <text x="210" y="100" text-anchor="middle" font-size="12" fill="#E2604F" font-family="Rubik,sans-serif" font-weight="700">−3</text>
           <text x="390" y="100" text-anchor="middle" font-size="12" fill="#48B08C" font-family="Rubik,sans-serif" font-weight="700">2</text>
-          <!-- Arrow 1: 0 → −3 (red, upper row y=54) -->
           <line x1="300" y1="82" x2="300" y2="56" stroke="rgba(234,244,241,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
           <line x1="210" y1="82" x2="210" y2="56" stroke="rgba(234,244,241,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
           <line x1="300" y1="54" x2="218" y2="54" stroke="#E2604F" stroke-width="3.5" marker-end="url(#lrn3-head-red)"/>
           <text x="255" y="46" text-anchor="middle" font-size="12" font-weight="700" fill="#E2604F" font-family="Rubik,sans-serif">−3</text>
-          <!-- Arrow 2: −3 → 2 (green, upper row y=28) -->
           <line x1="210" y1="54" x2="210" y2="30" stroke="rgba(234,244,241,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
           <line x1="390" y1="82" x2="390" y2="54" stroke="rgba(234,244,241,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
           <line x1="210" y1="28" x2="382" y2="28" stroke="#48B08C" stroke-width="3.5" marker-end="url(#lrn3-head-green)"/>
           <text x="300" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="#48B08C" font-family="Rubik,sans-serif">+5</text>
-          <!-- result pin -->
           <polygon points="390,48 397,38 383,38" fill="#EFA94A"/>
           <text x="390" y="35" text-anchor="middle" font-size="13" font-weight="700" fill="#EFA94A" font-family="Rubik,sans-serif">2</text>
         </svg>
       </div>
       <ul class="bullets">
-        <li>כל חץ אדום = מחובר שלילי (קפיצה שמאלה). כל חץ ירוק = מחובר חיובי (קפיצה ימינה).</li>
-        <li>מניחים חצים <strong>ראש לזנב</strong>: כל חץ מתחיל בדיוק איפה שהקודם נגמר.</li>
-        <li>המספר שמתחת לראש החץ האחרון (ולמות הסיכה הזהובה) הוא <strong>תוצאת החיבור</strong>.</li>
-        <li>דוגמה: <bdi style="direction:ltr;unicode-bidi:isolate;">(−3) + 5 = 2</bdi> — חץ אדום שמאלה 3, ואז חץ ירוק ימינה 5, מגיעים ל-2.</li>
+        <li>חץ אדום = קפיצה <strong>שמאלה</strong> (מחובר שלילי). חץ ירוק = קפיצה <strong>ימינה</strong> (מחובר חיובי).</li>
+        <li>מניחים חצים <strong>ראש לזנב</strong> — כל חץ מתחיל בדיוק איפה שהקודם נגמר.</li>
+        <li>ראש החץ האחרון מצביע על <strong>תוצאת החיבור</strong>.</li>
       </ul>
-      <div class="learn-note">💡 לא חייבים להתחיל מ-0! אפשר להניח את הזנב של החץ הראשון בכל נקודה — אבל בתרגול שלנו תמיד מתחילים מ-0.</div>
+      <p style="text-align:right;font-size:15px;margin:18px 0 8px;font-weight:700;color:var(--gold);">כלל הסימן — בלי לצייר חצים</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;">
+        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(72,176,140,0.08);border:1px solid rgba(72,176,140,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:14px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">אותו סימן → מחברים</div>
+          <div style="font-size:18px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--seafoam);">(−4) + (−6) = (−10)</div>
+          <div style="font-size:12px;margin-top:6px;color:rgba(234,244,241,0.65);">4+6=10, שניהם שליליים → (−10)</div>
+        </div>
+        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(226,96,79,0.08);border:1px solid rgba(226,96,79,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:14px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">סימנים שונים → מחסרים</div>
+          <div style="font-size:18px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--coral);">5 + (−8) = (−3)</div>
+          <div style="font-size:12px;margin-top:6px;color:rgba(234,244,241,0.65);">8−5=3, הגדול (8) שלילי → (−3)</div>
+        </div>
+      </div>
+      <div class="learn-note">💡 כשהסימנים שונים — הסימן של התוצאה "נמשך" למספר עם הערך המוחלט הגדול יותר.</div>
       <div class="btnrow" style="margin-top:20px;">
         <button class="btn" onclick="startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -1478,43 +1483,37 @@ function renderLearn3(){
 function renderLearn4(){
   return `
     <div class="panel">
-      <h2 class="qtitle" style="text-align:right;">אותו סימן או סימנים שונים</h2>
+      <h2 class="qtitle" style="text-align:right;">שרשראות חיבור וחוק החילוף</h2>
       <div class="video-placeholder">🎬 הסרטון יתווסף בקרוב</div>
 
-      <p style="text-align:right;font-size:15px;margin:18px 0 8px;font-weight:700;color:var(--gold);">כלל 1 — אותו סימן: מחברים ערכים מוחלטים, שומרים את הסימן</p>
-      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;">
-        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(72,176,140,0.08);border:1px solid rgba(72,176,140,0.3);border-radius:10px;padding:12px;text-align:center;">
-          <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">שני חיוביים</div>
-          <div style="font-size:20px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--seafoam);">4 + 6 = 10</div>
-          <div style="font-size:13px;margin-top:6px;color:rgba(234,244,241,0.65);">4 + 6 = 10, שניהם חיוביים → 10</div>
+      <p style="text-align:right;font-size:15px;margin:18px 0 8px;font-weight:700;color:var(--gold);">חוק החילוף: סדר החיבור לא משנה</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;">
+        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:14px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">סדר ראשון</div>
+          <div style="font-size:17px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--foam);">3 + (−5) + (−2)</div>
+          <div style="font-size:15px;margin-top:6px;direction:ltr;unicode-bidi:isolate;color:var(--gold);">= (−4)</div>
         </div>
-        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(226,96,79,0.08);border:1px solid rgba(226,96,79,0.3);border-radius:10px;padding:12px;text-align:center;">
-          <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">שני שליליים</div>
-          <div style="font-size:20px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--coral);">(−4) + (−6) = (−10)</div>
-          <div style="font-size:13px;margin-top:6px;color:rgba(234,244,241,0.65);">4 + 6 = 10, שניהם שליליים → (−10)</div>
+        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:14px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">סדר שונה — אותה תוצאה</div>
+          <div style="font-size:17px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--foam);">(−5) + 3 + (−2)</div>
+          <div style="font-size:15px;margin-top:6px;direction:ltr;unicode-bidi:isolate;color:var(--gold);">= (−4)</div>
         </div>
       </div>
 
-      <p style="text-align:right;font-size:15px;margin:4px 0 8px;font-weight:700;color:var(--gold);">כלל 2 — סימנים שונים: מחסרים ערכים מוחלטים, הסימן של הגדול</p>
-      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;">
-        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(72,176,140,0.08);border:1px solid rgba(72,176,140,0.3);border-radius:10px;padding:12px;text-align:center;">
-          <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">הגדול חיובי → תוצאה חיובית</div>
-          <div style="font-size:20px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--seafoam);">(−2) + 9 = 7</div>
-          <div style="font-size:13px;margin-top:6px;color:rgba(234,244,241,0.65);">9 − 2 = 7, הגדול (9) חיובי → 7</div>
-        </div>
-        <div style="flex:1;min-width:200px;max-width:260px;background:rgba(226,96,79,0.08);border:1px solid rgba(226,96,79,0.3);border-radius:10px;padding:12px;text-align:center;">
-          <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:6px;">הגדול שלילי → תוצאה שלילית</div>
-          <div style="font-size:20px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--coral);">5 + (−8) = (−3)</div>
-          <div style="font-size:13px;margin-top:6px;color:rgba(234,244,241,0.65);">8 − 5 = 3, הגדול (8) שלילי → (−3)</div>
-        </div>
+      <p style="text-align:right;font-size:15px;margin:4px 0 8px;font-weight:700;color:var(--gold);">אסטרטגיית קיבוץ לשרשראות ארוכות</p>
+      <div style="background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:14px;text-align:center;margin-bottom:16px;">
+        <div style="font-size:15px;font-weight:700;direction:ltr;unicode-bidi:isolate;color:var(--foam);">(−6) + 8 + (−4) + 2 + (−3) + 9</div>
+        <div style="font-size:13px;margin-top:8px;color:rgba(234,244,241,0.7);">חיוביים: <span style="color:var(--seafoam);font-weight:700;">8+2+9 = 19</span></div>
+        <div style="font-size:13px;margin-top:4px;color:rgba(234,244,241,0.7);">שליליים: <span style="color:var(--coral);font-weight:700;">6+4+3 = 13</span></div>
+        <div style="font-size:15px;margin-top:6px;direction:ltr;unicode-bidi:isolate;color:var(--gold);">19 − 13 = 6</div>
       </div>
 
       <ul class="bullets">
-        <li><strong>אותו סימן:</strong> מחברים ערכים מוחלטים ושומרים את הסימן המשותף.</li>
-        <li><strong>סימנים שונים:</strong> מחסרים את הקטן מהגדול (בערכים מוחלטים), ונותנים לתוצאה את הסימן של בעל הערך המוחלט הגדול.</li>
-        <li>כשמספרים נגדיים (אותו ערך מוחלט, סימנים שונים) — תמיד מקבלים 0: <bdi style="direction:ltr;unicode-bidi:isolate;">7 + (−7) = 0</bdi>.</li>
+        <li><strong>חוק החילוף:</strong> בחיבור אפשר לשנות סדר ללא הגבלה — גם עם מספרים שליליים.</li>
+        <li><strong>אסטרטגיית קיבוץ:</strong> חברו את כל החיוביים יחד, את כל השליליים יחד, ואז חברו בין שתי הקבוצות.</li>
+        <li>חפשו זוגות שמתבטלים: <bdi style="direction:ltr;unicode-bidi:isolate;">7 + (−7) = 0</bdi> — חוסך חישוב!</li>
       </ul>
-      <div class="learn-note">💡 הסימן של התוצאה "נמשך" לכיוון המספר עם הערך המוחלט הגדול יותר — כי הוא "חזק" יותר.</div>
+      <div class="learn-note">💡 כשיש הרבה מחוברים — קיבוץ לפי סימן הופך שרשרת ארוכה לשני חישובים פשוטים.</div>
       <div class="btnrow" style="margin-top:20px;">
         <button class="btn" onclick="startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
