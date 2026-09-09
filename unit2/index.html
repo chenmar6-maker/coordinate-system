@@ -1383,7 +1383,30 @@ function render(){
 
 /* ============ ANSWERS ============ */
 
+function renderAnswersPin(){
+  return `
+    <div class="panel" style="text-align:center;">
+      <h2 class="qtitle">תשובות למבדק שליטה</h2>
+      <p class="qtext" style="margin-bottom:24px;">הזינו את הקוד כדי לצפות בתשובות:</p>
+      <input id="pinInput" type="password" maxlength="6"
+        style="font-size:22px;letter-spacing:8px;width:130px;text-align:center;padding:10px;border-radius:8px;border:2px solid rgba(234,244,241,0.3);background:rgba(234,244,241,0.08);color:var(--foam);font-family:'Rubik',sans-serif;"
+        onkeydown="if(event.key==='Enter') checkPin()">
+      <div class="btnrow" style="margin-top:18px;">
+        <button class="btn" onclick="checkPin()">כניסה</button>
+        <button class="btn secondary" onclick="goHome()">חזרה</button>
+      </div>
+      <div id="pinErr" style="color:var(--coral);font-size:14px;margin-top:12px;min-height:20px;"></div>
+    </div>`;
+}
+
+function checkPin(){
+  const v = document.getElementById('pinInput').value;
+  if(v === '2357'){ state.answersUnlocked = true; render(); }
+  else { document.getElementById('pinErr').textContent = 'קוד שגוי — נסו שוב'; }
+}
+
 function renderAnswers(){
+  if(!state.answersUnlocked) return renderAnswersPin();
   const seq = state.sequence;
   let title = '';
   if(seq===3) title = 'תשובות — מבדק שליטה: מודל החצים';
