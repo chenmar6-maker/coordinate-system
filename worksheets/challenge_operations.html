@@ -23,7 +23,7 @@
     align-items: center;
     border-bottom: 2.5px solid #111;
     padding-bottom: 6px;
-    margin-bottom: 8px;
+    margin-bottom: 7px;
   }
   .header-title { font-size: 16px; font-weight: 800; }
   .header-sub { font-size: 10.5px; color: #555; margin-top: 1px; }
@@ -38,6 +38,17 @@
     min-width: 130px;
     margin-right: 4px;
   }
+
+  .exp-note {
+    background: #fdf6e3;
+    border: 1px solid #e0c97a;
+    border-radius: 5px;
+    padding: 4px 10px;
+    font-size: 10.5px;
+    margin-bottom: 7px;
+    line-height: 1.6;
+  }
+  .exp-note strong { color: #7a5c00; }
 
   .three-sections {
     display: grid;
@@ -82,13 +93,6 @@
     margin-top: 3px;
     height: 13px;
   }
-  .al2 {
-    display: block;
-    border-bottom: 1px solid #999;
-    margin-top: 3px;
-    height: 13px;
-  }
-  .al2 + .al2 { margin-top: 5px; }
   .ali {
     display: inline-block;
     border-bottom: 1px solid #999;
@@ -129,6 +133,13 @@
   </div>
 </div>
 
+<div class="exp-note">
+  <strong>חזקה:</strong>
+  הביטוי <span class="m">(−2)<sup>3</sup></span> פירושו <span class="m">(−2) · (−2) · (−2) = −8</span>.
+  הבסיס הוא <span class="m">(−2)</span> והמעריך <span class="m">3</span> מציין כמה פעמים כופלים את הבסיס בעצמו.
+  שימו לב: <span class="m">(−2)<sup>4</sup> = 16</span> (חיובי), כי מכפילים ארבע פעמים.
+</div>
+
 <div class="three-sections">
 
   <!-- ===== חיבור מספרים מכוונים ===== -->
@@ -137,51 +148,50 @@
     <div class="section-body">
 
       <div class="q">
-        <span class="qnum">1.</span> חשב: <span class="m">−8 + (−5)</span> = <span class="ali"></span>
+        <span class="qnum">1.</span> חשב: <span class="m">−½ + (−¾) + ⅓</span> = <span class="ali"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">2.</span> חשב: <span class="m">6 + (−10)</span> = <span class="ali"></span>
+        <span class="qnum">2.</span> חשב: <span class="m">−1 + 2 − 3 + 4 − 5 + 6 − 7 + 8 − 9 + 10</span> = <span class="ali"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">3.</span> חשב: <span class="m">−½ + (−¾)</span> = <span class="ali"></span>
-      </div>
-
-      <div class="q">
-        <span class="qnum">4.</span> שרשרת: <span class="m">−3 + (−5) + 8 + (−2) + 7</span> = <span class="ali"></span>
-      </div>
-
-      <div class="q">
-        <span class="qnum">5.</span> מצא <span class="m">x</span>: <span class="m">x + (−7) = −2</span>
+        <span class="qnum">3.</span> מצא <span class="m">x</span>: <span class="m">x + (−7) + 3 = −8</span>
         <span class="al"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">6.</span> בלי לחשב — מי גדול יותר?<br>
-        <span class="m">−100 + 3</span> &nbsp;או&nbsp; <span class="m">3 + (−100)</span><br>
-        <span style="font-size:10px;color:#555;">הסבר בשורה אחת:</span>
+        <span class="qnum">4.</span> שני מספרים שלמים. סכומם <span class="m">−6</span>, סכום ערכיהם המוחלטים <span class="m">10</span>. מהם?
         <span class="al"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">7.</span> שני מספרים שלמים. סכומם <span class="m">−6</span> וסכום ערכיהם המוחלטים הוא <span class="m">10</span>. מהם המספרים?
+        <span class="qnum">5.</span> אם <span class="m">a + b = −5</span> ו-<span class="m">a − b = 1</span>, מצא את <span class="m">a</span> ואת <span class="m">b</span>.
         <span class="al"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">8.</span> אם <span class="m">a &lt; 0</span> ו-<span class="m">b &lt; 0</span>, האם <span class="m">a + b</span> יכול להיות חיובי? הסבר.
+        <span class="qnum">6.</span> טמפרטורה: התחילה ב-<span class="m">−12°</span>. שינויים ברצף: <span class="m">+5°, −9°, +3°, −7°</span>. מה הטמפרטורה הסופית?
         <span class="al"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">9.</span> הטמפרטורה עמדה על <span class="m">−4°</span>. בצהריים עלתה ב-<span class="m">7°</span>, בערב ירדה ב-<span class="m">11°</span>. מה הטמפרטורה הסופית?
+        <span class="qnum">7.</span> חשב: <span class="m">−50 + 49 + (−48) + 47 + (−46) + 45</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">8.</span> אם <span class="m">a &lt; b &lt; 0</span>, מי גדול יותר: <span class="m">a + b</span> או <span class="m">|a| + |b|</span>? הסבר.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">9.</span> ב-4 לילות נמדדה הטמפרטורה: <span class="m">−3°, −7°, 2°, −4°</span>. מה הממוצע?
         <span class="al"></span>
       </div>
 
       <div class="q">
         <span class="qnum">10.</span> ★ חשב:<br>
-        <span class="m">(−1+2)+(−2+3)+(−3+4)+⋯+(−9+10)</span>
+        <span class="m">(−1+2) + (−2+3) + (−3+4) + ⋯ + (−9+10)</span>
         <span class="al"></span>
       </div>
 
@@ -194,48 +204,52 @@
     <div class="section-body">
 
       <div class="q">
-        <span class="qnum">1.</span> חשב: <span class="m">5 − 12</span> = <span class="ali"></span>
+        <span class="qnum">1.</span> חשב: <span class="m">−2.5 − (−1.5) − 3.5</span> = <span class="ali"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">2.</span> חשב: <span class="m">−3 − (−8)</span> = <span class="ali"></span>
-      </div>
-
-      <div class="q">
-        <span class="qnum">3.</span> חשב: <span class="m">−6 − (−6)</span> = <span class="ali"></span>
-      </div>
-
-      <div class="q">
-        <span class="qnum">4.</span> חשב: <span class="m">−2.5 − 1.5</span> = <span class="ali"></span>
-      </div>
-
-      <div class="q">
-        <span class="qnum">5.</span> מצא <span class="m">x</span>: <span class="m">x − (−4) = 1</span>
+        <span class="qnum">2.</span> מצא <span class="m">x</span>: <span class="m">−5 − x = −3 − (−2)</span>
         <span class="al"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">6.</span> בלי לחשב — מי גדול יותר?<br>
-        <span class="m">3 − 8</span> &nbsp;או&nbsp; <span class="m">−3 − (−8)</span>
+        <span class="qnum">3.</span> שרשרת: <span class="m">2 − (−3) − 7 − (−1) + (−4) − (−6)</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">4.</span> בלי לחשב — מי גדול יותר?<br>
+        <span class="m">3 − 8</span> &nbsp;או&nbsp; <span class="m">−3 − (−8)</span> &nbsp; הסבר.
         <span class="al"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">7.</span> שרשרת: <span class="m">2 − (−3) − 7 − (−1)</span> = <span class="ali"></span>
-      </div>
-
-      <div class="q">
-        <span class="qnum">8.</span> אם <span class="m">a &gt; 0</span> ו-<span class="m">b &lt; 0</span>, מה הסימן של <span class="m">a − b</span>? הסבר.
+        <span class="qnum">5.</span> בחינה: נכון = <span class="m">+4</span>, שגוי = <span class="m">−2</span>, לא ענה = <span class="m">−1</span>. דן: 6 נכון, 4 שגוי, 5 לא ענה. כמה קיבל?
         <span class="al"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">9.</span> בחינה: תשובה נכונה = <span class="m">+4</span> נקודות, שגיאה = <span class="m">−2</span> נקודות. דן ענה נכון על 8 שאלות וטעה ב-5. כמה קיבל?
+        <span class="qnum">6.</span> אם <span class="m">a &gt; 0</span>, <span class="m">b &lt; 0</span>, <span class="m">|a| &lt; |b|</span> — מה הסימן של <span class="m">a − b</span>? ושל <span class="m">b − a</span>?
         <span class="al"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">10.</span> ★ מצא שני מספרים שלמים <span class="m">a</span> ו-<span class="m">b</span> כך ש-<span class="m">a − b = −10</span> ו-<span class="m">|a| = |b|</span>.
+        <span class="qnum">7.</span> מצא <span class="m">a</span> ו-<span class="m">b</span> שלמים: <span class="m">a − b = −10</span>, <span class="m">|a| = |b|</span>.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">8.</span> אם <span class="m">a − b = 3</span> ו-<span class="m">b − c = −7</span>, מה שווה <span class="m">a − c</span>?
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">9.</span> <span class="m">A = −3</span>, <span class="m">B = 5</span> על ציר המספרים. מה המרחק בין <span class="m">A</span> ל-<span class="m">B</span>? מהי קואורדינטת נקודת האמצע?
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">10.</span> ★ חשב:<br>
+        <span class="m">(1−2) + (3−4) + (5−6) + ⋯ + (19−20)</span>
         <span class="al"></span>
       </div>
 
@@ -248,49 +262,50 @@
     <div class="section-body">
 
       <div class="q">
-        <span class="qnum">1.</span> חשב: <span class="m">(−4) · (−5)</span> = <span class="ali"></span>
+        <span class="qnum">1.</span> חשב: <span class="m">(−3) · (−4) − (−2) · 5</span> = <span class="ali"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">2.</span> חשב: <span class="m">3 · (−7)</span> = <span class="ali"></span>
+        <span class="qnum">2.</span> חשב: <span class="m">(−24) ÷ (−3) ÷ (−2)</span> = <span class="ali"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">3.</span> חשב: <span class="m">(−24) ÷ (−6)</span> = <span class="ali"></span>
+        <span class="qnum">3.</span> חשב: <span class="m">(−2)<sup>4</sup> − (−2)<sup>3</sup></span> = <span class="ali"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">4.</span> חשב: <span class="m">(−3) · 4 · (−2)</span> = <span class="ali"></span>
-      </div>
-
-      <div class="q">
-        <span class="qnum">5.</span> חשב: <span class="m">(−2)³</span> = <span class="ali"></span>
-      </div>
-
-      <div class="q">
-        <span class="qnum">6.</span> מצא <span class="m">x</span>: <span class="m">(−3) · x = 15</span>
+        <span class="qnum">4.</span> בלי לחשב — מה הסימן?<br>
+        <span class="m">(−2) · (−3) · (−4) · (−1) · (−5)</span>
         <span class="al"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">7.</span> בלי לחשב — מה הסימן של המכפלה?<br>
-        <span class="m">(−2)·(−3)·(−4)·(−1)·(−5)</span>
+        <span class="qnum">5.</span> מצא <span class="m">x</span>: <span class="m">(−3) · x − 6 = −21</span>
         <span class="al"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">8.</span> אם <span class="m">(−1)ⁿ = −1</span>, מה ניתן להסיק על <span class="m">n</span>?
+        <span class="qnum">6.</span> אם <span class="m">(−1)<sup>n</sup> = −1</span>, מה ניתן להסיק על <span class="m">n</span>? הסבר.
         <span class="al"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">9.</span> מצא שני מספרים שלמים שמכפלתם <span class="m">12</span> וסכומם <span class="m">−7</span>.
+        <span class="qnum">7.</span> מצא שני מספרים שלמים שמכפלתם <span class="m">12</span> וסכומם <span class="m">−7</span>.
         <span class="al"></span>
       </div>
 
       <div class="q">
-        <span class="qnum">10.</span> ★ סדר פעולות:<br>
-        <span class="m">[(−3) + (−4)] · [(−1) − 2]</span> = <span class="ali"></span>
+        <span class="qnum">8.</span> חשב: <span class="m">[(−3) + (−4)] · [(−1) − 2]</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">9.</span> אם <span class="m">a · b &lt; 0</span> ו-<span class="m">a + b &gt; 0</span>, מה הסימן של כל אחד מהם? הסבר.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">10.</span> ★ אם <span class="m">a<sup>2</sup> = 25</span> ו-<span class="m">b</span> הוא הנגדי של <span class="m">a</span>, חשב:<br>
+        <span class="m">a · b + (a + b)<sup>2</sup></span> = <span class="ali"></span>
       </div>
 
     </div>
