@@ -1126,27 +1126,27 @@ const gameLevels9 = [
   { id:'mc', title:'כלל הסימנים — מבלי לחשב',
     question:'מה סימן התוצאה של <bdi style="direction:ltr;unicode-bidi:isolate;">−4 · (−7)</bdi>?',
     options:['חיובי','שלילי','0','אי אפשר לדעת'], correct:'חיובי',
-    explain:'שני שליליים — סימנים שווים → תוצאה חיובית. 4·7=28, אז (−4)·(−7)=28.' },
+    explain:'שני שליליים — סימנים שווים ← תוצאה חיובית. 4·7=28, אז (−4)·(−7)=28.' },
   { id:'mc', title:'כלל הסימנים — מבלי לחשב',
     question:'מה סימן התוצאה של <bdi style="direction:ltr;unicode-bidi:isolate;">5 · (−3)</bdi>?',
     options:['חיובי','שלילי','0','תלוי בערכים'], correct:'שלילי',
-    explain:'סימנים שונים → תוצאה שלילית. 5·3=15, אז 5·(−3)=−15.' },
+    explain:'סימנים שונים ← תוצאה שלילית. 5·3=15, אז 5·(−3)=−15.' },
   { id:'typedSum', title:'פתרו', expr:'−3 · 5', correct:-15,
-    explain:'סימנים שונים → שלילי. 3·5=15 → −15.' },
+    explain:'סימנים שונים ← שלילי. 3·5=15, לכן התשובה היא −15.' },
   { id:'typedSum', title:'פתרו', expr:'−6 · (−4)', correct:24,
-    explain:'סימנים שווים (שני שליליים) → חיובי. 6·4=24.' },
+    explain:'סימנים שווים (שני שליליים) ← חיובי. 6·4=24.' },
   { id:'typedSum', title:'פתרו — חילוק', expr:'−18 ÷ 3', correct:-6,
-    explain:'סימנים שונים → שלילי. 18÷3=6 → −6.' },
+    explain:'סימנים שונים ← שלילי. 18÷3=6, לכן התשובה היא −6.' },
   { id:'typedSum', title:'פתרו — חילוק', expr:'20 ÷ (−5)', correct:-4,
-    explain:'סימנים שונים → שלילי. 20÷5=4 → −4.' },
+    explain:'סימנים שונים ← שלילי. 20÷5=4, לכן התשובה היא −4.' },
   { id:'mc', title:'מבלי לחשב — כמה שליליים?',
     question:'מה סימן התוצאה של <bdi style="direction:ltr;unicode-bidi:isolate;">−2 · (−5) · (−1)</bdi>?',
     options:['חיובי','שלילי','0'], correct:'שלילי',
-    explain:'3 גורמים שליליים — מספר אי-זוגי → תוצאה שלילית. (−2)·(−5)=10, ואז 10·(−1)=−10.' },
+    explain:'3 גורמים שליליים — מספר אי-זוגי ← תוצאה שלילית. (−2)·(−5)=10, ואז 10·(−1)=−10.' },
   { id:'mc', title:'מבלי לחשב — כמה שליליים?',
     question:'מה סימן התוצאה של <bdi style="direction:ltr;unicode-bidi:isolate;">−3 · (−4) · (−2) · (−1)</bdi>?',
     options:['חיובי','שלילי','0'], correct:'חיובי',
-    explain:'4 גורמים שליליים — מספר זוגי → תוצאה חיובית.' },
+    explain:'4 גורמים שליליים — מספר זוגי ← תוצאה חיובית.' },
   { id:'mc', title:'שאלה מילולית',
     question:'מניות של חברה ירדו ב-4 נקודות ביום, במשך 6 ימים. מה סך הירידה?',
     options:['−24','24','−10','10'], correct:'−24',
@@ -1154,16 +1154,16 @@ const gameLevels9 = [
   { id:'mc', title:'נכון / לא נכון',
     question:'מכפלת שלושה מספרים שליליים תמיד שלילית.',
     options:['נכון','לא נכון'], correct:'נכון',
-    explain:'3 שליליים = מספר אי-זוגי של שליליים → תוצאה שלילית תמיד.' },
+    explain:'3 שליליים = מספר אי-זוגי של שליליים ← תוצאה שלילית תמיד.' },
 ];
 
 /* ============ GAME LEVELS 10 — סדר פעולות ============ */
 
 const gameLevels10 = [
   { id:'typedSum', title:'שבר = חילוק — פתרו', expr:'(−3 · 4) ÷ (−2)', correct:6,
-    explain:'מונה: −3·4=−12. −12÷(−2)=6. סימנים שווים → חיובי.' },
+    explain:'מונה: −3·4=−12. −12÷(−2)=6. סימנים שווים ← חיובי.' },
   { id:'typedSum', title:'שבר = חילוק — פתרו', expr:'12 ÷ (−3) · (−2)', correct:8,
-    explain:'12÷(−3)=−4. ואז (−4)·(−2)=8. סימנים שווים → חיובי.' },
+    explain:'12÷(−3)=−4. ואז (−4)·(−2)=8. סימנים שווים ← חיובי.' },
   { id:'mc', title:'פתרו — סוגריים קודם',
     question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">3 · (−4 + (−2))</bdi>?',
     options:['−18','18','−14','6'], correct:'−18',
@@ -3612,7 +3612,8 @@ function wrapMath(str){
   if(!str) return str;
   return str
     .replace(/\|[^|]+\|/g, m => `<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`)
-    .replace(/\([-−][^)]+\)/g, m => `<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`);
+    .replace(/\([-−][^)]+\)/g, m => `<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`)
+    .replace(/[-−]\d+(\.\d+)?(?![)\d])/g, m => `<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`);
 }
 /* Wrap an MC option for display: if it has no Hebrew letters it's a math expression → force LTR */
 function wrapOpt(opt){
