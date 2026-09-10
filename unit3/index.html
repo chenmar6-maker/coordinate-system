@@ -229,7 +229,7 @@ let state = {
   gameTotal: 0
 };
 let gameGridCfg = null;
-let learnPoint = {x:2, y:3};
+let learnPoint = {x:-3, y:2};
 let learnGridCfg = null;
 
 // ─── Game Level Data ──────────────────────────────────────────────────────────
@@ -1194,7 +1194,7 @@ function jumpToLevel(idx){
 function startLearn(seq){
   state.screen='learn';
   state.sequence=seq;
-  learnPoint={x:2,y:3};
+  learnPoint={x:-3,y:2};
   render();
 }
 
