@@ -238,14 +238,14 @@ const gameLevels1 = [
     id:'place',
     title:'ציד צוללות ברביע השני ורביע השלישי',
     guide:'קואורדינטה שלילית של x אומרת "שמאלה מהראשית". קואורדינטה שלילית של y אומרת "מתחת לראשית". הרביע השני הוא שמאל-למעלה (x שלילי, y חיובי), הרביע השלישי הוא שמאל-למטה (שניהם שליליים).',
-    instructions:'לחצו על הנקודה המדויקת כדי לאתר את הצוללת.',
+    instructions:'הזינו קואורדינטות כדי לירות על הצוללת המסתתרת.',
     targets:[{x:-3,y:2},{x:-4,y:-2},{x:-1,y:4}]
   },
   {
     id:'place',
     title:'ציד צוללות ברביע הרביעי ועל הצירים',
     guide:'רביע IV הוא ימין-למטה (x חיובי, y שלילי). נקודות על ציר ה-x הן בגובה y=0. נקודות על ציר ה-y הן ב-x=0 — הן לא שייכות לאף רביע.',
-    instructions:'מצאו את כל הצוללות לפי השיעורים הנתונים.',
+    instructions:'הזינו קואורדינטות כדי לירות על הצוללת המסתתרת.',
     targets:[{x:3,y:-3},{x:0,y:-4},{x:-4,y:0}]
   },
   {
@@ -285,7 +285,7 @@ const gameLevels1 = [
     id:'place',
     title:'אתגר — כל הרביעים',
     guide:'השתמשו בכל מה שלמדתם. קואורדינטה ראשונה = ימינה/שמאלה, קואורדינטה שנייה = למעלה/למטה.',
-    instructions:'אתרו את כל הצוללות בארבעת הרביעים.',
+    instructions:'הזינו קואורדינטות כדי לירות על הצוללת המסתתרת.',
     targets:[{x:4,y:3},{x:-2,y:-4},{x:3,y:-2},{x:-5,y:2}]
   }
 ];
@@ -339,7 +339,7 @@ function currentGameLevels(){
 
 function freshLevelSub(idx){
   const lvl=currentGameLevels()[idx];
-  if(lvl.id==='place') return {targetIdx:0,hits:[],feedback:'',missPoint:null};
+  if(lvl.id==='place') return {targetIdx:0,hits:[],misses:[],feedback:''};
   if(lvl.id==='read') return {targetIdx:0,xVal:'',yVal:'',feedback:'',checked:false};
   if(lvl.id==='concept') return {qIdx:0,answered:false,feedback:null,correctCount:0};
   if(lvl.id==='meas_h'||lvl.id==='meas_v') return {val:'',checked:false,feedback:''};
@@ -459,6 +459,7 @@ function buildGrid4Q({id, N=5, cellPx=36, points=[], lines=[], interactive=false
     const col=p.color||'var(--gold)';
     if(p.icon==='sub') ptsMk+=subIcon(cx,cy,col);
     else if(p.icon==='target') ptsMk+=subTargetIcon(cx,cy,col);
+    else if(p.icon==='miss') ptsMk+=`<g transform="translate(${cx},${cy})"><line x1="-8" y1="-8" x2="8" y2="8" stroke="var(--coral)" stroke-width="3" stroke-linecap="round"/><line x1="8" y1="-8" x2="-8" y2="8" stroke="var(--coral)" stroke-width="3" stroke-linecap="round"/></g>`;
     else ptsMk+=`<circle cx="${cx}" cy="${cy}" r="5" fill="${col}" stroke="var(--deep-navy)" stroke-width="1.5"/>`;
     if(p.label) ptsMk+=`<text x="${cx+14}" y="${cy-8}" font-size="12" fill="var(--foam)" font-weight="700" font-family="Rubik">${p.label}</text>`;
   });
@@ -681,75 +682,66 @@ function renderPlace(lvl, sub){
   const tIdx=sub.targetIdx;
   const allDone=(tIdx>=targets.length);
 
-  // Build points array
+  // Build points: revealed hits + miss X marks
   const pts=[];
-  // Placed (hit) submarines
-  sub.hits.forEach((h,i)=>{
-    pts.push({x:h.x,y:h.y,icon:'sub',color:targetColor(i)});
-  });
-  // Current target marker (if not all done)
-  if(!allDone){
-    pts.push({x:targets[tIdx].x,y:targets[tIdx].y,icon:'target',color:'var(--gold)'});
-  }
+  sub.hits.forEach((h,i)=>pts.push({x:h.x,y:h.y,icon:'sub',color:targetColor(i)}));
+  sub.misses.forEach(m=>pts.push({x:m.x,y:m.y,icon:'miss'}));
 
-  const cfg=buildGrid4Q({
-    id:'gameGrid',
-    N:5, cellPx:36,
-    points:pts,
-    interactive:!allDone,
-    missPoint:sub.missPoint
-  });
+  const cfg=buildGrid4Q({id:'gameGrid', N:5, cellPx:36, points:pts, interactive:false});
   gameGridCfg=cfg;
 
-  // Target display
-  let targetHtml='';
-  if(!allDone){
-    const t=targets[tIdx];
-    targetHtml=`
-      <div class="target-wrap">
-        <div class="target-counter-badge">
-          <span class="num">${tIdx+1}</span>
-          <span class="of">מתוך ${targets.length}</span>
-        </div>
-        <div class="target-pop">
-          <span class="label">מצאו את הצוללת:</span>
-          <span class="coord-big">${coord(t.x,t.y)}</span>
-        </div>
-      </div>
-    `;
-  }
-
-  // Targets list
-  let listHtml='<div class="targetlist">';
-  targets.forEach((t,i)=>{
-    const isHit=i<sub.hits.length;
-    listHtml+=`<span class="t${isHit?' hit':''}">${coord(t.x,t.y)}${isHit?' ✓':''}</span>`;
-  });
-  listHtml+='</div>';
-
-  let feedbackHtml='';
-  if(sub.feedback==='ok') feedbackHtml='<div class="feedback ok">מצוין! הצוללת נתפסה! 🎯</div>';
-  else if(sub.feedback==='bad') feedbackHtml='<div class="feedback bad">לא מדויק, נסו שוב!</div>';
-
-  let nextBtn='';
   if(allDone){
-    nextBtn=`
-      <div class="feedback ok">כל הצוללות נתפסו! 🎉</div>
-      <div class="btnrow">
-        <button class="btn" onclick="nextLevel()">שלב הבא ←</button>
-      </div>
+    return `
+      <div class="gridbox">${cfg.svg}</div>
+      <div class="feedback ok">כל הצוללות הושמדו! 🎉</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">שלב הבא ←</button></div>
     `;
   }
+
+  const feedbackHtml = sub.feedback==='ok'
+    ? '<div class="feedback ok">פגיעה! 🎯</div>'
+    : sub.feedback==='bad'
+    ? `<div class="feedback bad">פספסנו... נסו שוב!</div>`
+    : '<div class="feedback"></div>';
 
   return `
-    <p class="qtext">${lvl.instructions}</p>
-    ${targetHtml}
+    <div class="target-wrap">
+      <div class="target-counter-badge"><span class="num">${tIdx+1}</span><span class="of"> מתוך ${targets.length}</span></div>
+      <div class="target-pop"><span class="label">צוללת אויב מסתתרת. הזינו קואורדינטות לירי:</span></div>
+    </div>
     <div class="gridbox">${cfg.svg}</div>
-    ${listHtml}
+    <div class="coord-input-row">
+      <span class="paren">(</span>
+      <input id="shootY" type="number" min="-5" max="5" placeholder="y" onkeydown="if(event.key==='Enter')shootAt()"/>
+      <span class="comma">,</span>
+      <input id="shootX" type="number" min="-5" max="5" placeholder="x" onkeydown="if(event.key==='Enter')shootAt()"/>
+      <span class="paren">)</span>
+    </div>
+    <div class="btnrow"><button class="btn" onclick="shootAt()">ירי! 🎯</button></div>
     ${feedbackHtml}
-    ${nextBtn}
-    ${!allDone?`<div class="btnrow"><button class="btn secondary" onclick="skipLevel()">דלג</button></div>`:''}
   `;
+}
+
+function shootAt(){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const sub=state.levelSub;
+  if(sub.targetIdx>=lvl.targets.length) return;
+  const t=lvl.targets[sub.targetIdx];
+  const xv=parseInt(document.getElementById('shootX').value);
+  const yv=parseInt(document.getElementById('shootY').value);
+  if(isNaN(xv)||isNaN(yv)) return;
+  state.gameTotal++;
+  if(xv===t.x&&yv===t.y){
+    sub.hits.push({x:t.x,y:t.y});
+    sub.misses=[];
+    sub.feedback='ok';
+    sub.targetIdx++;
+    state.gameScore++;
+  } else {
+    sub.misses.push({x:xv,y:yv});
+    sub.feedback='bad';
+  }
+  render();
 }
 
 // ─── Read Level ───────────────────────────────────────────────────────────────
@@ -1232,25 +1224,7 @@ function postRenderGame(){
   const lvl=currentGameLevels()[state.levelIndex];
   if(!gameGridCfg) return;
 
-  if(lvl.id==='place'){
-    const sub=state.levelSub;
-    if(sub.targetIdx>=lvl.targets.length) return;
-    attachGridClick4Q('gameGrid', gameGridCfg, function(gx,gy){
-      const t=lvl.targets[sub.targetIdx];
-      state.gameTotal++;
-      if(gx===t.x&&gy===t.y){
-        sub.hits.push({x:gx,y:gy});
-        sub.feedback='ok';
-        sub.missPoint=null;
-        sub.targetIdx++;
-        state.gameScore++;
-      } else {
-        sub.feedback='bad';
-        sub.missPoint={x:gx,y:gy};
-      }
-      render();
-    });
-  } else if(lvl.id==='shape'){
+  if(lvl.id==='shape'){
     const sub=state.levelSub;
     if(sub.placed.length>=lvl.points.length) return;
     if(sub.shapeAnswered) return;
