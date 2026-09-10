@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מערכת הצירים — כל הרביעים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --navy:#1E1B2E;
+    --deep-navy:#0F0D1A;
+    --teal:#4A4080;
+    --light-teal:#3AA0C4;
+    --foam:#EAF4F1;
+    --gold:#EFA94A;
+    --coral:#E2604F;
+    --seafoam:#48B08C;
+    --paper:#EFE7D3;
+    --ink:#0A2A43;
+    --gridline: rgba(234,244,241,0.14);
+    --axislabel: rgba(234,244,241,0.68);
+    --axis:#EAF4F1;
+    --linecolor:#EFA94A;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Rubik',sans-serif;
+    background: radial-gradient(ellipse at 50% -10%, #3D3568 0%, #1E1B2E 50%, #0F0D1A 100%);
+    color: var(--foam);
+    direction: rtl;
+    min-height:100vh;
+    line-height:1.6;
+  }
+
+  .wrap{max-width:900px;margin:0 auto;padding:20px 18px 70px;}
+
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 18px;max-width:900px;margin:0 auto;
+  }
+  .brand{
+    font-family:'Rubik',sans-serif;font-size:19px;color:var(--gold);
+    text-align:right;
+  }
+  .homebtn{
+    background:transparent;border:1.5px solid var(--foam);color:var(--foam);
+    padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;
+    font-size:14px;cursor:pointer;opacity:.85;
+  }
+  .homebtn:hover{opacity:1;border-color:var(--gold);color:var(--gold);}
+
+  .hero{text-align:center;padding:18px 10px 10px;}
+  h1.title{
+    font-family:'Rubik',sans-serif;font-weight:800;
+    font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:#FFFFFF;
+    text-align:center;letter-spacing:-0.5px;
+  }
+  p.subtitle{font-size:17px;color:var(--foam);opacity:.85;margin:0 0 8px;text-align:center;}
+
+  ul.bullets{list-style:none;margin:14px 0;padding:0;text-align:right;}
+  ul.bullets li{position:relative;padding-right:20px;margin-bottom:9px;font-size:16px;}
+  ul.bullets li::before{content:"•";color:var(--gold);position:absolute;right:0;top:0;font-size:18px;}
+
+  .cards{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+  .sequence-section{margin-bottom:28px;background:rgba(234,244,241,0.04);border-radius:14px;padding:18px 20px;}
+  .sequence-title{
+    font-family:'Rubik',sans-serif;font-weight:700;
+    font-size:17px;color:var(--foam);
+    text-align:center;margin:0 0 14px;opacity:.9;
+  }
+
+  .flow-arrow{display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(239,169,74,0.5);flex-shrink:0;}
+
+  .card{
+    display:flex;align-items:center;gap:10px;
+    padding:12px 20px;border-radius:50px;cursor:pointer;
+    font-family:'Rubik',sans-serif;font-weight:600;font-size:15px;
+    transition:transform .15s ease, box-shadow .15s ease;
+    border:none;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.25);}
+  .card h3{font-family:'Rubik',sans-serif;font-size:15px;font-weight:600;margin:0;}
+  .card p{display:none;}
+
+  .card.learn{background:rgba(28,110,140,0.25);border:1.5px solid var(--teal);color:var(--foam);}
+  .card.game{background:rgba(239,169,74,0.18);border:1.5px solid var(--gold);color:var(--gold);}
+
+  .panel{
+    background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.15);
+    border-radius:10px;padding:22px;margin:18px 0;
+  }
+
+  .hint{
+    background:rgba(239,169,74,0.08);border-right:4px solid var(--gold);
+    border-radius:6px;padding:10px 16px;margin:0 0 18px;text-align:right;
+  }
+  .hint summary{
+    cursor:pointer;font-weight:700;color:var(--gold);list-style:none;
+    display:flex;align-items:center;gap:6px;justify-content:flex-end;
+  }
+  .hint summary::-webkit-details-marker{display:none;}
+  .hint .arrow{display:inline-block;transition:transform .15s ease;}
+  .hint[open] .arrow{transform:rotate(90deg);}
+  .hint-content{margin-top:10px;font-size:15px;}
+
+  .gridbox{display:flex;justify-content:center;margin:16px 0;}
+  .gridbox svg{background:rgba(10,42,67,0.35);border-radius:8px;}
+
+  .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+  .btn{
+    background:var(--gold);color:var(--deep-navy);border:none;font-weight:700;
+    font-family:'Rubik',sans-serif;font-size:15px;padding:11px 26px;
+    border-radius:24px;cursor:pointer;transition:transform .12s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn.secondary{background:transparent;border:1.5px solid var(--foam);color:var(--foam);}
+  .btn.secondary:hover{border-color:var(--gold);color:var(--gold);}
+  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+  .feedback{text-align:center;font-size:16px;font-weight:700;margin:12px 0;min-height:22px;}
+  .feedback.ok{color:var(--seafoam);}
+  .feedback.bad{color:var(--coral);}
+
+  .progressdots{display:flex;justify-content:center;gap:10px;margin:12px 0;}
+  .dot{width:12px;height:12px;border-radius:50%;background:rgba(234,244,241,0.2);border:none;cursor:pointer;padding:0;}
+  .dot.done{background:var(--seafoam);}
+  .dot.active{background:var(--gold);transform:scale(1.3);}
+  .dot.clickable{cursor:pointer;transition:transform .12s ease, background .12s ease;}
+  .dot.clickable:hover{transform:scale(1.4);background:rgba(234,244,241,0.5);}
+
+  .mc-options{display:flex;flex-direction:column;gap:10px;max-width:360px;margin:16px auto 0;}
+  .mc-btn{
+    background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);
+    color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;
+    cursor:pointer;font-family:'Rubik',sans-serif;text-align:center;
+  }
+  .mc-btn:hover:not(:disabled){border-color:var(--gold);}
+  .mc-btn.correct{background:rgba(72,176,140,0.3);border-color:var(--seafoam);}
+  .mc-btn.wrong{background:rgba(226,96,79,0.3);border-color:var(--coral);}
+  .mc-btn:disabled{cursor:default;}
+
+  .explain-box{
+    background:rgba(239,169,74,0.12);border-right:4px solid var(--gold);
+    border-radius:6px;padding:14px 16px;margin:14px 0;text-align:right;font-size:15px;
+  }
+
+  .inputs-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:14px 0;align-items:center;}
+  .inputs-row label{font-size:15px;display:flex;align-items:center;gap:6px;}
+  .inputs-row input{
+    width:70px;padding:8px 10px;font-size:16px;border-radius:6px;border:1.5px solid var(--teal);
+    text-align:center;font-family:'Rubik',sans-serif;background:var(--foam);color:var(--ink);
+  }
+  .inputs-row input:focus{outline:2px solid var(--gold);}
+
+  .meas-input{width:80px;padding:8px;font-size:18px;border-radius:8px;border:1.5px solid var(--teal);
+    text-align:center;font-family:'Rubik',sans-serif;background:var(--foam);color:var(--ink);}
+  .meas-input:focus{outline:2px solid var(--gold);}
+
+  .target-wrap{display:flex;align-items:center;gap:14px;background:rgba(239,169,74,0.1);
+    border:1.5px solid rgba(239,169,74,0.3);border-radius:10px;padding:10px 16px;margin:10px 0;}
+  .target-pop{display:flex;flex-direction:column;gap:2px;}
+  .target-pop .label{font-size:12px;color:rgba(234,244,241,0.6);}
+  .target-pop .coord-big{font-size:22px;font-weight:800;direction:ltr;color:var(--gold);}
+  .target-counter-badge{
+    width:60px;height:60px;border-radius:50%;flex-shrink:0;
+    background:var(--navy);border:2.5px solid var(--gold);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    line-height:1.05;
+  }
+  .target-counter-badge .num{font-size:22px;font-weight:800;color:var(--gold);}
+  .target-counter-badge .of{font-size:10px;color:var(--foam);opacity:.8;}
+
+  .targetlist{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;}
+  .targetlist .t{padding:4px 12px;border-radius:20px;font-size:13px;background:rgba(234,244,241,0.08);border:1px solid rgba(234,244,241,0.2);}
+  .targetlist .t.hit{background:rgba(72,176,140,0.2);border-color:var(--seafoam);color:var(--seafoam);}
+
+  .coord-input-row{display:flex;align-items:center;justify-content:center;gap:6px;margin:16px 0;font-size:22px;font-weight:700;color:var(--gold);}
+  .coord-input-row input{width:70px;padding:6px 4px;font-size:18px;border-radius:6px;border:1.5px solid var(--teal);text-align:center;font-family:'Rubik',sans-serif;background:var(--foam);color:var(--ink);direction:ltr;}
+  .coord-input-row input:focus{outline:2px solid var(--gold);}
+  .coord-input-row .paren,.coord-input-row .comma{color:var(--foam);}
+
+  .scorebig{font-size:52px;font-weight:800;color:var(--gold);margin:16px 0;text-align:center;}
+
+  .qmeta{text-align:center;font-size:14px;opacity:.75;margin-bottom:6px;}
+  .qtitle{font-size:18px;font-weight:700;text-align:center;margin:6px 0 4px;}
+  .qtext{font-size:16px;text-align:center;margin:0 0 6px;max-width:560px;margin-left:auto;margin-right:auto;}
+
+  .coord{direction:ltr;display:inline-block;font-weight:700;color:var(--gold);}
+
+  .learn-section{margin:20px 0;}
+  .learn-section h2{font-size:18px;font-weight:700;color:var(--gold);margin:0 0 8px;}
+
+  .quadrant-badge{
+    display:inline-block;background:rgba(239,169,74,0.15);border:1.5px solid var(--gold);
+    border-radius:8px;padding:6px 16px;font-size:17px;font-weight:700;color:var(--gold);
+    text-align:center;margin:8px 0;
+  }
+
+  @keyframes popIn{
+    0%{transform:scale(.55);opacity:0;}
+    65%{transform:scale(1.18);opacity:1;}
+    100%{transform:scale(1);}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">מתמטיקה אקטיבית</div>
+  <button class="homebtn" onclick="goBack()">← חזרה</button>
+</div>
+
+<div class="wrap">
+  <div id="app"></div>
+</div>
+
+<script>
+// ─── State ───────────────────────────────────────────────────────────────────
+let state = {
+  screen: 'home',
+  sequence: 1,
+  levelIndex: 0,
+  levelSub: {},
+  gameScore: 0,
+  gameTotal: 0
+};
+let gameGridCfg = null;
+let learnPoint = {x:2, y:3};
+let learnGridCfg = null;
+
+// ─── Game Level Data ──────────────────────────────────────────────────────────
+const gameLevels1 = [
+  {
+    id:'place',
+    title:'ציד צוללות ברביע השני ורביע השלישי',
+    guide:'קואורדינטה שלילית של x אומרת "שמאלה מהראשית". קואורדינטה שלילית של y אומרת "מתחת לראשית". הרביע השני הוא שמאל-למעלה (x שלילי, y חיובי), הרביע השלישי הוא שמאל-למטה (שניהם שליליים).',
+    instructions:'לחצו על הנקודה המדויקת כדי לאתר את הצוללת.',
+    targets:[{x:-3,y:2},{x:-4,y:-2},{x:-1,y:4}]
+  },
+  {
+    id:'place',
+    title:'ציד צוללות ברביע הרביעי ועל הצירים',
+    guide:'רביע IV הוא ימין-למטה (x חיובי, y שלילי). נקודות על ציר ה-x הן בגובה y=0. נקודות על ציר ה-y הן ב-x=0 — הן לא שייכות לאף רביע.',
+    instructions:'מצאו את כל הצוללות לפי השיעורים הנתונים.',
+    targets:[{x:3,y:-3},{x:0,y:-4},{x:-4,y:0}]
+  },
+  {
+    id:'read',
+    title:'פענוח מיקום — קואורדינטות שליליות',
+    guide:'קראו קודם את שיעור ה-x: כמה צעדים ימינה (חיובי) או שמאלה (שלילי) מהראשית. אחר כך קראו את y: כמה צעדים למעלה (חיובי) או למטה (שלילי). הקלידו מינוס לפני מספרים שליליים.',
+    instructions:'הצוללת מסומנת על המפה. קראו את שיעוריה והקלידו.',
+    targets:[{x:-2,y:4},{x:3,y:-3},{x:-4,y:-1}]
+  },
+  {
+    id:'concept',
+    title:'כללי הרביעים',
+    guide:'ספרות רומיות I–IV בכיוון נגד השעון מרביע I שנמצא ימין-למעלה. כל רביע מוגדר לפי הסימן (+/−) של שתי הקואורדינטות.',
+    instructions:'ענו על שלוש שאלות על חוקי הרביעים.',
+    questions:[
+      {
+        prompt:'נקודה נמצאת ברביע II. מה הסימנים של שיעוריה?',
+        options:['x חיובי, y חיובי','x שלילי, y חיובי','x שלילי, y שלילי','x חיובי, y שלילי'],
+        correct:'x שלילי, y חיובי',
+        explain:'רביע II הוא שמאל-למעלה: שמאלה פירושו x שלילי, למעלה פירושו y חיובי.'
+      },
+      {
+        prompt:'לנקודה יש x = −3 ו-y = −5. באיזה רביע היא?',
+        options:['רביע I','רביע II','רביע III','רביע IV'],
+        correct:'רביע III',
+        explain:'x שלילי + y שלילי = רביע III, הפינה שמאל-למטה.'
+      },
+      {
+        prompt:'לנקודה יש y = 0 ו-x = −4. איפה היא?',
+        options:['על ציר ה-x','על ציר ה-y','ברביע III','ברביע II'],
+        correct:'על ציר ה-x',
+        explain:'y=0 פירושו שהנקודה נמצאת בדיוק על ציר ה-x, בין הרביעים. ה-x השלילי מציין שהיא משמאל לראשית.'
+      }
+    ]
+  },
+  {
+    id:'place',
+    title:'אתגר — כל הרביעים',
+    guide:'השתמשו בכל מה שלמדתם. קואורדינטה ראשונה = ימינה/שמאלה, קואורדינטה שנייה = למעלה/למטה.',
+    instructions:'אתרו את כל הצוללות בארבעת הרביעים.',
+    targets:[{x:4,y:3},{x:-2,y:-4},{x:3,y:-2},{x:-5,y:2}]
+  }
+];
+
+const gameLevels2 = [
+  {
+    id:'meas_h',
+    title:'מרחק אופקי בין שתי צוללות',
+    guide:'שתי הצוללות על אותו קו אופקי (אותו y). המרחק ביניהן = |x₂ − x₁|. שימו לב: חיסור מספר שלילי = חיבור ערכו המוחלט.',
+    instructions:'מדדו את המרחק האופקי בין הצוללות A ו-B.',
+    p1:{x:-3,y:2,label:'A'},
+    p2:{x:4,y:2,label:'B'},
+    correct:7,
+    explain:'|4 − (−3)| = |4 + 3| = 7 יחידות'
+  },
+  {
+    id:'meas_v',
+    title:'מרחק אנכי בין שתי צוללות',
+    guide:'שתי הצוללות על אותו קו אנכי (אותו x). המרחק ביניהן = |y₂ − y₁|. הסימן של ההפרש לא משנה — לוקחים ערך מוחלט.',
+    instructions:'מדדו את המרחק האנכי בין הצוללות C ו-D.',
+    p1:{x:2,y:-3,label:'C'},
+    p2:{x:2,y:4,label:'D'},
+    correct:7,
+    explain:'|4 − (−3)| = 7 יחידות'
+  },
+  {
+    id:'measure',
+    title:'בסיס תת-ימי מלבני',
+    guide:'המלבן חוצה את שני הצירים. אורך צלע אופקית = |x₂ − x₁|, אנכית = |y₂ − y₁|. שטח = אורך × רוחב.',
+    instructions:'חשבו את אורכי הצלעות ואת שטח הבסיס התת-ימי.',
+    rect:{a:{x:-3,y:-2},b:{x:-3,y:3},c:{x:4,y:3},d:{x:4,y:-2}},
+    answers:{vertical:5,horizontal:7,area:35}
+  },
+  {
+    id:'shape',
+    title:'זיהוי בסיס תת-ימי',
+    guide:'סמנו את קודקודי הבסיס לפי הסדר. שימו לב לאורכי הצלעות — האם הן שוות? האם יש שתי צלעות מקבילות בלבד?',
+    instructions:'סמנו לפי הסדר את קודקודי הבסיס A, B, C, D, ואז זהו את הצורה.',
+    points:[{label:'A',x:-4,y:-3},{label:'B',x:-4,y:2},{label:'C',x:3,y:2},{label:'D',x:3,y:-3}],
+    correctShape:'מלבן',
+    shapeOptions:['מלבן','ריבוע','טרפז','מקבילית'],
+    shapeExplain:'AB ו-CD הן צלעות אנכיות באורך 5 כל אחת. BC ו-DA הן צלעות אופקיות באורך 7 כל אחת. ארבע זוויות ישרות אך הצלעות לא שוות — לכן מלבן.'
+  }
+];
+
+// ─── Helper Functions ─────────────────────────────────────────────────────────
+function currentGameLevels(){
+  if(state.sequence===1) return gameLevels1;
+  return gameLevels2;
+}
+
+function freshLevelSub(idx){
+  const lvl=currentGameLevels()[idx];
+  if(lvl.id==='place') return {targetIdx:0,hits:[],feedback:'',missPoint:null};
+  if(lvl.id==='read') return {targetIdx:0,xVal:'',yVal:'',feedback:'',checked:false};
+  if(lvl.id==='concept') return {qIdx:0,answered:false,feedback:null,correctCount:0};
+  if(lvl.id==='meas_h'||lvl.id==='meas_v') return {val:'',checked:false,feedback:''};
+  if(lvl.id==='measure') return {vertical:'',horizontal:'',area:'',checked:false,results:null};
+  if(lvl.id==='shape') return {placed:[],feedback:'',shapeAnswered:false,shapeCorrect:null,missPoint:null};
+  return {};
+}
+
+function targetColor(idx){
+  return ['var(--gold)','var(--seafoam)','var(--coral)','var(--light-teal)'][idx%4];
+}
+
+function coord(x,y){
+  return `<span style="direction:ltr;display:inline-block;">(${x}, ${y})</span>`;
+}
+
+function shuffleArr(a){
+  const b=[...a];
+  for(let i=b.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [b[i],b[j]]=[b[j],b[i]];
+  }
+  return b;
+}
+
+function quadrantOf(x,y){
+  if(x>0&&y>0) return 'רביע I';
+  if(x<0&&y>0) return 'רביע II';
+  if(x<0&&y<0) return 'רביע III';
+  if(x>0&&y<0) return 'רביע IV';
+  if(x===0&&y===0) return 'ראשית הצירים';
+  if(x===0) return 'על ציר ה-y';
+  return 'על ציר ה-x';
+}
+
+// ─── SVG Icons ───────────────────────────────────────────────────────────────
+function subIcon(cx, cy, col){
+  return `<g transform="translate(${cx},${cy})">
+    <ellipse rx="16" ry="8" fill="${col}" stroke="rgba(0,0,0,0.35)" stroke-width="1.5"/>
+    <rect x="-5" y="-18" width="9" height="10" rx="3" fill="${col}" stroke="rgba(0,0,0,0.35)" stroke-width="1.5"/>
+    <line x1="4" y1="-18" x2="9" y2="-18" stroke="${col}" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="-4" cy="1" r="3" fill="rgba(0,0,0,0.3)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+    <line x1="14" y1="-4" x2="19" y2="-8" stroke="${col}" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="14" y1="4" x2="19" y2="8" stroke="${col}" stroke-width="2.5" stroke-linecap="round"/>
+  </g>`;
+}
+
+function subTargetIcon(cx, cy, col){
+  return `<g transform="translate(${cx},${cy})">
+    <circle r="14" fill="rgba(255,255,255,0.04)" stroke="${col}" stroke-width="2" stroke-dasharray="5,3"/>
+    <line x1="0" y1="-14" x2="0" y2="-22" stroke="${col}" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="-22" x2="6" y2="-22" stroke="${col}" stroke-width="2" stroke-linecap="round"/>
+    <text x="0" y="5" text-anchor="middle" font-size="14" fill="${col}" font-weight="700" font-family="Rubik">?</text>
+  </g>`;
+}
+
+// ─── 4-Quadrant Grid Builder ──────────────────────────────────────────────────
+function buildGrid4Q({id, N=5, cellPx=36, points=[], lines=[], interactive=false, missPoint=null, dashedLines=[]}){
+  const mL=48, mR=28, mT=28, mB=44;
+  const W = mL + 2*N*cellPx + mR;
+  const H = mT + 2*N*cellPx + mB;
+  const X = gx => mL + (gx+N)*cellPx;
+  const Y = gy => mT + (N-gy)*cellPx;
+
+  // grid lines
+  let gridLines='';
+  for(let i=-N;i<=N;i++){
+    gridLines+=`<line x1="${X(-N)}" y1="${Y(i)}" x2="${X(N)}" y2="${Y(i)}" stroke="var(--gridline)" stroke-width="1"/>`;
+    gridLines+=`<line x1="${X(i)}" y1="${Y(-N)}" x2="${X(i)}" y2="${Y(N)}" stroke="var(--gridline)" stroke-width="1"/>`;
+  }
+
+  // axes
+  const ox=X(0), oy=Y(0);
+  const axes=`
+    <line x1="${X(-N)-6}" y1="${oy}" x2="${X(N)+10}" y2="${oy}" stroke="var(--axis)" stroke-width="2"/>
+    <polygon points="${X(N)+10},${oy-5} ${X(N)+18},${oy} ${X(N)+10},${oy+5}" fill="var(--axis)"/>
+    <text x="${X(N)+14}" y="${oy-10}" font-size="13" fill="var(--axis)" text-anchor="middle" font-family="Rubik">x</text>
+    <line x1="${ox}" y1="${Y(-N)+6}" x2="${ox}" y2="${Y(N)-10}" stroke="var(--axis)" stroke-width="2"/>
+    <polygon points="${ox-5},${Y(N)-10} ${ox},${Y(N)-18} ${ox+5},${Y(N)-10}" fill="var(--axis)"/>
+    <text x="${ox+14}" y="${Y(N)-14}" font-size="13" fill="var(--axis)" text-anchor="middle" font-family="Rubik">y</text>
+  `;
+
+  // labels
+  let labels=`<text x="${ox-10}" y="${oy+17}" font-size="10" fill="var(--axislabel)" text-anchor="end" font-family="Rubik">0</text>`;
+  for(let i=1;i<=N;i++){
+    labels+=`<text x="${X(i)}" y="${oy+18}" font-size="10" fill="var(--axislabel)" text-anchor="middle" font-family="Rubik">${i}</text>`;
+    labels+=`<text x="${X(-i)}" y="${oy+18}" font-size="10" fill="var(--axislabel)" text-anchor="middle" font-family="Rubik">−${i}</text>`;
+    labels+=`<text x="${ox-10}" y="${Y(i)+4}" font-size="10" fill="var(--axislabel)" text-anchor="end" font-family="Rubik">${i}</text>`;
+    labels+=`<text x="${ox-10}" y="${Y(-i)+4}" font-size="10" fill="var(--axislabel)" text-anchor="end" font-family="Rubik">−${i}</text>`;
+  }
+
+  // quadrant labels (faint)
+  const qlab=`
+    <text x="${X(N*0.5)}" y="${Y(N*0.5)+8}" font-size="22" fill="rgba(234,244,241,0.1)" text-anchor="middle" font-family="Rubik" font-weight="700">I</text>
+    <text x="${X(-N*0.5)}" y="${Y(N*0.5)+8}" font-size="22" fill="rgba(234,244,241,0.1)" text-anchor="middle" font-family="Rubik" font-weight="700">II</text>
+    <text x="${X(-N*0.5)}" y="${Y(-N*0.5)+8}" font-size="22" fill="rgba(234,244,241,0.1)" text-anchor="middle" font-family="Rubik" font-weight="700">III</text>
+    <text x="${X(N*0.5)}" y="${Y(-N*0.5)+8}" font-size="22" fill="rgba(234,244,241,0.1)" text-anchor="middle" font-family="Rubik" font-weight="700">IV</text>
+  `;
+
+  // solid lines
+  let linesMarkup='';
+  lines.forEach(seg=>{
+    linesMarkup+=`<line x1="${X(seg[0].x)}" y1="${Y(seg[0].y)}" x2="${X(seg[1].x)}" y2="${Y(seg[1].y)}" stroke="var(--linecolor)" stroke-width="2.5"/>`;
+  });
+
+  // dashed lines (for guide lines and measurement)
+  let dashedMarkup='';
+  dashedLines.forEach(seg=>{
+    const col=seg.color||'rgba(234,244,241,0.35)';
+    dashedMarkup+=`<line x1="${X(seg[0].x)}" y1="${Y(seg[0].y)}" x2="${X(seg[1].x)}" y2="${Y(seg[1].y)}" stroke="${col}" stroke-width="1.5" stroke-dasharray="5,3"/>`;
+  });
+
+  // points
+  let ptsMk='';
+  points.forEach(p=>{
+    const cx=X(p.x), cy=Y(p.y);
+    const col=p.color||'var(--gold)';
+    if(p.icon==='sub') ptsMk+=subIcon(cx,cy,col);
+    else if(p.icon==='target') ptsMk+=subTargetIcon(cx,cy,col);
+    else ptsMk+=`<circle cx="${cx}" cy="${cy}" r="5" fill="${col}" stroke="var(--deep-navy)" stroke-width="1.5"/>`;
+    if(p.label) ptsMk+=`<text x="${cx+14}" y="${cy-8}" font-size="12" fill="var(--foam)" font-weight="700" font-family="Rubik">${p.label}</text>`;
+  });
+
+  // miss mark
+  const missMk=missPoint?`<g transform="translate(${X(missPoint.x)},${Y(missPoint.y)})"><line x1="-8" y1="-8" x2="8" y2="8" stroke="var(--coral)" stroke-width="3" stroke-linecap="round"/><line x1="8" y1="-8" x2="-8" y2="8" stroke="var(--coral)" stroke-width="3" stroke-linecap="round"/></g>`:'';
+
+  const svg=`<svg id="${id}" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;max-width:${W}px;user-select:none;-webkit-user-select:none;${interactive?'cursor:crosshair;':''}" aria-hidden="true">
+    ${gridLines}${axes}${labels}${qlab}${dashedMarkup}${linesMarkup}${ptsMk}${missMk}
+  </svg>`;
+
+  return {svg, W, H, mL, mT, cellPx, N};
+}
+
+// ─── Grid Click Handler ───────────────────────────────────────────────────────
+function attachGridClick4Q(svgId, cfg, callback){
+  const svg=document.getElementById(svgId);
+  if(!svg) return;
+  svg.addEventListener('click',function(evt){
+    const rect=svg.getBoundingClientRect();
+    const px=(evt.clientX-rect.left)*(cfg.W/rect.width);
+    const py=(evt.clientY-rect.top)*(cfg.H/rect.height);
+    const gx=Math.round((px-cfg.mL)/cfg.cellPx)-cfg.N;
+    const gy=cfg.N-Math.round((py-cfg.mT)/cfg.cellPx);
+    if(gx<-cfg.N||gx>cfg.N||gy<-cfg.N||gy>cfg.N) return;
+    callback(gx,gy);
+  });
+}
+
+// ─── Render Home ──────────────────────────────────────────────────────────────
+function seqRow(seqNum, label){
+  return `
+    <div class="sequence-section">
+      <div class="sequence-title">${label}</div>
+      <div class="cards">
+        <div class="card learn" onclick="startLearn(${seqNum})"><h3>📖 הקנייה</h3></div>
+        <div class="flow-arrow">←</div>
+        <div class="card game" onclick="startGame(${seqNum})"><h3>✏️ תרגול</h3></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderHome(){
+  return `
+    <div class="hero">
+      <h1 class="title">מערכת הצירים — כל הרביעים</h1>
+      <p class="subtitle">מרביע אחד לכל העולם</p>
+    </div>
+    ${seqRow(1,'1. נקודות בכל הרביעים')}
+    ${seqRow(2,'2. אורכים ושטחים בכל הרביעים')}
+  `;
+}
+
+// ─── Render Learn ─────────────────────────────────────────────────────────────
+function renderLearn(){
+  if(state.sequence===2) return renderLearn2();
+
+  const N=5, cellPx=36;
+  const guideLines=[
+    [{x:learnPoint.x,y:0},{x:learnPoint.x,y:learnPoint.y}],
+    [{x:0,y:learnPoint.y},{x:learnPoint.x,y:learnPoint.y}]
+  ];
+
+  const cfg=buildGrid4Q({
+    id:'learnGrid',
+    N, cellPx,
+    points:[{x:learnPoint.x, y:learnPoint.y, icon:'sub', color:'var(--seafoam)'}],
+    dashedLines:guideLines,
+    interactive:true
+  });
+  learnGridCfg=cfg;
+
+  const qOf=quadrantOf(learnPoint.x,learnPoint.y);
+  const xSign=learnPoint.x>0?'+':learnPoint.x<0?'−':'0';
+  const ySign=learnPoint.y>0?'+':learnPoint.y<0?'−':'0';
+
+  return `
+    <div class="panel">
+      <h2 class="qtitle">הקנייה 1 — נקודות בכל הרביעים</h2>
+
+      <div class="learn-section">
+        <ul class="bullets">
+          <li>שני הצירים מחלקים את המישור לארבעה רביעים: ימין-למעלה (I), שמאל-למעלה (II), שמאל-למטה (III), ימין-למטה (IV)</li>
+          <li>x שלילי = שמאלה מהראשית; y שלילי = מתחת לראשית</li>
+          <li>כותבים (x, y) — קודם הזזה ימינה/שמאלה, אחר כך למעלה/למטה</li>
+          <li>נקודות על הצירים (y=0 או x=0) לא שייכות לאף רביע</li>
+        </ul>
+      </div>
+
+      <p class="qtext">לחצו על הרשת כדי להזיז את הצוללת ולחקור את הרביעים.</p>
+
+      <div class="gridbox">${cfg.svg}</div>
+
+      <div style="text-align:center;margin:12px 0;">
+        <div class="quadrant-badge">${qOf}</div>
+        <div style="font-size:20px;font-weight:700;direction:ltr;color:var(--gold);margin:8px 0;">
+          (${learnPoint.x}, ${learnPoint.y})
+        </div>
+        <div style="font-size:14px;color:rgba(234,244,241,0.7);">
+          x ${learnPoint.x===0?'= 0':learnPoint.x>0?'> 0 (ימין)':'< 0 (שמאל)'},
+          &nbsp;y ${learnPoint.y===0?'= 0':learnPoint.y>0?'> 0 (למעלה)':'< 0 (למטה)'}
+        </div>
+      </div>
+
+      <div class="btnrow">
+        <button class="btn secondary" onclick="goHome()">חזרה לבית</button>
+        <button class="btn" onclick="startGame(1)">עבור לתרגול ✏️</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn2(){
+  // Static explanation about distances and areas
+  const N=5, cellPx=36;
+  const cfg=buildGrid4Q({
+    id:'learnGrid2',
+    N, cellPx,
+    points:[
+      {x:-3,y:2,icon:'sub',color:'var(--gold)',label:'A'},
+      {x:4,y:2,icon:'sub',color:'var(--seafoam)',label:'B'}
+    ],
+    dashedLines:[
+      [{x:-3,y:2},{x:4,y:2}]
+    ]
+  });
+
+  return `
+    <div class="panel">
+      <h2 class="qtitle">הקנייה 2 — אורכים ושטחים בכל הרביעים</h2>
+
+      <div class="learn-section">
+        <ul class="bullets">
+          <li><strong>מרחק אופקי</strong> = |x₂ − x₁| — ההפרש המוחלט של שיעורי ה-x</li>
+          <li><strong>מרחק אנכי</strong> = |y₂ − y₁| — ההפרש המוחלט של שיעורי ה-y</li>
+          <li>כאשר חוסרים מספר שלילי: חיסור מינוס = חיבור הערך המוחלט</li>
+          <li><strong>שטח מלבן</strong> = אורך × רוחב</li>
+        </ul>
+      </div>
+
+      <div class="explain-box">
+        <strong>דוגמה:</strong> צוללת A נמצאת ב-(−3, 2), צוללת B נמצאת ב-(4, 2).<br>
+        המרחק ביניהן (אופקי): |4 − (−3)| = |4 + 3| = <strong>7 יחידות</strong>
+      </div>
+
+      <div class="gridbox">${cfg.svg}</div>
+
+      <div class="explain-box" style="margin-top:14px;">
+        <strong>שטח מלבן עם קודקודים בכמה רביעים:</strong><br>
+        אם קודקודי המלבן הם (−3, −2), (−3, 3), (4, 3), (4, −2):<br>
+        • צלע אנכית AB = |3 − (−2)| = 5 יחידות<br>
+        • צלע אופקית BC = |4 − (−3)| = 7 יחידות<br>
+        • שטח = 5 × 7 = <strong>35 יחידות רבועות</strong>
+      </div>
+
+      <div class="btnrow">
+        <button class="btn secondary" onclick="goHome()">חזרה לבית</button>
+        <button class="btn" onclick="startGame(2)">עבור לתרגול ✏️</button>
+      </div>
+    </div>
+  `;
+}
+
+// ─── Render Game ──────────────────────────────────────────────────────────────
+function renderGame(){
+  const lvls=currentGameLevels();
+  const lvl=lvls[state.levelIndex];
+  const sub=state.levelSub;
+
+  // Progress dots
+  let dotsHtml='<div class="progressdots">';
+  lvls.forEach((l,i)=>{
+    let cls='dot';
+    if(i<state.levelIndex) cls+=' done';
+    else if(i===state.levelIndex) cls+=' active';
+    cls+=' clickable';
+    dotsHtml+=`<button class="${cls}" onclick="jumpToLevel(${i})" title="שלב ${i+1}"></button>`;
+  });
+  dotsHtml+='</div>';
+
+  // Hint
+  const hintHtml=`
+    <details class="hint">
+      <summary><span class="arrow">▶</span> רמז</summary>
+      <div class="hint-content">${lvl.guide}</div>
+    </details>
+  `;
+
+  let content='';
+
+  if(lvl.id==='place'){
+    content=renderPlace(lvl,sub);
+  } else if(lvl.id==='read'){
+    content=renderRead(lvl,sub);
+  } else if(lvl.id==='concept'){
+    content=renderConcept(lvl,sub);
+  } else if(lvl.id==='meas_h'||lvl.id==='meas_v'){
+    content=renderMeasSingle(lvl,sub);
+  } else if(lvl.id==='measure'){
+    content=renderMeasure(lvl,sub);
+  } else if(lvl.id==='shape'){
+    content=renderShape(lvl,sub);
+  }
+
+  return `
+    <div class="panel">
+      <div class="qmeta">שלב ${state.levelIndex+1} מתוך ${lvls.length}</div>
+      ${dotsHtml}
+      <h2 class="qtitle">${lvl.title}</h2>
+      ${hintHtml}
+      ${content}
+    </div>
+  `;
+}
+
+// ─── Place Level ──────────────────────────────────────────────────────────────
+function renderPlace(lvl, sub){
+  const targets=lvl.targets;
+  const tIdx=sub.targetIdx;
+  const allDone=(tIdx>=targets.length);
+
+  // Build points array
+  const pts=[];
+  // Placed (hit) submarines
+  sub.hits.forEach((h,i)=>{
+    pts.push({x:h.x,y:h.y,icon:'sub',color:targetColor(i)});
+  });
+  // Current target marker (if not all done)
+  if(!allDone){
+    pts.push({x:targets[tIdx].x,y:targets[tIdx].y,icon:'target',color:'var(--gold)'});
+  }
+
+  const cfg=buildGrid4Q({
+    id:'gameGrid',
+    N:5, cellPx:36,
+    points:pts,
+    interactive:!allDone,
+    missPoint:sub.missPoint
+  });
+  gameGridCfg=cfg;
+
+  // Target display
+  let targetHtml='';
+  if(!allDone){
+    const t=targets[tIdx];
+    targetHtml=`
+      <div class="target-wrap">
+        <div class="target-counter-badge">
+          <span class="num">${tIdx+1}</span>
+          <span class="of">מתוך ${targets.length}</span>
+        </div>
+        <div class="target-pop">
+          <span class="label">מצאו את הצוללת:</span>
+          <span class="coord-big">${coord(t.x,t.y)}</span>
+        </div>
+      </div>
+    `;
+  }
+
+  // Targets list
+  let listHtml='<div class="targetlist">';
+  targets.forEach((t,i)=>{
+    const isHit=i<sub.hits.length;
+    listHtml+=`<span class="t${isHit?' hit':''}">${coord(t.x,t.y)}${isHit?' ✓':''}</span>`;
+  });
+  listHtml+='</div>';
+
+  let feedbackHtml='';
+  if(sub.feedback==='ok') feedbackHtml='<div class="feedback ok">מצוין! הצוללת נתפסה! 🎯</div>';
+  else if(sub.feedback==='bad') feedbackHtml='<div class="feedback bad">לא מדויק, נסו שוב!</div>';
+
+  let nextBtn='';
+  if(allDone){
+    nextBtn=`
+      <div class="feedback ok">כל הצוללות נתפסו! 🎉</div>
+      <div class="btnrow">
+        <button class="btn" onclick="nextLevel()">שלב הבא ←</button>
+      </div>
+    `;
+  }
+
+  return `
+    <p class="qtext">${lvl.instructions}</p>
+    ${targetHtml}
+    <div class="gridbox">${cfg.svg}</div>
+    ${listHtml}
+    ${feedbackHtml}
+    ${nextBtn}
+    ${!allDone?`<div class="btnrow"><button class="btn secondary" onclick="skipLevel()">דלג</button></div>`:''}
+  `;
+}
+
+// ─── Read Level ───────────────────────────────────────────────────────────────
+function renderRead(lvl, sub){
+  const targets=lvl.targets;
+  const tIdx=sub.targetIdx;
+  const allDone=(tIdx>=targets.length);
+
+  if(allDone){
+    return `
+      <div class="feedback ok">כל המיקומים פוענחו! 🎉</div>
+      <div class="btnrow">
+        <button class="btn" onclick="nextLevel()">שלב הבא ←</button>
+      </div>
+    `;
+  }
+
+  const t=targets[tIdx];
+
+  // Show the submarine at its position
+  const cfg=buildGrid4Q({
+    id:'gameGrid',
+    N:5, cellPx:36,
+    points:[{x:t.x,y:t.y,icon:'sub',color:'var(--seafoam)'}]
+  });
+  gameGridCfg=cfg;
+
+  let feedbackHtml='';
+  if(sub.checked){
+    if(sub.feedback==='ok'){
+      feedbackHtml=`<div class="feedback ok">נכון! הנקודה היא ${coord(t.x,t.y)}</div>`;
+    } else {
+      feedbackHtml=`<div class="feedback bad">לא מדויק. הצוללת ב-${coord(t.x,t.y)}</div>`;
+    }
+  }
+
+  const showNext=sub.checked;
+
+  return `
+    <p class="qtext">${lvl.instructions}</p>
+    <div class="qmeta">צוללת ${tIdx+1} מתוך ${targets.length}</div>
+    <div class="gridbox">${cfg.svg}</div>
+    <div class="coord-input-row">
+      <span class="paren">(</span>
+      <input id="readX" type="number" min="-5" max="5" placeholder="x" ${sub.checked?`value="${sub.xVal}"`:''}/>
+      <span class="comma">,</span>
+      <input id="readY" type="number" min="-5" max="5" placeholder="y" ${sub.checked?`value="${sub.yVal}"`:''}/>
+      <span class="paren">)</span>
+    </div>
+    ${feedbackHtml}
+    <div class="btnrow">
+      ${!sub.checked?`<button class="btn" onclick="checkRead()">בדיקה</button>`:''}
+      ${showNext?`<button class="btn" onclick="nextReadTarget()">הבאה →</button>`:''}
+    </div>
+    <div class="btnrow"><button class="btn secondary" onclick="skipLevel()">דלג</button></div>
+  `;
+}
+
+// ─── Concept Level ────────────────────────────────────────────────────────────
+function renderConcept(lvl, sub){
+  const qs=lvl.questions;
+  const qIdx=sub.qIdx;
+  const allDone=(qIdx>=qs.length);
+
+  if(allDone){
+    return `
+      <div class="feedback ok">כל השאלות הושלמו! ✓ ענית נכון על ${sub.correctCount} מתוך ${qs.length}</div>
+      <div class="btnrow">
+        <button class="btn" onclick="nextLevel()">שלב הבא ←</button>
+      </div>
+    `;
+  }
+
+  const q=qs[qIdx];
+
+  let optHtml='<div class="mc-options">';
+  q.options.forEach(opt=>{
+    let cls='mc-btn';
+    if(sub.answered){
+      if(opt===q.correct) cls+=' correct';
+      else if(opt!==q.correct) cls+=' wrong';
+    }
+    optHtml+=`<button class="${cls}" onclick="answerConcept('${opt}')" ${sub.answered?'disabled':''}>${opt}</button>`;
+  });
+  optHtml+='</div>';
+
+  let explainHtml='';
+  if(sub.answered){
+    explainHtml=`<div class="explain-box">${q.explain}</div>`;
+  }
+
+  let feedbackHtml='';
+  if(sub.feedback==='ok') feedbackHtml='<div class="feedback ok">נכון! 🎯</div>';
+  else if(sub.feedback==='bad') feedbackHtml='<div class="feedback bad">לא נכון</div>';
+
+  return `
+    <p class="qtext">${lvl.instructions}</p>
+    <div class="qmeta">שאלה ${qIdx+1} מתוך ${qs.length}</div>
+    <p class="qtext" style="font-weight:600;">${q.prompt}</p>
+    ${optHtml}
+    ${feedbackHtml}
+    ${explainHtml}
+    ${sub.answered?`<div class="btnrow"><button class="btn" onclick="nextConceptQ()">הבאה →</button></div>`:''}
+    <div class="btnrow"><button class="btn secondary" onclick="skipLevel()">דלג</button></div>
+  `;
+}
+
+// ─── Measurement Single (meas_h / meas_v) ────────────────────────────────────
+function renderMeasSingle(lvl, sub){
+  const isH=(lvl.id==='meas_h');
+
+  const linesBetween=[];
+  if(isH){
+    // horizontal dashed line between p1 and p2
+  }
+
+  const cfg=buildGrid4Q({
+    id:'gameGrid',
+    N:5, cellPx:36,
+    points:[
+      {x:lvl.p1.x,y:lvl.p1.y,icon:'sub',color:'var(--gold)',label:lvl.p1.label},
+      {x:lvl.p2.x,y:lvl.p2.y,icon:'sub',color:'var(--seafoam)',label:lvl.p2.label}
+    ],
+    dashedLines:[[{x:lvl.p1.x,y:lvl.p1.y},{x:lvl.p2.x,y:lvl.p2.y}]]
+  });
+  gameGridCfg=cfg;
+
+  let feedbackHtml='';
+  if(sub.checked){
+    if(sub.feedback==='ok'){
+      feedbackHtml=`<div class="feedback ok">נכון! המרחק = ${lvl.correct} יחידות 🎯</div><div class="explain-box">${lvl.explain}</div>`;
+    } else {
+      feedbackHtml=`<div class="feedback bad">לא מדויק. נסו שוב.</div>`;
+    }
+  }
+
+  return `
+    <p class="qtext">${lvl.instructions}</p>
+    <div class="gridbox">${cfg.svg}</div>
+    <div style="text-align:center;margin:14px 0;">
+      <label style="font-size:16px;color:var(--foam);">
+        מה המרחק בין הצוללות?
+        <span style="margin-right:8px;"></span>
+        <input id="measVal" class="meas-input" type="number" min="0" max="20" placeholder="?" ${sub.checked?`value="${sub.val}"`:''}/>
+        <span style="margin-right:4px;">יחידות</span>
+      </label>
+    </div>
+    ${feedbackHtml}
+    <div class="btnrow">
+      ${!sub.checked?`<button class="btn" onclick="checkMeasSingle()">בדיקה</button>`:''}
+      ${sub.checked&&sub.feedback==='ok'?`<button class="btn" onclick="nextLevel()">שלב הבא ←</button>`:''}
+      ${sub.checked&&sub.feedback==='bad'?`<button class="btn secondary" onclick="retryMeas()">נסו שוב</button>`:''}
+    </div>
+    <div class="btnrow"><button class="btn secondary" onclick="skipLevel()">דלג</button></div>
+  `;
+}
+
+// ─── Measure Level (rectangle) ────────────────────────────────────────────────
+function renderMeasure(lvl, sub){
+  const r=lvl.rect;
+  // Build rectangle points and lines
+  const pts=[
+    {x:r.a.x,y:r.a.y,label:'A'},
+    {x:r.b.x,y:r.b.y,label:'B'},
+    {x:r.c.x,y:r.c.y,label:'C'},
+    {x:r.d.x,y:r.d.y,label:'D'}
+  ];
+  const rectLines=[
+    [{x:r.a.x,y:r.a.y},{x:r.b.x,y:r.b.y}],
+    [{x:r.b.x,y:r.b.y},{x:r.c.x,y:r.c.y}],
+    [{x:r.c.x,y:r.c.y},{x:r.d.x,y:r.d.y}],
+    [{x:r.d.x,y:r.d.y},{x:r.a.x,y:r.a.y}]
+  ];
+
+  const cfg=buildGrid4Q({
+    id:'gameGrid',
+    N:5, cellPx:36,
+    points:pts,
+    lines:rectLines
+  });
+  gameGridCfg=cfg;
+
+  let resultsHtml='';
+  if(sub.checked&&sub.results){
+    const res=sub.results;
+    resultsHtml=`
+      <div class="explain-box">
+        <div>צלע AB (אנכית): <strong style="color:${res.vertical?'var(--seafoam)':'var(--coral)'};">${sub.vertical} יחידות</strong> ${res.vertical?'✓':'✗ (נכון: '+lvl.answers.vertical+')'}</div>
+        <div>צלע BC (אופקית): <strong style="color:${res.horizontal?'var(--seafoam)':'var(--coral)'};">${sub.horizontal} יחידות</strong> ${res.horizontal?'✓':'✗ (נכון: '+lvl.answers.horizontal+')'}</div>
+        <div>שטח: <strong style="color:${res.area?'var(--seafoam)':'var(--coral)'};">${sub.area} יח"ר</strong> ${res.area?'✓':'✗ (נכון: '+lvl.answers.area+')'}</div>
+      </div>
+    `;
+  }
+
+  const allCorrect=sub.results&&sub.results.vertical&&sub.results.horizontal&&sub.results.area;
+
+  return `
+    <p class="qtext">${lvl.instructions}</p>
+    <div class="gridbox">${cfg.svg}</div>
+    <div class="inputs-row">
+      <label>
+        צלע AB (אנכית):
+        <input id="mVert" type="number" min="0" max="20" placeholder="?" ${sub.checked?`value="${sub.vertical}"`:''}/>
+        יחידות
+      </label>
+      <label>
+        צלע BC (אופקית):
+        <input id="mHoriz" type="number" min="0" max="20" placeholder="?" ${sub.checked?`value="${sub.horizontal}"`:''}/>
+        יחידות
+      </label>
+      <label>
+        שטח:
+        <input id="mArea" type="number" min="0" max="200" placeholder="?" ${sub.checked?`value="${sub.area}"`:''}/>
+        יח"ר
+      </label>
+    </div>
+    ${resultsHtml}
+    <div class="btnrow">
+      ${!sub.checked?`<button class="btn" onclick="checkMeasure()">בדיקה</button>`:''}
+      ${allCorrect?`<button class="btn" onclick="nextLevel()">שלב הבא ←</button>`:''}
+      ${sub.checked&&!allCorrect?`<button class="btn secondary" onclick="retryMeasure()">נסו שוב</button>`:''}
+    </div>
+    <div class="btnrow"><button class="btn secondary" onclick="skipLevel()">דלג</button></div>
+  `;
+}
+
+// ─── Shape Level ──────────────────────────────────────────────────────────────
+function renderShape(lvl, sub){
+  const allPlaced=(sub.placed.length>=lvl.points.length);
+  const nextTarget=!allPlaced?lvl.points[sub.placed.length]:null;
+
+  // Points: placed as dots, next target as target icon
+  const pts=[];
+  sub.placed.forEach((p,i)=>{
+    pts.push({x:p.x,y:p.y,color:targetColor(i),label:lvl.points[i].label});
+  });
+  if(nextTarget){
+    pts.push({x:nextTarget.x,y:nextTarget.y,icon:'target',color:'var(--gold)'});
+  }
+
+  // Lines between placed points in order
+  const shapeLines=[];
+  for(let i=1;i<sub.placed.length;i++){
+    shapeLines.push([{x:sub.placed[i-1].x,y:sub.placed[i-1].y},{x:sub.placed[i].x,y:sub.placed[i].y}]);
+  }
+  // Close shape if all placed
+  if(allPlaced&&sub.placed.length>=3){
+    const last=sub.placed[sub.placed.length-1];
+    const first=sub.placed[0];
+    shapeLines.push([{x:last.x,y:last.y},{x:first.x,y:first.y}]);
+  }
+
+  const cfg=buildGrid4Q({
+    id:'gameGrid',
+    N:5, cellPx:36,
+    points:pts,
+    lines:shapeLines,
+    interactive:!allPlaced||!sub.shapeAnswered,
+    missPoint:sub.missPoint
+  });
+  gameGridCfg=cfg;
+
+  let instructionText='';
+  if(!allPlaced){
+    instructionText=`<p class="qtext">סמנו את קודקוד <strong style="color:var(--gold);">${nextTarget.label}</strong> ${coord(nextTarget.x,nextTarget.y)}</p>`;
+  } else if(!sub.shapeAnswered){
+    instructionText=`<p class="qtext">כל הקודקודים סומנו! כעת — מהי הצורה?</p>`;
+  }
+
+  let feedbackHtml='';
+  if(sub.feedback==='ok'&&!allPlaced) feedbackHtml='<div class="feedback ok">מדויק! ✓</div>';
+  else if(sub.feedback==='bad'&&!allPlaced) feedbackHtml='<div class="feedback bad">לא מדויק, נסו שוב!</div>';
+
+  // Targets reference list
+  let listHtml='<div class="targetlist">';
+  lvl.points.forEach((p,i)=>{
+    const isPlaced=i<sub.placed.length;
+    listHtml+=`<span class="t${isPlaced?' hit':''}">${p.label} ${coord(p.x,p.y)}${isPlaced?' ✓':''}</span>`;
+  });
+  listHtml+='</div>';
+
+  // Shape MC
+  let shapeMcHtml='';
+  if(allPlaced){
+    if(!sub.shapeAnswered){
+      shapeMcHtml=`<div class="mc-options">`;
+      lvl.shapeOptions.forEach(opt=>{
+        shapeMcHtml+=`<button class="mc-btn" onclick="answerShape('${opt}')">${opt}</button>`;
+      });
+      shapeMcHtml+=`</div>`;
+    } else {
+      const col=sub.shapeCorrect?'var(--seafoam)':'var(--coral)';
+      shapeMcHtml=`
+        <div class="feedback" style="color:${col};">${sub.shapeCorrect?'נכון! 🎉':'לא נכון'}</div>
+        <div class="explain-box">${lvl.shapeExplain}</div>
+        <div class="btnrow"><button class="btn" onclick="nextLevel()">שלב הבא ←</button></div>
+      `;
+    }
+  }
+
+  return `
+    <p class="qtext">${lvl.instructions}</p>
+    ${instructionText}
+    <div class="gridbox">${cfg.svg}</div>
+    ${listHtml}
+    ${feedbackHtml}
+    ${shapeMcHtml}
+    ${!allPlaced?`<div class="btnrow"><button class="btn secondary" onclick="skipLevel()">דלג</button></div>`:''}
+  `;
+}
+
+// ─── Game Results ─────────────────────────────────────────────────────────────
+function renderGameResults(){
+  const pct=state.gameTotal>0?Math.round(state.gameScore/state.gameTotal*100):0;
+  const msg=pct>=85?'כל הכבוד! ניווט מצוין 🎉':pct>=60?'עבודה טובה, עוד קצת תרגול 💪':'המשיכו להתאמן, אתם בדרך הנכונה 🚀';
+  return `
+    <div class="panel" style="text-align:center;">
+      <h2 class="qtitle">סיום שלב התרגול! 🎉</h2>
+      <div class="scorebig" dir="ltr">${state.gameScore} / ${state.gameTotal}</div>
+      <p class="qtext">${msg}</p>
+      <div class="btnrow">
+        <button class="btn secondary" onclick="goHome()">חזרה לבית</button>
+      </div>
+    </div>
+  `;
+}
+
+// ─── Event Handlers ───────────────────────────────────────────────────────────
+function checkRead(){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const sub=state.levelSub;
+  const target=lvl.targets[sub.targetIdx];
+  const xv=parseInt(document.getElementById('readX').value);
+  const yv=parseInt(document.getElementById('readY').value);
+  sub.xVal=xv; sub.yVal=yv; sub.checked=true;
+  state.gameTotal++;
+  if(xv===target.x&&yv===target.y){ sub.feedback='ok'; state.gameScore++; }
+  else { sub.feedback='bad'; }
+  render();
+}
+
+function nextReadTarget(){
+  const sub=state.levelSub;
+  const lvl=currentGameLevels()[state.levelIndex];
+  sub.targetIdx++;
+  sub.xVal=''; sub.yVal=''; sub.feedback=''; sub.checked=false;
+  if(sub.targetIdx>=lvl.targets.length){
+    // All targets done — show next level button via re-render
+  }
+  render();
+}
+
+function checkMeasSingle(){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const sub=state.levelSub;
+  const v=parseInt(document.getElementById('measVal').value);
+  sub.val=v; sub.checked=true;
+  state.gameTotal++;
+  if(v===lvl.correct){ sub.feedback='ok'; state.gameScore++; }
+  else { sub.feedback='bad'; }
+  render();
+}
+
+function retryMeas(){
+  const sub=state.levelSub;
+  sub.val=''; sub.checked=false; sub.feedback='';
+  render();
+}
+
+function checkMeasure(){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const sub=state.levelSub;
+  const v=parseInt(document.getElementById('mVert').value);
+  const h=parseInt(document.getElementById('mHoriz').value);
+  const a=parseInt(document.getElementById('mArea').value);
+  sub.vertical=v; sub.horizontal=h; sub.area=a; sub.checked=true;
+  const res={vertical:v===lvl.answers.vertical, horizontal:h===lvl.answers.horizontal, area:a===lvl.answers.area};
+  sub.results=res;
+  state.gameTotal+=3;
+  state.gameScore+=(res.vertical?1:0)+(res.horizontal?1:0)+(res.area?1:0);
+  render();
+}
+
+function retryMeasure(){
+  const sub=state.levelSub;
+  sub.vertical=''; sub.horizontal=''; sub.area=''; sub.checked=false; sub.results=null;
+  render();
+}
+
+function answerShape(opt){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const sub=state.levelSub;
+  sub.shapeAnswered=true;
+  sub.shapeCorrect=(opt===lvl.correctShape);
+  state.gameTotal++;
+  if(sub.shapeCorrect) state.gameScore++;
+  render();
+}
+
+function answerConcept(opt){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const sub=state.levelSub;
+  if(sub.answered) return;
+  const q=lvl.questions[sub.qIdx];
+  sub.answered=true;
+  state.gameTotal++;
+  if(opt===q.correct){ sub.feedback='ok'; sub.correctCount++; state.gameScore++; }
+  else sub.feedback='bad';
+  render();
+}
+
+function nextConceptQ(){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const sub=state.levelSub;
+  sub.qIdx++; sub.answered=false; sub.feedback=null;
+  render();
+}
+
+function nextLevel(){
+  state.levelIndex++;
+  if(state.levelIndex>=currentGameLevels().length){ finishGame(); return; }
+  state.levelSub=freshLevelSub(state.levelIndex);
+  render();
+}
+
+function finishGame(){ state.screen='gameResults'; render(); }
+
+function skipLevel(){
+  const lvls=currentGameLevels();
+  if(state.levelIndex>=lvls.length-1){ finishGame(); return; }
+  state.levelIndex++;
+  state.levelSub=freshLevelSub(state.levelIndex);
+  render();
+}
+
+function jumpToLevel(idx){
+  state.levelIndex=idx;
+  state.levelSub=freshLevelSub(idx);
+  render();
+}
+
+function startLearn(seq){
+  state.screen='learn';
+  state.sequence=seq;
+  learnPoint={x:2,y:3};
+  render();
+}
+
+function startGame(seq){
+  state.screen='game';
+  state.sequence=seq;
+  state.levelIndex=0;
+  state.gameScore=0;
+  state.gameTotal=0;
+  state.levelSub=freshLevelSub(0);
+  render();
+}
+
+function goHome(){
+  state={screen:'home',sequence:1,levelIndex:0,levelSub:{},gameScore:0,gameTotal:0};
+  render();
+}
+
+function goBack(){
+  if(state.screen==='home') window.location.href='../';
+  else goHome();
+}
+
+// ─── Post-render Hooks ────────────────────────────────────────────────────────
+function postRenderLearn(){
+  if(state.sequence===2) return;
+  if(!learnGridCfg) return;
+  attachGridClick4Q('learnGrid', learnGridCfg, function(gx,gy){
+    learnPoint={x:gx,y:gy};
+    render();
+  });
+}
+
+function postRenderGame(){
+  const lvl=currentGameLevels()[state.levelIndex];
+  if(!gameGridCfg) return;
+
+  if(lvl.id==='place'){
+    const sub=state.levelSub;
+    if(sub.targetIdx>=lvl.targets.length) return;
+    attachGridClick4Q('gameGrid', gameGridCfg, function(gx,gy){
+      const t=lvl.targets[sub.targetIdx];
+      state.gameTotal++;
+      if(gx===t.x&&gy===t.y){
+        sub.hits.push({x:gx,y:gy});
+        sub.feedback='ok';
+        sub.missPoint=null;
+        sub.targetIdx++;
+        state.gameScore++;
+      } else {
+        sub.feedback='bad';
+        sub.missPoint={x:gx,y:gy};
+      }
+      render();
+    });
+  } else if(lvl.id==='shape'){
+    const sub=state.levelSub;
+    if(sub.placed.length>=lvl.points.length) return;
+    if(sub.shapeAnswered) return;
+    attachGridClick4Q('gameGrid', gameGridCfg, function(gx,gy){
+      const idx=sub.placed.length;
+      if(idx>=lvl.points.length) return;
+      const t=lvl.points[idx];
+      state.gameTotal++;
+      if(gx===t.x&&gy===t.y){
+        sub.placed.push({x:gx,y:gy});
+        sub.feedback='ok';
+        sub.missPoint=null;
+        state.gameScore++;
+      } else {
+        sub.feedback='bad';
+        sub.missPoint={x:gx,y:gy};
+      }
+      render();
+    });
+  }
+}
+
+// ─── Main Render ──────────────────────────────────────────────────────────────
+function render(){
+  const app=document.getElementById('app');
+  if(state.screen==='home'){
+    app.innerHTML=renderHome();
+  } else if(state.screen==='learn'){
+    app.innerHTML=renderLearn();
+    postRenderLearn();
+  } else if(state.screen==='game'){
+    app.innerHTML=renderGame();
+    postRenderGame();
+  } else if(state.screen==='gameResults'){
+    app.innerHTML=renderGameResults();
+  }
+}
+
+// Boot
+render();
+</script>
+</body>
+</html>
