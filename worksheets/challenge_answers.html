@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>תשובות — דף אתגר מספרים מכוונים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    color: #111;
+    direction: rtl;
+    background: #fff;
+    padding: 16px 20px 12px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+  }
+  .header-title { font-size: 16px; font-weight: 800; }
+  .header-sub { font-size: 10.5px; color: #555; margin-top: 2px; }
+  .header-tag {
+    font-size: 10.5px; font-weight: 700; color: #fff;
+    background: #c0392b; padding: 2px 9px; border-radius: 20px;
+  }
+
+  .three-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 10px;
+  }
+
+  .section { border: 1.5px solid #ccc; border-radius: 6px; overflow: hidden; }
+
+  .section-head {
+    padding: 5px 10px;
+    font-size: 12px; font-weight: 700; color: #fff; text-align: center;
+  }
+  .section-head.abs  { background: #1a5276; }
+  .section-head.opp  { background: #1e8449; }
+  .section-head.line { background: #6c3483; }
+
+  .section-body { padding: 6px 10px; }
+
+  .a {
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed #e0e0e0;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .a:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .anum {
+    font-weight: 700;
+    min-width: 18px;
+    flex-shrink: 0;
+    color: #555;
+  }
+  .ans { flex: 1; }
+  .m { direction: ltr; unicode-bidi: isolate; }
+  .correct { color: #1a5276; font-weight: 600; }
+
+  .brand-line { font-size: 10.5px; font-weight: 700; color: #333; margin-top: 8px; text-align: left; }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 0; }
+  }
+  .page-scaler {
+    transform: scale(0.76);
+    transform-origin: top right;
+    width: calc(100% / 0.76);
+  }
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #111; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="page-scaler">
+
+<div class="header">
+  <div>
+    <div class="header-title">תשובות — דף אתגר מספרים מכוונים</div>
+    <div class="header-sub">לשימוש המורה בלבד &nbsp;|&nbsp; כיתה ז׳</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span class="header-tag">★ מתקדמים</span>
+    <div style="font-size:13px;font-weight:700;color:#333;">חן מרגלית למידה אקטיבית</div>
+  </div>
+</div>
+
+<div class="three-sections">
+
+  <!-- ===== ערך מוחלט ===== -->
+  <div class="section">
+    <div class="section-head abs">ערך מוחלט</div>
+    <div class="section-body">
+
+      <div class="a">
+        <span class="anum">1.</span>
+        <span class="ans"><span class="correct m">9</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">|−|−9|| = |−9| = 9</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">2.</span>
+        <span class="ans"><span class="correct m">−3, −2, −1, 0, 1, 2, 3</span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">3.</span>
+        <span class="ans"><span class="correct m">8</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">|−5| + |3| = 5 + 3 = 8</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">4.</span>
+        <span class="ans"><span class="correct">לא.</span> לדוגמה: <span class="m">a=3, b=−3</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">|3+(−3)|=0</span> אך <span class="m">|3|+|−3|=6</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">5.</span>
+        <span class="ans"><span class="correct">הם מספרים נגדיים זה של זה</span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">6.</span>
+        <span class="ans"><span class="correct m">a = 8 או a = −2</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">a−3=5 → a=8</span> &nbsp;|&nbsp; <span class="m">a−3=−5 → a=−2</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">7.</span>
+        <span class="ans"><span class="correct m">x ≥ 0</span> (x אי-שלילי)<br>
+        <span style="font-size:10px;color:#666;">כי ערך מוחלט שווה למספר עצמו רק כשהוא אי-שלילי</span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">8.</span>
+        <span class="ans"><span class="correct">למשל: <span class="m">6</span> ו-<span class="m">−4</span></span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">|6|+|−4|=10 , |6+(−4)|=|2|=2</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">9.</span>
+        <span class="ans"><span class="correct">כן, תמיד נכון</span> (אי-שוויון המשולש)<br>
+        <span style="font-size:10px;color:#666;">ערך מוחלט של סכום לעולם לא עולה על סכום הערכים המוחלטים</span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">10.</span>
+        <span class="ans"><span class="correct">נכון</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">(−a)² = (−1)²·a² = a²</span> תמיד</span></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== מספרים נגדיים ===== -->
+  <div class="section">
+    <div class="section-head opp">מספרים נגדיים</div>
+    <div class="section-body">
+
+      <div class="a">
+        <span class="anum">1.</span>
+        <span class="ans"><span class="correct m">−5</span><br>
+        <span style="font-size:10px;color:#666;">נגדי(5)=−5, נגדי(−5)=5, נגדי(5)=−5</span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">2.</span>
+        <span class="ans"><span class="correct m">0</span><br>
+        <span style="font-size:10px;color:#666;">לנגדיים אותו ערך מוחלט, לכן ההפרש הוא 0</span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">3.</span>
+        <span class="ans"><span class="correct m">7 ו−7</span><br>
+        <span style="font-size:10px;color:#666;">מרחק בין נגדיים = <span class="m">2|a| = 14 → |a| = 7</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">4.</span>
+        <span class="ans"><span class="correct">לא נכון</span> — רק 0 שווה לנגדי שלו<br>
+        <span style="font-size:10px;color:#666;">נגדי(0) = 0</span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">5.</span>
+        <span class="ans"><span class="correct">למשל: <span class="m">−4, −5, −10</span></span><br>
+        <span style="font-size:10px;color:#666;">כל מספר שלילי שערכו המוחלט גדול מ-3</span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">6.</span>
+        <span class="ans"><span class="correct m">c = 0</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">a+b = −b+b = 0</span>, לכן <span class="m">c = 0</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">7.</span>
+        <span class="ans"><span class="correct m">0</span><br>
+        <span style="font-size:10px;color:#666;">נגדיים: <span class="m">a+b=0</span>, לכן <span class="m">(a+b)²=0²=0</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">8.</span>
+        <span class="ans"><span class="correct m">x &lt; 0</span> (x שלילי)<br>
+        <span style="font-size:10px;color:#666;"><span class="m">−x &gt; x → 0 &gt; 2x → x &lt; 0</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">9.</span>
+        <span class="ans"><span class="correct m">−a</span> גדול יותר<br>
+        <span style="font-size:10px;color:#666;">אם <span class="m">a &lt; 0</span> אז <span class="m">−a &gt; 0</span> — חיובי תמיד גדול משלילי</span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">10.</span>
+        <span class="ans"><span class="correct m">b , |b| , |a| , a</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">b=−a&lt;0</span>, <span class="m">|a|=|b|=a</span>, לכן: <span class="m">b &lt; |b|=|a|=a</span></span></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== מיקום על ציר המספרים ===== -->
+  <div class="section">
+    <div class="section-head line">מיקום על ציר המספרים</div>
+    <div class="section-body">
+
+      <div class="a">
+        <span class="anum">1.</span>
+        <span class="ans"><span class="correct m">−4</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">(−7 + (−1)) ÷ 2 = −8÷2 = −4</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">2.</span>
+        <span class="ans"><span class="correct m">−3, −2, −1, 0, 1</span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">3.</span>
+        <span class="ans"><span class="correct m">5 או −11</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">−3+8=5</span> &nbsp;|&nbsp; <span class="m">−3−8=−11</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">4.</span>
+        <span class="ans"><span class="correct">2 ערכים</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">a=−4</span> או <span class="m">a=−3</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">5.</span>
+        <span class="ans"><span class="correct m">a , b , |b| , |a|</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">a&lt;b&lt;0</span> לכן <span class="m">|a|&gt;|b|&gt;0</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">6.</span>
+        <span class="ans"><span class="correct m">a = −5</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">b−4 = −1−4 = −5</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">7.</span>
+        <span class="ans"><span class="correct m">x = 3</span><br>
+        <span style="font-size:10px;color:#666;">נקודת האמצע בין 0 לבין 6</span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">8.</span>
+        <span class="ans"><span class="correct">למשל: <span class="m">−1.2, −1.5, −1.8</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">9.</span>
+        <span class="ans"><span class="correct m">0</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">|a|=|b|</span> ו-<span class="m">a&lt;0&lt;b</span> → <span class="m">b=−a</span> → <span class="m">(a+b)÷2=0</span></span></span>
+      </div>
+
+      <div class="a">
+        <span class="anum">10.</span>
+        <span class="ans"><span class="correct m">−5 , −4 , 1 , 2 , 3</span><br>
+        <span style="font-size:10px;color:#666;"><span class="m">−|−5|=−5 , −|4|=−4 , |−1|=1 , −(−2)=2 , |−3|=3</span></span></span>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-scaler -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+
+</body>
+</html>

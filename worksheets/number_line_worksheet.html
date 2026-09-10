@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>דף עבודה — מיקום על ציר המספרים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+    color: #111;
+    direction: rtl;
+    background: #fff;
+    padding: 18px 22px 14px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .header-title { font-size: 18px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: #444; margin-top: 2px; }
+  .header-fields { font-size: 12px; line-height: 2.1; text-align: left; direction: ltr; }
+  .header-fields span { display: inline-block; border-bottom: 1px solid #555; min-width: 110px; margin-right: 4px; }
+
+  .part-label {
+    font-size: 13px; font-weight: 700;
+    background: #111; color: #fff;
+    padding: 3px 10px; border-radius: 3px;
+    display: inline-block; margin-bottom: 7px;
+  }
+  .section-title {
+    font-size: 12.5px; font-weight: 700;
+    margin: 8px 0 4px;
+    border-right: 3px solid #111;
+    padding-right: 6px;
+  }
+
+  .numline-wrap {
+    border: 1px solid #bbb; border-radius: 4px;
+    padding: 8px 10px; margin-bottom: 6px;
+  }
+  .numline-label {
+    font-size: 11.5px; color: #444; margin-bottom: 4px;
+  }
+  .numline-label span { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; margin-bottom: 5px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px 16px; margin-bottom: 5px; }
+
+  .ex-row {
+    display: flex; align-items: baseline; gap: 5px;
+    font-size: 13px; padding: 3px 0;
+  }
+  .ex-row .num { font-weight: 700; min-width: 16px; }
+  .ex-row .blank-lg { border-bottom: 1px solid #555; flex: 1; display: inline-block; }
+  .ex-row .blank { border-bottom: 1px solid #555; min-width: 55px; display: inline-block; }
+  .ex-row .blank-sm { border-bottom: 1px solid #555; min-width: 36px; display: inline-block; }
+
+  .cmp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px 12px;
+    margin-bottom: 6px;
+  }
+  .cmp-item {
+    border: 1px solid #bbb; border-radius: 4px; padding: 5px 8px;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    font-size: 13px;
+  }
+  .cmp-item .math { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+  .cmp-item .circle {
+    width: 22px; height: 22px; border: 1.5px solid #555; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 11px; color: #888; flex-shrink: 0;
+  }
+
+  .think-box {
+    border: 1px solid #bbb; border-radius: 4px; padding: 7px 10px; margin-bottom: 5px;
+  }
+  .think-q { font-size: 12.5px; margin-bottom: 4px; }
+  .answer-line { border-bottom: 1px solid #888; margin-bottom: 7px; height: 18px; }
+
+  .answers-box {
+    margin-top: 8px; border: 1px dashed #bbb; border-radius: 4px;
+    padding: 6px 10px; font-size: 10.5px; color: #444; line-height: 1.7;
+  }
+
+  .divider { border: none; border-top: 2px dashed #aaa; margin: 10px 0; }
+
+  .quiz-q {
+    margin-bottom: 7px; padding: 5px 8px;
+    border: 1px solid #ccc; border-radius: 4px; font-size: 12.5px;
+  }
+  .quiz-q .qnum { font-weight: 700; margin-left: 4px; }
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 5px 14px; margin-top: 3px; }
+  .mc-opt { display: flex; align-items: center; gap: 4px; font-size: 12.5px; }
+  .mc-opt .circ { width: 13px; height: 13px; border: 1.5px solid #444; border-radius: 50%; flex-shrink:0; }
+
+  .brand-line { font-size: 11.5px; font-weight: 700; color: #333; margin-top: 6px; text-align: left; }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 0; }
+  }
+  .page-scaler {
+    transform: scale(0.74);
+    transform-origin: top right;
+    width: calc(100% / 0.74);
+  }
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #111; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="page-scaler">
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="header-title">דף עבודה — מיקום על ציר המספרים</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מספרים מכוונים</div>
+  </div>
+  <div style="font-size:13px;font-weight:700;color:#333;">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PART A — תרגול
+══════════════════════════════════════ -->
+<span class="part-label">חלק א׳ — תרגול</span>
+
+<!-- 1. Place on number line -->
+<div class="section-title">1. סמן על ציר המספרים (סמן עם ×)</div>
+
+<div class="numline-wrap">
+  <div class="numline-label">סמן: <span>−5</span> , <span>−1</span> , <span>3</span> , <span>−3.5</span> , <span>2</span></div>
+  <svg viewBox="0 0 540 48" width="100%" xmlns="http://www.w3.org/2000/svg" style="direction:ltr;display:block;">
+    <line x1="30" y1="28" x2="510" y2="28" stroke="#333" stroke-width="1.5"/>
+    <polygon points="510,28 502,23 502,33" fill="#333"/>
+    <polygon points="30,28 38,23 38,33" fill="#333"/>
+    <!-- ticks: range -6 to 6, step=40px, origin at x=270 -->
+    <line x1="270" y1="20" x2="270" y2="36" stroke="#333" stroke-width="2"/>
+    <text x="270" y="46" text-anchor="middle" font-size="9" fill="#333">0</text>
+    <line x1="230" y1="23" x2="230" y2="33" stroke="#555" stroke-width="1"/><text x="230" y="44" text-anchor="middle" font-size="8" fill="#555">−1</text>
+    <line x1="190" y1="23" x2="190" y2="33" stroke="#555" stroke-width="1"/><text x="190" y="44" text-anchor="middle" font-size="8" fill="#555">−2</text>
+    <line x1="150" y1="23" x2="150" y2="33" stroke="#555" stroke-width="1"/><text x="150" y="44" text-anchor="middle" font-size="8" fill="#555">−3</text>
+    <line x1="110" y1="23" x2="110" y2="33" stroke="#555" stroke-width="1"/><text x="110" y="44" text-anchor="middle" font-size="8" fill="#555">−4</text>
+    <line x1="70"  y1="23" x2="70"  y2="33" stroke="#555" stroke-width="1"/><text x="70"  y="44" text-anchor="middle" font-size="8" fill="#555">−5</text>
+    <line x1="310" y1="23" x2="310" y2="33" stroke="#555" stroke-width="1"/><text x="310" y="44" text-anchor="middle" font-size="8" fill="#555">1</text>
+    <line x1="350" y1="23" x2="350" y2="33" stroke="#555" stroke-width="1"/><text x="350" y="44" text-anchor="middle" font-size="8" fill="#555">2</text>
+    <line x1="390" y1="23" x2="390" y2="33" stroke="#555" stroke-width="1"/><text x="390" y="44" text-anchor="middle" font-size="8" fill="#555">3</text>
+    <line x1="430" y1="23" x2="430" y2="33" stroke="#555" stroke-width="1"/><text x="430" y="44" text-anchor="middle" font-size="8" fill="#555">4</text>
+    <line x1="470" y1="23" x2="470" y2="33" stroke="#555" stroke-width="1"/><text x="470" y="44" text-anchor="middle" font-size="8" fill="#555">5</text>
+    <!-- half ticks -->
+    <line x1="250" y1="25" x2="250" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="210" y1="25" x2="210" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="170" y1="25" x2="170" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="130" y1="25" x2="130" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="90"  y1="25" x2="90"  y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="290" y1="25" x2="290" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="330" y1="25" x2="330" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="370" y1="25" x2="370" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="410" y1="25" x2="410" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="450" y1="25" x2="450" y2="31" stroke="#bbb" stroke-width="1"/>
+  </svg>
+</div>
+
+<div class="numline-wrap">
+  <div class="numline-label">סמן: <span>0.5</span> , <span>−4</span> , <span>1.5</span> , <span>−2.5</span> , <span>4</span></div>
+  <svg viewBox="0 0 540 48" width="100%" xmlns="http://www.w3.org/2000/svg" style="direction:ltr;display:block;">
+    <line x1="30" y1="28" x2="510" y2="28" stroke="#333" stroke-width="1.5"/>
+    <polygon points="510,28 502,23 502,33" fill="#333"/>
+    <polygon points="30,28 38,23 38,33" fill="#333"/>
+    <line x1="270" y1="20" x2="270" y2="36" stroke="#333" stroke-width="2"/>
+    <text x="270" y="46" text-anchor="middle" font-size="9" fill="#333">0</text>
+    <line x1="230" y1="23" x2="230" y2="33" stroke="#555" stroke-width="1"/><text x="230" y="44" text-anchor="middle" font-size="8" fill="#555">−1</text>
+    <line x1="190" y1="23" x2="190" y2="33" stroke="#555" stroke-width="1"/><text x="190" y="44" text-anchor="middle" font-size="8" fill="#555">−2</text>
+    <line x1="150" y1="23" x2="150" y2="33" stroke="#555" stroke-width="1"/><text x="150" y="44" text-anchor="middle" font-size="8" fill="#555">−3</text>
+    <line x1="110" y1="23" x2="110" y2="33" stroke="#555" stroke-width="1"/><text x="110" y="44" text-anchor="middle" font-size="8" fill="#555">−4</text>
+    <line x1="70"  y1="23" x2="70"  y2="33" stroke="#555" stroke-width="1"/><text x="70"  y="44" text-anchor="middle" font-size="8" fill="#555">−5</text>
+    <line x1="310" y1="23" x2="310" y2="33" stroke="#555" stroke-width="1"/><text x="310" y="44" text-anchor="middle" font-size="8" fill="#555">1</text>
+    <line x1="350" y1="23" x2="350" y2="33" stroke="#555" stroke-width="1"/><text x="350" y="44" text-anchor="middle" font-size="8" fill="#555">2</text>
+    <line x1="390" y1="23" x2="390" y2="33" stroke="#555" stroke-width="1"/><text x="390" y="44" text-anchor="middle" font-size="8" fill="#555">3</text>
+    <line x1="430" y1="23" x2="430" y2="33" stroke="#555" stroke-width="1"/><text x="430" y="44" text-anchor="middle" font-size="8" fill="#555">4</text>
+    <line x1="470" y1="23" x2="470" y2="33" stroke="#555" stroke-width="1"/><text x="470" y="44" text-anchor="middle" font-size="8" fill="#555">5</text>
+    <line x1="250" y1="25" x2="250" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="210" y1="25" x2="210" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="170" y1="25" x2="170" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="130" y1="25" x2="130" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="90"  y1="25" x2="90"  y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="290" y1="25" x2="290" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="330" y1="25" x2="330" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="370" y1="25" x2="370" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="410" y1="25" x2="410" y2="31" stroke="#bbb" stroke-width="1"/>
+    <line x1="450" y1="25" x2="450" y2="31" stroke="#bbb" stroke-width="1"/>
+  </svg>
+</div>
+
+<!-- 2. Read the number line -->
+<div class="section-title">2. קרא את ציר המספרים — מה הערך של כל נקודה?</div>
+<div class="numline-wrap">
+  <svg viewBox="0 0 540 62" width="100%" xmlns="http://www.w3.org/2000/svg" style="direction:ltr;display:block;">
+    <line x1="30" y1="36" x2="510" y2="36" stroke="#333" stroke-width="1.5"/>
+    <polygon points="510,36 502,31 502,41" fill="#333"/>
+    <polygon points="30,36 38,31 38,41" fill="#333"/>
+    <line x1="270" y1="28" x2="270" y2="44" stroke="#333" stroke-width="2"/>
+    <text x="270" y="54" text-anchor="middle" font-size="9" fill="#333">0</text>
+    <line x1="230" y1="31" x2="230" y2="41" stroke="#555" stroke-width="1"/><text x="230" y="52" text-anchor="middle" font-size="8" fill="#555">−1</text>
+    <line x1="190" y1="31" x2="190" y2="41" stroke="#555" stroke-width="1"/><text x="190" y="52" text-anchor="middle" font-size="8" fill="#555">−2</text>
+    <line x1="150" y1="31" x2="150" y2="41" stroke="#555" stroke-width="1"/><text x="150" y="52" text-anchor="middle" font-size="8" fill="#555">−3</text>
+    <line x1="110" y1="31" x2="110" y2="41" stroke="#555" stroke-width="1"/><text x="110" y="52" text-anchor="middle" font-size="8" fill="#555">−4</text>
+    <line x1="70"  y1="31" x2="70"  y2="41" stroke="#555" stroke-width="1"/><text x="70"  y="52" text-anchor="middle" font-size="8" fill="#555">−5</text>
+    <line x1="310" y1="31" x2="310" y2="41" stroke="#555" stroke-width="1"/><text x="310" y="52" text-anchor="middle" font-size="8" fill="#555">1</text>
+    <line x1="350" y1="31" x2="350" y2="41" stroke="#555" stroke-width="1"/><text x="350" y="52" text-anchor="middle" font-size="8" fill="#555">2</text>
+    <line x1="390" y1="31" x2="390" y2="41" stroke="#555" stroke-width="1"/><text x="390" y="52" text-anchor="middle" font-size="8" fill="#555">3</text>
+    <line x1="430" y1="31" x2="430" y2="41" stroke="#555" stroke-width="1"/><text x="430" y="52" text-anchor="middle" font-size="8" fill="#555">4</text>
+    <line x1="470" y1="31" x2="470" y2="41" stroke="#555" stroke-width="1"/><text x="470" y="52" text-anchor="middle" font-size="8" fill="#555">5</text>
+    <!-- half ticks -->
+    <line x1="250" y1="33" x2="250" y2="39" stroke="#bbb" stroke-width="1"/>
+    <line x1="210" y1="33" x2="210" y2="39" stroke="#bbb" stroke-width="1"/>
+    <line x1="170" y1="33" x2="170" y2="39" stroke="#bbb" stroke-width="1"/>
+    <line x1="130" y1="33" x2="130" y2="39" stroke="#bbb" stroke-width="1"/>
+    <line x1="90"  y1="33" x2="90"  y2="39" stroke="#bbb" stroke-width="1"/>
+    <line x1="290" y1="33" x2="290" y2="39" stroke="#bbb" stroke-width="1"/>
+    <line x1="330" y1="33" x2="330" y2="39" stroke="#bbb" stroke-width="1"/>
+    <line x1="370" y1="33" x2="370" y2="39" stroke="#bbb" stroke-width="1"/>
+    <line x1="410" y1="33" x2="410" y2="39" stroke="#bbb" stroke-width="1"/>
+    <line x1="450" y1="33" x2="450" y2="39" stroke="#bbb" stroke-width="1"/>
+    <!-- labeled points: A=−4, B=−1.5, C=1, D=3.5, E=−3 -->
+    <!-- A at x=110 (−4) -->
+    <circle cx="110" cy="36" r="4" fill="#1a1a6e"/>
+    <text x="110" y="22" text-anchor="middle" font-size="10" fill="#1a1a6e" font-weight="bold">A</text>
+    <!-- B at x=210 (−1.5) -->
+    <circle cx="210" cy="36" r="4" fill="#1a1a6e"/>
+    <text x="210" y="22" text-anchor="middle" font-size="10" fill="#1a1a6e" font-weight="bold">B</text>
+    <!-- C at x=310 (1) -->
+    <circle cx="310" cy="36" r="4" fill="#1a1a6e"/>
+    <text x="310" y="22" text-anchor="middle" font-size="10" fill="#1a1a6e" font-weight="bold">C</text>
+    <!-- D at x=410 (3.5... wait 3=390, 3.5=410) -->
+    <circle cx="410" cy="36" r="4" fill="#1a1a6e"/>
+    <text x="410" y="22" text-anchor="middle" font-size="10" fill="#1a1a6e" font-weight="bold">D</text>
+    <!-- E at x=150 (−3) -->
+    <circle cx="150" cy="36" r="4" fill="#b22222"/>
+    <text x="150" y="22" text-anchor="middle" font-size="10" fill="#b22222" font-weight="bold">E</text>
+  </svg>
+  <div style="font-size:12px;margin-top:5px;display:flex;gap:18px;flex-wrap:wrap;direction:ltr;">
+    <span>A = <span style="border-bottom:1px solid #555;display:inline-block;min-width:32px;">&nbsp;</span></span>
+    <span>B = <span style="border-bottom:1px solid #555;display:inline-block;min-width:32px;">&nbsp;</span></span>
+    <span>C = <span style="border-bottom:1px solid #555;display:inline-block;min-width:32px;">&nbsp;</span></span>
+    <span>D = <span style="border-bottom:1px solid #555;display:inline-block;min-width:32px;">&nbsp;</span></span>
+    <span>E = <span style="border-bottom:1px solid #555;display:inline-block;min-width:32px;">&nbsp;</span></span>
+  </div>
+</div>
+
+<!-- 3. Order smallest to largest -->
+<div class="section-title">3. סדר מהקטן לגדול</div>
+<div style="margin-bottom:6px;">
+  <div class="ex-row" style="margin-bottom:5px;">
+    <span class="num">א.</span>
+    <span dir="ltr" style="unicode-bidi:isolate;">&nbsp;−5 , 2 , −1 , 4 , −3&nbsp;</span>
+    <span>←</span>
+    <span class="blank-lg"></span>
+  </div>
+  <div class="ex-row" style="margin-bottom:5px;">
+    <span class="num">ב.</span>
+    <span dir="ltr" style="unicode-bidi:isolate;">&nbsp;−2.5 , 1 , −4 , 0 , 3&nbsp;</span>
+    <span>←</span>
+    <span class="blank-lg"></span>
+  </div>
+  <div class="ex-row" style="margin-bottom:5px;">
+    <span class="num">ג.</span>
+    <span dir="ltr" style="unicode-bidi:isolate;">&nbsp;−1 , −7 , 5 , −3 , 2&nbsp;</span>
+    <span>←</span>
+    <span class="blank-lg"></span>
+  </div>
+  <div class="ex-row">
+    <span class="num">ד.</span>
+    <span dir="ltr" style="unicode-bidi:isolate;">&nbsp;−2.1 , 1 , −2.9 , −2.5 , 3&nbsp;</span>
+    <span>←</span>
+    <span class="blank-lg"></span>
+  </div>
+</div>
+
+<!-- 4. Compare -->
+<div class="section-title">4. השלם עם &gt;, &lt; או =</div>
+<div class="cmp-grid">
+  <div class="cmp-item"><span class="math">−3</span> <span class="circle">&nbsp;</span> <span class="math">−5</span></div>
+  <div class="cmp-item"><span class="math">−8</span> <span class="circle">&nbsp;</span> <span class="math">2</span></div>
+  <div class="cmp-item"><span class="math">|−4|</span> <span class="circle">&nbsp;</span> <span class="math">4</span></div>
+  <div class="cmp-item"><span class="math">−2.5</span> <span class="circle">&nbsp;</span> <span class="math">−2</span></div>
+  <div class="cmp-item"><span class="math">−6</span> <span class="circle">&nbsp;</span> <span class="math">|−6|</span></div>
+  <div class="cmp-item"><span class="math">−1</span> <span class="circle">&nbsp;</span> <span class="math">−1.5</span></div>
+</div>
+
+<!-- 5. Bird's eye -->
+<div class="section-title">5. שאלות ממעוף הציפור</div>
+<div class="think-box">
+  <div class="think-q"><strong>א.</strong> אם <span dir="ltr" style="unicode-bidi:isolate;">a &lt; 0</span> ו-<span dir="ltr" style="unicode-bidi:isolate;">b &lt; 0</span> ו-<span dir="ltr" style="unicode-bidi:isolate;">|a| &gt; |b|</span> — מי גדול יותר, a או b? הסבר.</div>
+  <div class="answer-line"></div>
+  <div class="think-q"><strong>ב.</strong> מצא שלושה מספרים שונים הנמצאים בין <span dir="ltr" style="unicode-bidi:isolate;">−2</span> ל-<span dir="ltr" style="unicode-bidi:isolate;">0</span> על ציר המספרים.</div>
+  <div class="answer-line"></div>
+  <div class="think-q"><strong>ג.</strong> דנה אומרת: <span dir="ltr" style="unicode-bidi:isolate;">"−8</span> גדול מ-<span dir="ltr" style="unicode-bidi:isolate;">−3</span> כי 8 גדול מ-3." האם היא צודקת? הסבר.</div>
+  <div class="answer-line"></div>
+</div>
+
+<!-- ANSWER KEY -->
+<div class="answers-box">
+  <strong style="font-size:11px;color:#111;">תשובות — חלק א׳</strong><br>
+  <strong>1.</strong> א. <span dir="ltr" style="unicode-bidi:isolate;">−5 ✕ , −3.5 ✕ , −1 ✕ , 2 ✕ , 3 ✕</span> &nbsp;&nbsp; ב. <span dir="ltr" style="unicode-bidi:isolate;">−4 ✕ , −2.5 ✕ , 0.5 ✕ , 1.5 ✕ , 4 ✕</span><br>
+  <strong>2.</strong> <span dir="ltr" style="unicode-bidi:isolate;">A=−4 , B=−1.5 , C=1 , D=3.5 , E=−3</span><br>
+  <strong>3.</strong>
+  א. <span dir="ltr" style="unicode-bidi:isolate;">−5 , −3 , −1 , 2 , 4</span> &nbsp;
+  ב. <span dir="ltr" style="unicode-bidi:isolate;">−4 , −2.5 , 0 , 1 , 3</span> &nbsp;
+  ג. <span dir="ltr" style="unicode-bidi:isolate;">−7 , −3 , −1 , 2 , 5</span> &nbsp;
+  ד. <span dir="ltr" style="unicode-bidi:isolate;">−2.9 , −2.5 , −2.1 , 1 , 3</span><br>
+  <strong>4.</strong>
+  א. <span dir="ltr" style="unicode-bidi:isolate;">−3 &gt; −5</span> &nbsp;
+  ב. <span dir="ltr" style="unicode-bidi:isolate;">−8 &lt; 2</span> &nbsp;
+  ג. <span dir="ltr" style="unicode-bidi:isolate;">|−4| = 4</span> &nbsp;
+  ד. <span dir="ltr" style="unicode-bidi:isolate;">−2.5 &lt; −2</span> &nbsp;
+  ה. <span dir="ltr" style="unicode-bidi:isolate;">−6 &lt; |−6|</span> &nbsp;
+  ו. <span dir="ltr" style="unicode-bidi:isolate;">−1 &gt; −1.5</span><br>
+  <strong>5.</strong>
+  א. b גדול יותר — ערך מוחלט גדול יותר פירושו רחוק יותר משמאל, כלומר קטן יותר. &nbsp;
+  ב. למשל: <span dir="ltr" style="unicode-bidi:isolate;">−1.5 , −0.5 , −1</span> &nbsp;
+  ג. לא — <span dir="ltr" style="unicode-bidi:isolate;">−3 &gt; −8</span> כי <span dir="ltr" style="unicode-bidi:isolate;">−3</span> קרוב יותר ל-0 על הציר.
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+<!-- ══════════════════════════════════════
+     PART B — מבדק שליטה
+══════════════════════════════════════ -->
+<hr class="divider">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+  <span class="part-label" style="margin-bottom:0;">מבדק שליטה: מיקום על ציר המספרים</span>
+  <span style="font-size:11.5px;">שם מלא: <span style="border-bottom:1px solid #555;display:inline-block;min-width:130px;">&nbsp;</span></span>
+</div>
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span>
+  סדר מהקטן לגדול: <span dir="ltr" style="unicode-bidi:isolate;">−3 , 1 , −5 , 2 , 0</span> &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:120px;">&nbsp;</span>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <div><span class="qnum">2.</span> מה גדול יותר: <span dir="ltr" style="unicode-bidi:isolate;">−4</span> או <span dir="ltr" style="unicode-bidi:isolate;">−6</span>?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">−6</span>, כי 6 גדול מ-4</div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">−4</span>, כי הוא קרוב יותר ל-0</div>
+    <div class="mc-opt"><div class="circ"></div> הם שווים</div>
+    <div class="mc-opt"><div class="circ"></div> אי אפשר להשוות מספרים שליליים</div>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <div><span class="qnum">3.</span> איזה מספר נמצא בדיוק באמצע בין <span dir="ltr" style="unicode-bidi:isolate;">−4</span> לבין <span dir="ltr" style="unicode-bidi:isolate;">2</span> על ציר המספרים?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">1</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">−2</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">−1</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">0</span></div>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <span class="qnum">4.</span>
+  כתוב מספר אחד שנמצא בין <span dir="ltr" style="unicode-bidi:isolate;">−3</span> לבין <span dir="ltr" style="unicode-bidi:isolate;">−2</span> על ציר המספרים. &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:50px;">&nbsp;</span>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <div><span class="qnum">5.</span> אם <span dir="ltr" style="unicode-bidi:isolate;">a &lt; b &lt; 0</span>, מה בהכרח נכון?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">|a| &lt; |b|</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">|a| &gt; |b|</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">|a| = |b|</span></div>
+    <div class="mc-opt"><div class="circ"></div> תלוי בערכים של a ו-b</div>
+  </div>
+</div>
+
+<!-- Q6 -->
+<div class="quiz-q">
+  <div><span class="qnum">6.</span> <strong>שאלה ממעוף הציפור:</strong> על ציר המספרים, ככל שנתקדם שמאלה — המספרים גדלים או קטנים? הסבר במשפט אחד.</div>
+  <div style="border-bottom:1px solid #888;margin-top:8px;"></div>
+  <div style="border-bottom:1px solid #888;margin-top:14px;"></div>
+</div>
+
+<div style="margin-top:14px;text-align:center;font-size:11px;color:#555;border-top:1px dashed #ccc;padding-top:8px;">
+  סיימת? גש למורה לבדיקה ומעבר ליחידה הבאה או לתרגול נוסף
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-scaler -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+
+</body>
+</html>

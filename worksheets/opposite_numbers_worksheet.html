@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>דף עבודה — מספרים נגדיים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+    color: #111;
+    direction: rtl;
+    background: #fff;
+    padding: 18px 22px 14px;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .header-title { font-size: 18px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: #444; margin-top: 2px; }
+  .header-fields { font-size: 12px; line-height: 2.1; text-align: left; direction: ltr; }
+  .header-fields span { display: inline-block; border-bottom: 1px solid #555; min-width: 110px; margin-right: 4px; }
+
+  /* ===== SECTION LABELS ===== */
+  .part-label {
+    font-size: 13px; font-weight: 700;
+    background: #111; color: #fff;
+    padding: 3px 10px; border-radius: 3px;
+    display: inline-block; margin-bottom: 7px;
+  }
+  .section-title {
+    font-size: 12.5px; font-weight: 700;
+    margin: 8px 0 4px;
+    border-right: 3px solid #111;
+    padding-right: 6px;
+  }
+
+  /* ===== OPP GRID (section 1) ===== */
+  .opp-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px 6px;
+    margin-bottom: 6px;
+  }
+  .opp-item {
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    padding: 3px 6px;
+    font-size: 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+  }
+  .opp-item .expr { direction: ltr; unicode-bidi: embed; font-weight: 600; white-space: nowrap; }
+  .opp-item .line { border-bottom: 1px solid #666; width: 22px; flex-shrink: 0; }
+
+  /* ===== NUMBER LINE ===== */
+  .numline-wrap {
+    border: 1px solid #bbb; border-radius: 4px;
+    padding: 8px 10px; margin-bottom: 6px;
+  }
+  .numline-svg { display: block; width: 100%; }
+  .numline-task { font-size: 12px; margin-top: 5px; color: #333; }
+  .numline-task span { direction: ltr; unicode-bidi: embed; font-weight: 600; }
+
+  /* ===== PAIRS MATCHING ===== */
+  .pairs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    margin-bottom: 6px;
+  }
+  .pair-box {
+    border: 1px solid #bbb; border-radius: 4px;
+    padding: 6px; text-align: center;
+    font-weight: 600; font-size: 13px;
+    direction: ltr; unicode-bidi: embed;
+  }
+
+  /* ===== TWO/THREE COL ===== */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; margin-bottom: 5px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px 16px; margin-bottom: 5px; }
+
+  .ex-row {
+    display: flex; align-items: baseline; gap: 5px;
+    font-size: 13px; padding: 3px 0;
+  }
+  .ex-row .num { font-weight: 700; min-width: 16px; }
+  .ex-row .math { direction: ltr; unicode-bidi: embed; white-space: nowrap; }
+  .ex-row .blank { border-bottom: 1px solid #555; min-width: 55px; display: inline-block; }
+  .ex-row .blank-sm { border-bottom: 1px solid #555; min-width: 38px; display: inline-block; }
+  .ex-row .blank-lg { border-bottom: 1px solid #555; min-width: 80px; display: inline-block; flex:1; }
+  .ex-row .sep { color: #333; }
+
+  /* ===== THINKING BOX ===== */
+  .think-box {
+    border: 1px solid #bbb; border-radius: 4px; padding: 7px 10px; margin-bottom: 5px;
+  }
+  .think-q { font-size: 12.5px; margin-bottom: 4px; }
+  .answer-line { border-bottom: 1px solid #888; margin-bottom: 7px; height: 18px; }
+
+  /* ===== ANSWERS ===== */
+  .answers-box {
+    margin-top: 8px; border: 1px dashed #bbb; border-radius: 4px;
+    padding: 6px 10px; font-size: 10.5px; color: #444; line-height: 1.7;
+  }
+
+  /* ===== DIVIDER ===== */
+  .divider { border: none; border-top: 2px dashed #aaa; margin: 10px 0; }
+
+  /* ===== QUIZ ===== */
+  .quiz-q {
+    margin-bottom: 7px; padding: 5px 8px;
+    border: 1px solid #ccc; border-radius: 4px; font-size: 12.5px;
+  }
+  .quiz-q .qnum { font-weight: 700; margin-left: 4px; }
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 5px 14px; margin-top: 3px; }
+  .mc-opt { display: flex; align-items: center; gap: 4px; font-size: 12.5px; }
+  .mc-opt .circ { width: 13px; height: 13px; border: 1.5px solid #444; border-radius: 50%; flex-shrink:0; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 0; }
+  }
+
+  .page-scaler {
+    transform: scale(0.74);
+    transform-origin: top right;
+    width: calc(100% / 0.74);
+  }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #111; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  }
+  .print-btn:hover { background: #333; }
+</style>
+</head>
+<body>
+<div class="page-scaler">
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div>
+    <div class="header-title">דף עבודה — מספרים נגדיים</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מספרים מכוונים</div>
+  </div>
+  <div style="font-size:13px;font-weight:700;color:#333;">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PART A — תרגול
+══════════════════════════════════════ -->
+<span class="part-label">חלק א׳ — תרגול</span>
+
+<!-- 1. Find the opposite -->
+<div class="section-title">1. כתוב את הנגדי של כל מספר</div>
+<div class="opp-grid">
+  <div class="opp-item"><span class="expr">8</span> = <span class="line"></span></div>
+  <div class="opp-item"><span class="expr">(−3)</span> = <span class="line"></span></div>
+  <div class="opp-item"><span class="expr">5</span> = <span class="line"></span></div>
+  <div class="opp-item"><span class="expr">0</span> = <span class="line"></span></div>
+  <div class="opp-item"><span class="expr">(−7)</span> = <span class="line"></span></div>
+  <div class="opp-item"><span class="expr">12</span> = <span class="line"></span></div>
+  <div class="opp-item"><span class="expr">(−1)</span> = <span class="line"></span></div>
+  <div class="opp-item"><span class="expr">4.5</span> = <span class="line"></span></div>
+  <div class="opp-item"><span class="expr">(−6)</span> = <span class="line"></span></div>
+  <div class="opp-item"><span class="expr">(−2.5)</span> = <span class="line"></span></div>
+</div>
+
+<!-- 2. Number line -->
+<div class="section-title">2. סמן על ציר המספרים</div>
+<div class="numline-wrap">
+  <svg class="numline-svg" viewBox="0 0 540 54" xmlns="http://www.w3.org/2000/svg" style="font-family:Rubik,sans-serif;direction:ltr;">
+    <!-- axis -->
+    <line x1="20" y1="32" x2="520" y2="32" stroke="#333" stroke-width="1.5"/>
+    <polygon points="520,32 512,27 512,37" fill="#333"/>
+    <polygon points="20,32 28,27 28,37" fill="#333"/>
+    <!-- ticks and labels -->
+    <line x1="270" y1="24" x2="270" y2="40" stroke="#333" stroke-width="2"/>
+    <text x="270" y="50" text-anchor="middle" font-size="10" fill="#333">0</text>
+    <!-- ticks every 45px = 1 unit, from -5 to 5 -->
+    <line x1="225" y1="27" x2="225" y2="37" stroke="#555" stroke-width="1.2"/><text x="225" y="50" text-anchor="middle" font-size="9" fill="#555">−1</text>
+    <line x1="180" y1="27" x2="180" y2="37" stroke="#555" stroke-width="1.2"/><text x="180" y="50" text-anchor="middle" font-size="9" fill="#555">−2</text>
+    <line x1="135" y1="27" x2="135" y2="37" stroke="#555" stroke-width="1.2"/><text x="135" y="50" text-anchor="middle" font-size="9" fill="#555">−3</text>
+    <line x1="90" y1="27" x2="90" y2="37" stroke="#555" stroke-width="1.2"/><text x="90" y="50" text-anchor="middle" font-size="9" fill="#555">−4</text>
+    <line x1="45" y1="27" x2="45" y2="37" stroke="#555" stroke-width="1.2"/><text x="45" y="50" text-anchor="middle" font-size="9" fill="#555">−5</text>
+    <line x1="315" y1="27" x2="315" y2="37" stroke="#555" stroke-width="1.2"/><text x="315" y="50" text-anchor="middle" font-size="9" fill="#555">1</text>
+    <line x1="360" y1="27" x2="360" y2="37" stroke="#555" stroke-width="1.2"/><text x="360" y="50" text-anchor="middle" font-size="9" fill="#555">2</text>
+    <line x1="405" y1="27" x2="405" y2="37" stroke="#555" stroke-width="1.2"/><text x="405" y="50" text-anchor="middle" font-size="9" fill="#555">3</text>
+    <line x1="450" y1="27" x2="450" y2="37" stroke="#555" stroke-width="1.2"/><text x="450" y="50" text-anchor="middle" font-size="9" fill="#555">4</text>
+    <line x1="495" y1="27" x2="495" y2="37" stroke="#555" stroke-width="1.2"/><text x="495" y="50" text-anchor="middle" font-size="9" fill="#555">5</text>
+    <!-- given point: 3 (marked with filled dot) -->
+    <circle cx="405" cy="32" r="5" fill="#333"/>
+    <text x="405" y="18" text-anchor="middle" font-size="10" fill="#333" font-weight="bold">3</text>
+  </svg>
+  <div class="numline-task">סמן על הציר את הנגדי של <span dir="ltr" style="unicode-bidi:isolate;">3</span> ואת הנגדי של <span dir="ltr" style="unicode-bidi:isolate;">(−2)</span> (סמן עם ×). רשום את ערכיהם: נגדי(3) = <span style="border-bottom:1px solid #555;display:inline-block;min-width:30px;">&nbsp;</span> , <span dir="ltr" style="unicode-bidi:isolate;">נגדי(−2)</span> = <span style="border-bottom:1px solid #555;display:inline-block;min-width:30px;">&nbsp;</span></div>
+</div>
+
+<!-- 3. Match pairs -->
+<div class="section-title">3. חבר זוגות נגדיים</div>
+<p style="font-size:12px;color:#555;margin-bottom:5px;">חבר בקו כל מספר לנגדי שלו.</p>
+<div class="pairs-grid">
+  <div class="pair-box">5</div>
+  <div class="pair-box">−8</div>
+  <div class="pair-box">3</div>
+  <div class="pair-box">−½</div>
+  <div class="pair-box">−5</div>
+  <div class="pair-box">8</div>
+  <div class="pair-box">½</div>
+  <div class="pair-box">−3</div>
+</div>
+
+<!-- 4. Opposite of opposite -->
+<div class="section-title">4. הנגדי של הנגדי</div>
+<div class="two-col" style="margin-bottom:6px;">
+  <div class="ex-row"><span class="num">א.</span> <span dir="ltr" style="unicode-bidi:embed;">−(−4) = <span class="blank-sm" style="display:inline-block;"></span></span></div>
+  <div class="ex-row"><span class="num">ב.</span> <span dir="ltr" style="unicode-bidi:embed;">−(−9) = <span class="blank-sm" style="display:inline-block;"></span></span></div>
+  <div class="ex-row"><span class="num">ג.</span> <span dir="ltr" style="unicode-bidi:embed;">−(−(−2)) = <span class="blank-sm" style="display:inline-block;"></span></span></div>
+  <div class="ex-row"><span class="num">ד.</span> <span dir="ltr" style="unicode-bidi:embed;">−(−0) = <span class="blank-sm" style="display:inline-block;"></span></span></div>
+</div>
+
+<!-- 5. Bird's eye -->
+<div class="section-title">5. שאלות ממעוף הציפור</div>
+<div class="think-box">
+  <div class="think-q"><strong>א.</strong> מה הנגדי של הנגדי של x? (לכל x שהוא)</div>
+  <div class="answer-line"></div>
+  <div class="think-q"><strong>ב.</strong> אם a ו-b הם מספרים נגדיים, מה ניתן לומר על |a| ו-|b|? הסבר.</div>
+  <div class="answer-line"></div>
+  <div class="think-q"><strong>ג.</strong> האם ייתכן שמספר שווה לנגדי שלו? אם כן — מהו?</div>
+  <div class="answer-line"></div>
+</div>
+
+<!-- ===== ANSWER KEY ===== -->
+<div class="answers-box">
+  <strong style="font-size:11px;color:#111;">תשובות — חלק א׳</strong><br>
+  <strong>1.</strong> <span dir="ltr" style="unicode-bidi:isolate;">−8 &nbsp; 3 &nbsp; −5 &nbsp; 0 &nbsp; 7 &nbsp; −12 &nbsp; 1 &nbsp; −4.5 &nbsp; 6 &nbsp; 2.5</span><br>
+  <strong>2.</strong> נגדי(3) = <span dir="ltr" style="unicode-bidi:isolate;">−3</span> &nbsp;,&nbsp; נגדי(<span dir="ltr" style="unicode-bidi:isolate;">−2</span>) = <span dir="ltr" style="unicode-bidi:isolate;">2</span><br>
+  <strong>3.</strong> <span dir="ltr" style="unicode-bidi:isolate;">5↔−5 &nbsp; −8↔8 &nbsp; 3↔−3 &nbsp; −½↔½</span><br>
+  <strong>4.</strong>
+  א. <span dir="ltr" style="unicode-bidi:isolate;">4</span> &nbsp;
+  ב. <span dir="ltr" style="unicode-bidi:isolate;">9</span> &nbsp;
+  ג. <span dir="ltr" style="unicode-bidi:isolate;">−2</span> &nbsp;
+  ד. <span dir="ltr" style="unicode-bidi:isolate;">0</span><br>
+  <strong>5.</strong>
+  א. x — הנגדי של הנגדי הוא המספר עצמו. &nbsp;
+  ב. <span dir="ltr" style="unicode-bidi:isolate;">|a| = |b|</span> — נמצאים באותו מרחק מ-0. &nbsp;
+  ג. כן — רק 0 שווה לנגדי שלו.
+</div>
+
+<!-- ══════════════════════════════════════
+     PART B — מבדק שליטה
+══════════════════════════════════════ -->
+<div style="text-align:left;font-size:11.5px;font-weight:700;color:#333;margin-top:6px;">חן מרגלית למידה אקטיבית</div>
+
+<hr class="divider">
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+  <span class="part-label" style="margin-bottom:0;">מבדק שליטה: מספרים נגדיים</span>
+  <span style="font-size:11.5px;">שם מלא: <span style="border-bottom:1px solid #555;display:inline-block;min-width:130px;">&nbsp;</span></span>
+</div>
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span>
+  מה הנגדי של 8? &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:50px;">&nbsp;</span>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span>
+  מה הנגדי של <span dir="ltr" style="unicode-bidi:embed;">(−3)</span>? &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:50px;">&nbsp;</span>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <div><span class="qnum">3.</span> מה הנגדי של 0?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> אין לאפס נגדי</div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">(−0)</span>, מספר שונה מ-0</div>
+    <div class="mc-opt"><div class="circ"></div> 0 עצמו</div>
+    <div class="mc-opt"><div class="circ"></div> 1</div>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <div><span class="qnum">4.</span> נתון ש-a ו-b הם מספרים נגדיים (שונים מ-0). מה בהכרח נכון?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">a = b</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">|a| = |b|</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">a + b = 1</span></div>
+    <div class="mc-opt"><div class="circ"></div> אחד מהם חייב להיות 0</div>
+  </div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <span class="qnum">5.</span>
+  מה הנגדי של הנגדי של <span dir="ltr" style="unicode-bidi:embed;">(−6)</span>? &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:50px;">&nbsp;</span>
+</div>
+
+<!-- Q6 -->
+<div class="quiz-q">
+  <div><span class="qnum">6.</span> <strong>שאלה ממעוף הציפור:</strong> אם <span dir="ltr" style="unicode-bidi:embed;">|a| = |b|</span>, האם בהכרח a ו-b מספרים נגדיים? הסבר.</div>
+  <div style="border-bottom:1px solid #888;margin-top:8px;"></div>
+  <div style="border-bottom:1px solid #888;margin-top:14px;"></div>
+</div>
+
+<div style="margin-top:14px;text-align:center;font-size:11px;color:#555;border-top:1px dashed #ccc;padding-top:8px;">
+  סיימת? גש למורה לבדיקה ומעבר ליחידה הבאה או לתרגול נוסף
+</div>
+
+<div style="text-align:left;font-size:11.5px;font-weight:700;color:#333;margin-top:6px;">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-scaler -->
+
+<!-- Print button -->
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+
+</body>
+</html>

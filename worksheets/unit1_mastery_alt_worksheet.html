@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>מבדקי שליטה חלופי — יחידה 1: מספרים מכוונים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+    color: #111;
+    direction: rtl;
+    background: #fff;
+    padding: 18px 22px 14px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .header-title { font-size: 18px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: #444; margin-top: 2px; }
+  .header-fields { font-size: 12px; line-height: 2.1; text-align: left; direction: ltr; }
+  .header-fields span { display: inline-block; border-bottom: 1px solid #555; min-width: 110px; margin-right: 4px; }
+
+  .part-label {
+    font-size: 13px; font-weight: 700;
+    background: #111; color: #fff;
+    padding: 3px 10px; border-radius: 3px;
+    display: inline-block; margin-bottom: 7px;
+  }
+
+  .quiz-q {
+    margin-bottom: 7px; padding: 5px 8px;
+    border: 1px solid #ccc; border-radius: 4px; font-size: 12.5px;
+  }
+  .quiz-q .qnum { font-weight: 700; margin-left: 4px; }
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 5px 14px; margin-top: 3px; }
+  .mc-opt { display: flex; align-items: center; gap: 4px; font-size: 12.5px; }
+  .mc-opt .circ { width: 13px; height: 13px; border: 1.5px solid #444; border-radius: 50%; flex-shrink:0; }
+
+  .divider { border: none; border-top: 2px dashed #aaa; margin: 10px 0; }
+
+  .score-bar {
+    display: flex; gap: 18px; justify-content: flex-end;
+    font-size: 12px; margin-top: 8px; color: #444;
+    border-top: 1px solid #ccc; padding-top: 6px;
+  }
+  .score-field { border-bottom: 1px solid #555; min-width: 40px; display: inline-block; }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 0; }
+  }
+
+  .page-scaler {
+    transform: scale(0.74);
+    transform-origin: top right;
+    width: calc(100% / 0.74);
+  }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #111; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  }
+  .print-btn:hover { background: #333; }
+</style>
+</head>
+<body>
+<div class="page-scaler">
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div>
+    <div class="header-title">מבדקי שליטה חלופי — יחידה 1: מספרים מכוונים</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; ערך מוחלט · מספרים נגדיים · מיקום על ציר המספרים</div>
+  </div>
+  <div style="font-size:13px;font-weight:700;color:#333;">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PART A — מבדק שליטה: ערך מוחלט
+══════════════════════════════════════ -->
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+  <span class="part-label" style="margin-bottom:0;">חלק א׳ — מבדק שליטה: ערך מוחלט</span>
+  <span style="font-size:11.5px;">שם מלא: <span style="border-bottom:1px solid #555;display:inline-block;min-width:130px;">&nbsp;</span></span>
+</div>
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span>
+  <span>מה הערך המוחלט של <span dir="ltr" style="unicode-bidi:embed;">(−14)</span>? &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:50px;">&nbsp;</span></span>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <div><span class="qnum">2.</span> לאילו מספרים הערך המוחלט שווה ל־6?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> רק 6</div>
+    <div class="mc-opt"><div class="circ"></div> רק <span dir="ltr" style="unicode-bidi:embed;">(−6)</span></div>
+    <div class="mc-opt"><div class="circ"></div> גם 6 וגם <span dir="ltr" style="unicode-bidi:embed;">(−6)</span></div>
+    <div class="mc-opt"><div class="circ"></div> אין מספר כזה</div>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <span class="qnum">3.</span>
+  <span>מה הערך המוחלט של <span dir="ltr" style="unicode-bidi:embed;">4.5</span>? &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:50px;">&nbsp;</span></span>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <div><span class="qnum">4.</span> האם יכול להיות שהערך המוחלט של מספר שווה ל־<span dir="ltr" style="unicode-bidi:embed;">(−5)</span>?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> כן, הערך המוחלט של 5 שווה לכך</div>
+    <div class="mc-opt"><div class="circ"></div> לא — ערך מוחלט הוא תמיד אי-שלילי</div>
+    <div class="mc-opt"><div class="circ"></div> כן, הערך המוחלט של <span dir="ltr" style="unicode-bidi:embed;">(−5)</span> שווה לכך</div>
+    <div class="mc-opt"><div class="circ"></div> תלוי במספר</div>
+  </div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <div><span class="qnum">5.</span> מי גדול יותר: <span dir="ltr" style="unicode-bidi:embed;">|−10|</span> או <span dir="ltr" style="unicode-bidi:embed;">8</span>?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">8</span>, כי <span dir="ltr" style="unicode-bidi:embed;">(−10)</span> שלילי</div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">|−10|</span>, כי 10 גדול מ-8</div>
+    <div class="mc-opt"><div class="circ"></div> הם שווים</div>
+    <div class="mc-opt"><div class="circ"></div> אי אפשר להשוות</div>
+  </div>
+</div>
+
+<!-- Q6 -->
+<div class="quiz-q">
+  <div><span class="qnum">6.</span> <strong>שאלה ממעוף הציפור:</strong> עבור אילו מספרים x מתקיים <span dir="ltr" style="unicode-bidi:embed;">|x| = x</span>? הסבר.</div>
+  <div style="border-bottom:1px solid #888;margin-top:8px;"></div>
+  <div style="border-bottom:1px solid #888;margin-top:14px;"></div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+     PART B — מבדק שליטה: מספרים נגדיים
+══════════════════════════════════════ -->
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+  <span class="part-label" style="margin-bottom:0;">חלק ב׳ — מבדק שליטה: מספרים נגדיים</span>
+  <span style="font-size:11.5px;">שם מלא: <span style="border-bottom:1px solid #555;display:inline-block;min-width:130px;">&nbsp;</span></span>
+</div>
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span>
+  מה הנגדי של <span dir="ltr" style="unicode-bidi:embed;">(−11)</span>? &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:50px;">&nbsp;</span>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span>
+  מה הנגדי של <span dir="ltr" style="unicode-bidi:embed;">7</span>? &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:50px;">&nbsp;</span>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <div><span class="qnum">3.</span> מה הנגדי של הנגדי של <span dir="ltr" style="unicode-bidi:embed;">5</span>?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">(−5)</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">5</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">0</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">10</span></div>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <div><span class="qnum">4.</span> אילו שני מספרים הם נגדיים זה לזה?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">3</span> ו-<span dir="ltr" style="unicode-bidi:embed;">6</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">4</span> ו-<span dir="ltr" style="unicode-bidi:embed;">(−4)</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">0</span> ו-<span dir="ltr" style="unicode-bidi:embed;">1</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">(−2)</span> ו-<span dir="ltr" style="unicode-bidi:embed;">(−2)</span></div>
+  </div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <span class="qnum">5.</span>
+  מה הנגדי של <span dir="ltr" style="unicode-bidi:embed;">2.5</span>? &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:50px;">&nbsp;</span>
+</div>
+
+<!-- Q6 -->
+<div class="quiz-q">
+  <div><span class="qnum">6.</span> <strong>שאלה ממעוף הציפור:</strong> האם ייתכן שמספר שווה לנגדי שלו? אם כן — מהו? הסבר.</div>
+  <div style="border-bottom:1px solid #888;margin-top:8px;"></div>
+  <div style="border-bottom:1px solid #888;margin-top:14px;"></div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+     PART C — מבדק שליטה: מיקום על ציר המספרים
+══════════════════════════════════════ -->
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+  <span class="part-label" style="margin-bottom:0;">חלק ג׳ — מבדק שליטה: מיקום על ציר המספרים</span>
+  <span style="font-size:11.5px;">שם מלא: <span style="border-bottom:1px solid #555;display:inline-block;min-width:130px;">&nbsp;</span></span>
+</div>
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span>
+  סדר מהקטן לגדול: <span dir="ltr" style="unicode-bidi:isolate;">−6 , 0 , −2 , 4 , −1</span> &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:120px;">&nbsp;</span>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <div><span class="qnum">2.</span> מה קטן יותר: <span dir="ltr" style="unicode-bidi:isolate;">−2</span> או <span dir="ltr" style="unicode-bidi:isolate;">−9</span>?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">−2</span>, כי 2 קטן מ-9</div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">−9</span>, כי הוא רחוק יותר משמאל ל-0</div>
+    <div class="mc-opt"><div class="circ"></div> הם שווים</div>
+    <div class="mc-opt"><div class="circ"></div> אי אפשר להשוות מספרים שליליים</div>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <div><span class="qnum">3.</span> איזה מספר נמצא בדיוק באמצע בין <span dir="ltr" style="unicode-bidi:isolate;">−3</span> לבין <span dir="ltr" style="unicode-bidi:isolate;">1</span> על ציר המספרים?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">0</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">−1</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">1</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">−2</span></div>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <span class="qnum">4.</span>
+  כתוב מספר אחד שנמצא בין <span dir="ltr" style="unicode-bidi:isolate;">−5</span> לבין <span dir="ltr" style="unicode-bidi:isolate;">−4</span> על ציר המספרים. &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:50px;">&nbsp;</span>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <div><span class="qnum">5.</span> אם <span dir="ltr" style="unicode-bidi:isolate;">0 &lt; a &lt; b</span>, מה בהכרח נכון?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">|a| &gt; |b|</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">|a| &lt; |b|</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:isolate;">|a| = |b|</span></div>
+    <div class="mc-opt"><div class="circ"></div> תלוי בערכים של a ו-b</div>
+  </div>
+</div>
+
+<!-- Q6 -->
+<div class="quiz-q">
+  <div><span class="qnum">6.</span> <strong>שאלה ממעוף הציפור:</strong> רונית אומרת: "<span dir="ltr" style="unicode-bidi:isolate;">(−100)</span> קטן מ-<span dir="ltr" style="unicode-bidi:isolate;">(−1)</span> כי 100 גדול מ-1." האם היא צודקת? הסבר במשפט אחד.</div>
+  <div style="border-bottom:1px solid #888;margin-top:8px;"></div>
+  <div style="border-bottom:1px solid #888;margin-top:14px;"></div>
+</div>
+
+<!-- ===== SCORE BAR ===== -->
+<div class="score-bar">
+  <span>חלק א׳ (ערך מוחלט): <span class="score-field">&nbsp;</span> / 6</span>
+  <span>חלק ב׳ (מספרים נגדיים): <span class="score-field">&nbsp;</span> / 6</span>
+  <span>חלק ג׳ (ציר המספרים): <span class="score-field">&nbsp;</span> / 6</span>
+  <span>סה"כ: <span class="score-field">&nbsp;</span> / 18</span>
+</div>
+
+<div style="text-align:left;font-size:11.5px;font-weight:700;color:#333;margin-top:8px;">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-scaler -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+
+</body>
+</html>

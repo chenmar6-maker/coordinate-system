@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>דף אתגר — מספרים מכוונים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 11.5px;
+    color: #111;
+    direction: rtl;
+    background: #fff;
+    padding: 14px 18px 10px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+  }
+  .header-title { font-size: 16px; font-weight: 800; }
+  .header-sub { font-size: 10.5px; color: #555; margin-top: 1px; }
+  .header-tag {
+    font-size: 10.5px; font-weight: 700; color: #fff;
+    background: #c0392b; padding: 2px 9px; border-radius: 20px;
+  }
+  .name-field { font-size: 11px; }
+  .name-field span {
+    display: inline-block;
+    border-bottom: 1px solid #555;
+    min-width: 130px;
+    margin-right: 4px;
+  }
+
+  .three-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 8px;
+  }
+
+  .section {
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .section-head {
+    padding: 4px 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+  }
+  .section-head.abs  { background: #1a5276; }
+  .section-head.opp  { background: #1e8449; }
+  .section-head.line { background: #6c3483; }
+
+  .section-body { padding: 5px 8px; }
+
+  .q {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #e0e0e0;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+  .q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .qnum { font-weight: 700; }
+  .m { direction: ltr; unicode-bidi: isolate; }
+
+  .al {
+    display: block;
+    border-bottom: 1px solid #999;
+    margin-top: 3px;
+    height: 13px;
+  }
+  .ali {
+    display: inline-block;
+    border-bottom: 1px solid #999;
+    min-width: 44px;
+  }
+
+  .answer-key {
+    margin-top: 7px;
+    border: 1px dashed #bbb;
+    border-radius: 4px;
+    padding: 4px 9px;
+    font-size: 9.5px;
+    color: #555;
+    line-height: 1.75;
+  }
+  .answer-key strong { color: #111; }
+
+  .brand-line { font-size: 10.5px; font-weight: 700; color: #333; margin-top: 5px; text-align: left; }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 0; }
+  }
+  .page-scaler {
+    transform: scale(0.72);
+    transform-origin: top right;
+    width: calc(100% / 0.72);
+  }
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #111; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="page-scaler">
+
+<div class="header">
+  <div>
+    <div class="header-title">דף אתגר — מספרים מכוונים</div>
+    <div class="header-sub">לתלמידים שסיימו מהר &nbsp;|&nbsp; כיתה ז׳</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span class="header-tag">★ מתקדמים</span>
+    <div style="font-size:13px;font-weight:700;color:#333;">חן מרגלית למידה אקטיבית</div>
+  </div>
+</div>
+
+<div class="three-sections">
+
+  <!-- ===== ערך מוחלט ===== -->
+  <div class="section">
+    <div class="section-head abs">ערך מוחלט</div>
+    <div class="section-body">
+
+      <div class="q">
+        <span class="qnum">1.</span> חשב: <span class="m">|−|−9||</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">2.</span> אם <span class="m">|x| &lt; 4</span>, רשום את כל ערכי <span class="m">x</span> השלמים.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">3.</span> חשב: <span class="m">|3 − 8| + |−2 + 5|</span> = <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">4.</span> האם תמיד נכון: <span class="m">|a + b| = |a| + |b|</span>?<br>הבא דוגמה נגדית.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">5.</span> אם <span class="m">|a| = |b|</span> ו-<span class="m">a ≠ b</span>, מה הקשר ביניהם?
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">6.</span> אם <span class="m">|a − 3| = 5</span>, מצא את כל הערכים האפשריים של <span class="m">a</span>.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">7.</span> אם <span class="m">|x| = x</span>, מה ניתן להסיק על <span class="m">x</span>?
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">8.</span> מצא זוג מספרים שסכום ערכיהם המוחלטים הוא 10, אך ערך מוחלט <strong>סכומם</strong> הוא 2.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">9.</span> האם תמיד נכון: <span class="m">|a| + |b| ≥ |a + b|</span>?<br>הסבר.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">10.</span> נכון/לא נכון: <span class="m">(−a)² = a²</span> לכל <span class="m">a</span>. הסבר.
+        <span class="al"></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== מספרים נגדיים ===== -->
+  <div class="section">
+    <div class="section-head opp">מספרים נגדיים</div>
+    <div class="section-body">
+
+      <div class="q">
+        <span class="qnum">1.</span> מה הנגדי של הנגדי של הנגדי של <span class="m">5</span>? <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">2.</span> אם <span class="m">a</span> הוא הנגדי של <span class="m">b</span>, מה שווה <span class="m">|a| − |b|</span>? <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">3.</span> שני מספרים נגדיים. המרחק ביניהם הוא 14. מהם המספרים?
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">4.</span> נכון/לא נכון: "לכל מספר יש נגדי שונה ממנו." הסבר.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">5.</span> אם <span class="m">a &lt; 0</span> ו-<span class="m">|a| &gt; 3</span>, רשום שלושה ערכים אפשריים של <span class="m">a</span>.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">6.</span> אם <span class="m">a = −b</span> ו-<span class="m">a + b + c = 0</span>, מה שווה <span class="m">c</span>? <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">7.</span> אם <span class="m">a</span> ו-<span class="m">b</span> נגדיים ו-<span class="m">|a| = 7</span>, מה שווה <span class="m">(a + b)²</span>? <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">8.</span> אם הנגדי של <span class="m">x</span> גדול מ-<span class="m">x</span>, מה ניתן להסיק על <span class="m">x</span>?
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">9.</span> אם <span class="m">a &lt; 0</span>, מה גדול יותר: <span class="m">a</span> או <span class="m">−a</span>? הסבר.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">10.</span> אם <span class="m">a</span> ו-<span class="m">b</span> נגדיים ו-<span class="m">a &gt; 0</span>, סדר מהקטן לגדול: <span class="m">a, b, |a|, |b|</span>
+        <span class="al"></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== מיקום על ציר המספרים ===== -->
+  <div class="section">
+    <div class="section-head line">מיקום על ציר המספרים</div>
+    <div class="section-body">
+
+      <div class="q">
+        <span class="qnum">1.</span> מצא את המספר הנמצא בדיוק באמצע בין <span class="m">−7</span> לבין <span class="m">−1</span>. <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">2.</span> כתוב את כל המספרים השלמים בין <span class="m">−3.5</span> לבין <span class="m">1.5</span>.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">3.</span> המרחק בין שתי נקודות הוא <span class="m">8</span>. אחת היא <span class="m">−3</span>. מהן שתי האפשרויות?
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">4.</span> אם <span class="m">−5 &lt; a &lt; −2</span> ו-<span class="m">a</span> שלם, כמה ערכים אפשריים יש ל-<span class="m">a</span>? <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">5.</span> אם <span class="m">a &lt; b &lt; 0</span>, סדר מהקטן לגדול: <span class="m">a , b , |a| , |b|</span>
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">6.</span> <span class="m">a</span> נמצאת 4 יחידות משמאל ל-<span class="m">b</span>, ו-<span class="m">b = −1</span>. מהו <span class="m">a</span>? <span class="ali"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">7.</span> מצא <span class="m">x</span> כך שהמרחק שלו מ-<span class="m">0</span> שווה למרחקו מ-<span class="m">6</span>.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">8.</span> כתוב שלושה מספרים לא שלמים הנמצאים בין <span class="m">−2</span> לבין <span class="m">−1</span>.
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">9.</span> אם <span class="m">a &lt; 0 &lt; b</span> ו-<span class="m">|a| = |b|</span>, היכן נמצא הממוצע של <span class="m">a</span> ו-<span class="m">b</span>?
+        <span class="al"></span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">10.</span> סדר מהקטן לגדול: <span class="m">|−3| , −|−5| , −(−2) , −|4| , |−1|</span>
+        <span class="al"></span>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- end three-sections -->
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-scaler -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+
+</body>
+</html>
