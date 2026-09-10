@@ -802,7 +802,7 @@ function renderRead(lvl, sub){
     ${feedbackHtml}
     <div class="btnrow">
       ${!sub.checked?`<button class="btn" onclick="checkRead()">בדיקה</button>`:''}
-      ${showNext?`<button class="btn" onclick="nextReadTarget()">הבאה →</button>`:''}
+      ${showNext?`<button class="btn" onclick="nextReadTarget()">שאלה הבאה →</button>`:''}
     </div>
     <div class="btnrow"><button class="btn secondary" onclick="skipLevel()">דלג</button></div>
   `;
@@ -852,7 +852,7 @@ function renderConcept(lvl, sub){
     ${optHtml}
     ${feedbackHtml}
     ${explainHtml}
-    ${sub.answered?`<div class="btnrow"><button class="btn" onclick="nextConceptQ()">הבאה →</button></div>`:''}
+    ${sub.answered?`<div class="btnrow"><button class="btn" onclick="nextConceptQ()">שאלה הבאה →</button></div>`:''}
     <div class="btnrow"><button class="btn secondary" onclick="skipLevel()">דלג</button></div>
   `;
 }
