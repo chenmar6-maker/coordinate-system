@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>דף עבודה — משתנים וביטויים אלגבריים</title>
+<title>מבדק שליטה — משתנים וביטויים אלגבריים</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
 
@@ -42,7 +42,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 12.5px;
-    line-height: 1.55;
+    line-height: 1.6;
   }
   .quiz-q .qnum { font-weight: 700; margin-left: 4px; }
   .m { direction: ltr; unicode-bidi: isolate; }
@@ -50,33 +50,34 @@
   .mc-opts { display: flex; flex-wrap: wrap; gap: 5px 14px; margin-top: 4px; }
   .mc-opt { display: flex; align-items: center; gap: 4px; font-size: 12.5px; }
   .mc-opt .circ { width: 13px; height: 13px; border: 1.5px solid #444; border-radius: 50%; flex-shrink: 0; }
+  .mc-opt .sq   { width: 13px; height: 13px; border: 1.5px solid #444; border-radius: 2px; flex-shrink: 0; }
 
-  .sub-row { display: flex; align-items: baseline; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
-  .sub-lbl { min-width: 14px; font-weight: 700; }
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 14px; font-weight: 700; flex-shrink: 0; }
 
-  .al { display: block; border-bottom: 1px solid #999; margin-top: 5px; height: 14px; }
+  .al  { display: block; border-bottom: 1px solid #999; margin-top: 6px; height: 14px; }
   .al2 { display: block; border-bottom: 1px solid #bbb; margin-top: 12px; height: 14px; }
-  .ali { display: inline-block; border-bottom: 1px solid #999; min-width: 60px; }
+  .ali    { display: inline-block; border-bottom: 1px solid #999; min-width: 55px; }
   .ali-lg { display: inline-block; border-bottom: 1px solid #999; min-width: 110px; }
 
   table.fill-table {
     border-collapse: collapse;
-    margin: 6px 0;
+    margin: 7px 0 4px;
     font-size: 12px;
     direction: ltr;
   }
   table.fill-table th, table.fill-table td {
     border: 1px solid #aaa;
-    padding: 4px 12px;
+    padding: 4px 14px;
     text-align: center;
-    min-width: 44px;
+    min-width: 46px;
   }
   table.fill-table th { background: #f0f0f0; font-weight: 700; }
 
   .note-box {
     background: #fdf6e3; border: 1px solid #dbc97a;
     border-radius: 4px; padding: 4px 10px;
-    font-size: 11.5px; margin-bottom: 8px; line-height: 1.6;
+    font-size: 11.5px; margin-bottom: 8px; line-height: 1.65;
   }
 
   .divider { border: none; border-top: 2px dashed #aaa; margin: 10px 0; }
@@ -94,13 +95,11 @@
     .no-print { display: none; }
     @page { size: A4; margin: 0; }
   }
-
   .page-scaler {
     transform: scale(0.74);
     transform-origin: top right;
     width: calc(100% / 0.74);
   }
-
   .print-btn {
     position: fixed; bottom: 18px; left: 18px;
     background: #111; color: #fff; border: none;
@@ -123,8 +122,8 @@
 <!-- ===== HEADER ===== -->
 <div class="header">
   <div>
-    <div class="header-title">דף עבודה — משתנים וביטויים אלגבריים</div>
-    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; כתיבת ביטויים · הצבה · פישוט · הכללת סדרות</div>
+    <div class="header-title">מבדק שליטה — משתנים וביטויים אלגבריים</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; כתיבת ביטויים · הצבה · כינוס איברים דומים · סדרות</div>
   </div>
   <div class="brand">חן מרגלית למידה אקטיבית</div>
 </div>
@@ -132,7 +131,6 @@
 <!-- ══════════════════════════════════════════════════════
      חלק א׳ — כתיבת ביטויים אלגבריים
 ══════════════════════════════════════════════════════ -->
-
 <span class="part-label">חלק א׳ — כתיבת ביטויים אלגבריים</span>
 
 <!-- Q1 -->
@@ -140,16 +138,16 @@
   <span class="qnum">1.</span> רשמו ביטוי אלגברי לפי כל תיאור:
   <div class="sub-row"><span class="sub-lbl">א.</span> מספר שהוא פי 4 של <span class="m">a</span>: <span class="ali"></span></div>
   <div class="sub-row"><span class="sub-lbl">ב.</span> מספר שגדול ב-7 מ-<span class="m">n</span>: <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ג.</span> מחצית של <span class="m">x</span>: <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ד.</span> מכפלת <span class="m">m</span> ו-<span class="m">n</span> פחות 3: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> מחצית של <span class="m">x</span> פחות 3: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ד.</span> פי שלושה של <span class="m">a</span> ועוד פי שניים של <span class="m">b</span>: <span class="ali"></span></div>
 </div>
 
 <!-- Q2 -->
 <div class="quiz-q">
-  <span class="qnum">2.</span> מחיר כרטיס קולנוע הוא 35 ₪ למבוגר ו-20 ₪ לילד.
-  <div class="sub-row"><span class="sub-lbl">א.</span> כתבו ביטוי לעלות הכניסה של <span class="m">a</span> מבוגרים ו-3 ילדים: <span class="ali-lg"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ב.</span> מה העלות כאשר <span class="m">a = 2</span>? <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ג.</span> מה העלות כאשר <span class="m">a = 5</span>? <span class="ali"></span></div>
+  <span class="qnum">2.</span> חנות בדים חותכת תמיד <strong>10 ס"מ יותר</strong> ממה שהלקוח מבקש.
+  <div class="sub-row"><span class="sub-lbl">א.</span> לקוח ביקש 150 ס"מ. כמה ייחתך? <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> לקוח ביקש <span class="m">a</span> ס"מ. כתבו ביטוי לכמות שתיחתך: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> לקוח ביקש <span class="m">x</span> ס"מ. מה צריך ערך <span class="m">x</span> כדי שייחתכו בדיוק 200 ס"מ? <span class="ali"></span></div>
 </div>
 
 <!-- Q3 -->
@@ -165,22 +163,15 @@
 
 <!-- Q4 -->
 <div class="quiz-q">
-  <span class="qnum">4.</span> לריבוע יש צלע באורך <span class="m">a</span> ס"מ.
-  <div class="sub-row"><span class="sub-lbl">א.</span> כתבו ביטוי לאורך ההיקף: <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ב.</span> כתבו ביטוי לשטח הריבוע: <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ג.</span> האם <span class="m">4a</span> ו-<span class="m">a²</span> תמיד שווים? הסבירו בקצרה: <span class="ali-lg"></span></div>
+  <span class="qnum">4.</span> במלבן: הצלע הארוכה ארוכה ב-15 ס"מ מהצלע הקצרה. הצלע הקצרה היא <span class="m">x</span> ס"מ.
+  <div class="sub-row"><span class="sub-lbl">א.</span> כתבו ביטוי לצלע הארוכה: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> כתבו ביטוי להיקף המלבן: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> האם ייתכן שהצלע הקצרה היא 14 ס"מ? נמקו: <span class="ali-lg"></span></div>
 </div>
 
 <!-- Q5 -->
 <div class="quiz-q">
-  <span class="qnum">5.</span> בכיתה יש <span class="m">b</span> בנות. מספר הבנים גדול ב-3 מכפל מספר הבנות.
-  <div class="sub-row"><span class="sub-lbl">א.</span> כתבו ביטוי למספר הבנים: <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ב.</span> כתבו ביטוי לסך התלמידים בכיתה: <span class="ali"></span></div>
-</div>
-
-<!-- Q6 -->
-<div class="quiz-q">
-  <span class="qnum">6.</span> <strong>יצירתי:</strong> כתבו שאלת מילים שהתשובה לה היא הביטוי <span class="m">3n − 5</span>.
+  <span class="qnum">5.</span> <strong>יצירתי:</strong> כתבו שאלת מילים שהתשובה לה היא הביטוי <span class="m">3n − 5</span>.
   <span class="al"></span>
   <span class="al2"></span>
 </div>
@@ -190,32 +181,40 @@
 <!-- ══════════════════════════════════════════════════════
      חלק ב׳ — הצבה וחישוב ערך הביטוי
 ══════════════════════════════════════════════════════ -->
-
 <span class="part-label">חלק ב׳ — הצבה וחישוב ערך הביטוי</span>
 
 <!-- Q1 -->
 <div class="quiz-q">
-  <span class="qnum">1.</span> חשבו את ערך הביטוי <span class="m">4x − 3</span> עבור:
+  <span class="qnum">1.</span> חשבו את ערך הביטוי <span class="m">9x − 3</span> עבור:
   <div class="sub-row">
-    <span class="sub-lbl">א.</span> <span class="m">x = 2</span>: <span class="ali"></span>
-    <span class="sub-lbl" style="margin-right:18px;">ב.</span> <span class="m">x = 0</span>: <span class="ali"></span>
-    <span class="sub-lbl" style="margin-right:18px;">ג.</span> <span class="m">x = ½</span>: <span class="ali"></span>
-    <span class="sub-lbl" style="margin-right:18px;">ד.</span> <span class="m">x = −1</span>: <span class="ali"></span>
+    <span class="sub-lbl">א.</span> <span class="m">x = 5</span>: <span class="ali"></span>
+    <span style="margin-right:12px;"><span class="sub-lbl">ב.</span> <span class="m">x = ⅓</span>: <span class="ali"></span></span>
+    <span style="margin-right:12px;"><span class="sub-lbl">ג.</span> <span class="m">x = 0.5</span>: <span class="ali"></span></span>
+    <span style="margin-right:12px;"><span class="sub-lbl">ד.</span> <span class="m">x = −1</span>: <span class="ali"></span></span>
   </div>
 </div>
 
 <!-- Q2 -->
 <div class="quiz-q">
-  <span class="qnum">2.</span> מורה פרטי גובה 90 ₪ לשעה, בתוספת 15 ₪ דמי נסיעה בכל פגישה.
-  הביטוי לעלות פגישה של <span class="m">n</span> שעות הוא: <span class="m">90n + 15</span>
-  <div class="sub-row"><span class="sub-lbl">א.</span> מה העלות ל-3 שעות? <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ב.</span> מה העלות ל-1.5 שעות? <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ג.</span> תלמיד שילם 375 ₪. כמה שעות למד? (נסו ערכים) <span class="ali"></span></div>
+  <span class="qnum">2.</span> בבריכה יש 120 ליטר מים. מוציאים מהבריכה 3 ליטר לכל שעה.
+  הביטוי לכמות המים בבריכה אחרי <span class="m">x</span> שעות הוא: <span class="m">120 − 3x</span>
+  <div class="sub-row"><span class="sub-lbl">א.</span> כמה ליטר יישארו אחרי 5 שעות? <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> כמה ליטר יישארו אחרי 12 שעות? <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> האם ייתכן שאחרי 40 שעות הבריכה תהיה מלאה? נמקו: <span class="ali-lg"></span></div>
 </div>
 
 <!-- Q3 -->
 <div class="quiz-q">
-  <span class="qnum">3.</span> ערך הביטוי <span class="m">2a + 3b</span> כאשר <span class="m">a = 4</span> ו-<span class="m">b = −1</span> הוא:
+  <span class="qnum">3.</span> לנדן יש 15 ש"ח בקופה, והוא חוסך 4 ש"ח כל שבוע.
+  <div class="sub-row"><span class="sub-lbl">א.</span> כתבו ביטוי לסכום בקופה אחרי <span class="m">n</span> שבועות: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> כמה ש"ח יהיו בקופה אחרי 4 שבועות? <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> אחרי כמה שבועות יהיו לנדן 51 ש"ח? (נסו ערכים) <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ד.</span> האם ייתכן שיהיו בקופה 170 ש"ח? נמקו: <span class="ali-lg"></span></div>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <span class="qnum">4.</span> ערך הביטוי <span class="m">2a + 3b</span> כאשר <span class="m">a = 4</span> ו-<span class="m">b = −1</span> הוא:
   <div class="mc-opts">
     <div class="mc-opt"><div class="circ"></div> <span class="m">5</span></div>
     <div class="mc-opt"><div class="circ"></div> <span class="m">11</span></div>
@@ -224,9 +223,9 @@
   </div>
 </div>
 
-<!-- Q4 -->
+<!-- Q5 -->
 <div class="quiz-q">
-  <span class="qnum">4.</span> מלאו את הטבלה עבור הביטוי <span class="m">n² − n</span>:
+  <span class="qnum">5.</span> מלאו את הטבלה עבור הביטוי <span class="m">n² − n</span>:
   <br><br>
   <table class="fill-table">
     <tr>
@@ -235,22 +234,15 @@
     </tr>
     <tr>
       <th><span class="m">n² − n</span></th>
-      <td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td>
     </tr>
   </table>
   <div style="margin-top:5px;">מה שמתם לב? <span class="ali-lg"></span></div>
 </div>
 
-<!-- Q5 -->
-<div class="quiz-q">
-  <span class="qnum">5.</span> <strong>בלי לחשב —</strong> לאיזה ערך של <span class="m">t</span> הביטוי <span class="m">3t + 6</span> שווה לביטוי <span class="m">2t + 10</span>? הסבירו.
-  <span class="al"></span>
-  <span class="al2"></span>
-</div>
-
 <!-- Q6 -->
 <div class="quiz-q">
-  <span class="qnum">6.</span> <strong>השוו:</strong> הציבו <span class="m">a = 0, 1, 2, 3</span> בשני הביטויים <span class="m">4a + 2 − 3a + 1</span> ו-<span class="m">a + 3</span>. מה מסקנתכם?
+  <span class="qnum">6.</span> <strong>בלי לחשב —</strong> לאיזה ערך של <span class="m">t</span> הביטוי <span class="m">3t + 6</span> שווה לביטוי <span class="m">2t + 10</span>? הסבירו.
   <span class="al"></span>
   <span class="al2"></span>
 </div>
@@ -258,21 +250,21 @@
 <hr class="divider">
 
 <!-- ══════════════════════════════════════════════════════
-     חלק ג׳ — פישוט וסדרות
+     חלק ג׳ — כינוס איברים דומים וסדרות
 ══════════════════════════════════════════════════════ -->
-
-<span class="part-label">חלק ג׳ — פישוט וסדרות</span>
+<span class="part-label">חלק ג׳ — כינוס איברים דומים וסדרות</span>
 
 <div class="note-box">
-  <strong>פישוט ביטוי:</strong> מסכמים <em>איברים דומים</em> — מספרים עם מספרים, <span class="m">a</span> עם <span class="m">a</span>. לדוגמה: <span class="m">3a + 5 + 2a − 1 = 5a + 4</span>.
+  <strong>כינוס:</strong> מסכמים <em>איברים דומים</em> — איברים עם אותו משתנה, ומספרים עם מספרים. לדוגמה: <span class="m">3a + 5 + 2a − 1 = 5a + 4</span>.
 </div>
 
 <!-- Q1 -->
 <div class="quiz-q">
-  <span class="qnum">1.</span> פשטו:
+  <span class="qnum">1.</span> כנסו:
   <div class="sub-row"><span class="sub-lbl">א.</span> <span class="m">5x + 3x</span> = <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ב.</span> <span class="m">7a − 2a</span> = <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ג.</span> <span class="m">4b + b − 2b</span> = <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> <span class="m">7a − 2a + a</span> = <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> <span class="m">3.7x + 0.3x</span> = <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ד.</span> <span class="m">⅓a + ⅓a + ⅓a</span> = <span class="ali"></span></div>
 </div>
 
 <!-- Q2 -->
@@ -280,17 +272,18 @@
   <span class="qnum">2.</span> פשטו:
   <div class="sub-row"><span class="sub-lbl">א.</span> <span class="m">3x + 5 + 2x − 1</span> = <span class="ali"></span></div>
   <div class="sub-row"><span class="sub-lbl">ב.</span> <span class="m">4a − 3 + a + 7</span> = <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ג.</span> <span class="m">6b + 2 − 3b − 8</span> = <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> <span class="m">3.7b + 2 + 0.3b − 8</span> = <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ד.</span> <span class="m">½x + 3 + ½x − 1</span> = <span class="ali"></span></div>
 </div>
 
 <!-- Q3 -->
 <div class="quiz-q">
-  <span class="qnum">3.</span> <strong>בלי לפשט —</strong> איזה ביטוי שווה ל-<span class="m">5x + 3</span>? הקיפו את כל התשובות הנכונות.
+  <span class="qnum">3.</span> <strong>הקיפו את כל</strong> הביטויים השווים ל-<span class="m">5x + 3</span>:
   <div class="mc-opts">
-    <div class="mc-opt"><div class="circ" style="border-radius:3px;"></div> <span class="m">3x + 2 + 2x + 1</span></div>
-    <div class="mc-opt"><div class="circ" style="border-radius:3px;"></div> <span class="m">4x + 5 + x − 2</span></div>
-    <div class="mc-opt"><div class="circ" style="border-radius:3px;"></div> <span class="m">6x − x + 4 − 1</span></div>
-    <div class="mc-opt"><div class="circ" style="border-radius:3px;"></div> <span class="m">5x + 4 − 1</span></div>
+    <div class="mc-opt"><div class="sq"></div> <span class="m">3x + 2 + 2x + 1</span></div>
+    <div class="mc-opt"><div class="sq"></div> <span class="m">4x + 5 + x − 2</span></div>
+    <div class="mc-opt"><div class="sq"></div> <span class="m">6x − x + 4 − 1</span></div>
+    <div class="mc-opt"><div class="sq"></div> <span class="m">5x + 4 − 1</span></div>
   </div>
 </div>
 
@@ -299,21 +292,20 @@
   <span class="qnum">4.</span> הסדרה: <span class="m">3, 7, 11, 15, ...</span>
   <div class="sub-row"><span class="sub-lbl">א.</span> מהו ההפרש בין כל שני איברים סמוכים? <span class="ali"></span></div>
   <div class="sub-row"><span class="sub-lbl">ב.</span> מהו האיבר ה-6? <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ג.</span> כתבו ביטוי אלגברי לאיבר ה-<span class="m">n</span>: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> כתבו ביטוי לאיבר ה-<span class="m">n</span>: <span class="ali"></span></div>
   <div class="sub-row"><span class="sub-lbl">ד.</span> מהו האיבר ה-50? <span class="ali"></span></div>
 </div>
 
 <!-- Q5 -->
 <div class="quiz-q">
-  <span class="qnum">5.</span> כתבו ביטוי אלגברי לאיבר ה-<span class="m">n</span> בכל סדרה:
+  <span class="qnum">5.</span> כתבו ביטוי לאיבר ה-<span class="m">n</span> בכל סדרה:
   <div class="sub-row"><span class="sub-lbl">א.</span> <span class="m">5, 8, 11, 14, ...</span> &nbsp;→&nbsp; <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ב.</span> <span class="m">2, 4, 6, 8, ...</span> &nbsp;→&nbsp; <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ג.</span> <span class="m">10, 9, 8, 7, ...</span> &nbsp;→&nbsp; <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> <span class="m">10, 9, 8, 7, ...</span> &nbsp;→&nbsp; <span class="ali"></span></div>
 </div>
 
 <!-- Q6 -->
 <div class="quiz-q">
-  <span class="qnum">6.</span> <strong>ממעוף הציפור:</strong> חבר טוען ש-<span class="m">2(a + 3)</span> שווה ל-<span class="m">2a + 3</span>. האם הוא צודק? הוכיחו בשתי דרכים: הצבה, ופישוט.
+  <span class="qnum">6.</span> <strong>ממעוף הציפור:</strong> חבר טוען ש-<span class="m">2(a + 3)</span> שווה ל-<span class="m">2a + 3</span>. האם הוא צודק? הוכיחו בשתי דרכים: הצבת ערך, ופישוט.
   <span class="al"></span>
   <span class="al2"></span>
   <span class="al2"></span>
@@ -321,10 +313,10 @@
 
 <!-- ===== SCORE BAR ===== -->
 <div class="score-bar">
-  <span>חלק א׳: <span class="score-field">&nbsp;</span> / 6</span>
+  <span>חלק א׳: <span class="score-field">&nbsp;</span> / 5</span>
   <span>חלק ב׳: <span class="score-field">&nbsp;</span> / 6</span>
   <span>חלק ג׳: <span class="score-field">&nbsp;</span> / 6</span>
-  <span>סה"כ: <span class="score-field">&nbsp;</span> / 18</span>
+  <span>סה"כ: <span class="score-field">&nbsp;</span> / 17</span>
 </div>
 
 <div class="brand-line">חן מרגלית למידה אקטיבית</div>
