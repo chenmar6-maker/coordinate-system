@@ -1548,7 +1548,9 @@ function seqRow(seqNum, label, opts={}){
     const quizCard = opts.worksheetUrl
       ? `<div class="card quiz" onclick="window.open('${opts.worksheetUrl}','_blank')"><h3>מבדק שליטה</h3></div>`
       : `<div class="card quiz" onclick="state.sequence=${seqNum};startQuiz()"><h3>מבדק שליטה</h3></div>`;
-    const answersCard = opts.showAnswers
+    const answersCard = opts.answersUrl
+      ? `<div class="flow-arrow">←</div><div class="card" onclick="window.open('${opts.answersUrl}','_blank')" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>תשובות</h3></div>`
+      : opts.showAnswers
       ? `<div class="flow-arrow">←</div><div class="card" onclick="state.sequence=${seqNum};goTo('answers')" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>תשובות</h3></div>`
       : '';
     cards = `<div class="cards" style="margin-bottom:6px;">
@@ -1577,9 +1579,9 @@ function renderHome(){
 
     <div class="sequence-section" style="margin-bottom:32px;">
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">פרק מבוא — הכרת המספרים המכוונים</div>
-      ${seqRow(1, '1. ערך מוחלט', {quizAlt:true})}
-      ${seqRow(2, '2. מספרים נגדיים', {quizAlt:true})}
-      ${seqRow(6, '3. מיקום על ציר המספרים (כולל שברים)')}
+      ${seqRow(1, '1. ערך מוחלט', {worksheetUrl:'../worksheets/unit1_mastery_part_a.html', answersUrl:'../worksheets/unit1_mastery_answers.html'})}
+      ${seqRow(2, '2. מספרים נגדיים', {worksheetUrl:'../worksheets/unit1_mastery_part_b.html', answersUrl:'../worksheets/unit1_mastery_answers.html'})}
+      ${seqRow(6, '3. מיקום על ציר המספרים (כולל שברים)', {worksheetUrl:'../worksheets/unit1_mastery_part_c.html', answersUrl:'../worksheets/unit1_mastery_answers.html'})}
 
       <div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(234,244,241,0.12);">
         <div class="sequence-title" style="margin-bottom:12px;">★ שאלות אתגר — לתלמידים שמוכנים לצלול עמוק יותר</div>

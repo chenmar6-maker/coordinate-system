@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>תשובות — מבדקי שליטה: מספרים מכוונים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 11.5px;
+    color: #111;
+    direction: rtl;
+    background: #fff;
+    padding: 14px 18px 10px;
+  }
+
+  /* ── PIN screen ── */
+  .pin-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    gap: 16px;
+  }
+  .pin-title { font-size: 20px; font-weight: 800; }
+  .pin-sub { font-size: 13px; color: #555; }
+  #pinInput {
+    font-size: 24px;
+    letter-spacing: 10px;
+    width: 150px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #aaa;
+    font-family: 'Rubik', sans-serif;
+    direction: ltr;
+  }
+  .pin-btn {
+    background: #111; color: #fff; border: none;
+    padding: 8px 24px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer;
+  }
+  #pinErr { color: #c0392b; font-size: 13px; min-height: 18px; }
+
+  /* ── Answers page ── */
+  .answers-page { display: none; }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 6px;
+    margin-bottom: 7px;
+  }
+  .header-title { font-size: 16px; font-weight: 800; }
+  .header-sub { font-size: 10.5px; color: #555; margin-top: 1px; }
+  .header-tag {
+    font-size: 10.5px; font-weight: 700; color: #fff;
+    background: #0e6655; padding: 2px 9px; border-radius: 20px;
+  }
+
+  .three-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 8px;
+  }
+
+  .section {
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .section-head {
+    padding: 4px 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+  }
+  .section-head.part-a { background: #1a5276; }
+  .section-head.part-b { background: #0e6655; }
+  .section-head.part-c { background: #5b2c6f; }
+
+  .section-body { padding: 5px 8px; }
+
+  .a {
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed #e0e0e0;
+    font-size: 11px;
+    line-height: 1.55;
+  }
+  .a:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .anum { font-weight: 700; }
+  .ans { color: #0e6655; font-weight: 700; }
+  .m { direction: ltr; unicode-bidi: isolate; }
+
+  .brand-line { font-size: 10.5px; font-weight: 700; color: #333; margin-top: 5px; text-align: left; }
+
+  @media print {
+    .no-print { display: none; }
+    .pin-screen { display: none !important; }
+    .answers-page { display: block !important; }
+    @page { size: A4; margin: 0; }
+  }
+  .page-scaler {
+    transform: scale(0.72);
+    transform-origin: top right;
+    width: calc(100% / 0.72);
+  }
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #111; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  }
+  .print-btn:hover { background: #333; }
+</style>
+</head>
+<body>
+
+<!-- PIN screen -->
+<div class="pin-screen" id="pinScreen">
+  <div class="pin-title">תשובות למבדקי השליטה</div>
+  <div class="pin-sub">הזינו את הקוד כדי לצפות בתשובות</div>
+  <input id="pinInput" type="password" maxlength="6" placeholder="• • • •"
+    onkeydown="if(event.key==='Enter') checkPin()">
+  <button class="pin-btn" onclick="checkPin()">כניסה</button>
+  <div id="pinErr"></div>
+</div>
+
+<!-- Answers (hidden until correct PIN) -->
+<div class="answers-page" id="answersPage">
+<div class="page-scaler">
+
+<div class="header">
+  <div>
+    <div class="header-title">תשובות — מבדקי שליטה: מספרים מכוונים</div>
+    <div class="header-sub">ערך מוחלט · מספרים נגדיים · מיקום על ציר המספרים &nbsp;|&nbsp; כיתה ז׳</div>
+  </div>
+  <span class="header-tag">תשובות למורה</span>
+</div>
+
+<div class="three-sections">
+
+  <!-- ===== חלק א׳ — ערך מוחלט ===== -->
+  <div class="section">
+    <div class="section-head part-a">חלק א׳ — ערך מוחלט</div>
+    <div class="section-body">
+
+      <div class="a">
+        <span class="anum">1.</span> <span class="ans m">9</span>
+      </div>
+      <div class="a">
+        <span class="anum">2.</span> <span class="ans">גם 4 וגם <span class="m">(−4)</span></span>
+      </div>
+      <div class="a">
+        <span class="anum">3.</span> <span class="ans m">3.5</span>
+      </div>
+      <div class="a">
+        <span class="anum">4.</span> <span class="ans">אין מספר כזה</span>
+        <span style="font-size:9.5px;color:#555;display:block;">ערך מוחלט לא יכול להיות שלילי</span>
+      </div>
+      <div class="a">
+        <span class="anum">5.</span> <span class="ans"><span class="m">|−7| = 7</span>, גדול יותר</span>
+      </div>
+      <div class="a">
+        <span class="anum">6.</span> <span class="ans">לא בהכרח.</span>
+        <span style="font-size:9.5px;color:#555;display:block;">למשל: <span class="m">a=3, b=−3 → |a|=|b|=3</span> אבל <span class="m">a≠b</span></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== חלק ב׳ — מספרים נגדיים ===== -->
+  <div class="section">
+    <div class="section-head part-b">חלק ב׳ — מספרים נגדיים</div>
+    <div class="section-body">
+
+      <div class="a">
+        <span class="anum">1.</span> <span class="ans m">−8</span>
+      </div>
+      <div class="a">
+        <span class="anum">2.</span> <span class="ans m">3</span>
+      </div>
+      <div class="a">
+        <span class="anum">3.</span> <span class="ans">0 עצמו</span>
+      </div>
+      <div class="a">
+        <span class="anum">4.</span> <span class="ans"><span class="m">|a| = |b|</span></span>
+      </div>
+      <div class="a">
+        <span class="anum">5.</span> <span class="ans m">−6</span>
+      </div>
+      <div class="a">
+        <span class="anum">6.</span> <span class="ans">לא בהכרח.</span>
+        <span style="font-size:9.5px;color:#555;display:block;">אם <span class="m">a=b</span>, אז <span class="m">|a|=|b|</span> אבל הם לא נגדיים</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== חלק ג׳ — ציר המספרים ===== -->
+  <div class="section">
+    <div class="section-head part-c">חלק ג׳ — ציר המספרים</div>
+    <div class="section-body">
+
+      <div class="a">
+        <span class="anum">1.</span> <span class="ans"><span class="m">−5, −3, 0, 1, 2</span></span>
+      </div>
+      <div class="a">
+        <span class="anum">2.</span> <span class="ans m">−4</span>
+        <span style="font-size:9.5px;color:#555;display:block;">כי קרוב יותר ל-0</span>
+      </div>
+      <div class="a">
+        <span class="anum">3.</span> <span class="ans m">−1</span>
+      </div>
+      <div class="a">
+        <span class="anum">4.</span> <span class="ans">כל מספר כמו <span class="m">−2.5</span></span>
+      </div>
+      <div class="a">
+        <span class="anum">5.</span> <span class="ans"><span class="m">|a| &gt; |b|</span></span>
+      </div>
+      <div class="a">
+        <span class="anum">6.</span> <span class="ans">ככל שמתקדמים שמאלה — המספרים קטנים יותר</span>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- end three-sections -->
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-scaler -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+</div><!-- end answers-page -->
+
+<script>
+function checkPin() {
+  const v = document.getElementById('pinInput').value;
+  if (v === '2357') {
+    document.getElementById('pinScreen').style.display = 'none';
+    document.getElementById('answersPage').style.display = 'block';
+  } else {
+    document.getElementById('pinErr').textContent = 'קוד שגוי — נסו שוב';
+    document.getElementById('pinInput').value = '';
+    document.getElementById('pinInput').focus();
+  }
+}
+</script>
+</body>
+</html>

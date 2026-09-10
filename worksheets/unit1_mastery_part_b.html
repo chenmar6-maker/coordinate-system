@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>מבדק שליטה — מספרים נגדיים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+    color: #111;
+    direction: rtl;
+    background: #fff;
+    padding: 18px 22px 14px;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .header-title { font-size: 18px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: #444; margin-top: 2px; }
+  .header-fields { font-size: 12px; line-height: 2.1; text-align: left; direction: ltr; }
+  .header-fields span { display: inline-block; border-bottom: 1px solid #555; min-width: 110px; margin-right: 4px; }
+
+  /* ===== SECTION LABELS ===== */
+  .part-label {
+    font-size: 13px; font-weight: 700;
+    background: #111; color: #fff;
+    padding: 3px 10px; border-radius: 3px;
+    display: inline-block; margin-bottom: 7px;
+  }
+
+  /* ===== QUIZ QUESTIONS ===== */
+  .quiz-q {
+    margin-bottom: 7px; padding: 5px 8px;
+    border: 1px solid #ccc; border-radius: 4px; font-size: 12.5px;
+  }
+  .quiz-q .qnum { font-weight: 700; margin-left: 4px; }
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 5px 14px; margin-top: 3px; }
+  .mc-opt { display: flex; align-items: center; gap: 4px; font-size: 12.5px; }
+  .mc-opt .circ { width: 13px; height: 13px; border: 1.5px solid #444; border-radius: 50%; flex-shrink:0; }
+
+  /* ===== SCORE BAR ===== */
+  .score-bar {
+    display: flex; gap: 18px; justify-content: flex-end;
+    font-size: 12px; margin-top: 8px; color: #444;
+    border-top: 1px solid #ccc; padding-top: 6px;
+  }
+  .score-field { border-bottom: 1px solid #555; min-width: 40px; display: inline-block; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 0; }
+  }
+
+  .page-scaler {
+    transform: scale(0.74);
+    transform-origin: top right;
+    width: calc(100% / 0.74);
+  }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #111; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  }
+  .print-btn:hover { background: #333; }
+
+  .answers-btn {
+    position: fixed; bottom: 18px; left: 140px;
+    background: #0e6655; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  }
+  .answers-btn:hover { background: #117a65; }
+</style>
+</head>
+<body>
+<div class="page-scaler">
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — מספרים נגדיים</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; יחידה 1: מספרים מכוונים</div>
+  </div>
+  <div class="header-fields" dir="ltr">
+    Name: <span>&nbsp;</span><br>
+    Date: <span style="min-width:70px;">&nbsp;</span> &nbsp; Class: <span style="min-width:50px;">&nbsp;</span>
+  </div>
+</div>
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+  <span class="part-label" style="margin-bottom:0;">חלק ב׳ — מבדק שליטה: מספרים נגדיים</span>
+  <span style="font-size:11.5px;">שם מלא: <span style="border-bottom:1px solid #555;display:inline-block;min-width:130px;">&nbsp;</span></span>
+</div>
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span>
+  מה הנגדי של 8? &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:50px;">&nbsp;</span>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span>
+  מה הנגדי של <span dir="ltr" style="unicode-bidi:embed;">(−3)</span>? &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:50px;">&nbsp;</span>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <div><span class="qnum">3.</span> מה הנגדי של 0?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> אין לאפס נגדי</div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">(−0)</span>, מספר שונה מ-0</div>
+    <div class="mc-opt"><div class="circ"></div> 0 עצמו</div>
+    <div class="mc-opt"><div class="circ"></div> 1</div>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <div><span class="qnum">4.</span> נתון ש-a ו-b הם מספרים נגדיים (שונים מ-0). מה בהכרח נכון?</div>
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">a = b</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">|a| = |b|</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span dir="ltr" style="unicode-bidi:embed;">a + b = 1</span></div>
+    <div class="mc-opt"><div class="circ"></div> אחד מהם חייב להיות 0</div>
+  </div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <span class="qnum">5.</span>
+  מה הנגדי של הנגדי של <span dir="ltr" style="unicode-bidi:embed;">(−6)</span>? &nbsp; תשובה: <span style="border-bottom:1px solid #555;display:inline-block;min-width:50px;">&nbsp;</span>
+</div>
+
+<!-- Q6 -->
+<div class="quiz-q">
+  <div><span class="qnum">6.</span> <strong>שאלה ממעוף הציפור:</strong> אם <span dir="ltr" style="unicode-bidi:embed;">|a| = |b|</span>, האם בהכרח a ו-b מספרים נגדיים? הסבר.</div>
+  <div style="border-bottom:1px solid #888;margin-top:8px;"></div>
+  <div style="border-bottom:1px solid #888;margin-top:14px;"></div>
+</div>
+
+<!-- ===== SCORE BAR ===== -->
+<div class="score-bar">
+  <span>סה״כ: <span class="score-field">&nbsp;</span> / 6</span>
+</div>
+
+<div style="text-align:left;font-size:11.5px;font-weight:700;color:#333;margin-top:8px;">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-scaler -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="answers-btn no-print" onclick="window.open('unit1_mastery_answers.html','_blank')">תשובות</button>
+
+</body>
+</html>
