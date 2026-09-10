@@ -426,9 +426,9 @@ function buildGrid4Q({id, N=5, cellPx=36, points=[], lines=[], interactive=false
   let labels=`<text x="${ox-10}" y="${oy+17}" font-size="10" fill="var(--axislabel)" text-anchor="end" font-family="Rubik">0</text>`;
   for(let i=1;i<=N;i++){
     labels+=`<text x="${X(i)}" y="${oy+18}" font-size="10" fill="var(--axislabel)" text-anchor="middle" font-family="Rubik">${i}</text>`;
-    labels+=`<text x="${X(-i)}" y="${oy+18}" font-size="10" fill="var(--axislabel)" text-anchor="middle" font-family="Rubik">−${i}</text>`;
+    labels+=`<text x="${X(-i)}" y="${oy+18}" font-size="10" fill="var(--axislabel)" text-anchor="middle" font-family="Rubik" direction="ltr">−${i}</text>`;
     labels+=`<text x="${ox-10}" y="${Y(i)+4}" font-size="10" fill="var(--axislabel)" text-anchor="end" font-family="Rubik">${i}</text>`;
-    labels+=`<text x="${ox-10}" y="${Y(-i)+4}" font-size="10" fill="var(--axislabel)" text-anchor="end" font-family="Rubik">−${i}</text>`;
+    labels+=`<text x="${ox-10}" y="${Y(-i)+4}" font-size="10" fill="var(--axislabel)" text-anchor="end" font-family="Rubik" direction="ltr">−${i}</text>`;
   }
 
   // quadrant labels (faint)
