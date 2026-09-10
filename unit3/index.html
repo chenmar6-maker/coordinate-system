@@ -235,25 +235,32 @@ let learnGridCfg = null;
 // ─── Game Level Data ──────────────────────────────────────────────────────────
 const gameLevels1 = [
   {
-    id:'place',
-    title:'ציד צוללות ברביע השני ורביע השלישי',
+    id:'plot',
+    title:'סימון נקודות — רביע II ורביע III',
     guide:'קואורדינטה שלילית של x אומרת "שמאלה מהראשית". קואורדינטה שלילית של y אומרת "מתחת לראשית". הרביע השני הוא שמאל-למעלה (x שלילי, y חיובי), הרביע השלישי הוא שמאל-למטה (שניהם שליליים).',
-    instructions:'הזינו קואורדינטות כדי לירות על הצוללת המסתתרת.',
-    targets:[{x:-3,y:2},{x:-4,y:-2},{x:-1,y:4}]
+    instructions:'ניתנות קואורדינטות — לחצו על הנקודה המתאימה בגרף.',
+    targets:[{x:-3,y:2},{x:-4,y:-2},{x:-1,y:-3}]
   },
   {
-    id:'place',
-    title:'ציד צוללות ברביע הרביעי ועל הצירים',
+    id:'read',
+    title:'קריאת קואורדינטות — רביע II ורביע III',
+    guide:'קראו קודם את שיעור ה-x: כמה צעדים ימינה (חיובי) או שמאלה (שלילי) מהראשית. אחר כך קראו את y: כמה צעדים למעלה (חיובי) או למטה (שלילי). הקלידו מינוס לפני מספרים שליליים.',
+    instructions:'הצוללת מסומנת על המפה. קראו את שיעוריה והקלידו.',
+    targets:[{x:-2,y:3},{x:-4,y:-1},{x:-3,y:-4}]
+  },
+  {
+    id:'plot',
+    title:'סימון נקודות — רביע IV ועל הצירים',
     guide:'רביע IV הוא ימין-למטה (x חיובי, y שלילי). נקודות על ציר ה-x הן בגובה y=0. נקודות על ציר ה-y הן ב-x=0 — הן לא שייכות לאף רביע.',
-    instructions:'הזינו קואורדינטות כדי לירות על הצוללת המסתתרת.',
+    instructions:'ניתנות קואורדינטות — לחצו על הנקודה המתאימה בגרף.',
     targets:[{x:3,y:-3},{x:0,y:-4},{x:-4,y:0}]
   },
   {
     id:'read',
-    title:'פענוח מיקום — קואורדינטות שליליות',
+    title:'קריאת קואורדינטות — כל הרביעים',
     guide:'קראו קודם את שיעור ה-x: כמה צעדים ימינה (חיובי) או שמאלה (שלילי) מהראשית. אחר כך קראו את y: כמה צעדים למעלה (חיובי) או למטה (שלילי). הקלידו מינוס לפני מספרים שליליים.',
     instructions:'הצוללת מסומנת על המפה. קראו את שיעוריה והקלידו.',
-    targets:[{x:-2,y:4},{x:3,y:-3},{x:-4,y:-1}]
+    targets:[{x:3,y:-3},{x:-4,y:-1},{x:2,y:4}]
   },
   {
     id:'concept',
@@ -282,10 +289,10 @@ const gameLevels1 = [
     ]
   },
   {
-    id:'place',
-    title:'אתגר — כל הרביעים',
+    id:'plot',
+    title:'אתגר — סימון בכל הרביעים',
     guide:'השתמשו בכל מה שלמדתם. קואורדינטה ראשונה = ימינה/שמאלה, קואורדינטה שנייה = למעלה/למטה.',
-    instructions:'הזינו קואורדינטות כדי לירות על הצוללת המסתתרת.',
+    instructions:'ניתנות קואורדינטות — לחצו על הנקודה המתאימה בגרף.',
     targets:[{x:4,y:3},{x:-2,y:-4},{x:3,y:-2},{x:-5,y:2}]
   }
 ];
@@ -340,6 +347,7 @@ function currentGameLevels(){
 function freshLevelSub(idx){
   const lvl=currentGameLevels()[idx];
   if(lvl.id==='place') return {targetIdx:0,hits:[],misses:[],feedback:''};
+  if(lvl.id==='plot') return {targetIdx:0,hits:[],missPoint:null,feedback:''};
   if(lvl.id==='read') return {targetIdx:0,xVal:'',yVal:'',feedback:'',checked:false};
   if(lvl.id==='concept') return {qIdx:0,answered:false,feedback:null,correctCount:0};
   if(lvl.id==='meas_h'||lvl.id==='meas_v') return {val:'',checked:false,feedback:''};
@@ -653,6 +661,8 @@ function renderGame(){
 
   if(lvl.id==='place'){
     content=renderPlace(lvl,sub);
+  } else if(lvl.id==='plot'){
+    content=renderPlot(lvl,sub);
   } else if(lvl.id==='read'){
     content=renderRead(lvl,sub);
   } else if(lvl.id==='concept'){
@@ -742,6 +752,44 @@ function shootAt(){
     sub.feedback='bad';
   }
   render();
+}
+
+// ─── Plot Level (given coords → click on grid) ────────────────────────────────
+function renderPlot(lvl, sub){
+  const targets=lvl.targets;
+  const tIdx=sub.targetIdx;
+  const allDone=(tIdx>=targets.length);
+
+  const pts=[];
+  sub.hits.forEach((h,i)=>pts.push({x:h.x,y:h.y,icon:'sub',color:targetColor(i)}));
+  if(sub.missPoint) pts.push({x:sub.missPoint.x,y:sub.missPoint.y,icon:'miss'});
+
+  const cfg=buildGrid4Q({id:'gameGrid', N:5, cellPx:36, points:pts, interactive:!allDone});
+  gameGridCfg=cfg;
+
+  if(allDone){
+    return `
+      <div class="gridbox">${cfg.svg}</div>
+      <div class="feedback ok">כל הצוללות סומנו! 🎉</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">שלב הבא ←</button></div>
+    `;
+  }
+
+  const t=targets[tIdx];
+  const feedbackHtml = sub.feedback==='ok'
+    ? '<div class="feedback ok">מדויק! ✓</div>'
+    : sub.feedback==='bad'
+    ? '<div class="feedback bad">לא מדויק, נסו שוב!</div>'
+    : '<div class="feedback"></div>';
+
+  return `
+    <div class="target-wrap">
+      <div class="target-counter-badge"><span class="num">${tIdx+1}</span><span class="of"> מתוך ${targets.length}</span></div>
+      <div class="target-pop"><span class="label">סמנו את הצוללת על המפה:</span><span class="coord-big">${coord(t.x, t.y)}</span></div>
+    </div>
+    <div class="gridbox">${cfg.svg}</div>
+    ${feedbackHtml}
+  `;
 }
 
 // ─── Read Level ───────────────────────────────────────────────────────────────
@@ -1223,6 +1271,27 @@ function postRenderLearn(){
 function postRenderGame(){
   const lvl=currentGameLevels()[state.levelIndex];
   if(!gameGridCfg) return;
+
+  if(lvl.id==='plot'){
+    const sub=state.levelSub;
+    if(sub.targetIdx>=lvl.targets.length) return;
+    attachGridClick4Q('gameGrid', gameGridCfg, function(gx,gy){
+      if(sub.targetIdx>=lvl.targets.length) return;
+      const t=lvl.targets[sub.targetIdx];
+      state.gameTotal++;
+      if(gx===t.x&&gy===t.y){
+        sub.hits.push({x:t.x,y:t.y});
+        sub.missPoint=null;
+        sub.feedback='ok';
+        sub.targetIdx++;
+        state.gameScore++;
+      } else {
+        sub.missPoint={x:gx,y:gy};
+        sub.feedback='bad';
+      }
+      render();
+    });
+  }
 
   if(lvl.id==='shape'){
     const sub=state.levelSub;
