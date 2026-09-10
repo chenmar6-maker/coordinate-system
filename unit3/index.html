@@ -707,7 +707,7 @@ function renderPlace(lvl, sub){
   return `
     <div class="target-wrap">
       <div class="target-counter-badge"><span class="num">${tIdx+1}</span><span class="of"> מתוך ${targets.length}</span></div>
-      <div class="target-pop"><span class="label">צוללת אויב מסתתרת. הזינו קואורדינטות לירי:</span></div>
+      <div class="target-pop"><span class="label">הזינו את שיעורי הצוללת:</span><span class="coord-big">${coord(targets[tIdx].x, targets[tIdx].y)}</span></div>
     </div>
     <div class="gridbox">${cfg.svg}</div>
     <div class="coord-input-row">
