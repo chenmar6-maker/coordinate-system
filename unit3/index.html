@@ -259,7 +259,7 @@ const gameLevels1 = [
     id:'concept',
     title:'כללי הרביעים',
     guide:'ספרות רומיות I–IV בכיוון נגד השעון מרביע I שנמצא ימין-למעלה. כל רביע מוגדר לפי הסימן (+/−) של שתי הקואורדינטות.',
-    instructions:'ענו על שלוש שאלות על חוקי הרביעים.',
+    instructions:'ענו על השאלות הבאות.',
     questions:[
       {
         prompt:'נקודה נמצאת ברביע II. מה הסימנים של שיעוריה?',
@@ -794,9 +794,9 @@ function renderRead(lvl, sub){
     <div class="gridbox">${cfg.svg}</div>
     <div class="coord-input-row">
       <span class="paren">(</span>
-      <input id="readX" type="number" min="-5" max="5" placeholder="x" ${sub.checked?`value="${sub.xVal}"`:''}/>
-      <span class="comma">,</span>
       <input id="readY" type="number" min="-5" max="5" placeholder="y" ${sub.checked?`value="${sub.yVal}"`:''}/>
+      <span class="comma">,</span>
+      <input id="readX" type="number" min="-5" max="5" placeholder="x" ${sub.checked?`value="${sub.xVal}"`:''}/>
       <span class="paren">)</span>
     </div>
     ${feedbackHtml}
