@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>מבדק שליטה — סדר פעולות חשבון עם מספרים מכוונים</title>
+<title>מבדק שליטה — סדר פעולות עם קו שבר</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
 
@@ -38,8 +38,6 @@
     padding: 5px 14px; border-radius: 6px;
     display: inline-block; margin-bottom: 10px;
   }
-  .pa { background: #C05621; }
-  .pb { background: #1D4ED8; }
   .pc { background: #047857; }
 
   .quiz-q {
@@ -50,7 +48,7 @@
     font-size: 13.5px;
     line-height: 1.65;
     box-shadow: 0 1px 3px rgba(0,0,0,0.07);
-    border-right: 4px solid transparent;
+    border-right: 4px solid #6EE7B7;
   }
   .quiz-q .qrow {
     display: flex;
@@ -69,36 +67,21 @@
     margin-right: 2px;
     vertical-align: bottom;
   }
-  .ans-block {
-    margin-top: 6px;
-    padding-right: 22px;
-    font-size: 12.5px;
-  }
   .think-area { margin-top: 6px; padding-right: 22px; font-size: 12.5px; }
   .think-line { display: block; border-bottom: 1px solid #bbb; margin-top: 14px; height: 1px; }
 
-  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
-
-  @media print {
-    .no-print { display: none; }
-    @page { size: A4; margin: 12mm; }
-    body { background: #fff; padding: 10px; }
-    .quiz-q { box-shadow: none; border: 1px solid #ddd; }
+  .note-box {
+    background: #ECFDF5;
+    border: 1px solid #6EE7B7;
+    border-right: 3px solid #047857;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 13px;
+    margin-bottom: 10px;
+    line-height: 1.75;
   }
 
-  .page-wrap {
-    max-width: 780px;
-    margin: 0 auto;
-  }
-  .is-b .quiz-q { border-right-color: #93C5FD; }
-
-  .print-btn {
-    position: fixed; bottom: 18px; left: 18px;
-    background: #1a1a2e; color: #fff; border: none;
-    padding: 9px 20px; border-radius: 20px;
-    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
-    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-  }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
 
   .frac {
     display: inline-flex;
@@ -111,30 +94,81 @@
   }
   .frac .num { border-bottom: 1.5px solid #111; padding: 0 3px; text-align: center; direction: ltr; unicode-bidi: embed; }
   .frac .den { padding: 0 3px; text-align: center; direction: ltr; unicode-bidi: embed; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; border: 1px solid #ddd; }
+  }
 </style>
 </head>
 <body>
-<div class="page-wrap is-b">
+<div class="page-wrap">
 
 <div class="header">
   <div>
-    <div class="header-title">מבדק שליטה — סדר פעולות חשבון עם מספרים מכוונים</div>
+    <div class="header-title">מבדק שליטה — סדר פעולות עם קו שבר</div>
     <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מספרים מכוונים</div>
   </div>
   <div class="brand">חן מרגלית למידה אקטיבית</div>
 </div>
 
-<!-- ══ חלק ב׳ — סדר פעולות וסוגריים ══ -->
-<span class="part-label pb">חלק ב׳ — סדר פעולות וסוגריים</span>
+<span class="part-label pc">קו השבר כסוגריים</span>
+
+<div class="note-box">
+  <strong>כלל:</strong> קו השבר פועל כמו סוגריים — חייבים לחשב תחילה את <em>כל המונה</em> ורק אחר כך את <em>כל המכנה</em>, ורק לבסוף לחלק.
+  <br>
+  דוגמה: <span style="direction:ltr;unicode-bidi:isolate;font-weight:600;"><span class="frac"><span class="num">3 − 9</span><span class="den">2 · (−3)</span></span> = <span class="frac"><span class="num">−6</span><span class="den">−6</span></span> = 1</span>
+</div>
 
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">1.</span><span class="qtext">פתרו — שימו לב לסדר הפעולות ולסוגריים:</span></div>
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">פתרו:</span></div>
   <div style="margin-top:5px;padding-right:8px;display:flex;flex-direction:column;gap:5px;">
     <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
       <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">א.</span>
       <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
-        <span class="math">3 · (−4 + (−2)) = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span class="math"><span class="frac"><span class="num">−3 · (4 − 1)</span><span class="den">−9</span></span> = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
         <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:20px;"></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ב.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math"><span class="frac"><span class="num">−12</span><span class="den">−3 · (2 − 4)</span></span> = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:20px;"></span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ג.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math"><span class="frac"><span class="num">−2 · (−3) + 4</span><span class="den">−5 · 2</span></span> = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:20px;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">פתרו — שימו לב שקו השבר מפריד בין חלקי הביטוי:</span></div>
+  <div style="margin-top:5px;padding-right:8px;display:flex;flex-direction:column;gap:5px;">
+    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">א.</span>
+      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
+        <span class="math"><span class="frac"><span class="num">−20 + 2</span><span class="den">3</span></span> · (−6) − 4 = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:20px;"></span>
         <span style="display:block;border-bottom:1px solid #ccc;margin-top:20px;"></span>
         <span style="display:block;border-bottom:1px solid #ccc;margin-top:20px;"></span>
       </div>
@@ -142,47 +176,20 @@
     <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
       <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ב.</span>
       <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
-        <span class="math">(−5 + 3) · (−7 − (−3)) = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
+        <span class="math"><span class="frac"><span class="num">−5 · 4</span><span class="den">−2 − 8</span></span> − 3 = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
         <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
+        <span style="display:block;border-bottom:1px solid #ccc;margin-top:20px;"></span>
         <span style="display:block;border-bottom:1px solid #ccc;margin-top:20px;"></span>
         <span style="display:block;border-bottom:1px solid #ccc;margin-top:20px;"></span>
       </div>
     </div>
-    <div style="display:flex;align-items:flex-start;gap:6px;direction:rtl;">
-      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ג.</span>
-      <div style="direction:ltr;flex:1;text-align:right;font-size:12.5px;">
-        <span class="math">−2 · (3 − (−7)) + (−5) · (−2) = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span>
-        <span style="display:block;border-bottom:1px solid #ccc;margin-top:14px;"></span>
-        <span style="display:block;border-bottom:1px solid #ccc;margin-top:20px;"></span>
-        <span style="display:block;border-bottom:1px solid #ccc;margin-top:20px;"></span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="quiz-q">
-  <div class="qrow"><span class="qnum">2.</span><span class="qtext">מניות של חברה ירדו בסה"כ <span class="math">24</span> נקודות ב-<span class="math">6</span> ימים שווים. מה השינוי היומי הממוצע?</span></div>
-  <div class="ans-block" style="margin-top:6px;">תשובה: <span class="ans-line" style="min-width:120px;">&nbsp;</span></div>
-  <div style="direction:ltr;text-align:right;padding-right:22px;margin-top:12px;">
-    <span style="display:block;border-bottom:1px solid #ccc;"></span>
-    <span style="display:block;border-bottom:1px solid #ccc;margin-top:16px;"></span>
   </div>
 </div>
 
 <div class="quiz-q">
   <div class="qrow"><span class="qnum">3.</span><span class="qtext" style="font-weight:700;">שאלה ממעוף הציפור:</span></div>
-  <div class="qrow" style="margin-top:4px;"><span class="qtext">האם ייתכן ש-<span class="math">a ÷ b = b ÷ a</span> כאשר <span class="math">a</span> ו-<span class="math">b</span> הם מספרים מכוונים שונים מאפס? באילו מקרים?</span></div>
+  <div class="qrow" style="margin-top:4px;"><span class="qtext">דניאל טוען שהתשובה לתרגיל <span class="math" style="direction:ltr;unicode-bidi:isolate;"><span class="frac"><span class="num">4 − 6</span><span class="den">2</span></span></span> היא <span class="math">4 − 3 = 1</span>. האם הוא צודק? הסבירו את הטעות.</span></div>
   <div class="think-area">
-    <span class="think-line"></span>
-    <span class="think-line"></span>
-    <span class="think-line"></span>
-  </div>
-</div>
-
-<div class="quiz-q">
-  <div class="qrow"><span class="qnum">4.</span><span class="qtext">נסחו שאלה מהחיים האמיתיים שמשתמשת בכפל או חילוק של מספרים מכוונים — ופתרו אותה.</span></div>
-  <div class="think-area">
-    <span class="think-line"></span>
     <span class="think-line"></span>
     <span class="think-line"></span>
     <span class="think-line"></span>
