@@ -95,6 +95,14 @@
 
   .brand-line { font-size: 10.5px; font-weight: 700; color: #333; margin-top: 5px; text-align: left; }
 
+  .frac {
+    display: inline-flex; flex-direction: column;
+    align-items: stretch; vertical-align: middle;
+    font-size: 0.95em; line-height: 1.25; margin: 0 3px;
+  }
+  .frac .num { border-bottom: 1.5px solid #111; padding: 0 4px; text-align: center; direction: ltr; }
+  .frac .den { padding: 0 4px; text-align: center; direction: ltr; }
+
   @media print {
     .no-print { display: none; }
     @page { size: A4; margin: 0; }
@@ -209,27 +217,7 @@
 
 <!-- Q3 -->
 <div class="quiz-q">
-  <span class="qnum">3.</span> לעידן יש 15 ש"ח בקופה, והוא חוסך 4 ש"ח כל שבוע.
-  <div class="sub-row"><span class="sub-lbl">א.</span> כתבו ביטוי לסכום בקופה אחרי <span class="m">n</span> שבועות: <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ב.</span> כמה ש"ח יהיו בקופה אחרי 4 שבועות? <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ג.</span> אחרי כמה שבועות יהיו לעידן 51 ש"ח? (נסו ערכים) <span class="ali"></span></div>
-  <div class="sub-row"><span class="sub-lbl">ד.</span> האם ייתכן שיהיו בקופה 170 ש"ח? נמקו: <span class="ali-lg"></span></div>
-</div>
-
-<!-- Q4 -->
-<div class="quiz-q">
-  <span class="qnum">4.</span> ערך הביטוי <span class="m">2a + 3b</span> כאשר <span class="m">a = 4</span> ו-<span class="m">b = −1</span> הוא:
-  <div class="mc-opts">
-    <div class="mc-opt"><div class="circ"></div> <span class="m">5</span></div>
-    <div class="mc-opt"><div class="circ"></div> <span class="m">11</span></div>
-    <div class="mc-opt"><div class="circ"></div> <span class="m">14</span></div>
-    <div class="mc-opt"><div class="circ"></div> <span class="m">−11</span></div>
-  </div>
-</div>
-
-<!-- Q5 -->
-<div class="quiz-q">
-  <span class="qnum">5.</span> מלאו את הטבלה עבור הביטוי <span class="m">2a − b</span>:
+  <span class="qnum">3.</span> מלאו את הטבלה עבור הביטוי <span class="m">2a − b</span>:
   <br><br>
   <table class="fill-table">
     <tr>
@@ -247,13 +235,53 @@
   </table>
 </div>
 
-<!-- Q6 -->
+<!-- Q4 -->
 <div class="quiz-q">
-  <span class="qnum">6.</span> במדינת אבחזיה עלות נסיעה במונית מחושבת כך: כל קילומטר עולה 3 לירות אבחזיות, כל דקה עולה לירה אחת, ועלות הזמנת המונית עולה 10 לירות.
+  <span class="qnum">4.</span> במדינת אבחזיה עלות נסיעה במונית מחושבת כך: כל קילומטר עולה 3 לירות אבחזיות, כל דקה עולה לירה אחת, ועלות הזמנת המונית עולה 10 לירות.
   <div class="sub-row"><span class="sub-lbl">א.</span> כתבו ביטוי לעלות הנסיעה עבור <span class="m">k</span> קילומטרים ו-<span class="m">m</span> דקות: <span class="ali-lg"></span></div>
   <div class="sub-row"><span class="sub-lbl">ב.</span> חשבו את העלות עבור 4 קילומטרים ו-6 דקות: <span class="ali"></span></div>
   <div class="sub-row"><span class="sub-lbl">ג.</span> נועה שילמה 43 לירות. הנסיעה ארכה 3 דקות. כמה קילומטרים נסעה? (ניסוי ובדיקה) <span class="ali"></span></div>
   <div class="sub-row"><span class="sub-lbl">ד.</span> האם ייתכן שנסיעה תעלה פחות מ-10 לירות? נמקו: <span class="ali-lg"></span></div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <span class="qnum">5.</span> נתון הביטוי <span class="m"><span class="frac"><span class="num">12</span><span class="den">x − 2</span></span></span>. הציבו וחשבו:
+  <div class="sub-row" style="flex-wrap:wrap;gap:8px 20px;margin-top:6px;">
+    <span><span class="sub-lbl">א.</span> <span class="m">x = 5</span>: <span class="ali"></span></span>
+    <span><span class="sub-lbl">ב.</span> <span class="m">x = 6</span>: <span class="ali"></span></span>
+    <span><span class="sub-lbl">ג.</span> <span class="m">x = ½</span>: <span class="ali"></span></span>
+  </div>
+  <div class="sub-row" style="margin-top:6px;"><span class="sub-lbl">ד.</span> מה קורה כשמציבים <span class="m">x = 2</span>? הסבירו: <span class="ali-lg"></span></div>
+</div>
+
+<!-- Q6 -->
+<div class="quiz-q">
+  <span class="qnum">6.</span> בתוך מלבן גדול מוסרט מלבן קטן. השטח המנוקד הוא האזור שבין המלבנים.
+  <div style="direction:ltr;margin:8px auto 4px;width:fit-content;">
+    <svg viewBox="0 0 250 118" style="width:210px;height:auto;display:block;">
+      <defs>
+        <pattern id="dp" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse">
+          <circle cx="2.5" cy="2.5" r="1" fill="#999"/>
+        </pattern>
+      </defs>
+      <!-- outer rect dotted -->
+      <rect x="12" y="18" width="198" height="88" fill="url(#dp)" stroke="#111" stroke-width="1.5"/>
+      <!-- inner rect white -->
+      <rect x="32" y="31" width="148" height="62" fill="#fff" stroke="#111" stroke-width="1.5"/>
+      <!-- label: 20 cm top -->
+      <text x="111" y="13" text-anchor="middle" font-size="11" font-family="Rubik,sans-serif">20 ס״מ</text>
+      <!-- label: 9 cm right -->
+      <text x="217" y="64" text-anchor="start" font-size="11" font-family="Rubik,sans-serif">9 ס״מ</text>
+      <!-- label: 15 cm inside inner bottom -->
+      <text x="106" y="85" text-anchor="middle" font-size="11" font-family="Rubik,sans-serif">15 ס״מ</text>
+      <!-- label: x inside inner right -->
+      <text x="173" y="64" text-anchor="middle" font-size="12" font-family="Rubik,sans-serif" font-style="italic">x</text>
+    </svg>
+  </div>
+  <div class="sub-row"><span class="sub-lbl">א.</span> רשמו ביטוי אלגברי לשטח המנוקד: <span class="ali-lg"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> הציבו <span class="m">x = 6</span> וחשבו את השטח המנוקד: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> האם ייתכן שהשטח המנוקד הוא 45 סמ"ר? נמקו: <span class="ali-lg"></span></div>
 </div>
 
 <hr class="divider">
