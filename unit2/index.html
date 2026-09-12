@@ -3699,12 +3699,16 @@ function renderGameResults(){
       <div class="scorebig" dir="ltr">${state.gameScore} / ${total}</div>
       <p class="qtext">עכשיו אפשר לבדוק את הידע שלכם במבדק שליטה.</p>
       <div class="btnrow">
-        ${state.sequence===3 ? `<button class="btn" onclick="window.open('../worksheets/add_part_a_exam.html','_blank')">למבדק שליטה ←</button>` :
-          state.sequence===4 ? `<button class="btn" onclick="window.open('../worksheets/add_part_b_exam.html','_blank')">למבדק שליטה ←</button>` :
-          state.sequence===7 ? `<button class="btn" onclick="window.open('../worksheets/sub_part_a_exam.html','_blank')">למבדק שליטה ←</button>` :
-          state.sequence===8 ? `<button class="btn" onclick="window.open('../worksheets/sub_part_b_c_exam.html','_blank')">למבדק שליטה ←</button>` :
-          state.sequence===9 ? `<button class="btn" onclick="window.open('../worksheets/mult_part_a_exam.html','_blank')">למבדק שליטה ←</button>` :
+        ${state.sequence===1  ? `<button class="btn" onclick="window.open('../worksheets/unit1_mastery_part_a.html','_blank')">למבדק שליטה ←</button>` :
+          state.sequence===2  ? `<button class="btn" onclick="window.open('../worksheets/unit1_mastery_part_b.html','_blank')">למבדק שליטה ←</button>` :
+          state.sequence===6  ? `<button class="btn" onclick="window.open('../worksheets/unit1_mastery_part_c.html','_blank')">למבדק שליטה ←</button>` :
+          state.sequence===3  ? `<button class="btn" onclick="window.open('../worksheets/add_part_a_exam.html','_blank')">למבדק שליטה ←</button>` :
+          state.sequence===4  ? `<button class="btn" onclick="window.open('../worksheets/add_part_b_exam.html','_blank')">למבדק שליטה ←</button>` :
+          state.sequence===7  ? `<button class="btn" onclick="window.open('../worksheets/sub_part_a_exam.html','_blank')">למבדק שליטה ←</button>` :
+          state.sequence===8  ? `<button class="btn" onclick="window.open('../worksheets/sub_part_b_c_exam.html','_blank')">למבדק שליטה ←</button>` :
+          state.sequence===9  ? `<button class="btn" onclick="window.open('../worksheets/mult_part_a_exam.html','_blank')">למבדק שליטה ←</button>` :
           state.sequence===10 ? `<button class="btn" onclick="window.open('../worksheets/mult_part_b_exam.html','_blank')">למבדק שליטה ←</button>` :
+          state.sequence===11 ? `<button class="btn" onclick="window.open('../worksheets/mult_part_c_exam.html','_blank')">למבדק שליטה ←</button>` :
           `<button class="btn" onclick="startQuiz()">למבדק שליטה ←</button>`}
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
       </div>
@@ -3914,7 +3918,11 @@ function renderGameArrowChain(){
       <button class="btn" id="arrow-btn-next" style="display:none;">הבא ←</button>
     </div>
     <div id="arrow-done-area" style="display:none;margin-top:14px;" class="btnrow">
-      <button class="btn" onclick="startQuiz()">למבדק שליטה ←</button>
+      <button class="btn" onclick="
+        if(state.sequence===1) window.open('../worksheets/unit1_mastery_part_a.html','_blank');
+        else if(state.sequence===2) window.open('../worksheets/unit1_mastery_part_b.html','_blank');
+        else if(state.sequence===6) window.open('../worksheets/unit1_mastery_part_c.html','_blank');
+        else startQuiz();">למבדק שליטה ←</button>
     </div>
   `;
 }
