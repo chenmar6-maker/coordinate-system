@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — חזקות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .pa { background: #C05621; }
+  .pb { background: #1D4ED8; }
+  .pc { background: #047857; }
+
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 10px 14px 10px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .is-a .quiz-q { border-right: 4px solid #F6A35A; }
+  .is-b .quiz-q { border-right: 4px solid #93C5FD; }
+  .is-c .quiz-q { border-right: 4px solid #6EE7B7; }
+
+  .quiz-q .qrow {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+  .quiz-q .qnum { font-weight: 700; min-width: 18px; flex-shrink: 0; }
+  .qtext { direction: rtl; }
+
+  .math { direction: ltr; unicode-bidi: embed; font-weight: 600; }
+
+  .ans-line {
+    display: inline-block;
+    border-bottom: 1.5px solid #555;
+    min-width: 60px;
+    margin: 0 2px;
+    vertical-align: bottom;
+  }
+  .think-area { margin-top: 6px; padding-right: 22px; font-size: 12.5px; }
+  .think-line { display: block; border-bottom: 1px solid #bbb; margin-top: 14px; height: 1px; }
+
+  /* ── computation grid ── */
+  .pow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px 10px;
+    margin: 8px 0 4px;
+    padding-right: 8px;
+  }
+  .pow-cell {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 7px 10px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    direction: ltr;
+  }
+  .pow-cell .ans-line { min-width: 42px; }
+
+  /* ── comparison grid ── */
+  .cmp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 24px;
+    margin: 8px 0 4px;
+    padding-right: 8px;
+  }
+  .cmp-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    padding: 3px 0;
+    direction: ltr;
+  }
+  .cmp-circle {
+    width: 24px; height: 24px;
+    border: 1.5px solid #777;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 11px;
+    color: #bbb;
+  }
+
+  /* ── checkbox row ── */
+  .check-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 20px;
+    margin: 6px 0;
+    padding-right: 8px;
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    padding: 3px 0;
+  }
+  .checkbox {
+    width: 17px; height: 17px;
+    border: 1.5px solid #555;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ── two-col rows ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px; margin: 6px 0; padding-right: 8px; }
+  .ex-row { display: flex; align-items: baseline; gap: 6px; font-size: 13px; padding: 4px 0; }
+  .ex-row .letter { font-weight: 700; min-width: 20px; }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; border: 1px solid #e0e0e0 !important; }
+    .is-a .quiz-q { border-right: 4px solid #F6A35A !important; }
+    .is-b .quiz-q { border-right: 4px solid #93C5FD !important; }
+    .is-c .quiz-q { border-right: 4px solid #6EE7B7 !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — חזקות</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; תחום המספרי</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- ══════════════ חלק א׳ ══════════════ -->
+<div class="is-a">
+<span class="part-label pa">חלק א׳ — הגדרה וחישוב</span>
+
+<!-- Q1 – computation grid -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">חשבו:</span></div>
+  <div class="pow-grid">
+    <div class="pow-cell">2<sup>4</sup> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell">3<sup>3</sup> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell">5<sup>2</sup> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell">10<sup>3</sup> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell">1<sup>9</sup> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell">7<sup>1</sup> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell">6<sup>0</sup> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell">2<sup>6</sup> = <span class="ans-line">&nbsp;</span></div>
+  </div>
+</div>
+
+<!-- Q2 – write in power notation -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">כתבו בכתיב חזקות:</span></div>
+  <div class="two-col">
+    <div class="ex-row"><span class="letter">א.</span><span class="math">5 · 5 · 5 · 5 · 5 =</span> <span class="ans-line">&nbsp;</span></div>
+    <div class="ex-row"><span class="letter">ב.</span><span class="math">7 · 7 =</span> <span class="ans-line">&nbsp;</span></div>
+    <div class="ex-row"><span class="letter">ג.</span><span class="math">a · a · a =</span> <span class="ans-line">&nbsp;</span></div>
+    <div class="ex-row"><span class="letter">ד.</span><span class="math">10 · 10 · 10 · 10 =</span> <span class="ans-line">&nbsp;</span></div>
+  </div>
+</div>
+
+<!-- Q3 – true/false -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">סמנו ✓ ליד הטענות הנכונות, ותקנו את השגויות:</span></div>
+  <div class="check-grid">
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">2<sup>3</sup> = 2 · 3</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">3<sup>2</sup> = 9</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">5<sup>0</sup> = 0</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span>הבסיס של <span class="math">7<sup>4</sup></span> הוא 7</span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">4<sup>3</sup> = 3<sup>4</sup></span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span>כל מספר בחזקת 0 שווה 1</span></div>
+  </div>
+  <div style="margin-top:8px;padding-right:8px;font-size:12.5px;">
+    תיקון: <span class="ans-line" style="min-width:220px;">&nbsp;</span>
+  </div>
+</div>
+
+<!-- Q4 – compare 2^8 vs 8^2 -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">4.</span><span class="qtext">מה גדול יותר — <span class="math">2<sup>8</sup></span> או <span class="math">8<sup>2</sup></span>? חשבו והסבירו.</span></div>
+  <div class="think-area">
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+  </div>
+</div>
+</div><!-- end is-a -->
+
+<hr class="divider">
+
+<!-- ══════════════ חלק ב׳ ══════════════ -->
+<div class="is-b">
+<span class="part-label pb">חלק ב׳ — השוואה וסדר פעולות</span>
+
+<!-- Q1 – comparison -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">השלימו סימן מתאים (<span class="math">&lt; , &gt; , =</span>):</span></div>
+  <div class="cmp-grid">
+    <div class="cmp-item"><span class="math">2<sup>3</sup></span> <span class="cmp-circle"></span> <span class="math">3<sup>2</sup></span></div>
+    <div class="cmp-item"><span class="math">4<sup>3</sup></span> <span class="cmp-circle"></span> <span class="math">4 · 3</span></div>
+    <div class="cmp-item"><span class="math">10<sup>2</sup></span> <span class="cmp-circle"></span> <span class="math">2<sup>10</sup></span></div>
+    <div class="cmp-item"><span class="math">1<sup>100</sup></span> <span class="cmp-circle"></span> <span class="math">100<sup>1</sup></span></div>
+    <div class="cmp-item"><span class="math">5<sup>2</sup></span> <span class="cmp-circle"></span> <span class="math">5 · 2</span></div>
+    <div class="cmp-item"><span class="math">2<sup>5</sup></span> <span class="cmp-circle"></span> <span class="math">5<sup>2</sup></span></div>
+    <div class="cmp-item"><span class="math">3<sup>0</sup></span> <span class="cmp-circle"></span> <span class="math">0<sup>3</sup></span></div>
+    <div class="cmp-item"><span class="math">(½)<sup>2</sup></span> <span class="cmp-circle"></span> <span class="math">½</span></div>
+  </div>
+</div>
+
+<!-- Q2 – order of operations -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">פתרו — שימו לב לסדר הפעולות (חזקה לפני כפל, לפני חיבור):</span></div>
+  <div style="display:flex;flex-direction:column;gap:12px;margin:8px 0 4px;padding-right:8px;">
+    <div>
+      <div class="ex-row"><span class="letter">א.</span><span class="math">2 + 3<sup>2</sup> =</span> <span class="ans-line">&nbsp;</span></div>
+      <div style="height:1px;border-bottom:1px solid #e0e0e0;margin-top:12px;"></div>
+    </div>
+    <div>
+      <div class="ex-row"><span class="letter">ב.</span><span class="math">(2 + 3)<sup>2</sup> =</span> <span class="ans-line">&nbsp;</span></div>
+      <div style="height:1px;border-bottom:1px solid #e0e0e0;margin-top:12px;"></div>
+    </div>
+    <div>
+      <div class="ex-row"><span class="letter">ג.</span><span class="math">3 · 2<sup>2</sup> − 4 =</span> <span class="ans-line">&nbsp;</span></div>
+      <div style="height:1px;border-bottom:1px solid #e0e0e0;margin-top:12px;"></div>
+    </div>
+    <div>
+      <div class="ex-row"><span class="letter">ד.</span><span class="math">(3 + 5)<sup>2</sup> − 2<sup>4</sup> =</span> <span class="ans-line">&nbsp;</span></div>
+      <div style="height:1px;border-bottom:1px solid #e0e0e0;margin-top:12px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Q3 – ordering -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">סדרו מהקטן לגדול (משמאל לימין):</span></div>
+  <div style="margin:8px 0 4px;padding-right:8px;font-size:15px;direction:ltr;text-align:center;font-weight:700;letter-spacing:2px;">
+    2<sup>6</sup> &nbsp;&nbsp;&nbsp; 6<sup>2</sup> &nbsp;&nbsp;&nbsp; (½)<sup>2</sup> &nbsp;&nbsp;&nbsp; 6<sup>1</sup> &nbsp;&nbsp;&nbsp; 1<sup>6</sup>
+  </div>
+  <div style="margin-top:12px;padding-right:8px;font-size:13px;">
+    מהקטן לגדול: <span class="ans-line" style="min-width:280px;">&nbsp;</span>
+  </div>
+</div>
+
+<!-- Q4 – word problem -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">4.</span><span class="qtext">ריבוע שאורך צלעו <span class="math">7</span> ס"מ. כפלו את אורך הצלע פי 2.</span></div>
+  <div style="display:flex;flex-direction:column;gap:4px;margin-top:6px;padding-right:22px;font-size:12.5px;">
+    <div>א. מה שטח הריבוע המקורי? <span class="ans-line">&nbsp;</span></div>
+    <div style="margin-top:4px;">ב. מה שטח הריבוע החדש? <span class="ans-line">&nbsp;</span></div>
+    <div style="margin-top:4px;">ג. כמה פעמים גדל השטח? <span class="ans-line" style="min-width:40px;">&nbsp;</span> &nbsp; האם התוצאה קשורה ל-2? הסבירו:</div>
+  </div>
+  <div class="think-area">
+    <span class="think-line"></span>
+  </div>
+</div>
+</div><!-- end is-b -->
+
+<hr class="divider">
+
+<!-- ══════════════ חלק ג׳ ══════════════ -->
+<div class="is-c">
+<span class="part-label pc">חלק ג׳ — השלמה ואתגר</span>
+
+<!-- Q1 – find the missing number -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">השלימו את המספר החסר (□):</span></div>
+  <div class="two-col" style="margin-top:8px;">
+    <div class="ex-row"><span class="letter">א.</span><span class="math">9 · 4 = □<sup>2</sup></span> &nbsp; □ = <span class="ans-line" style="min-width:40px;">&nbsp;</span></div>
+    <div class="ex-row"><span class="letter">ב.</span><span class="math">3<sup>□</sup> = 81</span> &nbsp; □ = <span class="ans-line" style="min-width:40px;">&nbsp;</span></div>
+    <div class="ex-row"><span class="letter">ג.</span><span class="math">2<sup>□</sup> = 8 · 4</span> &nbsp; □ = <span class="ans-line" style="min-width:40px;">&nbsp;</span></div>
+    <div class="ex-row"><span class="letter">ד.</span><span class="math">1<sup>289</sup> = □<sup>70</sup></span> &nbsp; □ = <span class="ans-line" style="min-width:40px;">&nbsp;</span></div>
+  </div>
+</div>
+
+<!-- Q2 – bird's eye: why 2^12 ≠ 4097 -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext" style="font-weight:700;">שאלה ממעוף הציפור:</span></div>
+  <div class="qrow" style="margin-top:4px;"><span class="qtext">הסבירו (ללא חישוב) מדוע לא ייתכן ש: <span class="math">2<sup>12</sup> = 4097</span></span></div>
+  <div class="think-area">
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+  </div>
+</div>
+
+<!-- Q3 – challenge: a^b = b^a -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext" style="font-weight:700;">אתגר:</span></div>
+  <div class="qrow" style="margin-top:4px;"><span class="qtext">מצאו שני מספרים שונים <span class="math">a</span> ו-<span class="math">b</span> כך ש-<span class="math">a<sup>b</sup> = b<sup>a</sup></span>. האם יש יותר מזוג אחד?</span></div>
+  <div class="think-area">
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+  </div>
+</div>
+</div><!-- end is-c -->
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">הדפסה</button>
+
+</body>
+</html>
