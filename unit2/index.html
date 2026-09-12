@@ -1729,6 +1729,7 @@ function renderLearn(){
   if(state.sequence===8) return renderLearn8();
   if(state.sequence===9) return renderLearn9();
   if(state.sequence===10) return renderLearn10();
+  if(state.sequence===11) return renderLearn11();
   return state.sequence===2 ? renderLearn2() : renderLearn1();
 }
 
@@ -2115,29 +2116,10 @@ function renderLearn10(){
         <div style="font-size:17px;color:var(--gold);">סוגריים &nbsp;←&nbsp; כפל וחילוק &nbsp;←&nbsp; חיבור וחיסור</div>
       </div>
 
-      <p style="text-align:right;font-size:15px;margin:4px 0 8px;font-weight:700;color:var(--gold);">שבר = חילוק</p>
-      <div class="learn-note" style="margin-bottom:14px;">שבר הוא חילוק: יש לחשב תחילה את המונה ואת המכנה בנפרד, ואז לחלק.</div>
-
       <p style="text-align:right;font-size:15px;margin:4px 0 10px;font-weight:700;color:var(--gold);">דוגמאות מפורטות</p>
 
       <div style="background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:14px;margin-bottom:10px;">
-        <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:10px;">דוגמה 1</div>
-        <div style="text-align:center;color:var(--foam);font-size:17px;font-weight:700;">
-          <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.3;margin:0 4px;">
-            <span style="border-bottom:2px solid var(--foam);padding:1px 8px;direction:ltr;unicode-bidi:isolate;">−3 · 4</span>
-            <span style="padding:1px 8px;direction:ltr;unicode-bidi:isolate;">−2</span>
-          </span>
-          <span style="direction:ltr;unicode-bidi:isolate;">= ?</span>
-        </div>
-        <div style="font-size:13px;color:rgba(234,244,241,0.7);margin-top:10px;text-align:right;line-height:1.9;">
-          מונה: <bdi style="direction:ltr;unicode-bidi:isolate;">−3 · 4 = −12</bdi><br>
-          מכנה: <bdi style="direction:ltr;unicode-bidi:isolate;">−2</bdi><br>
-          חילוק: <bdi style="direction:ltr;unicode-bidi:isolate;">−12 ÷ (−2) = 6</bdi> &nbsp;(סימנים שווים ← חיובי)
-        </div>
-      </div>
-
-      <div style="background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:14px;margin-bottom:10px;">
-        <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:8px;">דוגמה 2</div>
+        <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:8px;">דוגמה 1</div>
         <div style="font-size:15px;direction:ltr;unicode-bidi:isolate;text-align:center;color:var(--foam);">3 · (−4 − 2)</div>
         <div style="font-size:13px;color:rgba(234,244,241,0.7);margin-top:6px;text-align:right;">
           סוגריים קודם: <bdi style="direction:ltr;unicode-bidi:isolate;">−4 − 2 = −6</bdi><br>
@@ -2158,10 +2140,69 @@ function renderLearn10(){
 
       <ul class="bullets">
         <li>תמיד פתחו סוגריים פנימיים לפני חיצוניים.</li>
-        <li>שבר = חילוק — חשבו מונה ומכנה בנפרד לפני החילוק.</li>
         <li>בכל כפל או חילוק — בדקו סימנים: שווים ← חיובי, שונים ← שלילי.</li>
       </ul>
       <div class="learn-note">טיפ: עבדו שלב-שלב וכתבו את החישוב בשורות נפרדות כדי להימנע מטעויות.</div>
+      <div class="btnrow" style="margin-top:20px;">
+        <button class="btn" onclick="startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn11(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle" style="text-align:right;">סדר פעולות עם קו שבר</h2>
+      <div class="video-placeholder">הסרטון יתווסף בקרוב</div>
+
+      <div style="background:rgba(239,169,74,0.12);border:2px solid var(--gold);border-radius:10px;padding:14px 18px;text-align:center;margin:16px 0;font-weight:700;">
+        <div style="font-size:15px;color:var(--gold);">קו השבר פועל כמו סוגריים</div>
+        <div style="font-size:13px;color:rgba(234,244,241,0.7);margin-top:6px;">חשבו תחילה את <strong>כל המונה</strong>, אחר כך את <strong>כל המכנה</strong>, ורק בסוף חלקו.</div>
+      </div>
+
+      <p style="text-align:right;font-size:15px;margin:4px 0 10px;font-weight:700;color:var(--gold);">דוגמאות מפורטות</p>
+
+      <div style="background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:14px;margin-bottom:10px;">
+        <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:10px;">דוגמה 1 — מונה עם סוגריים</div>
+        <div style="text-align:center;color:var(--foam);font-size:17px;font-weight:700;">
+          <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.3;margin:0 4px;">
+            <span style="border-bottom:2px solid var(--foam);padding:1px 10px;direction:ltr;unicode-bidi:isolate;">3 − 9</span>
+            <span style="padding:1px 10px;direction:ltr;unicode-bidi:isolate;">2 · (−3)</span>
+          </span>
+          <span style="direction:ltr;unicode-bidi:isolate;">= ?</span>
+        </div>
+        <div style="font-size:13px;color:rgba(234,244,241,0.7);margin-top:10px;text-align:right;line-height:1.9;">
+          מונה: <bdi style="direction:ltr;unicode-bidi:isolate;">3 − 9 = −6</bdi><br>
+          מכנה: <bdi style="direction:ltr;unicode-bidi:isolate;">2 · (−3) = −6</bdi><br>
+          חילוק: <bdi style="direction:ltr;unicode-bidi:isolate;">−6 ÷ (−6) = 1</bdi> &nbsp;(סימנים שווים ← חיובי)
+        </div>
+      </div>
+
+      <div style="background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.18);border-radius:10px;padding:14px;margin-bottom:10px;">
+        <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:10px;">דוגמה 2 — שבר בתוך ביטוי</div>
+        <div style="text-align:center;color:var(--foam);font-size:17px;font-weight:700;">
+          <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.3;margin:0 4px;">
+            <span style="border-bottom:2px solid var(--foam);padding:1px 10px;direction:ltr;unicode-bidi:isolate;">−20 + 2</span>
+            <span style="padding:1px 10px;direction:ltr;unicode-bidi:isolate;">3</span>
+          </span>
+          <span style="direction:ltr;unicode-bidi:isolate;">· (−6) − 4 = ?</span>
+        </div>
+        <div style="font-size:13px;color:rgba(234,244,241,0.7);margin-top:10px;text-align:right;line-height:1.9;">
+          מונה: <bdi style="direction:ltr;unicode-bidi:isolate;">−20 + 2 = −18</bdi><br>
+          שבר: <bdi style="direction:ltr;unicode-bidi:isolate;">−18 ÷ 3 = −6</bdi><br>
+          כפל: <bdi style="direction:ltr;unicode-bidi:isolate;">−6 · (−6) = 36</bdi><br>
+          חיסור: <bdi style="direction:ltr;unicode-bidi:isolate;">36 − 4 = 32</bdi>
+        </div>
+      </div>
+
+      <ul class="bullets">
+        <li>קו השבר הוא כמו סוגריים — <strong>אסור לחלק לפני שסיימתם לחשב את המונה ואת המכנה</strong>.</li>
+        <li>חשבו את המונה כולו, חשבו את המכנה כולו, ורק אז חלקו.</li>
+        <li>אם יש פעולות נוספות מחוץ לשבר — פתרו את השבר כיחידה שלמה ואז המשיכו.</li>
+      </ul>
+      <div class="learn-note">טיפ: דמיינו שאתם מציבים סוגריים סביב המונה וסביב המכנה — זה בדיוק מה שקו השבר עושה.</div>
       <div class="btnrow" style="margin-top:20px;">
         <button class="btn" onclick="startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
