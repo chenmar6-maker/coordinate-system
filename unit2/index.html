@@ -1184,6 +1184,44 @@ const gameLevels10 = [
     explain:'שלב א׳: −20+2=−18. שלב ב׳: −18÷3=−6. שלב ג׳: (−6)·(−6)=36. שלב ד׳: 36−4=32.' },
 ];
 
+/* ============ GAME LEVELS 11 — סדר פעולות עם קו שבר ============ */
+const _frac = (n,d) =>
+  `<span style="display:inline-flex;flex-direction:column;align-items:stretch;vertical-align:middle;margin:0 3px;">` +
+  `<span style="border-bottom:1.5px solid;padding:0 5px;text-align:center;direction:ltr;unicode-bidi:isolate;">${n}</span>` +
+  `<span style="padding:0 5px;text-align:center;direction:ltr;unicode-bidi:isolate;">${d}</span></span>`;
+
+const gameLevels11 = [
+  { id:'mc', title:'פתרו — קו שבר כסוגריים',
+    question:`מה שווה <span style="direction:ltr;unicode-bidi:isolate;display:inline-flex;align-items:center;">${_frac('−3 · (4 − 1)','−9')}</span>?`,
+    options:['1','−1','3','−3'], correct:'1',
+    explain:'מונה: −3·(4−1) = −3·3 = −9. מכנה: −9. חילוק: −9÷(−9) = 1. סימנים שווים ← חיובי.' },
+
+  { id:'mc', title:'פתרו — מכנה עם כפל וסוגריים',
+    question:`מה שווה <span style="direction:ltr;unicode-bidi:isolate;display:inline-flex;align-items:center;">${_frac('−12','−3 · (2 − 4)')}</span>?`,
+    options:['−2','2','4','−4'], correct:'−2',
+    explain:'מכנה: −3·(2−4) = −3·(−2) = 6. חילוק: −12÷6 = −2. סימנים שונים ← שלילי.' },
+
+  { id:'mc', title:'פתרו — מונה עם כמה פעולות',
+    question:`מה שווה <span style="direction:ltr;unicode-bidi:isolate;display:inline-flex;align-items:center;">${_frac('−2 · (−3) + 4','−5 · 2')}</span>?`,
+    options:['−1','1','−2','2'], correct:'−1',
+    explain:'מונה: −2·(−3)+4 = 6+4 = 10. מכנה: −5·2 = −10. חילוק: 10÷(−10) = −1. סימנים שונים ← שלילי.' },
+
+  { id:'mc', title:'פתרו — שבר בתוך ביטוי',
+    question:`מה שווה <span style="direction:ltr;unicode-bidi:isolate;display:inline-flex;align-items:center;">${_frac('−20 + 2','3')}<span style="margin-right:2px;">· (−6) − 4</span></span>?`,
+    options:['32','−32','40','−40'], correct:'32',
+    explain:'מונה: −20+2 = −18. שבר: −18÷3 = −6. כפל: −6·(−6) = 36. חיסור: 36−4 = 32.' },
+
+  { id:'mc', title:'פתרו — שבר פחות מספר',
+    question:`מה שווה <span style="direction:ltr;unicode-bidi:isolate;display:inline-flex;align-items:center;">${_frac('−5 · 4','−2 − 8')}<span style="margin-right:2px;">− 3</span></span>?`,
+    options:['−1','1','−5','5'], correct:'−1',
+    explain:'מונה: −5·4 = −20. מכנה: −2−8 = −10. שבר: −20÷(−10) = 2. חיסור: 2−3 = −1.' },
+
+  { id:'mc', title:'מצאו את הטעות',
+    question:`דניאל טוען שהתשובה לתרגיל <span style="direction:ltr;unicode-bidi:isolate;display:inline-flex;align-items:center;">${_frac('4 − 6','2')}</span> היא 4 − 3 = 1. מה התשובה הנכונה?`,
+    options:['−1','1','3','−3'], correct:'−1',
+    explain:'חייבים לחשב תחילה את כל המונה: 4−6 = −2. אחר כך: −2÷2 = −1. דניאל חילק רק את 6 ב-2 — קו השבר חל על כל המונה, לא רק על חלק ממנו.' },
+];
+
 /* ============ QUIZ QUESTIONS 7/8 — חיסור ============ */
 
 const quizQuestions7 = [
@@ -1238,6 +1276,7 @@ function currentGameLevels(){
   if(state.sequence===8) return gameLevels8;
   if(state.sequence===9) return gameLevels9;
   if(state.sequence===10) return gameLevels10;
+  if(state.sequence===11) return gameLevels11;
   return state.sequence===2 ? gameLevels2 : gameLevels1;
 }
 
