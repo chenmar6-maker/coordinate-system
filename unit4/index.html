@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>חזקות ושורשים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --navy:#1E1B2E;
+    --deep-navy:#0F0D1A;
+    --teal:#4A4080;
+    --light-teal:#3AA0C4;
+    --foam:#EAF4F1;
+    --gold:#EFA94A;
+    --coral:#E2604F;
+    --seafoam:#48B08C;
+    --paper:#EFE7D3;
+    --ink:#0A2A43;
+    --gridline: rgba(234,244,241,0.14);
+    --axislabel: rgba(234,244,241,0.68);
+    --axis:#EAF4F1;
+    --linecolor:#EFA94A;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Rubik',sans-serif;
+    background: radial-gradient(ellipse at 50% -10%, #3D3568 0%, #1E1B2E 50%, #0F0D1A 100%);
+    color: var(--foam);
+    direction: rtl;
+    min-height:100vh;
+    line-height:1.6;
+  }
+
+  .wrap{max-width:900px;margin:0 auto;padding:20px 18px 70px;}
+
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 18px;max-width:900px;margin:0 auto;
+  }
+  .brand{
+    font-family:'Rubik',sans-serif;font-size:19px;color:var(--gold);
+    text-align:right;
+  }
+  .homebtn{
+    background:transparent;border:1.5px solid var(--foam);color:var(--foam);
+    padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;
+    font-size:14px;cursor:pointer;opacity:.85;text-decoration:none;display:inline-block;
+  }
+  .homebtn:hover{opacity:1;border-color:var(--gold);color:var(--gold);}
+
+  .hero{text-align:center;padding:18px 10px 10px;}
+  h1.title{
+    font-family:'Rubik',sans-serif;font-weight:800;
+    font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:#FFFFFF;
+    text-align:center;letter-spacing:-0.5px;
+  }
+  p.subtitle{font-size:17px;color:var(--foam);opacity:.85;margin:0 0 8px;text-align:center;}
+
+  .cards{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+  .sequence-section{margin-bottom:28px;background:rgba(234,244,241,0.04);border-radius:14px;padding:18px 20px;}
+  .sequence-title{
+    font-family:'Rubik',sans-serif;font-weight:700;
+    font-size:17px;color:var(--foam);
+    text-align:center;margin:0 0 14px;opacity:.9;
+  }
+
+  .flow-arrow{display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(239,169,74,0.5);flex-shrink:0;}
+
+  .card{
+    display:flex;align-items:center;gap:10px;
+    padding:12px 20px;border-radius:50px;cursor:pointer;
+    font-family:'Rubik',sans-serif;font-weight:600;font-size:15px;
+    transition:transform .15s ease, box-shadow .15s ease;
+    border:none;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.25);}
+  .card h3{font-family:'Rubik',sans-serif;font-size:15px;font-weight:600;margin:0;}
+  .card p{display:none;}
+
+  .card.learn{background:rgba(28,110,140,0.25);border:1.5px solid var(--teal);color:var(--foam);}
+  .card.game{background:rgba(239,169,74,0.18);border:1.5px solid var(--gold);color:var(--gold);}
+  .card.quiz{background:rgba(226,96,79,0.18);border:1.5px solid var(--coral);color:var(--coral);}
+
+  .panel{
+    background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.15);
+    border-radius:10px;padding:22px;margin:18px 0;
+  }
+
+  .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+  .btn{
+    background:var(--gold);color:var(--deep-navy);border:none;font-weight:700;
+    font-family:'Rubik',sans-serif;font-size:15px;padding:11px 26px;
+    border-radius:24px;cursor:pointer;transition:transform .12s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn.secondary{background:transparent;border:1.5px solid var(--foam);color:var(--foam);}
+  .btn.secondary:hover{border-color:var(--gold);color:var(--gold);}
+  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+  .feedback{text-align:center;font-size:16px;font-weight:700;margin:14px 0;min-height:24px;}
+  .feedback.ok{color:var(--seafoam);}
+  .feedback.bad{color:var(--coral);}
+
+  .progressdots{display:flex;gap:8px;justify-content:center;margin-bottom:6px;}
+  .dot{
+    width:11px;height:11px;border-radius:50%;background:rgba(234,244,241,0.25);
+    border:none;padding:0;
+  }
+  .dot.done{background:var(--seafoam);}
+  .dot.active{background:var(--gold);}
+  .dot:hover{opacity:.75;}
+
+  .mc-options{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:16px auto 0;}
+  .mc-btn{
+    background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);
+    color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;
+    cursor:pointer;font-family:'Rubik',sans-serif;
+    text-align:center;
+  }
+  .mc-btn:hover{border-color:var(--gold);}
+  .mc-btn.correct{background:rgba(72,176,140,0.3);border-color:var(--seafoam);}
+  .mc-btn.wrong{background:rgba(226,96,79,0.3);border-color:var(--coral);}
+  .mc-btn:disabled{cursor:default;}
+
+  .explain-box{
+    background:rgba(72,176,140,0.1);border-right:4px solid var(--seafoam);
+    border-radius:6px;padding:12px 16px;margin-top:14px;text-align:right;font-size:15px;
+  }
+
+  .qmeta{text-align:center;font-size:14px;opacity:.75;margin-bottom:6px;}
+  .qtitle{font-size:18px;font-weight:700;text-align:center;margin:6px 0 4px;}
+  .qtext{font-size:16px;text-align:center;margin:0 0 6px;max-width:560px;margin-left:auto;margin-right:auto;}
+
+  .scorebig{font-family:'Rubik',sans-serif;font-size:52px;color:var(--gold);text-align:center;margin:10px 0;}
+
+  .abs-input-row{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px 0;direction:rtl;}
+  .abs-input-row input{
+    width:80px;padding:8px 10px;font-size:18px;border-radius:6px;border:1.5px solid var(--teal);
+    text-align:center;font-family:'Rubik',sans-serif;background:var(--foam);color:var(--ink);
+  }
+  .abs-input-row input:focus{outline:2px solid var(--gold);}
+
+  .instr{
+    text-align:center;font-size:15px;color:var(--foam);opacity:.85;
+    margin:8px 0 4px;
+  }
+
+  .video-placeholder{
+    background:rgba(0,0,0,0.3);border-radius:10px;padding:60px 20px;
+    margin:16px 0;color:rgba(234,244,241,0.4);font-size:15px;text-align:center;
+  }
+
+  ul.bullets{list-style:none;margin:18px 0 6px;padding:0;text-align:right;}
+  ul.bullets li{position:relative;padding-right:22px;margin-bottom:10px;font-size:16px;line-height:1.55;}
+  ul.bullets li::before{content:"•";color:var(--gold);position:absolute;right:0;top:0;font-size:18px;}
+
+  .learn-note{
+    background:rgba(239,169,74,0.1);border-right:4px solid var(--gold);
+    border-radius:6px;padding:12px 16px;margin-top:16px;font-size:15px;text-align:right;
+  }
+
+  .example-box{
+    background:rgba(239,169,74,0.08);border:1.5px solid rgba(239,169,74,0.35);
+    border-radius:8px;padding:14px 18px;margin:10px 0;text-align:center;
+    font-size:17px;font-weight:700;direction:ltr;unicode-bidi:isolate;
+    color:var(--foam);
+  }
+  .gold-box{
+    background:rgba(239,169,74,0.12);border-right:4px solid var(--gold);
+    border-radius:6px;padding:14px 18px;margin:14px 0;text-align:center;
+    font-size:18px;font-weight:700;color:var(--gold);
+  }
+  .examples-row{
+    display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:14px 0;
+  }
+  .examples-row .example-box{flex:1;min-width:160px;max-width:260px;}
+
+  sup{font-size:0.68em;font-weight:700;vertical-align:super;line-height:1;}
+  .sqrt{font-size:1.1em;}
+
+  @keyframes popIn{
+    0%{transform:scale(.55);opacity:0;}
+    65%{transform:scale(1.18);opacity:1;}
+    100%{transform:scale(1);}
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* ============ STATE ============ */
+const state = {
+  screen:'home',
+  sequence:1,
+  levelIndex:0,
+  gameScore:0,
+  gameTotal:0,
+  levelSub:{},
+  shuffledOptions:[]
+};
+
+/* ============ GAME LEVELS ============ */
+
+const gameLevels1 = [
+  { id:'mc', title:'הגדרה — בסיס ומעריך',
+    question:'ב-<bdi style="direction:ltr;unicode-bidi:isolate;">3<sup>5</sup></bdi>, מה הבסיס ומה המעריך?',
+    options:['בסיס 3, מעריך 5','בסיס 5, מעריך 3','בסיס 15, מעריך 1','שניהם 3'],
+    correct:'בסיס 3, מעריך 5',
+    explain:'3⁵ פירושו 3·3·3·3·3. הבסיס (3) הוא המספר המוכפל, המעריך (5) הוא מספר הפעמים.' },
+  { id:'mc', title:'משמעות החזקה',
+    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">2<sup>4</sup></bdi> שווה ל:',
+    options:['2 · 4','2 + 2 + 2 + 2','2 · 2 · 2 · 2','4 · 4'],
+    correct:'2 · 2 · 2 · 2',
+    explain:'2⁴ = 2·2·2·2 = 16. החזקה מייצגת כפל חוזר, לא כפל בסיס במעריך.' },
+  { id:'typedSum', title:'חשבו', expr:'3<sup>3</sup>', correct:27,
+    explain:'3³ = 3·3·3 = 9·3 = 27.' },
+  { id:'mc', title:'כתיב חזקות',
+    question:'כיצד כותבים <bdi style="direction:ltr;unicode-bidi:isolate;">5 · 5 · 5 · 5</bdi> בכתיב חזקות?',
+    options:['5⁴','4⁵','5 · 4','20'],
+    correct:'5⁴',
+    explain:'5·5·5·5 — הבסיס 5 מוכפל 4 פעמים → 5⁴.' },
+  { id:'typedSum', title:'חשבו', expr:'10<sup>2</sup>', correct:100,
+    explain:'10² = 10·10 = 100.' },
+  { id:'mc', title:'חשבו',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">2<sup>6</sup></bdi>?',
+    options:['12','32','64','128'],
+    correct:'64',
+    explain:'2⁶ = 2·2·2·2·2·2 = 64.' },
+];
+
+const gameLevels2 = [
+  { id:'mc', title:'חזקת אפס',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">7<sup>0</sup></bdi>?',
+    options:['0','1','7','לא מוגדר'],
+    correct:'1',
+    explain:'כל מספר שאינו אפס בחזקת 0 שווה 1. 7⁰ = 1.' },
+  { id:'typedSum', title:'חשבו', expr:'1<sup>99</sup>', correct:1,
+    explain:'1 בכל חזקה שהיא שווה 1. 1·1·1·...·1 = 1.' },
+  { id:'mc', title:'חזקת 1',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">a<sup>1</sup></bdi> לכל מספר a?',
+    options:['1','0','a','a²'],
+    correct:'a',
+    explain:'כל מספר בחזקת 1 שווה לעצמו. a¹ = a.' },
+  { id:'mc', title:'חזקה של שבר',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(½)<sup>2</sup></bdi>?',
+    options:['1','¼','½','2'],
+    correct:'¼',
+    explain:'(½)² = ½ · ½ = ¼. חזקה של שבר קטן מ-1 נותנת תוצאה קטנה עוד יותר.' },
+  { id:'typedSum', title:'חשבו', expr:'5<sup>0</sup>', correct:1,
+    explain:'5⁰ = 1. כל מספר שאינו אפס בחזקת 0 שווה 1.' },
+  { id:'mc', title:'חזקה של שבר — גדול או קטן?',
+    question:'האם <bdi style="direction:ltr;unicode-bidi:isolate;">(¼)<sup>2</sup></bdi> גדול מ-¼ או קטן ממנו?',
+    options:['גדול מ-¼','קטן מ-¼','שווה ל-¼','שווה ל-1'],
+    correct:'קטן מ-¼',
+    explain:'(¼)² = 1/16, שהוא קטן מ-¼. כשמעלים שבר החי בין 0 ל-1 בחזקה גדולה מ-1, התוצאה קטנה יותר.' },
+];
+
+const gameLevels3 = [
+  { id:'mc', title:'השוואה',
+    question:'מה גדול יותר: <bdi style="direction:ltr;unicode-bidi:isolate;">2<sup>3</sup></bdi> או <bdi style="direction:ltr;unicode-bidi:isolate;">3<sup>2</sup></bdi>?',
+    options:['2³ גדול יותר','3² גדול יותר','הם שווים'],
+    correct:'3² גדול יותר',
+    explain:'2³ = 8, 3² = 9. לכן 3² גדול יותר.' },
+  { id:'mc', title:'השוואה',
+    question:'מה גדול יותר: <bdi style="direction:ltr;unicode-bidi:isolate;">10<sup>2</sup></bdi> או <bdi style="direction:ltr;unicode-bidi:isolate;">2<sup>10</sup></bdi>?',
+    options:['10² גדול יותר','2¹⁰ גדול יותר','הם שווים','אי אפשר לדעת'],
+    correct:'2¹⁰ גדול יותר',
+    explain:'10² = 100. 2¹⁰ = 1024. לכן 2¹⁰ גדול בהרבה.' },
+  { id:'mc', title:'סדר פעולות — חזקה קודמת',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">2 + 3<sup>2</sup></bdi>?',
+    options:['25','11','36','13'],
+    correct:'11',
+    explain:'חזקה לפני חיבור: 3² = 9, ואז 2 + 9 = 11.' },
+  { id:'mc', title:'סדר פעולות — סוגריים קודמים',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(2 + 3)<sup>2</sup></bdi>?',
+    options:['25','11','13','7'],
+    correct:'25',
+    explain:'סוגריים קודמים: 2+3 = 5, ואז 5² = 25.' },
+  { id:'mc', title:'סדר פעולות — כפל וחזקה',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">3 · 2<sup>2</sup> − 4</bdi>?',
+    options:['32','8','16','4'],
+    correct:'8',
+    explain:'חזקה קודמת: 2² = 4. כפל: 3·4 = 12. חיסור: 12−4 = 8.' },
+  { id:'mc', title:'אתגר — סדר פעולות',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(3 + 5)<sup>2</sup> − 2<sup>4</sup></bdi>?',
+    options:['48','80','32','64'],
+    correct:'48',
+    explain:'סוגריים: 3+5=8. 8²=64. 2⁴=16. 64−16=48.' },
+];
+
+const gameLevels4 = [
+  { id:'mc', title:'הגדרת שורש ריבועי',
+    question:'√9 שווה ל:',
+    options:['3','4.5','81','3 או −3'],
+    correct:'3',
+    explain:'√9 = 3 כי 3² = 9. השורש הריבועי הוא המספר הלא-שלילי שריבועו שווה לביטוי.' },
+  { id:'typedSum', title:'חשבו', expr:'√25', correct:5,
+    explain:'√25 = 5 כי 5² = 25.' },
+  { id:'typedSum', title:'חשבו', expr:'√100', correct:10,
+    explain:'√100 = 10 כי 10² = 100.' },
+  { id:'mc', title:'חשבו',
+    question:'מה שווה √36?',
+    options:['6','7','18','8'],
+    correct:'6',
+    explain:'√36 = 6 כי 6² = 36.' },
+  { id:'mc', title:'קשר בין ריבוע ושורש',
+    question:'מה שווה √4 · √4?',
+    options:['2','4','8','16'],
+    correct:'4',
+    explain:'√4 = 2, ולכן √4 · √4 = 2 · 2 = 4. בכלל: √n · √n = n.' },
+  { id:'mc', title:'איזה ריבוע מושלם?',
+    question:'מי מהמספרים הבאים הוא ריבוע מושלם (יש לו שורש ריבועי שלם)?',
+    options:['50','72','49','20'],
+    correct:'49',
+    explain:'49 = 7² → √49 = 7. שאר המספרים אינם ריבועים מושלמים.' },
+];
+
+const gameLevels5 = [
+  { id:'typedSum', title:'חשבו', expr:'√64', correct:8,
+    explain:'√64 = 8 כי 8² = 64.' },
+  { id:'mc', title:'כלל הכפל בשורשים',
+    question:'מה שווה √(4 · 9)?',
+    options:['6','13','36','2'],
+    correct:'6',
+    explain:'√(4·9) = √36 = 6. אפשר גם: √4 · √9 = 2·3 = 6.' },
+  { id:'mc', title:'חישוב עם שורשים',
+    question:'מה שווה √36 + √64?',
+    options:['10','14','100','8'],
+    correct:'14',
+    explain:'√36 = 6, √64 = 8. 6 + 8 = 14.' },
+  { id:'mc', title:'חישוב עם שורשים',
+    question:'מה שווה √100 − √4?',
+    options:['8','√96','98','6'],
+    correct:'8',
+    explain:'√100 = 10, √4 = 2. 10 − 2 = 8.' },
+  { id:'mc', title:'אתגר — שורש של סכום',
+    question:'האם √(9 + 16) = √9 + √16?',
+    options:['כן, כי שורש מתחלק','לא, √25 = 5 אבל √9+√16 = 7','כן, תמיד','לא, אי אפשר לחשב'],
+    correct:'לא, √25 = 5 אבל √9+√16 = 7',
+    explain:'√(9+16) = √25 = 5. אבל √9+√16 = 3+4 = 7. שורש אינו מתחלק על פני חיבור!' },
+];
+
+/* ============ NAVIGATION ============ */
+
+let openSections = new Set();
+
+function toggleSection(key){
+  if(openSections.has(key)) openSections.delete(key);
+  else openSections.add(key);
+  render();
+}
+
+function goHome(){ state.screen='home'; openSections=new Set(); render(); }
+function goTo(s){ state.screen=s; render(); }
+
+function startGame(){
+  state.screen='game'; state.levelIndex=0; state.gameScore=0; state.gameTotal=0;
+  state.levelSub=freshLevelSub(0);
+  const first=currentGameLevels()[0];
+  if(first&&first.id==='mc') state.shuffledOptions=shuffleArr(first.options.slice());
+  render();
+}
+
+function freshLevelSub(idx){
+  return {answered:false,correct:false};
+}
+
+function nextLevel(){
+  state.levelIndex++;
+  if(state.levelIndex>=currentGameLevels().length){ finishGame(); return; }
+  state.levelSub=freshLevelSub(state.levelIndex);
+  const next=currentGameLevels()[state.levelIndex];
+  if(next&&next.id==='mc') state.shuffledOptions=shuffleArr(next.options.slice());
+  render();
+}
+
+function finishGame(){ state.screen='gameResults'; render(); }
+
+function jumpToLevel(i){
+  state.levelIndex=i; state.levelSub=freshLevelSub(i);
+  const lvl=currentGameLevels()[i];
+  if(lvl&&lvl.id==='mc') state.shuffledOptions=shuffleArr(lvl.options.slice());
+  render();
+}
+
+function skipLevel(){
+  const levels=currentGameLevels();
+  if(state.levelIndex>=levels.length-1) return;
+  state.levelIndex++; state.levelSub=freshLevelSub(state.levelIndex);
+  const next=levels[state.levelIndex];
+  if(next&&next.options) state.shuffledOptions=shuffleArr(next.options.slice());
+  render();
+}
+
+/* ============ LEVEL DISPATCH ============ */
+
+function currentGameLevels(){
+  if(state.sequence===1) return gameLevels1;
+  if(state.sequence===2) return gameLevels2;
+  if(state.sequence===3) return gameLevels3;
+  if(state.sequence===4) return gameLevels4;
+  if(state.sequence===5) return gameLevels5;
+  return gameLevels1;
+}
+
+/* ============ RENDER ============ */
+
+function render(){
+  const app = document.getElementById('app');
+  if(state.screen==='home') app.innerHTML = renderTopbar() + '<div class="wrap">' + renderHome() + '</div>';
+  else if(state.screen==='learn') app.innerHTML = renderTopbar() + '<div class="wrap">' + renderLearn() + '</div>';
+  else if(state.screen==='game') app.innerHTML = renderTopbar() + '<div class="wrap">' + renderGame() + '</div>';
+  else if(state.screen==='gameResults') app.innerHTML = renderTopbar() + '<div class="wrap">' + renderGameResults() + '</div>';
+}
+
+function renderTopbar(){
+  return `<div class="topbar">
+    <div class="brand">חן מרגלית למידה אקטיבית</div>
+    <button class="homebtn" onclick="goHome()">תפריט ראשי</button>
+  </div>`;
+}
+
+/* ============ seqRow ============ */
+
+function seqRow(seqNum, label, opts={}){
+  const isOpen = openSections.has(seqNum);
+  const chevron = isOpen ? '▾' : '◂';
+  let cards = '';
+  if(isOpen){
+    const quizCard = opts.worksheetUrl
+      ? `<div class="card quiz" onclick="window.open('${opts.worksheetUrl}','_blank')"><h3>מבדק שליטה</h3></div>`
+      : `<div class="card quiz" onclick="state.sequence=${seqNum};startQuiz()"><h3>מבדק שליטה</h3></div>`;
+    cards = `<div class="cards" style="margin-bottom:6px;">
+      <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
+      <div class="flow-arrow">←</div>
+      <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
+      <div class="flow-arrow">←</div>
+      ${quizCard}
+    </div>`;
+  }
+  return `
+    <div onclick="toggleSection(${seqNum})" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:10px 4px 10px;border-bottom:1px solid rgba(234,244,241,0.08);user-select:none;">
+      <span class="sequence-title" style="margin:0;">${label}</span>
+      <span style="font-size:20px;color:rgba(234,244,241,0.4);transition:transform .15s;">${chevron}</span>
+    </div>
+    ${cards}`;
+}
+
+/* ============ HOME ============ */
+
+function renderHome(){
+  const subHeaderStyle = 'font-size:12px;font-weight:700;letter-spacing:1px;color:rgba(234,244,241,0.4);text-transform:uppercase;margin:14px 0 6px;';
+  return `
+    <div class="hero">
+      <h1 class="title">חזקות ושורשים</h1>
+      <p class="subtitle">יחידה 4 — תחום המספרי</p>
+    </div>
+
+    <div class="sequence-section" style="margin-bottom:32px;">
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">חזקות</div>
+
+      <div style="${subHeaderStyle}">הגדרה וחישוב</div>
+      ${seqRow(1, '1. הגדרת חזקה וחישוב בסיסי', {worksheetUrl:'../worksheets/powers_exam.html'})}
+      ${seqRow(2, '2. חזקות מיוחדות — 0, 1 ושברים', {worksheetUrl:'../worksheets/powers_exam.html'})}
+
+      <div style="${subHeaderStyle}">השוואה וסדר</div>
+      ${seqRow(3, '3. השוואה וסדר פעולות עם חזקות', {worksheetUrl:'../worksheets/powers_exam.html'})}
+
+      <div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(234,244,241,0.12);">
+        <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">שורש ריבועי</div>
+        ${seqRow(4, '4. הגדרת שורש ריבועי', {worksheetUrl:'../worksheets/powers_exam.html'})}
+        ${seqRow(5, '5. חישובים עם שורשים', {worksheetUrl:'../worksheets/powers_exam.html'})}
+      </div>
+    </div>
+  `;
+}
+
+/* ============ LEARN ============ */
+
+function renderLearn(){
+  if(state.sequence===2) return renderLearn2();
+  if(state.sequence===3) return renderLearn3();
+  if(state.sequence===4) return renderLearn4();
+  if(state.sequence===5) return renderLearn5();
+  return renderLearn1();
+}
+
+function renderLearn1(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle">הגדרת חזקה וחישוב</h2>
+      <div class="video-placeholder">📹 סרטון הסבר יתווסף כאן</div>
+      <div class="gold-box" dir="ltr">aⁿ = a · a · a · ... · a (n פעמים)</div>
+      <ul class="bullets">
+        <li><strong>a</strong> הוא הבסיס — המספר שמוכפל</li>
+        <li><strong>n</strong> הוא המעריך — כמה פעמים מכפילים</li>
+        <li>חשוב: 2³ ≠ 2·3. 2³ = 2·2·2 = 8, אך 2·3 = 6</li>
+      </ul>
+      <div class="example-box">3<sup>4</sup> = 3 · 3 · 3 · 3 = 81</div>
+      <div class="learn-note">שגיאה נפוצה: 2⁴ ≠ 8. זה לא כפל! 2⁴ = 2·2·2·2 = 16</div>
+      <div class="btnrow">
+        <button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn2(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle">חזקות מיוחדות</h2>
+      <div class="video-placeholder">📹 סרטון הסבר יתווסף כאן</div>
+      <div class="examples-row">
+        <div class="example-box">a⁰ = 1<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">(לכל a ≠ 0)</span></div>
+        <div class="example-box">a¹ = a</div>
+        <div class="example-box">(½)² = ¼<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">חזקה של שבר קטנה יותר</span></div>
+      </div>
+      <ul class="bullets">
+        <li>כל מספר (חוץ מ-0) בחזקת 0 שווה 1</li>
+        <li>כל מספר בחזקת 1 שווה לעצמו</li>
+        <li>שבר בין 0 ל-1 בחזקה שלמה → תוצאה קטנה יותר מהשבר</li>
+      </ul>
+      <div class="btnrow">
+        <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn3(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle">השוואה וסדר פעולות עם חזקות</h2>
+      <div class="gold-box" dir="rtl">סדר פעולות: סוגריים → חזקות → כפל/חילוק → חיבור/חיסור</div>
+      <div class="examples-row">
+        <div class="example-box">2+3² = 2+9 = 11<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">חזקה לפני חיבור</span></div>
+        <div class="example-box">(2+3)² = 5² = 25<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">סוגריים קודמים</span></div>
+      </div>
+      <ul class="bullets">
+        <li>חזקה מחושבת לפני כפל וחיבור</li>
+        <li>סוגריים תמיד קודמים לחזקה</li>
+        <li>2+3² ≠ (2+3)² — חשוב להבחין!</li>
+      </ul>
+      <div class="btnrow">
+        <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn4(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle">שורש ריבועי</h2>
+      <div class="gold-box" dir="rtl">√n הוא המספר הלא-שלילי שריבועו שווה n</div>
+      <div class="examples-row">
+        <div class="example-box">√9 = 3<br><span style="font-size:13px;font-weight:400;">כי 3² = 9</span></div>
+        <div class="example-box">√25 = 5<br><span style="font-size:13px;font-weight:400;">כי 5² = 25</span></div>
+        <div class="example-box">√100 = 10<br><span style="font-size:13px;font-weight:400;">כי 10² = 100</span></div>
+      </div>
+      <div style="text-align:center;margin:14px 0;">
+        <div style="font-size:14px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:8px;">ריבועים מושלמים</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">
+          ${[1,4,9,16,25,36,49,64,81,100].map(n=>`<span style="background:rgba(239,169,74,0.12);border:1px solid rgba(239,169,74,0.3);border-radius:6px;padding:6px 12px;font-weight:700;">${n}</span>`).join('')}
+        </div>
+      </div>
+      <ul class="bullets">
+        <li>שורש ריבועי הוא פעולה הפוכה לריבוע</li>
+        <li>√n · √n = n</li>
+        <li>ריבועים מושלמים: מספרים שיש להם שורש ריבועי שלם</li>
+      </ul>
+      <div class="learn-note">√n מוגדר רק עבור n ≥ 0</div>
+      <div class="btnrow">
+        <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn5(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle">חישובים עם שורשים</h2>
+      <div class="gold-box" dir="ltr">√(a · b) = √a · √b</div>
+      <div class="examples-row">
+        <div class="example-box">√36 + √64 = 6 + 8 = 14</div>
+        <div class="example-box">√(4·9) = √36 = 6<br>= √4·√9 = 2·3 = 6</div>
+      </div>
+      <ul class="bullets">
+        <li>ניתן לפרק שורש של מכפלה</li>
+        <li>אסור לפרק שורש של סכום: √(9+16) ≠ √9 + √16</li>
+      </ul>
+      <div class="learn-note">שגיאה נפוצה: √(a+b) ≠ √a + √b</div>
+      <div class="btnrow">
+        <button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+/* ============ GAME ============ */
+
+function renderGame(){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const levels=currentGameLevels();
+  const dots=levels.map((_,i)=>{
+    let cls='dot';
+    if(i<state.levelIndex) cls+=' done';
+    else if(i===state.levelIndex) cls+=' active';
+    return `<div class="${cls}" onclick="jumpToLevel(${i})" style="cursor:pointer;"></div>`;
+  }).join('');
+  let content='';
+  if(!lvl) content='<p>שגיאה</p>';
+  else if(lvl.id==='mc') content=renderMC(lvl);
+  else if(lvl.id==='typedSum') content=renderTypedSum(lvl);
+  const sub=state.levelSub||{};
+  const isAnswered=!!sub.answered;
+  const isLastLvl=state.levelIndex>=levels.length-1;
+  const skipBtn=(!isAnswered&&!isLastLvl)
+    ?`<div style="text-align:center;margin-top:10px;"><button class="btn secondary" onclick="skipLevel()" style="font-size:13px;padding:6px 18px;">דלג לתרגיל הבא ←</button></div>`:'';
+  return `<div class="progressdots">${dots}</div><div class="panel">${content}${skipBtn}</div>`;
+}
+
+function renderMC(lvl){
+  const sub = state.levelSub;
+  const opts = state.shuffledOptions && state.shuffledOptions.length ? state.shuffledOptions : lvl.options;
+  const btns = opts.map(opt => {
+    let cls = 'mc-btn';
+    if(sub.answered){
+      if(opt===lvl.correct) cls += ' correct';
+      else if(opt===sub.picked && opt!==lvl.correct) cls += ' wrong';
+    }
+    return `<button class="${cls}" onclick="answerMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapOpt(opt)}</button>`;
+  }).join('');
+  let feedback = '';
+  if(sub.answered){
+    feedback = `
+      <div class="feedback ${sub.correct?'ok':'bad'}">${sub.correct?'נכון!':'לא מדויק.'}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">${lvl.question}</p>
+    <div class="mc-options">${btns}</div>
+    ${feedback}
+  `;
+}
+
+function answerMC(opt){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  if(sub.answered) return;
+  sub.answered = true;
+  sub.picked = opt;
+  sub.correct = opt === lvl.correct;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+function renderTypedSum(lvl){
+  const sub = state.levelSub;
+  let answerArea = '';
+  if(!sub.answered){
+    answerArea = `
+      <div class="abs-input-row">
+        <input type="number" id="sumInput" placeholder="?" dir="ltr" style="width:90px;text-align:center;">
+        <button class="btn" onclick="submitTypedSum()">בדיקה</button>
+      </div>`;
+  } else {
+    answerArea = `
+      <div class="feedback ${sub.correct?'ok':'bad'}">${sub.correct?'נכון!':'לא מדויק. התשובה: '+bdi(lvl.correct)}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext" style="font-size:28px;font-weight:700;direction:ltr;unicode-bidi:embed;">${lvl.expr} = ?</p>
+    ${answerArea}
+  `;
+}
+
+function submitTypedSum(){
+  const lvl = currentGameLevels()[state.levelIndex];
+  const sub = state.levelSub;
+  const field = document.getElementById('sumInput');
+  const val = parseFloat(field ? field.value : '');
+  if(isNaN(val)){ render(); return; }
+  sub.answered = true;
+  sub.correct = Math.abs(val - lvl.correct) < 0.001;
+  if(sub.correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+/* ============ GAME RESULTS ============ */
+
+function renderGameResults(){
+  const pct = state.gameTotal > 0 ? Math.round(state.gameScore/state.gameTotal*100) : 0;
+  const msg = pct===100 ? 'מושלם! כל הכבוד!' : pct>=80 ? 'עבודה מצוינת!' : pct>=60 ? 'כמעט שם, המשיכו להתאמן' : 'כדאי לחזור על ההקנייה';
+  const worksheetBtn = `<button class="btn" onclick="window.open('../worksheets/powers_exam.html','_blank')">למבדק שליטה ←</button>`;
+  return `
+    <div class="panel" style="text-align:center;">
+      <h2 class="qtitle">סיום התרגול!</h2>
+      <div class="scorebig">${state.gameScore}/${state.gameTotal}</div>
+      <p style="font-size:18px;margin:8px 0 20px;">${msg}</p>
+      <div class="btnrow">
+        ${worksheetBtn}
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+/* ============ UTILITY ============ */
+
+function wrapMath(str){
+  if(!str) return str;
+  return str
+    .replace(/\|[^|]+\|/g,m=>`<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`)
+    .replace(/\([-−][^)]+\)/g,m=>`<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`)
+    .replace(/[-−]\d+(\.\d+)?(?![)\d])/g,m=>`<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`);
+}
+function bdi(v){ return `<bdi style="direction:ltr;unicode-bidi:isolate;">${v}</bdi>`; }
+function escOpt(s){ return s.replace(/'/g,"&#39;"); }
+function wrapOpt(opt){
+  if(!/[\u05d0-\u05ea]/.test(opt)) return `<span style="direction:ltr;unicode-bidi:embed;display:inline-block;">${wrapMath(opt)}</span>`;
+  return wrapMath(opt);
+}
+function shuffleArr(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a; }
+
+/* ============ INIT ============ */
+render();
+</script>
+</body>
+</html>
