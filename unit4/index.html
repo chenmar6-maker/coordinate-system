@@ -180,7 +180,9 @@
   .examples-row .example-box{flex:1;min-width:160px;max-width:260px;}
 
   sup{font-size:0.68em;font-weight:700;vertical-align:super;line-height:1;}
-  .sqrt{font-size:1.1em;}
+  .rad{display:inline-flex;align-items:flex-end;vertical-align:middle;direction:ltr;unicode-bidi:isolate;}
+  .rad-sym{font-size:1.35em;line-height:0.9;padding-bottom:1px;letter-spacing:-2px;}
+  .rad-body{border-top:1.5px solid currentColor;padding:2px 4px 0;}
 
   @keyframes popIn{
     0%{transform:scale(.55);opacity:0;}
@@ -557,7 +559,7 @@ function renderLearn3(){
 }
 
 function renderLearn4(){
-  return `
+  return sqrtify(`
     <div class="panel">
       <h2 class="qtitle">שורש ריבועי</h2>
       <div class="gold-box" dir="rtl">√n הוא המספר הלא-שלילי שריבועו שווה n</div>
@@ -566,10 +568,32 @@ function renderLearn4(){
         <div class="example-box">√25 = 5<br><span style="font-size:13px;font-weight:400;">כי 5² = 25</span></div>
         <div class="example-box">√100 = 10<br><span style="font-size:13px;font-weight:400;">כי 10² = 100</span></div>
       </div>
+      <!-- הדגמה גיאומטרית -->
+      <div style="margin:16px 0;text-align:center;">
+        <div style="font-size:13px;font-weight:700;color:rgba(234,244,241,0.55);margin-bottom:10px;letter-spacing:0.5px;">ריבוע בעל שטח 9 — צלעו 3</div>
+        <div style="display:inline-block;">
+          <svg width="120" height="120" viewBox="0 0 120 120" style="overflow:visible;">
+            <rect x="10" y="10" width="90" height="90" fill="rgba(239,169,74,0.15)" stroke="#EFA94A" stroke-width="2" rx="3"/>
+            <!-- dim lines -->
+            <line x1="10" y1="6" x2="100" y2="6" stroke="#EFA94A" stroke-width="1.2" stroke-dasharray="4,3"/>
+            <line x1="10" y1="4" x2="10" y2="8" stroke="#EFA94A" stroke-width="1.2"/>
+            <line x1="100" y1="4" x2="100" y2="8" stroke="#EFA94A" stroke-width="1.2"/>
+            <text x="55" y="2" fill="#EFA94A" font-size="12" font-family="Rubik,sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="hanging">3</text>
+            <line x1="104" y1="10" x2="104" y2="100" stroke="#EFA94A" stroke-width="1.2" stroke-dasharray="4,3"/>
+            <line x1="102" y1="10" x2="106" y2="10" stroke="#EFA94A" stroke-width="1.2"/>
+            <line x1="102" y1="100" x2="106" y2="100" stroke="#EFA94A" stroke-width="1.2"/>
+            <text x="112" y="55" fill="#EFA94A" font-size="12" font-family="Rubik,sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="middle">3</text>
+            <!-- area label -->
+            <text x="55" y="55" fill="rgba(234,244,241,0.9)" font-size="13" font-family="Rubik,sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="middle">שטח = 9</text>
+          </svg>
+          <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-top:4px;">√9 = 3</div>
+        </div>
+      </div>
+
       <div style="text-align:center;margin:14px 0;">
         <div style="font-size:14px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:8px;">ריבועים מושלמים</div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">
-          ${[1,4,9,16,25,36,49,64,81,100].map(n=>`<span style="background:rgba(239,169,74,0.12);border:1px solid rgba(239,169,74,0.3);border-radius:6px;padding:6px 12px;font-weight:700;">${n}</span>`).join('')}
+          ${[[1,1],[4,2],[9,3],[16,4],[25,5],[36,6],[49,7],[64,8],[81,9],[100,10]].map(([n,r])=>`<div style="background:rgba(239,169,74,0.12);border:1px solid rgba(239,169,74,0.3);border-radius:8px;padding:6px 12px;text-align:center;min-width:52px;"><div style="font-size:17px;font-weight:800;">${n}</div><div style="font-size:11px;color:rgba(239,169,74,0.85);font-weight:700;margin-top:1px;">√ = ${r}</div></div>`).join('')}
         </div>
       </div>
       <ul class="bullets">
@@ -583,11 +607,11 @@ function renderLearn4(){
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
       </div>
     </div>
-  `;
+  `);
 }
 
 function renderLearn5(){
-  return `
+  return sqrtify(`
     <div class="panel">
       <h2 class="qtitle">חישובים עם שורשים</h2>
       <div class="gold-box" dir="ltr">√(a · b) = √a · √b</div>
@@ -605,7 +629,7 @@ function renderLearn5(){
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
       </div>
     </div>
-  `;
+  `);
 }
 
 /* ============ GAME ============ */
@@ -651,7 +675,7 @@ function renderMC(lvl){
   }
   return `
     <h2 class="qtitle">${lvl.title}</h2>
-    <p class="qtext">${lvl.question}</p>
+    <p class="qtext">${sqrtify(lvl.question)}</p>
     <div class="mc-options">${btns}</div>
     ${feedback}
   `;
@@ -686,7 +710,7 @@ function renderTypedSum(lvl){
   }
   return `
     <h2 class="qtitle">${lvl.title}</h2>
-    <p class="qtext" style="font-size:28px;font-weight:700;direction:ltr;unicode-bidi:embed;">${lvl.expr} = ?</p>
+    <p class="qtext" style="font-size:28px;font-weight:700;direction:ltr;unicode-bidi:embed;">${sqrtify(lvl.expr)} = ?</p>
     ${answerArea}
   `;
 }
@@ -725,8 +749,18 @@ function renderGameResults(){
 
 /* ============ UTILITY ============ */
 
+function sqrtify(str){
+  if(!str) return str;
+  str = str.replace(/√\(([^)]*)\)/g, (_,inner) =>
+    `<span class="rad"><span class="rad-sym">√</span><span class="rad-body">(${inner})</span></span>`);
+  str = str.replace(/√(\w+)/g, (_,inner) =>
+    `<span class="rad"><span class="rad-sym">√</span><span class="rad-body">${inner}</span></span>`);
+  return str;
+}
+
 function wrapMath(str){
   if(!str) return str;
+  str = sqrtify(str);
   return str
     .replace(/\|[^|]+\|/g,m=>`<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`)
     .replace(/\([-−][^)]+\)/g,m=>`<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`)
