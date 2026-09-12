@@ -66,6 +66,15 @@
 
   .math { direction: ltr; unicode-bidi: embed; font-weight: 600; }
 
+  sup {
+    font-size: 0.68em;
+    font-weight: 700;
+    vertical-align: top;
+    position: relative;
+    top: -0.15em;
+    line-height: 1;
+  }
+
   .ans-line {
     display: inline-block;
     border-bottom: 1.5px solid #555;
@@ -87,12 +96,14 @@
   .pow-cell {
     border: 1px solid #e2e8f0;
     border-radius: 6px;
-    padding: 7px 10px;
-    font-size: 13px;
+    padding: 8px 10px;
+    font-size: 15px;
+    font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     direction: ltr;
+    unicode-bidi: isolate;
   }
   .pow-cell .ans-line { min-width: 42px; }
 
@@ -192,14 +203,14 @@
 <div class="quiz-q">
   <div class="qrow"><span class="qnum">1.</span><span class="qtext">חשבו:</span></div>
   <div class="pow-grid">
-    <div class="pow-cell">2<sup>4</sup> = <span class="ans-line">&nbsp;</span></div>
-    <div class="pow-cell">3<sup>3</sup> = <span class="ans-line">&nbsp;</span></div>
-    <div class="pow-cell">5<sup>2</sup> = <span class="ans-line">&nbsp;</span></div>
-    <div class="pow-cell">10<sup>3</sup> = <span class="ans-line">&nbsp;</span></div>
-    <div class="pow-cell">1<sup>9</sup> = <span class="ans-line">&nbsp;</span></div>
-    <div class="pow-cell">7<sup>1</sup> = <span class="ans-line">&nbsp;</span></div>
-    <div class="pow-cell">6<sup>0</sup> = <span class="ans-line">&nbsp;</span></div>
-    <div class="pow-cell">2<sup>6</sup> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">2<sup>4</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">3<sup>3</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">5<sup>2</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">10<sup>3</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">1<sup>9</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">7<sup>1</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">6<sup>0</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">2<sup>6</sup></span> = <span class="ans-line">&nbsp;</span></div>
   </div>
 </div>
 
