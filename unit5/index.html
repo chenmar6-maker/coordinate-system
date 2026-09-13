@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>משתנים וביטויים אלגבריים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --navy:#1E1B2E;
+    --deep-navy:#0F0D1A;
+    --teal:#4A4080;
+    --light-teal:#3AA0C4;
+    --foam:#EAF4F1;
+    --gold:#EFA94A;
+    --coral:#E2604F;
+    --seafoam:#48B08C;
+    --ink:#0A2A43;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Rubik',sans-serif;
+    background:radial-gradient(ellipse at 50% -10%,#3D3568 0%,#1E1B2E 50%,#0F0D1A 100%);
+    color:var(--foam);
+    direction:rtl;
+    min-height:100vh;
+    line-height:1.6;
+  }
+
+  .wrap{max-width:900px;margin:0 auto;padding:20px 18px 70px;}
+
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;max-width:900px;margin:0 auto;}
+  .brand{font-family:'Rubik',sans-serif;font-size:19px;color:var(--gold);}
+  .homebtn{background:transparent;border:1.5px solid var(--foam);color:var(--foam);padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;cursor:pointer;opacity:.85;text-decoration:none;display:inline-block;}
+  .homebtn:hover{opacity:1;border-color:var(--gold);color:var(--gold);}
+
+  .hero{text-align:center;padding:18px 10px 10px;}
+  h1.title{font-family:'Rubik',sans-serif;font-weight:800;font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:#FFFFFF;text-align:center;letter-spacing:-0.5px;}
+
+  .cards{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+  .sequence-section{margin-bottom:28px;background:rgba(234,244,241,0.04);border-radius:14px;padding:18px 20px;}
+  .sequence-title{font-family:'Rubik',sans-serif;font-weight:700;font-size:17px;color:var(--foam);text-align:center;margin:0 0 14px;opacity:.9;}
+
+  .flow-arrow{display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(239,169,74,0.5);flex-shrink:0;}
+
+  .card{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:50px;cursor:pointer;font-family:'Rubik',sans-serif;font-weight:600;font-size:15px;transition:transform .15s ease,box-shadow .15s ease;border:none;}
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.25);}
+  .card h3{font-family:'Rubik',sans-serif;font-size:15px;font-weight:600;margin:0;}
+  .card p{display:none;}
+  .card.learn{background:rgba(28,110,140,0.25);border:1.5px solid var(--teal);color:var(--foam);}
+  .card.game{background:rgba(239,169,74,0.18);border:1.5px solid var(--gold);color:var(--gold);}
+  .card.quiz{background:rgba(226,96,79,0.18);border:1.5px solid var(--coral);color:var(--coral);}
+
+  .panel{background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.15);border-radius:10px;padding:22px;margin:18px 0;}
+
+  .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+  .btn{background:var(--gold);color:var(--deep-navy);border:none;font-weight:700;font-family:'Rubik',sans-serif;font-size:15px;padding:11px 26px;border-radius:24px;cursor:pointer;transition:transform .12s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn.secondary{background:transparent;border:1.5px solid var(--foam);color:var(--foam);}
+  .btn.secondary:hover{border-color:var(--gold);color:var(--gold);}
+  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+  .feedback{text-align:center;font-size:16px;font-weight:700;margin:14px 0;min-height:24px;}
+  .feedback.ok{color:var(--seafoam);}
+  .feedback.bad{color:var(--coral);}
+
+  .progressdots{display:flex;gap:8px;justify-content:center;margin-bottom:6px;}
+  .dot{width:11px;height:11px;border-radius:50%;background:rgba(234,244,241,0.25);border:none;padding:0;}
+  .dot.done{background:var(--seafoam);}
+  .dot.active{background:var(--gold);}
+  .dot:hover{opacity:.75;}
+
+  .mc-options{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:16px auto 0;}
+  .mc-btn{background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;cursor:pointer;font-family:'Rubik',sans-serif;text-align:center;direction:ltr;unicode-bidi:isolate;}
+  .mc-btn:hover{border-color:var(--gold);}
+  .mc-btn.correct{background:rgba(72,176,140,0.3);border-color:var(--seafoam);}
+  .mc-btn.wrong{background:rgba(226,96,79,0.3);border-color:var(--coral);}
+  .mc-btn:disabled{cursor:default;}
+
+  .explain-box{background:rgba(72,176,140,0.1);border-right:4px solid var(--seafoam);border-radius:6px;padding:12px 16px;margin-top:14px;text-align:right;font-size:15px;}
+
+  .qmeta{text-align:center;font-size:14px;opacity:.75;margin-bottom:6px;}
+  .qtitle{font-size:18px;font-weight:700;text-align:center;margin:6px 0 4px;}
+  .qtext{font-size:16px;text-align:center;margin:0 0 6px;max-width:560px;margin-left:auto;margin-right:auto;}
+
+  .scorebig{font-family:'Rubik',sans-serif;font-size:52px;color:var(--gold);text-align:center;margin:10px 0;}
+
+  .abs-input-row{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px 0;direction:rtl;}
+  .abs-input-row input{width:80px;padding:8px 10px;font-size:18px;border-radius:6px;border:1.5px solid var(--teal);text-align:center;font-family:'Rubik',sans-serif;background:var(--foam);color:var(--ink);}
+  .abs-input-row input:focus{outline:2px solid var(--gold);}
+
+  .instr{text-align:center;font-size:15px;color:var(--foam);opacity:.85;margin:8px 0 4px;}
+
+  ul.bullets{list-style:none;margin:18px 0 6px;padding:0;text-align:right;}
+  ul.bullets li{position:relative;padding-right:22px;margin-bottom:10px;font-size:16px;line-height:1.55;}
+  ul.bullets li::before{content:"•";color:var(--gold);position:absolute;right:0;top:0;font-size:18px;}
+
+  .learn-note{background:rgba(239,169,74,0.1);border-right:4px solid var(--gold);border-radius:6px;padding:12px 16px;margin-top:16px;font-size:15px;text-align:right;}
+
+  .example-box{background:rgba(239,169,74,0.08);border:1.5px solid rgba(239,169,74,0.35);border-radius:8px;padding:14px 18px;margin:10px 0;text-align:center;font-size:17px;font-weight:700;color:var(--foam);}
+  .gold-box{background:rgba(239,169,74,0.12);border-right:4px solid var(--gold);border-radius:6px;padding:14px 18px;margin:14px 0;text-align:center;font-size:18px;font-weight:700;color:var(--gold);}
+  .examples-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:14px 0;}
+  .examples-row .example-box{flex:1;min-width:160px;max-width:260px;}
+
+  .m{direction:ltr;unicode-bidi:isolate;}
+
+  .def-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px;}
+  .def-table td,.def-table th{padding:9px 14px;border:1px solid rgba(234,244,241,0.15);text-align:right;}
+  .def-table th{background:rgba(239,169,74,0.12);color:var(--gold);font-weight:700;}
+  .def-table td:last-child{direction:ltr;unicode-bidi:isolate;text-align:center;}
+
+  .seq-row{display:flex;align-items:center;gap:10px;justify-content:center;font-size:18px;font-weight:700;margin:10px 0;direction:ltr;unicode-bidi:isolate;}
+  .seq-chip{background:rgba(239,169,74,0.15);border:1.5px solid rgba(239,169,74,0.4);border-radius:8px;padding:6px 14px;color:var(--foam);}
+
+  sup{font-size:0.68em;font-weight:700;vertical-align:super;line-height:1;}
+
+  @keyframes popIn{0%{transform:scale(.55);opacity:0;}65%{transform:scale(1.18);opacity:1;}100%{transform:scale(1);}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* ============ STATE ============ */
+const state = {
+  screen:'home',
+  sequence:1,
+  levelIndex:0,
+  gameScore:0,
+  gameTotal:0,
+  levelSub:{},
+  shuffledOptions:[]
+};
+
+/* ============ GAME LEVELS ============ */
+
+const gameLevels1 = [
+  { id:'mc', title:'מה זה משתנה?',
+    question:'למה בביטוי <span class="m">3x + 5</span> האות x נקראת "משתנה"?',
+    options:['כי היא תמיד שווה ל-3','כי היא יכולה לקבל ערכים שונים','כי היא מיוצגת על ידי אות','כי היא קבועה'],
+    correct:'כי היא יכולה לקבל ערכים שונים',
+    explain:'משתנה הוא סמל (אות) שמייצג כמות לא ידועה — יכול לקבל ערכים שונים בהתאם לבעיה.' },
+  { id:'mc', title:'כתיבת ביטוי',
+    question:'איזה ביטוי מייצג "פי 4 מ-<span class="m">a</span>"?',
+    options:['a + 4','4 + a','4a','a ÷ 4'],
+    correct:'4a',
+    explain:'פי 4 = כפל ב-4. 4a = 4 · a.' },
+  { id:'mc', title:'כתיבת ביטוי',
+    question:'איזה ביטוי מייצג "<span class="m">n</span> גדול ב-7 מ-<span class="m">k</span>"?',
+    options:['n · 7','k + 7','k − 7','n + 7'],
+    correct:'k + 7',
+    explain:'גדול ב-7 = מוסיפים 7. אם k הוא הבסיס, הביטוי הוא k + 7.' },
+  { id:'mc', title:'כתיבת ביטוי',
+    question:'מה הביטוי לתיאור: "חצי מ-<span class="m">x</span>, פחות שלוש"?',
+    options:['½ − 3x','x/2 + 3','x/2 − 3','3 − x/2'],
+    correct:'x/2 − 3',
+    explain:'חצי מ-x = x/2. פחות שלוש = מחסירים 3. לכן: x/2 − 3.' },
+  { id:'mc', title:'קריאת ביטוי',
+    question:'איזה תיאור מילולי מתאים לביטוי <span class="m">5 − 2x</span>?',
+    options:['פי 2 מ-x, פחות 5','5 פחות פי שניים מ-x','פי 5 ועוד 2x','5 חלקי 2x'],
+    correct:'5 פחות פי שניים מ-x',
+    explain:'5 פחות פי שניים מ-x = 5 − 2·x = 5 − 2x.' },
+  { id:'mc', title:'כתיבת ביטוי — שני משתנים',
+    question:'מחיר נסיעה: 5 שקלים לכל קילומטר ועוד 2 שקלים לכל דקה. מה ביטוי העלות עבור <span class="m">k</span> ק"מ ו-<span class="m">m</span> דקות?',
+    options:['5 + k + 2 + m','5k · 2m','5k + 2m','7km'],
+    correct:'5k + 2m',
+    explain:'5 שקלים לכל k ק"מ = 5k. 2 שקלים לכל m דקות = 2m. יחד: 5k + 2m.' },
+  { id:'mc', title:'ביטוי גיאומטרי',
+    question:'מלבן: צלע קצרה <span class="m">x</span>, הצלע הארוכה גדולה ב-4. מה ביטוי ההיקף?',
+    options:['x + x + 4','4x + 4','4x + 8','2x + 8'],
+    correct:'4x + 8',
+    explain:'צלע ארוכה = x+4. היקף = 2·x + 2·(x+4) = 2x + 2x + 8 = 4x + 8.' },
+  { id:'mc', title:'ביטוי מילולי יצירתי',
+    question:'מי מהתיאורים הבאים מתאים לביטוי <span class="m">3n − 5</span>?',
+    options:['שלוש פחות פי 5 מ-n','פי 3 מ-n, פחות 5','n חלקי 3, פחות 5','5 פחות פי 3 מ-n'],
+    correct:'פי 3 מ-n, פחות 5',
+    explain:'3n = פי 3 מ-n. מינוס 5 = פחות 5. לכן: פי 3 מ-n, פחות 5.' },
+];
+
+const gameLevels2 = [
+  { id:'typedSum', title:'פתרו', expr:'2x + 3 &nbsp; כש-x = 4', correct:11,
+    explain:'מציבים x=4: 2·4+3 = 8+3 = 11.' },
+  { id:'typedSum', title:'פתרו', expr:'9x − 3 &nbsp; כש-x = 5', correct:42,
+    explain:'9·5 − 3 = 45 − 3 = 42.' },
+  { id:'typedSum', title:'פתרו', expr:'3a − 1 &nbsp; כש-a = −2', correct:-7,
+    explain:'3·(−2) − 1 = −6 − 1 = −7.' },
+  { id:'mc', title:'הצבה בביטוי',
+    question:'מה ערך הביטוי <span class="m">2a − b</span> כש-<span class="m">a = 3, b = 1</span>?',
+    options:['4','5','7','3'],
+    correct:'5',
+    explain:'מציבים: 2·3 − 1 = 6 − 1 = 5.' },
+  { id:'typedSum', title:'פתרו', expr:'120 − 3x &nbsp; כש-x = 5', correct:105,
+    explain:'120 − 3·5 = 120 − 15 = 105.' },
+  { id:'mc', title:'הצבה — שבר',
+    question:'מה ערך הביטוי <span class="m">9x − 3</span> כש-<span class="m">x = ⅓</span>?',
+    options:['0','3','6','−3'],
+    correct:'0',
+    explain:'9 · ⅓ − 3 = 3 − 3 = 0.' },
+  { id:'mc', title:'ביטוי עם מחנה',
+    question:'בבריכה 120 ליטר. מוציאים 3 ליטר לשעה. כמה ייוותר אחרי 12 שעות?',
+    options:['84','72','96','36'],
+    correct:'84',
+    explain:'הביטוי: 120 − 3x. מציבים x=12: 120 − 36 = 84.' },
+  { id:'mc', title:'הצבה — שלילי',
+    question:'מה ערך <span class="m">9x − 3</span> כש-<span class="m">x = −1</span>?',
+    options:['−6','−12','6','12'],
+    correct:'−12',
+    explain:'9·(−1) − 3 = −9 − 3 = −12.' },
+  { id:'mc', title:'ניסוי ובדיקה',
+    question:'הביטוי <span class="m">3k + m + 10</span>. עבור <span class="m">k = 4, m = 6</span>, מה הערך?',
+    options:['28','36','22','28'],
+    correct:'28',
+    explain:'3·4 + 6 + 10 = 12 + 6 + 10 = 28.' },
+];
+
+const gameLevels3 = [
+  { id:'mc', title:'איברים דומים',
+    question:'אילו מהאיברים הבאים הם "דומים" ויכולים להיכנס?',
+    options:['3x ו-5x²','3x ו-5x','3x ו-3y','3x ו-5'],
+    correct:'3x ו-5x',
+    explain:'איברים דומים = אותו משתנה באותה חזקה. 3x ו-5x — שניהם x בחזקה 1.' },
+  { id:'mc', title:'כינוס',
+    question:'מה שווה <span class="m">3x + 5x</span>?',
+    options:['8x²','15x','8x','8'],
+    correct:'8x',
+    explain:'3x + 5x = (3+5)x = 8x. מסכמים את המקדמים, המשתנה נשאר.' },
+  { id:'mc', title:'כינוס',
+    question:'מה שווה <span class="m">7b − 2b + b</span>?',
+    options:['4b','5b','6b','10b'],
+    correct:'6b',
+    explain:'7b − 2b + b = (7−2+1)b = 6b.' },
+  { id:'mc', title:'פישוט ביטוי',
+    question:'מה שווה <span class="m">4a + 7 − a + 3</span>?',
+    options:['3a + 10','5a + 10','3a + 4','5a + 4'],
+    correct:'3a + 10',
+    explain:'איברים עם a: 4a − a = 3a. מספרים: 7 + 3 = 10. תוצאה: 3a + 10.' },
+  { id:'mc', title:'פישוט ביטוי',
+    question:'מה שווה <span class="m">2.5x + 3 + 1.3x − 1</span>?',
+    options:['3.8x + 4','3.8x + 2','3.8x − 2','1.2x + 2'],
+    correct:'3.8x + 2',
+    explain:'x: 2.5x + 1.3x = 3.8x. מספרים: 3 − 1 = 2. תוצאה: 3.8x + 2.' },
+  { id:'mc', title:'מי שווה ל-5x + 3?',
+    question:'אילו מהביטויים הבאים שווים ל-<span class="m">5x + 3</span>? (יתכן יותר מתשובה אחת — בחרו הנכון ביותר)',
+    options:['3x + 2 + 2x + 1','4x + 5 + x − 2','6x − x + 4 − 1','כל האפשרויות נכונות'],
+    correct:'כל האפשרויות נכונות',
+    explain:'א: 3x+2x=5x, 2+1=3 ✓. ב: 4x+x=5x, 5−2=3 ✓. ג: 6x−x=5x, 4−1=3 ✓. כולם נכונים!' },
+  { id:'mc', title:'מה אפשר לכנס?',
+    question:'מי מהביטויים ניתן לפישוט על ידי כינוס?',
+    options:['3x + 5y','3x + 5x²','3x + 5x','3x + 5'],
+    correct:'3x + 5x',
+    explain:'רק 3x + 5x ניתן לכינוס (שניהם x). שאר הביטויים — המשתנים שונים ואי אפשר לכנס.' },
+];
+
+const gameLevels4 = [
+  { id:'mc', title:'זיהוי הסדרה',
+    question:'בסדרה <span class="m">3, 7, 11, 15, ...</span> — מהו ההפרש הקבוע?',
+    options:['3','4','7','11'],
+    correct:'4',
+    explain:'7−3=4, 11−7=4, 15−11=4. ההפרש בין כל שני איברים סמוכים הוא 4.' },
+  { id:'typedSum', title:'פתרו', expr:'מהו האיבר ה-6 בסדרה 3, 7, 11, 15, ...', correct:23,
+    explain:'a₁=3, הפרש=4. אחרי 5 צעדים: 3 + 5·4 = 3 + 20 = 23.' },
+  { id:'mc', title:'נוסחת האיבר ה-n',
+    question:'בסדרה <span class="m">3, 7, 11, 15, ...</span> — מה הביטוי לאיבר ה-n?',
+    options:['3n','4n − 1','4n + 3','3 + n'],
+    correct:'4n − 1',
+    explain:'n=1: 4·1−1=3 ✓. n=2: 4·2−1=7 ✓. n=3: 4·3−1=11 ✓.' },
+  { id:'typedSum', title:'פתרו', expr:'האיבר ה-50 בסדרה 3, 7, 11, 15, ...', correct:199,
+    explain:'4·50 − 1 = 200 − 1 = 199.' },
+  { id:'mc', title:'סדרה יורדת',
+    question:'בסדרה <span class="m">100, 96, 92, 88, ...</span> — מה ביטוי האיבר ה-n?',
+    options:['100 − 4n','104 − 4n','96 + 4n','100 + 4n'],
+    correct:'104 − 4n',
+    explain:'n=1: 104−4=100 ✓. n=2: 104−8=96 ✓. n=3: 104−12=92 ✓.' },
+  { id:'typedSum', title:'פתרו', expr:'האיבר ה-10 בסדרה 100, 96, 92, ...', correct:64,
+    explain:'104 − 4·10 = 104 − 40 = 64.' },
+  { id:'mc', title:'סדרה עם שברים',
+    question:'בסדרה <span class="m">½, 1, 1½, 2, ...</span> — מה ביטוי האיבר ה-n?',
+    options:['n/2','n + ½','½n + 1','2n'],
+    correct:'n/2',
+    explain:'n=1: 1/2 ✓. n=2: 2/2=1 ✓. n=3: 3/2=1½ ✓.' },
+  { id:'mc', title:'אתגר — זיהוי מהתיאור',
+    question:'בסדרה מסוימת האיבר הראשון הוא 5 וכל איבר גדול ב-3 מקודמו. מהו האיבר ה-n?',
+    options:['5n','3n + 5','3n + 2','5 + 3n'],
+    correct:'3n + 2',
+    explain:'n=1: 3+2=5 ✓. n=2: 6+2=8 ✓. n=3: 9+2=11 ✓. הפרש=3, איבר ראשון=5.' },
+];
+
+/* ============ NAVIGATION ============ */
+
+let openSections = new Set();
+
+function toggleSection(key){
+  if(openSections.has(key)) openSections.delete(key);
+  else openSections.add(key);
+  render();
+}
+
+function goHome(){ state.screen='home'; openSections=new Set(); render(); }
+function goTo(s){ state.screen=s; render(); }
+
+function startGame(){
+  state.screen='game'; state.levelIndex=0; state.gameScore=0; state.gameTotal=0;
+  state.levelSub=freshLevelSub(0);
+  const first=currentGameLevels()[0];
+  if(first&&first.id==='mc') state.shuffledOptions=shuffleArr(first.options.slice());
+  render();
+}
+
+function freshLevelSub(){ return {answered:false,correct:false}; }
+
+function nextLevel(){
+  state.levelIndex++;
+  if(state.levelIndex>=currentGameLevels().length){ finishGame(); return; }
+  state.levelSub=freshLevelSub();
+  const next=currentGameLevels()[state.levelIndex];
+  if(next&&next.id==='mc') state.shuffledOptions=shuffleArr(next.options.slice());
+  render();
+}
+
+function finishGame(){ state.screen='gameResults'; render(); }
+
+function jumpToLevel(i){
+  state.levelIndex=i; state.levelSub=freshLevelSub();
+  const lvl=currentGameLevels()[i];
+  if(lvl&&lvl.id==='mc') state.shuffledOptions=shuffleArr(lvl.options.slice());
+  render();
+}
+
+function skipLevel(){
+  const levels=currentGameLevels();
+  if(state.levelIndex>=levels.length-1) return;
+  state.levelIndex++; state.levelSub=freshLevelSub();
+  const next=levels[state.levelIndex];
+  if(next&&next.options) state.shuffledOptions=shuffleArr(next.options.slice());
+  render();
+}
+
+function currentGameLevels(){
+  if(state.sequence===1) return gameLevels1;
+  if(state.sequence===2) return gameLevels2;
+  if(state.sequence===3) return gameLevels3;
+  if(state.sequence===4) return gameLevels4;
+  return gameLevels1;
+}
+
+/* ============ HELPERS ============ */
+
+function shuffleArr(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function escOpt(s){ return s.replace(/'/g,"\\'"); }
+function wrapOpt(s){ return s; }
+function wrapMath(s){ return s; }
+
+/* ============ RENDER ============ */
+
+function render(){
+  const app=document.getElementById('app');
+  if(state.screen==='home') app.innerHTML=renderTopbar()+'<div class="wrap">'+renderHome()+'</div>';
+  else if(state.screen==='learn') app.innerHTML=renderTopbar()+'<div class="wrap">'+renderLearn()+'</div>';
+  else if(state.screen==='game') app.innerHTML=renderTopbar()+'<div class="wrap">'+renderGame()+'</div>';
+  else if(state.screen==='gameResults') app.innerHTML=renderTopbar()+'<div class="wrap">'+renderGameResults()+'</div>';
+}
+
+function renderTopbar(){
+  return `<div class="topbar">
+    <div class="brand">חן מרגלית למידה אקטיבית</div>
+    <button class="homebtn" onclick="window.location.href='../index.html'">תפריט ראשי</button>
+  </div>`;
+}
+
+/* ============ seqRow ============ */
+
+function seqRow(seqNum, label, opts={}){
+  const isOpen = openSections.has(seqNum);
+  const chevron = isOpen ? '▲' : '▼';
+  let cards = '';
+  if(isOpen){
+    const quizCard = opts.worksheetUrl
+      ? `<div class="card quiz" onclick="showWorksheet('${opts.worksheetUrl}')"><h3>מבדק שליטה</h3></div>`
+      : '';
+    const nextCard = opts.hasNext
+      ? `<div class="flow-arrow">←</div><div class="card" onclick="window.location.href='../index.html'" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>ליחידה הבאה</h3></div>`
+      : '';
+    cards = `<div class="cards" style="margin-bottom:6px;">
+      <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
+      <div class="flow-arrow">←</div>
+      <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
+      ${quizCard ? '<div class="flow-arrow">←</div>'+quizCard : ''}
+      ${nextCard}
+    </div>`;
+  }
+  return `
+    <div onclick="toggleSection(${seqNum})" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:10px 4px 10px;border-bottom:1px solid rgba(234,244,241,0.08);user-select:none;">
+      <span class="sequence-title" style="margin:0;">${label}</span>
+      <span style="font-size:20px;color:rgba(234,244,241,0.4);transition:transform .15s;">${chevron}</span>
+    </div>
+    ${cards}`;
+}
+
+/* ============ HOME ============ */
+
+function renderHome(){
+  return `
+    <div class="hero">
+      <h1 class="title">משתנים וביטויים אלגבריים</h1>
+    </div>
+    <div class="sequence-section" style="margin-bottom:32px;">
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">מבוא לאלגברה</div>
+      ${seqRow(1,'1. כתיבת ביטויים אלגבריים',{})}
+      ${seqRow(2,'2. הצבה וחישוב ערך הביטוי',{})}
+
+      <div style="font-size:12px;font-weight:700;letter-spacing:1px;color:rgba(234,244,241,0.4);text-transform:uppercase;margin:14px 0 6px;">פישוט וסדרות</div>
+      ${seqRow(3,'3. כינוס איברים דומים',{})}
+      ${seqRow(4,'4. סדרות חשבוניות',{worksheetUrl:'../worksheets/variables_expressions_worksheet.html',hasNext:true})}
+    </div>`;
+}
+
+/* ============ LEARN ============ */
+
+function renderLearn(){
+  if(state.sequence===1) return renderLearn1();
+  if(state.sequence===2) return renderLearn2();
+  if(state.sequence===3) return renderLearn3();
+  if(state.sequence===4) return renderLearn4();
+  return renderLearn1();
+}
+
+function renderLearn1(){
+  return `<div class="panel">
+    <h2 class="qtitle">כתיבת ביטויים אלגבריים</h2>
+    <div class="gold-box">ביטוי אלגברי = שילוב של מספרים, משתנים ופעולות חשבון</div>
+    <table class="def-table">
+      <tr><th>תיאור מילולי</th><th>ביטוי</th></tr>
+      <tr><td>פי 4 מ-a</td><td><span class="m">4a</span></td></tr>
+      <tr><td>n גדול ב-7</td><td><span class="m">n + 7</span></td></tr>
+      <tr><td>חצי מ-x, פחות 3</td><td><span class="m">x/2 − 3</span></td></tr>
+      <tr><td>שלוש פעמים a ועוד פעמיים b</td><td><span class="m">3a + 2b</span></td></tr>
+    </table>
+    <ul class="bullets">
+      <li><strong>משתנה</strong> — אות שמייצגת כמות לא ידועה (יכולה לקבל ערכים שונים)</li>
+      <li><strong>מקדם</strong> — המספר שלפני המשתנה: ב-3x המקדם הוא 3</li>
+      <li><strong>איבר חופשי</strong> — מספר ללא משתנה: ב-2x+5, האיבר החופשי הוא 5</li>
+      <li>"פי n" = כפל ב-n | "גדול ב-n" = חיבור n | "קטן ב-n" = חיסור n</li>
+    </ul>
+    <div class="learn-note">שימו לב: 2x ≠ x2 בכתיב — כותבים את המקדם לפני המשתנה</div>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn2(){
+  return `<div class="panel">
+    <h2 class="qtitle">הצבה וחישוב ערך הביטוי</h2>
+    <div class="gold-box">הצבה = להחליף את המשתנה בערך מספרי ולחשב</div>
+    <div style="text-align:right;margin:14px 0 6px;font-weight:700;">דוגמה: הביטוי <span class="m">2x + 3</span>, מציבים <span class="m">x = 4</span></div>
+    <div class="examples-row">
+      <div class="example-box">2·<span style="color:var(--gold);">4</span> + 3<br>= 8 + 3<br>= 11</div>
+      <div class="example-box">9x − 3, x = ⅓<br>9·⅓ − 3<br>= 3 − 3 = 0</div>
+      <div class="example-box">3a − 1, a = −2<br>3·(−2) − 1<br>= −6 − 1 = −7</div>
+    </div>
+    <ul class="bullets">
+      <li>מחליפים כל הופעה של המשתנה בערך הנתון</li>
+      <li>משתמשים בסדר פעולות: סוגריים → כפל/חילוק → חיבור/חיסור</li>
+      <li>אפשר להציב מספרים שלמים, שברים, ומספרים שליליים</li>
+      <li>הביטוי יכול לכלול שני משתנים — מציבים ערך לכל אחד</li>
+    </ul>
+    <div class="learn-note">בריכה: 120 − 3x ליטר. כשמציבים x=12: 120−36=84 ליטר.</div>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn3(){
+  return `<div class="panel">
+    <h2 class="qtitle">כינוס איברים דומים</h2>
+    <div class="gold-box">איברים דומים = אותו משתנה, אותה חזקה — אפשר לסכם את המקדמים</div>
+    <div class="examples-row">
+      <div class="example-box">3x + 5x = 8x</div>
+      <div class="example-box">7b − 2b + b = 6b</div>
+      <div class="example-box">4a + 7 − a + 3<br>= 3a + 10</div>
+    </div>
+    <ul class="bullets">
+      <li>מסכמים <strong>רק</strong> איברים עם אותו משתנה: 3x + 5x = 8x</li>
+      <li>מספרים מסכמים עם מספרים: 7 + 3 = 10</li>
+      <li>אי אפשר לכנס: 3x + 5y (משתנים שונים) | 3x + 5x² (חזקות שונות)</li>
+      <li>סדר הפעולות חשוב — שמים לב לסימן לפני כל איבר</li>
+    </ul>
+    <div style="background:rgba(226,96,79,0.1);border-right:4px solid var(--coral);border-radius:6px;padding:12px 16px;margin-top:14px;font-size:15px;">
+      <strong>שגיאה נפוצה:</strong> 3x + 5 ≠ 8x. המספר 5 אינו "דומה" ל-3x!
+    </div>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn4(){
+  return `<div class="panel">
+    <h2 class="qtitle">סדרות חשבוניות</h2>
+    <div class="gold-box">סדרה חשבונית = רשימת מספרים עם הפרש קבוע בין כל שניים סמוכים</div>
+    <div style="margin:14px 0;">
+      <div class="seq-row">
+        <span class="seq-chip">3</span>
+        <span style="color:rgba(239,169,74,0.6);">+4→</span>
+        <span class="seq-chip">7</span>
+        <span style="color:rgba(239,169,74,0.6);">+4→</span>
+        <span class="seq-chip">11</span>
+        <span style="color:rgba(239,169,74,0.6);">+4→</span>
+        <span class="seq-chip">15</span>
+        <span style="color:rgba(239,169,74,0.6);">+4→</span>
+        <span style="opacity:0.5;">...</span>
+      </div>
+    </div>
+    <div class="gold-box" style="font-size:16px;">נוסחה: איבר ה-n = א₁ + (n−1)·d</div>
+    <div style="text-align:right;margin:12px 0;font-size:15px;">
+      <strong>דוגמה:</strong> 3, 7, 11, 15, ... — א₁=3, d=4<br>
+      <span class="m">aₙ = 3 + (n−1)·4 = 3 + 4n − 4 = 4n − 1</span>
+    </div>
+    <table class="def-table">
+      <tr><th>n</th><th>1</th><th>2</th><th>3</th><th>6</th><th>50</th></tr>
+      <tr><td>4n − 1</td><td>3</td><td>7</td><td>11</td><td>23</td><td>199</td></tr>
+    </table>
+    <ul class="bullets">
+      <li>מוצאים את ההפרש d = הפרש בין כל שני איברים סמוכים</li>
+      <li>מכניסים לנוסחה: aₙ = א₁ + (n−1)·d</li>
+      <li>בסדרה יורדת: d שלילי (לדוגמה: 100, 96, 92, ... → d=−4)</li>
+    </ul>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+/* ============ GAME ============ */
+
+function renderGame(){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const levels=currentGameLevels();
+  const dots=levels.map((_,i)=>{
+    let cls='dot';
+    if(i<state.levelIndex) cls+=' done';
+    else if(i===state.levelIndex) cls+=' active';
+    return `<div class="${cls}" onclick="jumpToLevel(${i})" style="cursor:pointer;"></div>`;
+  }).join('');
+  let content='';
+  if(!lvl) content='<p>שגיאה</p>';
+  else if(lvl.id==='mc') content=renderMC(lvl);
+  else if(lvl.id==='typedSum') content=renderTypedSum(lvl);
+  const sub=state.levelSub||{};
+  const isAnswered=!!sub.answered;
+  const isLastLvl=state.levelIndex>=levels.length-1;
+  const skipBtn=(!isAnswered&&!isLastLvl)
+    ?`<div style="text-align:center;margin-top:10px;"><button class="btn secondary" onclick="skipLevel()" style="font-size:13px;padding:6px 18px;">דלג לתרגיל הבא ←</button></div>`:'';
+  return `<div class="progressdots">${dots}</div><div class="panel">${content}${skipBtn}</div>`;
+}
+
+function renderMC(lvl){
+  const sub=state.levelSub;
+  const opts=state.shuffledOptions&&state.shuffledOptions.length?state.shuffledOptions:lvl.options;
+  const btns=opts.map(opt=>{
+    let cls='mc-btn';
+    if(sub.answered){
+      if(opt===lvl.correct) cls+=' correct';
+      else if(opt===sub.picked&&opt!==lvl.correct) cls+=' wrong';
+    }
+    return `<button class="${cls}" onclick="answerMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapOpt(opt)}</button>`;
+  }).join('');
+  let feedback='';
+  if(sub.answered){
+    feedback=`
+      <div class="feedback ${sub.correct?'ok':'bad'}">${sub.correct?'נכון!':'לא מדויק.'}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">${lvl.question}</p>
+    <div class="mc-options">${btns}</div>
+    ${feedback}`;
+}
+
+function answerMC(picked){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const correct=picked===lvl.correct;
+  state.levelSub={answered:true,correct,picked};
+  if(correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+function renderTypedSum(lvl){
+  const sub=state.levelSub||{};
+  const isAnswered=!!sub.answered;
+  let feedback='';
+  if(isAnswered){
+    feedback=`
+      <div class="feedback ${sub.correct?'ok':'bad'}">${sub.correct?'נכון!':'לא מדויק. התשובה: '+lvl.correct}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  const inputArea=isAnswered?'':`
+    <div class="abs-input-row">
+      <input type="number" id="tsInput" placeholder="?" onkeydown="if(event.key==='Enter')checkTypedSum()"/>
+    </div>
+    <div class="btnrow"><button class="btn" onclick="checkTypedSum()">בדיקה</button></div>`;
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <div style="text-align:center;font-size:22px;font-weight:700;margin:14px 0;direction:ltr;unicode-bidi:isolate;">${lvl.expr} = ?</div>
+    ${inputArea}
+    ${feedback}`;
+}
+
+function checkTypedSum(){
+  const inp=document.getElementById('tsInput');
+  if(!inp) return;
+  const val=parseFloat(inp.value);
+  if(isNaN(val)) return;
+  const lvl=currentGameLevels()[state.levelIndex];
+  const correct=Math.abs(val-lvl.correct)<0.001;
+  state.levelSub={answered:true,correct,given:val};
+  if(correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+function renderGameResults(){
+  const pct=state.gameTotal>0?Math.round(state.gameScore/state.gameTotal*100):0;
+  const msg=pct>=85?'מעולה! שליטה מלאה':'כמעט! כדאי לתרגל שוב';
+  return `<div class="panel" style="text-align:center;">
+    <h2 class="qtitle">תוצאות</h2>
+    <div class="scorebig">${state.gameScore}/${state.gameTotal}</div>
+    <div style="font-size:22px;font-weight:700;margin:8px 0;">${pct}%</div>
+    <div style="font-size:16px;opacity:.8;margin-bottom:20px;">${msg}</div>
+    <div class="btnrow">
+      <button class="btn" onclick="startGame()">שוב ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+/* ============ WORKSHEET OVERLAY ============ */
+
+function showWorksheet(url){
+  const overlay=document.getElementById('ws-overlay');
+  document.getElementById('ws-frame').src=url;
+  overlay.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function hideWorksheet(){
+  document.getElementById('ws-overlay').style.display='none';
+  document.getElementById('ws-frame').src='';
+  document.body.style.overflow='';
+}
+
+/* ============ INIT ============ */
+render();
+</script>
+
+<div id="ws-overlay" style="display:none;position:fixed;inset:0;z-index:9999;flex-direction:column;">
+  <div style="background:#1E1B2E;padding:12px 20px;display:flex;align-items:center;gap:14px;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,0.1);">
+    <button onclick="hideWorksheet()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">← חזור</button>
+    <span style="color:rgba(255,255,255,0.5);font-size:13px;font-family:'Rubik',sans-serif;">מבדק שליטה</span>
+  </div>
+  <iframe id="ws-frame" src="" style="flex:1;border:0;width:100%;"></iframe>
+</div>
+</body>
+</html>
