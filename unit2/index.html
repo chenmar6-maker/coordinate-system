@@ -815,7 +815,8 @@ const gameLevels3 = [
     question:'מה יהיה סימן התוצאה של <bdi style="direction:ltr;unicode-bidi:isolate;">3⅙ + (−3¼)</bdi>? (בלי לחשב!)',
     options:['חיובי','שלילי','אפס','אי אפשר לדעת'],
     correct:'שלילי',
-    explain:'|3⅙| ≈ 3.17 קטן מ-|3¼| = 3.25. הגדול הוא (−3¼) שלילי → תוצאה שלילית.' },
+    explain:'|3⅙| ≈ 3.17 קטן מ-|3¼| = 3.25. הגדול הוא (−3¼) שלילי → תוצאה שלילית.',
+    videoUrl:'https://www.youtube.com/embed/00gNRpbJJbQ' },
   /* — כלל הסימן (מקביל ל-Q5 בדף) — */
   { id:'mc', title:'כלל הסימן',
     question:'כשמחברים מספר שלילי ומספר חיובי — מה יקבע את סימן התוצאה?',
@@ -3681,10 +3682,15 @@ function renderMC(lvl){
       <div class="explain-box">${wrapMath(lvl.explain)}</div>
       <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
   }
+  const videoBlock = lvl.videoUrl ? `
+    <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;margin:16px 0 4px;">
+      <iframe src="${lvl.videoUrl}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen></iframe>
+    </div>` : '';
   return `
     <h2 class="qtitle">${lvl.title}</h2>
     <p class="qtext">${wrapMath(lvl.question)}</p>
     <div class="mc-options">${btns}</div>
+    ${videoBlock}
     ${feedback}
   `;
 }
