@@ -254,39 +254,6 @@ const gameLevels3 = [
     explain:'רק 3x + 5x ניתן לכינוס (שניהם x). שאר הביטויים — המשתנים שונים ואי אפשר לכנס.' },
 ];
 
-const gameLevels4 = [
-  { id:'mc', title:'זיהוי הסדרה',
-    question:'בסדרה <span class="m">3, 7, 11, 15, ...</span> — מהו ההפרש הקבוע?',
-    options:['3','4','7','11'],
-    correct:'4',
-    explain:'7−3=4, 11−7=4, 15−11=4. ההפרש בין כל שני איברים סמוכים הוא 4.' },
-  { id:'typedSum', title:'פתרו', expr:'מהו האיבר ה-6 בסדרה 3, 7, 11, 15, ...', correct:23,
-    explain:'a₁=3, הפרש=4. אחרי 5 צעדים: 3 + 5·4 = 3 + 20 = 23.' },
-  { id:'mc', title:'נוסחת האיבר ה-n',
-    question:'בסדרה <span class="m">3, 7, 11, 15, ...</span> — מה הביטוי לאיבר ה-n?',
-    options:['3n','4n − 1','4n + 3','3 + n'],
-    correct:'4n − 1',
-    explain:'n=1: 4·1−1=3 ✓. n=2: 4·2−1=7 ✓. n=3: 4·3−1=11 ✓.' },
-  { id:'typedSum', title:'פתרו', expr:'האיבר ה-50 בסדרה 3, 7, 11, 15, ...', correct:199,
-    explain:'4·50 − 1 = 200 − 1 = 199.' },
-  { id:'mc', title:'סדרה יורדת',
-    question:'בסדרה <span class="m">100, 96, 92, 88, ...</span> — מה ביטוי האיבר ה-n?',
-    options:['100 − 4n','104 − 4n','96 + 4n','100 + 4n'],
-    correct:'104 − 4n',
-    explain:'n=1: 104−4=100 ✓. n=2: 104−8=96 ✓. n=3: 104−12=92 ✓.' },
-  { id:'typedSum', title:'פתרו', expr:'האיבר ה-10 בסדרה 100, 96, 92, ...', correct:64,
-    explain:'104 − 4·10 = 104 − 40 = 64.' },
-  { id:'mc', title:'סדרה עם שברים',
-    question:'בסדרה <span class="m">½, 1, 1½, 2, ...</span> — מה ביטוי האיבר ה-n?',
-    options:['n/2','n + ½','½n + 1','2n'],
-    correct:'n/2',
-    explain:'n=1: 1/2 ✓. n=2: 2/2=1 ✓. n=3: 3/2=1½ ✓.' },
-  { id:'mc', title:'אתגר — זיהוי מהתיאור',
-    question:'בסדרה מסוימת האיבר הראשון הוא 5 וכל איבר גדול ב-3 מקודמו. מהו האיבר ה-n?',
-    options:['5n','3n + 5','3n + 2','5 + 3n'],
-    correct:'3n + 2',
-    explain:'n=1: 3+2=5 ✓. n=2: 6+2=8 ✓. n=3: 9+2=11 ✓. הפרש=3, איבר ראשון=5.' },
-];
 
 /* ============ NAVIGATION ============ */
 
@@ -342,7 +309,6 @@ function currentGameLevels(){
   if(state.sequence===1) return gameLevels1;
   if(state.sequence===2) return gameLevels2;
   if(state.sequence===3) return gameLevels3;
-  if(state.sequence===4) return gameLevels4;
   return gameLevels1;
 }
 
@@ -387,6 +353,7 @@ function seqRow(seqNum, label, opts={}){
     const quizCard = opts.worksheetUrl
       ? `<div class="card quiz" onclick="showWorksheet('${opts.worksheetUrl}')"><h3>מבדק שליטה</h3></div>`
       : '';
+    const answersCard = opts.answersUrl ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.answersUrl}')" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>תשובות</h3></div>` : '';
     const nextCard = opts.hasNext
       ? `<div class="flow-arrow">←</div><div class="card" onclick="window.location.href='../index.html'" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>ליחידה הבאה</h3></div>`
       : '';
@@ -395,6 +362,7 @@ function seqRow(seqNum, label, opts={}){
       <div class="flow-arrow">←</div>
       <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
       ${quizCard ? '<div class="flow-arrow">←</div>'+quizCard : ''}
+      ${answersCard}
       ${nextCard}
     </div>`;
   }
@@ -415,12 +383,11 @@ function renderHome(){
     </div>
     <div class="sequence-section" style="margin-bottom:32px;">
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">מבוא לאלגברה</div>
-      ${seqRow(1,'1. כתיבת ביטויים אלגבריים',{})}
-      ${seqRow(2,'2. הצבה וחישוב ערך הביטוי',{})}
+      ${seqRow(1,'1. כתיבת ביטויים אלגבריים',{worksheetUrl:'../worksheets/algebra_writing_exam.html',answersUrl:'../worksheets/algebra_writing_answers.html'})}
+      ${seqRow(2,'2. הצבה וחישוב ערך הביטוי',{worksheetUrl:'../worksheets/algebra_substitution_exam.html',answersUrl:'../worksheets/algebra_substitution_answers.html'})}
 
-      <div style="font-size:12px;font-weight:700;letter-spacing:1px;color:rgba(234,244,241,0.4);text-transform:uppercase;margin:14px 0 6px;">פישוט וסדרות</div>
-      ${seqRow(3,'3. כינוס איברים דומים',{})}
-      ${seqRow(4,'4. סדרות חשבוניות',{worksheetUrl:'../worksheets/variables_expressions_worksheet.html',hasNext:true})}
+      <div style="font-size:12px;font-weight:700;letter-spacing:1px;color:rgba(234,244,241,0.4);text-transform:uppercase;margin:14px 0 6px;">פישוט</div>
+      ${seqRow(3,'3. כינוס איברים דומים',{worksheetUrl:'../worksheets/algebra_combining_exam.html',answersUrl:'../worksheets/algebra_combining_answers.html',hasNext:true})}
     </div>`;
 }
 
@@ -430,7 +397,6 @@ function renderLearn(){
   if(state.sequence===1) return renderLearn1();
   if(state.sequence===2) return renderLearn2();
   if(state.sequence===3) return renderLearn3();
-  if(state.sequence===4) return renderLearn4();
   return renderLearn1();
 }
 
@@ -508,43 +474,6 @@ function renderLearn3(){
   </div>`;
 }
 
-function renderLearn4(){
-  return `<div class="panel">
-    <h2 class="qtitle">סדרות חשבוניות</h2>
-    <div class="gold-box">סדרה חשבונית = רשימת מספרים עם הפרש קבוע בין כל שניים סמוכים</div>
-    <div style="margin:14px 0;">
-      <div class="seq-row">
-        <span class="seq-chip">3</span>
-        <span style="color:rgba(239,169,74,0.6);">+4→</span>
-        <span class="seq-chip">7</span>
-        <span style="color:rgba(239,169,74,0.6);">+4→</span>
-        <span class="seq-chip">11</span>
-        <span style="color:rgba(239,169,74,0.6);">+4→</span>
-        <span class="seq-chip">15</span>
-        <span style="color:rgba(239,169,74,0.6);">+4→</span>
-        <span style="opacity:0.5;">...</span>
-      </div>
-    </div>
-    <div class="gold-box" style="font-size:16px;">נוסחה: איבר ה-n = א₁ + (n−1)·d</div>
-    <div style="text-align:right;margin:12px 0;font-size:15px;">
-      <strong>דוגמה:</strong> 3, 7, 11, 15, ... — א₁=3, d=4<br>
-      <span class="m">aₙ = 3 + (n−1)·4 = 3 + 4n − 4 = 4n − 1</span>
-    </div>
-    <table class="def-table">
-      <tr><th>n</th><th>1</th><th>2</th><th>3</th><th>6</th><th>50</th></tr>
-      <tr><td>4n − 1</td><td>3</td><td>7</td><td>11</td><td>23</td><td>199</td></tr>
-    </table>
-    <ul class="bullets">
-      <li>מוצאים את ההפרש d = הפרש בין כל שני איברים סמוכים</li>
-      <li>מכניסים לנוסחה: aₙ = א₁ + (n−1)·d</li>
-      <li>בסדרה יורדת: d שלילי (לדוגמה: 100, 96, 92, ... → d=−4)</li>
-    </ul>
-    <div class="btnrow">
-      <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
-      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
-    </div>
-  </div>`;
-}
 
 /* ============ GAME ============ */
 

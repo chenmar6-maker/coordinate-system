@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — כתיבת ביטויים אלגבריים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+
+  .page-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  /* ── Part label strip ── */
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+    letter-spacing: 0.3px;
+  }
+  .pa { background: #C05621; }
+
+  /* ── Section wrappers ── */
+  .sec { margin-bottom: 6px; }
+
+  /* ── Question cards ── */
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 10px 12px 10px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid transparent;
+  }
+  .sec-a .quiz-q { border-right-color: #F6A35A; }
+
+  .quiz-q .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; }
+
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 16px; font-weight: 700; flex-shrink: 0; color: #555; }
+
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 6px; }
+  .mc-opt { display: flex; align-items: center; gap: 5px; font-size: 13.5px; }
+  .mc-opt .circ { width: 14px; height: 14px; border: 1.5px solid #777; border-radius: 50%; flex-shrink: 0; }
+
+  .al  { display: block; border-bottom: 1.5px solid #bbb; margin-top: 8px; height: 16px; }
+  .al2 { display: block; border-bottom: 1px solid #ccc; margin-top: 14px; height: 16px; }
+  .ali    { display: inline-block; border-bottom: 1.5px solid #888; min-width: 60px; vertical-align: bottom; }
+  .ali-lg { display: inline-block; border-bottom: 1.5px solid #888; min-width: 130px; vertical-align: bottom; }
+
+  .divider {
+    border: none;
+    border-top: 2px dashed #CBD5E1;
+    margin: 14px 0;
+  }
+
+  /* ── Score bar ── */
+  .score-bar {
+    display: flex; gap: 14px; justify-content: flex-end; flex-wrap: wrap;
+    font-size: 13px; margin-top: 12px;
+    background: #fff; border-radius: 8px;
+    padding: 10px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .score-part { display: flex; align-items: center; gap: 6px; }
+  .score-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .sd-a { background: #C05621; }
+  .score-field {
+    border-bottom: 1.5px solid #888;
+    min-width: 36px; display: inline-block;
+  }
+  .score-total { font-weight: 700; color: #1a1a2e; }
+
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    body { background: #fff; padding: 10px; }
+    .no-print { display: none; }
+    .quiz-q { box-shadow: none; border: 1px solid #ddd; }
+    .header { background: #222 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    @page { margin: 12mm; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — כתיבת ביטויים אלגבריים</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; אלגברה</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     חלק א׳ — כתיבת ביטויים אלגבריים
+══════════════════════════════════════════════════════ -->
+<span class="part-label pa">חלק א׳ — כתיבת ביטויים אלגבריים</span>
+
+<div class="sec sec-a">
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span> רשמו ביטוי אלגברי לפי כל תיאור:
+  <div class="sub-row"><span class="sub-lbl">א.</span> מספר שהוא פי 4 מ-<span class="m">a</span>: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> מספר שגדול ב-7 מ-<span class="m">n</span>: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> חצי מ-<span class="m">x</span>, פחות שלוש: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ד.</span> שלוש פעמים <span class="m">a</span> ועוד פעמיים <span class="m">b</span>: <span class="ali"></span></div>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span> חנות בדים חותכת תמיד <strong>10 ס"מ יותר</strong> ממה שהלקוח מבקש.
+  <div class="sub-row"><span class="sub-lbl">א.</span> לקוח ביקש 150 ס"מ. כמה ייחתך? <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> לקוח ביקש <span class="m">a</span> ס"מ. כתבו ביטוי לכמות שתיחתך: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> המוכר חתך 200 ס"מ. מה הוא <span class="m">x</span>? <span class="ali"></span></div>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <span class="qnum">3.</span> איזה ביטוי מייצג: "חמש פחות פי שניים מ-<span class="m">x</span>"?
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div> <span class="m">2x − 5</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span class="m">5 − 2x</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span class="m">5x − 2</span></div>
+    <div class="mc-opt"><div class="circ"></div> <span class="m">2(5 − x)</span></div>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <span class="qnum">4.</span> במלבן: הצלע הארוכה, ארוכה ב-15 ס"מ מהצלע הקצרה. הצלע הקצרה היא <span class="m">x</span> ס"מ.
+  <div class="sub-row"><span class="sub-lbl">א.</span> כתבו ביטוי לצלע הארוכה: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> כתבו ביטוי להיקף המלבן: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> האם ייתכן שהצלע הארוכה היא 14 ס"מ? נמקו: <span class="ali-lg"></span></div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <span class="qnum">5.</span> <strong>יצירתי:</strong> כתבו שאלה מילולית שהתשובה לה היא הביטוי <span class="m">3n − 5</span>.
+  <span class="al"></span>
+  <span class="al2"></span>
+</div>
+
+</div><!-- end sec-a -->
+
+<!-- ===== SCORE BAR ===== -->
+<div class="score-bar">
+  <div class="score-part"><div class="score-dot sd-a"></div>חלק א׳: <span class="score-field">&nbsp;</span> / 5</div>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+
+</body>
+</html>

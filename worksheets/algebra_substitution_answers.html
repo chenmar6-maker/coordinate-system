@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>תשובות — הצבה וחישוב ערך הביטוי</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+    color: #111;
+    direction: rtl;
+    background: #fff;
+    padding: 18px 22px 14px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+  .header-title { font-size: 18px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: #444; margin-top: 2px; }
+  .brand { font-size: 13px; font-weight: 700; color: #333; }
+
+  .part-label {
+    font-size: 13px; font-weight: 700;
+    background: #111; color: #fff;
+    padding: 3px 10px; border-radius: 3px;
+    display: inline-block; margin-bottom: 8px;
+  }
+
+  .ans-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px 14px;
+    margin-bottom: 14px;
+  }
+
+  .ans-item {
+    font-size: 12.5px;
+    line-height: 1.6;
+    padding: 5px 8px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+  }
+  .ans-item .q-lbl { font-weight: 700; color: #555; font-size: 11px; display: block; margin-bottom: 1px; }
+  .ans-item .ans { font-weight: 600; color: #1a5276; }
+  .ans-item .note { font-size: 11px; color: #666; margin-top: 2px; }
+
+  .m { direction: ltr; unicode-bidi: isolate; }
+
+  table.fill-table {
+    border-collapse: collapse;
+    margin: 6px 0 4px;
+    font-size: 12px;
+    direction: ltr;
+  }
+  table.fill-table th, table.fill-table td {
+    border: 1px solid #aaa;
+    padding: 4px 14px;
+    text-align: center;
+    min-width: 46px;
+  }
+  table.fill-table th { background: #f0f0f0; font-weight: 700; }
+  table.fill-table .ans-cell { background: #e8f4e8; font-weight: 700; color: #1a5276; }
+
+  .pin-overlay {
+    position: fixed; inset: 0;
+    background: rgba(255,255,255,0.97);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 9999;
+  }
+  .pin-box {
+    background: #fff; border: 2px solid #111;
+    border-radius: 12px; padding: 32px 36px;
+    text-align: center; max-width: 320px;
+  }
+  .pin-box h2 { font-size: 18px; margin-bottom: 8px; }
+  .pin-box p { font-size: 13px; color: #555; margin-bottom: 16px; }
+  .pin-box input {
+    font-family: 'Rubik', sans-serif;
+    font-size: 22px; letter-spacing: 8px;
+    border: 2px solid #aaa; border-radius: 8px;
+    padding: 8px 16px; width: 140px;
+    text-align: center; outline: none;
+  }
+  .pin-box input:focus { border-color: #111; }
+  .pin-box button {
+    display: block; margin: 14px auto 0;
+    background: #111; color: #fff; border: none;
+    padding: 9px 28px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600;
+    cursor: pointer;
+  }
+  .pin-err { color: #c0392b; font-size: 12px; margin-top: 8px; min-height: 18px; }
+
+  .page-scaler {
+    transform: scale(0.74);
+    transform-origin: top right;
+    width: calc(100% / 0.74);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PIN overlay -->
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <h2>תשובות למורה</h2>
+    <p>הזינו את קוד הגישה כדי לצפות בתשובות</p>
+    <input type="password" id="pinInput" maxlength="4" placeholder="••••" inputmode="numeric" onkeydown="if(event.key==='Enter')checkPin()">
+    <button onclick="checkPin()">כניסה</button>
+    <div class="pin-err" id="pinErr"></div>
+  </div>
+</div>
+
+<div class="page-scaler" id="content" style="display:none;">
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="header-title">תשובות — הצבה וחישוב ערך הביטוי</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; אלגברה</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- ═══ חלק ב׳ ═══ -->
+<span class="part-label">חלק ב׳ — הצבה וחישוב ערך הביטוי</span>
+<div class="ans-grid">
+  <div class="ans-item">
+    <span class="q-lbl">שאלה 1 — <span class="m">9x − 3</span></span>
+    <div>א. <span class="m">x=5</span>: <span class="ans">42</span></div>
+    <div>ב. <span class="m">x=⅓</span>: <span class="ans">0</span></div>
+    <div>ג. <span class="m">x=0.5</span>: <span class="ans">1.5</span></div>
+    <div>ד. <span class="m">x=−1</span>: <span class="ans">−12</span></div>
+  </div>
+  <div class="ans-item">
+    <span class="q-lbl">שאלה 2 — בריכה</span>
+    <div>א. <span class="ans m">120 − 3x</span></div>
+    <div>ב. <span class="ans">105</span> ליטר</div>
+    <div>ג. <span class="ans">84</span> ליטר</div>
+    <div>ד. <span class="ans">לא</span> <span class="note">(אחרי 40 שעות יישארו 0 ליטר, הבריכה ריקה)</span></div>
+  </div>
+  <div class="ans-item">
+    <span class="q-lbl">שאלה 3 — טבלה <span class="m">2a − b</span></span>
+    <table class="fill-table">
+      <tr>
+        <th><span class="m">a</span></th>
+        <td>3</td><td>0</td><td>½</td><td>−2</td>
+      </tr>
+      <tr>
+        <th><span class="m">b</span></th>
+        <td>1</td><td>−4</td><td>3</td><td>5</td>
+      </tr>
+      <tr>
+        <th><span class="m">2a−b</span></th>
+        <td class="ans-cell">5</td>
+        <td class="ans-cell">4</td>
+        <td class="ans-cell">−2</td>
+        <td class="ans-cell">−9</td>
+      </tr>
+    </table>
+  </div>
+  <div class="ans-item">
+    <span class="q-lbl">שאלה 4 — מונית אבחזיה</span>
+    <div>א. <span class="ans m">3k + m + 10</span></div>
+    <div>ב. <span class="ans">28</span> לירות <span class="note">(<span class="m">3·4+6+10</span>)</span></div>
+    <div>ג. <span class="ans m">k = 10</span> ק"מ <span class="note">(<span class="m">3k+3+10=43 → 3k=30</span>)</span></div>
+    <div>ד. <span class="ans">לא</span> <span class="note">(מינימום 10 לירות — עלות ההזמנה בלבד)</span></div>
+  </div>
+  <div class="ans-item">
+    <span class="q-lbl">שאלה 5 — הצבה בשבר <span class="m">12/(x−2)</span></span>
+    <div>א. <span class="m">x=5</span>: <span class="ans">4</span> <span class="note">(12÷3)</span></div>
+    <div>ב. <span class="m">x=6</span>: <span class="ans">3</span> <span class="note">(12÷4)</span></div>
+    <div>ג. <span class="m">x=½</span>: <span class="ans">−8</span> <span class="note">(12÷(−1.5))</span></div>
+    <div>ד. <span class="ans">לא מוגדר</span> <span class="note">(חילוק באפס: 12÷0)</span></div>
+  </div>
+  <div class="ans-item">
+    <span class="q-lbl">שאלה 6 — גינה ובריכה</span>
+    <div>א. <span class="ans m">192 − 18x</span> <span class="note">(24·8 − 18·x)</span></div>
+    <div>ב. <span class="m">x=5</span>: <span class="ans">102 מ"ר</span> <span class="note">(192−90)</span></div>
+    <div>ג. <span class="ans">לא</span> <span class="note">(192−18x=12 → x=10, אבל x&lt;8 חייב להתקיים)</span></div>
+  </div>
+</div>
+
+</div><!-- end page-scaler -->
+
+<script>
+function checkPin() {
+  const val = document.getElementById('pinInput').value;
+  if (val === '2357') {
+    document.getElementById('pinOverlay').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  } else {
+    document.getElementById('pinErr').textContent = 'קוד שגוי, נסו שוב';
+    document.getElementById('pinInput').value = '';
+    document.getElementById('pinInput').focus();
+  }
+}
+document.getElementById('pinInput').addEventListener('keydown', function(e){
+  if(e.key==='Enter') checkPin();
+});
+</script>
+</body>
+</html>
