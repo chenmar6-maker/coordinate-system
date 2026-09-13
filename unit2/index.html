@@ -1584,10 +1584,8 @@ function seqRow(seqNum, label, opts={}){
     const quizCard = opts.worksheetUrl
       ? `<div class="card quiz" onclick="showWorksheet('${opts.worksheetUrl}')"><h3>מבדק שליטה</h3></div>`
       : `<div class="card quiz" onclick="state.sequence=${seqNum};startQuiz()"><h3>מבדק שליטה</h3></div>`;
-    const answersCard = opts.answersUrl
-      ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.answersUrl}')" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>תשובות</h3></div>`
-      : opts.showAnswers
-      ? `<div class="flow-arrow">←</div><div class="card" onclick="state.sequence=${seqNum};goTo('answers')" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>תשובות</h3></div>`
+    const answersCard = (opts.answersUrl || opts.showAnswers)
+      ? `<div class="flow-arrow">←</div><div class="card" onclick="window.location.href='../index.html'" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>ליחידה הבאה</h3></div>`
       : '';
     cards = `<div class="cards" style="margin-bottom:6px;">
       <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
