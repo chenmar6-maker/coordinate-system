@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — נקודות ורביעים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .pa { background: #C05621; }
+
+  .quiz-q {
+    margin-bottom: 10px;
+    padding: 12px 14px 12px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #F6A35A;
+  }
+
+  .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; }
+
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 18px; font-weight: 700; flex-shrink: 0; color: #555; }
+
+  .ali { display: inline-block; border-bottom: 1.5px solid #888; min-width: 70px; vertical-align: bottom; }
+  .ali-sm { display: inline-block; border-bottom: 1.5px solid #888; min-width: 40px; vertical-align: bottom; }
+  .al { display: block; border-bottom: 1.5px solid #bbb; margin-top: 10px; height: 16px; }
+  .al2 { display: block; border-bottom: 1px solid #ccc; margin-top: 16px; height: 14px; }
+
+  .coord-table {
+    border-collapse: collapse;
+    margin: 10px 0 4px;
+    font-size: 13px;
+    width: 100%;
+    max-width: 560px;
+  }
+  .coord-table th, .coord-table td {
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    text-align: center;
+  }
+  .coord-table th { background: #F1F5F9; font-weight: 700; color: #334155; }
+
+  .grid-wrap { display: inline-block; margin: 10px 0; }
+
+  .score-bar {
+    display: flex; gap: 14px; justify-content: flex-end; flex-wrap: wrap;
+    font-size: 13px; margin-top: 14px;
+    background: #fff; border-radius: 8px;
+    padding: 10px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .score-part { display: flex; align-items: center; gap: 6px; }
+  .score-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .sd-a { background: #C05621; }
+  .score-field { border-bottom: 1.5px solid #888; min-width: 36px; display: inline-block; }
+  .score-total { font-weight: 700; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; border: 1px solid #ddd; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — נקודות ורביעים</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מערכת הצירים בכל הרביעים</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<span class="part-label pa">נקודות ורביעים</span>
+
+<div class="sec sec-a">
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span> כתבו את שיעורי הנקודות המסומנות במערכת הצירים:
+  <div class="grid-wrap" style="direction:ltr;">
+    <svg width="270" height="270" viewBox="0 0 280 280" style="display:block;margin:8px 0;font-family:sans-serif;">
+      <defs>
+        <marker id="arx" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#555"/>
+        </marker>
+        <marker id="ary" markerWidth="6" markerHeight="6" refX="3" refY="5" orient="auto">
+          <path d="M0,6 L3,0 L6,6 Z" fill="#555"/>
+        </marker>
+      </defs>
+      <!-- grid verticals -->
+      <line x1="15"  y1="15" x2="15"  y2="265" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="40"  y1="15" x2="40"  y2="265" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="65"  y1="15" x2="65"  y2="265" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="90"  y1="15" x2="90"  y2="265" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="115" y1="15" x2="115" y2="265" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="165" y1="15" x2="165" y2="265" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="190" y1="15" x2="190" y2="265" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="215" y1="15" x2="215" y2="265" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="240" y1="15" x2="240" y2="265" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="265" y1="15" x2="265" y2="265" stroke="#e0e0e0" stroke-width="0.8"/>
+      <!-- grid horizontals -->
+      <line x1="15" y1="15"  x2="265" y2="15"  stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="15" y1="40"  x2="265" y2="40"  stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="15" y1="65"  x2="265" y2="65"  stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="15" y1="90"  x2="265" y2="90"  stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="15" y1="115" x2="265" y2="115" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="15" y1="165" x2="265" y2="165" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="15" y1="190" x2="265" y2="190" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="15" y1="215" x2="265" y2="215" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="15" y1="240" x2="265" y2="240" stroke="#e0e0e0" stroke-width="0.8"/>
+      <line x1="15" y1="265" x2="265" y2="265" stroke="#e0e0e0" stroke-width="0.8"/>
+      <!-- axes -->
+      <line x1="8" y1="140" x2="272" y2="140" stroke="#555" stroke-width="1.6" marker-end="url(#arx)"/>
+      <line x1="140" y1="272" x2="140" y2="8"  stroke="#555" stroke-width="1.6" marker-end="url(#ary)"/>
+      <text x="276" y="144" font-size="12" fill="#555">x</text>
+      <text x="134" y="6"   font-size="12" fill="#555">y</text>
+      <!-- x-axis numbers -->
+      <text x="15"  y="154" font-size="9" fill="#888" text-anchor="middle">−5</text>
+      <text x="40"  y="154" font-size="9" fill="#888" text-anchor="middle">−4</text>
+      <text x="65"  y="154" font-size="9" fill="#888" text-anchor="middle">−3</text>
+      <text x="90"  y="154" font-size="9" fill="#888" text-anchor="middle">−2</text>
+      <text x="115" y="154" font-size="9" fill="#888" text-anchor="middle">−1</text>
+      <text x="148" y="154" font-size="9" fill="#888" text-anchor="middle">0</text>
+      <text x="165" y="154" font-size="9" fill="#888" text-anchor="middle">1</text>
+      <text x="190" y="154" font-size="9" fill="#888" text-anchor="middle">2</text>
+      <text x="215" y="154" font-size="9" fill="#888" text-anchor="middle">3</text>
+      <text x="240" y="154" font-size="9" fill="#888" text-anchor="middle">4</text>
+      <text x="265" y="154" font-size="9" fill="#888" text-anchor="middle">5</text>
+      <!-- y-axis numbers -->
+      <text x="132" y="18"  font-size="9" fill="#888" text-anchor="end">5</text>
+      <text x="132" y="43"  font-size="9" fill="#888" text-anchor="end">4</text>
+      <text x="132" y="68"  font-size="9" fill="#888" text-anchor="end">3</text>
+      <text x="132" y="93"  font-size="9" fill="#888" text-anchor="end">2</text>
+      <text x="132" y="118" font-size="9" fill="#888" text-anchor="end">1</text>
+      <text x="132" y="168" font-size="9" fill="#888" text-anchor="end">−1</text>
+      <text x="132" y="193" font-size="9" fill="#888" text-anchor="end">−2</text>
+      <text x="132" y="218" font-size="9" fill="#888" text-anchor="end">−3</text>
+      <text x="132" y="243" font-size="9" fill="#888" text-anchor="end">−4</text>
+      <text x="132" y="268" font-size="9" fill="#888" text-anchor="end">−5</text>
+      <!-- A(2, 3) → x=190, y=65 -->
+      <circle cx="190" cy="65" r="4.5" fill="#C05621"/>
+      <text x="196" y="59" font-size="12" font-weight="bold" fill="#C05621">A</text>
+      <!-- B(−3, 4) → x=65, y=40 -->
+      <circle cx="65" cy="40" r="4.5" fill="#1D4ED8"/>
+      <text x="52" y="34" font-size="12" font-weight="bold" fill="#1D4ED8">B</text>
+      <!-- C(−4, −2) → x=40, y=190 -->
+      <circle cx="40" cy="190" r="4.5" fill="#047857"/>
+      <text x="27" y="185" font-size="12" font-weight="bold" fill="#047857">C</text>
+      <!-- D(4, −3) → x=240, y=215 -->
+      <circle cx="240" cy="215" r="4.5" fill="#7C3AED"/>
+      <text x="246" y="210" font-size="12" font-weight="bold" fill="#7C3AED">D</text>
+      <!-- E(−2, 0) → x=90, y=140 -->
+      <circle cx="90" cy="140" r="4.5" fill="#B45309"/>
+      <text x="88" y="132" font-size="12" font-weight="bold" fill="#B45309">E</text>
+    </svg>
+  </div>
+  <table class="coord-table" style="margin-top:4px;max-width:320px;">
+    <tr><th>נקודה</th><th>שיעורים</th><th>נקודה</th><th>שיעורים</th></tr>
+    <tr>
+      <td>A</td><td style="min-width:90px;">&nbsp;</td>
+      <td>D</td><td style="min-width:90px;">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>B</td><td>&nbsp;</td>
+      <td>E</td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>C</td><td>&nbsp;</td>
+      <td></td><td></td>
+    </tr>
+  </table>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span> מלאו את הטבלה:
+  <table class="coord-table" style="margin-top:10px;">
+    <tr>
+      <th>נקודה</th>
+      <th>שיעורים</th>
+      <th>רביע / ציר</th>
+      <th>סימן x</th>
+      <th>סימן y</th>
+    </tr>
+    <tr>
+      <td>F</td>
+      <td><span class="m">(3, −2)</span></td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+      <td>G</td>
+      <td><span class="m">(−4, 5)</span></td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+      <td>H</td>
+      <td><span class="m">(−2, −3)</span></td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+      <td>J</td>
+      <td><span class="m">(0, 4)</span></td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+      <td>K</td>
+      <td><span class="m">(−3, 0)</span></td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+  </table>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <span class="qnum">3.</span> בכל סעיף, כתבו את שיעורי נקודה העונה על התנאי:
+  <div class="sub-row"><span class="sub-lbl">א.</span> נקודה ברביע II: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> נקודה ברביע IV: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> נקודה על ציר ה-x (לא הראשית): <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ד.</span> נקודה שאינה שייכת לאף רביע: <span class="ali"></span></div>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <span class="qnum">4.</span> נתונות הנקודות <span class="m">P(−5, 7)</span> ו-<span class="m">Q(5, −7)</span>.
+  <div class="sub-row"><span class="sub-lbl">א.</span> באיזה רביע נמצאת P? <span class="ali-sm"></span> &nbsp;&nbsp; באיזה רביע נמצאת Q? <span class="ali-sm"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> מה הקשר בין הנקודות? <span class="ali" style="min-width:200px;"></span></div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <span class="qnum">5.</span> <strong>נכון / לא נכון</strong> — הסבירו תשובה שגויה:
+  <div class="sub-row"><span class="sub-lbl">א.</span> הנקודה <span class="m">(−3, 0)</span> נמצאת ברביע III. <span class="ali-sm"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> לכל נקודה ברביע II: x שלילי ו-y חיובי. <span class="ali-sm"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> הנקודות <span class="m">(2, 5)</span> ו-<span class="m">(5, 2)</span> הן אותה נקודה. <span class="ali-sm"></span></div>
+  <div class="al2"></div>
+</div>
+
+</div>
+
+<div class="score-bar">
+  <div class="score-part"><div class="score-dot sd-a"></div>ציון: <span class="score-field">&nbsp;</span> / 5</div>
+</div>
+
+<div style="font-size:11px;font-weight:600;color:#888;margin-top:8px;text-align:left;">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+
+</body>
+</html>
