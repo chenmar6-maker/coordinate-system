@@ -183,9 +183,9 @@ const gameLevels1 = [
 const frac = (n,d) => `<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.2;margin:0 3px;"><span style="border-bottom:1.5px solid currentColor;padding:0 5px;">${n}</span><span style="padding:0 5px;">${d}</span></span>`;
 
 const gameLevels2 = [
-  { id:'typedSum', title:'הציבו וחשבו', expr:'x² + 5', sub:'כש-<b>x = 3</b>', correct:14,
-    explain:'מציבים x=3: 3² + 5 = 9 + 5 = 14.' },
-  { id:'typedSum', title:'הציבו וחשבו', expr:'x² − 3x', sub:'כש-<b>x = −2</b>', correct:10,
+  { id:'typedSum', title:'מינוס לפני חזקה', expr:'−x²', sub:'<b>x = 5</b>', correct:-25,
+    explain:'−x² פירושו −(x²) = −(5²) = −25. המינוס לא בסוגריים — לא מרובע.' },
+  { id:'typedSum', title:'הציבו וחשבו', expr:'x² − 3x', sub:'<b>x = −2</b>', correct:10,
     explain:'מציבים x=−2: (−2)² − 3·(−2) = 4 + 6 = 10.' },
   { id:'mc', title:'שימו לב — מינוס לפני חזקה',
     question:'מה ערך הביטוי <span class="m">−x²</span> כש-<span class="m">x = 4</span>?',
@@ -197,13 +197,13 @@ const gameLevels2 = [
     options:['9','−9','6','−6'],
     correct:'9',
     explain:'(−x)² = (−3)² = 9. הסוגריים גוררים את המינוס לתוך הריבוע — התוצאה חיובית.' },
-  { id:'typedSum', title:'קו שבר', expr:frac('2x + 6','4'), sub:'כש-<b>x = 5</b>', correct:4,
+  { id:'typedSum', title:'קו שבר', expr:frac('2x + 6','4'), sub:'<b>x = 5</b>', correct:4,
     explain:'מציבים x=5: (2·5+6)/4 = 16/4 = 4.' },
-  { id:'typedSum', title:'קו שבר עם חזקה', expr:frac('x² − 1','x + 1'), sub:'כש-<b>x = 3</b>', correct:2,
+  { id:'typedSum', title:'קו שבר עם חזקה', expr:frac('x² − 1','x + 1'), sub:'<b>x = 3</b>', correct:2,
     explain:'מציבים x=3: (9−1)/(3+1) = 8/4 = 2.' },
-  { id:'typedSum', title:'שני משתנים', expr:'a² − b', sub:'כש-<b>a = 2, b = −5</b>', correct:9,
+  { id:'typedSum', title:'שני משתנים', expr:'a² − b', sub:'<b>a = 2, b = −5</b>', correct:9,
     explain:'מציבים a=2, b=−5: 2² − (−5) = 4 + 5 = 9. פחות מינוס = חיבור!' },
-  { id:'typedSum', title:'מינוס לפני חזקה', expr:'−x² + 3x', sub:'כש-<b>x = −2</b>', correct:-10,
+  { id:'typedSum', title:'מינוס לפני חזקה', expr:'−x² + 3x', sub:'<b>x = −2</b>', correct:-10,
     explain:'מציבים x=−2: −(−2)² + 3·(−2) = −4 + (−6) = −10.' },
   { id:'mc', title:'קו שבר — שני משתנים',
     question:`מה ערך <span class="m">${frac('a² + b','3')}</span> כש-<span class="m">a = 1, b = 5</span>?`,
@@ -573,7 +573,7 @@ function renderTypedSum(lvl){
   const exprBlock = lvl.sub
     ? `<div style="font-size:12px;color:rgba(234,244,241,0.5);margin-bottom:6px;text-align:center;">נתון הביטוי:</div>
        <div style="text-align:center;font-size:26px;font-weight:700;direction:ltr;unicode-bidi:isolate;margin-bottom:12px;">${lvl.expr}</div>
-       <div style="text-align:center;font-size:16px;color:var(--gold);margin-bottom:4px;">${lvl.sub} — מה הערך?</div>`
+       <div style="text-align:center;font-size:16px;color:var(--gold);margin-bottom:4px;">הציבו: ${lvl.sub}</div>`
     : `<div style="text-align:center;font-size:22px;font-weight:700;direction:ltr;unicode-bidi:isolate;">${lvl.expr} = ?</div>`;
   return `
     <h2 class="qtitle">${lvl.title}</h2>
