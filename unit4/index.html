@@ -678,11 +678,11 @@ function renderLearn4(){
   const perfectSquares = [[1,1],[4,2],[9,3],[16,4],[25,5],[36,6],[49,7],[64,8],[81,9],[100,10],[121,11],[144,12]];
 
   const makeGrid = (side) => {
-    const sz = 44;
-    const cell = sz / side;
+    const cell = 7;
+    const sz = side * cell;
     let lines = '';
     for(let i=1;i<side;i++){
-      const p = Math.round(i*cell*10)/10;
+      const p = i*cell;
       lines += `<line x1="${p}" y1="0.5" x2="${p}" y2="${sz-0.5}" stroke="#EFA94A" stroke-width="0.5" opacity="0.55"/>`;
       lines += `<line x1="0.5" y1="${p}" x2="${sz-0.5}" y2="${p}" stroke="#EFA94A" stroke-width="0.5" opacity="0.55"/>`;
     }
@@ -708,7 +708,7 @@ function renderLearn4(){
       <!-- ריבועים מושלמים עם ויזואל -->
       <div style="margin:18px 0;">
         <div style="font-size:14px;font-weight:700;color:rgba(234,244,241,0.6);text-align:center;margin-bottom:14px;">ריבועים מושלמים — ריבוע שטחו n, צלעו √n</div>
-        <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">${tiles}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:flex-end;">${tiles}</div>
       </div>
 
       <ul class="bullets">
