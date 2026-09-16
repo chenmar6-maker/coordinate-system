@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — פתרון משוואות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 80px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .pa { background: #C05621; }
+  .pb { background: #1D4ED8; }
+
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 12px 14px 14px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .is-a .quiz-q { border-right: 4px solid #F6A35A; }
+  .is-b .quiz-q { border-right: 4px solid #93C5FD; }
+
+  .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+
+  /* ── solve grid ── */
+  .solve-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 24px;
+    margin: 10px 0 4px;
+    padding-right: 4px;
+  }
+  .solve-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 10px;
+    border: 1px solid #e8edf5;
+    border-radius: 7px;
+    background: #FAFBFD;
+  }
+  .solve-lbl { font-weight: 700; font-size: 12px; color: #888; }
+  .solve-eq { font-size: 15px; font-weight: 700; direction: ltr; unicode-bidi: isolate; }
+  .work-line { display: block; border-bottom: 1px solid #ccc; margin-top: 20px; height: 1px; }
+  .ans-line-sm { display: block; border-bottom: 1.5px solid #888; margin-top: 24px; height: 1px; }
+
+  /* ── sub-rows ── */
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 7px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 16px; font-weight: 700; flex-shrink: 0; color: #555; }
+  .al   { display: block; border-bottom: 1.5px solid #bbb; margin-top: 10px; height: 18px; }
+  .ali  { display: inline-block; border-bottom: 1.5px solid #888; min-width: 80px; vertical-align: bottom; }
+  .ali-lg { display: inline-block; border-bottom: 1.5px solid #888; min-width: 150px; vertical-align: bottom; }
+
+  /* ── two-equation row for Q3 ── */
+  .eq-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; margin: 10px 0 4px; }
+  .eq-card {
+    border: 1px solid #e8edf5; border-radius: 7px;
+    padding: 10px 12px; background: #FAFBFD;
+  }
+  .eq-card .lbl { font-weight: 700; font-size: 12px; color: #888; margin-bottom: 4px; }
+  .eq-card .expr { font-size: 15px; font-weight: 700; direction: ltr; unicode-bidi: isolate; }
+  .eq-card .work { display: block; border-bottom: 1px solid #ddd; margin-top: 22px; }
+  .eq-card .work2 { display: block; border-bottom: 1px solid #ddd; margin-top: 16px; }
+
+  /* ── verify box ── */
+  .verify-box {
+    margin-top: 10px;
+    background: #FFF7ED;
+    border: 1px solid #FED7AA;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .verify-box .v-lbl { font-weight: 700; color: #C05621; margin-bottom: 4px; }
+
+  .frac {
+    display: inline-flex; flex-direction: column;
+    align-items: stretch; vertical-align: middle;
+    font-size: 0.95em; line-height: 1.25; margin: 0 3px;
+  }
+  .frac .num { border-bottom: 1.5px solid #1a1a2e; padding: 0 4px; text-align: center; direction: ltr; }
+  .frac .den { padding: 0 4px; text-align: center; direction: ltr; }
+
+  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
+
+  .score-bar {
+    display: flex; gap: 14px; justify-content: flex-end; flex-wrap: wrap;
+    font-size: 13px; margin-top: 12px;
+    background: #fff; border-radius: 8px;
+    padding: 10px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .score-part { display: flex; align-items: center; gap: 6px; }
+  .score-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .sd-a { background: #C05621; }
+  .sd-b { background: #1D4ED8; }
+  .score-field { border-bottom: 1.5px solid #888; min-width: 36px; display: inline-block; }
+  .score-total { font-weight: 700; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; page-break-inside: avoid; }
+    .is-a .quiz-q { border-right: 4px solid #F6A35A !important; }
+    .is-b .quiz-q { border-right: 4px solid #93C5FD !important; }
+    .header { background: #1E1B2E !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pa, .pb { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .verify-box { background: #FFF7ED !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — פתרון משוואות</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; אלגברה</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     חלק א׳ — פתרון משוואות
+══════════════════════════════════════ -->
+<span class="part-label pa">חלק א׳ — פתרון משוואות</span>
+
+<div class="is-a">
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span> פתרו את המשוואות הבאות. הראו את דרך הפתרון.
+  <div class="solve-grid">
+
+    <div class="solve-item">
+      <span class="solve-lbl">א.</span>
+      <span class="solve-eq">x − 6 = −2</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="ans-line-sm"></span>
+    </div>
+
+    <div class="solve-item">
+      <span class="solve-lbl">ב.</span>
+      <span class="solve-eq">−3x = 15</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="ans-line-sm"></span>
+    </div>
+
+    <div class="solve-item">
+      <span class="solve-lbl">ג.</span>
+      <span class="solve-eq">2x + 7 = 15</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="ans-line-sm"></span>
+    </div>
+
+    <div class="solve-item">
+      <span class="solve-lbl">ד.</span>
+      <span class="solve-eq">4x − 1 = 11</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="ans-line-sm"></span>
+    </div>
+
+    <div class="solve-item">
+      <span class="solve-lbl">ה.</span>
+      <span class="solve-eq"><span class="frac"><span class="num">−x</span><span class="den">3</span></span> = 4</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="ans-line-sm"></span>
+    </div>
+
+    <div class="solve-item">
+      <span class="solve-lbl">ו.</span>
+      <span class="solve-eq">3(x + 2) = 18</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="ans-line-sm"></span>
+    </div>
+
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span> פתרו את המשוואה <strong>ובדקו</strong> את התשובה.
+  <div style="margin:10px 0 6px;font-size:15px;font-weight:700;direction:ltr;unicode-bidi:isolate;">−2x + 5 = 11</div>
+  <div class="sub-row"><span class="sub-lbl">פתרון:</span></div>
+  <span class="al"></span>
+  <span class="al"></span>
+  <span class="al"></span>
+  <div class="verify-box">
+    <div class="v-lbl">בדיקה — מציבים בחזרה למשוואה:</div>
+    <span class="al"></span>
+  </div>
+</div>
+
+</div><!-- end is-a -->
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════
+     חלק ב׳ — נעלם בשני האגפים ושאלות מילוליות
+══════════════════════════════════════ -->
+<span class="part-label pb">חלק ב׳ — נעלם בשני האגפים ושאלות מילוליות</span>
+
+<div class="is-b">
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <span class="qnum">3.</span> פתרו את המשוואות הבאות.
+  <div class="eq-pair">
+
+    <div class="eq-card">
+      <div class="lbl">א.</div>
+      <div class="expr">5x − 3 = 2x + 9</div>
+      <span class="work"></span>
+      <span class="work2"></span>
+      <span class="work2"></span>
+    </div>
+
+    <div class="eq-card">
+      <div class="lbl">ב.</div>
+      <div class="expr">3x + 1 = 7x − 11</div>
+      <span class="work"></span>
+      <span class="work2"></span>
+      <span class="work2"></span>
+    </div>
+
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <span class="qnum">4.</span> גיל צעיר מניר בשנתיים. סכום גיליהם 58.
+  <div class="sub-row"><span class="sub-lbl">א.</span> סמנו ב-<span class="m">x</span> את גילו של גיל ורשמו משוואה מתאימה: <span class="ali-lg"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> מצאו את גילו של גיל: <span class="ali"></span> &nbsp; ואת גילו של ניר: <span class="ali"></span></div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <span class="qnum">5.</span> קניתי עפרונות ומחברות. עיפרון עולה <span class="m">x</span> ש"ח ומחברת עולה פי 3 מעיפרון.
+  קניתי 4 עפרונות ו-2 מחברות ושילמתי 40 ש"ח.
+  <div class="sub-row"><span class="sub-lbl">א.</span> רשמו משוואה מתאימה: <span class="ali-lg"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> מה מחיר העיפרון? <span class="ali"></span> &nbsp; ומחיר המחברת? <span class="ali"></span></div>
+</div>
+
+</div><!-- end is-b -->
+
+<!-- ===== SCORE BAR ===== -->
+<div class="score-bar">
+  <div class="score-part"><div class="score-dot sd-a"></div> חלק א׳: <span class="score-field">&nbsp;</span> / 8</div>
+  <div class="score-part"><div class="score-dot sd-b"></div> חלק ב׳: <span class="score-field">&nbsp;</span> / 7</div>
+  <div class="score-part score-total">סה"כ: <span class="score-field">&nbsp;</span> / 15</div>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}"
+  style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">
+  סיימתי ✓
+</button>
+
+</body>
+</html>
