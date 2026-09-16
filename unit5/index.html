@@ -426,22 +426,49 @@ function renderLearn1(){
 }
 
 function renderLearn2(){
+  const G = s => `<span style="color:var(--gold);font-weight:800;">${s}</span>`;
+  const ex = (header, steps) => `
+    <div class="example-box" style="text-align:right;margin:10px 0;padding:14px 18px;">
+      <div style="font-size:14px;font-weight:600;color:rgba(234,244,241,0.65);margin-bottom:10px;">${header}</div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2.1;text-align:left;">${steps}</div>
+    </div>`;
+
   return `<div class="panel">
     <h2 class="qtitle">הצבה וחישוב ערך הביטוי</h2>
     <div class="gold-box">הצבה = להחליף את המשתנה בערך מספרי ולחשב</div>
-    <div style="text-align:right;margin:14px 0 6px;font-weight:700;">דוגמה: הביטוי <span class="m">2x + 3</span>, מציבים <span class="m">x = 4</span></div>
-    <div class="examples-row">
-      <div class="example-box">2·<span style="color:var(--gold);">4</span> + 3<br>= 8 + 3<br>= 11</div>
-      <div class="example-box">9x − 3, x = ⅓<br>9·⅓ − 3<br>= 3 − 3 = 0</div>
-      <div class="example-box">3a − 1, a = −2<br>3·(−2) − 1<br>= −6 − 1 = −7</div>
-    </div>
-    <ul class="bullets">
-      <li>מחליפים כל הופעה של המשתנה בערך הנתון</li>
-      <li>משתמשים בסדר פעולות: סוגריים → כפל/חילוק → חיבור/חיסור</li>
-      <li>אפשר להציב מספרים שלמים, שברים, ומספרים שליליים</li>
-      <li>הביטוי יכול לכלול שני משתנים — מציבים ערך לכל אחד</li>
+
+    ${ex(
+      `הביטוי <span class="m">2x + 3</span>, מציבים <span class="m">x = 4</span>`,
+      `2·${G(4)} + 3<br>= 8 + 3<br>= 11`
+    )}
+
+    <ul class="bullets" style="margin:4px 0 14px;">
+      <li>מחליפים <strong>כל</strong> הופעה של המשתנה בערך הנתון</li>
+      <li>סדר פעולות: סוגריים ← כפל/חילוק ← חיבור/חיסור</li>
+      <li>אפשר להציב מספרים שלמים, שברים ומספרים שליליים</li>
+      <li>ביטוי עם שני משתנים — מציבים ערך לכל אחד</li>
     </ul>
-    <div class="learn-note">בריכה: 120 − 3x ליטר. כשמציבים x=12: 120−36=84 ליטר.</div>
+
+    ${ex(
+      `הביטוי <span class="m">9x − 3</span>, מציבים <span class="m">x = ⅓</span>`,
+      `9·${G('⅓')} − 3<br>= 3 − 3<br>= 0`
+    )}
+
+    ${ex(
+      `הביטוי <span class="m">3a − 1</span>, מציבים <span class="m">a = −2</span>`,
+      `3·${G('(−2)')} − 1<br>= −6 − 1<br>= −7`
+    )}
+
+    ${ex(
+      `הביטוי <span class="m">x² − 5</span>, מציבים <span class="m">x = −3</span>`,
+      `${G('(−3)')}<sup>2</sup> − 5<br>= 9 − 5<br>= 4`
+    )}
+
+    ${ex(
+      `הביטוי <span class="m">2a² + b</span>, מציבים <span class="m">a = −1, b = 4</span>`,
+      `2·${G('(−1)')}<sup>2</sup> + ${G(4)}<br>= 2·1 + 4<br>= 2 + 4<br>= 6`
+    )}
+
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
