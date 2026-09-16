@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — חלק ב׳</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .pa { background: #C05621; }
+  .pb { background: #1D4ED8; }
+  .pc { background: #047857; }
+  .pd { background: #7C3AED; }
+
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 10px 14px 10px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .is-a .quiz-q { border-right: 4px solid #F6A35A; }
+  .is-b .quiz-q { border-right: 4px solid #93C5FD; }
+  .is-c .quiz-q { border-right: 4px solid #6EE7B7; }
+  .is-d .quiz-q { border-right: 4px solid #C4B5FD; }
+
+  .quiz-q .qrow {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+  .quiz-q .qnum { font-weight: 700; min-width: 18px; flex-shrink: 0; }
+  .qtext { direction: rtl; }
+
+  .math { direction: ltr; unicode-bidi: embed; font-weight: 600; }
+
+  sup {
+    font-size: 0.68em;
+    font-weight: 700;
+    vertical-align: top;
+    position: relative;
+    top: -0.15em;
+    line-height: 1;
+  }
+
+  .miss {
+    display: inline-block;
+    min-width: 28px;
+    height: 24px;
+    border: 2px solid #444;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin: 0 3px;
+  }
+  .miss-sup {
+    display: inline-block;
+    min-width: 20px;
+    height: 17px;
+    border: 1.5px solid #444;
+    border-radius: 3px;
+    vertical-align: super;
+    font-size: 0.68em;
+    margin: 0 1px;
+  }
+
+  .ans-line {
+    display: inline-block;
+    border-bottom: 1.5px solid #555;
+    min-width: 60px;
+    margin: 0 2px;
+    vertical-align: bottom;
+  }
+  .think-area { margin-top: 6px; padding-right: 22px; font-size: 12.5px; }
+  .think-line { display: block; border-bottom: 1px solid #bbb; margin-top: 14px; height: 1px; }
+
+  /* ── computation grid ── */
+  .pow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px 10px;
+    margin: 8px 0 4px;
+    padding-right: 8px;
+  }
+  .pow-cell {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+  .pow-cell .ans-line { min-width: 42px; }
+  .pow-grid sup { font-size: 0.6em; }
+
+  /* ── comparison grid ── */
+  .cmp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 24px;
+    margin: 8px 0 4px;
+    padding-right: 8px;
+  }
+  .cmp-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    padding: 3px 0;
+    direction: ltr;
+  }
+  .cmp-circle {
+    width: 24px; height: 24px;
+    border: 1.5px solid #777;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 11px;
+    color: #bbb;
+  }
+
+  /* ── checkbox row ── */
+  .check-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 20px;
+    margin: 6px 0;
+    padding-right: 8px;
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    padding: 3px 0;
+  }
+  .checkbox {
+    width: 17px; height: 17px;
+    border: 1.5px solid #555;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ── two-col rows ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px; margin: 6px 0; padding-right: 8px; }
+  .ex-row { display: flex; align-items: baseline; gap: 6px; font-size: 13px; padding: 4px 0; }
+  .ex-row .letter { font-weight: 700; min-width: 20px; }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; border: 1px solid #e0e0e0 !important; }
+    .is-a .quiz-q { border-right: 4px solid #F6A35A !important; }
+    .is-b .quiz-q { border-right: 4px solid #93C5FD !important; }
+    .is-c .quiz-q { border-right: 4px solid #6EE7B7 !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — חלק ב׳</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; תחום המספרי</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- ══════════════ חלק ב׳ ══════════════ -->
+<div class="is-b">
+<span class="part-label pb">חלק ב׳ — מקרים מיוחדים</span>
+
+<!-- Q1 – compute special cases -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">חשבו:</span></div>
+  <div class="pow-grid">
+    <div class="pow-cell"><span style="white-space:nowrap;">7<sup>0</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">100<sup>0</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">13<sup>1</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">1<sup>99</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(½)<sup>2</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(⅓)<sup>2</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(¼)<sup>2</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">3<sup>0</sup> + 5<sup>1</sup></span> = <span class="ans-line">&nbsp;</span></div>
+  </div>
+</div>
+
+<!-- Q2 – true/false special cases -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">כתבו אם נכון או לא נכון — ואם לא נכון, כתבו מדוע לא:</span></div>
+  <div class="check-grid">
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">5<sup>0</sup> = 0</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">a<sup>1</sup> = a</span> לכל מספר a</span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">(¼)<sup>2</sup> &gt; ¼</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">(½)<sup>2</sup> = ¼</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span>כל מספר שאינו אפס בחזקת 0 שווה 1</span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">0<sup>7</sup> = 7</span></span></div>
+  </div>
+  <div style="margin-top:8px;padding-right:8px;font-size:12.5px;">
+    תיקון: <span class="ans-line" style="min-width:220px;">&nbsp;</span>
+  </div>
+</div>
+
+<!-- Q3 – explain fraction to power -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">הסבירו: מדוע <span class="math">(¾)<sup>2</sup> &lt; ¾</span>? מה קורה כשמעלים שבר (בין 0 ל-1) בחזקה גדולה מ-1?</span></div>
+  <div class="think-area">
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+  </div>
+</div>
+
+</div><!-- end is-b -->
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">הדפסה</button>
+
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+</body>
+</html>

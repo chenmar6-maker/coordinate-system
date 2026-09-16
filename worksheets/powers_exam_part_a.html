@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — חלק א׳</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .pa { background: #C05621; }
+  .pb { background: #1D4ED8; }
+  .pc { background: #047857; }
+  .pd { background: #7C3AED; }
+
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 10px 14px 10px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .is-a .quiz-q { border-right: 4px solid #F6A35A; }
+  .is-b .quiz-q { border-right: 4px solid #93C5FD; }
+  .is-c .quiz-q { border-right: 4px solid #6EE7B7; }
+  .is-d .quiz-q { border-right: 4px solid #C4B5FD; }
+
+  .quiz-q .qrow {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+  .quiz-q .qnum { font-weight: 700; min-width: 18px; flex-shrink: 0; }
+  .qtext { direction: rtl; }
+
+  .math { direction: ltr; unicode-bidi: embed; font-weight: 600; }
+
+  sup {
+    font-size: 0.68em;
+    font-weight: 700;
+    vertical-align: top;
+    position: relative;
+    top: -0.15em;
+    line-height: 1;
+  }
+
+  .miss {
+    display: inline-block;
+    min-width: 28px;
+    height: 24px;
+    border: 2px solid #444;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin: 0 3px;
+  }
+  .miss-sup {
+    display: inline-block;
+    min-width: 20px;
+    height: 17px;
+    border: 1.5px solid #444;
+    border-radius: 3px;
+    vertical-align: super;
+    font-size: 0.68em;
+    margin: 0 1px;
+  }
+
+  .ans-line {
+    display: inline-block;
+    border-bottom: 1.5px solid #555;
+    min-width: 60px;
+    margin: 0 2px;
+    vertical-align: bottom;
+  }
+  .think-area { margin-top: 6px; padding-right: 22px; font-size: 12.5px; }
+  .think-line { display: block; border-bottom: 1px solid #bbb; margin-top: 14px; height: 1px; }
+
+  /* ── computation grid ── */
+  .pow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px 10px;
+    margin: 8px 0 4px;
+    padding-right: 8px;
+  }
+  .pow-cell {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+  .pow-cell .ans-line { min-width: 42px; }
+  .pow-grid sup { font-size: 0.6em; }
+
+  /* ── comparison grid ── */
+  .cmp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 24px;
+    margin: 8px 0 4px;
+    padding-right: 8px;
+  }
+  .cmp-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    padding: 3px 0;
+    direction: ltr;
+  }
+  .cmp-circle {
+    width: 24px; height: 24px;
+    border: 1.5px solid #777;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 11px;
+    color: #bbb;
+  }
+
+  /* ── checkbox row ── */
+  .check-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 20px;
+    margin: 6px 0;
+    padding-right: 8px;
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    padding: 3px 0;
+  }
+  .checkbox {
+    width: 17px; height: 17px;
+    border: 1.5px solid #555;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ── two-col rows ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px; margin: 6px 0; padding-right: 8px; }
+  .ex-row { display: flex; align-items: baseline; gap: 6px; font-size: 13px; padding: 4px 0; }
+  .ex-row .letter { font-weight: 700; min-width: 20px; }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; border: 1px solid #e0e0e0 !important; }
+    .is-a .quiz-q { border-right: 4px solid #F6A35A !important; }
+    .is-b .quiz-q { border-right: 4px solid #93C5FD !important; }
+    .is-c .quiz-q { border-right: 4px solid #6EE7B7 !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — חלק א׳</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; תחום המספרי</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- ══════════════ חלק א׳ ══════════════ -->
+<div class="is-a">
+<span class="part-label pa">חלק א׳ — הגדרה וחישוב</span>
+
+<!-- Q1 – computation grid -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">חשבו:</span></div>
+  <div class="pow-grid">
+    <div class="pow-cell"><span style="white-space:nowrap;">2<sup>4</sup></span> = <span class="ans-line">&nbsp;</span><span class="letter" style="min-width:14px;color:#888;margin-right:auto;">א.</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">3<sup>3</sup></span> = <span class="ans-line">&nbsp;</span><span class="letter" style="min-width:14px;color:#888;margin-right:auto;">ב.</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">5<sup>2</sup></span> = <span class="ans-line">&nbsp;</span><span class="letter" style="min-width:14px;color:#888;margin-right:auto;">ג.</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">10<sup>3</sup></span> = <span class="ans-line">&nbsp;</span><span class="letter" style="min-width:14px;color:#888;margin-right:auto;">ד.</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(−2)<sup>2</sup></span> = <span class="ans-line">&nbsp;</span><span class="letter" style="min-width:14px;color:#888;margin-right:auto;">ה.</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(−3)<sup>2</sup></span> = <span class="ans-line">&nbsp;</span><span class="letter" style="min-width:14px;color:#888;margin-right:auto;">ו.</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(−2)<sup>3</sup></span> = <span class="ans-line">&nbsp;</span><span class="letter" style="min-width:14px;color:#888;margin-right:auto;">ז.</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(−1)<sup>7</sup></span> = <span class="ans-line">&nbsp;</span><span class="letter" style="min-width:14px;color:#888;margin-right:auto;">ח.</span></div>
+  </div>
+</div>
+
+<!-- Q2 – write in power notation -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">כתבו בעזרת שימוש בכתיב חזקות:</span></div>
+  <div class="two-col">
+    <div class="ex-row"><span class="letter">א.</span><span class="ans-line">&nbsp;</span> = <span class="math">5 · 5 · 5 · 5 · 5</span></div>
+    <div class="ex-row"><span class="letter">ב.</span><span class="ans-line">&nbsp;</span> = <span class="math">7 · 7</span></div>
+    <div class="ex-row"><span class="letter">ג.</span><span class="ans-line">&nbsp;</span> = <span class="math">a · a · a</span></div>
+    <div class="ex-row"><span class="letter">ד.</span><span class="ans-line">&nbsp;</span> = <span class="math">10 · 10 · 10 · 10</span></div>
+    <div class="ex-row"><span class="letter">ה.</span><span class="ans-line">&nbsp;</span> = <span class="math">(−3) · (−3) · (−3)</span></div>
+    <div class="ex-row"><span class="letter">ו.</span><span class="ans-line">&nbsp;</span> = <span class="math">(−5) · (−5)</span></div>
+  </div>
+</div>
+
+<!-- Q3 – visual shapes -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">כמה תאים יש בכל צורה? כתבו בעזרת שימוש בכתיב חזקות:</span></div>
+  <div style="display:flex;flex-direction:column;gap:14px;margin:10px 0 4px;padding-right:8px;">
+    <!-- א: 5×5 grid -->
+    <div style="display:flex;align-items:center;gap:14px;direction:rtl;">
+      <span class="letter" style="font-weight:700;min-width:20px;">א.</span>
+      <svg width="68" height="68" viewBox="0 0 68 68" style="flex-shrink:0;">
+        <rect x="4" y="4" width="60" height="60" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+        <line x1="16" y1="4" x2="16" y2="64" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="28" y1="4" x2="28" y2="64" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="40" y1="4" x2="40" y2="64" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="52" y1="4" x2="52" y2="64" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="4" y1="16" x2="64" y2="16" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="4" y1="28" x2="64" y2="28" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="4" y1="40" x2="64" y2="40" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="4" y1="52" x2="64" y2="52" stroke="#D97706" stroke-width="0.6"/>
+      </svg>
+      <span style="font-size:13px;">= <span class="ans-line" style="min-width:70px;">&nbsp;</span></span>
+    </div>
+    <!-- ב: 6×6×6 cube -->
+    <div style="display:flex;align-items:center;gap:14px;direction:rtl;">
+      <span class="letter" style="font-weight:700;min-width:20px;">ב.</span>
+      <svg width="110" height="100" viewBox="0 0 110 100" style="flex-shrink:0;">
+        <!-- top face -->
+        <polygon points="55,7 91,28 55,49 19,28" fill="#C7E0F4" stroke="#4A6FA5" stroke-width="1.5"/>
+        <!-- right face -->
+        <polygon points="91,28 91,70 55,91 55,49" fill="#7FB3D3" stroke="#4A6FA5" stroke-width="1.5"/>
+        <!-- left face -->
+        <polygon points="19,28 55,49 55,91 19,70" fill="#5B93B8" stroke="#4A6FA5" stroke-width="1.5"/>
+        <!-- top face grid -->
+        <line x1="49" y1="10.5" x2="85" y2="31.5" stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="43" y1="14"   x2="79" y2="35"   stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="37" y1="17.5" x2="73" y2="38.5" stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="31" y1="21"   x2="67" y2="42"   stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="25" y1="24.5" x2="61" y2="45.5" stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="61" y1="10.5" x2="25" y2="31.5" stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="67" y1="14"   x2="31" y2="35"   stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="73" y1="17.5" x2="37" y2="38.5" stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="79" y1="21"   x2="43" y2="42"   stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="85" y1="24.5" x2="49" y2="45.5" stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <!-- right face grid -->
+        <line x1="91" y1="35"   x2="55" y2="56"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="91" y1="42"   x2="55" y2="63"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="91" y1="49"   x2="55" y2="70"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="91" y1="56"   x2="55" y2="77"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="91" y1="63"   x2="55" y2="84"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="85" y1="31.5" x2="85" y2="73.5" stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="79" y1="35"   x2="79" y2="77"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="73" y1="38.5" x2="73" y2="80.5" stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="67" y1="42"   x2="67" y2="84"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="61" y1="45.5" x2="61" y2="87.5" stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <!-- left face grid -->
+        <line x1="19" y1="35"   x2="55" y2="56"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="19" y1="42"   x2="55" y2="63"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="19" y1="49"   x2="55" y2="70"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="19" y1="56"   x2="55" y2="77"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="19" y1="63"   x2="55" y2="84"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="25" y1="31.5" x2="25" y2="73.5" stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="31" y1="35"   x2="31" y2="77"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="37" y1="38.5" x2="37" y2="80.5" stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="43" y1="42"   x2="43" y2="84"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="49" y1="45.5" x2="49" y2="87.5" stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <!-- outer edges on top -->
+        <polygon points="55,7 91,28 55,49 19,28" fill="none" stroke="#4A6FA5" stroke-width="1.5"/>
+        <polygon points="91,28 91,70 55,91 55,49" fill="none" stroke="#4A6FA5" stroke-width="1.5"/>
+        <polygon points="19,28 55,49 55,91 19,70" fill="none" stroke="#4A6FA5" stroke-width="1.5"/>
+      </svg>
+      <span style="font-size:13px;">= <span class="ans-line" style="min-width:70px;">&nbsp;</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- Q4 – algebraic expressions with variables -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">4.</span><span class="qtext">פשטו — פרקו לכפל ואז כתבו בכתיב חזקות:</span></div>
+  <div style="font-size:12px;color:#888;padding-right:8px;margin-bottom:6px;">לדוגמה: <span class="math" style="font-size:12px;">2b · b<sup>2</sup> = 2 · b · b · b = 2b<sup>3</sup></span></div>
+  <div style="display:flex;flex-direction:column;gap:10px;padding-right:8px;">
+    <div class="ex-row"><span class="letter">א.</span><span class="math">a · a<sup>3</sup></span> = <span class="ans-line" style="min-width:80px;">&nbsp;</span> = <span class="ans-line" style="min-width:60px;">&nbsp;</span></div>
+    <div class="ex-row"><span class="letter">ב.</span><span class="math">3x<sup>2</sup> · x</span> = <span class="ans-line" style="min-width:80px;">&nbsp;</span> = <span class="ans-line" style="min-width:60px;">&nbsp;</span></div>
+    <div class="ex-row"><span class="letter">ג.</span><span class="math">n<sup>2</sup> · n<sup>2</sup></span> = <span class="ans-line" style="min-width:80px;">&nbsp;</span> = <span class="ans-line" style="min-width:60px;">&nbsp;</span></div>
+    <div class="ex-row"><span class="letter">ד.</span><span class="math">2b<sup>2</sup> · 3b</span> = <span class="ans-line" style="min-width:80px;">&nbsp;</span> = <span class="ans-line" style="min-width:60px;">&nbsp;</span></div>
+  </div>
+</div>
+
+<!-- Q5 – true/false -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">5.</span><span class="qtext">כתבו אם נכון או לא נכון — ואם לא נכון, כתבו מדוע לא:</span></div>
+  <div class="check-grid">
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">2<sup>3</sup> = 2 · 3</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">3<sup>2</sup> = 9</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">2<sup>5</sup> = 32</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span>הבסיס של <span class="math">7<sup>4</sup></span> הוא 7</span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">4<sup>3</sup> = 3<sup>4</sup></span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">10<sup>2</sup> = 20</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">(−3)<sup>2</sup> = −9</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">(−2)<sup>3</sup> = −8</span></span></div>
+  </div>
+  <div style="margin-top:8px;padding-right:8px;font-size:12.5px;">
+    תיקון: <span class="ans-line" style="min-width:220px;">&nbsp;</span>
+  </div>
+</div>
+
+<!-- Q6 – compare 2^8 vs 8^2 -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">6.</span><span class="qtext">מה גדול יותר — <span class="math">2<sup>8</sup></span> או <span class="math">8<sup>2</sup></span>? חשבו והסבירו.</span></div>
+  <div class="think-area">
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+  </div>
+</div>
+</div><!-- end is-a -->
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">הדפסה</button>
+
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+</body>
+</html>

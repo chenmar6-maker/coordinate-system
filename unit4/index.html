@@ -233,6 +233,19 @@ const gameLevels1 = [
     options:['12','32','64','128'],
     correct:'64',
     explain:'2⁶ = 2·2·2·2·2·2 = 64.' },
+  { id:'typedSum', title:'ריבוע 4×4 — כמה תאים?',
+    expr:'4<sup>2</sup>',
+    correct:16,
+    explain:'ריבוע 4×4 מכיל 4·4 = 4² = 16 תאים קטנים.' },
+  { id:'mc', title:'כתיבה בכתיב חזקות',
+    question:'קוביה של 3×3×3 — איך כותבים כמה קוביות קטנות יש בה בכתיב חזקות?',
+    options:['3³','3·3','3²','9²'],
+    correct:'3³',
+    explain:'3×3×3 = 3·3·3 = 3³ = 27.' },
+  { id:'typedSum', title:'קוביה 4×4×4 — כמה קוביות קטנות?',
+    expr:'4<sup>3</sup>',
+    correct:64,
+    explain:'קוביה 4×4×4 מכילה 4·4·4 = 4³ = 64 קוביות קטנות.' },
 ];
 
 const gameLevels2 = [
@@ -293,6 +306,19 @@ const gameLevels3 = [
     options:['48','80','32','64'],
     correct:'48',
     explain:'סוגריים: 3+5=8. 8²=64. 2⁴=16. 64−16=48.' },
+  { id:'mc', title:'ביטוי לריבועים',
+    question:'3 ריבועים של 4×4 — איך כותבים ביטוי שמחשב את סך התאים?',
+    options:['3 · 4²','3 + 4²','3⁴','12²'],
+    correct:'3 · 4²',
+    explain:'כל ריבוע מכיל 4² = 16 תאים. 3 ריבועים → 3 · 4² = 48.' },
+  { id:'typedSum', title:'3 ריבועים של 4×4 — כמה תאים בסך הכל?',
+    expr:'3 · 4<sup>2</sup>',
+    correct:48,
+    explain:'3 · 4² = 3 · 16 = 48 תאים.' },
+  { id:'typedSum', title:'קוביה 4×4×4 חסרה קוביה אחת — כמה קוביות יש?',
+    expr:'4<sup>3</sup> − 1',
+    correct:63,
+    explain:'4³ = 64. חסרה אחת → 64 − 1 = 63.' },
 ];
 
 const gameLevels4 = [
@@ -503,21 +529,21 @@ function renderHome(){
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">חזקות</div>
 
       <div style="${subHeaderStyle}">הגדרה וחישוב</div>
-      ${seqRow(1, '1. הגדרת חזקה וחישוב בסיסי', {worksheetUrl:'../worksheets/powers_exam.html'})}
+      ${seqRow(1, '1. הגדרת חזקה וחישוב בסיסי', {worksheetUrl:'../worksheets/powers_exam_part_a.html'})}
 
       <div style="${subHeaderStyle}">מקרים מיוחדים</div>
-      ${seqRow(2, '2. חזקות מיוחדות — 0, 1 ושברים', {worksheetUrl:'../worksheets/powers_exam.html'})}
+      ${seqRow(2, '2. חזקות מיוחדות — 0, 1 ושברים', {worksheetUrl:'../worksheets/powers_exam_part_b.html'})}
 
       <div style="${subHeaderStyle}">השוואה וסדר פעולות</div>
-      ${seqRow(3, '3. השוואה וסדר פעולות עם חזקות', {worksheetUrl:'../worksheets/powers_exam.html'})}
+      ${seqRow(3, '3. השוואה וסדר פעולות עם חזקות', {worksheetUrl:'../worksheets/powers_exam_part_c.html'})}
 
       <div style="${subHeaderStyle}">בסיס שלילי</div>
-      ${seqRow(6, '6. חזקות עם בסיס שלילי', {worksheetUrl:'../worksheets/powers_exam.html'})}
+      ${seqRow(6, '6. חזקות עם בסיס שלילי', {worksheetUrl:'../worksheets/powers_exam_part_c.html'})}
 
       <div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(234,244,241,0.12);">
         <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">שורש ריבועי</div>
-        ${seqRow(4, '4. הגדרת שורש ריבועי', {worksheetUrl:'../worksheets/powers_exam.html'})}
-        ${seqRow(5, '5. חישובים עם שורשים', {worksheetUrl:'../worksheets/powers_exam.html'})}
+        ${seqRow(4, '4. הגדרת שורש ריבועי')}
+        ${seqRow(5, '5. חישובים עם שורשים')}
       </div>
     </div>
   `;
@@ -535,11 +561,56 @@ function renderLearn(){
 }
 
 function renderLearn1(){
+  const svg4x4 = `<svg width='72' height='72' viewBox='0 0 72 72'>
+  <rect x='4' y='4' width='64' height='64' fill='rgba(74,64,128,0.2)' stroke='#4A4080' stroke-width='1.5'/>
+  <line x1='20' y1='4' x2='20' y2='68' stroke='#4A4080' stroke-width='0.6'/>
+  <line x1='36' y1='4' x2='36' y2='68' stroke='#4A4080' stroke-width='0.6'/>
+  <line x1='52' y1='4' x2='52' y2='68' stroke='#4A4080' stroke-width='0.6'/>
+  <line x1='4' y1='20' x2='68' y2='20' stroke='#4A4080' stroke-width='0.6'/>
+  <line x1='4' y1='36' x2='68' y2='36' stroke='#4A4080' stroke-width='0.6'/>
+  <line x1='4' y1='52' x2='68' y2='52' stroke='#4A4080' stroke-width='0.6'/>
+</svg>`;
+
+  const svgCube = `<svg width='92' height='85' viewBox='0 0 92 85'>
+  <polygon points='45,6 78,24 45,42 12,24' fill='rgba(74,64,128,0.2)' stroke='#4A4080' stroke-width='1.5'/>
+  <polygon points='78,24 78,60 45,78 45,42' fill='rgba(58,160,196,0.2)' stroke='#4A4080' stroke-width='1.5'/>
+  <polygon points='12,24 45,42 45,78 12,60' fill='rgba(72,176,140,0.2)' stroke='#4A4080' stroke-width='1.5'/>
+  <line x1='34' y1='12' x2='67' y2='30' stroke='#4A4080' stroke-width='0.5' opacity='0.7'/>
+  <line x1='23' y1='18' x2='56' y2='36' stroke='#4A4080' stroke-width='0.5' opacity='0.7'/>
+  <line x1='56' y1='12' x2='23' y2='30' stroke='#4A4080' stroke-width='0.5' opacity='0.7'/>
+  <line x1='67' y1='18' x2='34' y2='36' stroke='#4A4080' stroke-width='0.5' opacity='0.7'/>
+  <line x1='78' y1='36' x2='45' y2='54' stroke='#4A4080' stroke-width='0.5' opacity='0.7'/>
+  <line x1='78' y1='48' x2='45' y2='66' stroke='#4A4080' stroke-width='0.5' opacity='0.7'/>
+  <line x1='67' y1='30' x2='67' y2='66' stroke='#4A4080' stroke-width='0.5' opacity='0.7'/>
+  <line x1='56' y1='36' x2='56' y2='72' stroke='#4A4080' stroke-width='0.5' opacity='0.7'/>
+  <line x1='12' y1='36' x2='45' y2='54' stroke='#4A4080' stroke-width='0.5' opacity='0.7'/>
+  <line x1='12' y1='48' x2='45' y2='66' stroke='#4A4080' stroke-width='0.5' opacity='0.7'/>
+  <line x1='23' y1='30' x2='23' y2='66' stroke='#4A4080' stroke-width='0.5' opacity='0.7'/>
+  <line x1='34' y1='36' x2='34' y2='72' stroke='#4A4080' stroke-width='0.5' opacity='0.7'/>
+  <polygon points='45,6 78,24 45,42 12,24' fill='none' stroke='#4A4080' stroke-width='1.5'/>
+  <polygon points='78,24 78,60 45,78 45,42' fill='none' stroke='#4A4080' stroke-width='1.5'/>
+  <polygon points='12,24 45,42 45,78 12,60' fill='none' stroke='#4A4080' stroke-width='1.5'/>
+</svg>`;
+
   return `
     <div class="panel">
       <h2 class="qtitle">הגדרת חזקה וחישוב</h2>
       <div class="video-placeholder">📹 סרטון הסבר יתווסף כאן</div>
       <div class="gold-box" dir="ltr">aⁿ = a · a · a · ... · a (n פעמים)</div>
+      <div style="background:rgba(239,169,74,0.08);border:1.5px solid rgba(239,169,74,0.25);border-radius:10px;padding:14px;margin:14px 0;">
+        <div style="font-size:13px;font-weight:700;color:rgba(234,244,241,0.6);text-align:center;margin-bottom:12px;">דוגמאות חזותיות</div>
+        <div style="display:flex;gap:28px;justify-content:center;align-items:flex-end;margin:16px 0;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            ${svg4x4}
+            <div style="font-size:13px;margin-top:6px;color:var(--gold);">4² = 16 תאים</div>
+          </div>
+          <div style="text-align:center;">
+            ${svgCube}
+            <div style="font-size:13px;margin-top:6px;color:var(--gold);">3³ = 27 קוביות</div>
+          </div>
+        </div>
+        <div style="text-align:center;font-size:13px;color:rgba(234,244,241,0.6);margin-top:4px;">ריבוע 4×4 → 4·4 = 4² | קוביה 3×3×3 → 3·3·3 = 3³</div>
+      </div>
       <ul class="bullets">
         <li><strong>a</strong> הוא הבסיס — המספר שמוכפל</li>
         <li><strong>n</strong> הוא המעריך — כמה פעמים מכפילים</li>
@@ -579,6 +650,16 @@ function renderLearn2(){
 }
 
 function renderLearn3(){
+  const svg4x4small = `<svg width='50' height='50' viewBox='0 0 72 72'>
+  <rect x='4' y='4' width='64' height='64' fill='rgba(74,64,128,0.2)' stroke='#4A4080' stroke-width='1.5'/>
+  <line x1='20' y1='4' x2='20' y2='68' stroke='#4A4080' stroke-width='0.6'/>
+  <line x1='36' y1='4' x2='36' y2='68' stroke='#4A4080' stroke-width='0.6'/>
+  <line x1='52' y1='4' x2='52' y2='68' stroke='#4A4080' stroke-width='0.6'/>
+  <line x1='4' y1='20' x2='68' y2='20' stroke='#4A4080' stroke-width='0.6'/>
+  <line x1='4' y1='36' x2='68' y2='36' stroke='#4A4080' stroke-width='0.6'/>
+  <line x1='4' y1='52' x2='68' y2='52' stroke='#4A4080' stroke-width='0.6'/>
+</svg>`;
+
   return `
     <div class="panel">
       <h2 class="qtitle">השוואה וסדר פעולות עם חזקות</h2>
@@ -592,6 +673,15 @@ function renderLearn3(){
         <li>סוגריים תמיד קודמים לחזקה</li>
         <li>2+3² ≠ (2+3)² — חשוב להבחין!</li>
       </ul>
+      <div style="background:rgba(239,169,74,0.08);border:1.5px solid rgba(239,169,74,0.25);border-radius:10px;padding:14px;margin:14px 0;">
+        <div style="font-size:13px;font-weight:700;color:rgba(234,244,241,0.6);text-align:center;margin-bottom:12px;">דוגמאות חזותיות</div>
+        <div style="display:flex;gap:14px;justify-content:center;align-items:flex-end;margin:12px 0;flex-wrap:wrap;">
+          <div style="text-align:center;">${svg4x4small}</div>
+          <div style="text-align:center;">${svg4x4small}</div>
+          <div style="text-align:center;">${svg4x4small}</div>
+        </div>
+        <div style="text-align:center;font-size:13px;color:var(--gold);margin-top:6px;">3 ריבועים של 4×4 = 3 · 4² = 3 · 16 = 48 תאים</div>
+      </div>
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
