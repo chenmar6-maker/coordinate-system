@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — שאלות מילוליות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 80px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff; border-radius: 14px;
+    padding: 18px 22px 14px; margin-bottom: 20px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .pa { background: #C05621; }
+  .pb { background: #1D4ED8; }
+
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 12px 14px 14px 10px;
+    background: #fff; border-radius: 8px;
+    font-size: 13.5px; line-height: 1.75;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .is-a .quiz-q { border-right: 4px solid #F6A35A; }
+  .is-b .quiz-q { border-right: 4px solid #93C5FD; }
+
+  .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 7px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 16px; font-weight: 700; flex-shrink: 0; color: #555; }
+  .al   { display: block; border-bottom: 1.5px solid #bbb; margin-top: 10px; height: 18px; }
+  .ali  { display: inline-block; border-bottom: 1.5px solid #888; min-width: 80px; vertical-align: bottom; }
+  .ali-lg { display: inline-block; border-bottom: 1.5px solid #888; min-width: 150px; vertical-align: bottom; }
+  .ali-xl { display: inline-block; border-bottom: 1.5px solid #888; min-width: 220px; vertical-align: bottom; }
+
+  /* ── think-of-a-number pair ── */
+  .think-pair {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 8px 20px; margin: 10px 0 4px;
+  }
+  .think-card {
+    border: 1px solid #e8edf5; border-radius: 7px;
+    padding: 10px 12px; background: #FAFBFD; font-size: 13px;
+    line-height: 1.65;
+  }
+  .think-card .tc-lbl { font-weight: 700; color: #888; font-size: 12px; margin-bottom: 6px; }
+  .think-card .tc-text { color: #1a1a2e; margin-bottom: 8px; }
+
+  /* ── geometry SVG ── */
+  .geo-wrap { direction: ltr; margin: 10px auto 6px; width: fit-content; }
+
+  .frac {
+    display: inline-flex; flex-direction: column;
+    align-items: stretch; vertical-align: middle;
+    font-size: 0.95em; line-height: 1.25; margin: 0 3px;
+  }
+  .frac .num { border-bottom: 1.5px solid #1a1a2e; padding: 0 4px; text-align: center; direction: ltr; }
+  .frac .den { padding: 0 4px; text-align: center; direction: ltr; }
+
+  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
+
+  .score-bar {
+    display: flex; gap: 14px; justify-content: flex-end; flex-wrap: wrap;
+    font-size: 13px; margin-top: 12px;
+    background: #fff; border-radius: 8px; padding: 10px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .score-part { display: flex; align-items: center; gap: 6px; }
+  .score-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .sd-a { background: #C05621; }
+  .sd-b { background: #1D4ED8; }
+  .score-field { border-bottom: 1.5px solid #888; min-width: 36px; display: inline-block; }
+  .score-total { font-weight: 700; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; page-break-inside: avoid; }
+    .is-a .quiz-q { border-right: 4px solid #F6A35A !important; }
+    .is-b .quiz-q { border-right: 4px solid #93C5FD !important; }
+    .header { background: #1E1B2E !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pa, .pb { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — שאלות מילוליות</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; אלגברה</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- ══════════════════════════════════
+     חלק א׳ — שאלות מילוליות פשוטות
+══════════════════════════════════ -->
+<span class="part-label pa">חלק א׳ — שאלות מילוליות פשוטות</span>
+
+<div class="is-a">
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span> בכל סעיף — סמנו ב-<span class="m">x</span> את המספר הנעלם, כתבו משוואה מתאימה ופתרו.
+  <div class="think-pair">
+    <div class="think-card">
+      <div class="tc-lbl">א.</div>
+      <div class="tc-text">חשבתי על מספר. כפלתי אותו ב-3 ומהתוצאה חיסרתי 4. קיבלתי 11.</div>
+      <div class="sub-row"><span class="sub-lbl">משוואה:</span> <span class="ali-lg"></span></div>
+      <div class="sub-row"><span class="sub-lbl">המספר:</span> <span class="ali"></span></div>
+    </div>
+    <div class="think-card">
+      <div class="tc-lbl">ב.</div>
+      <div class="tc-text">חשבתי על מספר. הוספתי לו 7, כפלתי ב-2 וקיבלתי 30.</div>
+      <div class="sub-row"><span class="sub-lbl">משוואה:</span> <span class="ali-lg"></span></div>
+      <div class="sub-row"><span class="sub-lbl">המספר:</span> <span class="ali"></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span> בשקית א׳ יש <span class="m">x</span> תפוזים. בשקית ב׳ יש פי 4 תפוזים מאשר בשקית א׳.
+  בסך הכול יש בשתי השקיות 100 תפוזים.
+  <div class="sub-row"><span class="sub-lbl">א.</span> רשמו משוואה מתאימה: <span class="ali-xl"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> כמה תפוזים יש בשקית א׳? <span class="ali"></span> &nbsp; ובשקית ב׳? <span class="ali"></span></div>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <span class="qnum">3.</span> בארנקי היה סכום כסף. הוצאתי 50 ש"ח ונותרו לי 124 ש"ח.
+  <div class="sub-row"><span class="sub-lbl">א.</span> סמנו ב-<span class="m">x</span> את הסכום ההתחלתי ורשמו משוואה: <span class="ali-xl"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> כמה כסף היה בארנקי? <span class="ali"></span></div>
+</div>
+
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════
+     חלק ב׳ — שאלות מילוליות מורכבות
+══════════════════════════════════ -->
+<span class="part-label pb">חלק ב׳ — שאלות מילוליות מורכבות</span>
+
+<div class="is-b">
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <span class="qnum">4.</span> אורך מלבן גדול ב-4 ס"מ מרוחבו. היקף המלבן 28 ס"מ.
+
+  <div class="geo-wrap">
+    <svg viewBox="0 0 280 120" style="width:260px;height:auto;display:block;" direction="ltr">
+      <rect x="30" y="20" width="220" height="80" fill="#EFF6FF" stroke="#1D4ED8" stroke-width="2" rx="4"/>
+      <!-- width label: top -->
+      <line x1="30" y1="12" x2="250" y2="12" stroke="#555" stroke-width="1"/>
+      <line x1="30" y1="9" x2="30" y2="15" stroke="#555" stroke-width="1"/>
+      <line x1="250" y1="9" x2="250" y2="15" stroke="#555" stroke-width="1"/>
+      <text x="140" y="8" text-anchor="middle" font-size="12" font-family="Rubik,sans-serif" fill="#1D4ED8" font-style="italic" direction="ltr">x + 4</text>
+      <!-- height label: right -->
+      <line x1="258" y1="20" x2="258" y2="100" stroke="#555" stroke-width="1"/>
+      <line x1="255" y1="20" x2="261" y2="20" stroke="#555" stroke-width="1"/>
+      <line x1="255" y1="100" x2="261" y2="100" stroke="#555" stroke-width="1"/>
+      <text x="270" y="64" text-anchor="middle" font-size="12" font-family="Rubik,sans-serif" fill="#1D4ED8" font-style="italic" direction="ltr">x</text>
+    </svg>
+  </div>
+
+  <div class="sub-row"><span class="sub-lbl">א.</span> רשמו משוואה לפי נתוני ההיקף: <span class="ali-xl"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> מהו רוחב המלבן? <span class="ali"></span> &nbsp; ואורכו? <span class="ali"></span></div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <span class="qnum">5.</span> אמא מבוגרת מבתה ב-24 שנים. סכום גיליהן 46.
+  <div class="sub-row"><span class="sub-lbl">א.</span> סמנו ב-<span class="m">x</span> את גיל הבת. כתבו ביטוי לגיל האמא: <span class="ali"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> רשמו משוואה ופתרו: <span class="ali-xl"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> גיל הבת: <span class="ali"></span> &nbsp; גיל האמא: <span class="ali"></span></div>
+</div>
+
+<!-- Q6 -->
+<div class="quiz-q">
+  <span class="qnum">6.</span> בשלוש כיתות ז׳ לומדים 110 תלמידים.
+  בכיתה א׳ יש 12 תלמידים <em>פחות</em> מאשר בכיתה ב׳.
+  בכיתה ג׳ יש 2 תלמידים <em>יותר</em> מאשר בכיתה ב׳.
+  <div class="sub-row"><span class="sub-lbl">א.</span> סמנו ב-<span class="m">x</span> את מספר התלמידים בכיתה ב׳ ורשמו ביטוי לכל כיתה:</div>
+  <div style="margin-right:24px;margin-top:6px;line-height:2.1;">
+    כיתה א׳: <span class="ali"></span> &nbsp;&nbsp; כיתה ב׳: <span class="m">x</span> &nbsp;&nbsp; כיתה ג׳: <span class="ali"></span>
+  </div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> רשמו משוואה ופתרו: <span class="ali-xl"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> כיתה א׳: <span class="ali"></span> &nbsp; כיתה ב׳: <span class="ali"></span> &nbsp; כיתה ג׳: <span class="ali"></span></div>
+</div>
+
+</div>
+
+<!-- ===== SCORE BAR ===== -->
+<div class="score-bar">
+  <div class="score-part"><div class="score-dot sd-a"></div> חלק א׳: <span class="score-field">&nbsp;</span> / 6</div>
+  <div class="score-part"><div class="score-dot sd-b"></div> חלק ב׳: <span class="score-field">&nbsp;</span> / 9</div>
+  <div class="score-part score-total">סה"כ: <span class="score-field">&nbsp;</span> / 15</div>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}"
+  style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">
+  סיימתי ✓
+</button>
+
+</body>
+</html>
