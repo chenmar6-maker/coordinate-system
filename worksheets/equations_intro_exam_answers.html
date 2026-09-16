@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תשובות — מבוא למשוואות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 80px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .pin-overlay {
+    position: fixed; inset: 0; background: rgba(15,13,26,0.85);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 999;
+  }
+  .pin-box {
+    background: #fff; border-radius: 16px;
+    padding: 32px 36px; text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    max-width: 320px; width: 90%;
+  }
+  .pin-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .pin-sub { font-size: 13px; color: #666; margin-bottom: 20px; }
+  .pin-input {
+    width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px;
+    font-size: 22px; text-align: center; letter-spacing: 8px; font-family: 'Rubik', sans-serif;
+    margin-bottom: 14px; outline: none;
+  }
+  .pin-input:focus { border-color: #1D4ED8; }
+  .pin-btn {
+    width: 100%; padding: 12px; background: #1D4ED8; color: #fff;
+    border: none; border-radius: 8px; font-family: 'Rubik', sans-serif;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+  }
+  .pin-err { color: #DC2626; font-size: 13px; margin-top: 8px; display: none; }
+  #answers-content { display: none; }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .pa { background: #C05621; }
+  .pb { background: #1D4ED8; }
+
+  .ans-card {
+    background: #fff; border-radius: 8px;
+    padding: 14px 16px; margin-bottom: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    line-height: 1.8;
+  }
+  .is-a .ans-card { border-right: 4px solid #F6A35A; }
+  .is-b .ans-card { border-right: 4px solid #93C5FD; }
+
+  .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+  .ans { color: #047857; font-weight: 700; }
+
+  .frac {
+    display: inline-flex; flex-direction: column;
+    align-items: stretch; vertical-align: middle;
+    font-size: 0.95em; line-height: 1.25; margin: 0 3px;
+  }
+  .frac .num { border-bottom: 1.5px solid #1a1a2e; padding: 0 4px; text-align: center; direction: ltr; }
+  .frac .den { padding: 0 4px; text-align: center; direction: ltr; }
+
+  .correct-ring {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px;
+    border: 2.5px solid #047857; border-radius: 50%;
+    font-size: 13px; font-weight: 700; color: #047857;
+    direction: ltr; unicode-bidi: isolate; margin: 2px 4px;
+  }
+  .wrong-ring {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px;
+    border: 1.5px solid #ccc; border-radius: 50%;
+    font-size: 13px; font-weight: 600; color: #999;
+    direction: ltr; unicode-bidi: isolate; margin: 2px 4px;
+  }
+
+  .eq-ans-row { display: flex; align-items: center; gap: 10px; margin: 5px 0; }
+  .eq-lbl { font-weight: 700; color: #888; min-width: 20px; }
+  .eq-expr { font-size: 14px; direction: ltr; unicode-bidi: isolate; font-weight: 600; flex: 1; }
+
+  .eq-box-ans {
+    display: inline-block;
+    border: 2px solid #047857;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 14px; font-weight: 700;
+    text-align: center;
+    direction: ltr; unicode-bidi: isolate;
+    color: #047857; margin: 4px;
+  }
+  .eq-box-wrong {
+    display: inline-block;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 14px; font-weight: 600;
+    text-align: center;
+    direction: ltr; unicode-bidi: isolate;
+    color: #bbb; margin: 4px;
+    text-decoration: line-through;
+  }
+
+  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .header { background: #1E1B2E !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pa, .pb, .correct-ring, .eq-box-ans { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PIN overlay -->
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <div class="pin-title">🔒 תשובות — מורה בלבד</div>
+    <div class="pin-sub">הכניסו את קוד הגישה</div>
+    <input class="pin-input" type="password" id="pinInput" maxlength="4"
+      placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()"/>
+    <button class="pin-btn" onclick="checkPin()">כניסה</button>
+    <div class="pin-err" id="pinErr">קוד שגוי, נסו שוב</div>
+  </div>
+</div>
+
+<script>
+function checkPin(){
+  if(document.getElementById('pinInput').value==='2357'){
+    document.getElementById('pinOverlay').style.display='none';
+    document.getElementById('answers-content').style.display='block';
+  } else {
+    document.getElementById('pinErr').style.display='block';
+    document.getElementById('pinInput').value='';
+  }
+}
+</script>
+
+<div id="answers-content">
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">תשובות — מבוא למשוואות</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מורה בלבד</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- חלק א׳ -->
+<span class="part-label pa">חלק א׳ — זיהוי פתרון המשוואה</span>
+
+<div class="is-a">
+
+<div class="ans-card">
+  <span class="qnum">1.</span> הפתרונות הנכונים:
+  <div style="margin-top:8px;">
+    <div class="eq-ans-row">
+      <span class="eq-lbl">א.</span>
+      <span class="eq-expr">5x + 10 = 40</span>
+      <span class="wrong-ring">2</span><span class="wrong-ring">3</span><span class="correct-ring">6</span><span class="wrong-ring">10</span>
+      <span style="font-size:12px;color:#555;">5·6+10=40 ✓</span>
+    </div>
+    <div class="eq-ans-row">
+      <span class="eq-lbl">ב.</span>
+      <span class="eq-expr">3x − 8 = −2</span>
+      <span class="wrong-ring">−2</span><span class="correct-ring">2</span><span class="wrong-ring">4</span><span class="wrong-ring">8</span>
+      <span style="font-size:12px;color:#555;">3·2−8=−2 ✓</span>
+    </div>
+    <div class="eq-ans-row">
+      <span class="eq-lbl">ג.</span>
+      <span class="eq-expr"><span class="frac"><span class="num">−x</span><span class="den">4</span></span> = 2</span>
+      <span class="wrong-ring">−4</span><span class="wrong-ring">4</span><span class="correct-ring">−8</span><span class="wrong-ring">8</span>
+      <span style="font-size:12px;color:#555;">−(−8)/4=2 ✓</span>
+    </div>
+    <div class="eq-ans-row">
+      <span class="eq-lbl">ד.</span>
+      <span class="eq-expr">4x = x + 12</span>
+      <span class="wrong-ring">2</span><span class="wrong-ring">3</span><span class="correct-ring">4</span><span class="wrong-ring">5</span>
+      <span style="font-size:12px;color:#555;">16=4+12 ✓</span>
+    </div>
+    <div class="eq-ans-row">
+      <span class="eq-lbl">ה.</span>
+      <span class="eq-expr">−3(x + 6) = 3</span>
+      <span class="correct-ring">−7</span><span class="wrong-ring">−6</span><span class="wrong-ring">0</span><span class="wrong-ring">1</span>
+      <span style="font-size:12px;color:#555;">−3(−1)=3 ✓</span>
+    </div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">2.</span> המשוואות שפתרונן <span class="m">x = 2</span> (מסומנות בירוק):
+  <div style="margin-top:8px; direction:ltr; unicode-bidi:isolate;">
+    <span class="eq-box-ans">3x = 6</span>
+    <span class="eq-box-ans">x − 3 = −1</span>
+    <span class="eq-box-wrong">−x + 2 = 3</span>
+    <span class="eq-box-ans">3(x − 4) = −6</span>
+    <span class="eq-box-ans">−x + 4 = 2</span>
+    <span class="eq-box-wrong">x/4 = 2</span>
+  </div>
+  <div style="font-size:12px;color:#555;margin-top:6px;">
+    ✗ <span class="m">−x+2=3</span>: פתרון <span class="m">x=−1</span> &nbsp;|&nbsp; ✗ <span class="m">x/4=2</span>: פתרון <span class="m">x=8</span>
+  </div>
+</div>
+
+</div>
+
+<div class="divider"></div>
+
+<!-- חלק ב׳ -->
+<span class="part-label pb">חלק ב׳ — כתיבת משוואה ושאלות מילוליות</span>
+
+<div class="is-b">
+
+<div class="ans-card">
+  <span class="qnum">3.</span>
+  <div class="sub-row"><span class="sub-lbl">א.</span> <span class="m ans">x + (x + 15) = 85</span> &nbsp; או: &nbsp; <span class="m ans">2x + 15 = 85</span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> <span class="m">2x = 70 → x = 35</span> &nbsp;|&nbsp; שקית א׳: <span class="ans">35 סוכריות</span>, שקית ב׳: <span class="ans">50 סוכריות</span></div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">4.</span>
+  <div class="sub-row"><span class="sub-lbl">א.</span> <span class="m ans">4(x + 5) = 28</span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> <span class="m">x + 5 = 7 → x = 2</span> &nbsp;|&nbsp; המספר: <span class="ans">2</span></div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">5.</span> מציבים <span class="m">x = 7</span>: &nbsp; <span class="m">3·7 + □ = 24 → 21 + □ = 24 → □ = </span><span class="ans">3</span>
+</div>
+
+</div>
+
+<div class="score-bar" style="display:flex;gap:14px;justify-content:flex-end;margin-top:12px;background:#fff;border-radius:8px;padding:10px 16px;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,.07);">
+  <span style="color:#C05621;font-weight:700;">חלק א׳: 9 נקודות</span> &nbsp;|&nbsp;
+  <span style="color:#1D4ED8;font-weight:700;">חלק ב׳: 6 נקודות</span> &nbsp;|&nbsp;
+  <span style="font-weight:700;">סה"כ: 15</span>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-wrap -->
+</div><!-- end answers-content -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}"
+  style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">
+  סיימתי ✓
+</button>
+
+</body>
+</html>
