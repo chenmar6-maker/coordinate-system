@@ -323,54 +323,85 @@ const gameLevels3 = [
 
 const gameLevels4 = [
   { id:'mc', title:'הגדרת שורש ריבועי',
-    question:'√9 שווה ל:',
-    options:['3','4.5','81','3 או −3'],
-    correct:'3',
-    explain:'√9 = 3 כי 3² = 9. השורש הריבועי הוא המספר הלא-שלילי שריבועו שווה לביטוי.' },
-  { id:'typedSum', title:'חשבו', expr:'√25', correct:5,
-    explain:'√25 = 5 כי 5² = 25.' },
-  { id:'typedSum', title:'חשבו', expr:'√100', correct:10,
-    explain:'√100 = 10 כי 10² = 100.' },
+    question:'מה פירוש √16?',
+    options:['המספר הלא-שלילי שריבועו שווה 16','16 ÷ 2','16 · 2','4 או −4'],
+    correct:'המספר הלא-שלילי שריבועו שווה 16',
+    explain:'√16 = 4 כי 4² = 16 וגם 4 ≥ 0. השורש הריבועי מוגדר תמיד כמספר לא-שלילי.' },
+  { id:'typedSum', title:'חשבו', expr:'√49', correct:7,
+    explain:'√49 = 7 כי 7² = 49.' },
+  { id:'mc', title:'ריבוע מושלם — גיאומטריה',
+    question:'ריבוע שטחו 64 סמ"ר — מה אורך צלעו?',
+    options:['6 סמ','8 סמ','32 סמ','4 סמ'],
+    correct:'8 סמ',
+    explain:'צלע = √64 = 8, כי 8² = 64. שטח ריבוע = צלע², ולכן צלע = √שטח.' },
+  { id:'typedSum', title:'חשבו', expr:'√81', correct:9,
+    explain:'√81 = 9 כי 9² = 81.' },
+  { id:'mc', title:'האם √9 = ±3?',
+    question:'מה שווה √9?',
+    options:['3 בלבד','−3 בלבד','3 או −3','אי אפשר לחשב'],
+    correct:'3 בלבד',
+    explain:'√9 = 3 בלבד (לא −3). השורש הריבועי מוגדר כמספר הלא-שלילי. −3 הוא שלילי, ולכן אינו השורש.' },
+  { id:'typedSum', title:'חשבו', expr:'√121', correct:11,
+    explain:'√121 = 11 כי 11² = 121.' },
+  { id:'mc', title:'איזה ריבוע מושלם?',
+    question:'מי מהמספרים הבאים הוא ריבוע מושלם?',
+    options:['50','72','144','20'],
+    correct:'144',
+    explain:'144 = 12² → √144 = 12. שאר המספרים אינם ריבועים מושלמים (אין להם שורש שלם).' },
   { id:'mc', title:'חשבו',
-    question:'מה שווה √36?',
-    options:['6','7','18','8'],
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√36</bdi>?',
+    options:['5','6','7','18'],
     correct:'6',
     explain:'√36 = 6 כי 6² = 36.' },
-  { id:'mc', title:'קשר בין ריבוע ושורש',
-    question:'מה שווה √4 · √4?',
-    options:['2','4','8','16'],
-    correct:'4',
-    explain:'√4 = 2, ולכן √4 · √4 = 2 · 2 = 4. בכלל: √n · √n = n.' },
-  { id:'mc', title:'איזה ריבוע מושלם?',
-    question:'מי מהמספרים הבאים הוא ריבוע מושלם (יש לו שורש ריבועי שלם)?',
-    options:['50','72','49','20'],
-    correct:'49',
-    explain:'49 = 7² → √49 = 7. שאר המספרים אינם ריבועים מושלמים.' },
+  { id:'typedSum', title:'ריבוע שטחו 144 — מה אורך צלעו? (בסמ)', expr:'√144', correct:12,
+    explain:'צלע = √144 = 12, כי 12² = 144.' },
+  { id:'mc', title:'קשר בין שורש לריבוע',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(√7)²</bdi>?',
+    options:['49','7','√7','14'],
+    correct:'7',
+    explain:'(√7)² = 7 כי √7 הוא המספר שריבועו 7. כלל: (√a)² = a לכל a ≥ 0.' },
 ];
 
 const gameLevels5 = [
-  { id:'typedSum', title:'חשבו', expr:'√64', correct:8,
-    explain:'√64 = 8 כי 8² = 64.' },
+  { id:'mc', title:'הערכת שורש — בין אילו מספרים?',
+    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">√20</bdi> נמצא בין אילו מספרים שלמים רצופים?',
+    options:['בין 3 ל-4','בין 4 ל-5','בין 5 ל-6','בין 2 ל-3'],
+    correct:'בין 4 ל-5',
+    explain:'√16 = 4 ו-√25 = 5. מכיוון ש-16 < 20 < 25, נקבל 4 < √20 < 5.' },
+  { id:'mc', title:'הערכת שורש',
+    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">√50</bdi> נמצא בין אילו מספרים שלמים רצופים?',
+    options:['בין 6 ל-7','בין 7 ל-8','בין 8 ל-9','בין 5 ל-6'],
+    correct:'בין 7 ל-8',
+    explain:'√49 = 7 ו-√64 = 8. מכיוון ש-49 < 50 < 64, נקבל 7 < √50 < 8.' },
+  { id:'typedSum', title:'חשבו', expr:'√(4·25)', correct:10,
+    explain:'√(4·25) = √100 = 10. אפשר גם: √4 · √25 = 2 · 5 = 10.' },
   { id:'mc', title:'כלל הכפל בשורשים',
-    question:'מה שווה √(4 · 9)?',
-    options:['6','13','36','2'],
-    correct:'6',
-    explain:'√(4·9) = √36 = 6. אפשר גם: √4 · √9 = 2·3 = 6.' },
-  { id:'mc', title:'חישוב עם שורשים',
-    question:'מה שווה √36 + √64?',
-    options:['10','14','100','8'],
-    correct:'14',
-    explain:'√36 = 6, √64 = 8. 6 + 8 = 14.' },
-  { id:'mc', title:'חישוב עם שורשים',
-    question:'מה שווה √100 − √4?',
-    options:['8','√96','98','6'],
-    correct:'8',
-    explain:'√100 = 10, √4 = 2. 10 − 2 = 8.' },
-  { id:'mc', title:'אתגר — שורש של סכום',
-    question:'האם √(9 + 16) = √9 + √16?',
-    options:['כן, כי שורש מתחלק','לא, √25 = 5 אבל √9+√16 = 7','כן, תמיד','לא, אי אפשר לחשב'],
-    correct:'לא, √25 = 5 אבל √9+√16 = 7',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(9·16)</bdi>?',
+    options:['12','25','144','5'],
+    correct:'12',
+    explain:'√(9·16) = √144 = 12. אפשר גם: √9 · √16 = 3 · 4 = 12.' },
+  { id:'mc', title:'שורש של סכום — שגיאה נפוצה',
+    question:'האם <bdi style="direction:ltr;unicode-bidi:isolate;">√(9+16) = √9 + √16</bdi>?',
+    options:['כן, כי שורש מתחלק','לא — √25 = 5 אבל √9+√16 = 7','כן, תמיד אפשר לפרק','לא, אי אפשר לחשב √25'],
+    correct:'לא — √25 = 5 אבל √9+√16 = 7',
     explain:'√(9+16) = √25 = 5. אבל √9+√16 = 3+4 = 7. שורש אינו מתחלק על פני חיבור!' },
+  { id:'mc', title:'קשר לחזקות',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(5²)</bdi>?',
+    options:['25','5','10','√5'],
+    correct:'5',
+    explain:'√(5²) = √25 = 5. כלל: √(a²) = a לכל a ≥ 0.' },
+  { id:'mc', title:'שאלת יישום',
+    question:'ריבוע שצלעו <bdi style="direction:ltr;unicode-bidi:isolate;">√5</bdi> — מה שטחו?',
+    options:['5','√5','25','10'],
+    correct:'5',
+    explain:'שטח = צלע² = (√5)² = 5. כלל: (√a)² = a.' },
+  { id:'mc', title:'סדר פעולות עם שורשים',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">2 · √9 + 3² · √49</bdi>?',
+    options:['69','48','30','60'],
+    correct:'69',
+    explain:'שורשים וחזקות קודמים: √9=3, √49=7, 3²=9. אז: 2·3 + 9·7 = 6 + 63 = 69.' },
+  { id:'typedSum', title:'חשבו', expr:'√100 − √36', correct:4,
+    explain:'√100 = 10, √36 = 6. 10 − 6 = 4.' },
 ];
 
 const gameLevels6 = [
@@ -691,49 +722,76 @@ function renderLearn3(){
 }
 
 function renderLearn4(){
+  const perfectSquares = [[1,1],[4,2],[9,3],[16,4],[25,5],[36,6],[49,7],[64,8],[81,9],[100,10],[121,11],[144,12]];
+  const tiles = perfectSquares.map(([n,r])=>`<div style="background:rgba(239,169,74,0.12);border:1px solid rgba(239,169,74,0.3);border-radius:8px;padding:6px 10px;text-align:center;min-width:52px;"><div style="font-size:16px;font-weight:800;color:var(--foam);">${n}</div><div style="font-size:11px;color:rgba(239,169,74,0.85);font-weight:700;margin-top:2px;">${r}² = ${n}</div><div style="font-size:11px;color:rgba(58,160,196,0.9);font-weight:700;">√${n} = ${r}</div></div>`).join('');
+
   return sqrtify(`
     <div class="panel">
-      <h2 class="qtitle">שורש ריבועי</h2>
-      <div class="gold-box" dir="rtl">√n הוא המספר הלא-שלילי שריבועו שווה n</div>
-      <div class="examples-row">
-        <div class="example-box">√9 = 3<br><span style="font-size:13px;font-weight:400;">כי 3² = 9</span></div>
-        <div class="example-box">√25 = 5<br><span style="font-size:13px;font-weight:400;">כי 5² = 25</span></div>
-        <div class="example-box">√100 = 10<br><span style="font-size:13px;font-weight:400;">כי 10² = 100</span></div>
-      </div>
-      <!-- הדגמה גיאומטרית -->
-      <div style="margin:16px 0;text-align:center;">
-        <div style="font-size:13px;font-weight:700;color:rgba(234,244,241,0.55);margin-bottom:10px;letter-spacing:0.5px;">ריבוע בעל שטח 9 — צלעו 3</div>
-        <div style="display:inline-block;">
-          <svg width="120" height="120" viewBox="0 0 120 120" style="overflow:visible;">
-            <rect x="10" y="10" width="90" height="90" fill="rgba(239,169,74,0.15)" stroke="#EFA94A" stroke-width="2" rx="3"/>
-            <!-- dim lines -->
-            <line x1="10" y1="6" x2="100" y2="6" stroke="#EFA94A" stroke-width="1.2" stroke-dasharray="4,3"/>
-            <line x1="10" y1="4" x2="10" y2="8" stroke="#EFA94A" stroke-width="1.2"/>
-            <line x1="100" y1="4" x2="100" y2="8" stroke="#EFA94A" stroke-width="1.2"/>
-            <text x="55" y="2" fill="#EFA94A" font-size="12" font-family="Rubik,sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="hanging">3</text>
-            <line x1="104" y1="10" x2="104" y2="100" stroke="#EFA94A" stroke-width="1.2" stroke-dasharray="4,3"/>
-            <line x1="102" y1="10" x2="106" y2="10" stroke="#EFA94A" stroke-width="1.2"/>
-            <line x1="102" y1="100" x2="106" y2="100" stroke="#EFA94A" stroke-width="1.2"/>
-            <text x="112" y="55" fill="#EFA94A" font-size="12" font-family="Rubik,sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="middle">3</text>
-            <!-- area label -->
-            <text x="55" y="55" fill="rgba(234,244,241,0.9)" font-size="13" font-family="Rubik,sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="middle">שטח = 9</text>
-          </svg>
-          <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-top:4px;">√9 = 3</div>
+      <h2 class="qtitle">הגדרת שורש ריבועי</h2>
+
+      <div class="gold-box" dir="rtl">√n הוא המספר הלא-שלילי שריבועו שווה n<br><span style="font-size:14px;font-weight:400;">כלומר: אם x = √n אז x² = n וגם x ≥ 0</span></div>
+
+      <!-- הדגמה גיאומטרית — ריבוע עם שטח 16 -->
+      <div style="margin:18px 0;text-align:center;">
+        <div style="font-size:13px;font-weight:700;color:rgba(234,244,241,0.55);margin-bottom:10px;letter-spacing:0.5px;">הקשר הגיאומטרי: ריבוע בעל שטח 16 — מה אורך צלעו?</div>
+        <div style="display:flex;gap:32px;justify-content:center;align-items:center;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <svg width="130" height="130" viewBox="0 0 130 130" style="overflow:visible;">
+              <rect x="12" y="12" width="96" height="96" fill="rgba(239,169,74,0.15)" stroke="#EFA94A" stroke-width="2" rx="3"/>
+              <!-- grid lines (4x4) -->
+              <line x1="36" y1="12" x2="36" y2="108" stroke="#EFA94A" stroke-width="0.6" opacity="0.5"/>
+              <line x1="60" y1="12" x2="60" y2="108" stroke="#EFA94A" stroke-width="0.6" opacity="0.5"/>
+              <line x1="84" y1="12" x2="84" y2="108" stroke="#EFA94A" stroke-width="0.6" opacity="0.5"/>
+              <line x1="12" y1="36" x2="108" y2="36" stroke="#EFA94A" stroke-width="0.6" opacity="0.5"/>
+              <line x1="12" y1="60" x2="108" y2="60" stroke="#EFA94A" stroke-width="0.6" opacity="0.5"/>
+              <line x1="12" y1="84" x2="108" y2="84" stroke="#EFA94A" stroke-width="0.6" opacity="0.5"/>
+              <!-- dimension top -->
+              <line x1="12" y1="6" x2="108" y2="6" stroke="#EFA94A" stroke-width="1.2" stroke-dasharray="4,3"/>
+              <line x1="12" y1="3" x2="12" y2="9" stroke="#EFA94A" stroke-width="1.2"/>
+              <line x1="108" y1="3" x2="108" y2="9" stroke="#EFA94A" stroke-width="1.2"/>
+              <text x="60" y="1" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif" font-weight="800" text-anchor="middle" dominant-baseline="hanging">√16 = 4</text>
+              <!-- dimension right -->
+              <line x1="114" y1="12" x2="114" y2="108" stroke="#EFA94A" stroke-width="1.2" stroke-dasharray="4,3"/>
+              <line x1="111" y1="12" x2="117" y2="12" stroke="#EFA94A" stroke-width="1.2"/>
+              <line x1="111" y1="108" x2="117" y2="108" stroke="#EFA94A" stroke-width="1.2"/>
+              <text x="124" y="60" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif" font-weight="800" text-anchor="middle" dominant-baseline="middle">4</text>
+              <!-- area label -->
+              <text x="60" y="60" fill="rgba(234,244,241,0.95)" font-size="14" font-family="Rubik,sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="middle">שטח = 16</text>
+            </svg>
+            <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-top:6px;">4² = 16 → √16 = 4</div>
+          </div>
+          <div style="text-align:right;max-width:200px;">
+            <div style="font-size:15px;line-height:1.8;color:var(--foam);">
+              <div>שטח ריבוע = צלע²</div>
+              <div style="color:var(--gold);font-weight:700;">16 = צלע²</div>
+              <div style="color:var(--light-teal);font-weight:700;">צלע = √16 = 4</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div style="text-align:center;margin:14px 0;">
-        <div style="font-size:14px;font-weight:700;color:rgba(234,244,241,0.6);margin-bottom:8px;">ריבועים מושלמים</div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">
-          ${[[1,1],[4,2],[9,3],[16,4],[25,5],[36,6],[49,7],[64,8],[81,9],[100,10]].map(([n,r])=>`<div style="background:rgba(239,169,74,0.12);border:1px solid rgba(239,169,74,0.3);border-radius:8px;padding:6px 12px;text-align:center;min-width:52px;"><div style="font-size:17px;font-weight:800;">${n}</div><div style="font-size:11px;color:rgba(239,169,74,0.85);font-weight:700;margin-top:1px;">√ = ${r}</div></div>`).join('')}
-        </div>
+      <div class="examples-row">
+        <div class="example-box">√9 = 3<br><span style="font-size:13px;font-weight:400;">כי 3² = 9</span></div>
+        <div class="example-box">√25 = 5<br><span style="font-size:13px;font-weight:400;">כי 5² = 25</span></div>
+        <div class="example-box">√144 = 12<br><span style="font-size:13px;font-weight:400;">כי 12² = 144</span></div>
       </div>
+
+      <!-- טבלת ריבועים מושלמים 1–144 -->
+      <div style="margin:18px 0;">
+        <div style="font-size:14px;font-weight:700;color:rgba(234,244,241,0.6);text-align:center;margin-bottom:10px;">ריבועים מושלמים 1 עד 144</div>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;justify-content:center;">${tiles}</div>
+      </div>
+
       <ul class="bullets">
-        <li>שורש ריבועי הוא פעולה הפוכה לריבוע</li>
-        <li>√n · √n = n</li>
-        <li>ריבועים מושלמים: מספרים שיש להם שורש ריבועי שלם</li>
+        <li>שורש ריבועי הוא הפעולה ההפוכה לריבוע: √n · √n = n</li>
+        <li>ריבועים מושלמים: מספרים שיש להם שורש ריבועי שלם (1, 4, 9, 16, ...)</li>
+        <li>√n מוגדר רק עבור n ≥ 0 (אי אפשר לשלוף שורש של מספר שלילי)</li>
+        <li>קשר עם גיאומטריה: ריבוע שטחו n — צלעו √n</li>
       </ul>
-      <div class="learn-note">√n מוגדר רק עבור n ≥ 0</div>
+
+      <div class="learn-note" style="margin-bottom:10px;">שגיאה נפוצה: √9 ≠ ±3. √9 = 3 בלבד! השורש הריבועי מוגדר תמיד כמספר לא-שלילי.</div>
+      <div class="learn-note">שגיאה נפוצה: √16 ≠ 8. √16 = 4, כי 4² = 16 (לא 8² = 64).</div>
+
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -769,16 +827,46 @@ function renderLearn5(){
   return sqrtify(`
     <div class="panel">
       <h2 class="qtitle">חישובים עם שורשים</h2>
+
+      <!-- הערכת שורשים לא מושלמים -->
+      <div style="margin-bottom:6px;font-size:15px;font-weight:700;color:rgba(234,244,241,0.7);">1. הערכת שורשים שאינם ריבועים מושלמים</div>
+      <div class="gold-box" dir="rtl" style="font-size:15px;">אם a² &lt; n &lt; b², אז a &lt; √n &lt; b</div>
+      <div class="examples-row">
+        <div class="example-box" style="direction:rtl;text-align:center;">√20 בין כמה?<br><span style="font-size:13px;font-weight:400;">16 &lt; 20 &lt; 25<br>4² &lt; 20 &lt; 5²<br><strong>4 &lt; √20 &lt; 5</strong></span></div>
+        <div class="example-box" style="direction:rtl;text-align:center;">√50 בין כמה?<br><span style="font-size:13px;font-weight:400;">49 &lt; 50 &lt; 64<br>7² &lt; 50 &lt; 8²<br><strong>7 &lt; √50 &lt; 8</strong></span></div>
+      </div>
+
+      <!-- כלל כפל בשורשים -->
+      <div style="margin:16px 0 6px;font-size:15px;font-weight:700;color:rgba(234,244,241,0.7);">2. כלל הכפל בשורשים</div>
       <div class="gold-box" dir="ltr">√(a · b) = √a · √b</div>
       <div class="examples-row">
-        <div class="example-box">√36 + √64 = 6 + 8 = 14</div>
-        <div class="example-box">√(4·9) = √36 = 6<br>= √4·√9 = 2·3 = 6</div>
+        <div class="example-box">√(4·25)<br>= √100 = 10<br><span style="font-size:13px;font-weight:400;">או: √4·√25 = 2·5 = 10</span></div>
+        <div class="example-box">√(9·16)<br>= √144 = 12<br><span style="font-size:13px;font-weight:400;">או: √9·√16 = 3·4 = 12</span></div>
       </div>
+
+      <!-- קשר לחזקות -->
+      <div style="margin:16px 0 6px;font-size:15px;font-weight:700;color:rgba(234,244,241,0.7);">3. קשר בין שורשים וחזקות</div>
+      <div class="examples-row">
+        <div class="example-box">√(a²) = a<br><span style="font-size:13px;font-weight:400;">√(3²) = √9 = 3</span></div>
+        <div class="example-box">(√a)² = a<br><span style="font-size:13px;font-weight:400;">(√5)² = 5</span></div>
+      </div>
+
+      <!-- סדר פעולות -->
+      <div style="margin:16px 0 6px;font-size:15px;font-weight:700;color:rgba(234,244,241,0.7);">4. סדר פעולות עם שורשים</div>
+      <div class="gold-box" dir="rtl" style="font-size:14px;">סוגריים → שורשים וחזקות → כפל/חילוק → חיבור/חיסור</div>
+      <div class="example-box" style="font-size:15px;text-align:right;direction:rtl;">
+        <div>2 · √9 + 3² · √49</div>
+        <div style="color:rgba(234,244,241,0.6);font-size:13px;font-weight:400;">= 2 · 3 + 9 · 7 = 6 + 63 = 69</div>
+      </div>
+
       <ul class="bullets">
-        <li>ניתן לפרק שורש של מכפלה</li>
-        <li>אסור לפרק שורש של סכום: √(9+16) ≠ √9 + √16</li>
+        <li>שורש של מכפלה: √(a·b) = √a · √b — מותר לפרק!</li>
+        <li>שורש של סכום: √(a+b) ≠ √a + √b — אסור לפרק!</li>
+        <li>√(a²) = a ו-(√a)² = a (לכל a ≥ 0)</li>
       </ul>
-      <div class="learn-note">שגיאה נפוצה: √(a+b) ≠ √a + √b</div>
+
+      <div class="learn-note">שגיאה נפוצה: √(9+16) ≠ √9 + √16. נכון: √25 = 5, לא 3+4 = 7!</div>
+
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
