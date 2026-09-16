@@ -181,8 +181,8 @@
 
   sup{font-size:0.68em;font-weight:700;vertical-align:super;line-height:1;}
   .rad{display:inline-flex;align-items:flex-start;vertical-align:middle;direction:ltr;unicode-bidi:isolate;}
-  .rad-sym{height:1.25em;width:auto;flex-shrink:0;margin-right:-1px;overflow:visible;}
-  .rad-body{border-top:1.5px solid currentColor;padding:0.15em 0.25em 0;}
+  .rad-sym{height:1.25em;width:auto;flex-shrink:0;margin-right:0;overflow:visible;}
+  .rad-body{border-top:1.5px solid currentColor;padding:0.15em 0.25em 0;margin-top:-1px;}
 
   @keyframes popIn{
     0%{transform:scale(.55);opacity:0;}
@@ -964,7 +964,7 @@ function renderGameResults(){
 
 function sqrtify(str){
   if(!str) return str;
-  const svgSign = `<svg class="rad-sym" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><polyline points="0,8 2,13 7,0"/></svg>`;
+  const svgSign = `<svg class="rad-sym" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><polyline points="0,8 2,13 8,0"/></svg>`;
   const wrap = body => `<span class="rad">${svgSign}<span class="rad-body">${body}</span></span>`;
   str = str.replace(/√\(([^)]*)\)/g, (_,inner) => wrap(`(${inner})`));
   str = str.replace(/√(\w+)/g, (_,inner) => wrap(inner));
