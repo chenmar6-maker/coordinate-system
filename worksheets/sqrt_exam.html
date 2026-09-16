@@ -76,8 +76,9 @@
   }
 
   /* ── radical sign ── */
-  .rt { display: inline-flex; align-items: flex-end; direction: ltr; font-weight: 600; white-space: nowrap; }
-  .rb { border-top: 1.5px solid #1a1a2e; padding: 0 2px; margin-top: 1px; }
+  .rt { display: inline-flex; align-items: stretch; direction: ltr; font-weight: 600; white-space: nowrap; vertical-align: middle; }
+  .rs { display: flex; align-items: flex-end; line-height: 1; }
+  .rb { border-top: 1.5px solid #1a1a2e; padding: 1px 3px 0; display: flex; align-items: center; }
   @media print { .rb { border-top: 1.5px solid #000; } }
 
   .ans-line {
@@ -174,14 +175,14 @@
 <div class="quiz-q">
   <div class="qrow"><span class="qnum">1.</span><span class="qtext">חשבו:</span></div>
   <div class="pow-grid">
-    <div class="pow-cell"><span class="rt">√<span class="rb">1</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">א.</span></div>
-    <div class="pow-cell"><span class="rt">√<span class="rb">4</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ב.</span></div>
-    <div class="pow-cell"><span class="rt">√<span class="rb">9</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ג.</span></div>
-    <div class="pow-cell"><span class="rt">√<span class="rb">16</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ד.</span></div>
-    <div class="pow-cell"><span class="rt">√<span class="rb">25</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ה.</span></div>
-    <div class="pow-cell"><span class="rt">√<span class="rb">36</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ו.</span></div>
-    <div class="pow-cell"><span class="rt">√<span class="rb">49</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ז.</span></div>
-    <div class="pow-cell"><span class="rt">√<span class="rb">64</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ח.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">1</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">א.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">4</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ב.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">9</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ג.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">16</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ד.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">25</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ה.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">36</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ו.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">49</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ז.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">64</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ח.</span></div>
   </div>
 </div>
 
@@ -189,10 +190,10 @@
 <div class="quiz-q">
   <div class="qrow"><span class="qnum">2.</span><span class="qtext">חשבו:</span></div>
   <div class="pow-grid">
-    <div class="pow-cell"><span class="rt">√<span class="rb">81</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">א.</span></div>
-    <div class="pow-cell"><span class="rt">√<span class="rb">100</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ב.</span></div>
-    <div class="pow-cell"><span class="rt">√<span class="rb">121</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ג.</span></div>
-    <div class="pow-cell"><span class="rt">√<span class="rb">144</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ד.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">81</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">א.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">100</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ב.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">121</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ג.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">144</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ד.</span></div>
   </div>
 </div>
 
@@ -212,27 +213,27 @@
   <div class="qrow"><span class="qnum">4.</span><span class="qtext">הקיפו נכון או לא נכון:</span></div>
   <table class="tf-table">
     <tr>
-      <td><span class="math"><span class="rt">√<span class="rb">9</span></span> = 3</span></td>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">9</span></span> = 3</span></td>
       <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
       <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
     </tr>
     <tr>
-      <td><span class="math"><span class="rt">√<span class="rb">9</span></span> = ±3</span></td>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">9</span></span> = ±3</span></td>
       <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
       <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
     </tr>
     <tr>
-      <td><span class="math"><span class="rt">√<span class="rb">0</span></span> = 0</span></td>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">0</span></span> = 0</span></td>
       <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
       <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
     </tr>
     <tr>
-      <td><span class="math"><span class="rt">√<span class="rb">16</span></span> = 8</span></td>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">16</span></span> = 8</span></td>
       <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
       <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
     </tr>
     <tr>
-      <td><span class="math"><span class="rt">√<span class="rb">−4</span></span></span> מוגדר</td>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">−4</span></span></span> מוגדר</td>
       <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
       <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
     </tr>
@@ -256,10 +257,10 @@
 <div class="quiz-q">
   <div class="qrow"><span class="qnum">1.</span><span class="qtext">בין אילו שני מספרים שלמים רצופים נמצא כל שורש? (ללא מחשבון)</span></div>
   <div class="est-grid">
-    <div class="est-row"><span class="est-lbl">א.</span><span class="math"><span class="rt">√<span class="rb">20</span></span></span> — בין <span class="ans-line ans-sm">&nbsp;</span> ל-<span class="ans-line ans-sm">&nbsp;</span></div>
-    <div class="est-row"><span class="est-lbl">ב.</span><span class="math"><span class="rt">√<span class="rb">50</span></span></span> — בין <span class="ans-line ans-sm">&nbsp;</span> ל-<span class="ans-line ans-sm">&nbsp;</span></div>
-    <div class="est-row"><span class="est-lbl">ג.</span><span class="math"><span class="rt">√<span class="rb">10</span></span></span> — בין <span class="ans-line ans-sm">&nbsp;</span> ל-<span class="ans-line ans-sm">&nbsp;</span></div>
-    <div class="est-row"><span class="est-lbl">ד.</span><span class="math"><span class="rt">√<span class="rb">75</span></span></span> — בין <span class="ans-line ans-sm">&nbsp;</span> ל-<span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="est-row"><span class="est-lbl">א.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">20</span></span></span> — בין <span class="ans-line ans-sm">&nbsp;</span> ל-<span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="est-row"><span class="est-lbl">ב.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">50</span></span></span> — בין <span class="ans-line ans-sm">&nbsp;</span> ל-<span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="est-row"><span class="est-lbl">ג.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">10</span></span></span> — בין <span class="ans-line ans-sm">&nbsp;</span> ל-<span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="est-row"><span class="est-lbl">ד.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">75</span></span></span> — בין <span class="ans-line ans-sm">&nbsp;</span> ל-<span class="ans-line ans-sm">&nbsp;</span></div>
   </div>
 </div>
 
@@ -267,10 +268,10 @@
 <div class="quiz-q">
   <div class="qrow"><span class="qnum">2.</span><span class="qtext">חשבו — השתמשו בכללים הכלליים:</span></div>
   <div class="two-col" style="margin-top:6px;">
-    <div class="ex-row"><span class="lbl">א.</span><span class="math"><span class="rt">√<span class="rb">7</span></span> · <span class="rt">√<span class="rb">7</span></span></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
-    <div class="ex-row"><span class="lbl">ב.</span><span class="math">(<span class="rt">√<span class="rb">5</span></span>)<sup>2</sup></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
-    <div class="ex-row"><span class="lbl">ג.</span><span class="math"><span class="rt">√<span class="rb">6<sup>2</sup></span></span></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
-    <div class="ex-row"><span class="lbl">ד.</span><span class="math"><span class="rt">√<span class="rb">4 · 9</span></span></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="ex-row"><span class="lbl">א.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">7</span></span> · <span class="rt"><span class="rs">√</span><span class="rb">7</span></span></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="ex-row"><span class="lbl">ב.</span><span class="math">(<span class="rt"><span class="rs">√</span><span class="rb">5</span></span>)<sup>2</sup></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="ex-row"><span class="lbl">ג.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">6<sup>2</sup></span></span></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="ex-row"><span class="lbl">ד.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">4 · 9</span></span></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
   </div>
 </div>
 
@@ -279,25 +280,25 @@
   <div class="qrow"><span class="qnum">3.</span><span class="qtext">הקיפו נכון או לא נכון — ואם לא נכון, כתבו את הערך הנכון:</span></div>
   <table class="tf-table">
     <tr>
-      <td><span class="math"><span class="rt">√<span class="rb">9 + 16</span></span> = <span class="rt">√<span class="rb">9</span></span> + <span class="rt">√<span class="rb">16</span></span></span></td>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">9 + 16</span></span> = <span class="rt"><span class="rs">√</span><span class="rb">9</span></span> + <span class="rt"><span class="rs">√</span><span class="rb">16</span></span></span></td>
       <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
       <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
       <td>תיקון: <span class="ans-line" style="min-width:90px;">&nbsp;</span></td>
     </tr>
     <tr>
-      <td><span class="math"><span class="rt">√<span class="rb">4 · 25</span></span> = <span class="rt">√<span class="rb">4</span></span> · <span class="rt">√<span class="rb">25</span></span></span></td>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">4 · 25</span></span> = <span class="rt"><span class="rs">√</span><span class="rb">4</span></span> · <span class="rt"><span class="rs">√</span><span class="rb">25</span></span></span></td>
       <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
       <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
       <td></td>
     </tr>
     <tr>
-      <td><span class="math"><span class="rt">√<span class="rb">3<sup>2</sup></span></span> = 3</span></td>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">3<sup>2</sup></span></span> = 3</span></td>
       <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
       <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
       <td></td>
     </tr>
     <tr>
-      <td><span class="math">(<span class="rt">√<span class="rb">8</span></span>)<sup>2</sup> = 8</span></td>
+      <td><span class="math">(<span class="rt"><span class="rs">√</span><span class="rb">8</span></span>)<sup>2</sup> = 8</span></td>
       <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
       <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
       <td></td>
@@ -318,22 +319,22 @@
   <div class="qrow"><span class="qnum">1.</span><span class="qtext">חשבו (שימו לב לסדר הפעולות):</span></div>
   <div class="two-col" style="margin-top:6px;">
     <div class="ex-row" style="align-items:flex-start;flex-direction:column;gap:4px;">
-      <span><span class="lbl" style="display:inline;">א.</span> <span class="math">2 · <span class="rt">√<span class="rb">16</span></span> + 3</span></span>
+      <span><span class="lbl" style="display:inline;">א.</span> <span class="math">2 · <span class="rt"><span class="rs">√</span><span class="rb">16</span></span> + 3</span></span>
       <span class="think-line" style="width:90%;"></span>
       <span class="think-line" style="width:90%;"></span>
     </div>
     <div class="ex-row" style="align-items:flex-start;flex-direction:column;gap:4px;">
-      <span><span class="lbl" style="display:inline;">ב.</span> <span class="math"><span class="rt">√<span class="rb">100</span></span> − <span class="rt">√<span class="rb">36</span></span></span></span>
+      <span><span class="lbl" style="display:inline;">ב.</span> <span class="math"><span class="rt"><span class="rs">√</span><span class="rb">100</span></span> − <span class="rt"><span class="rs">√</span><span class="rb">36</span></span></span></span>
       <span class="think-line" style="width:90%;"></span>
       <span class="think-line" style="width:90%;"></span>
     </div>
     <div class="ex-row" style="align-items:flex-start;flex-direction:column;gap:4px;">
-      <span><span class="lbl" style="display:inline;">ג.</span> <span class="math">3<sup>2</sup> + <span class="rt">√<span class="rb">49</span></span> · 2</span></span>
+      <span><span class="lbl" style="display:inline;">ג.</span> <span class="math">3<sup>2</sup> + <span class="rt"><span class="rs">√</span><span class="rb">49</span></span> · 2</span></span>
       <span class="think-line" style="width:90%;"></span>
       <span class="think-line" style="width:90%;"></span>
     </div>
     <div class="ex-row" style="align-items:flex-start;flex-direction:column;gap:4px;">
-      <span><span class="lbl" style="display:inline;">ד.</span> <span class="math"><span class="rt">√<span class="rb">4 · 25</span></span> − 2<sup>3</sup></span></span>
+      <span><span class="lbl" style="display:inline;">ד.</span> <span class="math"><span class="rt"><span class="rs">√</span><span class="rb">4 · 25</span></span> − 2<sup>3</sup></span></span>
       <span class="think-line" style="width:90%;"></span>
       <span class="think-line" style="width:90%;"></span>
     </div>
@@ -342,7 +343,7 @@
 
 <!-- Q2 – application: square with side √20 -->
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">2.</span><span class="qtext">ריבוע שצלעו <span class="math"><span class="rt">√<span class="rb">20</span></span></span> סמ — מה שטחו בסמ"ר? הסבירו.</span></div>
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">ריבוע שצלעו <span class="math"><span class="rt"><span class="rs">√</span><span class="rb">20</span></span></span> סמ — מה שטחו בסמ"ר? הסבירו.</span></div>
   <div class="think-area">
     <span class="think-line"></span>
     <span class="think-line"></span>
@@ -352,7 +353,7 @@
 
 <!-- Q3 – estimation challenge -->
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">3.</span><span class="qtext">אתגר — <span class="math"><span class="rt">√<span class="rb">44</span></span></span> נמצא בין שני מספרים שלמים. אילו הם, ולאיזה מהם השורש קרוב יותר? הסבירו.</span></div>
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">אתגר — <span class="math"><span class="rt"><span class="rs">√</span><span class="rb">44</span></span></span> נמצא בין שני מספרים שלמים. אילו הם, ולאיזה מהם השורש קרוב יותר? הסבירו.</span></div>
   <div class="think-area">
     <span class="think-line"></span>
     <span class="think-line"></span>
