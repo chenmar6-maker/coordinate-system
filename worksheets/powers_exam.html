@@ -239,7 +239,7 @@
 
 <!-- Q2 – write in power notation -->
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">2.</span><span class="qtext">כתבו בכתיב חזקות:</span></div>
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">כתבו בעזרת שימוש בכתיב חזקות:</span></div>
   <div class="two-col">
     <div class="ex-row"><span class="letter">א.</span><span class="ans-line">&nbsp;</span> = <span class="math">5 · 5 · 5 · 5 · 5</span></div>
     <div class="ex-row"><span class="letter">ב.</span><span class="ans-line">&nbsp;</span> = <span class="math">7 · 7</span></div>
@@ -250,9 +250,82 @@
   </div>
 </div>
 
-<!-- Q3 – algebraic expressions with variables -->
+<!-- Q3 – visual shapes -->
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">3.</span><span class="qtext">פשטו — פרקו לכפל ואז כתבו בכתיב חזקות:</span></div>
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">כמה תאים יש בכל צורה? כתבו בעזרת שימוש בכתיב חזקות:</span></div>
+  <div style="display:flex;flex-direction:column;gap:14px;margin:10px 0 4px;padding-right:8px;">
+    <!-- א: 5×5 grid -->
+    <div style="display:flex;align-items:center;gap:14px;direction:rtl;">
+      <span class="letter" style="font-weight:700;min-width:20px;">א.</span>
+      <svg width="68" height="68" viewBox="0 0 68 68" style="flex-shrink:0;">
+        <rect x="4" y="4" width="60" height="60" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+        <line x1="16" y1="4" x2="16" y2="64" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="28" y1="4" x2="28" y2="64" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="40" y1="4" x2="40" y2="64" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="52" y1="4" x2="52" y2="64" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="4" y1="16" x2="64" y2="16" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="4" y1="28" x2="64" y2="28" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="4" y1="40" x2="64" y2="40" stroke="#D97706" stroke-width="0.6"/>
+        <line x1="4" y1="52" x2="64" y2="52" stroke="#D97706" stroke-width="0.6"/>
+      </svg>
+      <span style="font-size:13px;">= <span class="ans-line" style="min-width:70px;">&nbsp;</span></span>
+    </div>
+    <!-- ב: 6×6×6 cube -->
+    <div style="display:flex;align-items:center;gap:14px;direction:rtl;">
+      <span class="letter" style="font-weight:700;min-width:20px;">ב.</span>
+      <svg width="110" height="100" viewBox="0 0 110 100" style="flex-shrink:0;">
+        <!-- top face -->
+        <polygon points="55,7 91,28 55,49 19,28" fill="#C7E0F4" stroke="#4A6FA5" stroke-width="1.5"/>
+        <!-- right face -->
+        <polygon points="91,28 91,70 55,91 55,49" fill="#7FB3D3" stroke="#4A6FA5" stroke-width="1.5"/>
+        <!-- left face -->
+        <polygon points="19,28 55,49 55,91 19,70" fill="#5B93B8" stroke="#4A6FA5" stroke-width="1.5"/>
+        <!-- top face grid -->
+        <line x1="49" y1="10.5" x2="85" y2="31.5" stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="43" y1="14"   x2="79" y2="35"   stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="37" y1="17.5" x2="73" y2="38.5" stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="31" y1="21"   x2="67" y2="42"   stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="25" y1="24.5" x2="61" y2="45.5" stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="61" y1="10.5" x2="25" y2="31.5" stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="67" y1="14"   x2="31" y2="35"   stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="73" y1="17.5" x2="37" y2="38.5" stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="79" y1="21"   x2="43" y2="42"   stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <line x1="85" y1="24.5" x2="49" y2="45.5" stroke="#4A6FA5" stroke-width="0.4" opacity="0.6"/>
+        <!-- right face grid -->
+        <line x1="91" y1="35"   x2="55" y2="56"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="91" y1="42"   x2="55" y2="63"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="91" y1="49"   x2="55" y2="70"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="91" y1="56"   x2="55" y2="77"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="91" y1="63"   x2="55" y2="84"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="85" y1="31.5" x2="85" y2="73.5" stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="79" y1="35"   x2="79" y2="77"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="73" y1="38.5" x2="73" y2="80.5" stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="67" y1="42"   x2="67" y2="84"   stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <line x1="61" y1="45.5" x2="61" y2="87.5" stroke="#3a5f8a" stroke-width="0.4" opacity="0.6"/>
+        <!-- left face grid -->
+        <line x1="19" y1="35"   x2="55" y2="56"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="19" y1="42"   x2="55" y2="63"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="19" y1="49"   x2="55" y2="70"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="19" y1="56"   x2="55" y2="77"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="19" y1="63"   x2="55" y2="84"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="25" y1="31.5" x2="25" y2="73.5" stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="31" y1="35"   x2="31" y2="77"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="37" y1="38.5" x2="37" y2="80.5" stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="43" y1="42"   x2="43" y2="84"   stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <line x1="49" y1="45.5" x2="49" y2="87.5" stroke="#2e4f72" stroke-width="0.4" opacity="0.6"/>
+        <!-- outer edges on top -->
+        <polygon points="55,7 91,28 55,49 19,28" fill="none" stroke="#4A6FA5" stroke-width="1.5"/>
+        <polygon points="91,28 91,70 55,91 55,49" fill="none" stroke="#4A6FA5" stroke-width="1.5"/>
+        <polygon points="19,28 55,49 55,91 19,70" fill="none" stroke="#4A6FA5" stroke-width="1.5"/>
+      </svg>
+      <span style="font-size:13px;">= <span class="ans-line" style="min-width:70px;">&nbsp;</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- Q4 – algebraic expressions with variables -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">4.</span><span class="qtext">פשטו — פרקו לכפל ואז כתבו בכתיב חזקות:</span></div>
   <div style="font-size:12px;color:#888;padding-right:8px;margin-bottom:6px;">לדוגמה: <span class="math" style="font-size:12px;">2b · b<sup>2</sup> = 2 · b · b · b = 2b<sup>3</sup></span></div>
   <div style="display:flex;flex-direction:column;gap:10px;padding-right:8px;">
     <div class="ex-row"><span class="letter">א.</span><span class="math">a · a<sup>3</sup></span> = <span class="ans-line" style="min-width:80px;">&nbsp;</span> = <span class="ans-line" style="min-width:60px;">&nbsp;</span></div>
@@ -264,7 +337,7 @@
 
 <!-- Q4 – true/false -->
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">4.</span><span class="qtext">כתבו אם נכון או לא נכון — ואם לא נכון, כתבו מדוע לא:</span></div>
+  <div class="qrow"><span class="qnum">5.</span><span class="qtext">כתבו אם נכון או לא נכון — ואם לא נכון, כתבו מדוע לא:</span></div>
   <div class="check-grid">
     <div class="check-item"><span class="checkbox"></span><span><span class="math">2<sup>3</sup> = 2 · 3</span></span></div>
     <div class="check-item"><span class="checkbox"></span><span><span class="math">3<sup>2</sup> = 9</span></span></div>
@@ -282,7 +355,7 @@
 
 <!-- Q4 – compare 2^8 vs 8^2 -->
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">5.</span><span class="qtext">מה גדול יותר — <span class="math">2<sup>8</sup></span> או <span class="math">8<sup>2</sup></span>? חשבו והסבירו.</span></div>
+  <div class="qrow"><span class="qnum">6.</span><span class="qtext">מה גדול יותר — <span class="math">2<sup>8</sup></span> או <span class="math">8<sup>2</sup></span>? חשבו והסבירו.</span></div>
   <div class="think-area">
     <span class="think-line"></span>
     <span class="think-line"></span>
@@ -398,9 +471,48 @@
   </div>
 </div>
 
+<!-- Q5 – 4 squares of 3×3 (gradual) -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">5.</span><span class="qtext">לפניכם 4 ריבועים זהים של <span class="math">3 × 3</span>:</span></div>
+  <div style="margin:10px 0 6px;padding-right:8px;">
+    <svg width="200" height="50" viewBox="0 0 200 50">
+      <!-- 4 squares of 3×3, each cell 12px, total 36×36, gap 10px -->
+      <!-- Square 1 at x=4 -->
+      <rect x="4"   y="7" width="36" height="36" fill="#D1FAE5" stroke="#047857" stroke-width="1.5"/>
+      <line x1="16" y1="7" x2="16" y2="43" stroke="#047857" stroke-width="0.6"/>
+      <line x1="28" y1="7" x2="28" y2="43" stroke="#047857" stroke-width="0.6"/>
+      <line x1="4"  y1="19" x2="40" y2="19" stroke="#047857" stroke-width="0.6"/>
+      <line x1="4"  y1="31" x2="40" y2="31" stroke="#047857" stroke-width="0.6"/>
+      <!-- Square 2 at x=54 -->
+      <rect x="54"  y="7" width="36" height="36" fill="#D1FAE5" stroke="#047857" stroke-width="1.5"/>
+      <line x1="66" y1="7" x2="66" y2="43" stroke="#047857" stroke-width="0.6"/>
+      <line x1="78" y1="7" x2="78" y2="43" stroke="#047857" stroke-width="0.6"/>
+      <line x1="54" y1="19" x2="90" y2="19" stroke="#047857" stroke-width="0.6"/>
+      <line x1="54" y1="31" x2="90" y2="31" stroke="#047857" stroke-width="0.6"/>
+      <!-- Square 3 at x=104 -->
+      <rect x="104" y="7" width="36" height="36" fill="#D1FAE5" stroke="#047857" stroke-width="1.5"/>
+      <line x1="116" y1="7" x2="116" y2="43" stroke="#047857" stroke-width="0.6"/>
+      <line x1="128" y1="7" x2="128" y2="43" stroke="#047857" stroke-width="0.6"/>
+      <line x1="104" y1="19" x2="140" y2="19" stroke="#047857" stroke-width="0.6"/>
+      <line x1="104" y1="31" x2="140" y2="31" stroke="#047857" stroke-width="0.6"/>
+      <!-- Square 4 at x=154 -->
+      <rect x="154" y="7" width="36" height="36" fill="#D1FAE5" stroke="#047857" stroke-width="1.5"/>
+      <line x1="166" y1="7" x2="166" y2="43" stroke="#047857" stroke-width="0.6"/>
+      <line x1="178" y1="7" x2="178" y2="43" stroke="#047857" stroke-width="0.6"/>
+      <line x1="154" y1="19" x2="190" y2="19" stroke="#047857" stroke-width="0.6"/>
+      <line x1="154" y1="31" x2="190" y2="31" stroke="#047857" stroke-width="0.6"/>
+    </svg>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:6px;padding-right:8px;font-size:13px;">
+    <div>א. כמה תאים קטנים יש בכל ריבוע? <span class="ans-line" style="min-width:50px;">&nbsp;</span></div>
+    <div>ב. כתבו את מספר התאים בריבוע אחד בעזרת שימוש בכתיב חזקות: <span class="ans-line" style="min-width:50px;">&nbsp;</span></div>
+    <div>ג. כתבו ביטוי שמחשב את סך כל התאים בארבעת הריבועים: <span class="ans-line" style="min-width:80px;">&nbsp;</span></div>
+  </div>
+</div>
+
 <!-- Q6 – 3D cube problem -->
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">5.</span><span class="qtext">בתמונה קוביה גדולה שעשויה מקוביות קטנות בסידור <span class="math">7 × 7 × 7</span> — אבל חסרה קוביה אחת.</span></div>
+  <div class="qrow"><span class="qnum">6.</span><span class="qtext">בתמונה קוביה גדולה שעשויה מקוביות קטנות בסידור <span class="math">7 × 7 × 7</span> — אבל חסרה קוביה אחת.</span></div>
   <div style="display:flex;align-items:center;gap:24px;margin:10px 0 6px;padding-right:8px;flex-wrap:wrap;">
     <svg width="150" height="120" viewBox="0 0 150 120" style="flex-shrink:0;" aria-hidden="true">
       <!-- big cube: top=(75,10) topRight=(118,35) front=(75,60) topLeft=(32,35) bottomRight=(118,85) bottom=(75,110) bottomLeft=(32,85) -->
