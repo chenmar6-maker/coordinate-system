@@ -347,6 +347,41 @@ const gameLevels5 = [
     explain:'√(9+16) = √25 = 5. אבל √9+√16 = 3+4 = 7. שורש אינו מתחלק על פני חיבור!' },
 ];
 
+const gameLevels6 = [
+  { id:'mc', title:'חזקה עם בסיס שלילי',
+    question:'מה שווה (−3)²?',
+    options:['9','−9','6','−6'],
+    correct:'9',
+    explain:'הבסיס הוא −3. (−3)·(−3) = 9. מינוס כפול מינוס = פלוס.' },
+  { id:'mc', title:'חזקה עם בסיס שלילי',
+    question:'מה שווה (−2)³?',
+    options:['8','−8','6','−6'],
+    correct:'−8',
+    explain:'(−2)·(−2)·(−2) = 4·(−2) = −8. מעריך אי-זוגי → תוצאה שלילית.' },
+  { id:'mc', title:'סוגריים משנים הכל',
+    question:'מה שווה −3²?',
+    options:['9','−9','6','−6'],
+    correct:'−9',
+    explain:'ללא סוגריים הבסיס הוא 3 בלבד. −3² = −(3²) = −9.' },
+  { id:'mc', title:'כלל הזוגי/האי-זוגי',
+    question:'מה שווה (−1)⁷?',
+    options:['1','−1','7','−7'],
+    correct:'−1',
+    explain:'(−1) בחזקה אי-זוגית = −1. בחזקה זוגית = 1.' },
+  { id:'mc', title:'השוואה',
+    question:'האם (−5)² = 5²?',
+    options:['כן, שניהם 25','לא, (−5)² שלילי','לא, ערכים שונים','תלוי ב-5'],
+    correct:'כן, שניהם 25',
+    explain:'(−5)² = 25 וגם 5² = 25. חזקה זוגית תמיד נותנת תוצאה חיובית.' },
+  { id:'typedSum', title:'פתרו: (−2)⁴ = ?', answer:16 },
+  { id:'typedSum', title:'פתרו: (−3)² + (−2)³ = ?', answer:1 },
+  { id:'mc', title:'אתגר — סדר פעולות',
+    question:'מה שווה −2² + (−2)²?',
+    options:['0','8','−8','4'],
+    correct:'0',
+    explain:'−2² = −4 ו-(−2)² = 4. הסכום: −4 + 4 = 0.' },
+];
+
 /* ============ NAVIGATION ============ */
 
 let openSections = new Set();
@@ -407,6 +442,7 @@ function currentGameLevels(){
   if(state.sequence===3) return gameLevels3;
   if(state.sequence===4) return gameLevels4;
   if(state.sequence===5) return gameLevels5;
+  if(state.sequence===6) return gameLevels6;
   return gameLevels1;
 }
 
@@ -475,6 +511,9 @@ function renderHome(){
       <div style="${subHeaderStyle}">השוואה וסדר פעולות</div>
       ${seqRow(3, '3. השוואה וסדר פעולות עם חזקות', {worksheetUrl:'../worksheets/powers_exam.html'})}
 
+      <div style="${subHeaderStyle}">בסיס שלילי</div>
+      ${seqRow(6, '6. חזקות עם בסיס שלילי', {worksheetUrl:'../worksheets/powers_exam.html'})}
+
       <div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(234,244,241,0.12);">
         <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">שורש ריבועי</div>
         ${seqRow(4, '4. הגדרת שורש ריבועי', {worksheetUrl:'../worksheets/powers_exam.html'})}
@@ -491,6 +530,7 @@ function renderLearn(){
   if(state.sequence===3) return renderLearn3();
   if(state.sequence===4) return renderLearn4();
   if(state.sequence===5) return renderLearn5();
+  if(state.sequence===6) return renderLearn6();
   return renderLearn1();
 }
 
@@ -610,6 +650,29 @@ function renderLearn4(){
       </div>
     </div>
   `);
+}
+
+function renderLearn6(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle">חזקות עם בסיס שלילי</h2>
+      <div class="examples-row">
+        <div class="example-box">(−3)² = (−3)·(−3) = 9<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעריך זוגי → חיובי</span></div>
+        <div class="example-box">(−3)³ = (−3)·(−3)·(−3) = −27<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעריך אי-זוגי → שלילי</span></div>
+      </div>
+      <div class="gold-box" dir="rtl">הכלל: בסיס שלילי + מעריך זוגי = חיובי · בסיס שלילי + מעריך אי-זוגי = שלילי</div>
+      <ul class="bullets">
+        <li><strong>סוגריים חשובים!</strong> (−3)² = 9, אבל −3² = −9</li>
+        <li>ב-(−3)² הבסיס הוא −3</li>
+        <li>ב-−3² הבסיס הוא 3, והמינוס הוא בחוץ</li>
+      </ul>
+      <div class="learn-note">שגיאה נפוצה: (−3)² ≠ −9. הסוגריים הופכים את הבסיס לשלילי — התוצאה חיובית!</div>
+      <div class="btnrow">
+        <button class="btn" onclick="state.sequence=6;startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
 }
 
 function renderLearn5(){
