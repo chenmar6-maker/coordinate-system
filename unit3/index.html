@@ -514,6 +514,10 @@ function seqRow(seqNum, label, opts={}){
     <div class="flow-arrow">←</div>
     <div class="card" onclick="showWorksheet('${opts.answersUrl}')" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:#48b08c;"><h3>תשובות</h3></div>
   ` : '';
+  const checkCard = opts.checkUrl ? `
+    <div class="flow-arrow">←</div>
+    <div class="card" onclick="showWorksheet('${opts.checkUrl}')" style="background:rgba(99,102,241,0.12);border:1.5px solid rgba(99,102,241,0.45);color:#a5b4fc;"><h3>בדיקה עצמית</h3></div>
+  ` : '';
   return `
     <div class="sequence-section">
       <div class="sequence-title">${label}</div>
@@ -522,6 +526,7 @@ function seqRow(seqNum, label, opts={}){
         <div class="flow-arrow">←</div>
         <div class="card game" onclick="startGame(${seqNum})"><h3>✏️ תרגול</h3></div>
         ${masteryCard}
+        ${checkCard}
         ${answersCard}
       </div>
     </div>
@@ -534,8 +539,8 @@ function renderHome(){
       <h1 class="title">מערכת הצירים — כל הרביעים</h1>
       <p class="subtitle">מרביע אחד לכל העולם</p>
     </div>
-    ${seqRow(1,'1. נקודות בכל הרביעים',{worksheetUrl:'../worksheets/unit3_exam_part_a.html',answersUrl:'../worksheets/unit3_exam_part_a_answers.html'})}
-    ${seqRow(2,'2. אורכים ושטחים בכל הרביעים',{worksheetUrl:'../worksheets/unit3_exam_part_b.html',answersUrl:'../worksheets/unit3_exam_part_b_answers.html'})}
+    ${seqRow(1,'1. נקודות בכל הרביעים',{worksheetUrl:'../worksheets/unit3_exam_part_a.html',answersUrl:'../worksheets/unit3_exam_part_a_answers.html',checkUrl:'../worksheets/unit3_exam_part_a_check.html'})}
+    ${seqRow(2,'2. אורכים ושטחים בכל הרביעים',{worksheetUrl:'../worksheets/unit3_exam_part_b.html',answersUrl:'../worksheets/unit3_exam_part_b_answers.html',checkUrl:'../worksheets/unit3_exam_part_b_check.html'})}
   `;
 }
 
