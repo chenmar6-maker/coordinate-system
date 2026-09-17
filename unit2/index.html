@@ -1597,8 +1597,8 @@ function seqRow(seqNum, label, opts={}){
       <div class="flow-arrow">←</div>
       ${quizCard}
       ${opts.quizAlt ? `<div class="flow-arrow">←</div><div class="card quiz" onclick="state.sequence=${seqNum};startQuizAlt()"><h3>מבדק שליטה חלופי</h3></div>` : ''}
-      ${answersCard}
       ${checkCard}
+      ${answersCard}
     </div>`;
   }
   return `
