@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בדיקה עצמית — מיקום על ציר המספרים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 100px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .intro-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 13px 16px;
+    margin-bottom: 18px;
+    border-right: 4px solid #F6A35A;
+    font-size: 13.5px;
+    line-height: 1.7;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .intro-box strong { color: #C05621; }
+
+  .q-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #F6A35A;
+  }
+  .q-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .q-num { color: #C05621; font-size: 16px; }
+
+  .sub-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+
+  .ans-input {
+    border: none;
+    border-bottom: 2px solid #aaa;
+    background: transparent;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-align: center;
+    width: 70px;
+    padding: 2px 4px;
+    outline: none;
+    color: #1a1a2e;
+    transition: border-color .15s;
+  }
+  .ans-input:focus { border-color: #C05621; }
+  .ans-input.wide { width: 160px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .chip {
+    border: 1.5px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+    transition: all .15s;
+    background: #fafafa;
+    direction: rtl;
+  }
+  .chip:hover { border-color: #C05621; background: #FFF7ED; }
+  .chip.selected {
+    border-color: #C05621;
+    background: #FFF7ED;
+    color: #C05621;
+    font-weight: 700;
+  }
+
+  .check-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #C05621, #e07a3a);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(192,86,33,0.35);
+    transition: transform .12s, box-shadow .12s;
+    margin-top: 6px;
+  }
+  .check-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(192,86,33,0.4); }
+  .check-btn:active { transform: translateY(0); }
+
+  #score-card {
+    display: none;
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 24px 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  #score-card.show { display: block; }
+
+  .score-big {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .score-out-of {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 18px;
+  }
+  .score-msg {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 24px;
+    display: inline-block;
+  }
+
+  .score-great  { color: #047857; background: #ECFDF5; }
+  .score-ok     { color: #92400E; background: #FEF3C7; }
+  .score-retry  { color: #991B1B; background: #FEF2F2; }
+
+  .score-bar-wrap {
+    background: #f0f0f0;
+    border-radius: 99px;
+    height: 10px;
+    margin: 16px 0 10px;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.6s ease;
+  }
+
+  .retry-btn {
+    margin-top: 16px;
+    background: transparent;
+    border: 1.5px solid #ccc;
+    border-radius: 20px;
+    padding: 8px 22px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #555;
+    transition: border-color .15s, color .15s;
+  }
+  .retry-btn:hover { border-color: #C05621; color: #C05621; }
+
+  .nav-btn {
+    position: fixed;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 9px 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  .nav-back { bottom: 62px; right: 18px; background: #374151; color: #fff; }
+  .nav-done { bottom: 18px; right: 18px; background: #047857; color: #fff; }
+
+  @media print { .no-print { display: none; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">בדיקה עצמית — ציר המספרים</div>
+    <div class="header-sub">הכניסו את תשובותיכם מהמבדק ולחצו "בדוק"</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div id="score-card">
+  <div class="score-big" id="score-num">—</div>
+  <div class="score-out-of" id="score-denom">מתוך 4 תשובות</div>
+  <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
+  <div class="score-msg" id="score-msg"></div>
+  <br>
+  <button class="retry-btn" onclick="resetForm()">נסו שוב ←</button>
+</div>
+
+<div class="intro-box">
+  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". תקבלו רק את <strong>מספר התשובות הנכונות</strong> — בלי לדעת אילו ספציפיות.
+</div>
+
+<!-- ══ שאלה 1 ══ -->
+<div class="q-card" id="q1-card">
+  <div class="q-title"><span class="q-num">1.</span> סדר מהקטן לגדול: −3, 1, −5, 2, 0 — מה כתבתם?</div>
+  <div style="font-size:12px;color:#666;margin-bottom:8px;">כתבו את המספרים מופרדים בפסיקים, למשל: −5,−3,0,1,2</div>
+  <div class="sub-row">
+    <input class="ans-input wide" id="q1" type="text" placeholder="?,?,?,?,?">
+  </div>
+</div>
+
+<!-- ══ שאלה 2 ══ -->
+<div class="q-card" id="q2-card">
+  <div class="q-title"><span class="q-num">2.</span> מה גדול יותר: −4 או −6? — מה הקפתם?</div>
+  <div class="chips" id="q2-chips">
+    <div class="chip" data-val="a" onclick="selectChip(this,'q2')">−6, כי 6 גדול מ-4</div>
+    <div class="chip" data-val="b" onclick="selectChip(this,'q2')">−4, כי הוא קרוב יותר ל-0</div>
+    <div class="chip" data-val="c" onclick="selectChip(this,'q2')">הם שווים</div>
+    <div class="chip" data-val="d" onclick="selectChip(this,'q2')">אי אפשר להשוות מספרים שליליים</div>
+  </div>
+  <input type="hidden" id="q2" value="">
+</div>
+
+<!-- ══ שאלה 3 ══ -->
+<div class="q-card" id="q3-card">
+  <div class="q-title"><span class="q-num">3.</span> איזה מספר נמצא בדיוק באמצע בין −4 לבין 2? — מה הקפתם?</div>
+  <div class="chips" id="q3-chips">
+    <div class="chip" data-val="a" onclick="selectChip(this,'q3')">1</div>
+    <div class="chip" data-val="b" onclick="selectChip(this,'q3')">−2</div>
+    <div class="chip" data-val="c" onclick="selectChip(this,'q3')">−1</div>
+    <div class="chip" data-val="d" onclick="selectChip(this,'q3')">0</div>
+  </div>
+  <input type="hidden" id="q3" value="">
+</div>
+
+<!-- ══ שאלה 5 ══ -->
+<div class="q-card" id="q5-card">
+  <div class="q-title"><span class="q-num">5.</span> אם a &lt; b &lt; 0, מה בהכרח נכון? — מה הקפתם?</div>
+  <div class="chips" id="q5-chips">
+    <div class="chip" data-val="a" onclick="selectChip(this,'q5')">|a| &lt; |b|</div>
+    <div class="chip" data-val="b" onclick="selectChip(this,'q5')">|a| &gt; |b|</div>
+    <div class="chip" data-val="c" onclick="selectChip(this,'q5')">|a| = |b|</div>
+    <div class="chip" data-val="d" onclick="selectChip(this,'q5')">תלוי בערכים של a ו-b</div>
+  </div>
+  <input type="hidden" id="q5" value="">
+</div>
+
+<!-- שאלה 4 — פתוחה (כל מספר בין -3 ל-2 נכון), שאלה 6 — פתוחה. לא נבדקות. -->
+<div class="intro-box" style="background:#FFF7ED;border-right-color:#D97706;margin-top:4px;">
+  <strong>שימו לב:</strong> שאלות 4 ו-6 הן שאלות פתוחות — הן לא נכללות בספירה האוטומטית ויבדקו על ידי המורה.
+</div>
+
+<button class="check-btn no-print" onclick="checkAnswers()">בדוק ←</button>
+
+</div>
+
+<button class="nav-btn nav-back no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}">← חזרה</button>
+<button class="nav-btn nav-done no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}">סיימתי ✓</button>
+
+<script>
+function selectChip(el, fieldId) {
+  const container = document.getElementById(fieldId + '-chips');
+  container.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById(fieldId).value = el.getAttribute('data-val');
+}
+
+function norm(s) {
+  return s.trim()
+    .replace(/\u2212/g, '-')
+    .replace(/½/g, '.5')
+    .replace(/¼/g, '.25')
+    .replace(/¾/g, '.75')
+    .replace(/\s+/g, '')
+    .toLowerCase();
+}
+
+function match(input, accepted) {
+  const n = norm(input);
+  if (n === '') return false;
+  for (const a of accepted) {
+    if (n === norm(a)) return true;
+    const nv = parseFloat(n), av = parseFloat(norm(a));
+    if (!isNaN(nv) && !isNaN(av) && Math.abs(nv - av) < 0.0001) return true;
+  }
+  return false;
+}
+
+/* Q1: accept any ordering that equals -5,-3,0,1,2 */
+function matchOrder(input) {
+  const n = norm(input);
+  if (n === '') return false;
+  // canonical accepted forms
+  const accepted = [
+    '-5,-3,0,1,2',
+    '-5,-3,0,1,2',
+  ];
+  // normalise separators
+  const cleaned = n.replace(/[;،\s]+/g, ',').replace(/,+/g, ',');
+  return cleaned === '-5,-3,0,1,2';
+}
+
+const KEY = {
+  q2: ['b'],
+  q3: ['c'],
+  q5: ['b'],
+};
+
+const TOTAL = 4;
+
+function checkAnswers() {
+  let correct = 0;
+
+  // Q1 — ordering
+  if (matchOrder(document.getElementById('q1').value)) correct++;
+
+  // MC hidden inputs
+  ['q2','q3','q5'].forEach(id => {
+    if (document.getElementById(id).value === KEY[id][0]) correct++;
+  });
+
+  showScore(correct, TOTAL);
+}
+
+function showScore(correct, total) {
+  const pct = correct / total;
+
+  document.getElementById('score-num').textContent = correct;
+  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות (שאלות 4 ו-6 נבדקות על ידי המורה)';
+
+  const bar = document.getElementById('score-bar');
+  bar.style.width = (pct * 100) + '%';
+
+  let msg, cls, barColor;
+  if (pct >= 0.85) {
+    msg = 'מעולה! שולטים בחומר 💪';
+    cls = 'score-great';
+    barColor = '#047857';
+  } else if (pct >= 0.54) {
+    msg = 'טוב! עוד קצת אימון ✏️';
+    cls = 'score-ok';
+    barColor = '#D97706';
+  } else {
+    msg = 'כדאי לחזור על החומר 🔄';
+    cls = 'score-retry';
+    barColor = '#DC2626';
+  }
+
+  bar.style.background = barColor;
+  const msgEl = document.getElementById('score-msg');
+  msgEl.textContent = msg;
+  msgEl.className = 'score-msg ' + cls;
+
+  const card = document.getElementById('score-card');
+  card.classList.add('show');
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetForm() {
+  document.getElementById('q1').value = '';
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  ['q2','q3','q5'].forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('score-card').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
