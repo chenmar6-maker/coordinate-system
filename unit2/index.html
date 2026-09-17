@@ -1587,6 +1587,9 @@ function seqRow(seqNum, label, opts={}){
     const answersCard = opts.answersUrl
       ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.answersUrl}')" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>תשובות</h3></div>`
       : (opts.showAnswers ? `<div class="flow-arrow">←</div><div class="card" onclick="window.location.href='../index.html'" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>ליחידה הבאה</h3></div>` : '');
+    const checkCard = opts.checkUrl
+      ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.checkUrl}')" style="background:rgba(99,102,241,0.12);border:1.5px solid rgba(99,102,241,0.45);color:#a5b4fc;"><h3>בדיקה עצמית</h3></div>`
+      : '';
     cards = `<div class="cards" style="margin-bottom:6px;">
       <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
       <div class="flow-arrow">←</div>
@@ -1595,6 +1598,7 @@ function seqRow(seqNum, label, opts={}){
       ${quizCard}
       ${opts.quizAlt ? `<div class="flow-arrow">←</div><div class="card quiz" onclick="state.sequence=${seqNum};startQuizAlt()"><h3>מבדק שליטה חלופי</h3></div>` : ''}
       ${answersCard}
+      ${checkCard}
     </div>`;
   }
   return `
@@ -1635,7 +1639,7 @@ function renderHome(){
       ${seqRow(4, '2. תרגילים ארוכים וחוק החילוף', {worksheetUrl:'../worksheets/add_part_b_exam.html', answersUrl:'../worksheets/add_part_b_exam_answers.html'})}
 
       <div style="font-size:12px;font-weight:700;letter-spacing:1px;color:rgba(234,244,241,0.4);text-transform:uppercase;margin:14px 0 6px;">חיסור</div>
-      ${seqRow(7, '3. חיסור = חיבור הנגדי', {worksheetUrl:'../worksheets/sub_part_a_exam.html', answersUrl:'../worksheets/sub_part_a_exam_answers.html'})}
+      ${seqRow(7, '3. חיסור = חיבור הנגדי', {worksheetUrl:'../worksheets/sub_part_a_exam.html', answersUrl:'../worksheets/sub_part_a_exam_answers.html', checkUrl:'../worksheets/sub_part_a_check.html'})}
       ${seqRow(8, '4. תרגילים ארוכים וכתיבה ללא סוגריים', {worksheetUrl:'../worksheets/sub_part_b_c_exam.html', answersUrl:'../worksheets/sub_part_b_c_exam_answers.html'})}
 
       <div style="font-size:12px;font-weight:700;letter-spacing:1px;color:rgba(234,244,241,0.4);text-transform:uppercase;margin:14px 0 6px;">כפל וחילוק</div>
