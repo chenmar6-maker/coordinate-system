@@ -374,12 +374,6 @@
   <input type="hidden" id="q4" value="">
 </div>
 
-<!-- ══ שאלה 5 ══ -->
-<div class="q-card" id="q5-card">
-  <div class="q-title"><span class="q-num">5.</span> שאלת ממעוף הציפור — כתבו כאן את ההסבר שלכם (משפט אחד מספיק):</div>
-  <textarea class="ans-textarea" id="q5" placeholder="הסבר..."></textarea>
-</div>
-
 <!-- ══ check button ══ -->
 <button class="check-btn no-print" onclick="checkAnswers()">בדוק ←</button>
 
@@ -446,7 +440,7 @@ const KEY = {
 /* ─── main check ─── */
 function checkAnswers() {
   let correct = 0;
-  const total = 14; // 5+5+2+1+1(q5)
+  const total = 13; // 5(Q1)+5(Q2)+2(Q3)+1(Q4)
 
   // text inputs
   ['q1a','q1b','q1c','q1d','q1e','q2a','q2b','q2c','q2d','q2e'].forEach(id => {
@@ -460,10 +454,6 @@ function checkAnswers() {
     if (val === KEY[id][0]) correct++;
   });
 
-  // Q5: just check if something was written
-  const q5 = document.getElementById('q5').value.trim();
-  if (q5.length > 0) correct++;
-
   showScore(correct, total);
 }
 
@@ -472,17 +462,17 @@ function showScore(correct, total) {
   const pct = correct / total;
 
   document.getElementById('score-num').textContent = correct;
-  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות';
+  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות (שאלה 5 נבדקת על ידי המורה)';
 
   const bar = document.getElementById('score-bar');
   bar.style.width = (pct * 100) + '%';
 
   let msg, cls, barColor;
-  if (pct >= 12/14) {
+  if (pct >= 11/13) {
     msg = 'מעולה! שולטים בחומר 💪';
     cls = 'score-great';
     barColor = '#047857';
-  } else if (pct >= 8/14) {
+  } else if (pct >= 7/13) {
     msg = 'טוב! עוד קצת אימון ✏️';
     cls = 'score-ok';
     barColor = '#D97706';
@@ -511,7 +501,6 @@ function resetForm() {
   // clear MC
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
   ['q3a','q3b','q4'].forEach(id => { document.getElementById(id).value = ''; });
-  document.getElementById('q5').value = '';
   // hide score
   document.getElementById('score-card').classList.remove('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });
