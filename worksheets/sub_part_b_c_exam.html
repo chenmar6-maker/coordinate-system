@@ -284,6 +284,7 @@
 
 <button class="print-btn no-print" onclick="window.print()">🖨 הדפסה</button>
 
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
 <button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
 </body>
 </html>
