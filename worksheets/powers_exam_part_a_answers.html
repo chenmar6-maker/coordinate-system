@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תשובות — חזקות חלק א׳</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 80px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .pin-overlay { position: fixed; inset: 0; background: rgba(15,13,26,0.85); display: flex; align-items: center; justify-content: center; z-index: 999; }
+  .pin-box { background: #fff; border-radius: 16px; padding: 32px 36px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); max-width: 320px; width: 90%; }
+  .pin-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .pin-sub { font-size: 13px; color: #666; margin-bottom: 20px; }
+  .pin-input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 22px; text-align: center; letter-spacing: 8px; font-family: 'Rubik', sans-serif; margin-bottom: 14px; outline: none; }
+  .pin-input:focus { border-color: #1D4ED8; }
+  .pin-btn { width: 100%; padding: 12px; background: #1D4ED8; color: #fff; border: none; border-radius: 8px; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .pin-err { color: #DC2626; font-size: 13px; margin-top: 8px; display: none; }
+  #answers-content { display: none; }
+  .part-label { font-size: 13px; font-weight: 700; color: #fff; padding: 5px 14px; border-radius: 6px; display: inline-block; margin-bottom: 10px; background: #C05621; }
+  .ans-card { background: #fff; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); line-height: 1.9; border-right: 4px solid #F6A35A; }
+  .qnum { font-weight: 700; margin-left: 6px; }
+  .m { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+  .ans { color: #047857; font-weight: 700; }
+  .sol-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 8px 0; }
+  .sol-item { border: 1px solid #e8edf5; border-radius: 7px; padding: 8px 10px; background: #FAFBFD; font-size: 13px; text-align: center; }
+  .sol-lbl { font-weight: 700; color: #888; font-size: 12px; direction: ltr; unicode-bidi: isolate; }
+  .sol-ans { color: #047857; font-weight: 700; direction: ltr; unicode-bidi: isolate; font-size: 15px; }
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 16px; font-weight: 700; color: #555; flex-shrink: 0; }
+  .think-box { margin-top: 8px; background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 6px; padding: 10px 14px; font-size: 13px; line-height: 1.8; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+  .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  @media print { .no-print { display: none; } @page { size: A4; margin: 12mm; } body { background: #fff; padding: 10px; } .header { background: #1E1B2E !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+</style>
+</head>
+<body>
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <div class="pin-title">🔒 תשובות — מורה בלבד</div>
+    <div class="pin-sub">הכניסו את קוד הגישה</div>
+    <input class="pin-input" type="password" id="pinInput" maxlength="4" placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()"/>
+    <button class="pin-btn" onclick="checkPin()">כניסה</button>
+    <div class="pin-err" id="pinErr">קוד שגוי, נסו שוב</div>
+  </div>
+</div>
+<script>
+function checkPin(){
+  if(document.getElementById('pinInput').value==='2357'){
+    document.getElementById('pinOverlay').style.display='none';
+    document.getElementById('answers-content').style.display='block';
+  } else { document.getElementById('pinErr').style.display='block'; document.getElementById('pinInput').value=''; }
+}
+</script>
+
+<div id="answers-content">
+<div class="page-wrap">
+<div class="header">
+  <div><div class="header-title">תשובות — חזקות, חלק א׳</div><div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מורה בלבד</div></div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<span class="part-label">הגדרה וחישוב בסיסי</span>
+
+<div class="ans-card">
+  <span class="qnum">1.</span> חשבו:
+  <div class="sol-grid">
+    <div class="sol-item"><div class="sol-lbl">2⁴</div><div class="sol-ans">16</div></div>
+    <div class="sol-item"><div class="sol-lbl">3³</div><div class="sol-ans">27</div></div>
+    <div class="sol-item"><div class="sol-lbl">5²</div><div class="sol-ans">25</div></div>
+    <div class="sol-item"><div class="sol-lbl">10³</div><div class="sol-ans">1000</div></div>
+    <div class="sol-item"><div class="sol-lbl">(−2)²</div><div class="sol-ans">4</div></div>
+    <div class="sol-item"><div class="sol-lbl">(−3)²</div><div class="sol-ans">9</div></div>
+    <div class="sol-item"><div class="sol-lbl">(−2)³</div><div class="sol-ans">−8</div></div>
+    <div class="sol-item"><div class="sol-lbl">(−1)⁷</div><div class="sol-ans">−1</div></div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">2.</span> כתבו בכתיב חזקות:
+  <div class="sol-grid">
+    <div class="sol-item"><div class="sol-lbl">5·5·5·5·5</div><div class="sol-ans">5⁵</div></div>
+    <div class="sol-item"><div class="sol-lbl">7·7</div><div class="sol-ans">7²</div></div>
+    <div class="sol-item"><div class="sol-lbl">a·a·a</div><div class="sol-ans">a³</div></div>
+    <div class="sol-item"><div class="sol-lbl">10·10·10·10</div><div class="sol-ans">10⁴</div></div>
+    <div class="sol-item"><div class="sol-lbl">(−3)·(−3)·(−3)</div><div class="sol-ans">(−3)³</div></div>
+    <div class="sol-item"><div class="sol-lbl">(−5)·(−5)</div><div class="sol-ans">(−5)²</div></div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">3.</span> צורות גיאומטריות:
+  <div class="sub-row"><span class="sub-lbl">א.</span> ריבוע 5×5 = <span class="ans">5² = 25 תאים</span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> קובייה 6×6×6 = <span class="ans">6³ = 216 תאים</span></div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">4.</span> פשטו:
+  <div class="sub-row"><span class="sub-lbl">א.</span> a · a³ = <span class="ans m">a⁴</span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> 3x² · x = <span class="ans m">3x³</span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> n² · n² = <span class="ans m">n⁴</span></div>
+  <div class="sub-row"><span class="sub-lbl">ד.</span> 2b² · 3b = <span class="ans m">6b³</span></div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">5.</span> נכון / לא נכון:
+  <div class="sub-row"><span class="sub-lbl">•</span> 2³ = 2·3 — <span class="ans">לא נכון</span> (2³=8)</div>
+  <div class="sub-row"><span class="sub-lbl">•</span> 3² = 9 — <span class="ans">נכון</span></div>
+  <div class="sub-row"><span class="sub-lbl">•</span> 2⁵ = 32 — <span class="ans">נכון</span></div>
+  <div class="sub-row"><span class="sub-lbl">•</span> הבסיס של 7⁴ הוא 7 — <span class="ans">נכון</span></div>
+  <div class="sub-row"><span class="sub-lbl">•</span> 4³ = 3⁴ — <span class="ans">לא נכון</span> (64 ≠ 81)</div>
+  <div class="sub-row"><span class="sub-lbl">•</span> 10² = 20 — <span class="ans">לא נכון</span> (10²=100)</div>
+  <div class="sub-row"><span class="sub-lbl">•</span> (−3)² = −9 — <span class="ans">לא נכון</span> ((−3)²=9)</div>
+  <div class="sub-row"><span class="sub-lbl">•</span> (−2)³ = −8 — <span class="ans">נכון</span></div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">6.</span> מה גדול יותר, 2⁸ או 8²?
+  <div class="think-box">2⁸ = 256 &nbsp;|&nbsp; 8² = 64 &nbsp;→&nbsp; <span class="ans">2⁸ גדול יותר</span></div>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+</div>
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+</body>
+</html>

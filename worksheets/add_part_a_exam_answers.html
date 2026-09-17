@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תשובות — מודל החצים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 80px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .pin-overlay { position: fixed; inset: 0; background: rgba(15,13,26,0.85); display: flex; align-items: center; justify-content: center; z-index: 999; }
+  .pin-box { background: #fff; border-radius: 16px; padding: 32px 36px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); max-width: 320px; width: 90%; }
+  .pin-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .pin-sub { font-size: 13px; color: #666; margin-bottom: 20px; }
+  .pin-input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 22px; text-align: center; letter-spacing: 8px; font-family: 'Rubik', sans-serif; margin-bottom: 14px; outline: none; }
+  .pin-input:focus { border-color: #1D4ED8; }
+  .pin-btn { width: 100%; padding: 12px; background: #1D4ED8; color: #fff; border: none; border-radius: 8px; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .pin-err { color: #DC2626; font-size: 13px; margin-top: 8px; display: none; }
+  #answers-content { display: none; }
+  .part-label { font-size: 13px; font-weight: 700; color: #fff; padding: 5px 14px; border-radius: 6px; display: inline-block; margin-bottom: 10px; }
+  .pa { background: #C05621; }
+  .ans-card { background: #fff; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); line-height: 1.9; border-right: 4px solid #F6A35A; }
+  .qnum { font-weight: 700; margin-left: 6px; }
+  .m { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+  .ans { color: #047857; font-weight: 700; }
+  .sol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; margin: 8px 0; }
+  .sol-item { border: 1px solid #e8edf5; border-radius: 7px; padding: 8px 12px; background: #FAFBFD; font-size: 13px; }
+  .sol-lbl { font-weight: 700; color: #888; font-size: 12px; }
+  .sol-steps { direction: ltr; unicode-bidi: isolate; line-height: 1.8; margin-top: 2px; }
+  .sol-ans { color: #047857; font-weight: 700; }
+  .think-box { margin-top: 8px; background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 6px; padding: 10px 14px; font-size: 13px; line-height: 1.8; }
+  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+  .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  @media print { .no-print { display: none; } @page { size: A4; margin: 12mm; } body { background: #fff; padding: 10px; } .header { background: #1E1B2E !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+</style>
+</head>
+<body>
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <div class="pin-title">🔒 תשובות — מורה בלבד</div>
+    <div class="pin-sub">הכניסו את קוד הגישה</div>
+    <input class="pin-input" type="password" id="pinInput" maxlength="4" placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()"/>
+    <button class="pin-btn" onclick="checkPin()">כניסה</button>
+    <div class="pin-err" id="pinErr">קוד שגוי, נסו שוב</div>
+  </div>
+</div>
+<script>
+function checkPin(){
+  if(document.getElementById('pinInput').value==='2357'){
+    document.getElementById('pinOverlay').style.display='none';
+    document.getElementById('answers-content').style.display='block';
+  } else { document.getElementById('pinErr').style.display='block'; document.getElementById('pinInput').value=''; }
+}
+</script>
+
+<div id="answers-content">
+<div class="page-wrap">
+<div class="header">
+  <div><div class="header-title">תשובות — מודל החצים וכלל הסימן</div><div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מורה בלבד</div></div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<span class="part-label pa">חלק א׳ — מבדק שליטה</span>
+
+<div class="ans-card">
+  <span class="qnum">1.</span>
+  <div class="sol-grid">
+    <div class="sol-item"><div class="sol-lbl">א. −4 + (−3)</div><div class="sol-steps"><span class="sol-ans">−7</span></div></div>
+    <div class="sol-item"><div class="sol-lbl">ב. 7 + (−10)</div><div class="sol-steps"><span class="sol-ans">−3</span></div></div>
+    <div class="sol-item"><div class="sol-lbl">ג. −10 + 7</div><div class="sol-steps"><span class="sol-ans">−3</span> &nbsp;(זהה לב׳ — חוק החילוף)</div></div>
+    <div class="sol-item"><div class="sol-lbl">ד. −½ + 2</div><div class="sol-steps"><span class="sol-ans">1½</span></div></div>
+    <div class="sol-item"><div class="sol-lbl">ה. −3 + 1.5</div><div class="sol-steps"><span class="sol-ans">−1.5</span></div></div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">2.</span> חשבון של עידו:
+  <div style="direction:ltr;unicode-bidi:isolate;margin:6px 0;font-size:14px;line-height:2;">
+    −13,000 + 8,000 = <span class="ans">−5,000 ש"ח</span>
+  </div>
+  עידו עדיין <strong>במינוס</strong> של 5,000 ש"ח.
+</div>
+
+<div class="ans-card">
+  <span class="qnum">3.</span> שרשרת:
+  <div style="direction:ltr;unicode-bidi:isolate;margin:6px 0;font-size:13px;line-height:2;">
+    −3 + (−7) + (−5) + (−5) = <span class="ans">−20</span>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">4.</span> 2¼ + (−2⅓): ערך מוחלט של 2⅓ גדול מ-2¼, לכן הסימן נקבע לפי השלילי.
+  <div style="margin-top:4px;">סימן התוצאה: <span class="ans">שלילי</span></div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">5.</span> מה יקבע את סימן התוצאה בחיבור שלילי וחיובי?
+  <div class="think-box">
+    <span class="ans">מי שהערך המוחלט שלו גדול יותר — הוא שיקבע את הסימן.</span><br>
+    דוגמה: 3 + (−7) = −4 (שלילי מנצח); 8 + (−3) = 5 (חיובי מנצח).
+  </div>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+</div>
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+</body>
+</html>

@@ -534,14 +534,18 @@ function seqRow(seqNum, label, opts={}){
   let cards = '';
   if(isOpen){
     const quizCard = opts.worksheetUrl
-      ? `<div class="card quiz" onclick="window.open('${opts.worksheetUrl}','_blank')"><h3>מבדק שליטה</h3></div>`
+      ? `<div class="card quiz" onclick="showWorksheet('${opts.worksheetUrl}')"><h3>מבדק שליטה</h3></div>`
       : `<div class="card quiz" onclick="state.sequence=${seqNum};startQuiz()"><h3>מבדק שליטה</h3></div>`;
+    const answersCard = opts.answersUrl
+      ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.answersUrl}')" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>תשובות</h3></div>`
+      : '';
     cards = `<div class="cards" style="margin-bottom:6px;">
       <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
       <div class="flow-arrow">←</div>
       <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
       <div class="flow-arrow">←</div>
       ${quizCard}
+      ${answersCard}
     </div>`;
   }
   return `
@@ -566,18 +570,18 @@ function renderHome(){
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">חזקות</div>
 
       <div style="${subHeaderStyle}">הגדרה וחישוב</div>
-      ${seqRow(1, '1. הגדרת חזקה וחישוב בסיסי', {worksheetUrl:'../worksheets/powers_exam_part_a.html'})}
+      ${seqRow(1, '1. הגדרת חזקה וחישוב בסיסי', {worksheetUrl:'../worksheets/powers_exam_part_a.html', answersUrl:'../worksheets/powers_exam_part_a_answers.html'})}
 
       <div style="${subHeaderStyle}">מקרים מיוחדים</div>
-      ${seqRow(2, '2. חזקות מיוחדות — 0, 1 ושברים', {worksheetUrl:'../worksheets/powers_exam_part_b.html'})}
+      ${seqRow(2, '2. חזקות מיוחדות — 0, 1 ושברים', {worksheetUrl:'../worksheets/powers_exam_part_b.html', answersUrl:'../worksheets/powers_exam_part_b_answers.html'})}
 
       <div style="${subHeaderStyle}">השוואה וסדר פעולות</div>
-      ${seqRow(3, '3. השוואה וסדר פעולות עם חזקות', {worksheetUrl:'../worksheets/powers_exam_part_c.html'})}
+      ${seqRow(3, '3. השוואה וסדר פעולות עם חזקות', {worksheetUrl:'../worksheets/powers_exam_part_c.html', answersUrl:'../worksheets/powers_exam_part_c_answers.html'})}
 
       <div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(234,244,241,0.12);">
         <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">שורש ריבועי</div>
         ${seqRow(4, '4. הגדרת שורש ריבועי')}
-        ${seqRow(5, '5. חישובים עם שורשים', {worksheetUrl:'../worksheets/sqrt_exam.html'})}
+        ${seqRow(5, '5. חישובים עם שורשים', {worksheetUrl:'../worksheets/sqrt_exam.html', answersUrl:'../worksheets/sqrt_exam_answers.html'})}
       </div>
     </div>
   `;
@@ -950,8 +954,27 @@ function wrapOpt(opt){
 }
 function shuffleArr(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a; }
 
+/* ============ WORKSHEET OVERLAY ============ */
+function showWorksheet(url){
+  const ov=document.getElementById('ws-overlay');
+  document.getElementById('ws-frame').src=url;
+  ov.style.display='flex';
+}
+function hideWorksheet(){
+  const ov=document.getElementById('ws-overlay');
+  ov.style.display='none';
+  document.getElementById('ws-frame').src='';
+}
+
 /* ============ INIT ============ */
 render();
 </script>
+
+<div id="ws-overlay" style="display:none;position:fixed;inset:0;z-index:9999;flex-direction:column;">
+  <div style="background:#1E1B2E;padding:12px 20px;display:flex;align-items:center;gap:14px;flex-shrink:0;">
+    <button onclick="hideWorksheet()" style="background:transparent;border:1.5px solid rgba(234,244,241,0.4);color:#EAF4F1;padding:6px 16px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;cursor:pointer;">← חזור</button>
+  </div>
+  <iframe id="ws-frame" src="" style="flex:1;border:0;width:100%;"></iframe>
+</div>
 </body>
 </html>

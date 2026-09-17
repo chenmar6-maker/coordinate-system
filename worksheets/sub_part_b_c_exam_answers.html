@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תשובות — חישובים וכתיבה ללא סוגריים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 80px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .pin-overlay { position: fixed; inset: 0; background: rgba(15,13,26,0.85); display: flex; align-items: center; justify-content: center; z-index: 999; }
+  .pin-box { background: #fff; border-radius: 16px; padding: 32px 36px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); max-width: 320px; width: 90%; }
+  .pin-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .pin-sub { font-size: 13px; color: #666; margin-bottom: 20px; }
+  .pin-input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 22px; text-align: center; letter-spacing: 8px; font-family: 'Rubik', sans-serif; margin-bottom: 14px; outline: none; }
+  .pin-input:focus { border-color: #1D4ED8; }
+  .pin-btn { width: 100%; padding: 12px; background: #1D4ED8; color: #fff; border: none; border-radius: 8px; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .pin-err { color: #DC2626; font-size: 13px; margin-top: 8px; display: none; }
+  #answers-content { display: none; }
+  .part-label { font-size: 13px; font-weight: 700; color: #fff; padding: 5px 14px; border-radius: 6px; display: inline-block; margin-bottom: 10px; }
+  .pb { background: #1D4ED8; } .pc { background: #047857; }
+  .ans-card { background: #fff; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); line-height: 1.9; }
+  .is-b .ans-card { border-right: 4px solid #93C5FD; }
+  .is-c .ans-card { border-right: 4px solid #6EE7B7; }
+  .qnum { font-weight: 700; margin-left: 6px; }
+  .ans { color: #047857; font-weight: 700; }
+  .step { color: #1D4ED8; font-size: 13px; }
+  .sol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; margin: 8px 0; }
+  .sol-item { border: 1px solid #e8edf5; border-radius: 7px; padding: 8px 12px; background: #FAFBFD; font-size: 13px; }
+  .sol-lbl { font-weight: 700; color: #888; font-size: 12px; }
+  .sol-steps { direction: ltr; unicode-bidi: isolate; line-height: 1.8; margin-top: 2px; }
+  .sol-ans { color: #047857; font-weight: 700; }
+  .calc-block { margin: 8px 0; padding: 10px 14px; background: #F8FAFC; border: 1px solid #e8edf5; border-radius: 8px; font-size: 13px; line-height: 2; }
+  .calc-line { direction: ltr; unicode-bidi: isolate; display: block; }
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 16px; font-weight: 700; color: #555; flex-shrink: 0; }
+  .think-box { margin-top: 8px; background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 6px; padding: 10px 14px; font-size: 13px; line-height: 1.8; }
+  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+  .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  @media print { .no-print { display: none; } @page { size: A4; margin: 12mm; } body { background: #fff; padding: 10px; } .header { background: #1E1B2E !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+</style>
+</head>
+<body>
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <div class="pin-title">🔒 תשובות — מורה בלבד</div>
+    <div class="pin-sub">הכניסו את קוד הגישה</div>
+    <input class="pin-input" type="password" id="pinInput" maxlength="4" placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()"/>
+    <button class="pin-btn" onclick="checkPin()">כניסה</button>
+    <div class="pin-err" id="pinErr">קוד שגוי, נסו שוב</div>
+  </div>
+</div>
+<script>
+function checkPin(){
+  if(document.getElementById('pinInput').value==='2357'){
+    document.getElementById('pinOverlay').style.display='none';
+    document.getElementById('answers-content').style.display='block';
+  } else { document.getElementById('pinErr').style.display='block'; document.getElementById('pinInput').value=''; }
+}
+</script>
+
+<div id="answers-content">
+<div class="page-wrap">
+<div class="header">
+  <div><div class="header-title">תשובות — חישובים וכתיבה ללא סוגריים</div><div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מורה בלבד</div></div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<span class="part-label pb">חלק ב׳ — חישובים ושרשרות</span>
+<div class="is-b">
+
+<div class="ans-card">
+  <span class="qnum">1.</span>
+  <div class="sol-grid">
+    <div class="sol-item"><div class="sol-lbl">א. 3 − 8</div><div class="sol-steps"><span class="sol-ans">−5</span></div></div>
+    <div class="sol-item"><div class="sol-lbl">ב. −5 − 3</div><div class="sol-steps"><span class="sol-ans">−8</span></div></div>
+    <div class="sol-item"><div class="sol-lbl">ג. −4 − (−9)</div><div class="sol-steps">= −4 + 9 = <span class="sol-ans">5</span></div></div>
+    <div class="sol-item"><div class="sol-lbl">ד. −½ − ¼</div><div class="sol-steps">= −2/4 − 1/4 = <span class="sol-ans">−¾</span></div></div>
+    <div class="sol-item"><div class="sol-lbl">ה. 2.5 − (−1.5)</div><div class="sol-steps">= 2.5 + 1.5 = <span class="sol-ans">4</span></div></div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">2.</span> שרשרת:
+  <div class="calc-block">
+    <span class="calc-line step">8 − (−4) + (−7) − 3 − (−2)</span>
+    <span class="calc-line step">= 8 + 4 − 7 − 3 + 2</span>
+    <span class="calc-line">חיוביים: 14 | שליליים: 10 → <span class="ans">4</span></span>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">3.</span> שרשרת עם שברים:
+  <div class="calc-block">
+    <span class="calc-line step">2¼ − (−3¾) − 7½ = 2¼ + 3¾ − 7½</span>
+    <span class="calc-line step">= 6 − 7½ = <span class="ans">−1½</span></span>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">4.</span> הפרש טמפרטורות: 8 − (−3) = 8 + 3 = <span class="ans">11 מעלות</span>
+</div>
+
+</div>
+
+<div class="divider"></div>
+<span class="part-label pc">חלק ג׳ — כתיבה ללא סוגריים</span>
+<div class="is-c">
+
+<div class="ans-card">
+  <span class="qnum">1.</span> כתבו ללא סוגריים ופתרו:
+  <div class="sub-row"><span class="sub-lbl">א.</span> 5 + (−3) − (−2) + (−7) = <span class="ans">5 − 3 + 2 − 7</span> = −3</div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> −4 − (−6) + (−3) − (−1) = <span class="ans">−4 + 6 − 3 + 1</span> = 0</div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">2.</span> פתרו ישירות:
+  <div class="sub-row"><span class="sub-lbl">א.</span>
+    <div class="calc-block" style="margin:4px 0;width:100%;">
+      <span class="calc-line step">10 + 4 + 7 − 12 + 3 − 6 + 8 − 5</span>
+      <span class="calc-line">חיוביים: 32 | שליליים: 23 → <span class="ans">9</span></span>
+    </div>
+  </div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span>
+    <div class="calc-block" style="margin:4px 0;width:100%;">
+      <span class="calc-line step">−6 + 9 − 4 + 2 − 8 + 5 − 3 + 7</span>
+      <span class="calc-line">חיוביים: 23 | שליליים: 21 → <span class="ans">2</span></span>
+    </div>
+  </div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span>
+    <div class="calc-block" style="margin:4px 0;width:100%;">
+      <span class="calc-line step">5¼ + 3¾ + 1¼ − 2½ − 4 − 2¾</span>
+      <span class="calc-line">חיוביים: 10¼ | שליליים: 9¼ → <span class="ans">1</span></span>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+</div>
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+</body>
+</html>
