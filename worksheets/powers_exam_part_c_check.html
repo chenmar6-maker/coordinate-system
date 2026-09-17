@@ -243,13 +243,8 @@
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ג.</span>
-    <span style="flex:1;font-size:13px;">a לחזקה שלישית, פחות 1</span>
-    <input class="ans-input" id="q2c" type="text" placeholder="?">
-  </div>
-  <div class="sub-row">
-    <span class="sub-lbl">ד.</span>
     <span style="flex:1;font-size:13px;">הנגדי של y בחזקת 4</span>
-    <input class="ans-input" id="q2d" type="text" placeholder="?">
+    <input class="ans-input" id="q2c" type="text" placeholder="?">
   </div>
 </div>
 
@@ -357,8 +352,7 @@ const KEY = {
   q1d: ['-27', '−27'],
   q2a: ['x³', 'x^3', 'x3'],
   q2b: ['5n²', '5n^2', '5n2'],
-  q2c: ['a³-1', 'a^3-1', 'a3-1'],
-  q2d: ['(-y)⁴', '(-y)^4', '(-y)4'],
+  q2c: ['(-y)⁴', '(-y)^4', '(-y)4'],
   q3a: ['72'],
   q3b: ['17'],
   q3c: ['32'],
@@ -371,11 +365,11 @@ const KEY = {
   q6a: ['342'],
 };
 
-const TOTAL = 18;
+const TOTAL = 17;
 
 function checkAnswers() {
   let correct = 0;
-  const ids = ['q1a','q1b','q1c','q1d','q2a','q2b','q2c','q2d',
+  const ids = ['q1a','q1b','q1c','q1d','q2a','q2b','q2c',
                'q3a','q3b','q3c','q4a','q4b','q4c','q5a','q5b','q5c','q6a'];
   ids.forEach(id => {
     if (match(document.getElementById(id).value, KEY[id])) correct++;
@@ -417,7 +411,7 @@ function showScore(correct, total) {
 }
 
 function resetForm() {
-  const ids = ['q1a','q1b','q1c','q1d','q2a','q2b','q2c','q2d',
+  const ids = ['q1a','q1b','q1c','q1d','q2a','q2b','q2c',
                'q3a','q3b','q3c','q4a','q4b','q4c','q5a','q5b','q5c','q6a'];
   ids.forEach(id => { document.getElementById(id).value = ''; });
   document.getElementById('score-card').classList.remove('show');
