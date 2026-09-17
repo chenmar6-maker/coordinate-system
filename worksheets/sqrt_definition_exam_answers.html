@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>תשובות — חישובים עם שורשים</title>
+<title>תשובות — הגדרת שורש ריבועי</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,8 +22,8 @@
   .pin-btn { width: 100%; padding: 12px; background: #1D4ED8; color: #fff; border: none; border-radius: 8px; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; }
   .pin-err { color: #DC2626; font-size: 13px; margin-top: 8px; display: none; }
   #answers-content { display: none; }
-  .part-label { font-size: 13px; font-weight: 700; color: #fff; padding: 5px 14px; border-radius: 6px; display: inline-block; margin-bottom: 10px; background: #1D4ED8; }
-  .ans-card { background: #fff; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); line-height: 1.9; border-right: 4px solid #93C5FD; }
+  .part-label { font-size: 13px; font-weight: 700; color: #fff; padding: 5px 14px; border-radius: 6px; display: inline-block; margin-bottom: 10px; background: #C05621; }
+  .ans-card { background: #fff; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); line-height: 1.9; border-right: 4px solid #F6A35A; }
   .qnum { font-weight: 700; margin-left: 6px; }
   .m { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
   .ans { color: #047857; font-weight: 700; }
@@ -34,11 +34,9 @@
   .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
   .sub-lbl { min-width: 16px; font-weight: 700; color: #555; flex-shrink: 0; }
   .think-box { margin-top: 8px; background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 6px; padding: 10px 14px; font-size: 13px; line-height: 1.8; }
-  .warn-box { margin-top: 8px; background: #FFF7ED; border: 1px solid #FED7AA; border-radius: 6px; padding: 10px 14px; font-size: 13px; line-height: 1.8; }
-  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
   .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
   .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
-  @media print { .no-print { display: none; } @page { size: A4; margin: 12mm; } body { background: #fff; padding: 10px; } .header { background: #1E1B2E !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } .pa, .pb { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+  @media print { .no-print { display: none; } @page { size: A4; margin: 12mm; } body { background: #fff; padding: 10px; } .header { background: #1E1B2E !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
 </style>
 </head>
 <body>
@@ -63,36 +61,46 @@ function checkPin(){
 <div id="answers-content">
 <div class="page-wrap">
 <div class="header">
-  <div><div class="header-title">תשובות — חישובים עם שורשים</div><div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מורה בלבד</div></div>
+  <div><div class="header-title">תשובות — הגדרת שורש ריבועי</div><div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מורה בלבד</div></div>
   <div class="brand">חן מרגלית למידה אקטיבית</div>
 </div>
 
-<span class="part-label">הערכה וכללים</span>
+<span class="part-label">הגדרה וחישוב ישיר</span>
 
 <div class="ans-card">
-  <span class="qnum">1.</span> בין אילו שני שלמים רצופים:
-  <div class="sub-row"><span class="sub-lbl">א.</span> √20: <span class="ans">בין 4 ל-5</span> (4²=16, 5²=25)</div>
-  <div class="sub-row"><span class="sub-lbl">ב.</span> √50: <span class="ans">בין 7 ל-8</span> (7²=49, 8²=64)</div>
-  <div class="sub-row"><span class="sub-lbl">ג.</span> √10: <span class="ans">בין 3 ל-4</span> (3²=9, 4²=16)</div>
-  <div class="sub-row"><span class="sub-lbl">ד.</span> √75: <span class="ans">בין 8 ל-9</span> (8²=64, 9²=81)</div>
+  <span class="qnum">1–2.</span> חשבו שורשים:
+  <div class="sol-grid">
+    <div class="sol-item"><div class="sol-lbl">√1</div><div class="sol-ans">1</div></div>
+    <div class="sol-item"><div class="sol-lbl">√4</div><div class="sol-ans">2</div></div>
+    <div class="sol-item"><div class="sol-lbl">√9</div><div class="sol-ans">3</div></div>
+    <div class="sol-item"><div class="sol-lbl">√16</div><div class="sol-ans">4</div></div>
+    <div class="sol-item"><div class="sol-lbl">√25</div><div class="sol-ans">5</div></div>
+    <div class="sol-item"><div class="sol-lbl">√36</div><div class="sol-ans">6</div></div>
+    <div class="sol-item"><div class="sol-lbl">√49</div><div class="sol-ans">7</div></div>
+    <div class="sol-item"><div class="sol-lbl">√64</div><div class="sol-ans">8</div></div>
+    <div class="sol-item"><div class="sol-lbl">√81</div><div class="sol-ans">9</div></div>
+    <div class="sol-item"><div class="sol-lbl">√100</div><div class="sol-ans">10</div></div>
+    <div class="sol-item"><div class="sol-lbl">√121</div><div class="sol-ans">11</div></div>
+    <div class="sol-item"><div class="sol-lbl">√144</div><div class="sol-ans">12</div></div>
+  </div>
 </div>
 
 <div class="ans-card">
-  <span class="qnum">2.</span> השתמשו בכללים:
-  <div class="sub-row"><span class="sub-lbl">א.</span> √7 · √7 = <span class="ans">7</span></div>
-  <div class="sub-row"><span class="sub-lbl">ב.</span> (√5)² = <span class="ans">5</span></div>
-  <div class="sub-row"><span class="sub-lbl">ג.</span> √(6²) = <span class="ans">6</span></div>
-  <div class="sub-row"><span class="sub-lbl">ד.</span> √(4·9) = √4 · √9 = 2·3 = <span class="ans">6</span></div>
+  <span class="qnum">3.</span> ריבוע → צלע:
+  <div class="sub-row"><span class="sub-lbl">א.</span> שטח 25 → <span class="ans">5 ס"מ</span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span> שטח 100 → <span class="ans">10 ס"מ</span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span> שטח 144 → <span class="ans">12 ס"מ</span></div>
+  <div class="sub-row"><span class="sub-lbl">ד.</span> שטח 49 → <span class="ans">7 ס"מ</span></div>
 </div>
 
 <div class="ans-card">
-  <span class="qnum">3.</span> נכון / לא נכון:
-  <div class="sub-row"><span class="sub-lbl">•</span> √(9+16) = √9 + √16 — <span class="ans">לא נכון</span> (√25=5, אבל 3+4=7 ≠ 5)</div>
-  <div class="sub-row"><span class="sub-lbl">•</span> √(4·25) = √4 · √25 — <span class="ans">נכון</span> (√100=10 = 2·5)</div>
-  <div class="sub-row"><span class="sub-lbl">•</span> √(3²) = 3 — <span class="ans">נכון</span></div>
-  <div class="sub-row"><span class="sub-lbl">•</span> (√8)² = 8 — <span class="ans">נכון</span></div>
-</div>
-
+  <span class="qnum">4.</span> נכון / לא נכון:
+  <div class="sub-row"><span class="sub-lbl">•</span> √9 = 3 — <span class="ans">נכון</span></div>
+  <div class="sub-row"><span class="sub-lbl">•</span> √9 = ±3 — <span class="ans">לא נכון</span> (השורש הראשי אי-שלילי: √9 = 3 בלבד)</div>
+  <div class="sub-row"><span class="sub-lbl">•</span> √0 = 0 — <span class="ans">נכון</span></div>
+  <div class="sub-row"><span class="sub-lbl">•</span> √16 = 8 — <span class="ans">לא נכון</span> (√16 = 4)</div>
+  <div class="sub-row"><span class="sub-lbl">•</span> √(−4) מוגדר — <span class="ans">לא נכון</span> (לא מוגדר בממשיים)</div>
+  <div class="sub-row"><span class="sub-lbl">•</span> ריבוע שטחו 64 → צלע 8 — <span class="ans">נכון</span></div>
 </div>
 
 <div class="brand-line">חן מרגלית למידה אקטיבית</div>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>מבדק שליטה — שורש ריבועי</title>
+<title>מבדק שליטה — הגדרת שורש ריבועי</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
 
@@ -37,7 +37,7 @@
     font-size: 13px; font-weight: 700; color: #fff;
     padding: 5px 14px; border-radius: 6px;
     display: inline-block; margin-bottom: 10px;
-    background: #1D4ED8;
+    background: #C05621;
   }
 
   .quiz-q {
@@ -48,7 +48,7 @@
     font-size: 13.5px;
     line-height: 1.65;
     box-shadow: 0 1px 3px rgba(0,0,0,0.07);
-    border-right: 4px solid #93C5FD;
+    border-right: 4px solid #F6A35A;
   }
 
   .quiz-q .qrow {
@@ -71,7 +71,6 @@
     line-height: 1;
   }
 
-  /* ── radical sign ── */
   .rt { display: inline-flex; align-items: flex-start; direction: ltr; font-weight: 600; white-space: nowrap; vertical-align: text-bottom; }
   .rs { font-size: 1.15em; line-height: 1; }
   .rb { border-top: 1.5px solid #1a1a2e; padding: 0 3px; line-height: 1.35; margin-top: -2px; margin-left: -1px; }
@@ -86,10 +85,6 @@
   }
   .ans-sm { min-width: 36px; }
 
-  .think-area { margin-top: 6px; padding-right: 22px; font-size: 12.5px; }
-  .think-line { display: block; border-bottom: 1px solid #bbb; margin-top: 14px; height: 1px; }
-
-  /* ── computation grid ── */
   .pow-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -112,12 +107,10 @@
   .pow-cell .ans-line { min-width: 36px; }
   .letter { font-weight: 700; color: #888; min-width: 14px; margin-right: auto; }
 
-  /* ── two-col rows ── */
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px; margin: 6px 0; padding-right: 8px; }
   .ex-row { display: flex; align-items: baseline; gap: 6px; font-size: 13px; padding: 4px 0; }
   .ex-row .lbl { font-weight: 700; min-width: 20px; }
 
-  /* ── true / false rows ── */
   .tf-table { width: 100%; margin: 6px 0; border-collapse: collapse; }
   .tf-table td { padding: 5px 8px; font-size: 13px; vertical-align: middle; }
   .tf-table tr { border-bottom: 1px solid #f0f0f0; }
@@ -125,13 +118,7 @@
   .tf-box { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; margin: 0 6px; }
   .cb { width: 16px; height: 16px; border: 1.5px solid #555; border-radius: 3px; display: inline-block; flex-shrink: 0; }
 
-  /* ── estimation table ── */
-  .est-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; margin: 8px 0 4px; padding-right: 8px; }
-  .est-row { display: flex; align-items: center; gap: 8px; font-size: 13px; padding: 5px 0; }
-  .est-lbl { font-weight: 700; min-width: 20px; }
-
   .page-wrap { max-width: 780px; margin: 0 auto; }
-  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
 
   .print-btn {
     position: fixed; bottom: 18px; left: 18px;
@@ -145,10 +132,7 @@
     .no-print { display: none; }
     @page { size: A4; margin: 12mm; }
     body { background: #fff; padding: 10px; }
-    .quiz-q { box-shadow: none; border: 1px solid #e0e0e0 !important; page-break-inside: avoid; }
-    .is-a .quiz-q { border-right: 4px solid #F6A35A !important; }
-    .is-b .quiz-q { border-right: 4px solid #93C5FD !important; }
-    .is-c .quiz-q { border-right: 4px solid #6EE7B7 !important; }
+    .quiz-q { box-shadow: none; border: 1px solid #e0e0e0 !important; page-break-inside: avoid; border-right: 4px solid #F6A35A !important; }
   }
 </style>
 </head>
@@ -157,72 +141,91 @@
 
 <div class="header">
   <div>
-    <div class="header-title">מבדק שליטה — חישובים עם שורשים</div>
+    <div class="header-title">מבדק שליטה — הגדרת שורש ריבועי</div>
     <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; תחום המספרי</div>
   </div>
   <div class="brand">חן מרגלית למידה אקטיבית</div>
 </div>
 
-<span class="part-label">הערכה וכללים</span>
+<span class="part-label">הגדרה וחישוב ישיר</span>
 
-<!-- Q1 – estimation: between which integers -->
+<!-- Q1 – compute roots of perfect squares 1–64 -->
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">1.</span><span class="qtext">בין אילו שני מספרים שלמים רצופים נמצא כל שורש? (ללא מחשבון)</span></div>
-  <div class="est-grid">
-    <div class="est-row"><span class="est-lbl">א.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">20</span></span></span> — בין <span class="ans-line ans-sm">&nbsp;</span> ל-<span class="ans-line ans-sm">&nbsp;</span></div>
-    <div class="est-row"><span class="est-lbl">ב.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">50</span></span></span> — בין <span class="ans-line ans-sm">&nbsp;</span> ל-<span class="ans-line ans-sm">&nbsp;</span></div>
-    <div class="est-row"><span class="est-lbl">ג.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">10</span></span></span> — בין <span class="ans-line ans-sm">&nbsp;</span> ל-<span class="ans-line ans-sm">&nbsp;</span></div>
-    <div class="est-row"><span class="est-lbl">ד.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">75</span></span></span> — בין <span class="ans-line ans-sm">&nbsp;</span> ל-<span class="ans-line ans-sm">&nbsp;</span></div>
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">חשבו:</span></div>
+  <div class="pow-grid">
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">1</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">א.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">4</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ב.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">9</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ג.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">16</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ד.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">25</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ה.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">36</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ו.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">49</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ז.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">64</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ח.</span></div>
   </div>
 </div>
 
-<!-- Q2 – use general rules -->
+<!-- Q2 – compute roots of perfect squares 81–144 -->
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">2.</span><span class="qtext">חשבו — השתמשו בכללים הכלליים:</span></div>
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">חשבו:</span></div>
+  <div class="pow-grid">
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">81</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">א.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">100</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ב.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">121</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ג.</span></div>
+    <div class="pow-cell"><span class="rt"><span class="rs">√</span><span class="rb">144</span></span>&nbsp;=&nbsp;<span class="ans-line">&nbsp;</span><span class="letter">ד.</span></div>
+  </div>
+</div>
+
+<!-- Q3 – geometry: square area → side -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">ריבוע שטחו נתון — מה אורך צלעו?</span></div>
   <div class="two-col" style="margin-top:6px;">
-    <div class="ex-row"><span class="lbl">א.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">7</span></span> · <span class="rt"><span class="rs">√</span><span class="rb">7</span></span></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
-    <div class="ex-row"><span class="lbl">ב.</span><span class="math">(<span class="rt"><span class="rs">√</span><span class="rb">5</span></span>)<sup>2</sup></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
-    <div class="ex-row"><span class="lbl">ג.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">6<sup>2</sup></span></span></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
-    <div class="ex-row"><span class="lbl">ד.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">4 · 9</span></span></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="ex-row"><span class="lbl">א.</span>שטח = 25 סמ"ר &nbsp;&nbsp; צלע = <span class="ans-line ans-sm">&nbsp;</span> סמ</div>
+    <div class="ex-row"><span class="lbl">ב.</span>שטח = 100 סמ"ר &nbsp;&nbsp; צלע = <span class="ans-line ans-sm">&nbsp;</span> סמ</div>
+    <div class="ex-row"><span class="lbl">ג.</span>שטח = 144 סמ"ר &nbsp;&nbsp; צלע = <span class="ans-line ans-sm">&nbsp;</span> סמ</div>
+    <div class="ex-row"><span class="lbl">ד.</span>שטח = 49 סמ"ר &nbsp;&nbsp; צלע = <span class="ans-line ans-sm">&nbsp;</span> סמ</div>
   </div>
 </div>
 
-<!-- Q3 – true/false: rules -->
+<!-- Q4 – true/false -->
 <div class="quiz-q">
-  <div class="qrow"><span class="qnum">3.</span><span class="qtext">הקיפו נכון או לא נכון — ואם לא נכון, כתבו את הערך הנכון:</span></div>
+  <div class="qrow"><span class="qnum">4.</span><span class="qtext">הקיפו נכון או לא נכון:</span></div>
   <table class="tf-table">
     <tr>
-      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">9 + 16</span></span> = <span class="rt"><span class="rs">√</span><span class="rb">9</span></span> + <span class="rt"><span class="rs">√</span><span class="rb">16</span></span></span></td>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">9</span></span> = 3</span></td>
       <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
       <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
-      <td>תיקון: <span class="ans-line" style="min-width:90px;">&nbsp;</span></td>
     </tr>
     <tr>
-      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">4 · 25</span></span> = <span class="rt"><span class="rs">√</span><span class="rb">4</span></span> · <span class="rt"><span class="rs">√</span><span class="rb">25</span></span></span></td>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">9</span></span> = ±3</span></td>
       <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
       <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
-      <td></td>
     </tr>
     <tr>
-      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">3<sup>2</sup></span></span> = 3</span></td>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">0</span></span> = 0</span></td>
       <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
       <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
-      <td></td>
     </tr>
     <tr>
-      <td><span class="math">(<span class="rt"><span class="rs">√</span><span class="rb">8</span></span>)<sup>2</sup> = 8</span></td>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">16</span></span> = 8</span></td>
       <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
       <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
-      <td></td>
+    </tr>
+    <tr>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">−4</span></span></span> מוגדר</td>
+      <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
+      <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
+    </tr>
+    <tr>
+      <td>ריבוע שטחו 64 סמ"ר — צלעו 8 סמ</td>
+      <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
+      <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
     </tr>
   </table>
 </div>
 
-
 </div><!-- end page-wrap -->
 
 <button class="print-btn no-print" onclick="window.print()">הדפסה</button>
-
 <button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
 <button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
 
