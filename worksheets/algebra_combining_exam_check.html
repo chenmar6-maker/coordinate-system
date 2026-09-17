@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בדיקה עצמית — כינוס איברים דומים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 100px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .intro-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 13px 16px;
+    margin-bottom: 18px;
+    border-right: 4px solid #F6A35A;
+    font-size: 13.5px;
+    line-height: 1.7;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .intro-box strong { color: #C05621; }
+
+  .q-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #F6A35A;
+  }
+  .q-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .q-num { color: #C05621; font-size: 16px; }
+
+  .sub-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .sub-lbl {
+    font-weight: 700;
+    color: #555;
+    min-width: 20px;
+    flex-shrink: 0;
+  }
+  .expr {
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-weight: 600;
+    flex: 1;
+    text-align: right;
+  }
+
+  .ans-input {
+    border: none;
+    border-bottom: 2px solid #aaa;
+    background: transparent;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-align: center;
+    width: 70px;
+    padding: 2px 4px;
+    outline: none;
+    color: #1a1a2e;
+    transition: border-color .15s;
+  }
+  .ans-input:focus { border-color: #C05621; }
+  .ans-input.wide { width: 120px; }
+  .ans-input.narrow { width: 50px; }
+
+  .teacher-note {
+    font-size: 12.5px;
+    color: #777;
+    font-style: italic;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed #ddd;
+  }
+
+  .info-note {
+    font-size: 13px;
+    color: #047857;
+    background: #ECFDF5;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .check-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #C05621, #e07a3a);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(192,86,33,0.35);
+    transition: transform .12s, box-shadow .12s;
+    margin-top: 6px;
+  }
+  .check-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(192,86,33,0.4); }
+  .check-btn:active { transform: translateY(0); }
+
+  #score-card {
+    display: none;
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 24px 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  #score-card.show { display: block; }
+
+  .score-big {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .score-out-of {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 18px;
+  }
+  .score-msg {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 24px;
+    display: inline-block;
+  }
+
+  .score-great  { color: #047857; background: #ECFDF5; }
+  .score-ok     { color: #92400E; background: #FEF3C7; }
+  .score-retry  { color: #991B1B; background: #FEF2F2; }
+
+  .score-bar-wrap {
+    background: #f0f0f0;
+    border-radius: 99px;
+    height: 10px;
+    margin: 16px 0 10px;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.6s ease;
+  }
+
+  .retry-btn {
+    margin-top: 16px;
+    background: transparent;
+    border: 1.5px solid #ccc;
+    border-radius: 20px;
+    padding: 8px 22px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #555;
+    transition: border-color .15s, color .15s;
+  }
+  .retry-btn:hover { border-color: #C05621; color: #C05621; }
+
+  .nav-btn {
+    position: fixed;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 9px 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  .nav-back { bottom: 62px; right: 18px; background: #374151; color: #fff; }
+  .nav-done { bottom: 18px; right: 18px; background: #047857; color: #fff; }
+
+  @media print { .no-print { display: none; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">בדיקה עצמית — כינוס איברים דומים</div>
+    <div class="header-sub">הכניסו את תשובותיכם מהמבדק ולחצו "בדוק"</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div id="score-card">
+  <div class="score-big" id="score-num">—</div>
+  <div class="score-out-of" id="score-denom">מתוך 9 תשובות</div>
+  <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
+  <div class="score-msg" id="score-msg"></div>
+  <br>
+  <button class="retry-btn" onclick="resetForm()">נסו שוב ←</button>
+</div>
+
+<div class="intro-box">
+  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". תקבלו רק את <strong>מספר התשובות הנכונות</strong> — בלי לדעת אילו ספציפיות.
+</div>
+
+<!-- ══ שאלה 1 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">1.</span> כנסו</div>
+
+  <div class="sub-row">
+    <span class="sub-lbl">א.</span>
+    <span class="expr"><span dir="ltr">2.5a+1.3a</span></span>
+    <span style="font-size:13px;">=</span>
+    <input class="ans-input wide" id="q1a" type="text" placeholder="?">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ב.</span>
+    <span class="expr"><span dir="ltr">7b−2b+b</span></span>
+    <span style="font-size:13px;">=</span>
+    <input class="ans-input wide" id="q1b" type="text" placeholder="?">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ג.</span>
+    <span class="expr"><span dir="ltr">⅓x+½x</span></span>
+    <span style="font-size:13px;">=</span>
+    <input class="ans-input wide" id="q1c" type="text" placeholder="?">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ד.</span>
+    <span class="expr"><span dir="ltr">3.7n−1.2n</span></span>
+    <span style="font-size:13px;">=</span>
+    <input class="ans-input wide" id="q1d" type="text" placeholder="?">
+  </div>
+</div>
+
+<!-- ══ שאלה 2 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">2.</span> פשטו</div>
+
+  <div class="sub-row">
+    <span class="sub-lbl">א.</span>
+    <span class="expr"><span dir="ltr">2.5x+3+1.3x−1</span></span>
+    <span style="font-size:13px;">=</span>
+    <input class="ans-input wide" id="q2a" type="text" placeholder="?">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ב.</span>
+    <span class="expr"><span dir="ltr">4a−3+a+7</span></span>
+    <span style="font-size:13px;">=</span>
+    <input class="ans-input wide" id="q2b" type="text" placeholder="?">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ג.</span>
+    <span class="expr"><span dir="ltr">½x+5+½x−3</span></span>
+    <span style="font-size:13px;">=</span>
+    <input class="ans-input wide" id="q2c" type="text" placeholder="?">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ד.</span>
+    <span class="expr"><span dir="ltr">3.7b−1.2b+2−5</span></span>
+    <span style="font-size:13px;">=</span>
+    <input class="ans-input wide" id="q2d" type="text" placeholder="?">
+  </div>
+</div>
+
+<!-- ══ שאלה 3 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">3.</span> כמה ביטויים הקפתם?</div>
+
+  <div class="info-note">כל 4 הביטויים שווים ל-<span dir="ltr">5x+3</span> — כל ביטוי שהקפתם נחשב נכון!</div>
+
+  <div class="sub-row">
+    <span style="font-size:13px;">כמה ביטויים הקפתם?</span>
+    <input class="ans-input narrow" id="q3count" type="text" placeholder="?">
+  </div>
+</div>
+
+<div class="q-card" style="border-right-color:#aaa;">
+  <div style="font-size:13px;color:#888;font-style:italic;">שאלה 4 (הוכחה) נבדקת על ידי המורה</div>
+</div>
+
+<button class="check-btn no-print" onclick="checkAnswers()">בדוק ←</button>
+
+</div>
+
+<button class="nav-btn nav-back no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}">← חזרה</button>
+<button class="nav-btn nav-done no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}">סיימתי ✓</button>
+
+<script>
+function norm(s) {
+  return s.trim()
+    .replace(/\u2212/g, '-')
+    .replace(/½/g, '.5')
+    .replace(/¼/g, '.25')
+    .replace(/¾/g, '.75')
+    .replace(/\u2153/g, '0.333')
+    .replace(/\s+/g, '')
+    .toLowerCase();
+}
+
+function match(input, accepted) {
+  const n = norm(input);
+  if (n === '') return false;
+  for (const a of accepted) {
+    if (n === norm(a)) return true;
+    const nv = parseFloat(n), av = parseFloat(norm(a));
+    if (!isNaN(nv) && !isNaN(av) && Math.abs(nv - av) < 0.0001) return true;
+  }
+  return false;
+}
+
+const KEY = {
+  q1a: ['3.8a'],
+  q1b: ['6b'],
+  q1c: ['5x/6', '5/6x'],
+  q1d: ['2.5n'],
+  q2a: ['3.8x+2', '2+3.8x'],
+  q2b: ['5a+4', '4+5a'],
+  q2c: ['x+2', '2+x'],
+  q2d: ['2.5b-3', '2.5b\u22123', '-3+2.5b'],
+  q3count: ['4'],
+};
+const TOTAL = 9;
+
+function checkAnswers() {
+  let correct = 0;
+
+  ['q1a','q1b','q1c','q1d',
+   'q2a','q2b','q2c','q2d',
+   'q3count'].forEach(id => {
+    if (match(document.getElementById(id).value, KEY[id])) correct++;
+  });
+
+  showScore(correct, TOTAL);
+}
+
+function showScore(correct, total) {
+  const pct = correct / total;
+
+  document.getElementById('score-num').textContent = correct;
+  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות';
+
+  const bar = document.getElementById('score-bar');
+  bar.style.width = (pct * 100) + '%';
+
+  let msg, cls, barColor;
+  if (pct >= 0.85) {
+    msg = 'מעולה 💪';
+    cls = 'score-great';
+    barColor = '#047857';
+  } else if (pct >= 0.54) {
+    msg = 'טוב ✏️';
+    cls = 'score-ok';
+    barColor = '#D97706';
+  } else {
+    msg = 'כדאי לחזור 🔄';
+    cls = 'score-retry';
+    barColor = '#DC2626';
+  }
+
+  bar.style.background = barColor;
+  const msgEl = document.getElementById('score-msg');
+  msgEl.textContent = msg;
+  msgEl.className = 'score-msg ' + cls;
+
+  const card = document.getElementById('score-card');
+  card.classList.add('show');
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetForm() {
+  ['q1a','q1b','q1c','q1d',
+   'q2a','q2b','q2c','q2d',
+   'q3count'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('score-card').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
