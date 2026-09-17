@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בדיקה עצמית — מבדק מקיף משוואות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 100px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .intro-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 13px 16px;
+    margin-bottom: 18px;
+    border-right: 4px solid #F6A35A;
+    font-size: 13.5px;
+    line-height: 1.7;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .intro-box strong { color: #C05621; }
+
+  .q-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #F6A35A;
+  }
+  .q-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .q-num { color: #C05621; font-size: 16px; }
+
+  .sub-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+  .sub-lbl {
+    font-weight: 700;
+    color: #555;
+    min-width: 20px;
+    flex-shrink: 0;
+  }
+  .expr {
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-weight: 600;
+  }
+
+  .ans-input {
+    border: none;
+    border-bottom: 2px solid #aaa;
+    background: transparent;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-align: center;
+    width: 80px;
+    padding: 2px 4px;
+    outline: none;
+    color: #1a1a2e;
+    transition: border-color .15s;
+  }
+  .ans-input:focus { border-color: #C05621; }
+  .ans-input.wide { width: 140px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .chip {
+    border: 1.5px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+    transition: all .15s;
+    background: #fafafa;
+    direction: rtl;
+  }
+  .chip:hover { border-color: #C05621; background: #FFF7ED; }
+  .chip.selected {
+    border-color: #C05621;
+    background: #FFF7ED;
+    color: #C05621;
+    font-weight: 700;
+  }
+
+  .solve-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 6px 0 4px;
+  }
+  .solve-item {
+    border: 1px solid #e8edf5;
+    border-radius: 7px;
+    padding: 10px 12px;
+    background: #FAFBFD;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+  .solve-lbl {
+    font-weight: 700;
+    color: #888;
+    font-size: 12px;
+    min-width: 16px;
+  }
+  .solve-eq {
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-weight: 600;
+    font-size: 13px;
+    flex: 1;
+  }
+
+  .check-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #C05621, #e07a3a);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(192,86,33,0.35);
+    transition: transform .12s, box-shadow .12s;
+    margin-top: 6px;
+  }
+  .check-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(192,86,33,0.4); }
+  .check-btn:active { transform: translateY(0); }
+
+  #score-card {
+    display: none;
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 24px 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  #score-card.show { display: block; }
+
+  .score-big {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .score-out-of {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 18px;
+  }
+  .score-msg {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 24px;
+    display: inline-block;
+  }
+
+  .score-great  { color: #047857; background: #ECFDF5; }
+  .score-ok     { color: #92400E; background: #FEF3C7; }
+  .score-retry  { color: #991B1B; background: #FEF2F2; }
+
+  .score-bar-wrap {
+    background: #f0f0f0;
+    border-radius: 99px;
+    height: 10px;
+    margin: 16px 0 10px;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.6s ease;
+  }
+
+  .retry-btn {
+    margin-top: 16px;
+    background: transparent;
+    border: 1.5px solid #ccc;
+    border-radius: 20px;
+    padding: 8px 22px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #555;
+    transition: border-color .15s, color .15s;
+  }
+  .retry-btn:hover { border-color: #C05621; color: #C05621; }
+
+  .nav-btn {
+    position: fixed;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 9px 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  .nav-back { bottom: 62px; right: 18px; background: #374151; color: #fff; }
+  .nav-done { bottom: 18px; right: 18px; background: #047857; color: #fff; }
+
+  @media print { .no-print { display: none; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">בדיקה עצמית — מבדק מקיף משוואות</div>
+    <div class="header-sub">הכניסו את תשובותיכם מהמבדק ולחצו "בדוק"</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div id="score-card">
+  <div class="score-big" id="score-num">—</div>
+  <div class="score-out-of" id="score-denom">מתוך 33 תשובות</div>
+  <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
+  <div class="score-msg" id="score-msg"></div>
+  <br>
+  <button class="retry-btn" onclick="resetForm()">נסו שוב ←</button>
+</div>
+
+<div class="intro-box">
+  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". תקבלו רק את <strong>מספר התשובות הנכונות</strong> — בלי לדעת אילו ספציפיות.<br>
+  <strong>שימו לב:</strong> חלקים ה׳ וו׳ (שאלות 10–13) לא נכללים כאן — הם נבדקים על ידי המורה.
+</div>
+
+<!-- ══ חלק א׳ — שאלה 1 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">1.</span> חלק א׳ — איזה מספר הקפתם כפתרון לכל משוואה?</div>
+
+  <div style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">א. &nbsp; 5x − 3 = 7</div>
+    <div class="chips" id="q1a-chips">
+      <div class="chip" data-val="1" onclick="selectChip(this,'q1a')">1</div>
+      <div class="chip" data-val="2" onclick="selectChip(this,'q1a')">2</div>
+      <div class="chip" data-val="3" onclick="selectChip(this,'q1a')">3</div>
+      <div class="chip" data-val="4" onclick="selectChip(this,'q1a')">4</div>
+    </div>
+    <input type="hidden" id="q1a" value="">
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">ב. &nbsp; −x/3 + 1 = 3</div>
+    <div class="chips" id="q1b-chips">
+      <div class="chip" data-val="-6" onclick="selectChip(this,'q1b')">−6</div>
+      <div class="chip" data-val="-3" onclick="selectChip(this,'q1b')">−3</div>
+      <div class="chip" data-val="3" onclick="selectChip(this,'q1b')">3</div>
+      <div class="chip" data-val="6" onclick="selectChip(this,'q1b')">6</div>
+    </div>
+    <input type="hidden" id="q1b" value="">
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">ג. &nbsp; 4x + 3 = −5</div>
+    <div class="chips" id="q1c-chips">
+      <div class="chip" data-val="-3" onclick="selectChip(this,'q1c')">−3</div>
+      <div class="chip" data-val="-2" onclick="selectChip(this,'q1c')">−2</div>
+      <div class="chip" data-val="0" onclick="selectChip(this,'q1c')">0</div>
+      <div class="chip" data-val="1" onclick="selectChip(this,'q1c')">1</div>
+    </div>
+    <input type="hidden" id="q1c" value="">
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">ד. &nbsp; x + 5 = 3x − 1</div>
+    <div class="chips" id="q1d-chips">
+      <div class="chip" data-val="2" onclick="selectChip(this,'q1d')">2</div>
+      <div class="chip" data-val="3" onclick="selectChip(this,'q1d')">3</div>
+      <div class="chip" data-val="4" onclick="selectChip(this,'q1d')">4</div>
+      <div class="chip" data-val="5" onclick="selectChip(this,'q1d')">5</div>
+    </div>
+    <input type="hidden" id="q1d" value="">
+  </div>
+
+  <div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">ה. &nbsp; 2(x − 4) = 6</div>
+    <div class="chips" id="q1e-chips">
+      <div class="chip" data-val="5" onclick="selectChip(this,'q1e')">5</div>
+      <div class="chip" data-val="6" onclick="selectChip(this,'q1e')">6</div>
+      <div class="chip" data-val="7" onclick="selectChip(this,'q1e')">7</div>
+      <div class="chip" data-val="8" onclick="selectChip(this,'q1e')">8</div>
+    </div>
+    <input type="hidden" id="q1e" value="">
+  </div>
+</div>
+
+<!-- ══ חלק א׳ — שאלה 2 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">2.</span> חלק א׳ — האם הקפתם כל משוואה? (פתרונן <span style="direction:ltr;unicode-bidi:isolate;font-weight:700;">x = 5</span>)</div>
+
+  <div style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">3x − 5 = 10</div>
+    <div class="chips" id="q2a-chips">
+      <div class="chip" data-val="yes" onclick="selectChip(this,'q2a')">כן — הקפתי</div>
+      <div class="chip" data-val="no" onclick="selectChip(this,'q2a')">לא הקפתי</div>
+    </div>
+    <input type="hidden" id="q2a" value="">
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">x + 3 = 7</div>
+    <div class="chips" id="q2b-chips">
+      <div class="chip" data-val="yes" onclick="selectChip(this,'q2b')">כן — הקפתי</div>
+      <div class="chip" data-val="no" onclick="selectChip(this,'q2b')">לא הקפתי</div>
+    </div>
+    <input type="hidden" id="q2b" value="">
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">−x + 7 = 2</div>
+    <div class="chips" id="q2c-chips">
+      <div class="chip" data-val="yes" onclick="selectChip(this,'q2c')">כן — הקפתי</div>
+      <div class="chip" data-val="no" onclick="selectChip(this,'q2c')">לא הקפתי</div>
+    </div>
+    <input type="hidden" id="q2c" value="">
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">2(x + 1) = 12</div>
+    <div class="chips" id="q2d-chips">
+      <div class="chip" data-val="yes" onclick="selectChip(this,'q2d')">כן — הקפתי</div>
+      <div class="chip" data-val="no" onclick="selectChip(this,'q2d')">לא הקפתי</div>
+    </div>
+    <input type="hidden" id="q2d" value="">
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">x/5 = 1</div>
+    <div class="chips" id="q2e-chips">
+      <div class="chip" data-val="yes" onclick="selectChip(this,'q2e')">כן — הקפתי</div>
+      <div class="chip" data-val="no" onclick="selectChip(this,'q2e')">לא הקפתי</div>
+    </div>
+    <input type="hidden" id="q2e" value="">
+  </div>
+
+  <div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">x − 8 = −4</div>
+    <div class="chips" id="q2f-chips">
+      <div class="chip" data-val="yes" onclick="selectChip(this,'q2f')">כן — הקפתי</div>
+      <div class="chip" data-val="no" onclick="selectChip(this,'q2f')">לא הקפתי</div>
+    </div>
+    <input type="hidden" id="q2f" value="">
+  </div>
+</div>
+
+<!-- ══ חלק ב׳ — שאלה 3 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">3.</span> חלק ב׳ — מה הייתה תשובת x לכל משוואה?</div>
+  <div class="solve-grid">
+    <div class="solve-item">
+      <span class="solve-lbl">א.</span>
+      <span class="solve-eq">x + 8 = 3</span>
+      <span style="font-size:12px;color:#555;">x =</span>
+      <input class="ans-input" id="q3a" type="text" placeholder="?" style="width:55px;">
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ב.</span>
+      <span class="solve-eq">−5x = 30</span>
+      <span style="font-size:12px;color:#555;">x =</span>
+      <input class="ans-input" id="q3b" type="text" placeholder="?" style="width:55px;">
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ג.</span>
+      <span class="solve-eq">3x − 1 = 8</span>
+      <span style="font-size:12px;color:#555;">x =</span>
+      <input class="ans-input" id="q3c" type="text" placeholder="?" style="width:55px;">
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ד.</span>
+      <span class="solve-eq">4x + 7 = −1</span>
+      <span style="font-size:12px;color:#555;">x =</span>
+      <input class="ans-input" id="q3d" type="text" placeholder="?" style="width:55px;">
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ה.</span>
+      <span class="solve-eq">−x/2 = 4</span>
+      <span style="font-size:12px;color:#555;">x =</span>
+      <input class="ans-input" id="q3e" type="text" placeholder="?" style="width:55px;">
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ו.</span>
+      <span class="solve-eq">5x−3+x = 9</span>
+      <span style="font-size:12px;color:#555;">x =</span>
+      <input class="ans-input" id="q3f" type="text" placeholder="?" style="width:55px;">
+    </div>
+  </div>
+</div>
+
+<!-- ══ חלק ב׳ — שאלה 4 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">4.</span> חלק ב׳ — פתרון עם בדיקה. מה הייתה תשובת x?</div>
+  <div class="sub-row">
+    <span class="expr">4x + 3 = −9</span>
+    <span style="font-size:13px;color:#555;">x =</span>
+    <input class="ans-input" id="q4" type="text" placeholder="?">
+  </div>
+</div>
+
+<!-- ══ חלק ב׳ — שאלה 5 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">5.</span> חלק ב׳ — איזה מספר השלמתם ב-□? (פתרון <span style="direction:ltr;unicode-bidi:isolate;font-weight:700;">x = 8</span> במשוואה <span style="direction:ltr;unicode-bidi:isolate;font-weight:700;">4x − □ = 20</span>)</div>
+  <div class="sub-row">
+    <span class="sub-lbl">□ =</span>
+    <input class="ans-input" id="q5blank" type="text" placeholder="?">
+  </div>
+</div>
+
+<!-- ══ חלק ג׳ — שאלה 6 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">6.</span> חלק ג׳ — נעלם בשני האגפים. מה הייתה תשובת x?</div>
+  <div class="sub-row">
+    <span class="sub-lbl">א.</span>
+    <span class="expr">5x − 2 = 2x + 7</span>
+    <span style="font-size:13px;color:#555;">x =</span>
+    <input class="ans-input" id="q6a" type="text" placeholder="?">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ב.</span>
+    <span class="expr">6x + 3 = 2x + 11</span>
+    <span style="font-size:13px;color:#555;">x =</span>
+    <input class="ans-input" id="q6b" type="text" placeholder="?">
+  </div>
+</div>
+
+<!-- ══ חלק ד׳ — שאלה 7 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">7.</span> חלק ד׳ — חשבתי על מספר. מה מצאתם?</div>
+  <div class="sub-row">
+    <span class="sub-lbl">א.</span>
+    <span style="font-size:13px;">(כפלתי ב-3, חיסרתי 4, קיבלתי 11) המספר:</span>
+    <input class="ans-input" id="q7a" type="text" placeholder="?">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ב.</span>
+    <span style="font-size:13px;">(הוספתי 6, חלקתי ב-2, קיבלתי 5) המספר:</span>
+    <input class="ans-input" id="q7b" type="text" placeholder="?">
+  </div>
+</div>
+
+<!-- ══ חלק ד׳ — שאלה 8 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">8.</span> חלק ד׳ — גן ילדים (31 ילדים, ילדות גדולות ב-7). מה מצאתם?</div>
+  <div class="sub-row">
+    <span class="sub-lbl">ב.</span>
+    <span style="font-size:13px;">ילדים:</span>
+    <input class="ans-input" id="q8boys" type="text" placeholder="?">
+    <span style="font-size:13px;">ילדות:</span>
+    <input class="ans-input" id="q8girls" type="text" placeholder="?">
+  </div>
+</div>
+
+<!-- ══ חלק ד׳ — שאלה 9 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">9.</span> חלק ד׳ — מלבן (היקף 44, אורך גדול מרוחב ב-8). מה מצאתם?</div>
+  <div class="sub-row">
+    <span class="sub-lbl">ג.</span>
+    <span style="font-size:13px;">רוחב (ס"מ):</span>
+    <input class="ans-input" id="q9w" type="text" placeholder="?">
+    <span style="font-size:13px;">אורך (ס"מ):</span>
+    <input class="ans-input" id="q9l" type="text" placeholder="?">
+  </div>
+</div>
+
+<!-- ══ חלק ו׳ — שאלה 11 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">11.</span> חלק ו׳ — האם שתי המשוואות שקולות? (כן / לא)</div>
+
+  <div style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">א. &nbsp; 3x + 2 = 8 &nbsp; ו- &nbsp; 3x = 6</div>
+    <div class="chips" id="q11a-chips">
+      <div class="chip" data-val="yes" onclick="selectChip(this,'q11a')">כן — שקולות</div>
+      <div class="chip" data-val="no" onclick="selectChip(this,'q11a')">לא — לא שקולות</div>
+    </div>
+    <input type="hidden" id="q11a" value="">
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">ב. &nbsp; 4x = 12 &nbsp; ו- &nbsp; x = 4</div>
+    <div class="chips" id="q11b-chips">
+      <div class="chip" data-val="yes" onclick="selectChip(this,'q11b')">כן — שקולות</div>
+      <div class="chip" data-val="no" onclick="selectChip(this,'q11b')">לא — לא שקולות</div>
+    </div>
+    <input type="hidden" id="q11b" value="">
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">ג. &nbsp; 2x − 1 = 5 &nbsp; ו- &nbsp; 2x − 3 = 3</div>
+    <div class="chips" id="q11c-chips">
+      <div class="chip" data-val="yes" onclick="selectChip(this,'q11c')">כן — שקולות</div>
+      <div class="chip" data-val="no" onclick="selectChip(this,'q11c')">לא — לא שקולות</div>
+    </div>
+    <input type="hidden" id="q11c" value="">
+  </div>
+
+  <div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;">ד. &nbsp; x + 7 = 10 &nbsp; ו- &nbsp; x = 4</div>
+    <div class="chips" id="q11d-chips">
+      <div class="chip" data-val="yes" onclick="selectChip(this,'q11d')">כן — שקולות</div>
+      <div class="chip" data-val="no" onclick="selectChip(this,'q11d')">לא — לא שקולות</div>
+    </div>
+    <input type="hidden" id="q11d" value="">
+  </div>
+</div>
+
+<!-- ══ חלק ו׳ — שאלה 12 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">12.</span> חלק ו׳ — מה המשוואה השקולה שמתקבלת מ-<span style="direction:ltr;unicode-bidi:isolate;font-weight:700;">6x − 4 = 14</span> לאחר הוספת 4 לשני האגפים?</div>
+  <div class="sub-row">
+    <span style="font-size:13px;">המשוואה:</span>
+    <input class="ans-input wide" id="q12" type="text" placeholder="?">
+  </div>
+</div>
+
+<!-- ══ חלק ו׳ — שאלה 13 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">13.</span> חלק ו׳ — האם דוד צודק? (חיסר 3 רק מאגף שמאל)</div>
+  <div class="chips" id="q13-chips">
+    <div class="chip" data-val="yes" onclick="selectChip(this,'q13')">כן — דוד צודק</div>
+    <div class="chip" data-val="no" onclick="selectChip(this,'q13')">לא — דוד טועה</div>
+  </div>
+  <input type="hidden" id="q13" value="">
+</div>
+
+<button class="check-btn no-print" onclick="checkAnswers()">בדוק ←</button>
+
+</div>
+
+<button class="nav-btn nav-back no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}">← חזרה</button>
+<button class="nav-btn nav-done no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}">סיימתי ✓</button>
+
+<script>
+function selectChip(el, fieldId) {
+  const container = document.getElementById(fieldId + '-chips');
+  if (container) {
+    container.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  }
+  el.classList.add('selected');
+  document.getElementById(fieldId).value = el.getAttribute('data-val');
+}
+
+function norm(s) {
+  return s.trim()
+    .replace(/\u2212/g, '-')
+    .replace(/½/g, '.5')
+    .replace(/¼/g, '.25')
+    .replace(/¾/g, '.75')
+    .replace(/\s+/g, '')
+    .toLowerCase();
+}
+
+function match(input, accepted) {
+  const n = norm(input);
+  if (n === '') return false;
+  for (const a of accepted) {
+    if (n === norm(String(a))) return true;
+    const nv = parseFloat(n), av = parseFloat(norm(String(a)));
+    if (!isNaN(nv) && !isNaN(av) && Math.abs(nv - av) < 0.0001) return true;
+    // accept "x=N" form
+    const xform = n.replace(/^x=/, '');
+    if (xform !== n) {
+      if (xform === norm(String(a))) return true;
+      const nv2 = parseFloat(xform);
+      if (!isNaN(nv2) && !isNaN(av) && Math.abs(nv2 - av) < 0.0001) return true;
+    }
+  }
+  return false;
+}
+
+function matchEq(input, accepted) {
+  // for equation strings: normalise spaces, equals sign, etc.
+  const n = norm(input).replace(/\s/g,'');
+  if (n === '') return false;
+  for (const a of accepted) {
+    if (n === norm(String(a)).replace(/\s/g,'')) return true;
+  }
+  return false;
+}
+
+const MC_KEY = {
+  q1a: '2',
+  q1b: '-6',
+  q1c: '-2',
+  q1d: '3',
+  q1e: '7',
+  q2a: 'yes',
+  q2b: 'no',
+  q2c: 'yes',
+  q2d: 'yes',
+  q2e: 'yes',
+  q2f: 'no',
+  q11a: 'yes',
+  q11b: 'no',
+  q11c: 'yes',
+  q11d: 'no',
+  q13: 'no',
+};
+
+const NUM_KEY = {
+  q3a: ['-5'],
+  q3b: ['-6'],
+  q3c: ['3'],
+  q3d: ['-2'],
+  q3e: ['-8'],
+  q3f: ['2'],
+  q4:  ['-3'],
+  q5blank: ['12'],
+  q6a: ['3'],
+  q6b: ['2'],
+  q7a: ['5'],
+  q7b: ['4'],
+  q8boys:  ['12'],
+  q8girls: ['19'],
+  q9w: ['7'],
+  q9l: ['15'],
+};
+
+const EQ_KEY = {
+  q12: ['6x=18', '6x−0=18', '6x+0=18'],
+};
+
+const MC_IDS  = ['q1a','q1b','q1c','q1d','q1e','q2a','q2b','q2c','q2d','q2e','q2f','q11a','q11b','q11c','q11d','q13'];
+const NUM_IDS = ['q3a','q3b','q3c','q3d','q3e','q3f','q4','q5blank','q6a','q6b','q7a','q7b','q8boys','q8girls','q9w','q9l'];
+const EQ_IDS  = ['q12'];
+
+function checkAnswers() {
+  let correct = 0;
+  const total = MC_IDS.length + NUM_IDS.length + EQ_IDS.length; // 16+16+1 = 33
+
+  MC_IDS.forEach(id => {
+    if (document.getElementById(id).value === MC_KEY[id]) correct++;
+  });
+
+  NUM_IDS.forEach(id => {
+    if (match(document.getElementById(id).value, NUM_KEY[id])) correct++;
+  });
+
+  EQ_IDS.forEach(id => {
+    if (matchEq(document.getElementById(id).value, EQ_KEY[id])) correct++;
+  });
+
+  showScore(correct, total);
+}
+
+function showScore(correct, total) {
+  const pct = correct / total;
+
+  document.getElementById('score-num').textContent = correct;
+  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות';
+
+  const bar = document.getElementById('score-bar');
+  bar.style.width = (pct * 100) + '%';
+
+  let msg, cls, barColor;
+  if (pct >= 0.85) {
+    msg = 'מעולה! שולטים בחומר 💪';
+    cls = 'score-great';
+    barColor = '#047857';
+  } else if (pct >= 0.54) {
+    msg = 'טוב! עוד קצת אימון ✏️';
+    cls = 'score-ok';
+    barColor = '#D97706';
+  } else {
+    msg = 'כדאי לחזור על החומר 🔄';
+    cls = 'score-retry';
+    barColor = '#DC2626';
+  }
+
+  bar.style.background = barColor;
+  const msgEl = document.getElementById('score-msg');
+  msgEl.textContent = msg;
+  msgEl.className = 'score-msg ' + cls;
+
+  const card = document.getElementById('score-card');
+  card.classList.add('show');
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetForm() {
+  MC_IDS.forEach(id => { document.getElementById(id).value = ''; });
+  NUM_IDS.forEach(id => { document.getElementById(id).value = ''; });
+  EQ_IDS.forEach(id => { document.getElementById(id).value = ''; });
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  document.getElementById('score-card').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

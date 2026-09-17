@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בדיקה עצמית — פתרון משוואות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 100px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .intro-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 13px 16px;
+    margin-bottom: 18px;
+    border-right: 4px solid #F6A35A;
+    font-size: 13.5px;
+    line-height: 1.7;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .intro-box strong { color: #C05621; }
+
+  .q-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #F6A35A;
+  }
+  .q-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .q-num { color: #C05621; font-size: 16px; }
+
+  .sub-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+  .sub-lbl {
+    font-weight: 700;
+    color: #555;
+    min-width: 20px;
+    flex-shrink: 0;
+  }
+  .expr {
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-weight: 600;
+  }
+
+  .ans-input {
+    border: none;
+    border-bottom: 2px solid #aaa;
+    background: transparent;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-align: center;
+    width: 80px;
+    padding: 2px 4px;
+    outline: none;
+    color: #1a1a2e;
+    transition: border-color .15s;
+  }
+  .ans-input:focus { border-color: #C05621; }
+  .ans-input.wide { width: 110px; }
+
+  .solve-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 6px 0 4px;
+  }
+  .solve-item {
+    border: 1px solid #e8edf5;
+    border-radius: 7px;
+    padding: 10px 12px;
+    background: #FAFBFD;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+  }
+  .solve-lbl {
+    font-weight: 700;
+    color: #888;
+    font-size: 12px;
+    min-width: 16px;
+  }
+  .solve-eq {
+    direction: ltr;
+    unicode-bidi: isolate;
+    font-weight: 600;
+    font-size: 13px;
+    flex: 1;
+  }
+
+  .check-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #C05621, #e07a3a);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(192,86,33,0.35);
+    transition: transform .12s, box-shadow .12s;
+    margin-top: 6px;
+  }
+  .check-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(192,86,33,0.4); }
+  .check-btn:active { transform: translateY(0); }
+
+  #score-card {
+    display: none;
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 24px 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  #score-card.show { display: block; }
+
+  .score-big {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .score-out-of {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 18px;
+  }
+  .score-msg {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 24px;
+    display: inline-block;
+  }
+
+  .score-great  { color: #047857; background: #ECFDF5; }
+  .score-ok     { color: #92400E; background: #FEF3C7; }
+  .score-retry  { color: #991B1B; background: #FEF2F2; }
+
+  .score-bar-wrap {
+    background: #f0f0f0;
+    border-radius: 99px;
+    height: 10px;
+    margin: 16px 0 10px;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.6s ease;
+  }
+
+  .retry-btn {
+    margin-top: 16px;
+    background: transparent;
+    border: 1.5px solid #ccc;
+    border-radius: 20px;
+    padding: 8px 22px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #555;
+    transition: border-color .15s, color .15s;
+  }
+  .retry-btn:hover { border-color: #C05621; color: #C05621; }
+
+  .nav-btn {
+    position: fixed;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 9px 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  .nav-back { bottom: 62px; right: 18px; background: #374151; color: #fff; }
+  .nav-done { bottom: 18px; right: 18px; background: #047857; color: #fff; }
+
+  @media print { .no-print { display: none; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">בדיקה עצמית — פתרון משוואות</div>
+    <div class="header-sub">הכניסו את תשובותיכם מהמבדק ולחצו "בדוק"</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div id="score-card">
+  <div class="score-big" id="score-num">—</div>
+  <div class="score-out-of" id="score-denom">מתוך 13 תשובות</div>
+  <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
+  <div class="score-msg" id="score-msg"></div>
+  <br>
+  <button class="retry-btn" onclick="resetForm()">נסו שוב ←</button>
+</div>
+
+<div class="intro-box">
+  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". תקבלו רק את <strong>מספר התשובות הנכונות</strong> — בלי לדעת אילו ספציפיות.
+</div>
+
+<!-- ══ שאלה 1 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">1.</span> מה הייתה תשובת כל משוואה (ערך x)?</div>
+  <div class="solve-grid">
+    <div class="solve-item">
+      <span class="solve-lbl">א.</span>
+      <span class="solve-eq">x − 6 = −2</span>
+      <span style="font-size:13px;color:#555;">x =</span>
+      <input class="ans-input narrow" id="q1a" type="text" placeholder="?" style="width:60px;">
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ב.</span>
+      <span class="solve-eq">−3x = 15</span>
+      <span style="font-size:13px;color:#555;">x =</span>
+      <input class="ans-input narrow" id="q1b" type="text" placeholder="?" style="width:60px;">
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ג.</span>
+      <span class="solve-eq">2x + 3 = −4</span>
+      <span style="font-size:13px;color:#555;">x =</span>
+      <input class="ans-input narrow" id="q1c" type="text" placeholder="?" style="width:60px;">
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ד.</span>
+      <span class="solve-eq">4x + 5 = −1</span>
+      <span style="font-size:13px;color:#555;">x =</span>
+      <input class="ans-input narrow" id="q1d" type="text" placeholder="?" style="width:60px;">
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ה.</span>
+      <span class="solve-eq">−x/3 = 4</span>
+      <span style="font-size:13px;color:#555;">x =</span>
+      <input class="ans-input narrow" id="q1e" type="text" placeholder="?" style="width:60px;">
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ו.</span>
+      <span class="solve-eq">4x+1−x = 10</span>
+      <span style="font-size:13px;color:#555;">x =</span>
+      <input class="ans-input narrow" id="q1f" type="text" placeholder="?" style="width:60px;">
+    </div>
+  </div>
+</div>
+
+<!-- ══ שאלה 2 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">2.</span> פתרון משוואה עם בדיקה — מה הייתה תשובת x?</div>
+  <div class="sub-row">
+    <span style="font-size:13px;direction:ltr;unicode-bidi:isolate;font-weight:600;">−2x + 5 = 11</span>
+    <span style="font-size:13px;color:#555;">x =</span>
+    <input class="ans-input" id="q2" type="text" placeholder="?">
+  </div>
+</div>
+
+<!-- ══ שאלה 3 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">3.</span> פתרון משוואות עם נעלם בשני האגפים — מה הייתה תשובת x?</div>
+  <div class="sub-row">
+    <span class="sub-lbl">א.</span>
+    <span class="expr">5x − 3 = 2x + 9</span>
+    <span style="font-size:13px;color:#555;">x =</span>
+    <input class="ans-input" id="q3a" type="text" placeholder="?">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ב.</span>
+    <span class="expr">3x + 1 = 7x − 11</span>
+    <span style="font-size:13px;color:#555;">x =</span>
+    <input class="ans-input" id="q3b" type="text" placeholder="?">
+  </div>
+</div>
+
+<!-- ══ שאלה 4 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">4.</span> גיל צעיר מניר בשנתיים, סכום גיליהם 58 — מה מצאתם?</div>
+  <div class="sub-row">
+    <span class="sub-lbl">ב.</span>
+    <span style="font-size:13px;">גיל גיל:</span>
+    <input class="ans-input" id="q4gil" type="text" placeholder="?">
+    <span style="font-size:13px;">גיל ניר:</span>
+    <input class="ans-input" id="q4nir" type="text" placeholder="?">
+  </div>
+</div>
+
+<!-- ══ שאלה 5 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">5.</span> עפרונות ומחברות — מה מצאתם?</div>
+  <div class="sub-row">
+    <span class="sub-lbl">ב.</span>
+    <span style="font-size:13px;">מחיר עיפרון (ש"ח):</span>
+    <input class="ans-input" id="q5pencil" type="text" placeholder="?">
+    <span style="font-size:13px;">מחיר מחברת (ש"ח):</span>
+    <input class="ans-input" id="q5notebook" type="text" placeholder="?">
+  </div>
+</div>
+
+<button class="check-btn no-print" onclick="checkAnswers()">בדוק ←</button>
+
+</div>
+
+<button class="nav-btn nav-back no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}">← חזרה</button>
+<button class="nav-btn nav-done no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}">סיימתי ✓</button>
+
+<script>
+function norm(s) {
+  return s.trim()
+    .replace(/\u2212/g, '-')
+    .replace(/½/g, '.5')
+    .replace(/¼/g, '.25')
+    .replace(/¾/g, '.75')
+    .replace(/\s+/g, '')
+    .toLowerCase();
+}
+
+function match(input, accepted) {
+  const n = norm(input);
+  if (n === '') return false;
+  for (const a of accepted) {
+    if (n === norm(String(a))) return true;
+    const nv = parseFloat(n), av = parseFloat(norm(String(a)));
+    if (!isNaN(nv) && !isNaN(av) && Math.abs(nv - av) < 0.0001) return true;
+    // accept "x=N" form
+    const xform = n.replace(/^x=/, '');
+    if (xform !== n && xform === norm(String(a))) return true;
+    const nv2 = parseFloat(xform);
+    if (!isNaN(nv2) && !isNaN(av) && Math.abs(nv2 - av) < 0.0001) return true;
+  }
+  return false;
+}
+
+const KEY = {
+  q1a: ['4'],
+  q1b: ['-5'],
+  q1c: ['-3.5', '-3½', '-7/2'],
+  q1d: ['-1.5', '-1½', '-3/2'],
+  q1e: ['-12'],
+  q1f: ['3'],
+  q2:  ['-3'],
+  q3a: ['4'],
+  q3b: ['3'],
+  q4gil: ['28'],
+  q4nir: ['30'],
+  q5pencil:   ['4'],
+  q5notebook: ['12'],
+};
+
+const ALL_IDS = ['q1a','q1b','q1c','q1d','q1e','q1f','q2','q3a','q3b','q4gil','q4nir','q5pencil','q5notebook'];
+
+function checkAnswers() {
+  let correct = 0;
+  const total = ALL_IDS.length;
+
+  ALL_IDS.forEach(id => {
+    if (match(document.getElementById(id).value, KEY[id])) correct++;
+  });
+
+  showScore(correct, total);
+}
+
+function showScore(correct, total) {
+  const pct = correct / total;
+
+  document.getElementById('score-num').textContent = correct;
+  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות';
+
+  const bar = document.getElementById('score-bar');
+  bar.style.width = (pct * 100) + '%';
+
+  let msg, cls, barColor;
+  if (pct >= 0.85) {
+    msg = 'מעולה! שולטים בחומר 💪';
+    cls = 'score-great';
+    barColor = '#047857';
+  } else if (pct >= 0.54) {
+    msg = 'טוב! עוד קצת אימון ✏️';
+    cls = 'score-ok';
+    barColor = '#D97706';
+  } else {
+    msg = 'כדאי לחזור על החומר 🔄';
+    cls = 'score-retry';
+    barColor = '#DC2626';
+  }
+
+  bar.style.background = barColor;
+  const msgEl = document.getElementById('score-msg');
+  msgEl.textContent = msg;
+  msgEl.className = 'score-msg ' + cls;
+
+  const card = document.getElementById('score-card');
+  card.classList.add('show');
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetForm() {
+  ALL_IDS.forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('score-card').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
