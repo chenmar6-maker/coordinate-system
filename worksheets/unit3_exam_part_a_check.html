@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בדיקה עצמית — נקודות ורביעים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 100px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .intro-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 13px 16px;
+    margin-bottom: 18px;
+    border-right: 4px solid #F6A35A;
+    font-size: 13.5px;
+    line-height: 1.7;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .intro-box strong { color: #C05621; }
+
+  .q-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #F6A35A;
+  }
+  .q-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .q-num { color: #C05621; font-size: 16px; }
+
+  .sub-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+  .sub-lbl {
+    font-weight: 700;
+    color: #555;
+    min-width: 20px;
+    flex-shrink: 0;
+  }
+
+  .ans-input {
+    border: none;
+    border-bottom: 2px solid #aaa;
+    background: transparent;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-align: center;
+    width: 70px;
+    padding: 2px 4px;
+    outline: none;
+    color: #1a1a2e;
+    transition: border-color .15s;
+  }
+  .ans-input:focus { border-color: #C05621; }
+  .ans-input.narrow { width: 50px; }
+  .ans-input.wide { width: 100px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .chip {
+    border: 1.5px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+    transition: all .15s;
+    background: #fafafa;
+    direction: rtl;
+  }
+  .chip:hover { border-color: #C05621; background: #FFF7ED; }
+  .chip.selected {
+    border-color: #C05621;
+    background: #FFF7ED;
+    color: #C05621;
+    font-weight: 700;
+  }
+
+  .coord-pair { display: flex; align-items: center; gap: 4px; font-size: 13px; direction: ltr; unicode-bidi: isolate; }
+
+  /* table-style rows for Q2 */
+  .tbl-row {
+    display: grid;
+    grid-template-columns: 30px 1fr 1fr 60px 60px;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .tbl-lbl { font-weight: 700; color: #555; }
+
+  .check-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #C05621, #e07a3a);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(192,86,33,0.35);
+    transition: transform .12s, box-shadow .12s;
+    margin-top: 6px;
+  }
+  .check-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(192,86,33,0.4); }
+  .check-btn:active { transform: translateY(0); }
+
+  #score-card {
+    display: none;
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 24px 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  #score-card.show { display: block; }
+
+  .score-big { font-size: 64px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .score-out-of { font-size: 16px; color: #888; margin-bottom: 18px; }
+  .score-msg { font-size: 18px; font-weight: 700; padding: 10px 24px; border-radius: 24px; display: inline-block; }
+  .score-great  { color: #047857; background: #ECFDF5; }
+  .score-ok     { color: #92400E; background: #FEF3C7; }
+  .score-retry  { color: #991B1B; background: #FEF2F2; }
+
+  .score-bar-wrap { background: #f0f0f0; border-radius: 99px; height: 10px; margin: 16px 0 10px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
+
+  .retry-btn {
+    margin-top: 16px;
+    background: transparent; border: 1.5px solid #ccc; border-radius: 20px;
+    padding: 8px 22px; font-family: 'Rubik', sans-serif; font-size: 14px;
+    font-weight: 600; cursor: pointer; color: #555;
+    transition: border-color .15s, color .15s;
+  }
+  .retry-btn:hover { border-color: #C05621; color: #C05621; }
+
+  .nav-btn {
+    position: fixed; border: none; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; padding: 9px 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  .nav-back { bottom: 62px; right: 18px; background: #374151; color: #fff; }
+  .nav-done { bottom: 18px; right: 18px; background: #047857; color: #fff; }
+
+  @media print { .no-print { display: none; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">בדיקה עצמית — נקודות ורביעים</div>
+    <div class="header-sub">הכניסו את תשובותיכם מהמבדק ולחצו "בדוק"</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div id="score-card">
+  <div class="score-big" id="score-num">—</div>
+  <div class="score-out-of" id="score-denom">מתוך 30 תשובות</div>
+  <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
+  <div class="score-msg" id="score-msg"></div>
+  <br>
+  <button class="retry-btn" onclick="resetForm()">נסו שוב ←</button>
+</div>
+
+<div class="intro-box">
+  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". תקבלו רק את <strong>מספר התשובות הנכונות</strong> — בלי לדעת אילו ספציפיות. שאלות 3, 4ב נבדקות על ידי המורה.
+</div>
+
+<!-- ══ שאלה 1 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">1.</span> כתבו את שיעורי הנקודות (x, y)</div>
+
+  <div class="sub-row">
+    <span class="sub-lbl">A:</span>
+    <span style="font-size:13px;">(</span>
+    <input class="ans-input narrow" id="q1ax" type="text" placeholder="x">
+    <span style="font-size:13px;">,</span>
+    <input class="ans-input narrow" id="q1ay" type="text" placeholder="y">
+    <span style="font-size:13px;">)</span>
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">B:</span>
+    <span style="font-size:13px;">(</span>
+    <input class="ans-input narrow" id="q1bx" type="text" placeholder="x">
+    <span style="font-size:13px;">,</span>
+    <input class="ans-input narrow" id="q1by" type="text" placeholder="y">
+    <span style="font-size:13px;">)</span>
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">C:</span>
+    <span style="font-size:13px;">(</span>
+    <input class="ans-input narrow" id="q1cx" type="text" placeholder="x">
+    <span style="font-size:13px;">,</span>
+    <input class="ans-input narrow" id="q1cy" type="text" placeholder="y">
+    <span style="font-size:13px;">)</span>
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">D:</span>
+    <span style="font-size:13px;">(</span>
+    <input class="ans-input narrow" id="q1dx" type="text" placeholder="x">
+    <span style="font-size:13px;">,</span>
+    <input class="ans-input narrow" id="q1dy" type="text" placeholder="y">
+    <span style="font-size:13px;">)</span>
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">E:</span>
+    <span style="font-size:13px;">(</span>
+    <input class="ans-input narrow" id="q1ex" type="text" placeholder="x">
+    <span style="font-size:13px;">,</span>
+    <input class="ans-input narrow" id="q1ey" type="text" placeholder="y">
+    <span style="font-size:13px;">)</span>
+  </div>
+</div>
+
+<!-- ══ שאלה 2 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">2.</span> מלאו את הטבלה — רביע/ציר, סימן x, סימן y</div>
+
+  <!-- F (3, −2) → רביע IV, +, − -->
+  <div style="margin-bottom:14px;">
+    <div style="font-weight:700;font-size:13px;margin-bottom:6px;">F (3, −2)</div>
+    <div class="sub-row">
+      <span class="sub-lbl" style="min-width:60px;">רביע/ציר:</span>
+      <div class="chips" id="q2f-quad-chips">
+        <div class="chip" data-val="I" onclick="selectChip(this,'q2f-quad')">רביע I</div>
+        <div class="chip" data-val="II" onclick="selectChip(this,'q2f-quad')">רביע II</div>
+        <div class="chip" data-val="III" onclick="selectChip(this,'q2f-quad')">רביע III</div>
+        <div class="chip" data-val="IV" onclick="selectChip(this,'q2f-quad')">רביע IV</div>
+        <div class="chip" data-val="axisx" onclick="selectChip(this,'q2f-quad')">ציר x</div>
+        <div class="chip" data-val="axisy" onclick="selectChip(this,'q2f-quad')">ציר y</div>
+      </div>
+      <input type="hidden" id="q2f-quad" value="">
+    </div>
+    <div class="sub-row" style="gap:16px;">
+      <span>סימן x:</span>
+      <div class="chips" id="q2f-sx-chips">
+        <div class="chip" data-val="+" onclick="selectChip(this,'q2f-sx')">+</div>
+        <div class="chip" data-val="-" onclick="selectChip(this,'q2f-sx')">−</div>
+        <div class="chip" data-val="0" onclick="selectChip(this,'q2f-sx')">0</div>
+      </div>
+      <input type="hidden" id="q2f-sx" value="">
+      <span style="margin-right:10px;">סימן y:</span>
+      <div class="chips" id="q2f-sy-chips">
+        <div class="chip" data-val="+" onclick="selectChip(this,'q2f-sy')">+</div>
+        <div class="chip" data-val="-" onclick="selectChip(this,'q2f-sy')">−</div>
+        <div class="chip" data-val="0" onclick="selectChip(this,'q2f-sy')">0</div>
+      </div>
+      <input type="hidden" id="q2f-sy" value="">
+    </div>
+  </div>
+
+  <!-- G (−4, 5) → רביע II, −, + -->
+  <div style="margin-bottom:14px;border-top:1px solid #f0f0f0;padding-top:12px;">
+    <div style="font-weight:700;font-size:13px;margin-bottom:6px;">G (−4, 5)</div>
+    <div class="sub-row">
+      <span class="sub-lbl" style="min-width:60px;">רביע/ציר:</span>
+      <div class="chips" id="q2g-quad-chips">
+        <div class="chip" data-val="I" onclick="selectChip(this,'q2g-quad')">רביע I</div>
+        <div class="chip" data-val="II" onclick="selectChip(this,'q2g-quad')">רביע II</div>
+        <div class="chip" data-val="III" onclick="selectChip(this,'q2g-quad')">רביע III</div>
+        <div class="chip" data-val="IV" onclick="selectChip(this,'q2g-quad')">רביע IV</div>
+        <div class="chip" data-val="axisx" onclick="selectChip(this,'q2g-quad')">ציר x</div>
+        <div class="chip" data-val="axisy" onclick="selectChip(this,'q2g-quad')">ציר y</div>
+      </div>
+      <input type="hidden" id="q2g-quad" value="">
+    </div>
+    <div class="sub-row" style="gap:16px;">
+      <span>סימן x:</span>
+      <div class="chips" id="q2g-sx-chips">
+        <div class="chip" data-val="+" onclick="selectChip(this,'q2g-sx')">+</div>
+        <div class="chip" data-val="-" onclick="selectChip(this,'q2g-sx')">−</div>
+        <div class="chip" data-val="0" onclick="selectChip(this,'q2g-sx')">0</div>
+      </div>
+      <input type="hidden" id="q2g-sx" value="">
+      <span style="margin-right:10px;">סימן y:</span>
+      <div class="chips" id="q2g-sy-chips">
+        <div class="chip" data-val="+" onclick="selectChip(this,'q2g-sy')">+</div>
+        <div class="chip" data-val="-" onclick="selectChip(this,'q2g-sy')">−</div>
+        <div class="chip" data-val="0" onclick="selectChip(this,'q2g-sy')">0</div>
+      </div>
+      <input type="hidden" id="q2g-sy" value="">
+    </div>
+  </div>
+
+  <!-- H (−2, −3) → רביע III, −, − -->
+  <div style="margin-bottom:14px;border-top:1px solid #f0f0f0;padding-top:12px;">
+    <div style="font-weight:700;font-size:13px;margin-bottom:6px;">H (−2, −3)</div>
+    <div class="sub-row">
+      <span class="sub-lbl" style="min-width:60px;">רביע/ציר:</span>
+      <div class="chips" id="q2h-quad-chips">
+        <div class="chip" data-val="I" onclick="selectChip(this,'q2h-quad')">רביע I</div>
+        <div class="chip" data-val="II" onclick="selectChip(this,'q2h-quad')">רביע II</div>
+        <div class="chip" data-val="III" onclick="selectChip(this,'q2h-quad')">רביע III</div>
+        <div class="chip" data-val="IV" onclick="selectChip(this,'q2h-quad')">רביע IV</div>
+        <div class="chip" data-val="axisx" onclick="selectChip(this,'q2h-quad')">ציר x</div>
+        <div class="chip" data-val="axisy" onclick="selectChip(this,'q2h-quad')">ציר y</div>
+      </div>
+      <input type="hidden" id="q2h-quad" value="">
+    </div>
+    <div class="sub-row" style="gap:16px;">
+      <span>סימן x:</span>
+      <div class="chips" id="q2h-sx-chips">
+        <div class="chip" data-val="+" onclick="selectChip(this,'q2h-sx')">+</div>
+        <div class="chip" data-val="-" onclick="selectChip(this,'q2h-sx')">−</div>
+        <div class="chip" data-val="0" onclick="selectChip(this,'q2h-sx')">0</div>
+      </div>
+      <input type="hidden" id="q2h-sx" value="">
+      <span style="margin-right:10px;">סימן y:</span>
+      <div class="chips" id="q2h-sy-chips">
+        <div class="chip" data-val="+" onclick="selectChip(this,'q2h-sy')">+</div>
+        <div class="chip" data-val="-" onclick="selectChip(this,'q2h-sy')">−</div>
+        <div class="chip" data-val="0" onclick="selectChip(this,'q2h-sy')">0</div>
+      </div>
+      <input type="hidden" id="q2h-sy" value="">
+    </div>
+  </div>
+
+  <!-- J (0, 4) → ציר y, 0, + -->
+  <div style="margin-bottom:14px;border-top:1px solid #f0f0f0;padding-top:12px;">
+    <div style="font-weight:700;font-size:13px;margin-bottom:6px;">J (0, 4)</div>
+    <div class="sub-row">
+      <span class="sub-lbl" style="min-width:60px;">רביע/ציר:</span>
+      <div class="chips" id="q2j-quad-chips">
+        <div class="chip" data-val="I" onclick="selectChip(this,'q2j-quad')">רביע I</div>
+        <div class="chip" data-val="II" onclick="selectChip(this,'q2j-quad')">רביע II</div>
+        <div class="chip" data-val="III" onclick="selectChip(this,'q2j-quad')">רביע III</div>
+        <div class="chip" data-val="IV" onclick="selectChip(this,'q2j-quad')">רביע IV</div>
+        <div class="chip" data-val="axisx" onclick="selectChip(this,'q2j-quad')">ציר x</div>
+        <div class="chip" data-val="axisy" onclick="selectChip(this,'q2j-quad')">ציר y</div>
+      </div>
+      <input type="hidden" id="q2j-quad" value="">
+    </div>
+    <div class="sub-row" style="gap:16px;">
+      <span>סימן x:</span>
+      <div class="chips" id="q2j-sx-chips">
+        <div class="chip" data-val="+" onclick="selectChip(this,'q2j-sx')">+</div>
+        <div class="chip" data-val="-" onclick="selectChip(this,'q2j-sx')">−</div>
+        <div class="chip" data-val="0" onclick="selectChip(this,'q2j-sx')">0</div>
+      </div>
+      <input type="hidden" id="q2j-sx" value="">
+      <span style="margin-right:10px;">סימן y:</span>
+      <div class="chips" id="q2j-sy-chips">
+        <div class="chip" data-val="+" onclick="selectChip(this,'q2j-sy')">+</div>
+        <div class="chip" data-val="-" onclick="selectChip(this,'q2j-sy')">−</div>
+        <div class="chip" data-val="0" onclick="selectChip(this,'q2j-sy')">0</div>
+      </div>
+      <input type="hidden" id="q2j-sy" value="">
+    </div>
+  </div>
+
+  <!-- K (−3, 0) → ציר x, −, 0 -->
+  <div style="border-top:1px solid #f0f0f0;padding-top:12px;">
+    <div style="font-weight:700;font-size:13px;margin-bottom:6px;">K (−3, 0)</div>
+    <div class="sub-row">
+      <span class="sub-lbl" style="min-width:60px;">רביע/ציר:</span>
+      <div class="chips" id="q2k-quad-chips">
+        <div class="chip" data-val="I" onclick="selectChip(this,'q2k-quad')">רביע I</div>
+        <div class="chip" data-val="II" onclick="selectChip(this,'q2k-quad')">רביע II</div>
+        <div class="chip" data-val="III" onclick="selectChip(this,'q2k-quad')">רביע III</div>
+        <div class="chip" data-val="IV" onclick="selectChip(this,'q2k-quad')">רביע IV</div>
+        <div class="chip" data-val="axisx" onclick="selectChip(this,'q2k-quad')">ציר x</div>
+        <div class="chip" data-val="axisy" onclick="selectChip(this,'q2k-quad')">ציר y</div>
+      </div>
+      <input type="hidden" id="q2k-quad" value="">
+    </div>
+    <div class="sub-row" style="gap:16px;">
+      <span>סימן x:</span>
+      <div class="chips" id="q2k-sx-chips">
+        <div class="chip" data-val="+" onclick="selectChip(this,'q2k-sx')">+</div>
+        <div class="chip" data-val="-" onclick="selectChip(this,'q2k-sx')">−</div>
+        <div class="chip" data-val="0" onclick="selectChip(this,'q2k-sx')">0</div>
+      </div>
+      <input type="hidden" id="q2k-sx" value="">
+      <span style="margin-right:10px;">סימן y:</span>
+      <div class="chips" id="q2k-sy-chips">
+        <div class="chip" data-val="+" onclick="selectChip(this,'q2k-sy')">+</div>
+        <div class="chip" data-val="-" onclick="selectChip(this,'q2k-sy')">−</div>
+        <div class="chip" data-val="0" onclick="selectChip(this,'q2k-sy')">0</div>
+      </div>
+      <input type="hidden" id="q2k-sy" value="">
+    </div>
+  </div>
+</div>
+
+<!-- ══ שאלה 3 — open, skipped ══ -->
+<div class="q-card" style="background:#F9FAFB; border-right-color:#ccc;">
+  <div class="q-title" style="color:#888;"><span class="q-num" style="color:#ccc;">3.</span> כתבו נקודה העונה על תנאי — שאלה פתוחה, נבדקת על ידי המורה בלבד</div>
+</div>
+
+<!-- ══ שאלה 4א ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">4.</span> נקודות P(−5, 7) ו-Q(5, −7) — באיזה רביע?</div>
+  <div style="margin-bottom:10px;">
+    <div style="font-weight:700;font-size:13px;margin-bottom:6px;">P(−5, 7) — רביע:</div>
+    <div class="chips" id="q4p-chips">
+      <div class="chip" data-val="I" onclick="selectChip(this,'q4p')">רביע I</div>
+      <div class="chip" data-val="II" onclick="selectChip(this,'q4p')">רביע II</div>
+      <div class="chip" data-val="III" onclick="selectChip(this,'q4p')">רביע III</div>
+      <div class="chip" data-val="IV" onclick="selectChip(this,'q4p')">רביע IV</div>
+    </div>
+    <input type="hidden" id="q4p" value="">
+  </div>
+  <div>
+    <div style="font-weight:700;font-size:13px;margin-bottom:6px;">Q(5, −7) — רביע:</div>
+    <div class="chips" id="q4q-chips">
+      <div class="chip" data-val="I" onclick="selectChip(this,'q4q')">רביע I</div>
+      <div class="chip" data-val="II" onclick="selectChip(this,'q4q')">רביע II</div>
+      <div class="chip" data-val="III" onclick="selectChip(this,'q4q')">רביע III</div>
+      <div class="chip" data-val="IV" onclick="selectChip(this,'q4q')">רביע IV</div>
+    </div>
+    <input type="hidden" id="q4q" value="">
+  </div>
+  <div style="margin-top:10px;font-size:12.5px;color:#888;">4ב — הסבר הקשר בין הנקודות: נבדק על ידי המורה</div>
+</div>
+
+<!-- ══ שאלה 5 — נכון/לא נכון ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">5.</span> נכון / לא נכון — בחרו לכל משפט</div>
+
+  <div style="margin-bottom:10px;">
+    <div style="font-size:13px;margin-bottom:6px;"><strong>א.</strong> הנקודה (−3, 0) נמצאת ברביע III</div>
+    <div class="chips" id="q5a-chips">
+      <div class="chip" data-val="true" onclick="selectChip(this,'q5a')">נכון</div>
+      <div class="chip" data-val="false" onclick="selectChip(this,'q5a')">לא נכון</div>
+    </div>
+    <input type="hidden" id="q5a" value="">
+  </div>
+
+  <div style="margin-bottom:10px;border-top:1px solid #f0f0f0;padding-top:10px;">
+    <div style="font-size:13px;margin-bottom:6px;"><strong>ב.</strong> לכל נקודה ברביע II: x שלילי ו-y חיובי</div>
+    <div class="chips" id="q5b-chips">
+      <div class="chip" data-val="true" onclick="selectChip(this,'q5b')">נכון</div>
+      <div class="chip" data-val="false" onclick="selectChip(this,'q5b')">לא נכון</div>
+    </div>
+    <input type="hidden" id="q5b" value="">
+  </div>
+
+  <div style="border-top:1px solid #f0f0f0;padding-top:10px;">
+    <div style="font-size:13px;margin-bottom:6px;"><strong>ג.</strong> הנקודות (2, 5) ו-(5, 2) הן אותה נקודה</div>
+    <div class="chips" id="q5c-chips">
+      <div class="chip" data-val="true" onclick="selectChip(this,'q5c')">נכון</div>
+      <div class="chip" data-val="false" onclick="selectChip(this,'q5c')">לא נכון</div>
+    </div>
+    <input type="hidden" id="q5c" value="">
+  </div>
+</div>
+
+<button class="check-btn no-print" onclick="checkAnswers()">בדוק ←</button>
+
+</div><!-- end page-wrap -->
+
+<button class="nav-btn nav-back no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}">← חזרה</button>
+<button class="nav-btn nav-done no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}">סיימתי ✓</button>
+
+<script>
+function selectChip(el, fieldId) {
+  const container = document.getElementById(fieldId + '-chips');
+  if (container) {
+    container.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  }
+  el.classList.add('selected');
+  document.getElementById(fieldId).value = el.getAttribute('data-val');
+}
+
+function norm(s) {
+  return s.trim()
+    .replace(/\u2212/g, '-')
+    .replace(/½/g, '.5')
+    .replace(/¼/g, '.25')
+    .replace(/¾/g, '.75')
+    .replace(/\s+/g, '')
+    .toLowerCase();
+}
+
+function match(input, accepted) {
+  const n = norm(input);
+  if (n === '') return false;
+  for (const a of accepted) {
+    if (n === norm(a)) return true;
+    const nv = parseFloat(n), av = parseFloat(norm(a));
+    if (!isNaN(nv) && !isNaN(av) && Math.abs(nv - av) < 0.0001) return true;
+  }
+  return false;
+}
+
+/* ── answer key ── */
+const TEXTKEYS = {
+  q1ax: ['2'],   q1ay: ['3'],
+  q1bx: ['-3','−3'], q1by: ['4'],
+  q1cx: ['-4','−4'], q1cy: ['-2','−2'],
+  q1dx: ['4'],   q1dy: ['-3','−3'],
+  q1ex: ['-2','−2'], q1ey: ['0'],
+};
+
+const CHIPKEYS = {
+  'q2f-quad': 'IV',   'q2f-sx': '+',  'q2f-sy': '-',
+  'q2g-quad': 'II',   'q2g-sx': '-',  'q2g-sy': '+',
+  'q2h-quad': 'III',  'q2h-sx': '-',  'q2h-sy': '-',
+  'q2j-quad': 'axisy','q2j-sx': '0',  'q2j-sy': '+',
+  'q2k-quad': 'axisx','q2k-sx': '-',  'q2k-sy': '0',
+  'q4p': 'II',
+  'q4q': 'IV',
+  'q5a': 'false',
+  'q5b': 'true',
+  'q5c': 'false',
+};
+
+function checkAnswers() {
+  let correct = 0;
+  const total = 30;
+
+  // text inputs Q1 (10)
+  Object.entries(TEXTKEYS).forEach(([id, accepted]) => {
+    if (match(document.getElementById(id).value, accepted)) correct++;
+  });
+
+  // chip inputs Q2 (15) + Q4a (2) + Q5 (3)
+  Object.entries(CHIPKEYS).forEach(([id, expected]) => {
+    if (document.getElementById(id).value === expected) correct++;
+  });
+
+  showScore(correct, total);
+}
+
+function showScore(correct, total) {
+  const pct = correct / total;
+
+  document.getElementById('score-num').textContent = correct;
+  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות (שאלות 3, 4ב נבדקות על ידי המורה)';
+
+  const bar = document.getElementById('score-bar');
+  bar.style.width = (pct * 100) + '%';
+
+  let msg, cls, barColor;
+  if (pct >= 0.85) {
+    msg = 'מעולה! שולטים בחומר 💪';
+    cls = 'score-great';
+    barColor = '#047857';
+  } else if (pct >= 0.54) {
+    msg = 'טוב! עוד קצת אימון ✏️';
+    cls = 'score-ok';
+    barColor = '#D97706';
+  } else {
+    msg = 'כדאי לחזור על החומר 🔄';
+    cls = 'score-retry';
+    barColor = '#DC2626';
+  }
+
+  bar.style.background = barColor;
+  const msgEl = document.getElementById('score-msg');
+  msgEl.textContent = msg;
+  msgEl.className = 'score-msg ' + cls;
+
+  const card = document.getElementById('score-card');
+  card.classList.add('show');
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetForm() {
+  Object.keys(TEXTKEYS).forEach(id => { document.getElementById(id).value = ''; });
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  Object.keys(CHIPKEYS).forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('score-card').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
