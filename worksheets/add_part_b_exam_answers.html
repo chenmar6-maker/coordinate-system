@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תשובות — חוק החילוף בחיבור</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e;
+    direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 80px;
+  }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .pin-overlay {
+    position: fixed; inset: 0; background: rgba(15,13,26,0.85);
+    display: flex; align-items: center; justify-content: center; z-index: 999;
+  }
+  .pin-box {
+    background: #fff; border-radius: 16px; padding: 32px 36px; text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4); max-width: 320px; width: 90%;
+  }
+  .pin-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .pin-sub { font-size: 13px; color: #666; margin-bottom: 20px; }
+  .pin-input {
+    width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px;
+    font-size: 22px; text-align: center; letter-spacing: 8px;
+    font-family: 'Rubik', sans-serif; margin-bottom: 14px; outline: none;
+  }
+  .pin-input:focus { border-color: #1D4ED8; }
+  .pin-btn {
+    width: 100%; padding: 12px; background: #1D4ED8; color: #fff; border: none;
+    border-radius: 8px; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer;
+  }
+  .pin-err { color: #DC2626; font-size: 13px; margin-top: 8px; display: none; }
+  #answers-content { display: none; }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px; display: inline-block; margin-bottom: 10px;
+  }
+  .pb { background: #1D4ED8; }
+
+  .ans-card {
+    background: #fff; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07); line-height: 1.9;
+    border-right: 4px solid #93C5FD;
+  }
+
+  .qnum { font-weight: 700; margin-left: 6px; }
+  .m { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+  .ans { color: #047857; font-weight: 700; }
+  .step { color: #1D4ED8; font-size: 13px; }
+
+  .calc-block {
+    margin: 10px 0 6px;
+    padding: 10px 14px;
+    background: #F8FAFC;
+    border: 1px solid #e8edf5;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 2;
+  }
+  .calc-line { direction: ltr; unicode-bidi: isolate; display: block; }
+
+  .week-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px;
+    margin: 8px 0; font-size: 12.5px;
+  }
+  .week-row { display: flex; justify-content: space-between; }
+  .w-pos { color: #047857; font-weight: 700; }
+  .w-neg { color: #DC2626; font-weight: 700; }
+
+  .think-box {
+    margin-top: 8px; background: #F0FDF4;
+    border: 1px solid #BBF7D0; border-radius: 6px; padding: 10px 14px; font-size: 13px; line-height: 1.8;
+  }
+  .t-lbl { font-weight: 700; color: #047857; margin-bottom: 4px; }
+
+  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .header { background: #1E1B2E !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pb, .think-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <div class="pin-title">🔒 תשובות — מורה בלבד</div>
+    <div class="pin-sub">הכניסו את קוד הגישה</div>
+    <input class="pin-input" type="password" id="pinInput" maxlength="4"
+      placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()"/>
+    <button class="pin-btn" onclick="checkPin()">כניסה</button>
+    <div class="pin-err" id="pinErr">קוד שגוי, נסו שוב</div>
+  </div>
+</div>
+<script>
+function checkPin(){
+  if(document.getElementById('pinInput').value==='2357'){
+    document.getElementById('pinOverlay').style.display='none';
+    document.getElementById('answers-content').style.display='block';
+  } else {
+    document.getElementById('pinErr').style.display='block';
+    document.getElementById('pinInput').value='';
+  }
+}
+</script>
+
+<div id="answers-content">
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">תשובות — חוק החילוף בחיבור</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מורה בלבד</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<span class="part-label pb">חלק ב׳ — מבדק שליטה: שימוש בחוק החילוף בחיבור</span>
+
+<!-- Q1 -->
+<div class="ans-card">
+  <span class="qnum">1.</span>
+  <div class="calc-block">
+    <span class="calc-line step">כינוס חיוביים: 8 + 2 + 9 + 1 = 20</span>
+    <span class="calc-line step">כינוס שליליים: (−6) + (−4) + (−3) + (−2) = −15</span>
+    <span class="calc-line">20 + (−15) = <span class="ans">5</span></span>
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="ans-card">
+  <span class="qnum">2.</span>
+  <div class="calc-block">
+    <span class="calc-line step">כינוס חיוביים: 5⅓ + 4⅔ + 2¼ + 3¼ = 5⅓ + 4⅔ + 5½</span>
+    <span class="calc-line step" style="padding-right:16px;">5⅓ + 4⅔ = 10 &nbsp;|&nbsp; 2¼ + 3¼ = 5½ &nbsp;→&nbsp; 10 + 5½ = 15½</span>
+    <span class="calc-line step">כינוס שליליים: (−7½) + (−2½) + (−6¼) + (−3¾)</span>
+    <span class="calc-line step" style="padding-right:16px;">(−7½) + (−2½) = −10 &nbsp;|&nbsp; (−6¼) + (−3¾) = −10 &nbsp;→&nbsp; −20</span>
+    <span class="calc-line">15½ + (−20) = <span class="ans">−4½</span></span>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="ans-card">
+  <span class="qnum">3.</span> הרווחים והחובות של עידו:
+  <div class="week-grid" style="margin-top:8px;">
+    <div class="week-row"><span>שבוע 1 (משכורת):</span><span class="w-pos">+400</span></div>
+    <div class="week-row"><span>שבוע 2 (שכירות):</span><span class="w-neg">−800</span></div>
+    <div class="week-row"><span>שבוע 3 (מכירה):</span><span class="w-pos">+600</span></div>
+    <span></span>
+    <div class="week-row"><span>שבוע 4 (חוב לחבר):</span><span class="w-neg">−300</span></div>
+    <div class="week-row"><span>שבוע 5 (בונוס):</span><span class="w-pos">+150</span></div>
+    <div class="week-row"><span>שבוע 6 (תיקון רכב):</span><span class="w-neg">−700</span></div>
+    <span></span>
+    <div class="week-row"><span>שבוע 7 (עבודה נוספת):</span><span class="w-pos">+350</span></div>
+    <div class="week-row"><span>שבוע 8 (חשמל וטלפון):</span><span class="w-neg">−200</span></div>
+  </div>
+  <div class="calc-block" style="margin-top:8px;">
+    <span class="calc-line step">סה"כ חיובי: 400 + 600 + 150 + 350 = 1500</span>
+    <span class="calc-line step">סה"כ שלילי: 800 + 300 + 700 + 200 = 2000</span>
+    <span class="calc-line">1500 + (−2000) = <span class="ans">−500 ש"ח</span></span>
+  </div>
+  <div style="font-size:13px;margin-top:6px;">עידו <strong>במינוס</strong> של <span class="ans">500 ש"ח</span> בסוף 8 השבועות.</div>
+</div>
+
+<!-- Q4 -->
+<div class="ans-card">
+  <span class="qnum">4.</span> שאלת חשיבה — טענת מיכל:
+  <div class="think-box">
+    <div class="t-lbl">מיכל צודקת ✓</div>
+    חוק החילוף בחיבור קובע שסדר החיבור אינו משנה את התוצאה — גם עם מספרים שליליים.
+    לכן, כינוס כל החיוביים ביחד וכל השליליים ביחד מותר לחלוטין.
+    <div style="direction:ltr;unicode-bidi:isolate;margin-top:6px;font-size:13px;">
+      דוגמה: <span style="color:#047857;font-weight:700;">(−3) + 5 + (−1) + 4</span>
+      = (5 + 4) + (−3 + −1) = 9 + (−4) = <span style="color:#047857;font-weight:700;">5</span>
+    </div>
+  </div>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+</div>
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}"
+  style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">
+  סיימתי ✓
+</button>
+
+</body>
+</html>
