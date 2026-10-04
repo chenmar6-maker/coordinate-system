@@ -3968,7 +3968,7 @@ function renderQuizResults(){
   else if(pct >= 60) msg = 'עבודה טובה! עוד קצת תרגול ותהיו מומחים.';
   return `
     <div class="panel" style="text-align:center;">
-      <h2 class="qtitle">תוצאות מבדק שליטה</h2>
+      <h2 class="qtitle">${(state.sequence===4||state.sequence===5)?'תוצאות התרגול':'תוצאות מבדק שליטה'}</h2>
       <div class="scorebig" dir="ltr">${state.quizScore} / ${total}</div>
       <p class="qtext">${msg}</p>
       <div class="btnrow">
@@ -4499,7 +4499,7 @@ function renderGameRuleDiscovery4(){
       </div>
     </div>
     <div class="btnrow" id="rd4-quiz-btn" style="display:none;">
-      <button class="btn" onclick="startQuiz()">לבדיקת שליטה ←</button>
+      <button class="btn" onclick="startQuiz()">לתרגול ←</button>
     </div>
   `;
 }
@@ -4682,7 +4682,7 @@ function renderGameRuleDiscovery5(){
       </div>
     </div>
     <div class="btnrow" id="rd5-quiz-btn" style="display:none;">
-      <button class="btn" onclick="startQuiz()">לבדיקת שליטה ←</button>
+      <button class="btn" onclick="startQuiz()">לתרגול ←</button>
     </div>
   `;
 }
