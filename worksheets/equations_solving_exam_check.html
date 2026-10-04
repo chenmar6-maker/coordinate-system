@@ -352,8 +352,8 @@
 
 </div>
 
-<button class="nav-btn nav-back no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}">← חזרה</button>
-<button class="nav-btn nav-done no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else{history.back();}">סיימתי ✓</button>
+<button class="nav-btn nav-back no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}">← חזרה</button>
+<button class="nav-btn nav-done no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}">סיימתי ✓</button>
 
 <script>
 function norm(s) {
