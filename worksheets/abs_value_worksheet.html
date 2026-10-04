@@ -61,7 +61,7 @@
     align-items: baseline;
     gap: 3px;
   }
-  .abs-item .expr { direction: ltr; unicode-bidi: embed; font-weight: 600; white-space: nowrap; }
+  .abs-item .expr { direction: ltr; unicode-bidi: isolate; font-weight: 600; white-space: nowrap; }
   .abs-item .line { border-bottom: 1px solid #666; width: 22px; flex-shrink: 0; }
 
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; margin-bottom: 5px; }
@@ -72,7 +72,7 @@
     font-size: 13px; padding: 3px 0;
   }
   .ex-row .num { font-weight: 700; min-width: 16px; }
-  .ex-row .math { direction: ltr; unicode-bidi: embed; white-space: nowrap; }
+  .ex-row .math { direction: ltr; unicode-bidi: isolate; white-space: nowrap; }
   .ex-row .blank { border-bottom: 1px solid #555; min-width: 55px; display: inline-block; }
   .ex-row .blank-sm { border-bottom: 1px solid #555; min-width: 38px; display: inline-block; }
   .ex-row .blank-lg { border-bottom: 1px solid #555; min-width: 80px; display: inline-block; flex:1; }
@@ -90,7 +90,7 @@
     display: flex; align-items: center; justify-content: center; gap: 4px;
     font-size: 13px;
   }
-  .cmp-item .math { direction: ltr; unicode-bidi: embed; font-weight: 600; }
+  .cmp-item .math { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
   .cmp-item .circle {
     width: 22px; height: 22px; border: 1.5px solid #555; border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center;
