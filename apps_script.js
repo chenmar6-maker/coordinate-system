@@ -1,61 +1,95 @@
 // ═══════════════════════════════════════════════════════
-// Google Apps Script — דף מורה / מעקב מבדקי שליטה
+// Google Apps Script — דף מורה
 // ═══════════════════════════════════════════════════════
 //
-// הוראות התקנה (פעם אחת בלבד):
+// הוראות התקנה:
 //
-// 1. פתחי גיליון Google חדש
-// 2. שמי את הטאב הראשון: תלמידים
-//    עמודה A = שם מלא, עמודה B = כיתה
-//    הדביקי את רשימת התלמידים ישירות (ללא שורת כותרת)
-// 3. בגיליון: פתחי Extensions → Apps Script
-// 4. מחקי את כל הקוד הקיים, הדביקי את הקוד הזה
+// 1. בגיליון שלך: Extensions → Apps Script
+// 2. בקובץ Code.gs — מחקי הכל, הדביקי את הקוד הזה
+// 3. לחצי על + ליד "Files" → HTML → קראי לו: Index
+// 4. בקובץ Index.html — מחקי הכל, הדביקי את הקוד מקובץ teacher_index.html
 // 5. שמרי (Ctrl+S)
-// 6. לחצי Deploy → New deployment
-//    Type: Web app
-//    Execute as: Me
-//    Who has access: Anyone
-//    לחצי Deploy ואשרי הרשאות
-// 7. העתיקי את ה-URL שמופיע — הדביקי אותו בדף המורה
+// 6. Deploy → New deployment → Web app
+//    Execute as: Me | Who has access: Anyone → Deploy
+// 7. העתיקי את ה-URL — זהו הכתובת של דף המורה
 //
-// הערה: אל תמחקי שורות מגיליון "תלמידים" — רק השאירי ריק
+// מבנה הגיליון:
+// גיליון "תלמידים": עמודה A = שם מלא, עמודה B = כיתה
+// גיליון "מבדקים": נוצר אוטומטית
 // ═══════════════════════════════════════════════════════
 
-function doGet(e) {
-  const callback = e.parameter.callback; // JSONP support
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('Index')
+    .setTitle('דף מורה — מבדקי שליטה')
+    .setSandboxMode(HtmlService.SandboxMode.IFRAME);
+}
 
-  function respond(data) {
-    const json = JSON.stringify(data);
-    const output = ContentService.createTextOutput();
-    if (callback) {
-      output.setContent(callback + '(' + json + ')');
-      output.setMimeType(ContentService.MimeType.JAVASCRIPT);
-    } else {
-      output.setContent(json);
-      output.setMimeType(ContentService.MimeType.JSON);
-    }
-    return output;
-  }
-
+function getDataServer() {
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
-    const action = e.parameter.action;
 
-    if (action === 'getData')   return respond(getData(ss));
-    if (action === 'addEvent')  return respond(addEvent(ss, e.parameter));
+    // יצירת גיליון מבדקים אם לא קיים
+    let eventsSheet = ss.getSheetByName('מבדקים');
+    if (!eventsSheet) {
+      eventsSheet = ss.insertSheet('מבדקים');
+      eventsSheet.appendRow(['מזהה', 'שם_תלמיד', 'נושא', 'עבר', 'תאריך_שעה']);
+      eventsSheet.setRightToLeft(true);
+    }
 
-    return respond({ ok: false, error: 'unknown action' });
+    const studentsSheet = ss.getSheetByName('תלמידים');
+    if (!studentsSheet) return { ok: false, error: 'גיליון "תלמידים" לא נמצא' };
 
-  } catch (err) {
-    return respond({ ok: false, error: err.toString() });
+    const studentsRaw = studentsSheet.getDataRange().getValues();
+    const eventsRaw   = eventsSheet.getDataRange().getValues();
+
+    // זיהוי אוטומטי של שורת כותרת
+    const firstCell = String((studentsRaw[0] && studentsRaw[0][0]) || '').trim();
+    const hasHeader = ['שם', 'name', 'שם מלא'].some(h =>
+      firstCell.toLowerCase().startsWith(h.toLowerCase())
+    );
+    const startRow = hasHeader ? 1 : 0;
+
+    const students = [];
+    for (let i = startRow; i < studentsRaw.length; i++) {
+      const name = String(studentsRaw[i][0] || '').trim();
+      if (name) students.push({ id: name, name, class: String(studentsRaw[i][1] || '').trim() });
+    }
+
+    const events = [];
+    for (let i = 1; i < eventsRaw.length; i++) {
+      const rowId     = eventsRaw[i][0];
+      const studentId = String(eventsRaw[i][1] || '').trim();
+      if (rowId !== '' && rowId !== undefined && studentId) {
+        const passed = eventsRaw[i][3] === true || String(eventsRaw[i][3]).toLowerCase() === 'true';
+        events.push({
+          id: String(rowId),
+          studentId,
+          unit: String(eventsRaw[i][2] || '').trim(),
+          passed,
+          timestamp: eventsRaw[i][4]
+            ? new Date(eventsRaw[i][4]).toISOString()
+            : new Date().toISOString()
+        });
+      }
+    }
+
+    return { ok: true, students, events };
+  } catch (e) {
+    return { ok: false, error: e.toString() };
   }
 }
 
-function getData(ss) {
-  const studentsSheet = ss.getSheetByName('תלמידים');
-  if (!studentsSheet) return { ok: false, error: 'גיליון "תלמידים" לא נמצא' };
+// ═══════════════════════════════════════════════════════
+// פונקציית ייבוא חד-פעמית
+// הרץ פעם אחת מה-Editor, אחר כך אפשר למחוק
+// ═══════════════════════════════════════════════════════
+function importLegacyData() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
 
-  // יצירת גיליון מבדקים אם לא קיים
+  const importSheet = ss.getSheetByName('ייבוא');
+  if (!importSheet) throw new Error('גיליון "ייבוא" לא נמצא');
+
+  // וודא שגיליון מבדקים קיים
   let eventsSheet = ss.getSheetByName('מבדקים');
   if (!eventsSheet) {
     eventsSheet = ss.insertSheet('מבדקים');
@@ -63,67 +97,75 @@ function getData(ss) {
     eventsSheet.setRightToLeft(true);
   }
 
-  const studentsRaw = studentsSheet.getDataRange().getValues();
-  const eventsRaw = eventsSheet.getDataRange().getValues();
+  // וודא שגיליון תלמידים קיים
+  let studentsSheet = ss.getSheetByName('תלמידים');
+  if (!studentsSheet) {
+    studentsSheet = ss.insertSheet('תלמידים');
+    studentsSheet.appendRow(['שם מלא', 'כיתה']);
+    studentsSheet.setRightToLeft(true);
+  }
 
-  // זיהוי אוטומטי של שורת כותרת
-  const firstCell = String(studentsRaw[0] && studentsRaw[0][0] || '').trim();
-  const hasHeader = ['שם', 'name', 'שם מלא'].some(h =>
-    firstCell.toLowerCase().startsWith(h.toLowerCase())
+  const data = importSheet.getDataRange().getValues();
+  const headers = data[0];
+
+  // עמודות הרצפים מתחילות מעמודה D (אינדקס 3)
+  // עמודה A = שם משפחה, B = שם פרטי, C = כמה עשה
+  const seqCols = [];
+  for (let c = 3; c < headers.length; c++) {
+    const h = String(headers[c]).trim();
+    if (h) seqCols.push({ col: c, name: h });
+  }
+
+  // תלמידים קיימים (למניעת כפילויות)
+  const existingStudents = new Set(
+    studentsSheet.getDataRange().getValues().map(r => String(r[0]).trim())
   );
-  const startRow = hasHeader ? 1 : 0;
 
-  const students = [];
-  for (let i = startRow; i < studentsRaw.length; i++) {
-    const name = String(studentsRaw[i][0] || '').trim();
-    if (name) {
-      students.push({
-        id: name,
-        name: name,
-        class: String(studentsRaw[i][1] || '').trim()
-      });
+  const now = new Date();
+  let evtId = eventsSheet.getLastRow();
+  let imported = 0;
+
+  for (let i = 1; i < data.length; i++) {
+    const lastName  = String(data[i][0] || '').trim();
+    const firstName = String(data[i][1] || '').trim();
+    if (!firstName && !lastName) continue;
+
+    const fullName = firstName + ' ' + lastName;
+
+    // הוסף לתלמידים אם לא קיים
+    if (!existingStudents.has(fullName)) {
+      studentsSheet.appendRow([fullName, '']);
+      existingStudents.add(fullName);
+    }
+
+    // ייבא רצפים שסומנו TRUE
+    for (const seq of seqCols) {
+      const val = data[i][seq.col];
+      const passed = val === true || String(val).toLowerCase() === 'true';
+      if (!passed) continue;
+
+      evtId++;
+      eventsSheet.appendRow([evtId, fullName, seq.name, true, now]);
+      imported++;
     }
   }
 
-  const events = [];
-  for (let i = 1; i < eventsRaw.length; i++) {
-    const rowId = eventsRaw[i][0];
-    const studentId = String(eventsRaw[i][1] || '').trim();
-    if (rowId !== '' && rowId !== undefined && studentId) {
-      const passed = eventsRaw[i][3] === true || String(eventsRaw[i][3]).toLowerCase() === 'true';
-      events.push({
-        id: String(rowId),
-        studentId,
-        unit: String(eventsRaw[i][2] || '').trim(),
-        passed,
-        timestamp: eventsRaw[i][4]
-          ? new Date(eventsRaw[i][4]).toISOString()
-          : new Date().toISOString()
-      });
-    }
-  }
-
-  return { ok: true, students, events };
+  SpreadsheetApp.getUi().alert('ייבוא הושלם! ' + imported + ' רשומות נוספו.');
 }
 
-function addEvent(ss, params) {
-  let eventsSheet = ss.getSheetByName('מבדקים');
-  if (!eventsSheet) {
-    eventsSheet = ss.insertSheet('מבדקים');
-    eventsSheet.appendRow(['מזהה', 'שם_תלמיד', 'נושא', 'עבר', 'תאריך_שעה']);
-    eventsSheet.setRightToLeft(true);
+function addEventServer(studentId, unit, passed) {
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let eventsSheet = ss.getSheetByName('מבדקים');
+    if (!eventsSheet) {
+      eventsSheet = ss.insertSheet('מבדקים');
+      eventsSheet.appendRow(['מזהה', 'שם_תלמיד', 'נושא', 'עבר', 'תאריך_שעה']);
+      eventsSheet.setRightToLeft(true);
+    }
+    const newId = eventsSheet.getLastRow();
+    eventsSheet.appendRow([newId, studentId, unit, passed === true || passed === 'true', new Date()]);
+    return { ok: true };
+  } catch (e) {
+    return { ok: false, error: e.toString() };
   }
-
-  const newId = eventsSheet.getLastRow();
-  const passed = params.passed === 'true';
-
-  eventsSheet.appendRow([
-    newId,
-    params.studentId,
-    params.unit,
-    passed,
-    new Date()
-  ]);
-
-  return { ok: true, id: newId };
 }
