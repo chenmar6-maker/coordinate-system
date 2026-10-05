@@ -180,6 +180,18 @@
   }
   .retry-btn:hover { border-color: #C05621; color: #C05621; }
 
+  /* ─── per-item feedback ─── */
+  .ans-input.wrong   { border-bottom-color: #DC2626; background: #FEF2F2; color: #991B1B; }
+  .ans-input.correct { border-bottom-color: #047857; background: #ECFDF5; color: #065F46; }
+  .chip.chip-wrong   { border-color: #DC2626 !important; background: #FEF2F2 !important; color: #991B1B !important; font-weight: 700; }
+  .chip.chip-correct { border-color: #047857 !important; background: #ECFDF5 !important; color: #065F46 !important; font-weight: 700; }
+  /* ─── wrong list inside score card ─── */
+  .wrong-list-wrap { margin-top: 18px; text-align: right; }
+  .wrong-list-title { font-size: 13px; font-weight: 700; color: #991B1B; margin-bottom: 8px; }
+  .wrong-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .wrong-tag { background: #FEF2F2; border: 1.5px solid #FCA5A5; border-radius: 16px; padding: 4px 12px; font-size: 13px; font-weight: 600; color: #991B1B; }
+  .all-correct-note { margin-top: 14px; font-size: 14px; color: #047857; font-weight: 600; }
+
   .nav-btn {
     position: fixed; border: none; border-radius: 20px;
     font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
@@ -207,12 +219,13 @@
   <div class="score-out-of" id="score-denom">מתוך 28 תשובות</div>
   <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
   <div class="score-msg" id="score-msg"></div>
+  <div id="wrong-list-container"></div>
   <br>
   <button class="retry-btn" onclick="resetForm()">נסו שוב ←</button>
 </div>
 
 <div class="intro-box">
-  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". תקבלו רק את <strong>מספר התשובות הנכונות</strong> — בלי לדעת אילו ספציפיות. שאלה 6 נבדקת על ידי המורה.
+  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". תראו כמה נכון ואילו תרגילים יש לתקן. שאלה 6 נבדקת על ידי המורה.
 </div>
 
 <!-- ══ שאלה 1 — חישוב ══ -->
@@ -407,6 +420,17 @@ function match(input, accepted) {
 }
 
 /* Q3: accept either power notation or numeric value */
+const LABELS = {
+  q1a: 'שאלה 1א', q1b: 'שאלה 1ב', q1c: 'שאלה 1ג', q1d: 'שאלה 1ד',
+  q1e: 'שאלה 1ה', q1f: 'שאלה 1ו', q1g: 'שאלה 1ז', q1h: 'שאלה 1ח',
+  q2a: 'שאלה 2א', q2b: 'שאלה 2ב', q2c: 'שאלה 2ג', q2d: 'שאלה 2ד',
+  q2e: 'שאלה 2ה', q2f: 'שאלה 2ו',
+  q3a: 'שאלה 3א', q3b: 'שאלה 3ב',
+  q4a: 'שאלה 4א', q4b: 'שאלה 4ב', q4c: 'שאלה 4ג', q4d: 'שאלה 4ד',
+  q5a: 'שאלה 5א', q5b: 'שאלה 5ב', q5c: 'שאלה 5ג', q5d: 'שאלה 5ד',
+  q5e: 'שאלה 5ה', q5f: 'שאלה 5ו', q5g: 'שאלה 5ז', q5h: 'שאלה 5ח',
+};
+
 const TEXTKEYS = {
   q1a: ['16'],
   q1b: ['27'],
@@ -443,20 +467,36 @@ const CHIPKEYS = {
 
 function checkAnswers() {
   let correct = 0;
+  const wrong = [];
   const total = 28; // 8+6+2+4+8
 
   Object.entries(TEXTKEYS).forEach(([id, accepted]) => {
-    if (match(document.getElementById(id).value, accepted)) correct++;
+    const el = document.getElementById(id);
+    if (match(el.value, accepted)) {
+      correct++;
+      el.classList.add('correct'); el.classList.remove('wrong');
+    } else {
+      el.classList.add('wrong'); el.classList.remove('correct');
+      wrong.push(id);
+    }
   });
 
   Object.entries(CHIPKEYS).forEach(([id, expected]) => {
-    if (document.getElementById(id).value === expected) correct++;
+    const container = document.getElementById(id + '-chips') || document.querySelector('[data-key="' + id + '"]');
+    const ok = document.getElementById(id).value === expected;
+    if (ok) {
+      correct++;
+      if (container) container.querySelectorAll('.chip.selected').forEach(c => { c.classList.add('chip-correct'); c.classList.remove('chip-wrong'); });
+    } else {
+      if (container) container.querySelectorAll('.chip.selected').forEach(c => { c.classList.add('chip-wrong'); c.classList.remove('chip-correct'); });
+      wrong.push(id);
+    }
   });
 
-  showScore(correct, total);
+  showScore(correct, total, wrong);
 }
 
-function showScore(correct, total) {
+function showScore(correct, total, wrong) {
   const pct = correct / total;
 
   document.getElementById('score-num').textContent = correct;
@@ -485,15 +525,25 @@ function showScore(correct, total) {
   msgEl.textContent = msg;
   msgEl.className = 'score-msg ' + cls;
 
+  const wc = document.getElementById('wrong-list-container');
+  if (wrong.length === 0) {
+    wc.innerHTML = '<div class="all-correct-note">כל התשובות נכונות!</div>';
+  } else {
+    wc.innerHTML = '<div class="wrong-list-wrap"><div class="wrong-list-title">לתקן:</div><div class="wrong-tags">' +
+      wrong.map(id => '<span class="wrong-tag">' + (LABELS[id]||id) + '</span>').join('') +
+      '</div></div>';
+  }
+
   const card = document.getElementById('score-card');
   card.classList.add('show');
   card.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function resetForm() {
-  Object.keys(TEXTKEYS).forEach(id => { document.getElementById(id).value = ''; });
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  Object.keys(TEXTKEYS).forEach(id => { const el = document.getElementById(id); el.value = ''; el.classList.remove('correct','wrong'); });
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected','chip-correct','chip-wrong'));
   Object.keys(CHIPKEYS).forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('wrong-list-container').innerHTML = '';
   document.getElementById('score-card').classList.remove('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }

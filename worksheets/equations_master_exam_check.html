@@ -234,6 +234,18 @@
   }
   .retry-btn:hover { border-color: #C05621; color: #C05621; }
 
+  /* ─── per-item feedback ─── */
+  .ans-input.wrong   { border-bottom-color: #DC2626; background: #FEF2F2; color: #991B1B; }
+  .ans-input.correct { border-bottom-color: #047857; background: #ECFDF5; color: #065F46; }
+  .chip.chip-wrong   { border-color: #DC2626 !important; background: #FEF2F2 !important; color: #991B1B !important; font-weight: 700; }
+  .chip.chip-correct { border-color: #047857 !important; background: #ECFDF5 !important; color: #065F46 !important; font-weight: 700; }
+  /* ─── wrong list inside score card ─── */
+  .wrong-list-wrap { margin-top: 18px; text-align: right; }
+  .wrong-list-title { font-size: 13px; font-weight: 700; color: #991B1B; margin-bottom: 8px; }
+  .wrong-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .wrong-tag { background: #FEF2F2; border: 1.5px solid #FCA5A5; border-radius: 16px; padding: 4px 12px; font-size: 13px; font-weight: 600; color: #991B1B; }
+  .all-correct-note { margin-top: 14px; font-size: 14px; color: #047857; font-weight: 600; }
+
   .nav-btn {
     position: fixed;
     border: none;
@@ -267,12 +279,13 @@
   <div class="score-out-of" id="score-denom">מתוך 33 תשובות</div>
   <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
   <div class="score-msg" id="score-msg"></div>
+  <div id="wrong-list-container"></div>
   <br>
   <button class="retry-btn" onclick="resetForm()">נסו שוב ←</button>
 </div>
 
 <div class="intro-box">
-  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". תקבלו רק את <strong>מספר התשובות הנכונות</strong> — בלי לדעת אילו ספציפיות.<br>
+  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". תראו כמה נכון ואילו תרגילים יש לתקן.<br>
   <strong>שימו לב:</strong> חלק ה׳ (שאלה 10 — פתיחת סוגריים) לא נכלל כאן — הוא נבדק על ידי המורה.
 </div>
 
@@ -628,6 +641,19 @@ function matchEq(input, accepted) {
   return false;
 }
 
+const LABELS = {
+  q1a: 'שאלה 1א', q1b: 'שאלה 1ב', q1c: 'שאלה 1ג', q1d: 'שאלה 1ד', q1e: 'שאלה 1ה',
+  q2a: 'שאלה 2א', q2b: 'שאלה 2ב', q2c: 'שאלה 2ג', q2d: 'שאלה 2ד', q2e: 'שאלה 2ה', q2f: 'שאלה 2ו',
+  q3a: 'שאלה 3א', q3b: 'שאלה 3ב', q3c: 'שאלה 3ג', q3d: 'שאלה 3ד', q3e: 'שאלה 3ה', q3f: 'שאלה 3ו',
+  q4: 'שאלה 4', q5blank: 'שאלה 5',
+  q6a: 'שאלה 6א', q6b: 'שאלה 6ב',
+  q7a: 'שאלה 7א', q7b: 'שאלה 7ב',
+  q8boys: 'שאלה 8 (בנים)', q8girls: 'שאלה 8 (בנות)',
+  q9w: 'שאלה 9 (רוחב)', q9l: 'שאלה 9 (אורך)',
+  q11a: 'שאלה 11א', q11b: 'שאלה 11ב', q11c: 'שאלה 11ג', q11d: 'שאלה 11ד',
+  q12: 'שאלה 12', q13: 'שאלה 13',
+};
+
 const MC_KEY = {
   q1a: '2',
   q1b: '-6',
@@ -676,24 +702,47 @@ const EQ_IDS  = ['q12'];
 
 function checkAnswers() {
   let correct = 0;
+  const wrong = [];
   const total = MC_IDS.length + NUM_IDS.length + EQ_IDS.length; // 16+16+1 = 33
 
   MC_IDS.forEach(id => {
-    if (document.getElementById(id).value === MC_KEY[id]) correct++;
+    const container = document.getElementById(id + '-chips');
+    const ok = document.getElementById(id).value === MC_KEY[id];
+    if (ok) {
+      correct++;
+      if (container) container.querySelectorAll('.chip.selected').forEach(c => { c.classList.add('chip-correct'); c.classList.remove('chip-wrong'); });
+    } else {
+      if (container) container.querySelectorAll('.chip.selected').forEach(c => { c.classList.add('chip-wrong'); c.classList.remove('chip-correct'); });
+      wrong.push(id);
+    }
   });
 
   NUM_IDS.forEach(id => {
-    if (match(document.getElementById(id).value, NUM_KEY[id])) correct++;
+    const el = document.getElementById(id);
+    if (match(el.value, NUM_KEY[id])) {
+      correct++;
+      el.classList.add('correct'); el.classList.remove('wrong');
+    } else {
+      el.classList.add('wrong'); el.classList.remove('correct');
+      wrong.push(id);
+    }
   });
 
   EQ_IDS.forEach(id => {
-    if (matchEq(document.getElementById(id).value, EQ_KEY[id])) correct++;
+    const el = document.getElementById(id);
+    if (matchEq(el.value, EQ_KEY[id])) {
+      correct++;
+      el.classList.add('correct'); el.classList.remove('wrong');
+    } else {
+      el.classList.add('wrong'); el.classList.remove('correct');
+      wrong.push(id);
+    }
   });
 
-  showScore(correct, total);
+  showScore(correct, total, wrong);
 }
 
-function showScore(correct, total) {
+function showScore(correct, total, wrong) {
   const pct = correct / total;
 
   document.getElementById('score-num').textContent = correct;
@@ -722,6 +771,15 @@ function showScore(correct, total) {
   msgEl.textContent = msg;
   msgEl.className = 'score-msg ' + cls;
 
+  const wc = document.getElementById('wrong-list-container');
+  if (wrong.length === 0) {
+    wc.innerHTML = '<div class="all-correct-note">כל התשובות נכונות!</div>';
+  } else {
+    wc.innerHTML = '<div class="wrong-list-wrap"><div class="wrong-list-title">לתקן:</div><div class="wrong-tags">' +
+      wrong.map(id => '<span class="wrong-tag">' + (LABELS[id]||id) + '</span>').join('') +
+      '</div></div>';
+  }
+
   const card = document.getElementById('score-card');
   card.classList.add('show');
   card.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -729,9 +787,10 @@ function showScore(correct, total) {
 
 function resetForm() {
   MC_IDS.forEach(id => { document.getElementById(id).value = ''; });
-  NUM_IDS.forEach(id => { document.getElementById(id).value = ''; });
-  EQ_IDS.forEach(id => { document.getElementById(id).value = ''; });
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  NUM_IDS.forEach(id => { const el = document.getElementById(id); el.value = ''; el.classList.remove('correct','wrong'); });
+  EQ_IDS.forEach(id => { const el = document.getElementById(id); el.value = ''; el.classList.remove('correct','wrong'); });
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected','chip-correct','chip-wrong'));
+  document.getElementById('wrong-list-container').innerHTML = '';
   document.getElementById('score-card').classList.remove('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
