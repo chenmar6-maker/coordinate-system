@@ -424,7 +424,11 @@ async function loadData() {
 
   try {
     const res = await fetch(`${state.scriptUrl}?action=getData`);
-    const data = await res.json();
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = await res.text();
+    let data;
+    try { data = JSON.parse(text); }
+    catch { throw new Error('תגובה לא תקינה מהשרת: ' + text.slice(0, 120)); }
     if (!data.ok) throw new Error(data.error || 'שגיאה לא ידועה');
 
     state.students = data.students;
@@ -436,6 +440,7 @@ async function loadData() {
     renderStats();
     showToast('הנתונים עודכנו ✓');
   } catch (err) {
+    console.error('loadData error:', err);
     const cache = localStorage.getItem('teacher_cache');
     if (cache) {
       const c = JSON.parse(cache);
@@ -444,9 +449,11 @@ async function loadData() {
       populateFilter();
       render();
       renderStats();
-      showToast('⚠️ מוצג מהמטמון — בדקי חיבור');
+      showToast('⚠️ מוצג מהמטמון — ' + err.message);
     } else {
-      showToast('⚠️ שגיאה: ' + err.message);
+      showToast('⚠️ ' + err.message);
+      document.getElementById('student-list').innerHTML =
+        `<div class="empty-state" style="color:#B91C1C;">שגיאת חיבור: ${escHtml(err.message)}<br><small style="color:#9CA3AF;font-weight:400;">בדקי שה-URL נכון וש-Apps Script פרוס כ-Web App</small></div>`;
     }
   }
 
