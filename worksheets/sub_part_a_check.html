@@ -216,6 +216,23 @@
     transition: width 0.6s ease;
   }
 
+  /* ─── per-item feedback ─── */
+  .ans-input.wrong   { border-bottom-color: #DC2626; background: #FEF2F2; color: #991B1B; }
+  .ans-input.correct { border-bottom-color: #047857; background: #ECFDF5; color: #065F46; }
+  .chip.chip-wrong   { border-color: #DC2626 !important; background: #FEF2F2 !important; color: #991B1B !important; font-weight: 700; }
+  .chip.chip-correct { border-color: #047857 !important; background: #ECFDF5 !important; color: #065F46 !important; font-weight: 700; }
+
+  /* ─── wrong list inside score card ─── */
+  .wrong-list-wrap { margin-top: 18px; text-align: right; }
+  .wrong-list-title { font-size: 13px; font-weight: 700; color: #991B1B; margin-bottom: 8px; }
+  .wrong-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .wrong-tag {
+    background: #FEF2F2; border: 1.5px solid #FCA5A5;
+    border-radius: 16px; padding: 4px 12px;
+    font-size: 13px; font-weight: 600; color: #991B1B;
+  }
+  .all-correct-note { margin-top: 14px; font-size: 14px; color: #047857; font-weight: 600; }
+
   /* ─── retry button ─── */
   .retry-btn {
     margin-top: 16px;
@@ -267,12 +284,13 @@
   <div class="score-out-of" id="score-denom">מתוך 14 תשובות</div>
   <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
   <div class="score-msg" id="score-msg"></div>
+  <div id="wrong-list-container"></div>
   <br>
   <button class="retry-btn" onclick="resetForm()">נסו שוב ←</button>
 </div>
 
 <div class="intro-box">
-  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". תקבלו רק את <strong>מספר התשובות הנכונות</strong> — בלי לדעת אילו ספציפיות.
+  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". תראו כמה נכון ואילו תרגילים יש לתקן.
 </div>
 
 <!-- ══ שאלה 1 ══ -->
@@ -437,28 +455,53 @@ const KEY = {
   q4:  ['b'],
 };
 
+/* ─── label map for display ─── */
+const LABELS = {
+  q1a:'שאלה 1א', q1b:'שאלה 1ב', q1c:'שאלה 1ג', q1d:'שאלה 1ד', q1e:'שאלה 1ה',
+  q2a:'שאלה 2א', q2b:'שאלה 2ב', q2c:'שאלה 2ג', q2d:'שאלה 2ד', q2e:'שאלה 2ה',
+  q3a:'שאלה 3א', q3b:'שאלה 3ב',
+  q4:'שאלה 4',
+};
+
 /* ─── main check ─── */
 function checkAnswers() {
   let correct = 0;
   const total = 13; // 5(Q1)+5(Q2)+2(Q3)+1(Q4)
+  const wrong = [];
 
   // text inputs
   ['q1a','q1b','q1c','q1d','q1e','q2a','q2b','q2c','q2d','q2e'].forEach(id => {
-    const val = document.getElementById(id).value;
-    if (match(val, KEY[id])) correct++;
+    const el = document.getElementById(id);
+    const ok = match(el.value, KEY[id]);
+    el.classList.remove('wrong','correct');
+    if (ok) { correct++; el.classList.add('correct'); }
+    else     { wrong.push(id); el.classList.add('wrong'); }
   });
 
   // MC hidden inputs
   ['q3a','q3b','q4'].forEach(id => {
     const val = document.getElementById(id).value;
-    if (val === KEY[id][0]) correct++;
+    const ok = (val === KEY[id][0]);
+    // find selected chip and mark it
+    const chipsId = id === 'q4' ? 'q4-chips' : id + '-chips';
+    const container = document.getElementById(chipsId);
+    if (container) {
+      container.querySelectorAll('.chip').forEach(c => {
+        c.classList.remove('chip-wrong','chip-correct');
+        if (c.classList.contains('selected')) {
+          c.classList.add(ok ? 'chip-correct' : 'chip-wrong');
+        }
+      });
+    }
+    if (ok) correct++;
+    else wrong.push(id);
   });
 
-  showScore(correct, total);
+  showScore(correct, total, wrong);
 }
 
 /* ─── display score ─── */
-function showScore(correct, total) {
+function showScore(correct, total, wrong) {
   const pct = correct / total;
 
   document.getElementById('score-num').textContent = correct;
@@ -487,6 +530,19 @@ function showScore(correct, total) {
   msgEl.textContent = msg;
   msgEl.className = 'score-msg ' + cls;
 
+  // wrong items list
+  const container = document.getElementById('wrong-list-container');
+  if (wrong.length === 0) {
+    container.innerHTML = '<div class="all-correct-note">כל התשובות נכונות!</div>';
+  } else {
+    const tags = wrong.map(id => '<span class="wrong-tag">' + LABELS[id] + '</span>').join('');
+    container.innerHTML =
+      '<div class="wrong-list-wrap">' +
+        '<div class="wrong-list-title">לתקן:</div>' +
+        '<div class="wrong-tags">' + tags + '</div>' +
+      '</div>';
+  }
+
   const card = document.getElementById('score-card');
   card.classList.add('show');
   card.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -494,14 +550,19 @@ function showScore(correct, total) {
 
 /* ─── reset ─── */
 function resetForm() {
-  // clear inputs
+  // clear inputs + feedback classes
   ['q1a','q1b','q1c','q1d','q1e','q2a','q2b','q2c','q2d','q2e'].forEach(id => {
-    document.getElementById(id).value = '';
+    const el = document.getElementById(id);
+    el.value = '';
+    el.classList.remove('wrong','correct');
   });
   // clear MC
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.chip').forEach(c => {
+    c.classList.remove('selected','chip-wrong','chip-correct');
+  });
   ['q3a','q3b','q4'].forEach(id => { document.getElementById(id).value = ''; });
-  // hide score
+  // clear wrong list, hide score
+  document.getElementById('wrong-list-container').innerHTML = '';
   document.getElementById('score-card').classList.remove('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
