@@ -107,9 +107,8 @@ function importLegacyData() {
 
   const data = importSheet.getDataRange().getValues();
 
-  // שורה 3 (אינדקס 2) = שמות הרצפים הספציפיים (ערך מוחלט, מספרים נגדיים...)
-  // שורה 4+ (אינדקס 3+) = נתוני תלמידים
-  const headers = data[2];
+  // שורה 1 (אינדקס 0) = כותרות עם שמות הרצפים
+  const headers = data[0];
 
   // עמודות הרצפים מתחילות מעמודה D (אינדקס 3)
   // עמודה A = שם משפחה, B = שם פרטי, C = כמה עשה
@@ -128,7 +127,7 @@ function importLegacyData() {
   let evtId = eventsSheet.getLastRow();
   let imported = 0;
 
-  for (let i = 3; i < data.length; i++) {
+  for (let i = 1; i < data.length; i++) {
     const lastName  = String(data[i][0] || '').trim();
     const firstName = String(data[i][1] || '').trim();
     if (!firstName && !lastName) continue;
