@@ -415,6 +415,30 @@ function resetSetup() {
 }
 
 // ════════════════════════════════
+// JSONP — עוקף מגבלות CORS
+// ════════════════════════════════
+function jsonp(params) {
+  return new Promise((resolve, reject) => {
+    const cbName = '_gscb' + Date.now();
+    const script = document.createElement('script');
+    const url = state.scriptUrl + '?' + new URLSearchParams({ ...params, callback: cbName });
+
+    const timer = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, 12000);
+
+    function cleanup() {
+      clearTimeout(timer);
+      delete window[cbName];
+      script.parentNode && script.parentNode.removeChild(script);
+    }
+
+    window[cbName] = (data) => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error('Load failed — בדקי שה-URL נכון')); };
+    script.src = url;
+    document.head.appendChild(script);
+  });
+}
+
+// ════════════════════════════════
 // טעינת נתונים
 // ════════════════════════════════
 async function loadData() {
@@ -423,12 +447,7 @@ async function loadData() {
   btn.textContent = 'טוען...';
 
   try {
-    const res = await fetch(`${state.scriptUrl}?action=getData`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const text = await res.text();
-    let data;
-    try { data = JSON.parse(text); }
-    catch { throw new Error('תגובה לא תקינה מהשרת: ' + text.slice(0, 120)); }
+    const data = await jsonp({ action: 'getData' });
     if (!data.ok) throw new Error(data.error || 'שגיאה לא ידועה');
 
     state.students = data.students;
@@ -672,7 +691,7 @@ async function logEvent(passed) {
 
   // שמירה בגיליון
   try {
-    await fetch(`${state.scriptUrl}?action=addEvent&studentId=${encodeURIComponent(studentId)}&unit=${encodeURIComponent(unit)}&passed=${passed}`);
+    await jsonp({ action: 'addEvent', studentId, unit, passed: String(passed) });
     setTimeout(loadData, 1500);
   } catch {
     showToast('⚠️ נשמר מקומית — בדקי חיבור');

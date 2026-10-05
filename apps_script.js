@@ -22,35 +22,38 @@
 // ═══════════════════════════════════════════════════════
 
 function doGet(e) {
-  const output = ContentService.createTextOutput();
-  output.setMimeType(ContentService.MimeType.JSON);
+  const callback = e.parameter.callback; // JSONP support
+
+  function respond(data) {
+    const json = JSON.stringify(data);
+    const output = ContentService.createTextOutput();
+    if (callback) {
+      output.setContent(callback + '(' + json + ')');
+      output.setMimeType(ContentService.MimeType.JAVASCRIPT);
+    } else {
+      output.setContent(json);
+      output.setMimeType(ContentService.MimeType.JSON);
+    }
+    return output;
+  }
 
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const action = e.parameter.action;
 
-    if (action === 'getData') {
-      return getData(ss, output);
-    }
-    if (action === 'addEvent') {
-      return addEvent(ss, output, e.parameter);
-    }
+    if (action === 'getData')   return respond(getData(ss));
+    if (action === 'addEvent')  return respond(addEvent(ss, e.parameter));
 
-    output.setContent(JSON.stringify({ ok: false, error: 'unknown action' }));
-    return output;
+    return respond({ ok: false, error: 'unknown action' });
 
   } catch (err) {
-    output.setContent(JSON.stringify({ ok: false, error: err.toString() }));
-    return output;
+    return respond({ ok: false, error: err.toString() });
   }
 }
 
-function getData(ss, output) {
+function getData(ss) {
   const studentsSheet = ss.getSheetByName('תלמידים');
-  if (!studentsSheet) {
-    output.setContent(JSON.stringify({ ok: false, error: 'גיליון "תלמידים" לא נמצא' }));
-    return output;
-  }
+  if (!studentsSheet) return { ok: false, error: 'גיליון "תלמידים" לא נמצא' };
 
   // יצירת גיליון מבדקים אם לא קיים
   let eventsSheet = ss.getSheetByName('מבדקים');
@@ -75,7 +78,7 @@ function getData(ss, output) {
     const name = String(studentsRaw[i][0] || '').trim();
     if (name) {
       students.push({
-        id: name, // השם הוא המזהה — יציב גם אם מוסיפים שורות
+        id: name,
         name: name,
         class: String(studentsRaw[i][1] || '').trim()
       });
@@ -83,7 +86,7 @@ function getData(ss, output) {
   }
 
   const events = [];
-  for (let i = 1; i < eventsRaw.length; i++) { // דילוג על כותרת
+  for (let i = 1; i < eventsRaw.length; i++) {
     const rowId = eventsRaw[i][0];
     const studentId = String(eventsRaw[i][1] || '').trim();
     if (rowId !== '' && rowId !== undefined && studentId) {
@@ -100,11 +103,10 @@ function getData(ss, output) {
     }
   }
 
-  output.setContent(JSON.stringify({ ok: true, students, events }));
-  return output;
+  return { ok: true, students, events };
 }
 
-function addEvent(ss, output, params) {
+function addEvent(ss, params) {
   let eventsSheet = ss.getSheetByName('מבדקים');
   if (!eventsSheet) {
     eventsSheet = ss.insertSheet('מבדקים');
@@ -112,7 +114,7 @@ function addEvent(ss, output, params) {
     eventsSheet.setRightToLeft(true);
   }
 
-  const newId = eventsSheet.getLastRow(); // שורה 1 = כותרת → id ראשון = 1
+  const newId = eventsSheet.getLastRow();
   const passed = params.passed === 'true';
 
   eventsSheet.appendRow([
@@ -123,6 +125,5 @@ function addEvent(ss, output, params) {
     new Date()
   ]);
 
-  output.setContent(JSON.stringify({ ok: true, id: newId }));
-  return output;
+  return { ok: true, id: newId };
 }
