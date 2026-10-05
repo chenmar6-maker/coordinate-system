@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דף מורה — מבדקי שליטה</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    background: #F0F2F8;
+    color: #1a1a2e;
+    direction: rtl;
+    min-height: 100vh;
+    font-size: 14px;
+  }
+
+  /* ── AUTH ── */
+  .auth-screen {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; padding: 24px;
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+  }
+  .auth-card {
+    background: #fff; border-radius: 18px;
+    padding: 44px 36px; width: 100%; max-width: 360px;
+    text-align: center; box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  }
+  .auth-logo { font-size: 32px; margin-bottom: 12px; }
+  .auth-title { font-size: 22px; font-weight: 700; color: #1E1B2E; margin-bottom: 6px; }
+  .auth-sub { font-size: 13px; color: #888; margin-bottom: 28px; }
+  .auth-input {
+    width: 100%; padding: 13px 16px; border: 1.5px solid #D1D5DB;
+    border-radius: 10px; font-family: 'Rubik', sans-serif; font-size: 16px;
+    text-align: center; direction: ltr; margin-bottom: 14px;
+    outline: none; transition: border-color .2s;
+  }
+  .auth-input:focus { border-color: #1E1B2E; }
+  .auth-input.shake { animation: shake .3s; border-color: #B91C1C; background: #FEF2F2; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+  .auth-btn {
+    width: 100%; padding: 13px; background: #1E1B2E; color: #fff;
+    border: none; border-radius: 10px; font-family: 'Rubik', sans-serif;
+    font-size: 15px; font-weight: 600; cursor: pointer; transition: background .2s;
+  }
+  .auth-btn:hover { background: #2D2A45; }
+  .auth-error { font-size: 12.5px; color: #B91C1C; margin-top: 10px; min-height: 18px; }
+
+  /* ── APP HEADER ── */
+  .app-header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff; padding: 15px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  }
+  .app-header-title { font-size: 17px; font-weight: 700; }
+  .app-header-right { display: flex; gap: 8px; }
+  .hdr-btn {
+    padding: 6px 16px; border-radius: 20px;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    background: transparent; color: #fff;
+    font-family: 'Rubik', sans-serif; font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: background .15s;
+  }
+  .hdr-btn:hover { background: rgba(255,255,255,0.12); }
+  .hdr-btn:disabled { opacity: 0.45; cursor: default; }
+
+  /* ── MAIN ── */
+  .app-main { max-width: 920px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
+  .stat-card {
+    background: #fff; border-radius: 12px; padding: 16px;
+    text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+  .stat-num { font-size: 28px; font-weight: 700; line-height: 1.2; }
+  .stat-label { font-size: 12px; color: #6B7280; margin-top: 3px; }
+
+  /* Controls */
+  .controls {
+    display: flex; gap: 10px; margin-bottom: 14px;
+    align-items: center; flex-wrap: wrap;
+  }
+  .ctrl-label { font-size: 12px; color: #6B7280; font-weight: 500; }
+  .ctrl-select {
+    padding: 7px 12px; border: 1.5px solid #D1D5DB; border-radius: 8px;
+    font-family: 'Rubik', sans-serif; font-size: 13px;
+    background: #fff; cursor: pointer; outline: none; color: #1a1a2e;
+  }
+  .ctrl-select:focus { border-color: #1E1B2E; }
+
+  /* Table */
+  .student-table { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+  .tbl-header {
+    display: grid; grid-template-columns: 2fr 75px 90px 2fr 95px;
+    padding: 10px 20px; background: #F8FAFC;
+    border-bottom: 1.5px solid #E5E7EB;
+    font-size: 11.5px; font-weight: 700; color: #9CA3AF;
+    text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  .student-row {
+    display: grid; grid-template-columns: 2fr 75px 90px 2fr 95px;
+    padding: 13px 20px; border-bottom: 1px solid #F3F4F6;
+    cursor: pointer; transition: background .1s; align-items: center;
+  }
+  .student-row:last-child { border-bottom: none; }
+  .student-row:hover { background: #F8FAFC; }
+  .student-row.urgent { border-right: 3px solid #EF4444; }
+  .student-row.warn   { border-right: 3px solid #F59E0B; }
+
+  .s-name { font-weight: 600; font-size: 14.5px; color: #1E1B2E; }
+  .s-class {
+    display: inline-block; background: #EDE9FE; color: #5B21B6;
+    font-size: 11.5px; font-weight: 700; padding: 2px 9px; border-radius: 20px;
+  }
+  .s-done { font-size: 13px; color: #444; }
+  .s-last { font-size: 12.5px; color: #6B7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .days-badge {
+    font-size: 12px; font-weight: 700; padding: 3px 10px;
+    border-radius: 20px; white-space: nowrap; display: inline-block;
+  }
+  .days-new     { background: #E0E7FF; color: #3730A3; }
+  .days-today   { background: #D1FAE5; color: #065F46; }
+  .days-ok      { background: #D1FAE5; color: #065F46; }
+  .days-warn    { background: #FEF3C7; color: #92400E; }
+  .days-urgent  { background: #FEE2E2; color: #B91C1C; }
+
+  .empty-state { text-align: center; padding: 52px; color: #9CA3AF; font-size: 14px; }
+
+  /* ── LOG MODAL ── */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200; padding: 20px; backdrop-filter: blur(3px);
+  }
+  .modal {
+    background: #fff; border-radius: 18px; padding: 28px;
+    width: 100%; max-width: 440px;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.2);
+    animation: popIn .15s ease;
+  }
+  @keyframes popIn { from { opacity:0; transform:scale(.95) translateY(-8px); } to { opacity:1; transform:none; } }
+
+  .modal-hdr {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 22px;
+  }
+  .modal-student-name { font-size: 21px; font-weight: 700; color: #1E1B2E; }
+  .modal-student-class { font-size: 13px; color: #6B7280; margin-top: 3px; }
+  .modal-close {
+    background: none; border: none; font-size: 20px; color: #9CA3AF;
+    cursor: pointer; padding: 0 4px; line-height: 1;
+  }
+  .modal-close:hover { color: #374151; }
+
+  .modal-sec-label {
+    font-size: 11px; font-weight: 700; color: #9CA3AF;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .modal-select {
+    width: 100%; padding: 11px 14px; border: 1.5px solid #D1D5DB;
+    border-radius: 10px; font-family: 'Rubik', sans-serif; font-size: 14px;
+    color: #1a1a2e; background: #fff; outline: none; margin-bottom: 20px; cursor: pointer;
+  }
+  .modal-select:focus { border-color: #1E1B2E; }
+
+  .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+  .btn-fail, .btn-pass {
+    padding: 15px; border-radius: 12px;
+    font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: all .15s; border: 2px solid;
+  }
+  .btn-fail { background: #FEE2E2; color: #B91C1C; border-color: #FECACA; }
+  .btn-fail:hover { background: #B91C1C; color: #fff; border-color: #B91C1C; }
+  .btn-pass { background: #D1FAE5; color: #065F46; border-color: #A7F3D0; }
+  .btn-pass:hover { background: #047857; color: #fff; border-color: #047857; }
+  .btn-fail:disabled, .btn-pass:disabled { opacity: 0.5; cursor: default; }
+
+  .history-toggle-row { text-align: center; border-top: 1px solid #F3F4F6; padding-top: 12px; }
+  .history-toggle-btn {
+    background: none; border: none; font-family: 'Rubik', sans-serif;
+    font-size: 13px; color: #6B7280; cursor: pointer; text-decoration: underline;
+  }
+  .history-toggle-btn:hover { color: #1E1B2E; }
+
+  .history-list {
+    margin-top: 12px; max-height: 210px; overflow-y: auto;
+    border: 1px solid #E5E7EB; border-radius: 10px; padding: 6px;
+  }
+  .history-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 8px; border-radius: 6px; font-size: 12.5px;
+  }
+  .history-item:nth-child(even) { background: #F9FAFB; }
+  .hi-unit { flex: 1; color: #374151; }
+  .hi-date { color: #9CA3AF; font-size: 11.5px; white-space: nowrap; }
+  .hi-pass { color: #047857; font-weight: 700; }
+  .hi-fail { color: #B91C1C; font-weight: 700; }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+    background: #1E1B2E; color: #fff; padding: 11px 24px;
+    border-radius: 24px; font-size: 14px; font-weight: 600;
+    z-index: 300; box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    animation: popIn .2s ease; pointer-events: none;
+    white-space: nowrap;
+  }
+
+  /* Responsive */
+  @media (max-width: 620px) {
+    .stats { grid-template-columns: repeat(2,1fr); }
+    .tbl-header { display: none; }
+    .student-row {
+      display: flex; flex-direction: column; gap: 4px;
+      padding: 14px 16px; align-items: flex-start;
+    }
+    .s-last, .s-done { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ AUTH ══ -->
+<div id="auth-screen" class="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo">📋</div>
+    <div class="auth-title">דף מורה</div>
+    <div class="auth-sub">מעקב מבדקי שליטה</div>
+    <input type="password" id="pass-input" class="auth-input" placeholder="סיסמה" autocomplete="current-password">
+    <button class="auth-btn" onclick="checkAuth()">כניסה</button>
+    <div class="auth-error" id="auth-error"></div>
+  </div>
+</div>
+
+<!-- ══ APP ══ -->
+<div id="app" style="display:none">
+  <div class="app-header">
+    <div class="app-header-title">📋 דף מורה — מבדקי שליטה</div>
+    <div class="app-header-right">
+      <button class="hdr-btn" id="refresh-btn" onclick="loadData()">↻ רענון</button>
+    </div>
+  </div>
+
+  <div class="app-main">
+    <div class="stats" id="stats-bar"></div>
+
+    <div class="controls">
+      <span class="ctrl-label">כיתה:</span>
+      <select class="ctrl-select" id="filter-class" onchange="render()">
+        <option value="">כולן</option>
+      </select>
+      <span class="ctrl-label">מיון:</span>
+      <select class="ctrl-select" id="sort-by" onchange="render()">
+        <option value="days">ימים ללא מבדק ↓</option>
+        <option value="name">שם</option>
+        <option value="units">יחידות שהושלמו ↓</option>
+      </select>
+    </div>
+
+    <div class="student-table">
+      <div class="tbl-header">
+        <div>שם</div>
+        <div>כיתה</div>
+        <div>הושלמו</div>
+        <div>יחידה אחרונה</div>
+        <div>מאז מבדק</div>
+      </div>
+      <div id="student-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LOG MODAL ══ -->
+<div id="log-modal" class="overlay" style="display:none" onclick="overlayClick(event,'log-modal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-hdr">
+      <div>
+        <div class="modal-student-name" id="modal-name"></div>
+        <div class="modal-student-class" id="modal-class"></div>
+      </div>
+      <button class="modal-close" onclick="closeLogModal()">✕</button>
+    </div>
+
+    <div class="modal-sec-label">נושא המבדק</div>
+    <select class="modal-select" id="modal-unit-select"></select>
+
+    <div class="action-btns">
+      <button class="btn-fail" id="btn-fail" onclick="logEvent(false)">✗ לא עבר/ה</button>
+      <button class="btn-pass" id="btn-pass" onclick="logEvent(true)">✓ עבר/ה</button>
+    </div>
+
+    <div class="history-toggle-row">
+      <button class="history-toggle-btn" onclick="toggleHistory()">היסטוריה מלאה ▾</button>
+    </div>
+    <div id="modal-history" style="display:none"></div>
+  </div>
+</div>
+
+<script>
+
+// ════════════════════════════════
+// תצורת יחידות ורצפים
+// ════════════════════════════════
+const TEACHER_UNITS = [
+  {
+    name: 'מספרים מכוונים',
+    sequences: [
+      'ערך מוחלט',
+      'מספרים נגדיים',
+      'מיקום על ציר המספרים',
+      'מודל החצים וכלל הסימן',
+      'תרגילים ארוכים וחוק החילוף',
+      'חיסור = חיבור הנגדי',
+      'תרגילים ארוכים וכתיבה ללא סוגריים',
+      'כפל וחילוק מספרים מכוונים',
+      'סדר פעולות חשבון',
+      'סדר פעולות עם קו שבר',
+    ]
+  },
+  {
+    name: 'מערכת הצירים — כל הרביעים',
+    sequences: [
+      'נקודות בכל הרביעים',
+      'אורכים ושטחים בכל הרביעים',
+    ]
+  },
+  {
+    name: 'חזקות ושורשים',
+    sequences: [
+      'הגדרת חזקה וחישוב בסיסי',
+      'חזקות מיוחדות — 0, 1 ושברים',
+      'השוואה וסדר פעולות עם חזקות',
+      'הגדרת שורש ריבועי',
+      'חישובים עם שורשים',
+    ]
+  },
+  {
+    name: 'משתנים וביטויים אלגבריים',
+    sequences: [
+      'כתיבת ביטויים אלגבריים',
+      'הצבה וחישוב ערך הביטוי',
+      'כינוס איברים דומים',
+      'מבוא למשוואות — זיהוי פתרון',
+      'פתרון משוואות',
+      'שאלות מילוליות',
+      'מבדק מקיף — כל נושא המשוואות',
+    ]
+  },
+];
+
+const ALL_SEQUENCES = TEACHER_UNITS.flatMap(u =>
+  u.sequences.map(s => ({ unit: u.name, name: s }))
+);
+
+// ════════════════════════════════
+// הגדרות
+// ════════════════════════════════
+const PASSWORD = '1234';
+
+const state = { students: [], events: [], currentStudentId: null };
+
+// ════════════════════════════════
+// כניסה
+// ════════════════════════════════
+function checkAuth() {
+  const val = document.getElementById('pass-input').value;
+  if (val === PASSWORD) {
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadData();
+  } else {
+    const inp = document.getElementById('pass-input');
+    inp.classList.add('shake');
+    document.getElementById('auth-error').textContent = 'סיסמה שגויה';
+    setTimeout(() => inp.classList.remove('shake'), 400);
+  }
+}
+document.getElementById('pass-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkAuth(); });
+
+// ════════════════════════════════
+// טעינת נתונים — google.script.run
+// ════════════════════════════════
+function loadData() {
+  const btn = document.getElementById('refresh-btn');
+  btn.disabled = true;
+  btn.textContent = 'טוען...';
+
+  google.script.run
+    .withSuccessHandler(function(data) {
+      btn.disabled = false;
+      btn.textContent = '↻ רענון';
+
+      if (!data.ok) {
+        showToast('שגיאה: ' + (data.error || 'לא ידועה'));
+        document.getElementById('student-list').innerHTML =
+          '<div class="empty-state" style="color:#B91C1C;">שגיאה בטעינת נתונים: ' + escHtml(data.error || '') + '</div>';
+        return;
+      }
+
+      state.students = data.students;
+      state.events   = data.events;
+      populateFilter();
+      render();
+      renderStats();
+      showToast('הנתונים עודכנו ✓');
+    })
+    .withFailureHandler(function(err) {
+      btn.disabled = false;
+      btn.textContent = '↻ רענון';
+      showToast('שגיאה: ' + err.message);
+      document.getElementById('student-list').innerHTML =
+        '<div class="empty-state" style="color:#B91C1C;">שגיאת חיבור</div>';
+    })
+    .getDataServer();
+}
+
+// ════════════════════════════════
+// חישובים
+// ════════════════════════════════
+function studentEvents(id) {
+  return state.events.filter(e => e.studentId === id);
+}
+
+function passedUnits(id) {
+  return new Set(state.events.filter(e => e.studentId === id && e.passed).map(e => e.unit));
+}
+
+function nextSequence(id) {
+  const passed = passedUnits(id);
+  return ALL_SEQUENCES.find(s => !passed.has(s.name)) || null;
+}
+
+function lastPassedUnit(id) {
+  const evts = state.events
+    .filter(e => e.studentId === id && e.passed)
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  return evts.length ? evts[0].unit : null;
+}
+
+function daysSince(id) {
+  const evts = studentEvents(id);
+  if (!evts.length) return null;
+  const last = Math.max(...evts.map(e => new Date(e.timestamp)));
+  return Math.floor((Date.now() - last) / 86400000);
+}
+
+function daysBadge(days) {
+  if (days === null) return '<span class="days-badge days-new">טרם נבדק</span>';
+  if (days === 0)    return '<span class="days-badge days-today">היום</span>';
+  if (days <= 3)     return '<span class="days-badge days-ok">' + days + ' ימים</span>';
+  if (days <= 7)     return '<span class="days-badge days-warn">' + days + ' ימים</span>';
+  return '<span class="days-badge days-urgent">' + days + ' ימים</span>';
+}
+
+// ════════════════════════════════
+// רנדר
+// ════════════════════════════════
+function populateFilter() {
+  const classes = [...new Set(state.students.map(s => s.class).filter(Boolean))].sort();
+  const sel = document.getElementById('filter-class');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">כולן</option>';
+  classes.forEach(function(c) {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    if (c === cur) o.selected = true;
+    sel.appendChild(o);
+  });
+}
+
+function renderStats() {
+  const total = state.students.length;
+  const todayStr = new Date().toDateString();
+  const todayCount = state.events.filter(e => new Date(e.timestamp).toDateString() === todayStr).length;
+  const urgent = state.students.filter(function(s) { const d = daysSince(s.id); return d === null || d >= 7; }).length;
+  const completed = state.students.filter(function(s) { return nextSequence(s.id) === null; }).length;
+
+  document.getElementById('stats-bar').innerHTML =
+    '<div class="stat-card"><div class="stat-num">' + total + '</div><div class="stat-label">תלמידים</div></div>' +
+    '<div class="stat-card"><div class="stat-num">' + todayCount + '</div><div class="stat-label">מבדקים היום</div></div>' +
+    '<div class="stat-card"><div class="stat-num" style="color:#B91C1C">' + urgent + '</div><div class="stat-label">ממתינים למבדק</div></div>' +
+    '<div class="stat-card"><div class="stat-num" style="color:#047857">' + completed + '</div><div class="stat-label">השלימו הכל</div></div>';
+}
+
+function render() {
+  const filterClass = document.getElementById('filter-class').value;
+  const sortBy = document.getElementById('sort-by').value;
+
+  var students = state.students.slice();
+  if (filterClass) students = students.filter(function(s) { return s.class === filterClass; });
+
+  students.sort(function(a, b) {
+    if (sortBy === 'days') {
+      const da = daysSince(a.id), db = daysSince(b.id);
+      if (da === null && db === null) return a.name.localeCompare(b.name, 'he');
+      if (da === null) return -1;
+      if (db === null) return 1;
+      return db - da;
+    }
+    if (sortBy === 'name') return a.name.localeCompare(b.name, 'he');
+    if (sortBy === 'units') return passedUnits(b.id).size - passedUnits(a.id).size;
+    return 0;
+  });
+
+  const list = document.getElementById('student-list');
+  if (!students.length) {
+    list.innerHTML = '<div class="empty-state">אין תלמידים להצגה</div>';
+    return;
+  }
+
+  list.innerHTML = students.map(function(s) {
+    const days = daysSince(s.id);
+    const done = passedUnits(s.id).size;
+    const last = lastPassedUnit(s.id);
+    const urgency = days === null || days >= 7 ? 'urgent' : days >= 4 ? 'warn' : '';
+    return '<div class="student-row ' + urgency + '" onclick="openLogModal(\'' + escHtml(s.id) + '\')">' +
+      '<div class="s-name">' + escHtml(s.name) + '</div>' +
+      '<div><span class="s-class">' + escHtml(s.class || '—') + '</span></div>' +
+      '<div class="s-done">' + done + ' / ' + ALL_SEQUENCES.length + '</div>' +
+      '<div class="s-last">' + escHtml(last || '—') + '</div>' +
+      '<div>' + daysBadge(days) + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+// ════════════════════════════════
+// מודל רישום מבדק
+// ════════════════════════════════
+function openLogModal(studentId) {
+  const student = state.students.find(function(s) { return s.id === studentId; });
+  if (!student) return;
+  state.currentStudentId = studentId;
+
+  document.getElementById('modal-name').textContent = student.name;
+  document.getElementById('modal-class').textContent = 'כיתה ' + (student.class || '—');
+
+  const sel = document.getElementById('modal-unit-select');
+  sel.innerHTML = '';
+  const next = nextSequence(studentId);
+
+  TEACHER_UNITS.forEach(function(u) {
+    const grp = document.createElement('optgroup');
+    grp.label = u.name;
+    u.sequences.forEach(function(s) {
+      const opt = document.createElement('option');
+      opt.value = s; opt.textContent = s;
+      if (next && s === next.name) opt.selected = true;
+      grp.appendChild(opt);
+    });
+    sel.appendChild(grp);
+  });
+
+  document.getElementById('modal-history').style.display = 'none';
+  setActionBtns(true);
+  document.getElementById('log-modal').style.display = 'flex';
+}
+
+function closeLogModal() {
+  document.getElementById('log-modal').style.display = 'none';
+  state.currentStudentId = null;
+}
+
+function overlayClick(e, id) {
+  if (e.target === document.getElementById(id)) closeLogModal();
+}
+
+function toggleHistory() {
+  const el = document.getElementById('modal-history');
+  if (el.style.display === 'none') {
+    renderHistory();
+    el.style.display = 'block';
+  } else {
+    el.style.display = 'none';
+  }
+}
+
+function renderHistory() {
+  const evts = studentEvents(state.currentStudentId)
+    .sort(function(a, b) { return new Date(b.timestamp) - new Date(a.timestamp); });
+
+  const el = document.getElementById('modal-history');
+  if (!evts.length) {
+    el.innerHTML = '<div style="text-align:center;color:#9CA3AF;padding:16px;font-size:13px;">אין מבדקים עדיין</div>';
+    return;
+  }
+
+  el.innerHTML = '<div class="history-list">' + evts.map(function(e) {
+    const d = new Date(e.timestamp);
+    const dateStr = d.toLocaleDateString('he-IL') + ' ' + d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+    return '<div class="history-item">' +
+      '<span class="hi-unit">' + escHtml(e.unit) + '</span>' +
+      '<span class="' + (e.passed ? 'hi-pass' : 'hi-fail') + '">' + (e.passed ? '✓' : '✗') + '</span>' +
+      '<span class="hi-date">' + dateStr + '</span>' +
+      '</div>';
+  }).join('') + '</div>';
+}
+
+// ════════════════════════════════
+// שמירת מבדק
+// ════════════════════════════════
+function setActionBtns(enabled) {
+  document.getElementById('btn-fail').disabled = !enabled;
+  document.getElementById('btn-pass').disabled = !enabled;
+}
+
+function logEvent(passed) {
+  const studentId = state.currentStudentId;
+  const student = state.students.find(function(s) { return s.id === studentId; });
+  const unit = document.getElementById('modal-unit-select').value;
+  if (!student || !unit) return;
+
+  setActionBtns(false);
+
+  // עדכון מיידי (optimistic)
+  const newEvent = { id: String(Date.now()), studentId: studentId, unit: unit, passed: passed, timestamp: new Date().toISOString() };
+  state.events.push(newEvent);
+
+  closeLogModal();
+  render();
+  renderStats();
+  showToast(passed ? ('✓ ' + student.name + ' — עבר/ה') : ('✗ ' + student.name + ' — לא עבר/ה'));
+
+  // שמירה בגיליון
+  google.script.run
+    .withSuccessHandler(function(res) {
+      if (!res.ok) {
+        showToast('שגיאה בשמירה: ' + (res.error || ''));
+      }
+      // רענון הנתונים אחרי שמירה
+      setTimeout(loadData, 1000);
+    })
+    .withFailureHandler(function(err) {
+      showToast('שגיאה בשמירה: ' + err.message);
+    })
+    .addEventServer(studentId, unit, passed);
+}
+
+// ════════════════════════════════
+// כלי עזר
+// ════════════════════════════════
+var toastTimer;
+function showToast(msg) {
+  clearTimeout(toastTimer);
+  var old = document.querySelector('.toast');
+  if (old) old.parentNode.removeChild(old);
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = msg;
+  document.body.appendChild(el);
+  toastTimer = setTimeout(function() { el.parentNode && el.parentNode.removeChild(el); }, 3000);
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLogModal(); });
+
+</script>
+</body>
+</html>
