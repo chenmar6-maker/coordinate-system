@@ -437,10 +437,13 @@ function nextSequence(id) {
 }
 
 function lastPassedUnit(id) {
-  const evts = state.events
-    .filter(e => e.studentId === id && e.passed)
-    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-  return evts.length ? evts[0].unit : null;
+  const passed = passedUnits(id);
+  if (!passed.size) return null;
+  let last = null;
+  ALL_SEQUENCES.forEach(function(s) {
+    if (passed.has(s.name)) last = s.name;
+  });
+  return last;
 }
 
 function daysSince(id) {
