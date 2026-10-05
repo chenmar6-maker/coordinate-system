@@ -120,14 +120,14 @@
   /* Table */
   .student-table { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
   .tbl-header {
-    display: grid; grid-template-columns: 2fr 75px 70px 1.5fr 1.5fr 95px;
+    display: grid; grid-template-columns: 2fr 75px 70px 2fr 95px;
     padding: 10px 20px; background: #F8FAFC;
     border-bottom: 1.5px solid #E5E7EB;
     font-size: 11.5px; font-weight: 700; color: #9CA3AF;
     text-transform: uppercase; letter-spacing: 0.4px;
   }
   .student-row {
-    display: grid; grid-template-columns: 2fr 75px 70px 1.5fr 1.5fr 95px;
+    display: grid; grid-template-columns: 2fr 75px 70px 2fr 95px;
     padding: 13px 20px; border-bottom: 1px solid #F3F4F6;
     cursor: pointer; transition: background .1s; align-items: center;
   }
@@ -315,7 +315,6 @@
         <div>שם</div>
         <div>כיתה</div>
         <div>הושלמו</div>
-        <div>יחידה אחרונה</div>
         <div>יחידה הבאה</div>
         <div>מאז מבדק</div>
       </div>
@@ -588,8 +587,7 @@ function render() {
     return `<div class="student-row ${urgency}" onclick="openLogModal('${escHtml(s.id)}')">
       <div class="s-name">${escHtml(s.name)}</div>
       <div><span class="s-class">${escHtml(s.class || '—')}</span></div>
-      <div class="s-done" dir="ltr">${done}/${ALL_SEQUENCES.length}</div>
-      <div class="s-last">${escHtml(last || '—')}</div>
+      <div class="s-done">${done}</div>
       <div class="s-last">${escHtml((nextSequence(s.id) || {name: '✓ הושלם'}).name)}</div>
       <div>${daysBadge(days)}</div>
     </div>`;
