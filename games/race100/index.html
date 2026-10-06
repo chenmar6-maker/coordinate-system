@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>מירוץ ל-100</title>
+<title>מירוץ ל-50</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
   *{box-sizing:border-box;}
@@ -40,20 +40,38 @@
   }
   .who-btn.active{background:rgba(80,200,150,0.12);border-color:rgba(80,200,150,0.5);color:#50C896;}
 
-  /* progress bar */
+  /* progress card */
   .progress-card{
     background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.1);
-    border-radius:14px;padding:24px 20px;margin-bottom:20px;text-align:center;
+    border-radius:14px;padding:20px 16px;margin-bottom:20px;text-align:center;
   }
-  .total-label{font-size:13px;color:rgba(234,244,241,0.45);margin-bottom:8px;}
-  .total-num{font-size:72px;font-weight:800;color:#fff;line-height:1;margin-bottom:16px;}
-  .progress-wrap{background:rgba(255,255,255,0.08);border-radius:99px;height:12px;overflow:hidden;}
-  .progress-fill{
-    height:100%;border-radius:99px;
-    background:linear-gradient(90deg,#50C896,#20A070);
-    transition:width 0.4s ease;
+  .total-label{font-size:13px;color:rgba(234,244,241,0.45);margin-bottom:6px;}
+  .total-num{font-size:64px;font-weight:800;color:#fff;line-height:1;margin-bottom:14px;}
+
+  /* dot grid */
+  .dot-grid{
+    display:flex;flex-direction:column;gap:6px;align-items:center;margin-bottom:12px;
   }
-  .progress-pct{font-size:12px;color:rgba(234,244,241,0.4);margin-top:8px;}
+  .dot-row{display:flex;gap:5px;}
+  .dot{
+    width:20px;height:20px;border-radius:50%;
+    background:rgba(234,244,241,0.1);
+    border:1.5px solid rgba(234,244,241,0.15);
+    transition:background .25s, border-color .25s, transform .2s;
+    flex-shrink:0;
+  }
+  .dot.filled{
+    background:#50C896;
+    border-color:#20A070;
+    box-shadow:0 0 6px rgba(80,200,150,0.4);
+  }
+  @keyframes dotPop{0%{transform:scale(0.4);opacity:0}60%{transform:scale(1.25)}100%{transform:scale(1);opacity:1}}
+  .dot.popping{animation:dotPop .3s cubic-bezier(0.34,1.56,0.64,1) forwards;}
+  .dot.just-added{
+    background:#FFD966;
+    border-color:#c09820;
+    box-shadow:0 0 8px rgba(255,217,102,0.5);
+  }
 
   /* history */
   .history-wrap{
@@ -119,8 +137,8 @@
 <div class="wrap">
   <div class="header">
     <div class="page-label">משחקים מתמטיים</div>
-    <h1>🏁 מירוץ ל-100</h1>
-    <div class="header-sub">בכל תור מוסיפים 1–10 לסכום המצטבר. מי שמגיע בדיוק ל-100 — מנצח!</div>
+    <h1>🏁 מירוץ ל-50</h1>
+    <div class="header-sub">בכל תור מוסיפים 1–10 לסכום המצטבר. מי שמגיע בדיוק ל-50 — מנצח!</div>
   </div>
 
   <div class="mode-tabs">
@@ -136,8 +154,8 @@
   <div class="progress-card">
     <div class="total-label">סכום נוכחי</div>
     <div class="total-num" id="total">0</div>
-    <div class="progress-wrap"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
-    <div class="progress-pct" id="progress-pct">0 / 100</div>
+    <div class="dot-grid" id="dot-grid"></div>
+    <div class="progress-pct" id="progress-pct">0 / 50</div>
   </div>
 
   <div class="history-wrap">
@@ -190,6 +208,7 @@ function newGame() {
   selectedNum = null;
   history = [];
   currentPlayer = (mode === 'cpu' && !humanFirst) ? 2 : 1;
+  buildDotGrid();
   render();
   if (mode === 'cpu' && currentPlayer === 2) setTimeout(doCpuMove, 700);
 }
@@ -208,11 +227,12 @@ function confirmAdd() {
 }
 
 function applyMove(n) {
+  const prevTotal = total;
   total += n;
-  history.push({ player: currentPlayer, add: n, total });
+  history.push({ player: currentPlayer, add: n, total, prev: prevTotal });
   selectedNum = null;
 
-  if (total >= 100) {
+  if (total >= 50) {
     gameOver = true;
     render();
     return;
@@ -226,9 +246,9 @@ function applyMove(n) {
   }
 }
 
-// ─── CPU AI (mod-11 strategy) ─────────────────────────
-function race100AI(cur) {
-  const toWin = 100 - cur;
+// ─── CPU AI (mod-11 strategy, target 50) ──────────────
+function race50AI(cur) {
+  const toWin = 50 - cur;
   if (toWin <= 10) return toWin;
   const r = toWin % 11;
   if (r === 0) return Math.floor(Math.random() * 10) + 1; // losing pos, random
@@ -237,15 +257,58 @@ function race100AI(cur) {
 
 function doCpuMove() {
   if (gameOver) return;
-  applyMove(race100AI(total));
+  applyMove(race50AI(total));
+}
+
+// ─── dot grid ─────────────────────────────────────────
+let dotEls = [];
+
+function buildDotGrid() {
+  const grid = document.getElementById('dot-grid');
+  grid.innerHTML = '';
+  dotEls = [];
+  for (let row = 0; row < 5; row++) {
+    const rowEl = document.createElement('div');
+    rowEl.className = 'dot-row';
+    for (let col = 0; col < 10; col++) {
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      rowEl.appendChild(dot);
+      dotEls.push(dot);
+    }
+    grid.appendChild(rowEl);
+  }
+}
+
+function updateDots(prevTotal, newTotal) {
+  dotEls.forEach((dot, i) => {
+    const idx = i; // 0-based dot index
+    if (idx < prevTotal) {
+      // already filled before this move — keep green, remove any animation
+      dot.className = 'dot filled';
+    } else if (idx < newTotal) {
+      // newly added this move — yellow + pop animation
+      dot.className = 'dot just-added popping';
+      // after animation, keep yellow highlight briefly then settle to green
+      const capturedIdx = idx;
+      setTimeout(() => {
+        if (dotEls[capturedIdx]) dotEls[capturedIdx].className = 'dot filled';
+      }, 1200);
+    } else {
+      dot.className = 'dot';
+    }
+  });
 }
 
 // ─── render ───────────────────────────────────────────
 function render() {
-  // total + progress
+  // total
   document.getElementById('total').textContent = total;
-  document.getElementById('progress-fill').style.width = (total) + '%';
-  document.getElementById('progress-pct').textContent = total + ' / 100';
+  document.getElementById('progress-pct').textContent = total + ' / 50';
+
+  // dots — figure out previous total from last history entry
+  const prevTotal = history.length > 0 ? history[history.length - 1].prev : 0;
+  updateDots(prevTotal, total);
 
   // history
   const hList = document.getElementById('history-list');
@@ -294,9 +357,9 @@ function render() {
   if (gameOver) {
     statusEl.classList.add('winner');
     if (mode === '2p') {
-      statusEl.textContent = '🏆 שחקן ' + currentPlayer + ' הגיע ל-100 וניצח!';
+      statusEl.textContent = '🏆 שחקן ' + currentPlayer + ' הגיע ל-50 וניצח!';
     } else {
-      statusEl.textContent = currentPlayer === 1 ? '🏆 ניצחת! הגעת ל-100!' : '🤖 המחשב הגיע ל-100 וניצח!';
+      statusEl.textContent = currentPlayer === 1 ? '🏆 ניצחת! הגעת ל-50!' : '🤖 המחשב הגיע ל-50 וניצח!';
     }
   } else {
     statusEl.classList.remove('winner');
