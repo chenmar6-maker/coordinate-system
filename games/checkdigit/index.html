@@ -143,6 +143,78 @@
   }
   .example-btn:hover{border-color:rgba(100,160,255,0.5);color:#8BBFFF;}
 
+  /* ─── mode toggle ─── */
+  .mode-toggle{display:flex;gap:8px;justify-content:center;margin-bottom:14px;}
+  .mode-btn{
+    padding:8px 22px;border-radius:20px;font-family:'Rubik',sans-serif;
+    font-size:13px;font-weight:700;cursor:pointer;
+    border:1.5px solid rgba(234,244,241,0.18);background:transparent;
+    color:rgba(234,244,241,0.45);transition:all .15s;
+  }
+  .mode-btn.active{
+    background:rgba(58,111,216,0.18);border-color:rgba(58,111,216,0.55);color:#8BBFFF;
+  }
+
+  /* ─── practice grid ─── */
+  .practice-hint{
+    font-size:12px;color:rgba(234,244,241,0.45);text-align:center;
+    margin-bottom:10px;line-height:1.6;
+  }
+  .practice-input{
+    width:36px;height:34px;
+    border:1.5px solid rgba(234,244,241,0.25);border-radius:7px;
+    background:rgba(234,244,241,0.07);color:#EAF4F1;
+    font-family:'Rubik',sans-serif;font-size:17px;font-weight:800;
+    text-align:center;outline:none;direction:ltr;
+    transition:border-color .15s,background .15s;
+  }
+  .practice-input:focus{border-color:rgba(100,160,255,0.7);background:rgba(100,160,255,0.08);}
+  .practice-input.correct{border-color:#047857 !important;background:rgba(4,120,87,0.14) !important;color:#6EE7B7;}
+  .practice-input.wrong{border-color:#DC2626 !important;background:rgba(220,38,38,0.1) !important;color:#FCA5A5;}
+
+  .practice-sum-row{
+    display:flex;align-items:center;gap:8px;justify-content:center;
+    margin-top:14px;flex-wrap:wrap;direction:ltr;font-size:14px;font-weight:600;
+  }
+  .sum-total-inp{
+    width:52px;height:36px;
+    border:1.5px solid rgba(234,244,241,0.25);border-radius:8px;
+    background:rgba(234,244,241,0.07);color:#EAF4F1;
+    font-family:'Rubik',sans-serif;font-size:20px;font-weight:800;
+    text-align:center;outline:none;direction:ltr;
+    transition:border-color .15s,background .15s;
+  }
+  .sum-total-inp:focus{border-color:rgba(100,160,255,0.7);}
+  .sum-total-inp.correct{border-color:#047857 !important;background:rgba(4,120,87,0.14) !important;color:#6EE7B7;}
+  .sum-total-inp.wrong{border-color:#DC2626 !important;background:rgba(220,38,38,0.1) !important;color:#FCA5A5;}
+
+  .check-digit-row{
+    display:flex;align-items:center;gap:10px;justify-content:center;
+    margin-top:12px;direction:rtl;
+  }
+  .check-digit-inp{
+    width:56px;height:56px;
+    border:2px solid rgba(255,217,102,0.35);border-radius:10px;
+    background:rgba(255,217,102,0.07);color:#FFD966;
+    font-family:'Rubik',sans-serif;font-size:28px;font-weight:800;
+    text-align:center;outline:none;direction:ltr;
+    transition:border-color .15s,background .15s;
+  }
+  .check-digit-inp:focus{border-color:rgba(255,217,102,0.7);}
+  .check-digit-inp.correct{border-color:#047857 !important;background:rgba(4,120,87,0.14) !important;color:#6EE7B7;}
+  .check-digit-inp.wrong{border-color:#DC2626 !important;background:rgba(220,38,38,0.1) !important;color:#FCA5A5;}
+
+  .verify-btn{
+    display:block;width:100%;padding:12px;
+    background:linear-gradient(135deg,#3A6FD8,#1E4AAA);
+    color:#fff;border:none;border-radius:10px;
+    font-family:'Rubik',sans-serif;font-size:15px;font-weight:800;
+    cursor:pointer;margin-top:14px;
+    box-shadow:0 4px 14px rgba(58,111,216,0.35);
+    transition:transform .1s,box-shadow .1s;
+  }
+  .verify-btn:hover{transform:translateY(-1px);}
+
   /* ─── steps ─── */
   .steps-section{display:flex;flex-direction:column;gap:10px;}
 
@@ -272,9 +344,15 @@
     </div>
   </div>
 
+  <!-- mode toggle -->
+  <div class="mode-toggle">
+    <button class="mode-btn active" id="mode-demo" onclick="setCalcMode('demo')">הדגמה</button>
+    <button class="mode-btn" id="mode-practice" onclick="setCalcMode('practice')">תרגול</button>
+  </div>
+
   <!-- Digit input boxes -->
   <div class="input-section">
-    <div class="input-title">הכניסו 8 ספרות — הספרה התשיעית תחושב אוטומטית</div>
+    <div class="input-title" id="input-title">הכניסו 8 ספרות — הספרה התשיעית תחושב אוטומטית</div>
     <div class="digit-boxes" id="digit-boxes"></div>
   </div>
 
@@ -294,6 +372,23 @@
 </div>
 
 <script>
+// ─── mode ─────────────────────────────────────────────
+let calcMode = 'demo';
+
+function setCalcMode(m) {
+  calcMode = m;
+  document.getElementById('mode-demo').classList.toggle('active', m === 'demo');
+  document.getElementById('mode-practice').classList.toggle('active', m === 'practice');
+  document.getElementById('input-title').textContent = m === 'demo'
+    ? 'הכניסו 8 ספרות — הספרה התשיעית תחושב אוטומטית'
+    : 'הכניסו 8 ספרות — ואז חשבו את ספרת הביקורת בעצמכם';
+  document.getElementById('calc-btn').textContent = m === 'demo'
+    ? 'חשב את ספרת הביקורת ←'
+    : 'התחל תרגול ←';
+  document.getElementById('steps-section').innerHTML = '';
+  updateCardDisplay();
+}
+
 // ─── build digit input boxes ──────────────────────────
 const N = 8;
 const boxesContainer = document.getElementById('digit-boxes');
@@ -400,12 +495,13 @@ function calculate() {
   const checkDigit = (10 - (sum % 10)) % 10;
 
   document.getElementById('steps-section').innerHTML = '';
-
-  // animate card first
   updateCardDisplay();
 
-  // then animate steps
-  renderStepsAnimated(steps, sum, checkDigit);
+  if (calcMode === 'practice') {
+    showPracticeGrid(steps, sum, checkDigit);
+  } else {
+    renderStepsAnimated(steps, sum, checkDigit);
+  }
 }
 
 function flashError() {
@@ -541,6 +637,134 @@ function showStep3(section, sum, checkDigit) {
     // reveal on ID card
     setTimeout(() => updateCardDisplay(checkDigit), 300);
   }, 60);
+}
+
+// ─── practice mode ────────────────────────────────────
+function showPracticeGrid(steps, sum, checkDigit) {
+  const section = document.getElementById('steps-section');
+
+  const card = makeCard('', 'מלאו את הערכים — כפלו במשקל, ואם התוצאה גדולה מ-9 חסרו ממנה 9');
+
+  const hint = document.createElement('div');
+  hint.className = 'practice-hint';
+  hint.innerHTML = 'כל עמודה: ספרה × משקל. אם התוצאה > 9 — כתבו <strong>תוצאה − 9</strong>';
+  card.appendChild(hint);
+
+  // grid
+  const grid = document.createElement('div');
+  grid.className = 'calc-grid';
+
+  steps.forEach((s, i) => {
+    const col = document.createElement('div');
+    col.className = 'calc-col visible';
+    col.style.opacity = '1';
+    col.style.transform = 'none';
+
+    const dEl = document.createElement('div');
+    dEl.className = 'col-digit';
+    dEl.textContent = s.digit;
+
+    const wEl = document.createElement('div');
+    wEl.className = 'col-weight';
+    wEl.textContent = '×' + s.weight;
+
+    const a1 = document.createElement('div');
+    a1.className = 'col-arrow-down';
+    a1.textContent = '↓';
+
+    const inp = document.createElement('input');
+    inp.type = 'tel';
+    inp.inputMode = 'numeric';
+    inp.maxLength = 2;
+    inp.className = 'practice-input';
+    inp.id = 'pinp' + i;
+    inp.dataset.answer = s.reduced;
+    inp.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' && i < N-1) { document.getElementById('pinp'+(i+1)).focus(); e.preventDefault(); }
+      if (e.key === 'ArrowLeft'  && i > 0)   { document.getElementById('pinp'+(i-1)).focus(); e.preventDefault(); }
+      if (e.key === 'Enter') document.getElementById('practice-verify-btn').click();
+    });
+
+    // placeholder shows correct answer height without revealing
+    const emptyR = document.createElement('div');
+    emptyR.className = 'col-reduce-arrow col-invisible';
+    emptyR.textContent = '↓';
+    const emptyV = document.createElement('div');
+    emptyV.className = 'col-reduced col-invisible';
+    emptyV.textContent = '0';
+
+    col.append(dEl, wEl, a1, inp, emptyR, emptyV);
+    grid.appendChild(col);
+  });
+
+  card.appendChild(grid);
+
+  // sum row
+  const sumRow = document.createElement('div');
+  sumRow.className = 'practice-sum-row';
+  sumRow.innerHTML = '<span style="color:rgba(234,244,241,0.5);font-size:13px;">סכום:</span>';
+  const sumInp = document.createElement('input');
+  sumInp.type = 'tel'; sumInp.inputMode = 'numeric'; sumInp.maxLength = 3;
+  sumInp.className = 'sum-total-inp'; sumInp.id = 'psum';
+  sumInp.dataset.answer = sum;
+  sumInp.addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('practice-verify-btn').click(); });
+  sumRow.appendChild(sumInp);
+  card.appendChild(sumRow);
+
+  // check digit row
+  const cdRow = document.createElement('div');
+  cdRow.className = 'check-digit-row';
+  cdRow.innerHTML = '<span style="color:rgba(234,244,241,0.6);font-size:13px;font-weight:600;">ספרת הביקורת:</span>';
+  const cdInp = document.createElement('input');
+  cdInp.type = 'tel'; cdInp.inputMode = 'numeric'; cdInp.maxLength = 1;
+  cdInp.className = 'check-digit-inp'; cdInp.id = 'pcheck';
+  cdInp.dataset.answer = checkDigit;
+  cdInp.addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('practice-verify-btn').click(); });
+  cdRow.appendChild(cdInp);
+  card.appendChild(cdRow);
+
+  // verify button
+  const verifyBtn = document.createElement('button');
+  verifyBtn.className = 'verify-btn'; verifyBtn.id = 'practice-verify-btn';
+  verifyBtn.textContent = 'בדוק ←';
+  verifyBtn.onclick = () => checkPracticeAnswers(steps, sum, checkDigit);
+  card.appendChild(verifyBtn);
+
+  section.appendChild(card);
+  setTimeout(() => card.classList.add('visible'), 50);
+  setTimeout(() => document.getElementById('pinp0').focus(), 200);
+}
+
+function checkPracticeAnswers(steps, sum, checkDigit) {
+  let allCorrect = true;
+
+  // check each column input
+  steps.forEach((s, i) => {
+    const inp = document.getElementById('pinp' + i);
+    const val = parseInt(inp.value.trim());
+    const ok = val === s.reduced;
+    inp.classList.remove('correct', 'wrong');
+    inp.classList.add(ok ? 'correct' : 'wrong');
+    if (!ok) allCorrect = false;
+  });
+
+  // check sum
+  const sumInp = document.getElementById('psum');
+  const sumOk = parseInt(sumInp.value.trim()) === sum;
+  sumInp.classList.remove('correct', 'wrong');
+  sumInp.classList.add(sumOk ? 'correct' : 'wrong');
+  if (!sumOk) allCorrect = false;
+
+  // check check digit
+  const cdInp = document.getElementById('pcheck');
+  const cdOk = parseInt(cdInp.value.trim()) === checkDigit;
+  cdInp.classList.remove('correct', 'wrong');
+  cdInp.classList.add(cdOk ? 'correct' : 'wrong');
+  if (!cdOk) allCorrect = false;
+
+  if (allCorrect) {
+    setTimeout(() => updateCardDisplay(checkDigit), 300);
+  }
 }
 
 function makeCard(num, title) {
