@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ספרת הביקורת</title>
+<title>ספרת הביקורת — תעודת זהות</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
   *{box-sizing:border-box;}
@@ -13,122 +13,211 @@
     background:radial-gradient(ellipse at 50% -10%,#3D3568 0%,#1E1B2E 50%,#0F0D1A 100%);
     color:#EAF4F1;direction:rtl;min-height:100vh;
   }
-  .wrap{max-width:640px;margin:0 auto;padding:36px 20px 80px;}
+  .wrap{max-width:640px;margin:0 auto;padding:32px 20px 80px;}
 
+  /* ─── header ─── */
   .header{text-align:center;margin-bottom:28px;}
   .page-label{font-size:12px;font-weight:600;letter-spacing:2px;color:rgba(234,244,241,0.4);margin-bottom:8px;}
-  h1{font-size:clamp(22px,4vw,32px);font-weight:800;color:#fff;margin:0 0 6px;}
+  h1{font-size:clamp(22px,4vw,30px);font-weight:800;color:#fff;margin:0 0 6px;}
   .header-sub{font-size:13px;color:rgba(234,244,241,0.5);line-height:1.7;}
 
-  /* input section */
-  .input-card{
-    background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.12);
-    border-radius:14px;padding:22px 20px;margin-bottom:20px;
+  /* ─── ID card ─── */
+  .id-card{
+    position:relative;
+    background:linear-gradient(160deg,#2B5AB8 0%,#1A3E8C 45%,#112D70 100%);
+    border-radius:18px;
+    padding:0;
+    margin-bottom:28px;
+    box-shadow:0 12px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+    overflow:hidden;
+    aspect-ratio:1.586; /* standard ID card ratio */
   }
-  .input-label{font-size:14px;font-weight:600;color:rgba(234,244,241,0.75);margin-bottom:12px;}
-  .input-row{display:flex;gap:10px;align-items:stretch;}
-  .digit-input{
-    flex:1;padding:12px 14px;
-    background:rgba(255,255,255,0.07);
+  /* flag-like stripes top & bottom */
+  .id-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:14px;
+    background:rgba(255,255,255,0.18);
+  }
+  .id-card::after{
+    content:'';position:absolute;bottom:0;left:0;right:0;height:14px;
+    background:rgba(255,255,255,0.18);
+  }
+  /* subtle diagonal shine */
+  .id-shine{
+    position:absolute;top:-60%;left:-40%;width:80%;height:200%;
+    background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.04) 50%,transparent 60%);
+    pointer-events:none;
+  }
+
+  .id-inner{
+    position:absolute;inset:0;
+    padding:22px 24px 20px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+
+  .id-top{display:flex;align-items:center;justify-content:space-between;}
+  .id-state-he{font-size:clamp(13px,2.5vw,17px);font-weight:800;color:#fff;letter-spacing:0.5px;}
+  .id-state-en{font-size:clamp(8px,1.5vw,11px);font-weight:500;color:rgba(255,255,255,0.55);letter-spacing:1.5px;text-transform:uppercase;}
+  .id-star{font-size:clamp(18px,3vw,26px);color:rgba(255,255,255,0.65);text-align:center;}
+
+  .id-type-label{
+    font-size:clamp(9px,1.5vw,12px);font-weight:700;letter-spacing:1.5px;
+    color:rgba(255,255,255,0.5);text-transform:uppercase;text-align:center;
+    margin-top:4px;
+  }
+
+  .id-bottom{text-align:center;}
+  .id-num-label{font-size:clamp(9px,1.5vw,11px);color:rgba(255,255,255,0.45);letter-spacing:1px;margin-bottom:6px;}
+  .id-number{
+    direction:ltr;
+    font-size:clamp(22px,5vw,38px);
+    font-weight:800;
+    letter-spacing:6px;
+    color:#fff;
+    font-variant-numeric:tabular-nums;
+    line-height:1;
+    display:flex;gap:4px;justify-content:center;align-items:center;
+    flex-wrap:nowrap;
+  }
+  .id-digit{
+    display:inline-block;
+    transition:transform .2s, color .2s;
+  }
+  .id-digit.blank{color:rgba(255,255,255,0.2);}
+  .id-digit.check-digit{
+    color:#FFD966;
+    border-bottom:2px solid rgba(255,217,102,0.6);
+    padding-bottom:1px;
+  }
+  .id-digit.check-digit.blank{color:rgba(255,217,102,0.25);border-bottom-color:rgba(255,217,102,0.15);}
+  @keyframes digitPop{0%{transform:scale(0.5);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+  .id-digit.pop{animation:digitPop .35s cubic-bezier(0.34,1.56,0.64,1) forwards;}
+
+  /* ─── digit input ─── */
+  .input-section{margin-bottom:24px;}
+  .input-title{font-size:14px;font-weight:600;color:rgba(234,244,241,0.7);text-align:center;margin-bottom:14px;}
+  .digit-boxes{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .digit-box{
+    width:52px;height:64px;
     border:1.5px solid rgba(234,244,241,0.2);
-    border-radius:10px;color:#EAF4F1;
-    font-family:'Rubik',sans-serif;font-size:20px;font-weight:700;
-    letter-spacing:4px;direction:ltr;outline:none;
-    transition:border-color .15s;
+    border-radius:10px;
+    background:rgba(234,244,241,0.06);
+    color:#EAF4F1;
+    font-family:'Rubik',sans-serif;font-size:28px;font-weight:800;
+    text-align:center;outline:none;
+    direction:ltr;caret-color:transparent;
+    transition:border-color .15s,background .15s,box-shadow .15s;
+    -webkit-appearance:none;
   }
-  .digit-input:focus{border-color:rgba(150,130,255,0.6);}
+  .digit-box:focus{
+    border-color:rgba(100,160,255,0.7);
+    background:rgba(100,160,255,0.08);
+    box-shadow:0 0 0 3px rgba(100,160,255,0.15);
+  }
+  .digit-box.filled{border-color:rgba(234,244,241,0.35);}
+  .digit-box.active-step{
+    border-color:#FFD966;
+    background:rgba(255,217,102,0.1);
+    box-shadow:0 0 0 3px rgba(255,217,102,0.2);
+  }
+
+  /* ─── calc button ─── */
   .calc-btn{
-    padding:12px 20px;
-    background:linear-gradient(135deg,#8B6FD8,#6040B0);
-    color:#fff;border:none;border-radius:10px;
-    font-family:'Rubik',sans-serif;font-size:15px;font-weight:700;
-    cursor:pointer;white-space:nowrap;
-    box-shadow:0 4px 14px rgba(139,111,216,0.35);
+    display:block;width:100%;padding:15px;
+    background:linear-gradient(135deg,#3A6FD8,#1E4AAA);
+    color:#fff;border:none;border-radius:12px;
+    font-family:'Rubik',sans-serif;font-size:17px;font-weight:800;
+    cursor:pointer;margin-bottom:28px;
+    box-shadow:0 4px 16px rgba(58,111,216,0.4);
     transition:transform .1s,box-shadow .1s;
   }
-  .calc-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(139,111,216,0.45);}
+  .calc-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(58,111,216,0.5);}
+  .calc-btn:disabled{opacity:0.4;cursor:default;transform:none;}
 
-  .input-hint{font-size:12px;color:rgba(234,244,241,0.35);margin-top:8px;}
-
-  /* example buttons */
-  .examples-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+  /* ─── example buttons ─── */
+  .examples-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:24px;}
   .example-btn{
     padding:7px 14px;border-radius:20px;
     border:1.5px solid rgba(234,244,241,0.15);background:transparent;
     color:rgba(234,244,241,0.5);font-family:'Rubik',sans-serif;
     font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;
   }
-  .example-btn:hover{border-color:rgba(150,130,255,0.5);color:#B9A4FF;}
+  .example-btn:hover{border-color:rgba(100,160,255,0.5);color:#8BBFFF;}
 
-  /* steps */
-  .steps-wrap{display:flex;flex-direction:column;gap:14px;}
+  /* ─── steps ─── */
+  .steps-section{display:flex;flex-direction:column;gap:10px;}
 
   .step-card{
-    background:rgba(234,244,241,0.05);
-    border:1.5px solid rgba(234,244,241,0.1);
-    border-radius:13px;padding:18px 18px;
-    opacity:0;transform:translateY(10px);
-    transition:opacity .35s ease, transform .35s ease;
+    background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.1);
+    border-radius:14px;padding:18px 20px;
+    opacity:0;transform:translateY(12px);
+    transition:opacity .3s ease, transform .3s ease;
   }
   .step-card.visible{opacity:1;transform:translateY(0);}
 
-  .step-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-  .step-num{
-    width:28px;height:28px;border-radius:50%;
-    background:rgba(139,111,216,0.25);border:1.5px solid rgba(139,111,216,0.5);
-    color:#B9A4FF;font-size:13px;font-weight:800;
+  .step-heading{
+    display:flex;align-items:center;gap:10px;margin-bottom:16px;
+  }
+  .step-badge{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(58,111,216,0.3);border:1.5px solid rgba(58,111,216,0.6);
+    color:#8BBFFF;font-size:12px;font-weight:800;
     display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
-  .step-title{font-size:14px;font-weight:700;color:#EAF4F1;}
+  .step-title-text{font-size:14px;font-weight:700;color:#EAF4F1;}
 
-  /* digit table */
-  .digit-table{width:100%;border-collapse:collapse;direction:ltr;}
-  .digit-table th{
-    font-size:11px;font-weight:700;letter-spacing:1px;
-    color:rgba(234,244,241,0.4);padding:4px 8px;text-align:center;
+  /* processing table */
+  .proc-table{width:100%;border-collapse:separate;border-spacing:0 6px;}
+  .proc-row td{padding:10px 8px;text-align:center;vertical-align:middle;direction:ltr;}
+  .proc-row{
+    opacity:0;transform:translateX(8px);
+    transition:opacity .25s ease, transform .25s ease;
   }
-  .digit-table td{
-    padding:8px 8px;text-align:center;
-    font-size:16px;font-weight:700;color:#EAF4F1;
-  }
-  .digit-table td.weight{font-size:13px;color:rgba(150,130,255,0.8);font-weight:600;}
-  .digit-table td.product{
-    font-size:16px;color:#B9A4FF;font-weight:800;
-    border-top:1.5px solid rgba(234,244,241,0.1);padding-top:10px;
-  }
-  .digit-table td.reduced{font-size:14px;color:#88CCFF;font-weight:700;}
-  .digit-table td.digit-cell{
-    background:rgba(139,111,216,0.12);
-    border-radius:8px;
-  }
+  .proc-row.visible{opacity:1;transform:translateX(0);}
 
-  /* sum row */
-  .sum-row{
-    display:flex;align-items:center;gap:8px;
-    font-size:15px;font-weight:700;flex-wrap:wrap;
+  .cell-digit{
+    font-size:26px;font-weight:800;color:#fff;
+    background:rgba(234,244,241,0.08);border-radius:8px;
+    padding:8px 12px;min-width:48px;
   }
-  .sum-part{color:#B9A4FF;}
-  .sum-plus{color:rgba(234,244,241,0.4);}
-  .sum-eq{color:rgba(234,244,241,0.6);margin:0 4px;}
-  .sum-total{font-size:22px;color:#fff;}
+  .cell-weight{font-size:16px;color:rgba(234,244,241,0.45);font-weight:600;min-width:28px;}
+  .cell-equals{font-size:18px;color:rgba(234,244,241,0.3);min-width:20px;}
+  .cell-product{
+    font-size:24px;font-weight:800;color:#8BBFFF;
+    min-width:48px;
+  }
+  .cell-arrow{font-size:16px;color:rgba(234,244,241,0.3);min-width:24px;}
+  .cell-reduced{
+    font-size:24px;font-weight:800;color:#FFD966;
+    min-width:48px;
+  }
+  .cell-note{font-size:11px;color:rgba(234,244,241,0.35);min-width:80px;text-align:right !important;}
 
-  /* final step */
+  /* sum card */
+  .sum-display{
+    display:flex;flex-wrap:wrap;align-items:center;gap:6px;
+    font-size:18px;font-weight:700;
+    direction:ltr;
+  }
+  .sum-part{color:#8BBFFF;}
+  .sum-red{color:#FFD966;}
+  .sum-plus{color:rgba(234,244,241,0.3);}
+  .sum-eq{color:rgba(234,244,241,0.5);margin:0 4px;}
+  .sum-total{font-size:32px;font-weight:800;color:#fff;}
+
+  /* final result */
   .final-box{
-    background:rgba(139,111,216,0.1);
-    border:1.5px solid rgba(139,111,216,0.3);
-    border-radius:12px;padding:18px;text-align:center;
+    background:rgba(58,111,216,0.1);
+    border:1.5px solid rgba(58,111,216,0.35);
+    border-radius:12px;padding:20px;text-align:center;
   }
-  .final-formula{font-size:14px;color:rgba(234,244,241,0.6);margin-bottom:8px;}
-  .final-digit{
-    font-size:72px;font-weight:800;color:#B9A4FF;line-height:1;margin-bottom:8px;
+  .final-formula{font-size:14px;color:rgba(234,244,241,0.6);margin-bottom:14px;line-height:1.8;}
+  .final-formula strong{color:#8BBFFF;}
+  .final-digit-big{
+    font-size:88px;font-weight:800;color:#FFD966;line-height:1;
+    margin-bottom:8px;
+    text-shadow:0 0 30px rgba(255,217,102,0.4);
   }
-  .final-label{font-size:14px;color:rgba(234,244,241,0.5);}
-  .full-number{
-    margin-top:14px;font-size:16px;font-weight:700;
-    letter-spacing:3px;direction:ltr;
-    color:rgba(234,244,241,0.8);
-  }
-  .full-number span.check{color:#B9A4FF;border-bottom:2px solid #B9A4FF;}
+  .final-label{font-size:14px;color:rgba(234,244,241,0.45);}
 
   .back-link{display:block;text-align:center;margin-top:36px;font-size:13px;color:rgba(234,244,241,0.3);text-decoration:none;transition:color .15s;}
   .back-link:hover{color:rgba(234,244,241,0.6);}
@@ -139,198 +228,310 @@
   <div class="header">
     <div class="page-label">משחקים מתמטיים</div>
     <h1>🔢 ספרת הביקורת</h1>
-    <div class="header-sub">ברקוד על כל מוצר מכיל ספרה אחת "מיוחדת" שנחשבת מכל האחרות. בגללה, אפשר לזהות אוטומטית כשספרה הוקלדה בטעות.</div>
+    <div class="header-sub">האלגוריתם שעומד מאחורי תעודת הזהות הישראלית — איך ספרה אחת בוחנת את כל השאר?</div>
   </div>
 
-  <!-- input -->
-  <div class="input-card">
-    <div class="input-label">הזינו 7 ספרות (הספרה השמינית תחושב אוטומטית)</div>
-    <div class="input-row">
-      <input class="digit-input" id="digit-input" type="text" maxlength="7" placeholder="1234567"
-        oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,7)"
-        onkeydown="if(event.key==='Enter')calculate()">
-      <button class="calc-btn" onclick="calculate()">חשב ←</button>
+  <!-- ID Card -->
+  <div class="id-card" id="id-card">
+    <div class="id-shine"></div>
+    <div class="id-inner">
+      <div>
+        <div class="id-top">
+          <div>
+            <div class="id-state-he">מדינת ישראל</div>
+            <div class="id-state-en">State of Israel</div>
+          </div>
+          <div class="id-star">✡</div>
+          <div style="text-align:left;">
+            <div class="id-state-he" style="text-align:left;">دولة إسرائيل</div>
+            <div class="id-state-en" style="text-align:left;">מ.ס. זהות</div>
+          </div>
+        </div>
+        <div class="id-type-label">תעודת זהות</div>
+      </div>
+      <div class="id-bottom">
+        <div class="id-num-label">מספר זהות</div>
+        <div class="id-number" id="id-number-display"></div>
+      </div>
     </div>
-    <div class="input-hint">דוגמה: ברקוד EAN-8 — 7 ספרות + ספרת ביקורת</div>
   </div>
 
-  <!-- example buttons -->
+  <!-- Digit input boxes -->
+  <div class="input-section">
+    <div class="input-title">הכניסו 8 ספרות — הספרה התשיעית תחושב אוטומטית</div>
+    <div class="digit-boxes" id="digit-boxes"></div>
+  </div>
+
+  <button class="calc-btn" id="calc-btn" onclick="calculate()">חשב את ספרת הביקורת ←</button>
+
   <div class="examples-row">
     <span style="font-size:12px;color:rgba(234,244,241,0.35);align-self:center;">דוגמאות:</span>
-    <button class="example-btn" onclick="loadExample('0123456')">0123456</button>
-    <button class="example-btn" onclick="loadExample('9780201')">9780201</button>
-    <button class="example-btn" onclick="loadExample('7290100')">7290100</button>
-    <button class="example-btn" onclick="loadExample('4006381')">4006381</button>
+    <button class="example-btn" onclick="loadExample('03988022')">03988022</button>
+    <button class="example-btn" onclick="loadExample('20496963')">20496963</button>
+    <button class="example-btn" onclick="loadExample('12345678')">12345678</button>
+    <button class="example-btn" onclick="loadExample('00000000')">00000000</button>
   </div>
 
-  <!-- steps (hidden until calculate) -->
-  <div class="steps-wrap" id="steps-wrap"></div>
+  <div class="steps-section" id="steps-section"></div>
 
   <a class="back-link" href="../">← חזרה למשחקים</a>
 </div>
 
 <script>
-function loadExample(val) {
-  document.getElementById('digit-input').value = val;
-  calculate();
+// ─── build digit input boxes ──────────────────────────
+const N = 8;
+const boxesContainer = document.getElementById('digit-boxes');
+for (let i = 0; i < N; i++) {
+  const inp = document.createElement('input');
+  inp.type = 'tel';
+  inp.inputMode = 'numeric';
+  inp.maxLength = 1;
+  inp.className = 'digit-box';
+  inp.id = 'dbox' + i;
+  inp.dataset.idx = i;
+  inp.addEventListener('input', onBoxInput);
+  inp.addEventListener('keydown', onBoxKeydown);
+  inp.addEventListener('focus', () => inp.select());
+  boxesContainer.appendChild(inp);
 }
 
+function onBoxInput(e) {
+  const inp = e.target;
+  const val = inp.value.replace(/[^0-9]/g,'');
+  inp.value = val ? val[val.length-1] : '';
+  inp.classList.toggle('filled', inp.value !== '');
+  if (inp.value && inp.dataset.idx < N-1) {
+    document.getElementById('dbox' + (parseInt(inp.dataset.idx)+1)).focus();
+  }
+  updateCardDisplay();
+}
+
+function onBoxKeydown(e) {
+  const idx = parseInt(e.target.dataset.idx);
+  if (e.key === 'Backspace' && !e.target.value && idx > 0) {
+    document.getElementById('dbox' + (idx-1)).focus();
+  }
+  if (e.key === 'ArrowRight' && idx > 0) {
+    document.getElementById('dbox' + (idx-1)).focus();
+    e.preventDefault();
+  }
+  if (e.key === 'ArrowLeft' && idx < N-1) {
+    document.getElementById('dbox' + (idx+1)).focus();
+    e.preventDefault();
+  }
+}
+
+// ─── live card display while typing ──────────────────
+function updateCardDisplay(checkDigit) {
+  const display = document.getElementById('id-number-display');
+  display.innerHTML = '';
+  for (let i = 0; i < N; i++) {
+    const val = document.getElementById('dbox'+i).value;
+    const span = document.createElement('span');
+    span.className = 'id-digit' + (val === '' ? ' blank' : '');
+    span.textContent = val !== '' ? val : '•';
+    display.appendChild(span);
+  }
+  // check digit slot
+  const cd = document.createElement('span');
+  if (checkDigit !== undefined) {
+    cd.className = 'id-digit check-digit pop';
+    cd.textContent = checkDigit;
+  } else {
+    cd.className = 'id-digit check-digit blank';
+    cd.textContent = '?';
+  }
+  display.appendChild(cd);
+}
+
+// ─── load example ─────────────────────────────────────
+function loadExample(str) {
+  for (let i = 0; i < N; i++) {
+    const box = document.getElementById('dbox'+i);
+    box.value = str[i] || '';
+    box.classList.toggle('filled', box.value !== '');
+  }
+  updateCardDisplay();
+  document.getElementById('steps-section').innerHTML = '';
+  setTimeout(calculate, 80);
+}
+
+// ─── algorithm ────────────────────────────────────────
+function processStep(digit, weight) {
+  const product = digit * weight;
+  const reduced = product > 9 ? product - 9 : product;
+  return { digit, weight, product, reduced, changed: product > 9 };
+}
+
+// ─── calculate ────────────────────────────────────────
 function calculate() {
-  const raw = document.getElementById('digit-input').value.trim();
-  if (raw.length !== 7 || !/^\d+$/.test(raw)) {
-    document.getElementById('steps-wrap').innerHTML =
-      '<div style="text-align:center;color:rgba(255,150,150,0.8);font-size:14px;font-weight:600;">נא להזין בדיוק 7 ספרות</div>';
-    return;
+  const digits = [];
+  for (let i = 0; i < N; i++) {
+    const v = document.getElementById('dbox'+i).value;
+    if (v === '' || !/^\d$/.test(v)) {
+      flashError(); return;
+    }
+    digits.push(parseInt(v));
   }
 
-  const digits = raw.split('').map(Number);
-  // EAN-8 weights: alternating 3, 1 starting from left
-  const weights = [3, 1, 3, 1, 3, 1, 3];
-
-  // Step 1: products
-  const products = digits.map((d, i) => d * weights[i]);
-
-  // Step 2: sum
-  const sum = products.reduce((a, b) => a + b, 0);
-
-  // Step 3: check digit
+  const weights = [1,2,1,2,1,2,1,2];
+  const steps = digits.map((d,i) => processStep(d, weights[i]));
+  const sum = steps.reduce((a,s) => a + s.reduced, 0);
   const checkDigit = (10 - (sum % 10)) % 10;
 
-  renderSteps(digits, weights, products, sum, checkDigit, raw);
+  document.getElementById('steps-section').innerHTML = '';
+
+  // animate card first
+  updateCardDisplay();
+
+  // then animate steps
+  renderStepsAnimated(steps, sum, checkDigit);
 }
 
-function renderSteps(digits, weights, products, sum, checkDigit, raw) {
-  const wrap = document.getElementById('steps-wrap');
-  wrap.innerHTML = '';
+function flashError() {
+  const btn = document.getElementById('calc-btn');
+  btn.style.background = 'linear-gradient(135deg,#CC3333,#991111)';
+  btn.textContent = 'נא להכניס 8 ספרות ✕';
+  setTimeout(() => {
+    btn.style.background = '';
+    btn.textContent = 'חשב את ספרת הביקורת ←';
+  }, 1200);
+}
 
-  // Build step cards
-  const steps = [
-    buildStep1(digits, weights),
-    buildStep2(digits, weights, products),
-    buildStep3(products, sum),
-    buildStep4(sum, checkDigit, raw),
-  ];
+// ─── animated render ──────────────────────────────────
+function renderStepsAnimated(steps, sum, checkDigit) {
+  const section = document.getElementById('steps-section');
 
-  steps.forEach(html => {
-    const div = document.createElement('div');
-    div.className = 'step-card';
-    div.innerHTML = html;
-    wrap.appendChild(div);
+  // Step 1 card: title only first
+  const card1 = makeCard(1, 'כופלים כל ספרה במשקלה (1 או 2 לסירוגין)');
+  const table = document.createElement('table');
+  table.className = 'proc-table';
+  card1.appendChild(table);
+  section.appendChild(card1);
+
+  // animate card in
+  setTimeout(() => card1.classList.add('visible'), 50);
+
+  // animate each row
+  steps.forEach((s, i) => {
+    setTimeout(() => {
+      // highlight input box
+      document.querySelectorAll('.digit-box').forEach(b => b.classList.remove('active-step'));
+      document.getElementById('dbox'+i).classList.add('active-step');
+
+      const row = document.createElement('tr');
+      row.className = 'proc-row';
+
+      const cols = [
+        { cls:'cell-digit', txt: s.digit },
+        { cls:'cell-weight', txt: '×' + s.weight },
+        { cls:'cell-equals', txt: '=' },
+        { cls:'cell-product', txt: s.product },
+      ];
+      if (s.changed) {
+        cols.push({ cls:'cell-arrow', txt: '→' });
+        cols.push({ cls:'cell-reduced', txt: s.reduced });
+        cols.push({ cls:'cell-note', txt: s.product + ' − 9' });
+      } else {
+        cols.push({ cls:'cell-arrow', txt: '' });
+        cols.push({ cls:'cell-reduced', txt: '' });
+        cols.push({ cls:'cell-note', txt: '' });
+      }
+
+      cols.forEach(c => {
+        const td = document.createElement('td');
+        td.className = c.cls;
+        td.textContent = c.txt;
+        row.appendChild(td);
+      });
+
+      table.appendChild(row);
+      setTimeout(() => row.classList.add('visible'), 30);
+
+      // last row: move on
+      if (i === steps.length - 1) {
+        setTimeout(() => {
+          document.querySelectorAll('.digit-box').forEach(b => b.classList.remove('active-step'));
+          showStep2(section, steps, sum, checkDigit);
+        }, 400);
+      }
+    }, i * 280);
+  });
+}
+
+function showStep2(section, steps, sum, checkDigit) {
+  // Step 2: sum
+  const card2 = makeCard(2, 'מחברים את כל התוצאות');
+  const sumDiv = document.createElement('div');
+  sumDiv.className = 'sum-display';
+
+  steps.forEach((s, i) => {
+    if (i > 0) {
+      const plus = document.createElement('span');
+      plus.className = 'sum-plus';
+      plus.textContent = '+';
+      sumDiv.appendChild(plus);
+    }
+    const part = document.createElement('span');
+    part.className = s.changed ? 'sum-red' : 'sum-part';
+    part.textContent = s.reduced;
+    sumDiv.appendChild(part);
   });
 
-  // Animate in one by one
-  const cards = wrap.querySelectorAll('.step-card');
-  cards.forEach((card, i) => {
-    setTimeout(() => card.classList.add('visible'), i * 200);
-  });
+  const eq = document.createElement('span');
+  eq.className = 'sum-eq'; eq.textContent = '=';
+  sumDiv.appendChild(eq);
+
+  const total = document.createElement('span');
+  total.className = 'sum-total'; total.textContent = sum;
+  sumDiv.appendChild(total);
+
+  card2.appendChild(sumDiv);
+  section.appendChild(card2);
+  setTimeout(() => card2.classList.add('visible'), 60);
+
+  setTimeout(() => showStep3(section, sum, checkDigit), 500);
 }
 
-function buildStep1(digits, weights) {
-  let rows = '';
-
-  // digit row
-  rows += '<tr>';
-  digits.forEach((d, i) => {
-    rows += '<td class="digit-cell">' + d + '</td>';
-  });
-  rows += '</tr>';
-
-  // weight row
-  rows += '<tr>';
-  weights.forEach((w, i) => {
-    rows += '<td class="weight">×' + w + '</td>';
-  });
-  rows += '</tr>';
-
-  return `
-    <div class="step-header">
-      <div class="step-num">1</div>
-      <div class="step-title">כופלים כל ספרה במשקל שלה (3 ו-1 לסירוגין)</div>
-    </div>
-    <div style="overflow-x:auto;">
-      <table class="digit-table">
-        <thead><tr>
-          ${digits.map((_,i) => '<th>ספרה '+(i+1)+'</th>').join('')}
-        </tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    </div>
-  `;
-}
-
-function buildStep2(digits, weights, products) {
-  let rows = '';
-
-  // digit row
-  rows += '<tr>';
-  digits.forEach(d => { rows += '<td class="digit-cell">' + d + '</td>'; });
-  rows += '</tr>';
-
-  // weight row
-  rows += '<tr>';
-  weights.forEach(w => { rows += '<td class="weight">×' + w + '</td>'; });
-  rows += '</tr>';
-
-  // product row
-  rows += '<tr>';
-  products.forEach(p => { rows += '<td class="product">' + p + '</td>'; });
-  rows += '</tr>';
-
-  return `
-    <div class="step-header">
-      <div class="step-num">2</div>
-      <div class="step-title">תוצאות הכפל</div>
-    </div>
-    <div style="overflow-x:auto;">
-      <table class="digit-table">
-        <thead><tr>
-          ${digits.map((_,i) => '<th>ספרה '+(i+1)+'</th>').join('')}
-        </tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    </div>
-  `;
-}
-
-function buildStep3(products, sum) {
-  const parts = products.map(p => '<span class="sum-part">' + p + '</span>').join('<span class="sum-plus"> + </span>');
-  return `
-    <div class="step-header">
-      <div class="step-num">3</div>
-      <div class="step-title">מחברים את כל התוצאות</div>
-    </div>
-    <div class="sum-row">
-      ${parts}
-      <span class="sum-eq">=</span>
-      <span class="sum-total">${sum}</span>
-    </div>
-  `;
-}
-
-function buildStep4(sum, checkDigit, raw) {
+function showStep3(section, sum, checkDigit) {
+  const card3 = makeCard(3, 'מחשבים את ספרת הביקורת');
   const mod = sum % 10;
-  const fullNum = raw + checkDigit;
-  return `
-    <div class="step-header">
-      <div class="step-num">4</div>
-      <div class="step-title">ספרת הביקורת — מה יש להוסיף כדי לעגל ל-10?</div>
+
+  const box = document.createElement('div');
+  box.className = 'final-box';
+  box.innerHTML = `
+    <div class="final-formula">
+      הסכום הוא <strong>${sum}</strong>,
+      הספרה האחרונה שלו היא <strong>${mod}</strong>.<br>
+      ספרת הביקורת = (10 − ${mod}) % 10 = <strong>${checkDigit}</strong>
     </div>
-    <div class="final-box">
-      <div class="final-formula">
-        הסכום הוא <strong>${sum}</strong>,
-        הספרה האחרונה שלו היא <strong>${mod}</strong>.<br>
-        צריך להוסיף <strong>${checkDigit}</strong> כדי להגיע ל-${sum - mod + 10}.
-      </div>
-      <div style="font-size:13px;color:rgba(234,244,241,0.4);margin-bottom:12px;">
-        (10 − ${mod}) % 10 = <strong style="color:#B9A4FF">${checkDigit}</strong>
-      </div>
-      <div class="final-digit">${checkDigit}</div>
-      <div class="final-label">ספרת הביקורת</div>
-      <div class="full-number">${raw}<span class="check">${checkDigit}</span></div>
-      <div style="font-size:12px;color:rgba(234,244,241,0.35);margin-top:8px;">המספר המלא עם ספרת הביקורת</div>
-    </div>
+    <div class="final-digit-big">${checkDigit}</div>
+    <div class="final-label">ספרת הביקורת</div>
   `;
+  card3.appendChild(box);
+  section.appendChild(card3);
+  setTimeout(() => {
+    card3.classList.add('visible');
+    // reveal on ID card
+    setTimeout(() => updateCardDisplay(checkDigit), 300);
+  }, 60);
 }
+
+function makeCard(num, title) {
+  const card = document.createElement('div');
+  card.className = 'step-card';
+  const heading = document.createElement('div');
+  heading.className = 'step-heading';
+  heading.innerHTML = `
+    <div class="step-badge">${num}</div>
+    <div class="step-title-text">${title}</div>
+  `;
+  card.appendChild(heading);
+  return card;
+}
+
+// ─── init ─────────────────────────────────────────────
+updateCardDisplay();
 </script>
 </body>
 </html>
