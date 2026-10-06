@@ -519,17 +519,18 @@ function showStep2(section, steps, sum, checkDigit) {
 }
 
 function showStep3(section, sum, checkDigit) {
-  const card3 = makeCard(3, 'מחשבים את ספרת הביקורת');
+  const card3 = makeCard(3, 'כמה חסר כדי שהסכום יתחלק ב-10?');
   const mod = sum % 10;
+  const nextMultiple = sum + checkDigit;
+
+  const explanation = mod === 0
+    ? `הסכום <strong>${sum}</strong> כבר מתחלק ב-10 — לא חסר כלום.`
+    : `הסכום הוא <strong>${sum}</strong>. כדי שיתחלק ב-10 צריך להגיע ל-<strong>${nextMultiple}</strong>. חסר <strong>${checkDigit}</strong>.`;
 
   const box = document.createElement('div');
   box.className = 'final-box';
   box.innerHTML = `
-    <div class="final-formula">
-      הסכום הוא <strong>${sum}</strong>,
-      הספרה האחרונה שלו היא <strong>${mod}</strong>.<br>
-      ספרת הביקורת = (10 − ${mod}) % 10 = <strong>${checkDigit}</strong>
-    </div>
+    <div class="final-formula">${explanation}</div>
     <div class="final-digit-big">${checkDigit}</div>
     <div class="final-label">ספרת הביקורת</div>
   `;
