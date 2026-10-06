@@ -10,7 +10,7 @@
   html,body{margin:0;padding:0;}
   body{
     font-family:'Rubik',sans-serif;
-    background:radial-gradient(ellipse at 50% -10%,#3D3568 0%,#1E1B2E 50%,#0F0D1A 100%);
+    background:radial-gradient(ellipse at 50% -10%,#1C2B3A 0%,#0E1820 50%,#070C12 100%);
     color:#EAF4F1;direction:rtl;min-height:100vh;
   }
   .wrap{max-width:640px;margin:0 auto;padding:36px 20px 80px;}
@@ -400,8 +400,9 @@ function renderPile(idx) {
 
   // card classes
   card.classList.remove('selected','disabled','selectable');
-  const locked = gameOver || animatingPile >= 0 || (mode==='cpu' && currentPlayer===2);
-  if (locked || n === 0) {
+  // only visually dim when game over, pile empty, or mid-animation — NOT during CPU thinking
+  const visuallyLocked = gameOver || animatingPile >= 0 || n === 0;
+  if (visuallyLocked) {
     card.classList.add('disabled');
   } else if (selectedPile === idx + 1) {
     card.classList.add('selected');
