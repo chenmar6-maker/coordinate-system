@@ -11,9 +11,7 @@
   body{
     font-family:'Rubik',sans-serif;
     background:radial-gradient(ellipse at 50% -10%,#3D3568 0%,#1E1B2E 50%,#0F0D1A 100%);
-    color:#EAF4F1;
-    direction:rtl;
-    min-height:100vh;
+    color:#EAF4F1;direction:rtl;min-height:100vh;
   }
   .wrap{max-width:640px;margin:0 auto;padding:36px 20px 80px;}
 
@@ -32,48 +30,86 @@
   }
   .mode-tab.active{background:rgba(239,169,74,0.15);border-color:rgba(239,169,74,0.6);color:#EFA94A;}
 
-  /* piles area */
+  /* who-first */
+  .who-first{display:flex;gap:8px;justify-content:center;margin-bottom:20px;}
+  .who-btn{
+    padding:8px 18px;border-radius:20px;font-family:'Rubik',sans-serif;
+    font-size:13px;font-weight:600;cursor:pointer;
+    border:1.5px solid rgba(234,244,241,0.2);background:transparent;
+    color:rgba(234,244,241,0.5);transition:all .15s;
+  }
+  .who-btn.active{background:rgba(100,180,255,0.12);border-color:rgba(100,180,255,0.5);color:#8BBFFF;}
+
+  /* piles */
   .piles{display:flex;gap:16px;margin-bottom:24px;}
   .pile-card{
     flex:1;background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.1);
     border-radius:14px;padding:20px 16px;text-align:center;cursor:pointer;
-    transition:border-color .15s,background .15s;min-height:160px;
+    transition:border-color .2s,background .2s;min-height:170px;
     display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+    overflow:hidden;
   }
   .pile-card.selectable:hover{border-color:rgba(239,169,74,0.5);background:rgba(239,169,74,0.06);}
-  .pile-card.selected{border-color:#EFA94A;background:rgba(239,169,74,0.1);}
+  .pile-card.selected{border-color:#EFA94A;background:rgba(239,169,74,0.08);}
   .pile-card.disabled{opacity:0.4;cursor:default;}
 
-  .pile-label{font-size:12px;font-weight:700;letter-spacing:1px;color:rgba(234,244,241,0.4);margin-bottom:12px;}
-  .sticks-wrap{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;min-height:60px;align-items:center;}
-  .stick{
-    width:10px;height:44px;border-radius:3px;
-    background:linear-gradient(180deg,#EFA94A,#c07820);
-    box-shadow:0 2px 4px rgba(0,0,0,0.3);
-    flex-shrink:0;
+  .pile-label{font-size:12px;font-weight:700;letter-spacing:1px;color:rgba(234,244,241,0.4);margin-bottom:10px;}
+  .sticks-wrap{
+    display:flex;flex-wrap:wrap;gap:5px;justify-content:center;
+    align-items:flex-end;min-height:70px;width:100%;
   }
-  .pile-count{font-size:28px;font-weight:800;color:#fff;margin-top:12px;}
-  .pile-empty{font-size:13px;color:rgba(234,244,241,0.3);margin-top:8px;}
+
+  /* ─── stick ─── */
+  .stick{
+    width:11px;height:46px;border-radius:3px 3px 2px 2px;
+    background:linear-gradient(180deg,#EFA94A 0%,#c07820 100%);
+    box-shadow:0 2px 5px rgba(0,0,0,0.35);
+    flex-shrink:0;
+    transform-origin:bottom center;
+    transition:background .2s, box-shadow .2s, transform .15s;
+  }
+
+  /* preview: will-be-taken sticks glow red */
+  .stick.preview{
+    background:linear-gradient(180deg,#FF7B7B 0%,#CC2222 100%);
+    box-shadow:0 0 10px rgba(255,80,80,0.55), 0 2px 4px rgba(0,0,0,0.3);
+    transform:scaleY(1.08);
+  }
+
+  /* taking: fly up and fade */
+  @keyframes stickFly {
+    0%   { transform:translateY(0) scaleY(1.1) scaleX(1.1); opacity:1; }
+    15%  { transform:translateY(-8px) scaleY(1.15) scaleX(1.15); opacity:1; }
+    100% { transform:translateY(-55px) scaleY(0.2) scaleX(0.4); opacity:0; }
+  }
+  .stick.taking{
+    animation:stickFly 0.42s cubic-bezier(0.4,0,0.6,1) forwards;
+    pointer-events:none;
+  }
+
+  .pile-count{font-size:28px;font-weight:800;color:#fff;margin-top:10px;transition:transform .15s;}
+  .pile-count.bump{animation:countBump .3s ease;}
+  @keyframes countBump{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
 
   /* take controls */
   .take-panel{
     background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.12);
     border-radius:14px;padding:20px;margin-bottom:20px;text-align:center;
-    transition:opacity .2s;
+    transition:opacity .2s,transform .2s;
   }
-  .take-panel.hidden{opacity:0;pointer-events:none;}
+  .take-panel.hidden{opacity:0;pointer-events:none;transform:translateY(6px);}
   .take-label{font-size:13px;color:rgba(234,244,241,0.55);margin-bottom:14px;}
   .take-label strong{color:#EFA94A;}
   .count-row{display:flex;align-items:center;justify-content:center;gap:16px;}
   .count-btn{
-    width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(234,244,241,0.25);
-    background:transparent;color:#EAF4F1;font-size:20px;font-weight:700;
+    width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(234,244,241,0.25);
+    background:transparent;color:#EAF4F1;font-size:22px;font-weight:700;
     cursor:pointer;transition:all .12s;font-family:'Rubik',sans-serif;
     display:flex;align-items:center;justify-content:center;
   }
   .count-btn:hover:not(:disabled){border-color:#EFA94A;color:#EFA94A;}
   .count-btn:disabled{opacity:0.3;cursor:default;}
-  .count-num{font-size:36px;font-weight:800;color:#fff;min-width:48px;}
+  .count-num{font-size:38px;font-weight:800;color:#fff;min-width:50px;}
   .confirm-btn{
     margin-top:16px;width:100%;padding:14px;
     background:linear-gradient(135deg,#EFA94A,#c07820);
@@ -83,11 +119,13 @@
     box-shadow:0 4px 14px rgba(239,169,74,0.35);
   }
   .confirm-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(239,169,74,0.45);}
+  .confirm-btn:disabled{opacity:0.5;cursor:default;transform:none;}
 
   /* status */
   .status{
     text-align:center;font-size:16px;font-weight:600;
-    color:rgba(234,244,241,0.75);margin-bottom:20px;min-height:24px;
+    color:rgba(234,244,241,0.75);margin-bottom:20px;min-height:26px;
+    transition:opacity .2s;
   }
   .status.winner{color:#EFA94A;font-size:20px;font-weight:800;}
 
@@ -100,16 +138,6 @@
     cursor:pointer;transition:all .15s;
   }
   .new-game-btn:hover{border-color:rgba(234,244,241,0.5);color:#EAF4F1;}
-
-  /* who-first (vs computer only) */
-  .who-first{display:flex;gap:8px;justify-content:center;margin-bottom:20px;}
-  .who-btn{
-    padding:8px 18px;border-radius:20px;font-family:'Rubik',sans-serif;
-    font-size:13px;font-weight:600;cursor:pointer;
-    border:1.5px solid rgba(234,244,241,0.2);background:transparent;
-    color:rgba(234,244,241,0.5);transition:all .15s;
-  }
-  .who-btn.active{background:rgba(100,180,255,0.12);border-color:rgba(100,180,255,0.5);color:#8BBFFF;}
 
   .back-link{
     display:block;text-align:center;margin-top:32px;
@@ -126,19 +154,16 @@
     <div class="header-sub">בכל תור לוקחים כמה גפרורים שרוצים מערמה אחת בלבד. מי שלוקח את האחרון — מנצח!</div>
   </div>
 
-  <!-- mode tabs -->
   <div class="mode-tabs">
     <button class="mode-tab active" onclick="setMode('2p')">👥 שני שחקנים</button>
     <button class="mode-tab" onclick="setMode('cpu')">🤖 מול המחשב</button>
   </div>
 
-  <!-- who goes first (vs cpu only) -->
   <div class="who-first" id="who-first-row" style="display:none;">
     <button class="who-btn active" id="who-me" onclick="setFirst('human')">אני מתחיל</button>
     <button class="who-btn" id="who-cpu" onclick="setFirst('cpu')">המחשב מתחיל</button>
   </div>
 
-  <!-- piles -->
   <div class="piles">
     <div class="pile-card selectable" id="pile1-card" onclick="selectPile(1)">
       <div class="pile-label">ערמה 1</div>
@@ -152,7 +177,6 @@
     </div>
   </div>
 
-  <!-- take controls -->
   <div class="take-panel hidden" id="take-panel">
     <div class="take-label" id="take-label">בחרתם <strong>ערמה 1</strong> — כמה לקחת?</div>
     <div class="count-row">
@@ -160,38 +184,35 @@
       <div class="count-num" id="take-count">1</div>
       <button class="count-btn" id="btn-plus" onclick="adjustCount(1)">+</button>
     </div>
-    <button class="confirm-btn" onclick="confirmMove()">קח ←</button>
+    <button class="confirm-btn" id="confirm-btn" onclick="confirmMove()">קח ←</button>
   </div>
 
-  <!-- status -->
   <div class="status" id="status">בחרו ערמה כדי להתחיל</div>
 
-  <!-- new game -->
   <button class="new-game-btn" onclick="newGame()">משחק חדש 🔄</button>
-
   <a class="back-link" href="../">← חזרה למשחקים</a>
 </div>
 
 <script>
-// ─── state ───────────────────────────────────────────
+// ─── state ────────────────────────────────────────────
 let piles = [0, 0];
-let mode = '2p';        // '2p' | 'cpu'
-let currentPlayer = 1; // 1 or 2 (cpu is always player 2 in cpu mode)
+let mode = '2p';
+let currentPlayer = 1;
 let humanFirst = true;
 let selectedPile = null;
 let takeAmount = 1;
 let gameOver = false;
+let animatingPile = -1; // pile index currently mid-animation (-1 = none)
 
-// ─── mode & first-player ─────────────────────────────
+// ─── mode & first ────────────────────────────────────
 function setMode(m) {
   mode = m;
   document.querySelectorAll('.mode-tab').forEach((t,i) => {
-    t.classList.toggle('active', (i===0 && m==='2p') || (i===1 && m==='cpu'));
+    t.classList.toggle('active', (i===0&&m==='2p')||(i===1&&m==='cpu'));
   });
-  document.getElementById('who-first-row').style.display = m === 'cpu' ? 'flex' : 'none';
+  document.getElementById('who-first-row').style.display = m==='cpu'?'flex':'none';
   newGame();
 }
-
 function setFirst(who) {
   humanFirst = (who === 'human');
   document.getElementById('who-me').classList.toggle('active', humanFirst);
@@ -206,26 +227,17 @@ function newGame() {
   gameOver = false;
   selectedPile = null;
   takeAmount = 1;
-
-  if (mode === 'cpu' && !humanFirst) {
-    currentPlayer = 2;
-  } else {
-    currentPlayer = 1;
-  }
-
+  animatingPile = -1;
+  currentPlayer = (mode === 'cpu' && !humanFirst) ? 2 : 1;
   render();
-
-  if (mode === 'cpu' && currentPlayer === 2) {
-    setTimeout(doCpuMove, 700);
-  }
+  if (mode === 'cpu' && currentPlayer === 2) setTimeout(doCpuMove, 700);
 }
 
 // ─── pile selection ───────────────────────────────────
 function selectPile(p) {
-  if (gameOver) return;
+  if (gameOver || animatingPile >= 0) return;
   if (mode === 'cpu' && currentPlayer === 2) return;
   if (piles[p-1] === 0) return;
-
   selectedPile = p;
   takeAmount = 1;
   render();
@@ -233,39 +245,38 @@ function selectPile(p) {
 
 // ─── count adjust ─────────────────────────────────────
 function adjustCount(delta) {
+  if (animatingPile >= 0) return;
   const max = piles[selectedPile - 1];
   takeAmount = Math.max(1, Math.min(max, takeAmount + delta));
   render();
 }
 
-// ─── confirm move ─────────────────────────────────────
+// ─── player confirms move ─────────────────────────────
 function confirmMove() {
-  if (gameOver || selectedPile === null) return;
-  applyMove(selectedPile - 1, takeAmount);
-}
+  if (gameOver || selectedPile === null || animatingPile >= 0) return;
+  const pileIdx = selectedPile - 1;
+  const amount = takeAmount;
 
-function applyMove(pileIdx, amount) {
-  piles[pileIdx] -= amount;
+  // lock UI
   selectedPile = null;
   takeAmount = 1;
+  renderTakePanel();
 
-  // check win: last stick taken wins
-  if (piles[0] === 0 && piles[1] === 0) {
-    gameOver = true;
+  animateTake(pileIdx, amount, false, () => {
+    piles[pileIdx] -= amount;
+    if (piles[0] === 0 && piles[1] === 0) {
+      gameOver = true;
+    } else {
+      currentPlayer = currentPlayer === 1 ? 2 : 1;
+    }
     render();
-    return;
-  }
-
-  // next player
-  currentPlayer = currentPlayer === 1 ? 2 : 1;
-  render();
-
-  if (mode === 'cpu' && currentPlayer === 2 && !gameOver) {
-    setTimeout(doCpuMove, 600);
-  }
+    if (!gameOver && mode === 'cpu' && currentPlayer === 2) {
+      setTimeout(doCpuMove, 600);
+    }
+  });
 }
 
-// ─── cpu AI (optimal XOR strategy) ───────────────────
+// ─── CPU AI ───────────────────────────────────────────
 function nimAI(a, b) {
   const xor = a ^ b;
   if (xor !== 0) {
@@ -274,15 +285,83 @@ function nimAI(a, b) {
     const nb = b ^ xor;
     if (nb < b) return { pile: 1, amount: b - nb };
   }
-  // losing position: take 1 from larger pile
   if (a >= b) return { pile: 0, amount: 1 };
   return { pile: 1, amount: 1 };
 }
 
 function doCpuMove() {
-  if (gameOver) return;
+  if (gameOver || animatingPile >= 0) return;
   const move = nimAI(piles[0], piles[1]);
-  applyMove(move.pile, move.amount);
+
+  // show preview on the pile the CPU will take from
+  showPreviewSticks(move.pile, move.amount);
+
+  setTimeout(() => {
+    animateTake(move.pile, move.amount, true, () => {
+      piles[move.pile] -= move.amount;
+      if (piles[0] === 0 && piles[1] === 0) {
+        gameOver = true;
+      } else {
+        currentPlayer = 1;
+      }
+      render();
+    });
+  }, 550);
+}
+
+// ─── animation helpers ────────────────────────────────
+
+// Show red preview on last `amount` sticks in pile `pileIdx`
+function showPreviewSticks(pileIdx, amount) {
+  const container = document.getElementById('sticks' + (pileIdx+1));
+  const allSticks = container.querySelectorAll('.stick');
+  const n = allSticks.length;
+  for (let i = Math.max(0, n - amount); i < n; i++) {
+    allSticks[i].classList.add('preview');
+  }
+}
+
+function clearPreviewSticks(pileIdx) {
+  const container = document.getElementById('sticks' + (pileIdx+1));
+  container.querySelectorAll('.stick.preview').forEach(s => s.classList.remove('preview'));
+}
+
+// Animate taking `amount` sticks from pile `pileIdx`, then call `callback`
+// `isCpu` = true → sticks are already previewed, skip re-adding preview
+function animateTake(pileIdx, amount, isCpu, callback) {
+  animatingPile = pileIdx;
+  renderStatus(); // show "לוקח..." or lock state
+
+  const container = document.getElementById('sticks' + (pileIdx+1));
+  const allSticks = container.querySelectorAll('.stick');
+  const n = allSticks.length;
+  const start = Math.max(0, n - amount);
+
+  // brief pause so preview shows, then fire animation
+  const delay = isCpu ? 0 : 50;
+  setTimeout(() => {
+    for (let i = start; i < n; i++) {
+      allSticks[i].classList.remove('preview');
+      // stagger each stick slightly
+      allSticks[i].style.animationDelay = ((i - start) * 40) + 'ms';
+      allSticks[i].classList.add('taking');
+    }
+    // update count number while sticks fly
+    const countEl = document.getElementById('count' + (pileIdx+1));
+    const newCount = piles[pileIdx] - amount;
+    setTimeout(() => {
+      countEl.textContent = newCount === 0 ? '0' : newCount;
+      countEl.classList.add('bump');
+      setTimeout(() => countEl.classList.remove('bump'), 350);
+    }, 150);
+
+    // wait for animation to finish
+    const duration = 420 + amount * 40 + 80; // matches stagger + anim duration
+    setTimeout(() => {
+      animatingPile = -1;
+      callback();
+    }, duration);
+  }, delay);
 }
 
 // ─── render ───────────────────────────────────────────
@@ -294,30 +373,35 @@ function render() {
 }
 
 function renderPile(idx) {
+  if (animatingPile === idx) return; // don't touch during animation
+
   const n = piles[idx];
   const card = document.getElementById('pile' + (idx+1) + '-card');
-  const sticks = document.getElementById('sticks' + (idx+1));
+  const container = document.getElementById('sticks' + (idx+1));
   const countEl = document.getElementById('count' + (idx+1));
 
-  // sticks visual (max 15 shown, rest as number overflow)
+  // build sticks
   const show = Math.min(n, 15);
-  sticks.innerHTML = '';
+  container.innerHTML = '';
   for (let i = 0; i < show; i++) {
     const s = document.createElement('div');
     s.className = 'stick';
-    sticks.appendChild(s);
+    // preview last takeAmount sticks if this pile is selected
+    if (selectedPile === idx + 1 && i >= show - takeAmount) {
+      s.classList.add('preview');
+    }
+    container.appendChild(s);
   }
   if (n === 0) {
-    sticks.innerHTML = '<span style="font-size:28px;opacity:0.3">✕</span>';
+    container.innerHTML = '<span style="font-size:28px;opacity:0.25;margin:auto">✕</span>';
   }
 
   countEl.textContent = n === 0 ? '0' : n;
 
-  // card state
-  card.classList.remove('selected', 'disabled', 'selectable');
-  if (gameOver || (mode === 'cpu' && currentPlayer === 2)) {
-    card.classList.add('disabled');
-  } else if (n === 0) {
+  // card classes
+  card.classList.remove('selected','disabled','selectable');
+  const locked = gameOver || animatingPile >= 0 || (mode==='cpu' && currentPlayer===2);
+  if (locked || n === 0) {
     card.classList.add('disabled');
   } else if (selectedPile === idx + 1) {
     card.classList.add('selected');
@@ -332,11 +416,10 @@ function renderTakePanel() {
   const countEl = document.getElementById('take-count');
   const btnMinus = document.getElementById('btn-minus');
   const btnPlus = document.getElementById('btn-plus');
+  const confirmBtn = document.getElementById('confirm-btn');
 
-  if (selectedPile === null || gameOver) {
-    panel.classList.add('hidden');
-    return;
-  }
+  const show = selectedPile !== null && !gameOver && animatingPile < 0;
+  if (!show) { panel.classList.add('hidden'); return; }
 
   panel.classList.remove('hidden');
   const max = piles[selectedPile - 1];
@@ -346,6 +429,7 @@ function renderTakePanel() {
   countEl.textContent = takeAmount;
   btnMinus.disabled = takeAmount <= 1;
   btnPlus.disabled = takeAmount >= max;
+  confirmBtn.disabled = false;
 }
 
 function renderStatus() {
@@ -353,16 +437,17 @@ function renderStatus() {
 
   if (gameOver) {
     el.classList.add('winner');
-    if (mode === '2p') {
-      el.textContent = '🏆 שחקן ' + currentPlayer + ' ניצח!';
-    } else {
-      el.textContent = currentPlayer === 1 ? '🏆 ניצחת!' : '🤖 המחשב ניצח!';
-    }
+    el.textContent = mode === '2p'
+      ? '🏆 שחקן ' + currentPlayer + ' ניצח!'
+      : (currentPlayer === 1 ? '🏆 ניצחת!' : '🤖 המחשב ניצח!');
     return;
   }
 
   el.classList.remove('winner');
-  if (mode === 'cpu' && currentPlayer === 2) {
+  if (animatingPile >= 0) {
+    const whoTaking = (mode === 'cpu' && currentPlayer === 2) ? '🤖 המחשב לוקח...' : '✋ לוקח...';
+    el.textContent = whoTaking;
+  } else if (mode === 'cpu' && currentPlayer === 2) {
     el.textContent = '🤖 המחשב חושב...';
   } else if (mode === '2p') {
     el.textContent = '👤 תורו של שחקן ' + currentPlayer;
