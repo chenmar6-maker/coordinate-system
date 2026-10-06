@@ -524,8 +524,8 @@ function showStep3(section, sum, checkDigit) {
   const nextMultiple = sum + checkDigit;
 
   const explanation = mod === 0
-    ? `הסכום <strong>${sum}</strong> כבר מתחלק ב-10 — לא חסר כלום.`
-    : `הסכום הוא <strong>${sum}</strong>. כדי שיתחלק ב-10 צריך להגיע ל-<strong>${nextMultiple}</strong>. חסר <strong>${checkDigit}</strong>.`;
+    ? `הסכום <strong>${sum}</strong> כבר מתחלק ב-10 ללא שארית — לא חסר כלום.`
+    : `הסכום הוא <strong>${sum}</strong>. כדי שיתחלק ב-10 ללא שארית צריך להגיע ל-<strong>${nextMultiple}</strong>. חסר <strong>${checkDigit}</strong>.`;
 
   const box = document.createElement('div');
   box.className = 'final-box';
