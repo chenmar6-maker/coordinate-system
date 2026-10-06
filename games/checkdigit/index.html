@@ -95,7 +95,7 @@
   /* ─── digit input ─── */
   .input-section{margin-bottom:14px;}
   .input-title{font-size:13px;font-weight:600;color:rgba(234,244,241,0.7);text-align:center;margin-bottom:10px;}
-  .digit-boxes{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;}
+  .digit-boxes{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;direction:ltr;}
   .digit-box{
     width:46px;height:56px;
     border:1.5px solid rgba(234,244,241,0.2);
@@ -165,26 +165,49 @@
   }
   .step-title-text{font-size:13px;font-weight:700;color:#EAF4F1;}
 
-  /* processing table */
-  .proc-table{width:100%;border-collapse:separate;border-spacing:0 3px;}
-  .proc-row td{padding:6px 6px;text-align:center;vertical-align:middle;direction:ltr;}
-  .proc-row{
-    opacity:0;transform:translateX(8px);
-    transition:opacity .25s ease, transform .25s ease;
+  /* ─── horizontal calc grid ─── */
+  .calc-grid{
+    display:flex;gap:5px;justify-content:center;
+    direction:ltr;overflow-x:auto;padding-bottom:4px;
   }
-  .proc-row.visible{opacity:1;transform:translateX(0);}
+  .calc-col{
+    display:flex;flex-direction:column;align-items:center;
+    gap:3px;min-width:38px;flex-shrink:0;
+    opacity:0;transform:translateY(8px);
+    transition:opacity .22s ease, transform .22s ease;
+  }
+  .calc-col.visible{opacity:1;transform:translateY(0);}
 
-  .cell-digit{
+  .col-digit{
     font-size:20px;font-weight:800;color:#fff;
-    background:rgba(234,244,241,0.08);border-radius:6px;
-    padding:5px 8px;min-width:36px;
+    background:rgba(234,244,241,0.09);border-radius:7px;
+    width:36px;height:36px;display:flex;align-items:center;justify-content:center;
   }
-  .cell-weight{font-size:13px;color:rgba(234,244,241,0.45);font-weight:600;min-width:24px;}
-  .cell-equals{font-size:14px;color:rgba(234,244,241,0.3);min-width:16px;}
-  .cell-product{font-size:20px;font-weight:800;color:#8BBFFF;min-width:36px;}
-  .cell-arrow{font-size:13px;color:rgba(234,244,241,0.3);min-width:18px;}
-  .cell-reduced{font-size:20px;font-weight:800;color:#FFD966;min-width:36px;}
-  .cell-note{font-size:10px;color:rgba(234,244,241,0.35);min-width:60px;text-align:right !important;}
+  .col-digit.active{
+    background:rgba(255,217,102,0.15);
+    box-shadow:0 0 0 2px rgba(255,217,102,0.4);
+  }
+  .col-weight{
+    font-size:11px;font-weight:700;color:rgba(234,244,241,0.45);
+    height:16px;display:flex;align-items:center;
+  }
+  .col-arrow-down{
+    font-size:14px;color:rgba(234,244,241,0.3);
+    height:18px;display:flex;align-items:center;
+  }
+  .col-product{
+    font-size:19px;font-weight:800;color:#8BBFFF;
+    height:28px;display:flex;align-items:center;
+  }
+  .col-reduce-arrow{
+    font-size:13px;height:16px;display:flex;align-items:center;
+    color:rgba(255,217,102,0.5);
+  }
+  .col-reduced{
+    font-size:19px;font-weight:800;color:#FFD966;
+    height:28px;display:flex;align-items:center;
+  }
+  .col-invisible{opacity:0;pointer-events:none;}
 
   /* sum card */
   .sum-display{
@@ -303,14 +326,18 @@ function onBoxKeydown(e) {
   const idx = parseInt(e.target.dataset.idx);
   if (e.key === 'Backspace' && !e.target.value && idx > 0) {
     document.getElementById('dbox' + (idx-1)).focus();
+    e.preventDefault();
   }
-  if (e.key === 'ArrowRight' && idx > 0) {
+  if (e.key === 'ArrowLeft' && idx > 0) {
     document.getElementById('dbox' + (idx-1)).focus();
     e.preventDefault();
   }
-  if (e.key === 'ArrowLeft' && idx < N-1) {
+  if (e.key === 'ArrowRight' && idx < N-1) {
     document.getElementById('dbox' + (idx+1)).focus();
     e.preventDefault();
+  }
+  if (e.key === 'Enter') {
+    calculate();
   }
 }
 
@@ -395,60 +422,65 @@ function flashError() {
 function renderStepsAnimated(steps, sum, checkDigit) {
   const section = document.getElementById('steps-section');
 
-  // Step 1 card: title only first
   const card1 = makeCard(1, 'כופלים כל ספרה במשקלה (1 או 2 לסירוגין)');
-  const table = document.createElement('table');
-  table.className = 'proc-table';
-  card1.appendChild(table);
-  section.appendChild(card1);
+  const grid = document.createElement('div');
+  grid.className = 'calc-grid';
 
-  // animate card in
+  // build all columns upfront (hidden), animate in one by one
+  steps.forEach((s, i) => {
+    const col = document.createElement('div');
+    col.className = 'calc-col';
+
+    const dEl = document.createElement('div');
+    dEl.className = 'col-digit';
+    dEl.textContent = s.digit;
+
+    const wEl = document.createElement('div');
+    wEl.className = 'col-weight';
+    wEl.textContent = '×' + s.weight;
+
+    const a1 = document.createElement('div');
+    a1.className = 'col-arrow-down';
+    a1.textContent = '↓';
+
+    const pEl = document.createElement('div');
+    pEl.className = 'col-product';
+    pEl.textContent = s.product;
+
+    const a2 = document.createElement('div');
+    a2.className = 'col-reduce-arrow' + (s.changed ? '' : ' col-invisible');
+    a2.textContent = '↓';
+
+    const rEl = document.createElement('div');
+    rEl.className = 'col-reduced' + (s.changed ? '' : ' col-invisible');
+    rEl.textContent = s.changed ? s.reduced : '';
+
+    col.append(dEl, wEl, a1, pEl, a2, rEl);
+    grid.appendChild(col);
+  });
+
+  card1.appendChild(grid);
+  section.appendChild(card1);
   setTimeout(() => card1.classList.add('visible'), 50);
 
-  // animate each row
-  steps.forEach((s, i) => {
+  // animate columns left to right
+  const cols = grid.querySelectorAll('.calc-col');
+  cols.forEach((col, i) => {
     setTimeout(() => {
-      // highlight input box
+      // highlight matching input box
       document.querySelectorAll('.digit-box').forEach(b => b.classList.remove('active-step'));
       document.getElementById('dbox'+i).classList.add('active-step');
+      col.querySelector('.col-digit').classList.add('active');
+      col.classList.add('visible');
 
-      const row = document.createElement('tr');
-      row.className = 'proc-row';
-
-      const cols = [
-        { cls:'cell-digit', txt: s.digit },
-        { cls:'cell-weight', txt: '×' + s.weight },
-        { cls:'cell-equals', txt: '=' },
-        { cls:'cell-product', txt: s.product },
-      ];
-      if (s.changed) {
-        cols.push({ cls:'cell-arrow', txt: '→' });
-        cols.push({ cls:'cell-reduced', txt: s.reduced });
-        cols.push({ cls:'cell-note', txt: s.product + ' − 9' });
-      } else {
-        cols.push({ cls:'cell-arrow', txt: '' });
-        cols.push({ cls:'cell-reduced', txt: '' });
-        cols.push({ cls:'cell-note', txt: '' });
-      }
-
-      cols.forEach(c => {
-        const td = document.createElement('td');
-        td.className = c.cls;
-        td.textContent = c.txt;
-        row.appendChild(td);
-      });
-
-      table.appendChild(row);
-      setTimeout(() => row.classList.add('visible'), 30);
-
-      // last row: move on
       if (i === steps.length - 1) {
         setTimeout(() => {
           document.querySelectorAll('.digit-box').forEach(b => b.classList.remove('active-step'));
+          cols.forEach(c => c.querySelector('.col-digit').classList.remove('active'));
           showStep2(section, steps, sum, checkDigit);
-        }, 400);
+        }, 450);
       }
-    }, i * 280);
+    }, i * 180);
   });
 }
 
