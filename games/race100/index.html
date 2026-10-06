@@ -44,9 +44,30 @@
   .progress-card{
     background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.1);
     border-radius:14px;padding:20px 16px;margin-bottom:20px;text-align:center;
+    position:relative;overflow:hidden;
   }
   .total-label{font-size:13px;color:rgba(234,244,241,0.45);margin-bottom:6px;}
   .total-num{font-size:64px;font-weight:800;color:#fff;line-height:1;margin-bottom:14px;}
+
+  /* winner overlay */
+  .winner-overlay{
+    display:none;
+    position:absolute;inset:0;
+    align-items:center;justify-content:center;
+    pointer-events:none;
+  }
+  .winner-overlay.show{display:flex;}
+  .winner-stamp{
+    font-size:clamp(36px,8vw,58px);font-weight:800;
+    transform:rotate(-18deg);
+    white-space:nowrap;
+    text-shadow:0 2px 12px rgba(0,0,0,0.5);
+  }
+  .winner-stamp.p1{color:#50C896;text-shadow:0 0 24px rgba(80,200,150,0.6);}
+  .winner-stamp.p2{color:#88AAFF;text-shadow:0 0 24px rgba(136,170,255,0.6);}
+  .winner-stamp.cpu{color:#FF8888;text-shadow:0 0 24px rgba(255,100,100,0.6);}
+  @keyframes stampIn{0%{transform:rotate(-18deg) scale(2.2);opacity:0}60%{transform:rotate(-18deg) scale(0.92)}100%{transform:rotate(-18deg) scale(1);opacity:1}}
+  .winner-stamp.animate{animation:stampIn .45s cubic-bezier(0.34,1.56,0.64,1) forwards;}
 
   /* dot grid */
   .dot-grid{
@@ -156,6 +177,9 @@
     <div class="total-num" id="total">0</div>
     <div class="dot-grid" id="dot-grid"></div>
     <div class="progress-pct" id="progress-pct">0 / 50</div>
+    <div class="winner-overlay" id="winner-overlay">
+      <div class="winner-stamp" id="winner-stamp"></div>
+    </div>
   </div>
 
   <div class="history-wrap">
@@ -352,18 +376,24 @@ function render() {
     inputLabel.textContent = currentPlayer === 1 ? 'התור שלך — בחר מספר (1–10)' : '🤖 המחשב חושב...';
   }
 
-  // status
-  const statusEl = document.getElementById('status');
+  // winner overlay
+  const overlay = document.getElementById('winner-overlay');
+  const stamp = document.getElementById('winner-stamp');
   if (gameOver) {
-    statusEl.classList.add('winner');
+    let text, cls;
     if (mode === '2p') {
-      statusEl.textContent = '🏆 שחקן ' + currentPlayer + ' הגיע ל-50 וניצח!';
+      text = 'שחקן ' + currentPlayer + ' ניצח! 🏆';
+      cls = currentPlayer === 1 ? 'p1' : 'p2';
     } else {
-      statusEl.textContent = currentPlayer === 1 ? '🏆 ניצחת! הגעת ל-50!' : '🤖 המחשב הגיע ל-50 וניצח!';
+      text = currentPlayer === 1 ? '🏆 ניצחת!' : '🤖 המחשב ניצח!';
+      cls = currentPlayer === 1 ? 'p1' : 'cpu';
     }
+    stamp.textContent = text;
+    stamp.className = 'winner-stamp ' + cls + ' animate';
+    overlay.classList.add('show');
   } else {
-    statusEl.classList.remove('winner');
-    statusEl.textContent = '';
+    overlay.classList.remove('show');
+    stamp.className = 'winner-stamp';
   }
 }
 
