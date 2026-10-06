@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מירוץ ל-100</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Rubik',sans-serif;
+    background:radial-gradient(ellipse at 50% -10%,#3D3568 0%,#1E1B2E 50%,#0F0D1A 100%);
+    color:#EAF4F1;direction:rtl;min-height:100vh;
+  }
+  .wrap{max-width:600px;margin:0 auto;padding:36px 20px 80px;}
+
+  .header{text-align:center;margin-bottom:28px;}
+  .page-label{font-size:12px;font-weight:600;letter-spacing:2px;color:rgba(234,244,241,0.4);margin-bottom:8px;}
+  h1{font-size:clamp(22px,4vw,32px);font-weight:800;color:#fff;margin:0 0 6px;}
+  .header-sub{font-size:13px;color:rgba(234,244,241,0.5);}
+
+  /* mode tabs */
+  .mode-tabs{display:flex;gap:8px;margin-bottom:20px;justify-content:center;}
+  .mode-tab{
+    padding:9px 22px;border-radius:20px;font-family:'Rubik',sans-serif;
+    font-size:14px;font-weight:600;cursor:pointer;
+    border:1.5px solid rgba(234,244,241,0.2);background:transparent;
+    color:rgba(234,244,241,0.5);transition:all .15s;
+  }
+  .mode-tab.active{background:rgba(80,200,150,0.12);border-color:rgba(80,200,150,0.5);color:#50C896;}
+
+  /* who first */
+  .who-first{display:flex;gap:8px;justify-content:center;margin-bottom:20px;}
+  .who-btn{
+    padding:8px 18px;border-radius:20px;font-family:'Rubik',sans-serif;
+    font-size:13px;font-weight:600;cursor:pointer;
+    border:1.5px solid rgba(234,244,241,0.2);background:transparent;
+    color:rgba(234,244,241,0.5);transition:all .15s;
+  }
+  .who-btn.active{background:rgba(80,200,150,0.12);border-color:rgba(80,200,150,0.5);color:#50C896;}
+
+  /* progress bar */
+  .progress-card{
+    background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.1);
+    border-radius:14px;padding:24px 20px;margin-bottom:20px;text-align:center;
+  }
+  .total-label{font-size:13px;color:rgba(234,244,241,0.45);margin-bottom:8px;}
+  .total-num{font-size:72px;font-weight:800;color:#fff;line-height:1;margin-bottom:16px;}
+  .progress-wrap{background:rgba(255,255,255,0.08);border-radius:99px;height:12px;overflow:hidden;}
+  .progress-fill{
+    height:100%;border-radius:99px;
+    background:linear-gradient(90deg,#50C896,#20A070);
+    transition:width 0.4s ease;
+  }
+  .progress-pct{font-size:12px;color:rgba(234,244,241,0.4);margin-top:8px;}
+
+  /* history */
+  .history-wrap{
+    background:rgba(234,244,241,0.04);border:1.5px solid rgba(234,244,241,0.08);
+    border-radius:12px;padding:14px 16px;margin-bottom:20px;
+    max-height:120px;overflow-y:auto;
+  }
+  .history-title{font-size:11px;font-weight:700;letter-spacing:1px;color:rgba(234,244,241,0.3);margin-bottom:8px;}
+  .history-list{display:flex;flex-wrap:wrap;gap:6px;}
+  .history-tag{
+    font-size:13px;font-weight:600;padding:3px 10px;border-radius:12px;
+  }
+  .history-tag.p1{background:rgba(80,200,150,0.15);color:#50C896;}
+  .history-tag.p2{background:rgba(100,150,255,0.15);color:#88AAFF;}
+  .history-tag.cpu{background:rgba(255,100,100,0.15);color:#FF8888;}
+
+  /* input panel */
+  .input-card{
+    background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.12);
+    border-radius:14px;padding:20px;margin-bottom:20px;text-align:center;
+  }
+  .input-label{font-size:14px;font-weight:600;color:rgba(234,244,241,0.7);margin-bottom:16px;}
+  .number-btns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:16px;}
+  .num-btn{
+    width:52px;height:52px;border-radius:12px;
+    border:1.5px solid rgba(234,244,241,0.15);background:rgba(234,244,241,0.06);
+    color:#EAF4F1;font-family:'Rubik',sans-serif;font-size:18px;font-weight:700;
+    cursor:pointer;transition:all .12s;
+  }
+  .num-btn:hover:not(:disabled){border-color:#50C896;background:rgba(80,200,150,0.12);color:#50C896;}
+  .num-btn.selected{border-color:#50C896;background:rgba(80,200,150,0.2);color:#50C896;}
+  .num-btn:disabled{opacity:0.3;cursor:default;}
+
+  .add-btn{
+    width:100%;padding:14px;
+    background:linear-gradient(135deg,#50C896,#20A070);
+    color:#1E1B2E;border:none;border-radius:12px;
+    font-family:'Rubik',sans-serif;font-size:17px;font-weight:800;
+    cursor:pointer;transition:transform .1s,box-shadow .1s;
+    box-shadow:0 4px 14px rgba(80,200,150,0.3);
+  }
+  .add-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 18px rgba(80,200,150,0.4);}
+  .add-btn:disabled{opacity:0.4;cursor:default;transform:none;}
+
+  /* status */
+  .status{text-align:center;font-size:16px;font-weight:600;color:rgba(234,244,241,0.7);margin-bottom:20px;min-height:24px;}
+  .status.winner{color:#50C896;font-size:20px;font-weight:800;}
+
+  .new-game-btn{
+    display:block;width:100%;padding:13px;
+    background:transparent;border:1.5px solid rgba(234,244,241,0.2);
+    border-radius:12px;color:rgba(234,244,241,0.6);
+    font-family:'Rubik',sans-serif;font-size:15px;font-weight:600;
+    cursor:pointer;transition:all .15s;
+  }
+  .new-game-btn:hover{border-color:rgba(234,244,241,0.5);color:#EAF4F1;}
+
+  .back-link{display:block;text-align:center;margin-top:32px;font-size:13px;color:rgba(234,244,241,0.3);text-decoration:none;transition:color .15s;}
+  .back-link:hover{color:rgba(234,244,241,0.6);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div class="page-label">משחקים מתמטיים</div>
+    <h1>🏁 מירוץ ל-100</h1>
+    <div class="header-sub">בכל תור מוסיפים 1–10 לסכום המצטבר. מי שמגיע בדיוק ל-100 — מנצח!</div>
+  </div>
+
+  <div class="mode-tabs">
+    <button class="mode-tab active" onclick="setMode('2p')">👥 שני שחקנים</button>
+    <button class="mode-tab" onclick="setMode('cpu')">🤖 מול המחשב</button>
+  </div>
+
+  <div class="who-first" id="who-first-row" style="display:none;">
+    <button class="who-btn active" id="who-me" onclick="setFirst('human')">אני מתחיל</button>
+    <button class="who-btn" id="who-cpu" onclick="setFirst('cpu')">המחשב מתחיל</button>
+  </div>
+
+  <div class="progress-card">
+    <div class="total-label">סכום נוכחי</div>
+    <div class="total-num" id="total">0</div>
+    <div class="progress-wrap"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="progress-pct" id="progress-pct">0 / 100</div>
+  </div>
+
+  <div class="history-wrap">
+    <div class="history-title">היסטוריה</div>
+    <div class="history-list" id="history-list"><span style="font-size:12px;color:rgba(234,244,241,0.25);">עוד לא הוספו מספרים</span></div>
+  </div>
+
+  <div class="input-card" id="input-card">
+    <div class="input-label" id="input-label">בחרו מספר להוסיף (1–10)</div>
+    <div class="number-btns" id="number-btns"></div>
+    <button class="add-btn" id="add-btn" onclick="confirmAdd()" disabled>הוסף ←</button>
+  </div>
+
+  <div class="status" id="status">בחרו מספר להתחיל</div>
+
+  <button class="new-game-btn" onclick="newGame()">משחק חדש 🔄</button>
+  <a class="back-link" href="../">← חזרה למשחקים</a>
+</div>
+
+<script>
+let total = 0;
+let mode = '2p';
+let currentPlayer = 1;
+let humanFirst = true;
+let selectedNum = null;
+let gameOver = false;
+let history = [];
+
+// ─── mode & first ─────────────────────────────────────
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-tab').forEach((t,i) => {
+    t.classList.toggle('active', (i===0&&m==='2p')||(i===1&&m==='cpu'));
+  });
+  document.getElementById('who-first-row').style.display = m==='cpu'?'flex':'none';
+  newGame();
+}
+
+function setFirst(who) {
+  humanFirst = (who === 'human');
+  document.getElementById('who-me').classList.toggle('active', humanFirst);
+  document.getElementById('who-cpu').classList.toggle('active', !humanFirst);
+  newGame();
+}
+
+// ─── new game ─────────────────────────────────────────
+function newGame() {
+  total = 0;
+  gameOver = false;
+  selectedNum = null;
+  history = [];
+  currentPlayer = (mode === 'cpu' && !humanFirst) ? 2 : 1;
+  render();
+  if (mode === 'cpu' && currentPlayer === 2) setTimeout(doCpuMove, 700);
+}
+
+// ─── number selection ─────────────────────────────────
+function selectNum(n) {
+  if (gameOver) return;
+  if (mode === 'cpu' && currentPlayer === 2) return;
+  selectedNum = n;
+  render();
+}
+
+function confirmAdd() {
+  if (gameOver || selectedNum === null) return;
+  applyMove(selectedNum);
+}
+
+function applyMove(n) {
+  total += n;
+  history.push({ player: currentPlayer, add: n, total });
+  selectedNum = null;
+
+  if (total >= 100) {
+    gameOver = true;
+    render();
+    return;
+  }
+
+  currentPlayer = currentPlayer === 1 ? 2 : 1;
+  render();
+
+  if (mode === 'cpu' && currentPlayer === 2 && !gameOver) {
+    setTimeout(doCpuMove, 600);
+  }
+}
+
+// ─── CPU AI (mod-11 strategy) ─────────────────────────
+function race100AI(cur) {
+  const toWin = 100 - cur;
+  if (toWin <= 10) return toWin;
+  const r = toWin % 11;
+  if (r === 0) return Math.floor(Math.random() * 10) + 1; // losing pos, random
+  return r;
+}
+
+function doCpuMove() {
+  if (gameOver) return;
+  applyMove(race100AI(total));
+}
+
+// ─── render ───────────────────────────────────────────
+function render() {
+  // total + progress
+  document.getElementById('total').textContent = total;
+  document.getElementById('progress-fill').style.width = (total) + '%';
+  document.getElementById('progress-pct').textContent = total + ' / 100';
+
+  // history
+  const hList = document.getElementById('history-list');
+  if (history.length === 0) {
+    hList.innerHTML = '<span style="font-size:12px;color:rgba(234,244,241,0.25);">עוד לא הוספו מספרים</span>';
+  } else {
+    hList.innerHTML = history.map(h => {
+      const cls = mode === 'cpu'
+        ? (h.player === 1 ? 'p1' : 'cpu')
+        : (h.player === 1 ? 'p1' : 'p2');
+      const who = mode === 'cpu'
+        ? (h.player === 1 ? '👤' : '🤖')
+        : ('ש' + h.player);
+      return '<span class="history-tag ' + cls + '">' + who + ' +' + h.add + ' = ' + h.total + '</span>';
+    }).join('');
+    hList.scrollLeft = hList.scrollWidth;
+  }
+
+  // number buttons
+  const container = document.getElementById('number-btns');
+  container.innerHTML = '';
+  const isHumanTurn = !gameOver && !(mode === 'cpu' && currentPlayer === 2);
+  for (let i = 1; i <= 10; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'num-btn' + (selectedNum === i ? ' selected' : '');
+    btn.textContent = i;
+    btn.disabled = !isHumanTurn;
+    btn.onclick = () => selectNum(i);
+    container.appendChild(btn);
+  }
+
+  // add button
+  const addBtn = document.getElementById('add-btn');
+  addBtn.disabled = selectedNum === null || gameOver || (mode === 'cpu' && currentPlayer === 2);
+
+  // input label
+  const inputLabel = document.getElementById('input-label');
+  if (mode === '2p') {
+    inputLabel.textContent = 'שחקן ' + currentPlayer + ' — בחר מספר (1–10)';
+  } else {
+    inputLabel.textContent = currentPlayer === 1 ? 'התור שלך — בחר מספר (1–10)' : '🤖 המחשב חושב...';
+  }
+
+  // status
+  const statusEl = document.getElementById('status');
+  if (gameOver) {
+    statusEl.classList.add('winner');
+    if (mode === '2p') {
+      statusEl.textContent = '🏆 שחקן ' + currentPlayer + ' הגיע ל-100 וניצח!';
+    } else {
+      statusEl.textContent = currentPlayer === 1 ? '🏆 ניצחת! הגעת ל-100!' : '🤖 המחשב הגיע ל-100 וניצח!';
+    }
+  } else {
+    statusEl.classList.remove('winner');
+    statusEl.textContent = '';
+  }
+}
+
+// ─── init ─────────────────────────────────────────────
+newGame();
+</script>
+</body>
+</html>

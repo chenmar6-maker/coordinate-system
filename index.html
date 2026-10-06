@@ -93,17 +93,29 @@
     position:absolute;top:0;left:0;width:100%;height:100%;border:0;
   }
 
-  .teacher-btn-wrap { text-align: center; margin-top: 40px; }
+  .bottom-btns { text-align: center; margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .games-btn {
+    display: inline-block; padding: 11px 32px;
+    border: 1.5px solid rgba(234,244,241,0.25);
+    border-radius: 24px; color: rgba(234,244,241,0.65);
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    text-decoration: none; transition: all .15s;
+  }
+  .games-btn:hover {
+    border-color: rgba(234,244,241,0.55);
+    color: rgba(234,244,241,0.9);
+    background: rgba(234,244,241,0.05);
+  }
   .teacher-btn {
     display: inline-block; padding: 10px 28px;
-    border: 1.5px solid rgba(234,244,241,0.2);
-    border-radius: 24px; color: rgba(234,244,241,0.45);
+    border: 1.5px solid rgba(234,244,241,0.12);
+    border-radius: 24px; color: rgba(234,244,241,0.35);
     font-family: 'Rubik', sans-serif; font-size: 13px; font-weight: 500;
     text-decoration: none; transition: all .15s;
   }
   .teacher-btn:hover {
-    border-color: rgba(234,244,241,0.5);
-    color: rgba(234,244,241,0.75);
+    border-color: rgba(234,244,241,0.4);
+    color: rgba(234,244,241,0.65);
   }
 </style>
 </head>
@@ -196,7 +208,8 @@
     </div>
   </div>
 
-  <div class="teacher-btn-wrap">
+  <div class="bottom-btns">
+    <a class="games-btn" href="./games/">🎮 משחקים וחידות מתמטיות</a>
     <a class="teacher-btn" href="https://script.google.com/macros/s/AKfycbypGYgALZmBe9jtRU_C49lvRPOtK_mC_iS5wYw5lem_EPQaYj7vErZiP64TZbEZvsb-BQ/exec" target="_blank" rel="noopener">למורה</a>
   </div>
 

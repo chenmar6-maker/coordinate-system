@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספרת הביקורת</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Rubik',sans-serif;
+    background:radial-gradient(ellipse at 50% -10%,#3D3568 0%,#1E1B2E 50%,#0F0D1A 100%);
+    color:#EAF4F1;direction:rtl;min-height:100vh;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:36px 20px 80px;}
+
+  .header{text-align:center;margin-bottom:28px;}
+  .page-label{font-size:12px;font-weight:600;letter-spacing:2px;color:rgba(234,244,241,0.4);margin-bottom:8px;}
+  h1{font-size:clamp(22px,4vw,32px);font-weight:800;color:#fff;margin:0 0 6px;}
+  .header-sub{font-size:13px;color:rgba(234,244,241,0.5);line-height:1.7;}
+
+  /* input section */
+  .input-card{
+    background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.12);
+    border-radius:14px;padding:22px 20px;margin-bottom:20px;
+  }
+  .input-label{font-size:14px;font-weight:600;color:rgba(234,244,241,0.75);margin-bottom:12px;}
+  .input-row{display:flex;gap:10px;align-items:stretch;}
+  .digit-input{
+    flex:1;padding:12px 14px;
+    background:rgba(255,255,255,0.07);
+    border:1.5px solid rgba(234,244,241,0.2);
+    border-radius:10px;color:#EAF4F1;
+    font-family:'Rubik',sans-serif;font-size:20px;font-weight:700;
+    letter-spacing:4px;direction:ltr;outline:none;
+    transition:border-color .15s;
+  }
+  .digit-input:focus{border-color:rgba(150,130,255,0.6);}
+  .calc-btn{
+    padding:12px 20px;
+    background:linear-gradient(135deg,#8B6FD8,#6040B0);
+    color:#fff;border:none;border-radius:10px;
+    font-family:'Rubik',sans-serif;font-size:15px;font-weight:700;
+    cursor:pointer;white-space:nowrap;
+    box-shadow:0 4px 14px rgba(139,111,216,0.35);
+    transition:transform .1s,box-shadow .1s;
+  }
+  .calc-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(139,111,216,0.45);}
+
+  .input-hint{font-size:12px;color:rgba(234,244,241,0.35);margin-top:8px;}
+
+  /* example buttons */
+  .examples-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+  .example-btn{
+    padding:7px 14px;border-radius:20px;
+    border:1.5px solid rgba(234,244,241,0.15);background:transparent;
+    color:rgba(234,244,241,0.5);font-family:'Rubik',sans-serif;
+    font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;
+  }
+  .example-btn:hover{border-color:rgba(150,130,255,0.5);color:#B9A4FF;}
+
+  /* steps */
+  .steps-wrap{display:flex;flex-direction:column;gap:14px;}
+
+  .step-card{
+    background:rgba(234,244,241,0.05);
+    border:1.5px solid rgba(234,244,241,0.1);
+    border-radius:13px;padding:18px 18px;
+    opacity:0;transform:translateY(10px);
+    transition:opacity .35s ease, transform .35s ease;
+  }
+  .step-card.visible{opacity:1;transform:translateY(0);}
+
+  .step-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .step-num{
+    width:28px;height:28px;border-radius:50%;
+    background:rgba(139,111,216,0.25);border:1.5px solid rgba(139,111,216,0.5);
+    color:#B9A4FF;font-size:13px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .step-title{font-size:14px;font-weight:700;color:#EAF4F1;}
+
+  /* digit table */
+  .digit-table{width:100%;border-collapse:collapse;direction:ltr;}
+  .digit-table th{
+    font-size:11px;font-weight:700;letter-spacing:1px;
+    color:rgba(234,244,241,0.4);padding:4px 8px;text-align:center;
+  }
+  .digit-table td{
+    padding:8px 8px;text-align:center;
+    font-size:16px;font-weight:700;color:#EAF4F1;
+  }
+  .digit-table td.weight{font-size:13px;color:rgba(150,130,255,0.8);font-weight:600;}
+  .digit-table td.product{
+    font-size:16px;color:#B9A4FF;font-weight:800;
+    border-top:1.5px solid rgba(234,244,241,0.1);padding-top:10px;
+  }
+  .digit-table td.reduced{font-size:14px;color:#88CCFF;font-weight:700;}
+  .digit-table td.digit-cell{
+    background:rgba(139,111,216,0.12);
+    border-radius:8px;
+  }
+
+  /* sum row */
+  .sum-row{
+    display:flex;align-items:center;gap:8px;
+    font-size:15px;font-weight:700;flex-wrap:wrap;
+  }
+  .sum-part{color:#B9A4FF;}
+  .sum-plus{color:rgba(234,244,241,0.4);}
+  .sum-eq{color:rgba(234,244,241,0.6);margin:0 4px;}
+  .sum-total{font-size:22px;color:#fff;}
+
+  /* final step */
+  .final-box{
+    background:rgba(139,111,216,0.1);
+    border:1.5px solid rgba(139,111,216,0.3);
+    border-radius:12px;padding:18px;text-align:center;
+  }
+  .final-formula{font-size:14px;color:rgba(234,244,241,0.6);margin-bottom:8px;}
+  .final-digit{
+    font-size:72px;font-weight:800;color:#B9A4FF;line-height:1;margin-bottom:8px;
+  }
+  .final-label{font-size:14px;color:rgba(234,244,241,0.5);}
+  .full-number{
+    margin-top:14px;font-size:16px;font-weight:700;
+    letter-spacing:3px;direction:ltr;
+    color:rgba(234,244,241,0.8);
+  }
+  .full-number span.check{color:#B9A4FF;border-bottom:2px solid #B9A4FF;}
+
+  .back-link{display:block;text-align:center;margin-top:36px;font-size:13px;color:rgba(234,244,241,0.3);text-decoration:none;transition:color .15s;}
+  .back-link:hover{color:rgba(234,244,241,0.6);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div class="page-label">משחקים מתמטיים</div>
+    <h1>🔢 ספרת הביקורת</h1>
+    <div class="header-sub">ברקוד על כל מוצר מכיל ספרה אחת "מיוחדת" שנחשבת מכל האחרות. בגללה, אפשר לזהות אוטומטית כשספרה הוקלדה בטעות.</div>
+  </div>
+
+  <!-- input -->
+  <div class="input-card">
+    <div class="input-label">הזינו 7 ספרות (הספרה השמינית תחושב אוטומטית)</div>
+    <div class="input-row">
+      <input class="digit-input" id="digit-input" type="text" maxlength="7" placeholder="1234567"
+        oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,7)"
+        onkeydown="if(event.key==='Enter')calculate()">
+      <button class="calc-btn" onclick="calculate()">חשב ←</button>
+    </div>
+    <div class="input-hint">דוגמה: ברקוד EAN-8 — 7 ספרות + ספרת ביקורת</div>
+  </div>
+
+  <!-- example buttons -->
+  <div class="examples-row">
+    <span style="font-size:12px;color:rgba(234,244,241,0.35);align-self:center;">דוגמאות:</span>
+    <button class="example-btn" onclick="loadExample('0123456')">0123456</button>
+    <button class="example-btn" onclick="loadExample('9780201')">9780201</button>
+    <button class="example-btn" onclick="loadExample('7290100')">7290100</button>
+    <button class="example-btn" onclick="loadExample('4006381')">4006381</button>
+  </div>
+
+  <!-- steps (hidden until calculate) -->
+  <div class="steps-wrap" id="steps-wrap"></div>
+
+  <a class="back-link" href="../">← חזרה למשחקים</a>
+</div>
+
+<script>
+function loadExample(val) {
+  document.getElementById('digit-input').value = val;
+  calculate();
+}
+
+function calculate() {
+  const raw = document.getElementById('digit-input').value.trim();
+  if (raw.length !== 7 || !/^\d+$/.test(raw)) {
+    document.getElementById('steps-wrap').innerHTML =
+      '<div style="text-align:center;color:rgba(255,150,150,0.8);font-size:14px;font-weight:600;">נא להזין בדיוק 7 ספרות</div>';
+    return;
+  }
+
+  const digits = raw.split('').map(Number);
+  // EAN-8 weights: alternating 3, 1 starting from left
+  const weights = [3, 1, 3, 1, 3, 1, 3];
+
+  // Step 1: products
+  const products = digits.map((d, i) => d * weights[i]);
+
+  // Step 2: sum
+  const sum = products.reduce((a, b) => a + b, 0);
+
+  // Step 3: check digit
+  const checkDigit = (10 - (sum % 10)) % 10;
+
+  renderSteps(digits, weights, products, sum, checkDigit, raw);
+}
+
+function renderSteps(digits, weights, products, sum, checkDigit, raw) {
+  const wrap = document.getElementById('steps-wrap');
+  wrap.innerHTML = '';
+
+  // Build step cards
+  const steps = [
+    buildStep1(digits, weights),
+    buildStep2(digits, weights, products),
+    buildStep3(products, sum),
+    buildStep4(sum, checkDigit, raw),
+  ];
+
+  steps.forEach(html => {
+    const div = document.createElement('div');
+    div.className = 'step-card';
+    div.innerHTML = html;
+    wrap.appendChild(div);
+  });
+
+  // Animate in one by one
+  const cards = wrap.querySelectorAll('.step-card');
+  cards.forEach((card, i) => {
+    setTimeout(() => card.classList.add('visible'), i * 200);
+  });
+}
+
+function buildStep1(digits, weights) {
+  let rows = '';
+
+  // digit row
+  rows += '<tr>';
+  digits.forEach((d, i) => {
+    rows += '<td class="digit-cell">' + d + '</td>';
+  });
+  rows += '</tr>';
+
+  // weight row
+  rows += '<tr>';
+  weights.forEach((w, i) => {
+    rows += '<td class="weight">×' + w + '</td>';
+  });
+  rows += '</tr>';
+
+  return `
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title">כופלים כל ספרה במשקל שלה (3 ו-1 לסירוגין)</div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="digit-table">
+        <thead><tr>
+          ${digits.map((_,i) => '<th>ספרה '+(i+1)+'</th>').join('')}
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+function buildStep2(digits, weights, products) {
+  let rows = '';
+
+  // digit row
+  rows += '<tr>';
+  digits.forEach(d => { rows += '<td class="digit-cell">' + d + '</td>'; });
+  rows += '</tr>';
+
+  // weight row
+  rows += '<tr>';
+  weights.forEach(w => { rows += '<td class="weight">×' + w + '</td>'; });
+  rows += '</tr>';
+
+  // product row
+  rows += '<tr>';
+  products.forEach(p => { rows += '<td class="product">' + p + '</td>'; });
+  rows += '</tr>';
+
+  return `
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title">תוצאות הכפל</div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="digit-table">
+        <thead><tr>
+          ${digits.map((_,i) => '<th>ספרה '+(i+1)+'</th>').join('')}
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+function buildStep3(products, sum) {
+  const parts = products.map(p => '<span class="sum-part">' + p + '</span>').join('<span class="sum-plus"> + </span>');
+  return `
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title">מחברים את כל התוצאות</div>
+    </div>
+    <div class="sum-row">
+      ${parts}
+      <span class="sum-eq">=</span>
+      <span class="sum-total">${sum}</span>
+    </div>
+  `;
+}
+
+function buildStep4(sum, checkDigit, raw) {
+  const mod = sum % 10;
+  const fullNum = raw + checkDigit;
+  return `
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div class="step-title">ספרת הביקורת — מה יש להוסיף כדי לעגל ל-10?</div>
+    </div>
+    <div class="final-box">
+      <div class="final-formula">
+        הסכום הוא <strong>${sum}</strong>,
+        הספרה האחרונה שלו היא <strong>${mod}</strong>.<br>
+        צריך להוסיף <strong>${checkDigit}</strong> כדי להגיע ל-${sum - mod + 10}.
+      </div>
+      <div style="font-size:13px;color:rgba(234,244,241,0.4);margin-bottom:12px;">
+        (10 − ${mod}) % 10 = <strong style="color:#B9A4FF">${checkDigit}</strong>
+      </div>
+      <div class="final-digit">${checkDigit}</div>
+      <div class="final-label">ספרת הביקורת</div>
+      <div class="full-number">${raw}<span class="check">${checkDigit}</span></div>
+      <div style="font-size:12px;color:rgba(234,244,241,0.35);margin-top:8px;">המספר המלא עם ספרת הביקורת</div>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>

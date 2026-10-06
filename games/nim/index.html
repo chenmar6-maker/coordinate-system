@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>משחק הגפרורים — Nim</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Rubik',sans-serif;
+    background:radial-gradient(ellipse at 50% -10%,#3D3568 0%,#1E1B2E 50%,#0F0D1A 100%);
+    color:#EAF4F1;
+    direction:rtl;
+    min-height:100vh;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:36px 20px 80px;}
+
+  /* header */
+  .header{text-align:center;margin-bottom:28px;}
+  .page-label{font-size:12px;font-weight:600;letter-spacing:2px;color:rgba(234,244,241,0.4);margin-bottom:8px;}
+  h1{font-size:clamp(22px,4vw,32px);font-weight:800;color:#fff;margin:0 0 6px;}
+  .header-sub{font-size:13px;color:rgba(234,244,241,0.5);}
+
+  /* mode tabs */
+  .mode-tabs{display:flex;gap:8px;margin-bottom:28px;justify-content:center;}
+  .mode-tab{
+    padding:9px 22px;border-radius:20px;font-family:'Rubik',sans-serif;
+    font-size:14px;font-weight:600;cursor:pointer;border:1.5px solid rgba(234,244,241,0.2);
+    background:transparent;color:rgba(234,244,241,0.5);transition:all .15s;
+  }
+  .mode-tab.active{background:rgba(239,169,74,0.15);border-color:rgba(239,169,74,0.6);color:#EFA94A;}
+
+  /* piles area */
+  .piles{display:flex;gap:16px;margin-bottom:24px;}
+  .pile-card{
+    flex:1;background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.1);
+    border-radius:14px;padding:20px 16px;text-align:center;cursor:pointer;
+    transition:border-color .15s,background .15s;min-height:160px;
+    display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  }
+  .pile-card.selectable:hover{border-color:rgba(239,169,74,0.5);background:rgba(239,169,74,0.06);}
+  .pile-card.selected{border-color:#EFA94A;background:rgba(239,169,74,0.1);}
+  .pile-card.disabled{opacity:0.4;cursor:default;}
+
+  .pile-label{font-size:12px;font-weight:700;letter-spacing:1px;color:rgba(234,244,241,0.4);margin-bottom:12px;}
+  .sticks-wrap{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;min-height:60px;align-items:center;}
+  .stick{
+    width:10px;height:44px;border-radius:3px;
+    background:linear-gradient(180deg,#EFA94A,#c07820);
+    box-shadow:0 2px 4px rgba(0,0,0,0.3);
+    flex-shrink:0;
+  }
+  .pile-count{font-size:28px;font-weight:800;color:#fff;margin-top:12px;}
+  .pile-empty{font-size:13px;color:rgba(234,244,241,0.3);margin-top:8px;}
+
+  /* take controls */
+  .take-panel{
+    background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.12);
+    border-radius:14px;padding:20px;margin-bottom:20px;text-align:center;
+    transition:opacity .2s;
+  }
+  .take-panel.hidden{opacity:0;pointer-events:none;}
+  .take-label{font-size:13px;color:rgba(234,244,241,0.55);margin-bottom:14px;}
+  .take-label strong{color:#EFA94A;}
+  .count-row{display:flex;align-items:center;justify-content:center;gap:16px;}
+  .count-btn{
+    width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(234,244,241,0.25);
+    background:transparent;color:#EAF4F1;font-size:20px;font-weight:700;
+    cursor:pointer;transition:all .12s;font-family:'Rubik',sans-serif;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .count-btn:hover:not(:disabled){border-color:#EFA94A;color:#EFA94A;}
+  .count-btn:disabled{opacity:0.3;cursor:default;}
+  .count-num{font-size:36px;font-weight:800;color:#fff;min-width:48px;}
+  .confirm-btn{
+    margin-top:16px;width:100%;padding:14px;
+    background:linear-gradient(135deg,#EFA94A,#c07820);
+    color:#1E1B2E;border:none;border-radius:12px;
+    font-family:'Rubik',sans-serif;font-size:17px;font-weight:800;
+    cursor:pointer;transition:transform .1s,box-shadow .1s;
+    box-shadow:0 4px 14px rgba(239,169,74,0.35);
+  }
+  .confirm-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(239,169,74,0.45);}
+
+  /* status */
+  .status{
+    text-align:center;font-size:16px;font-weight:600;
+    color:rgba(234,244,241,0.75);margin-bottom:20px;min-height:24px;
+  }
+  .status.winner{color:#EFA94A;font-size:20px;font-weight:800;}
+
+  /* new game */
+  .new-game-btn{
+    display:block;width:100%;padding:13px;
+    background:transparent;border:1.5px solid rgba(234,244,241,0.2);
+    border-radius:12px;color:rgba(234,244,241,0.6);
+    font-family:'Rubik',sans-serif;font-size:15px;font-weight:600;
+    cursor:pointer;transition:all .15s;
+  }
+  .new-game-btn:hover{border-color:rgba(234,244,241,0.5);color:#EAF4F1;}
+
+  /* who-first (vs computer only) */
+  .who-first{display:flex;gap:8px;justify-content:center;margin-bottom:20px;}
+  .who-btn{
+    padding:8px 18px;border-radius:20px;font-family:'Rubik',sans-serif;
+    font-size:13px;font-weight:600;cursor:pointer;
+    border:1.5px solid rgba(234,244,241,0.2);background:transparent;
+    color:rgba(234,244,241,0.5);transition:all .15s;
+  }
+  .who-btn.active{background:rgba(100,180,255,0.12);border-color:rgba(100,180,255,0.5);color:#8BBFFF;}
+
+  .back-link{
+    display:block;text-align:center;margin-top:32px;
+    font-size:13px;color:rgba(234,244,241,0.3);text-decoration:none;transition:color .15s;
+  }
+  .back-link:hover{color:rgba(234,244,241,0.6);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div class="page-label">משחקים מתמטיים</div>
+    <h1>🔥 משחק הגפרורים — Nim</h1>
+    <div class="header-sub">בכל תור לוקחים כמה גפרורים שרוצים מערמה אחת בלבד. מי שלוקח את האחרון — מנצח!</div>
+  </div>
+
+  <!-- mode tabs -->
+  <div class="mode-tabs">
+    <button class="mode-tab active" onclick="setMode('2p')">👥 שני שחקנים</button>
+    <button class="mode-tab" onclick="setMode('cpu')">🤖 מול המחשב</button>
+  </div>
+
+  <!-- who goes first (vs cpu only) -->
+  <div class="who-first" id="who-first-row" style="display:none;">
+    <button class="who-btn active" id="who-me" onclick="setFirst('human')">אני מתחיל</button>
+    <button class="who-btn" id="who-cpu" onclick="setFirst('cpu')">המחשב מתחיל</button>
+  </div>
+
+  <!-- piles -->
+  <div class="piles">
+    <div class="pile-card selectable" id="pile1-card" onclick="selectPile(1)">
+      <div class="pile-label">ערמה 1</div>
+      <div class="sticks-wrap" id="sticks1"></div>
+      <div class="pile-count" id="count1">—</div>
+    </div>
+    <div class="pile-card selectable" id="pile2-card" onclick="selectPile(2)">
+      <div class="pile-label">ערמה 2</div>
+      <div class="sticks-wrap" id="sticks2"></div>
+      <div class="pile-count" id="count2">—</div>
+    </div>
+  </div>
+
+  <!-- take controls -->
+  <div class="take-panel hidden" id="take-panel">
+    <div class="take-label" id="take-label">בחרתם <strong>ערמה 1</strong> — כמה לקחת?</div>
+    <div class="count-row">
+      <button class="count-btn" id="btn-minus" onclick="adjustCount(-1)">−</button>
+      <div class="count-num" id="take-count">1</div>
+      <button class="count-btn" id="btn-plus" onclick="adjustCount(1)">+</button>
+    </div>
+    <button class="confirm-btn" onclick="confirmMove()">קח ←</button>
+  </div>
+
+  <!-- status -->
+  <div class="status" id="status">בחרו ערמה כדי להתחיל</div>
+
+  <!-- new game -->
+  <button class="new-game-btn" onclick="newGame()">משחק חדש 🔄</button>
+
+  <a class="back-link" href="../">← חזרה למשחקים</a>
+</div>
+
+<script>
+// ─── state ───────────────────────────────────────────
+let piles = [0, 0];
+let mode = '2p';        // '2p' | 'cpu'
+let currentPlayer = 1; // 1 or 2 (cpu is always player 2 in cpu mode)
+let humanFirst = true;
+let selectedPile = null;
+let takeAmount = 1;
+let gameOver = false;
+
+// ─── mode & first-player ─────────────────────────────
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-tab').forEach((t,i) => {
+    t.classList.toggle('active', (i===0 && m==='2p') || (i===1 && m==='cpu'));
+  });
+  document.getElementById('who-first-row').style.display = m === 'cpu' ? 'flex' : 'none';
+  newGame();
+}
+
+function setFirst(who) {
+  humanFirst = (who === 'human');
+  document.getElementById('who-me').classList.toggle('active', humanFirst);
+  document.getElementById('who-cpu').classList.toggle('active', !humanFirst);
+  newGame();
+}
+
+// ─── new game ─────────────────────────────────────────
+function newGame() {
+  piles[0] = randInt(3, 10);
+  piles[1] = randInt(3, 10);
+  gameOver = false;
+  selectedPile = null;
+  takeAmount = 1;
+
+  if (mode === 'cpu' && !humanFirst) {
+    currentPlayer = 2;
+  } else {
+    currentPlayer = 1;
+  }
+
+  render();
+
+  if (mode === 'cpu' && currentPlayer === 2) {
+    setTimeout(doCpuMove, 700);
+  }
+}
+
+// ─── pile selection ───────────────────────────────────
+function selectPile(p) {
+  if (gameOver) return;
+  if (mode === 'cpu' && currentPlayer === 2) return;
+  if (piles[p-1] === 0) return;
+
+  selectedPile = p;
+  takeAmount = 1;
+  render();
+}
+
+// ─── count adjust ─────────────────────────────────────
+function adjustCount(delta) {
+  const max = piles[selectedPile - 1];
+  takeAmount = Math.max(1, Math.min(max, takeAmount + delta));
+  render();
+}
+
+// ─── confirm move ─────────────────────────────────────
+function confirmMove() {
+  if (gameOver || selectedPile === null) return;
+  applyMove(selectedPile - 1, takeAmount);
+}
+
+function applyMove(pileIdx, amount) {
+  piles[pileIdx] -= amount;
+  selectedPile = null;
+  takeAmount = 1;
+
+  // check win: last stick taken wins
+  if (piles[0] === 0 && piles[1] === 0) {
+    gameOver = true;
+    render();
+    return;
+  }
+
+  // next player
+  currentPlayer = currentPlayer === 1 ? 2 : 1;
+  render();
+
+  if (mode === 'cpu' && currentPlayer === 2 && !gameOver) {
+    setTimeout(doCpuMove, 600);
+  }
+}
+
+// ─── cpu AI (optimal XOR strategy) ───────────────────
+function nimAI(a, b) {
+  const xor = a ^ b;
+  if (xor !== 0) {
+    const na = a ^ xor;
+    if (na < a) return { pile: 0, amount: a - na };
+    const nb = b ^ xor;
+    if (nb < b) return { pile: 1, amount: b - nb };
+  }
+  // losing position: take 1 from larger pile
+  if (a >= b) return { pile: 0, amount: 1 };
+  return { pile: 1, amount: 1 };
+}
+
+function doCpuMove() {
+  if (gameOver) return;
+  const move = nimAI(piles[0], piles[1]);
+  applyMove(move.pile, move.amount);
+}
+
+// ─── render ───────────────────────────────────────────
+function render() {
+  renderPile(0);
+  renderPile(1);
+  renderTakePanel();
+  renderStatus();
+}
+
+function renderPile(idx) {
+  const n = piles[idx];
+  const card = document.getElementById('pile' + (idx+1) + '-card');
+  const sticks = document.getElementById('sticks' + (idx+1));
+  const countEl = document.getElementById('count' + (idx+1));
+
+  // sticks visual (max 15 shown, rest as number overflow)
+  const show = Math.min(n, 15);
+  sticks.innerHTML = '';
+  for (let i = 0; i < show; i++) {
+    const s = document.createElement('div');
+    s.className = 'stick';
+    sticks.appendChild(s);
+  }
+  if (n === 0) {
+    sticks.innerHTML = '<span style="font-size:28px;opacity:0.3">✕</span>';
+  }
+
+  countEl.textContent = n === 0 ? '0' : n;
+
+  // card state
+  card.classList.remove('selected', 'disabled', 'selectable');
+  if (gameOver || (mode === 'cpu' && currentPlayer === 2)) {
+    card.classList.add('disabled');
+  } else if (n === 0) {
+    card.classList.add('disabled');
+  } else if (selectedPile === idx + 1) {
+    card.classList.add('selected');
+  } else {
+    card.classList.add('selectable');
+  }
+}
+
+function renderTakePanel() {
+  const panel = document.getElementById('take-panel');
+  const label = document.getElementById('take-label');
+  const countEl = document.getElementById('take-count');
+  const btnMinus = document.getElementById('btn-minus');
+  const btnPlus = document.getElementById('btn-plus');
+
+  if (selectedPile === null || gameOver) {
+    panel.classList.add('hidden');
+    return;
+  }
+
+  panel.classList.remove('hidden');
+  const max = piles[selectedPile - 1];
+  takeAmount = Math.max(1, Math.min(takeAmount, max));
+
+  label.innerHTML = 'בחרתם <strong>ערמה ' + selectedPile + '</strong> — כמה לקחת? (1–' + max + ')';
+  countEl.textContent = takeAmount;
+  btnMinus.disabled = takeAmount <= 1;
+  btnPlus.disabled = takeAmount >= max;
+}
+
+function renderStatus() {
+  const el = document.getElementById('status');
+
+  if (gameOver) {
+    el.classList.add('winner');
+    if (mode === '2p') {
+      el.textContent = '🏆 שחקן ' + currentPlayer + ' ניצח!';
+    } else {
+      el.textContent = currentPlayer === 1 ? '🏆 ניצחת!' : '🤖 המחשב ניצח!';
+    }
+    return;
+  }
+
+  el.classList.remove('winner');
+  if (mode === 'cpu' && currentPlayer === 2) {
+    el.textContent = '🤖 המחשב חושב...';
+  } else if (mode === '2p') {
+    el.textContent = '👤 תורו של שחקן ' + currentPlayer;
+  } else {
+    el.textContent = '👤 התור שלך';
+  }
+}
+
+// ─── helpers ─────────────────────────────────────────
+function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// ─── init ─────────────────────────────────────────────
+newGame();
+</script>
+</body>
+</html>
