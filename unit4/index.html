@@ -447,6 +447,19 @@ const gameLevels6 = [
     explain:'−2² = −4 ו-(−2)² = 4. הסכום: −4 + 4 = 0.' },
 ];
 
+const gameLevels7 = [
+  { id:'mc', title:'ניסיון נוסף — שאלה 1',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">2<sup>3</sup></bdi>?',
+    options:['6','8','9','12'],
+    correct:'8',
+    explain:'2³ = 2·2·2 = 8.' },
+  { id:'mc', title:'ניסיון נוסף — שאלה 2',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√25</bdi>?',
+    options:['3','4','5','6'],
+    correct:'5',
+    explain:'√25 = 5 כי 5² = 25.' },
+];
+
 /* ============ NAVIGATION ============ */
 
 let openSections = new Set();
@@ -508,6 +521,7 @@ function currentGameLevels(){
   if(state.sequence===4) return gameLevels4;
   if(state.sequence===5) return gameLevels5;
   if(state.sequence===6) return gameLevels6;
+  if(state.sequence===7) return gameLevels7;
   return gameLevels1;
 }
 
@@ -589,6 +603,7 @@ function renderHome(){
         ${seqRow(4, '4. הגדרת שורש ריבועי', {worksheetUrl:'../worksheets/sqrt_definition_exam.html', answersUrl:'../worksheets/sqrt_definition_exam_answers.html', checkUrl:'../worksheets/sqrt_definition_exam_check.html'})}
         ${seqRow(5, '5. חישובים עם שורשים', {worksheetUrl:'../worksheets/sqrt_exam.html', answersUrl:'../worksheets/sqrt_exam_answers.html', checkUrl:'../worksheets/sqrt_exam_check.html'})}
         ${seqRow(6, '6. רצף בדיקה — האם אתה רואה אותי?', {})}
+        ${seqRow(7, '7. ניסיון נוסף', {})}
       </div>
     </div>
   `;
@@ -602,6 +617,7 @@ function renderLearn(){
   if(state.sequence===4) return renderLearn4();
   if(state.sequence===5) return renderLearn5();
   if(state.sequence===6) return renderLearn6();
+  if(state.sequence===7) return renderLearn7();
   return renderLearn1();
 }
 
@@ -769,6 +785,19 @@ function renderLearn6(){
       <div class="learn-note">שגיאה נפוצה: (−3)² ≠ −9. הסוגריים הופכים את הבסיס לשלילי — התוצאה חיובית!</div>
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=6;startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn7(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle">ניסיון נוסף</h2>
+      <div class="learn-note">זהו רצף ניסיון לבדיקת המערכת.</div>
+      <div class="btnrow">
+        <button class="btn" onclick="state.sequence=7;startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
       </div>
     </div>
