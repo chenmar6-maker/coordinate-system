@@ -97,14 +97,14 @@
   /* Table */
   .student-table { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
   .tbl-header {
-    display: grid; grid-template-columns: 2fr 70px 2fr 95px;
+    display: grid; grid-template-columns: 2fr 2fr 95px;
     padding: 10px 20px; background: #F8FAFC;
     border-bottom: 1.5px solid #E5E7EB;
     font-size: 11.5px; font-weight: 700; color: #9CA3AF;
     text-transform: uppercase; letter-spacing: 0.4px;
   }
   .student-row {
-    display: grid; grid-template-columns: 2fr 70px 2fr 95px;
+    display: grid; grid-template-columns: 2fr 2fr 95px;
     padding: 13px 20px; border-bottom: 1px solid #F3F4F6;
     cursor: pointer; transition: background .1s; align-items: center;
   }
@@ -212,6 +212,26 @@
     white-space: nowrap;
   }
 
+  /* Domain tabs */
+  .domain-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .domain-tab {
+    padding: 7px 16px; border-radius: 20px; font-family: 'Rubik', sans-serif;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    border: 1.5px solid #D1D5DB; background: #fff; color: #6B7280;
+    transition: all .15s;
+  }
+  .domain-tab.active { color: #fff; border-color: transparent; }
+
+  /* Domain progress pills in student row */
+  .domain-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 3px; }
+  .dpill {
+    font-size: 11px; font-weight: 700; padding: 2px 8px;
+    border-radius: 10px; white-space: nowrap;
+  }
+
+  /* Modal domain header in select */
+  optgroup.domain-header { font-style: normal; }
+
   /* Responsive */
   @media (max-width: 620px) {
     .stats { grid-template-columns: repeat(2,1fr); }
@@ -250,6 +270,8 @@
   <div class="app-main">
     <div class="stats" id="stats-bar"></div>
 
+    <div class="domain-tabs" id="domain-tabs"></div>
+
     <div class="controls">
       <span class="ctrl-label">כיתה:</span>
       <select class="ctrl-select" id="filter-class" onchange="render()">
@@ -265,8 +287,7 @@
 
     <div class="student-table">
       <div class="tbl-header">
-        <div>שם</div>
-        <div>הושלמו</div>
+        <div>שם + התקדמות לפי תחום</div>
         <div>יחידה הבאה</div>
         <div>מאז מבדק</div>
       </div>
@@ -306,52 +327,73 @@
 // ════════════════════════════════
 // תצורת יחידות ורצפים
 // ════════════════════════════════
-const TEACHER_UNITS = [
+const DOMAINS = [
   {
-    name: 'מספרים מכוונים',
-    sequences: [
-      'ערך מוחלט',
-      'מספרים נגדיים',
-      'מיקום על ציר המספרים',
-      'מודל החצים וכלל הסימן',
-      'תרגילים ארוכים וחוק החילוף',
-      'חיסור = חיבור הנגדי',
-      'תרגילים ארוכים וכתיבה ללא סוגריים',
-      'כפל וחילוק מספרים מכוונים',
-      'סדר פעולות חשבון',
-      'סדר פעולות עם קו שבר',
+    name: 'תחום מספרי',
+    color: '#3B82F6',
+    units: [
+      {
+        name: 'מספרים מכוונים',
+        sequences: [
+          'ערך מוחלט',
+          'מספרים נגדיים',
+          'מיקום על ציר המספרים',
+          'מודל החצים וכלל הסימן',
+          'תרגילים ארוכים וחוק החילוף',
+          'חיסור = חיבור הנגדי',
+          'תרגילים ארוכים וכתיבה ללא סוגריים',
+          'כפל וחילוק מספרים מכוונים',
+          'סדר פעולות חשבון',
+          'סדר פעולות עם קו שבר',
+        ]
+      },
+      {
+        name: 'מערכת הצירים — כל הרביעים',
+        sequences: [
+          'נקודות בכל הרביעים',
+          'אורכים ושטחים בכל הרביעים',
+        ]
+      },
+      {
+        name: 'חזקות ושורשים',
+        sequences: [
+          'הגדרת חזקה וחישוב בסיסי',
+          'חזקות מיוחדות — 0, 1 ושברים',
+          'השוואה וסדר פעולות עם חזקות',
+          'הגדרת שורש ריבועי',
+          'חישובים עם שורשים',
+        ]
+      },
     ]
   },
   {
-    name: 'מערכת הצירים — כל הרביעים',
-    sequences: [
-      'נקודות בכל הרביעים',
-      'אורכים ושטחים בכל הרביעים',
+    name: 'תחום אלגברי',
+    color: '#8B5CF6',
+    units: [
+      {
+        name: 'משתנים וביטויים אלגבריים',
+        sequences: [
+          'כתיבת ביטויים אלגבריים',
+          'הצבה וחישוב ערך הביטוי',
+          'כינוס איברים דומים',
+          'מבוא למשוואות — זיהוי פתרון',
+          'פתרון משוואות',
+          'שאלות מילוליות',
+          'מבדק מקיף — כל נושא המשוואות',
+        ]
+      },
     ]
   },
   {
-    name: 'חזקות ושורשים',
-    sequences: [
-      'הגדרת חזקה וחישוב בסיסי',
-      'חזקות מיוחדות — 0, 1 ושברים',
-      'השוואה וסדר פעולות עם חזקות',
-      'הגדרת שורש ריבועי',
-      'חישובים עם שורשים',
-    ]
-  },
-  {
-    name: 'משתנים וביטויים אלגבריים',
-    sequences: [
-      'כתיבת ביטויים אלגבריים',
-      'הצבה וחישוב ערך הביטוי',
-      'כינוס איברים דומים',
-      'מבוא למשוואות — זיהוי פתרון',
-      'פתרון משוואות',
-      'שאלות מילוליות',
-      'מבדק מקיף — כל נושא המשוואות',
-    ]
+    name: 'תחום גיאומטרי',
+    color: '#10B981',
+    units: []
   },
 ];
+
+// flat lists for backwards-compat
+const TEACHER_UNITS = DOMAINS.flatMap(d => d.units.map(u => ({ ...u, domain: d.name })));
+
 
 const ALL_SEQUENCES = TEACHER_UNITS.flatMap(u =>
   u.sequences.map(s => ({ unit: u.name, name: s }))
@@ -405,6 +447,7 @@ function loadData() {
       state.students = data.students;
       state.events   = data.events;
       populateFilter();
+      renderDomainTabs();
       render();
       renderStats();
       showToast('הנתונים עודכנו ✓');
@@ -461,6 +504,39 @@ function daysBadge(days) {
 }
 
 // ════════════════════════════════
+// תחומים
+// ════════════════════════════════
+var activeDomain = '';
+
+function renderDomainTabs() {
+  const container = document.getElementById('domain-tabs');
+  const tabs = [{ name: 'הכל', value: '' }].concat(DOMAINS.map(function(d) { return { name: d.name, value: d.name, color: d.color }; }));
+  container.innerHTML = tabs.map(function(t) {
+    const isActive = activeDomain === t.value;
+    const style = isActive && t.color ? 'background:' + t.color + ';' : '';
+    return '<button class="domain-tab' + (isActive ? ' active' : '') + '" style="' + style + '" onclick="setDomain(\'' + t.value + '\')">' + t.name + '</button>';
+  }).join('');
+}
+
+function setDomain(d) {
+  activeDomain = d;
+  renderDomainTabs();
+  render();
+}
+
+function domainProgress(studentId) {
+  const passed = passedUnits(studentId);
+  return DOMAINS.map(function(d) {
+    const total = d.units.reduce(function(sum, u) { return sum + u.sequences.length; }, 0);
+    if (total === 0) return null;
+    const done = d.units.reduce(function(sum, u) {
+      return sum + u.sequences.filter(function(s) { return passed.has(s); }).length;
+    }, 0);
+    return { name: d.name, color: d.color, done: done, total: total };
+  }).filter(Boolean);
+}
+
+// ════════════════════════════════
 // רנדר
 // ════════════════════════════════
 function populateFilter() {
@@ -496,6 +572,12 @@ function render() {
 
   var students = state.students.slice();
   if (filterClass) students = students.filter(function(s) { return s.class === filterClass; });
+  if (activeDomain) {
+    students = students.filter(function(s) {
+      const next = nextSequence(s.id);
+      return next && TEACHER_UNITS.find(function(u) { return u.name === next.unit && u.domain === activeDomain; });
+    });
+  }
 
   students.sort(function(a, b) {
     if (sortBy === 'days') {
@@ -518,12 +600,15 @@ function render() {
 
   list.innerHTML = students.map(function(s) {
     const days = daysSince(s.id);
-    const done = passedUnits(s.id).size;
-    const last = lastPassedUnit(s.id);
     const urgency = days === null || days >= 7 ? 'urgent' : days >= 4 ? 'warn' : '';
+    const dp = domainProgress(s.id);
+    const pills = dp.map(function(d) {
+      const pct = Math.round(d.done / d.total * 100);
+      const shortName = d.name.replace('תחום ', '');
+      return '<span class="dpill" style="background:' + d.color + '22;color:' + d.color + ';">' + shortName + ' ' + d.done + '/' + d.total + '</span>';
+    }).join('');
     return '<div class="student-row ' + urgency + '" onclick="openLogModal(\'' + escHtml(s.id) + '\')">' +
-      '<div class="s-name">' + escHtml(s.name) + '</div>' +
-      '<div class="s-done">' + done + '</div>' +
+      '<div><div class="s-name">' + escHtml(s.name) + '</div><div class="domain-pills">' + pills + '</div></div>' +
       '<div class="s-last">' + escHtml((nextSequence(s.id) || {name: '✓ הושלם'}).name) + '</div>' +
       '<div>' + daysBadge(days) + '</div>' +
       '</div>';
@@ -545,16 +630,23 @@ function openLogModal(studentId) {
   sel.innerHTML = '';
   const next = nextSequence(studentId);
 
-  TEACHER_UNITS.forEach(function(u) {
-    const grp = document.createElement('optgroup');
-    grp.label = u.name;
-    u.sequences.forEach(function(s) {
-      const opt = document.createElement('option');
-      opt.value = s; opt.textContent = s;
-      if (next && s === next.name) opt.selected = true;
-      grp.appendChild(opt);
+  DOMAINS.forEach(function(d) {
+    if (!d.units.length) return;
+    const domainGrp = document.createElement('optgroup');
+    domainGrp.label = '── ' + d.name + ' ──';
+    domainGrp.disabled = true;
+    sel.appendChild(domainGrp);
+    d.units.forEach(function(u) {
+      const grp = document.createElement('optgroup');
+      grp.label = '    ' + u.name;
+      u.sequences.forEach(function(s) {
+        const opt = document.createElement('option');
+        opt.value = s; opt.textContent = '        ' + s;
+        if (next && s === next.name) opt.selected = true;
+        grp.appendChild(opt);
+      });
+      sel.appendChild(grp);
     });
-    sel.appendChild(grp);
   });
 
   document.getElementById('modal-history').style.display = 'none';
