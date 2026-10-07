@@ -19,9 +19,16 @@
   .wrap{max-width:680px;margin:0 auto;padding:60px 24px 80px;}
 
   .hero{text-align:center;margin-bottom:52px;}
-  .page-label{font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(234,244,241,0.45);margin-bottom:14px;}
   h1{font-size:clamp(26px,5vw,40px);font-weight:800;color:#fff;margin:0 0 10px;letter-spacing:-0.5px;}
   .subtitle{font-size:15px;color:rgba(234,244,241,0.55);margin:0;}
+
+  /* session blocks */
+  .session-block{margin-bottom:36px;}
+  .session-label{
+    font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+    color:rgba(234,244,241,0.4);margin-bottom:14px;padding-right:10px;
+    border-right:3px solid rgba(80,200,150,0.4);
+  }
 
   .games{display:flex;flex-direction:column;gap:16px;}
 
@@ -42,60 +49,137 @@
   .card-arrow{font-size:20px;color:rgba(234,244,241,0.3);transition:color .15s;}
   .game-card:hover .card-arrow{color:rgba(234,244,241,0.7);}
 
-  .back-wrap{text-align:center;margin-top:48px;}
-  .back-link{
-    font-size:13px;color:rgba(234,244,241,0.35);text-decoration:none;
-    transition:color .15s;
+  /* locked session */
+  .locked-card{
+    background:rgba(234,244,241,0.03);
+    border:1.5px solid rgba(234,244,241,0.08);
+    border-radius:14px;padding:24px 26px;
+    text-align:center;
   }
+  .lock-icon{font-size:28px;margin-bottom:8px;}
+  .lock-msg{font-size:15px;font-weight:600;color:rgba(234,244,241,0.4);margin-bottom:16px;}
+
+  .code-row{display:flex;gap:8px;justify-content:center;align-items:center;}
+  .code-input{
+    width:110px;padding:10px 14px;
+    background:rgba(234,244,241,0.06);border:1.5px solid rgba(234,244,241,0.15);
+    border-radius:10px;color:#EAF4F1;font-family:'Rubik',sans-serif;
+    font-size:18px;font-weight:700;text-align:center;letter-spacing:4px;
+    direction:ltr;outline:none;transition:border-color .15s;
+  }
+  .code-input:focus{border-color:rgba(80,200,150,0.5);}
+  .code-input.error{border-color:rgba(255,100,100,0.6);animation:shake .3s;}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  .code-btn{
+    padding:10px 18px;border-radius:10px;
+    background:rgba(80,200,150,0.12);border:1.5px solid rgba(80,200,150,0.3);
+    color:#50C896;font-family:'Rubik',sans-serif;font-size:14px;font-weight:700;
+    cursor:pointer;transition:all .15s;
+  }
+  .code-btn:hover{background:rgba(80,200,150,0.22);border-color:rgba(80,200,150,0.6);}
+
+  .back-wrap{text-align:center;margin-top:48px;}
+  .back-link{font-size:13px;color:rgba(234,244,241,0.35);text-decoration:none;transition:color .15s;}
   .back-link:hover{color:rgba(234,244,241,0.65);}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="hero">
-    <div class="page-label"><a href="https://www.chenmargalit.co.il" target="_blank" rel="noopener"><img src="../logo.png" alt="חן מרגלית למידה אקטיבית" style="width:220px;max-width:80%;object-fit:contain;border-radius:10px;"></a></div>
+    <div style="margin-bottom:20px;"><a href="https://www.chenmargalit.co.il" target="_blank" rel="noopener"><img src="../logo.png" alt="חן מרגלית למידה אקטיבית" style="width:220px;max-width:80%;object-fit:contain;border-radius:10px;"></a></div>
     <h1>משחקים וחידות מתמטיות</h1>
     <p class="subtitle">מאחורי כל משחק מסתתרת מתמטיקה</p>
   </div>
 
-  <div class="games">
-    <a class="game-card" href="./nim/">
-      <div class="card-left">
-        <div class="card-icon">🔥</div>
-        <div>
-          <div class="card-name">משחק הגפרורים — Nim</div>
-          <div class="card-sub">שתי ערמות, מי שלוקח את האחרון מנצח</div>
+  <!-- מפגש 1 -->
+  <div class="session-block">
+    <div class="session-label">מפגש 1</div>
+    <div class="games">
+      <a class="game-card" href="./checkdigit/">
+        <div class="card-left">
+          <div class="card-icon">🔢</div>
+          <div>
+            <div class="card-name">ספרת הביקורת</div>
+            <div class="card-sub">ספרה אחת שבודקת את כל השאר</div>
+          </div>
         </div>
-      </div>
-      <div class="card-arrow">←</div>
-    </a>
+        <div class="card-arrow">←</div>
+      </a>
+    </div>
+  </div>
 
-    <a class="game-card" href="./race100/">
-      <div class="card-left">
-        <div class="card-icon">🏁</div>
-        <div>
-          <div class="card-name">מירוץ ל-50</div>
-          <div class="card-sub">הוסיפו 1–10 בכל תור — מי שמגיע ל-50 מנצח</div>
+  <!-- מפגש 2 -->
+  <div class="session-block">
+    <div class="session-label">מפגש 2</div>
+    <div id="session2-locked">
+      <div class="locked-card">
+        <div class="lock-icon">🔒</div>
+        <div class="lock-msg">יפתחו בהמשך</div>
+        <div class="code-row">
+          <input class="code-input" id="code-input" type="password" maxlength="4" placeholder="קוד" oninput="tryCode()">
+          <button class="code-btn" onclick="tryCode()">כניסה</button>
         </div>
       </div>
-      <div class="card-arrow">←</div>
-    </a>
-
-    <a class="game-card" href="./checkdigit/">
-      <div class="card-left">
-        <div class="card-icon">🔢</div>
-        <div>
-          <div class="card-name">ספרת הביקורת</div>
-          <div class="card-sub">ספרה אחת שבודקת את כל השאר</div>
-        </div>
+    </div>
+    <div id="session2-games" style="display:none;">
+      <div class="games">
+        <a class="game-card" href="./nim/">
+          <div class="card-left">
+            <div class="card-icon">🔥</div>
+            <div>
+              <div class="card-name">משחק הגפרורים — Nim</div>
+              <div class="card-sub">שתי ערמות, מי שלוקח את האחרון מנצח</div>
+            </div>
+          </div>
+          <div class="card-arrow">←</div>
+        </a>
+        <a class="game-card" href="./race100/">
+          <div class="card-left">
+            <div class="card-icon">🏁</div>
+            <div>
+              <div class="card-name">מירוץ ל-50</div>
+              <div class="card-sub">הוסיפו 1–10 בכל תור — מי שמגיע ל-50 מנצח</div>
+            </div>
+          </div>
+          <div class="card-arrow">←</div>
+        </a>
       </div>
-      <div class="card-arrow">←</div>
-    </a>
+    </div>
   </div>
 
   <div class="back-wrap">
     <a class="back-link" href="../">← חזרה לדף הראשי</a>
   </div>
 </div>
+
+<script>
+const CODE = '2357';
+
+// check sessionStorage so unlocking persists while tab is open
+if (sessionStorage.getItem('session2') === 'unlocked') unlock(false);
+
+function tryCode() {
+  const val = document.getElementById('code-input').value;
+  if (val === CODE) {
+    sessionStorage.setItem('session2', 'unlocked');
+    unlock(true);
+  } else if (val.length === 4) {
+    const inp = document.getElementById('code-input');
+    inp.classList.add('error');
+    setTimeout(() => { inp.classList.remove('error'); inp.value = ''; }, 400);
+  }
+}
+
+function unlock(animate) {
+  document.getElementById('session2-locked').style.display = 'none';
+  const games = document.getElementById('session2-games');
+  games.style.display = 'block';
+  if (animate) {
+    games.style.opacity = '0';
+    games.style.transition = 'opacity .4s';
+    requestAnimationFrame(() => { games.style.opacity = '1'; });
+  }
+}
+</script>
 </body>
 </html>
