@@ -118,10 +118,32 @@
     border-color: rgba(234,244,241,0.4);
     color: rgba(234,244,241,0.65);
   }
+  .gate-screen {
+    position:fixed;inset:0;z-index:999;
+    background: radial-gradient(ellipse at 50% -10%, #3D3568 0%, #1E1B2E 50%, #0F0D1A 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+  }
+  .gate-screen.hidden { display:none; }
+  .gate-title { font-size:22px;font-weight:800;color:#fff; }
+  .gate-input {
+    width:130px;padding:14px;background:rgba(234,244,241,0.06);
+    border:1.5px solid rgba(234,244,241,0.2);border-radius:14px;
+    color:#EAF4F1;font-family:'Rubik',sans-serif;font-size:26px;font-weight:700;
+    text-align:center;letter-spacing:6px;direction:ltr;outline:none;
+  }
+  .gate-input:focus { border-color:rgba(234,244,241,0.5); }
+  .gate-error { font-size:13px;color:rgba(255,120,120,0.85);min-height:18px; }
 </style>
 </head>
 <body>
-<div class="wrap">
+
+<div class="gate-screen" id="gate-screen">
+  <div class="gate-title">מתמטיקה אקטיבית לכיתה ז׳</div>
+  <input class="gate-input" id="gate-input" type="password" maxlength="3" placeholder="···" autocomplete="off" oninput="checkGate()">
+  <div class="gate-error" id="gate-error"></div>
+</div>
+
+<div class="wrap" id="main-wrap" style="display:none;">
   <div class="hero">
     <div class="logo-wrap"><a href="https://www.chenmargalit.co.il" target="_blank" rel="noopener"><img src="./logo.png" alt="חן מרגלית למידה אקטיבית"></a></div>
     <div class="course-label">קורס</div>
@@ -243,6 +265,31 @@
 
 </div>
 <script>
+(function() {
+  if (sessionStorage.getItem('site_auth') === '1') {
+    document.getElementById('gate-screen').classList.add('hidden');
+    document.getElementById('main-wrap').style.display = '';
+  }
+})();
+
+function checkGate() {
+  const inp = document.getElementById('gate-input');
+  const err = document.getElementById('gate-error');
+  if (inp.value === '314') {
+    sessionStorage.setItem('site_auth', '1');
+    document.getElementById('gate-screen').classList.add('hidden');
+    document.getElementById('main-wrap').style.display = '';
+  } else if (inp.value.length === 3) {
+    err.textContent = 'קוד שגוי';
+    inp.style.borderColor = 'rgba(255,100,100,0.6)';
+    setTimeout(() => {
+      inp.value = '';
+      inp.style.borderColor = 'rgba(234,244,241,0.2)';
+      err.textContent = '';
+    }, 800);
+  }
+}
+
 function openGate() {
   document.getElementById('games-gate').style.display = 'none';
   const row = document.getElementById('games-code-row');
