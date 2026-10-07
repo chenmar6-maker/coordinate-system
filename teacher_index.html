@@ -567,16 +567,21 @@ function render() {
   list.innerHTML = students.map(function(s) {
     const days = daysSince(s.id);
     const urgency = days === null || days >= 7 ? 'urgent' : days >= 4 ? 'warn' : '';
-    function domainCell(domainName, color) {
+    function domainCell(domainName) {
       const next = nextSequenceInDomain(s.id, domainName);
-      if (next === null) return '<div style="font-size:12px;color:#10B981;font-weight:700;">✓ הושלם</div>';
-      return '<div style="font-size:12px;color:#374151;">' + escHtml(next) + '</div>';
+      const text = next === null
+        ? '<span style="color:#10B981;font-weight:700;">✓ הושלם</span>'
+        : '<span style="color:#374151;">' + escHtml(next) + '</span>';
+      return '<div style="font-size:12px;cursor:pointer;padding:2px 4px;border-radius:4px;transition:background .1s;" ' +
+        'onclick="event.stopPropagation();openLogModal(\'' + escHtml(s.id) + '\',\'' + escHtml(domainName) + '\')" ' +
+        'onmouseover="this.style.background=\'#F3F4F6\'" onmouseout="this.style.background=\'\'">' +
+        text + '</div>';
     }
-    return '<div class="student-row ' + urgency + '" onclick="openLogModal(\'' + escHtml(s.id) + '\')">' +
+    return '<div class="student-row ' + urgency + '" onclick="openLogModal(\'' + escHtml(s.id) + '\',\'\')">' +
       '<div class="s-name">' + escHtml(s.name) + '</div>' +
-      domainCell('תחום מספרי', '#3B82F6') +
-      domainCell('תחום אלגברי', '#8B5CF6') +
-      domainCell('תחום גיאומטרי', '#10B981') +
+      domainCell('תחום מספרי') +
+      domainCell('תחום אלגברי') +
+      domainCell('תחום גיאומטרי') +
       '<div>' + daysBadge(days) + '</div>' +
       '</div>';
   }).join('');
@@ -585,7 +590,7 @@ function render() {
 // ════════════════════════════════
 // מודל רישום מבדק
 // ════════════════════════════════
-function openLogModal(studentId) {
+function openLogModal(studentId, domainName) {
   const student = state.students.find(function(s) { return s.id === studentId; });
   if (!student) return;
   state.currentStudentId = studentId;
@@ -595,7 +600,11 @@ function openLogModal(studentId) {
 
   const sel = document.getElementById('modal-unit-select');
   sel.innerHTML = '';
-  const next = nextSequence(studentId);
+
+  // pre-select: next in the clicked domain, or global next if no domain given
+  const preselect = domainName
+    ? nextSequenceInDomain(studentId, domainName)
+    : (nextSequence(studentId) || {}).name;
 
   DOMAINS.forEach(function(d) {
     if (!d.units.length) return;
@@ -609,7 +618,7 @@ function openLogModal(studentId) {
       u.sequences.forEach(function(s) {
         const opt = document.createElement('option');
         opt.value = s; opt.textContent = '        ' + s;
-        if (next && s === next.name) opt.selected = true;
+        if (s === preselect) opt.selected = true;
         grp.appendChild(opt);
       });
       sel.appendChild(grp);
