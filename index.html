@@ -55,7 +55,7 @@
   .unit-left{display:flex;align-items:center;gap:18px;}
   .unit-num{
     font-size:13px;font-weight:700;letter-spacing:1px;
-    color:rgba(234,244,241,0.35);min-width:24px;
+    min-width:24px;
   }
   .unit-name{font-size:18px;font-weight:700;color:#FFFFFF;}
   .unit-sub{font-size:13px;color:rgba(234,244,241,0.5);margin-top:2px;}
@@ -72,11 +72,10 @@
     padding:3px 10px;border-radius:20px;
   }
 
-  .domain-block{margin-bottom:40px;}
+  .domain-block{margin-bottom:40px;border-radius:16px;padding:20px;border:1.5px solid;}
   .domain-label{
-    font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-    color:rgba(234,244,241,0.35);margin-bottom:14px;padding-right:4px;
-    border-right:3px solid rgba(239,169,74,0.5);padding-right:10px;
+    font-size:13px;font-weight:800;letter-spacing:1.5px;
+    margin-bottom:16px;padding-right:12px;border-right:4px solid;
   }
 
   .video-section{margin-bottom:40px;}
@@ -130,12 +129,12 @@
     <p class="subtitle">לומדים, מתרגלים, שולטים</p>
   </div>
 
-  <div class="domain-block">
-    <div class="domain-label">תחום מספרי</div>
+  <div class="domain-block" style="background:rgba(59,130,246,0.07);border-color:rgba(59,130,246,0.3);">
+    <div class="domain-label" style="color:#3B82F6;border-color:#3B82F6;">תחום מספרי</div>
     <div class="units">
-      <div class="unit-card" style="opacity:0.45;pointer-events:none;cursor:default;">
+      <div class="unit-card" style="opacity:0.45;pointer-events:none;cursor:default;border-right:3px solid #3B82F6;">
         <div class="unit-left">
-          <div class="unit-num">01</div>
+          <div class="unit-num" style="color:#3B82F6;">01</div>
           <div>
             <div class="unit-name">מערכת הצירים ברביע הראשון</div>
             <div class="unit-sub" style="color:#e06c75;">התחילו ביחידה הבאה</div>
@@ -144,47 +143,47 @@
         <div class="unit-arrow" style="opacity:0;">←</div>
       </div>
 
-      <a class="unit-card" href="./unit2/">
+      <a class="unit-card" href="./unit2/" style="border-right:3px solid #3B82F6;">
         <div class="unit-left">
-          <div class="unit-num">02</div>
+          <div class="unit-num" style="color:#3B82F6;">02</div>
           <div>
             <div class="unit-name">מספרים מכוונים</div>
             <div class="unit-sub">ערך מוחלט, מספרים נגדיים, פעולות</div>
           </div>
         </div>
-        <div class="unit-arrow">←</div>
+        <div class="unit-arrow" style="color:#3B82F6;">←</div>
       </a>
 
-      <a class="unit-card" href="./unit3/">
+      <a class="unit-card" href="./unit3/" style="border-right:3px solid #3B82F6;">
         <div class="unit-left">
-          <div class="unit-num">03</div>
+          <div class="unit-num" style="color:#3B82F6;">03</div>
           <div>
             <div class="unit-name">מערכת הצירים — כל הרביעים</div>
             <div class="unit-sub">נקודות, אורכים ושטחים בארבעת הרביעים</div>
           </div>
         </div>
-        <div class="unit-arrow">←</div>
+        <div class="unit-arrow" style="color:#3B82F6;">←</div>
       </a>
 
-      <a class="unit-card" href="./unit4/">
+      <a class="unit-card" href="./unit4/" style="border-right:3px solid #3B82F6;">
         <div class="unit-left">
-          <div class="unit-num">04</div>
+          <div class="unit-num" style="color:#3B82F6;">04</div>
           <div>
             <div class="unit-name">חזקות ושורשים</div>
             <div class="unit-sub">הגדרה, חישוב, השוואה, שורש ריבועי</div>
           </div>
         </div>
-        <div class="unit-arrow">←</div>
+        <div class="unit-arrow" style="color:#3B82F6;">←</div>
       </a>
     </div>
   </div>
 
-  <div class="domain-block">
-    <div class="domain-label">תחום אלגברי</div>
+  <div class="domain-block" style="background:rgba(139,92,246,0.07);border-color:rgba(139,92,246,0.3);">
+    <div class="domain-label" style="color:#8B5CF6;border-color:#8B5CF6;">תחום אלגברי</div>
     <div class="units">
-      <a class="unit-card" href="./unit5/">
+      <a class="unit-card" href="./unit5/" style="border-right:3px solid #8B5CF6;">
         <div class="unit-left">
-          <div class="unit-num">01</div>
+          <div class="unit-num" style="color:#8B5CF6;">01</div>
           <div>
             <div class="unit-name">משתנים וביטויים אלגבריים</div>
             <div class="unit-sub">כתיבת ביטויים, הצבה, כינוס איברים</div>
@@ -195,12 +194,12 @@
     </div>
   </div>
 
-  <div class="domain-block">
-    <div class="domain-label">תחום גיאומטרי</div>
+  <div class="domain-block" style="background:rgba(16,185,129,0.07);border-color:rgba(16,185,129,0.3);">
+    <div class="domain-label" style="color:#10B981;border-color:#10B981;">תחום גיאומטרי</div>
     <div class="units">
-      <div class="unit-card disabled">
+      <div class="unit-card disabled" style="border-right:3px solid #10B981;">
         <div class="unit-left">
-          <div class="unit-num">—</div>
+          <div class="unit-num" style="color:#10B981;">—</div>
           <div>
             <div class="unit-name" style="color:rgba(234,244,241,0.4);">יחידות בפיתוח</div>
           </div>
