@@ -329,17 +329,19 @@
 // ════════════════════════════════
 // תצורת יחידות ורצפים
 // ════════════════════════════════
-const CONFIG_URL = 'https://chenmar6-maker.github.io/coordinate-system/units_config.json';
-
 let DOMAINS = [];
 let TEACHER_UNITS = [];
 let ALL_SEQUENCES = [];
 
 function loadConfig(callback) {
-  fetch(CONFIG_URL + '?v=' + Date.now())
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      DOMAINS = data;
+  google.script.run
+    .withSuccessHandler(function(res) {
+      if (!res.ok) {
+        document.getElementById('student-list').innerHTML =
+          '<div class="empty-state" style="color:#B91C1C;">שגיאה בטעינת תצורת יחידות: ' + (res.error || '') + '</div>';
+        return;
+      }
+      DOMAINS = res.domains;
       TEACHER_UNITS = DOMAINS.flatMap(function(d) {
         return d.units.map(function(u) { return Object.assign({}, u, { domain: d.name }); });
       });
@@ -348,10 +350,11 @@ function loadConfig(callback) {
       });
       callback();
     })
-    .catch(function(err) {
+    .withFailureHandler(function(err) {
       document.getElementById('student-list').innerHTML =
         '<div class="empty-state" style="color:#B91C1C;">שגיאה בטעינת תצורת יחידות: ' + err.message + '</div>';
-    });
+    })
+    .getConfigServer();
 }
 
 
