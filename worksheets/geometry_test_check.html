@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בדיקה עצמית — זיהוי צורות בסיסיות (ניסוי)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 100px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #064E3B 0%, #10B981 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); }
+
+  .demo-banner {
+    background: #FEF3C7;
+    border: 1.5px dashed #F59E0B;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    color: #92400E;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .q-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #10B981;
+  }
+  .q-title { font-weight: 700; font-size: 14px; margin-bottom: 10px; display: flex; align-items: baseline; gap: 6px; }
+  .q-num { color: #059669; font-size: 16px; }
+
+  .sub-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; }
+  .sub-lbl { font-weight: 700; color: #555; min-width: 20px; flex-shrink: 0; }
+
+  input[type=text] {
+    width: 70px; padding: 5px 8px; border: 1.5px solid #D1D5DB;
+    border-radius: 6px; font-family: 'Rubik', sans-serif; font-size: 14px;
+    text-align: center; outline: none; transition: border-color .2s;
+  }
+  input[type=text]:focus { border-color: #10B981; }
+  input.correct { border-color: #059669; background: #D1FAE5; color: #065F46; font-weight: 700; }
+  input.wrong   { border-color: #EF4444; background: #FEE2E2; color: #991B1B; }
+
+  .check-icon { font-size: 15px; }
+
+  .action-bar {
+    position: fixed; bottom: 0; right: 0; left: 0;
+    background: #fff; border-top: 1.5px solid #E5E7EB;
+    padding: 12px 24px; display: flex; gap: 12px; justify-content: center;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.06);
+  }
+  .btn-check {
+    padding: 11px 32px; background: #10B981; color: #fff; border: none;
+    border-radius: 10px; font-family: 'Rubik', sans-serif; font-size: 15px;
+    font-weight: 700; cursor: pointer; transition: background .15s;
+  }
+  .btn-check:hover { background: #059669; }
+  .btn-reset {
+    padding: 11px 24px; background: #F3F4F6; color: #374151; border: none;
+    border-radius: 10px; font-family: 'Rubik', sans-serif; font-size: 15px;
+    font-weight: 600; cursor: pointer;
+  }
+
+  .score-banner {
+    display: none; background: #fff; border-radius: 12px;
+    padding: 16px 20px; margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    text-align: center; font-size: 16px; font-weight: 700;
+  }
+  .score-banner.show { display: block; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+  <div class="header">
+    <div>
+      <div class="header-title">זיהוי צורות בסיסיות</div>
+      <div class="header-sub">גיאומטריה — יחידת ניסוי</div>
+    </div>
+    <div class="brand">חן מרגלית למידה אקטיבית</div>
+  </div>
+
+  <div class="demo-banner">⚠️ זהו מבדק ניסוי לבדיקת מערכת המעקב — לא חלק מהחומר הרשמי</div>
+
+  <div class="score-banner" id="score-banner"></div>
+
+  <!-- שאלה 1 -->
+  <div class="q-card">
+    <div class="q-title"><span class="q-num">1.</span> כמה צלעות יש למשולש?</div>
+    <div class="sub-row">
+      <span class="sub-lbl">א.</span>
+      <input type="text" id="q1a" maxlength="4" placeholder="?">
+      <span class="check-icon" id="i1a"></span>
+    </div>
+  </div>
+
+  <!-- שאלה 2 -->
+  <div class="q-card">
+    <div class="q-title"><span class="q-num">2.</span> כמה זוויות יש לריבוע?</div>
+    <div class="sub-row">
+      <span class="sub-lbl">א.</span>
+      <input type="text" id="q2a" maxlength="4" placeholder="?">
+      <span class="check-icon" id="i2a"></span>
+    </div>
+  </div>
+
+  <!-- שאלה 3 -->
+  <div class="q-card">
+    <div class="q-title"><span class="q-num">3.</span> איזו צורה הנה עגולה לחלוטין?</div>
+    <div class="sub-row">
+      <span class="sub-lbl">א.</span>
+      <input type="text" id="q3a" maxlength="10" placeholder="?">
+      <span class="check-icon" id="i3a"></span>
+    </div>
+  </div>
+
+</div>
+
+<div class="action-bar">
+  <button class="btn-check" onclick="checkAnswers()">בדוק ✓</button>
+  <button class="btn-reset" onclick="resetForm()">נקה</button>
+</div>
+
+<script>
+const ANSWERS = {
+  q1a: ['3'],
+  q2a: ['4'],
+  q3a: ['עיגול', 'מעגל'],
+};
+
+const LABELS = { q1a: '1א', q2a: '2א', q3a: '3א' };
+
+function normalize(s) { return String(s).trim().replace(/\s+/g,' '); }
+
+function checkAnswers() {
+  let correct = 0, total = Object.keys(ANSWERS).length;
+
+  Object.keys(ANSWERS).forEach(function(id) {
+    const inp = document.getElementById(id);
+    const icon = document.getElementById('i' + id.slice(1));
+    const val = normalize(inp.value);
+    const ok = ANSWERS[id].some(function(a) { return normalize(a) === val; });
+    inp.classList.toggle('correct', ok);
+    inp.classList.toggle('wrong', !ok && val !== '');
+    if (icon) icon.textContent = val === '' ? '' : ok ? '✓' : '✗';
+    if (ok) correct++;
+  });
+
+  const banner = document.getElementById('score-banner');
+  banner.classList.add('show');
+  if (correct === total) {
+    banner.style.background = '#D1FAE5'; banner.style.color = '#065F46';
+    banner.textContent = '🎉 כל התשובות נכונות! (' + correct + '/' + total + ')';
+  } else {
+    banner.style.background = '#FEF3C7'; banner.style.color = '#92400E';
+    banner.textContent = correct + ' מתוך ' + total + ' נכונות';
+  }
+  banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetForm() {
+  Object.keys(ANSWERS).forEach(function(id) {
+    const inp = document.getElementById(id);
+    inp.value = ''; inp.className = '';
+    const icon = document.getElementById('i' + id.slice(1));
+    if (icon) icon.textContent = '';
+  });
+  const banner = document.getElementById('score-banner');
+  banner.classList.remove('show');
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkAnswers();
+});
+</script>
+</body>
+</html>
