@@ -121,15 +121,15 @@
   .gate-screen {
     position:fixed;inset:0;z-index:999;
     background: radial-gradient(ellipse at 50% -10%, #3D3568 0%, #1E1B2E 50%, #0F0D1A 100%);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:18vh;gap:28px;
   }
   .gate-screen.hidden { display:none; }
   .gate-title { font-size:22px;font-weight:800;color:#fff; }
   .gate-input {
-    width:130px;padding:14px;background:rgba(234,244,241,0.06);
-    border:1.5px solid rgba(234,244,241,0.2);border-radius:14px;
-    color:#EAF4F1;font-family:'Rubik',sans-serif;font-size:26px;font-weight:700;
-    text-align:center;letter-spacing:6px;direction:ltr;outline:none;
+    width:180px;padding:20px;background:rgba(234,244,241,0.06);
+    border:1.5px solid rgba(234,244,241,0.2);border-radius:18px;
+    color:#EAF4F1;font-family:'Rubik',sans-serif;font-size:38px;font-weight:700;
+    text-align:center;letter-spacing:10px;direction:ltr;outline:none;
   }
   .gate-input:focus { border-color:rgba(234,244,241,0.5); }
   .gate-error { font-size:13px;color:rgba(255,120,120,0.85);min-height:18px; }
