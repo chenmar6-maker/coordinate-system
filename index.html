@@ -130,9 +130,9 @@
   </div>
 
   <div class="domain-block" style="background:rgba(59,130,246,0.07);border-color:rgba(59,130,246,0.3);">
-    <div class="domain-label" style="color:#3B82F6;border-color:#3B82F6;display:flex;align-items:center;gap:12px;">
+    <div class="domain-label" style="color:#3B82F6;border-color:#3B82F6;display:flex;align-items:center;gap:14px;">
       תחום מספרי
-      <span style="font-size:14px;font-weight:500;letter-spacing:0;color:rgba(59,130,246,0.65);font-family:'Rubik',sans-serif;">√16 + (−3)² − 2³</span>
+      <span style="font-size:20px;font-weight:600;letter-spacing:0;color:rgba(59,130,246,0.75);direction:ltr;font-family:'Rubik',sans-serif;">√16 + (−3)² − 2³</span>
     </div>
     <div class="units">
       <div class="unit-card" style="opacity:0.45;pointer-events:none;cursor:default;border-right:3px solid #3B82F6;">
@@ -182,9 +182,9 @@
   </div>
 
   <div class="domain-block" style="background:rgba(139,92,246,0.07);border-color:rgba(139,92,246,0.3);">
-    <div class="domain-label" style="color:#8B5CF6;border-color:#8B5CF6;display:flex;align-items:center;gap:12px;">
+    <div class="domain-label" style="color:#8B5CF6;border-color:#8B5CF6;display:flex;align-items:center;gap:14px;">
       תחום אלגברי
-      <span style="font-size:14px;font-weight:500;letter-spacing:0;color:rgba(139,92,246,0.65);font-family:'Rubik',sans-serif;">2(x + 3) = 14</span>
+      <span style="font-size:20px;font-weight:600;letter-spacing:0;color:rgba(139,92,246,0.75);direction:ltr;font-family:'Rubik',sans-serif;">2(x + 3) = 14</span>
     </div>
     <div class="units">
       <a class="unit-card" href="./unit5/" style="border-right:3px solid #8B5CF6;">
@@ -201,12 +201,19 @@
   </div>
 
   <div class="domain-block" style="background:rgba(16,185,129,0.07);border-color:rgba(16,185,129,0.3);">
-    <div class="domain-label" style="color:#10B981;border-color:#10B981;display:flex;align-items:center;gap:12px;">
+    <div class="domain-label" style="color:#10B981;border-color:#10B981;display:flex;align-items:center;gap:14px;">
       תחום גיאומטרי
-      <span style="display:inline-flex;flex-direction:column;gap:4px;opacity:0.6;">
-        <span style="display:block;width:36px;height:2.5px;background:#10B981;border-radius:2px;"></span>
-        <span style="display:block;width:36px;height:2.5px;background:#10B981;border-radius:2px;"></span>
-      </span>
+      <svg width="88" height="64" viewBox="0 0 88 64" style="display:inline-block;vertical-align:middle;opacity:0.85;flex-shrink:0;">
+        <!-- שני ישרים מקבילים -->
+        <line x1="4" y1="20" x2="84" y2="20" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="4" y1="48" x2="84" y2="48" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- ישר חותך -->
+        <line x1="24" y1="4" x2="64" y2="62" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
+        <!-- זווית חלופית עליונה — מתחת ומימין לנקודת החיתוך העליונה (~35,20) -->
+        <path d="M 46 20 A 12 12 0 0 1 42 32" stroke="#10B981" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- זווית חלופית תחתונה — מעל ומשמאל לנקודת החיתוך התחתונה (~51,48) -->
+        <path d="M 40 48 A 12 12 0 0 1 44 36" stroke="#10B981" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
     </div>
     <div class="units">
       <div class="unit-card disabled" style="border-right:3px solid #10B981;">
