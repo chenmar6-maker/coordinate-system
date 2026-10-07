@@ -577,8 +577,14 @@ function render() {
         'onmouseover="this.style.background=\'#F3F4F6\'" onmouseout="this.style.background=\'\'">' +
         text + '</div>';
     }
+    const progress = domainProgress(s.id);
+    const progressLine = progress.map(function(p) {
+      return '<span style="color:' + p.color + ';font-weight:600;">' + p.done + '/' + p.total + '</span>' +
+        '<span style="color:#9CA3AF;font-size:10px;"> ' + p.name.replace('תחום ','') + '</span>';
+    }).join('<span style="color:#D1D5DB;margin:0 4px;">·</span>');
     return '<div class="student-row ' + urgency + '" onclick="openLogModal(\'' + escHtml(s.id) + '\',\'\')">' +
-      '<div class="s-name">' + escHtml(s.name) + '</div>' +
+      '<div><div class="s-name">' + escHtml(s.name) + '</div>' +
+      '<div style="font-size:11px;margin-top:2px;display:flex;align-items:center;gap:2px;">' + progressLine + '</div></div>' +
       domainCell('תחום מספרי') +
       domainCell('תחום אלגברי') +
       domainCell('תחום גיאומטרי') +
