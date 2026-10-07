@@ -97,14 +97,14 @@
   /* Table */
   .student-table { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
   .tbl-header {
-    display: grid; grid-template-columns: 2fr 2fr 95px;
+    display: grid; grid-template-columns: 1.4fr 1.6fr 1.6fr 1.6fr 95px;
     padding: 10px 20px; background: #F8FAFC;
     border-bottom: 1.5px solid #E5E7EB;
     font-size: 11.5px; font-weight: 700; color: #9CA3AF;
     text-transform: uppercase; letter-spacing: 0.4px;
   }
   .student-row {
-    display: grid; grid-template-columns: 2fr 2fr 95px;
+    display: grid; grid-template-columns: 1.4fr 1.6fr 1.6fr 1.6fr 95px;
     padding: 13px 20px; border-bottom: 1px solid #F3F4F6;
     cursor: pointer; transition: background .1s; align-items: center;
   }
@@ -233,7 +233,7 @@
   optgroup.domain-header { font-style: normal; }
 
   /* Responsive */
-  @media (max-width: 620px) {
+  @media (max-width: 700px) {
     .stats { grid-template-columns: repeat(2,1fr); }
     .tbl-header { display: none; }
     .student-row {
@@ -287,8 +287,10 @@
 
     <div class="student-table">
       <div class="tbl-header">
-        <div>שם + התקדמות לפי תחום</div>
-        <div>יחידה הבאה</div>
+        <div>שם</div>
+        <div style="color:#3B82F6;">מספרי</div>
+        <div style="color:#8B5CF6;">אלגברי</div>
+        <div style="color:#10B981;">גיאומטרי</div>
         <div>מאז מבדק</div>
       </div>
       <div id="student-list"></div>
@@ -478,6 +480,19 @@ function nextSequence(id) {
   return ALL_SEQUENCES.find(s => !passed.has(s.name)) || null;
 }
 
+function nextSequenceInDomain(id, domainName) {
+  const passed = passedUnits(id);
+  const domain = DOMAINS.find(function(d) { return d.name === domainName; });
+  if (!domain) return null;
+  for (var i = 0; i < domain.units.length; i++) {
+    var u = domain.units[i];
+    for (var j = 0; j < u.sequences.length; j++) {
+      if (!passed.has(u.sequences[j])) return u.sequences[j];
+    }
+  }
+  return null; // הושלם
+}
+
 function lastPassedUnit(id) {
   const passed = passedUnits(id);
   if (!passed.size) return null;
@@ -601,15 +616,16 @@ function render() {
   list.innerHTML = students.map(function(s) {
     const days = daysSince(s.id);
     const urgency = days === null || days >= 7 ? 'urgent' : days >= 4 ? 'warn' : '';
-    const dp = domainProgress(s.id);
-    const pills = dp.map(function(d) {
-      const pct = Math.round(d.done / d.total * 100);
-      const shortName = d.name.replace('תחום ', '');
-      return '<span class="dpill" style="background:' + d.color + '22;color:' + d.color + ';">' + shortName + ' ' + d.done + '/' + d.total + '</span>';
-    }).join('');
+    function domainCell(domainName, color) {
+      const next = nextSequenceInDomain(s.id, domainName);
+      if (next === null) return '<div style="font-size:12px;color:#10B981;font-weight:700;">✓ הושלם</div>';
+      return '<div style="font-size:12px;color:#374151;">' + escHtml(next) + '</div>';
+    }
     return '<div class="student-row ' + urgency + '" onclick="openLogModal(\'' + escHtml(s.id) + '\')">' +
-      '<div><div class="s-name">' + escHtml(s.name) + '</div><div class="domain-pills">' + pills + '</div></div>' +
-      '<div class="s-last">' + escHtml((nextSequence(s.id) || {name: '✓ הושלם'}).name) + '</div>' +
+      '<div class="s-name">' + escHtml(s.name) + '</div>' +
+      domainCell('תחום מספרי', '#3B82F6') +
+      domainCell('תחום אלגברי', '#8B5CF6') +
+      domainCell('תחום גיאומטרי', '#10B981') +
       '<div>' + daysBadge(days) + '</div>' +
       '</div>';
   }).join('');
