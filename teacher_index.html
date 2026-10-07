@@ -329,33 +329,20 @@
 // ════════════════════════════════
 // תצורת יחידות ורצפים
 // ════════════════════════════════
-let DOMAINS = [];
-let TEACHER_UNITS = [];
-let ALL_SEQUENCES = [];
+// ════════════════════════════════
+// תצורת יחידות — מסונכרן מ-units_config.json
+// כשמוסיפים רצף: עדכן units_config.json → הקוד כאן מתעדכן אוטומטית
+// ════════════════════════════════
+const DOMAINS = [{"name":"תחום מספרי","color":"#3B82F6","units":[{"name":"מספרים מכוונים","sequences":["ערך מוחלט","מספרים נגדיים","מיקום על ציר המספרים","מודל החצים וכלל הסימן","תרגילים ארוכים וחוק החילוף","חיסור = חיבור הנגדי","תרגילים ארוכים וכתיבה ללא סוגריים","כפל וחילוק מספרים מכוונים","סדר פעולות חשבון","סדר פעולות עם קו שבר"]},{"name":"מערכת הצירים — כל הרביעים","sequences":["נקודות בכל הרביעים","אורכים ושטחים בכל הרביעים"]},{"name":"חזקות ושורשים","sequences":["הגדרת חזקה וחישוב בסיסי","חזקות מיוחדות — 0, 1 ושברים","השוואה וסדר פעולות עם חזקות","הגדרת שורש ריבועי","חישובים עם שורשים"]}]},{"name":"תחום אלגברי","color":"#8B5CF6","units":[{"name":"משתנים וביטויים אלגבריים","sequences":["כתיבת ביטויים אלגבריים","הצבה וחישוב ערך הביטוי","כינוס איברים דומים","מבוא למשוואות — זיהוי פתרון","פתרון משוואות","שאלות מילוליות","מבדק מקיף — כל נושא המשוואות"]}]},{"name":"תחום גיאומטרי","color":"#10B981","units":[{"name":"גיאומטריה — יחידת ניסוי","sequences":["זיהוי צורות בסיסיות — ניסוי"]}]}];
 
-function loadConfig(callback) {
-  google.script.run
-    .withSuccessHandler(function(res) {
-      if (!res.ok) {
-        document.getElementById('student-list').innerHTML =
-          '<div class="empty-state" style="color:#B91C1C;">שגיאה בטעינת תצורת יחידות: ' + (res.error || '') + '</div>';
-        return;
-      }
-      DOMAINS = res.domains;
-      TEACHER_UNITS = DOMAINS.flatMap(function(d) {
-        return d.units.map(function(u) { return Object.assign({}, u, { domain: d.name }); });
-      });
-      ALL_SEQUENCES = TEACHER_UNITS.flatMap(function(u) {
-        return u.sequences.map(function(s) { return { unit: u.name, name: s }; });
-      });
-      callback();
-    })
-    .withFailureHandler(function(err) {
-      document.getElementById('student-list').innerHTML =
-        '<div class="empty-state" style="color:#B91C1C;">שגיאה בטעינת תצורת יחידות: ' + err.message + '</div>';
-    })
-    .getConfigServer();
-}
+const TEACHER_UNITS = DOMAINS.flatMap(function(d) {
+  return d.units.map(function(u) { return Object.assign({}, u, { domain: d.name }); });
+});
+const ALL_SEQUENCES = TEACHER_UNITS.flatMap(function(u) {
+  return u.sequences.map(function(s) { return { unit: u.name, name: s }; });
+});
+
+function loadConfig(callback) { callback(); }
 
 
 // ════════════════════════════════

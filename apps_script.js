@@ -155,17 +155,6 @@ function importLegacyData() {
   SpreadsheetApp.getUi().alert('ייבוא הושלם! ' + imported + ' רשומות נוספו.');
 }
 
-function getConfigServer() {
-  try {
-    const url = 'https://chenmar6-maker.github.io/coordinate-system/units_config.json';
-    const response = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
-    const data = JSON.parse(response.getContentText());
-    return { ok: true, domains: data };
-  } catch (e) {
-    return { ok: false, error: e.toString() };
-  }
-}
-
 function addEventServer(studentId, unit, passed) {
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
