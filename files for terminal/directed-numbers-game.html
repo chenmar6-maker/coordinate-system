@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שרשרת החצים – חיבור מספרים מכוונים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Suez+One&family=Rubik:wght@400;500;600;700&display=swap');
+
+  :root{
+    --paper: #eef3f7;
+    --grid-line: #d7e3ee;
+    --ink: #1f3a5f;
+    --ink-soft: #4c6480;
+    --green: #2f9e44;
+    --green-dark: #237336;
+    --red: #e03131;
+    --red-dark: #a82323;
+    --panel: #ffffff;
+    --panel-edge: #c9d8e6;
+    --gold: #d9a52c;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family:'Rubik', sans-serif;
+    color: var(--ink);
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 26px 26px;
+    display:flex;
+    justify-content:center;
+    padding: 22px 14px 40px;
+  }
+
+  .stage{
+    width:100%;
+    max-width: 780px;
+  }
+
+  h1{
+    font-family:'Suez One', serif;
+    font-size: clamp(24px, 5vw, 34px);
+    text-align:right;
+    color: var(--ink);
+    margin: 4px 4px 4px;
+  }
+
+  .subtitle{
+    text-align:right;
+    color: var(--ink-soft);
+    margin: 0 4px 18px;
+    font-size:15px;
+    line-height:1.6;
+  }
+
+  .score-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background: var(--panel);
+    border: 2px solid var(--gold);
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-weight:600;
+    color: var(--ink);
+    font-size:14px;
+    float:left;
+    margin-top:6px;
+  }
+
+  .panel{
+    background: var(--panel);
+    border: 2px solid var(--panel-edge);
+    border-radius: 18px;
+    padding: 18px 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 3px 0 var(--panel-edge);
+  }
+
+  .exercise-label{
+    text-align:right;
+    font-size:14px;
+    color: var(--ink-soft);
+    margin-bottom:6px;
+  }
+
+  .exercise-expr{
+    direction:ltr;
+    unicode-bidi:isolate;
+    text-align:center;
+    font-size: clamp(22px, 6vw, 30px);
+    font-weight:700;
+    letter-spacing: 1px;
+    color: var(--ink);
+  }
+
+  .exercise-expr .op{
+    color: var(--ink-soft);
+    margin: 0 6px;
+  }
+  .exercise-expr .pos{ color: var(--green-dark); }
+  .exercise-expr .neg{ color: var(--red-dark); }
+
+  .track-wrap{
+    position:relative;
+    width:100%;
+    touch-action: none;
+  }
+
+  #track-svg{
+    width:100%;
+    height:auto;
+    display:block;
+    user-select:none;
+    -webkit-user-select:none;
+  }
+
+  .num-text{
+    direction:ltr;
+    unicode-bidi:isolate;
+    font-family:'Rubik', sans-serif;
+  }
+
+  .arrow-label{
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+  }
+
+  .built-line{
+    text-align:right;
+    font-size:14px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+    min-height: 20px;
+  }
+  .built-line .val{ direction:ltr; unicode-bidi:isolate; font-weight:600; }
+
+  .hint-line{
+    text-align:right;
+    font-size:13px;
+    color: var(--ink-soft);
+    margin: -4px 4px 14px;
+  }
+
+  .tray-title{
+    text-align:right;
+    font-size:14px;
+    color: var(--ink-soft);
+    margin: 0 4px 10px;
+  }
+
+  .tray{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 14px;
+    justify-content:center;
+    align-items:center;
+    min-height: 70px;
+    padding: 10px 6px 4px;
+  }
+
+  .tile{
+    touch-action:none;
+    cursor: grab;
+    user-select:none;
+    -webkit-user-select:none;
+  }
+  .tile:active{ cursor:grabbing; }
+
+  .controls{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin: 6px 0 14px;
+  }
+
+  button{
+    font-family:'Rubik', sans-serif;
+    font-size:15px;
+    font-weight:600;
+    border-radius: 12px;
+    padding: 10px 18px;
+    border: 2px solid transparent;
+    cursor:pointer;
+    transition: transform .08s ease;
+  }
+  button:active{ transform: scale(0.97); }
+  button:focus-visible{ outline: 3px solid var(--gold); outline-offset:2px; }
+
+  .btn-primary{ background: var(--ink); color:#fff; }
+  .btn-secondary{ background:#fff; color: var(--ink); border-color: var(--panel-edge); }
+  .btn-ghost{ background: transparent; color: var(--ink-soft); border-color: var(--panel-edge); }
+
+  .feedback{
+    text-align:center;
+    font-weight:600;
+    font-size:16px;
+    min-height: 26px;
+    margin-bottom: 4px;
+    transition: color .15s ease;
+  }
+  .feedback.ok{ color: var(--green-dark); }
+  .feedback.bad{ color: var(--red-dark); }
+
+  .answer-row{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    margin-bottom: 4px;
+    direction:ltr;
+  }
+  .answer-row input{
+    width: 70px;
+    text-align:center;
+    font-size:18px;
+    font-family:'Rubik', sans-serif;
+    padding:6px 8px;
+    border-radius:10px;
+    border:2px solid var(--panel-edge);
+  }
+  .answer-row input:focus{ outline:2px solid var(--gold); border-color: var(--gold); }
+  .answer-row label{
+    direction:rtl;
+    unicode-bidi:isolate;
+    font-size:14px;
+    color: var(--ink-soft);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; animation:none !important; }
+  }
+
+  .section-title{
+    font-family:'Suez One', serif;
+    font-size: clamp(19px, 4.5vw, 24px);
+    text-align:right;
+    margin: 30px 4px 4px;
+  }
+
+  .rule-pair{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 18px;
+    justify-content:center;
+    align-items:flex-start;
+  }
+  .rule-example{
+    flex: 1 1 260px;
+    max-width: 340px;
+    text-align:center;
+  }
+  .rule-expr{
+    direction:ltr;
+    unicode-bidi:isolate;
+    font-weight:700;
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  .rule-expr .pos{ color: var(--green-dark); }
+  .rule-expr .neg{ color: var(--red-dark); }
+  .rule-svg{ width:100%; height:auto; display:block; }
+
+  .rule-q-title{
+    text-align:right;
+    font-weight:600;
+    margin: 18px 4px 8px;
+  }
+  .rule-options{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin: 0 4px;
+  }
+  .rule-option{
+    text-align:right;
+    background:#fff;
+    border:2px solid var(--panel-edge);
+    border-radius:12px;
+    padding:10px 14px;
+    cursor:pointer;
+    font-family:'Rubik', sans-serif;
+    font-size:15px;
+    color: var(--ink);
+  }
+  .rule-option:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+  .rule-option.correct{ border-color: var(--green); background:#eaf7ec; }
+  .rule-option.incorrect{ border-color: var(--red); background:#fdecec; }
+  .rule-option[disabled]{ cursor:default; }
+
+  .rule-explain{
+    text-align:right;
+    font-size:14px;
+    line-height:1.7;
+    color: var(--ink);
+    background:#fff;
+    border-radius:12px;
+    padding:12px 14px;
+    margin: 12px 4px 4px;
+    border:2px dashed var(--panel-edge);
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <div class="score-badge">🏅 <span id="score">0</span> נפתרו</div>
+  <h1>שרשרת החצים</h1>
+  <p class="subtitle">גררו חצים אל ציר המספרים וחברו אותם ראש לזנב. המספר שמתחת לראש החץ האחרון הוא תוצאת התרגיל.</p>
+
+  <div class="panel">
+    <div class="exercise-label">התרגיל לפתרון:</div>
+    <div class="exercise-expr" id="exercise-expr" dir="ltr"></div>
+  </div>
+
+  <p class="hint-line">כל החצים נעים מעל הציר. בכל פעם שהכיוון מתחלף, החץ הבא עולה קומה.</p>
+  <div class="panel">
+    <div class="track-wrap">
+      <svg id="track-svg" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="head-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M0,1.5 L9,5 L0,8.5 z" fill="#2f9e44"></path>
+          </marker>
+          <marker id="head-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M0,1.5 L9,5 L0,8.5 z" fill="#e03131"></path>
+          </marker>
+        </defs>
+        <g id="axis-layer"></g>
+        <g id="chain-layer"></g>
+        <g id="tip-layer"></g>
+      </svg>
+    </div>
+    <div class="built-line" id="built-line"></div>
+  </div>
+
+  <div class="tray-title">אוסף החצים — גררו את החצים המתאימים אל הציר:</div>
+  <p class="hint-line">💡 יש בקבוצה גם חצים שאינם שייכים לתרגיל הנוכחי.</p>
+  <div class="panel">
+    <div class="tray" id="tray"></div>
+  </div>
+
+  <div class="answer-row">
+    <label for="answer-input">התוצאה שקראתי מהציר:</label>
+    <input type="number" id="answer-input" inputmode="numeric">
+  </div>
+
+  <div class="feedback" id="feedback"></div>
+
+  <div class="controls">
+    <button class="btn-primary" id="btn-check">בדקו תשובה</button>
+    <button class="btn-secondary" id="btn-reset">איפוס התרגיל</button>
+    <button class="btn-ghost" id="btn-new">תרגיל חדש</button>
+  </div>
+
+  <h2 class="section-title">גילוי כלל: חיבור מספרים עם אותו סימן</h2>
+  <p class="hint-line">שני התרגילים הבאים בנויים מאותם ערכים מוחלטים, רק עם סימנים הפוכים. השוו ביניהם:</p>
+
+  <div class="panel">
+    <div class="rule-pair">
+      <div class="rule-example">
+        <div class="rule-expr" id="rule-expr-pos"></div>
+        <svg class="rule-svg" id="rule-svg-pos" viewBox="0 0 340 110" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="rule-example">
+        <div class="rule-expr" id="rule-expr-neg"></div>
+        <svg class="rule-svg" id="rule-svg-neg" viewBox="0 0 340 110" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+    </div>
+
+    <div class="rule-q-title">מה אפשר להסיק מכך על חיבור מספרים בעלי אותו סימן?</div>
+    <div class="rule-options" id="rule-options"></div>
+    <div class="rule-explain" id="rule-explain" style="display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <button class="btn-ghost" id="btn-rule-new">דוגמה חדשה</button>
+  </div>
+
+  <h2 class="section-title">גילוי כלל: חיבור מספרים בעלי סימנים שונים</h2>
+  <p class="hint-line">גם כאן שני התרגילים בנויים מאותם שני ערכים מוחלטים, רק שהתפקידים בין החיובי לשלילי מתחלפים ביניהם. שימו לב מה משותף לתוצאות:</p>
+
+  <div class="panel">
+    <div class="rule-pair">
+      <div class="rule-example">
+        <div class="rule-expr" id="rule2-expr-a"></div>
+        <svg class="rule-svg" id="rule2-svg-a" viewBox="0 0 340 110" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="rule-example">
+        <div class="rule-expr" id="rule2-expr-b"></div>
+        <svg class="rule-svg" id="rule2-svg-b" viewBox="0 0 340 110" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+    </div>
+
+    <div class="rule-q-title">מה אפשר להסיק מכך על חיבור מספרים בעלי סימנים שונים?</div>
+    <div class="rule-options" id="rule2-options"></div>
+    <div class="rule-explain" id="rule2-explain" style="display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <button class="btn-ghost" id="btn-rule2-new">דוגמה חדשה</button>
+  </div>
+
+  <h2 class="section-title">גילוי כלל: חוק החילוף בחיבור</h2>
+  <p class="hint-line">שני התרגילים הבאים בנויים מאותם שלושה איברים בדיוק — רק בסדר שונה. השוו בין התוצאות:</p>
+
+  <div class="panel">
+    <div class="rule-pair">
+      <div class="rule-example">
+        <div class="rule-expr" id="rule3-expr-a"></div>
+        <svg class="rule-svg" id="rule3-svg-a" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="rule-example">
+        <div class="rule-expr" id="rule3-expr-b"></div>
+        <svg class="rule-svg" id="rule3-svg-b" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+    </div>
+
+    <div class="rule-q-title">מה אפשר להסיק מכך על סדר החיבור, גם כשיש מספרים שליליים?</div>
+    <div class="rule-options" id="rule3-options"></div>
+    <div class="rule-explain" id="rule3-explain" style="display:none;"></div>
+  </div>
+
+  <div class="controls">
+    <button class="btn-ghost" id="btn-rule3-new">דוגמה חדשה</button>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const PX = 26;              // pixels per unit on the track
+  const X0 = 400;             // pixel x-position of value 0
+  const BASE_OFFSET = 56;     // distance of the first floor above the axis
+  const ROW_GAP = 34;         // extra height gained each time direction flips
+  const TOP_MARGIN = 26;      // headroom above the highest floor used
+  const BOTTOM_MARGIN = 40;   // room below the axis for tick labels
+  const TRAY_PX = 20;         // pixels per unit inside tray tiles
+  const TILE_H = 46;
+
+  let AXIS_Y = BASE_OFFSET + TOP_MARGIN;
+
+  const svg = document.getElementById('track-svg');
+  const axisLayer = document.getElementById('axis-layer');
+  const chainLayer = document.getElementById('chain-layer');
+  const tipLayer = document.getElementById('tip-layer');
+  const trayEl = document.getElementById('tray');
+  const exprEl = document.getElementById('exercise-expr');
+  const builtLineEl = document.getElementById('built-line');
+  const feedbackEl = document.getElementById('feedback');
+  const answerInput = document.getElementById('answer-input');
+  const scoreEl = document.getElementById('score');
+
+  let state = {
+    terms: [],
+    trayItems: [],   // {id, value, used}
+    chain: [],        // {id, value}
+    score: 0,
+    solvedThisRound: false
+  };
+
+  function randInt(min, max){
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  function randNonZero(min, max){
+    let v = 0;
+    while(v === 0){ v = randInt(min, max); }
+    return v;
+  }
+
+  function generateExercise(){
+    let terms, ok = false, guard = 0;
+    while(!ok && guard < 500){
+      guard++;
+      const n = Math.random() < 0.55 ? 2 : 3;
+      terms = [];
+      for(let i=0;i<n;i++){ terms.push(randNonZero(-9,9)); }
+      let running = 0, within = true;
+      for(const t of terms){
+        running += t;
+        if(Math.abs(running) > 10){ within = false; break; }
+      }
+      if(within && Math.abs(running) <= 9){ ok = true; }
+    }
+    return terms;
+  }
+
+  function generateDecoys(terms){
+    const decoys = [];
+    let guard = 0;
+    while(decoys.length < 2 && guard < 200){
+      guard++;
+      const v = randNonZero(-9,9);
+      if(!terms.includes(v) && !decoys.includes(v)){ decoys.push(v); }
+    }
+    return decoys;
+  }
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i=a.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [a[i],a[j]] = [a[j],a[i]];
+    }
+    return a;
+  }
+
+  function fmtSigned(v){
+    return v > 0 ? ('+' + v) : String(v);
+  }
+
+  function formatTerm(v){
+    // used when the term sits after a "+" operator: the operator already
+    // carries the "addition" meaning, so a positive number needs no extra
+    // sign — only a negative number gets parentheses, to keep its own
+    // minus separate from the operator's plus (avoids "+ -3").
+    return v < 0 ? ('(' + v + ')') : String(v);
+  }
+
+  function renderExpression(){
+    exprEl.innerHTML = '';
+    state.terms.forEach((t, idx) => {
+      if(idx > 0){
+        const op = document.createElement('span');
+        op.className = 'op';
+        op.textContent = '+';
+        exprEl.appendChild(op);
+      }
+      const span = document.createElement('span');
+      span.className = t < 0 ? 'neg' : 'pos';
+      span.textContent = formatTerm(t);
+      exprEl.appendChild(span);
+    });
+    const eq = document.createElement('span');
+    eq.className = 'op';
+    eq.textContent = '= ?';
+    exprEl.appendChild(eq);
+  }
+
+  function floorY(i){
+    return AXIS_Y - BASE_OFFSET - i * ROW_GAP;
+  }
+
+  function computeMaxFloor(chain){
+    if(chain.length === 0) return 0;
+    let floor = 0, prevSign = null;
+    chain.forEach((item, idx) => {
+      const sign = item.value < 0 ? -1 : 1;
+      if(idx > 0 && sign !== prevSign){ floor += 1; }
+      prevSign = sign;
+    });
+    return floor;
+  }
+
+  function updateLayout(){
+    const maxFloor = computeMaxFloor(state.chain);
+    AXIS_Y = BASE_OFFSET + maxFloor * ROW_GAP + TOP_MARGIN;
+    svg.setAttribute('viewBox', `0 0 800 ${AXIS_Y + BOTTOM_MARGIN}`);
+    drawAxis();
+    drawChain();
+  }
+
+  function drawAxis(){
+    axisLayer.innerHTML = '';
+    const MIN = -12, MAX = 12;
+    const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1', X0 + MIN*PX);
+    line.setAttribute('x2', X0 + MAX*PX);
+    line.setAttribute('y1', AXIS_Y);
+    line.setAttribute('y2', AXIS_Y);
+    line.setAttribute('stroke', '#1f3a5f');
+    line.setAttribute('stroke-width', '2');
+    axisLayer.appendChild(line);
+
+    for(let i=MIN;i<=MAX;i++){
+      const x = X0 + i*PX;
+      const isMajor = (i % 5 === 0);
+      const tick = document.createElementNS('http://www.w3.org/2000/svg','line');
+      tick.setAttribute('x1', x);
+      tick.setAttribute('x2', x);
+      tick.setAttribute('y1', AXIS_Y - (isMajor?9:5));
+      tick.setAttribute('y2', AXIS_Y + (isMajor?9:5));
+      tick.setAttribute('stroke', i===0 ? '#d9a52c' : '#4c6480');
+      tick.setAttribute('stroke-width', i===0 ? '3' : '1.5');
+      axisLayer.appendChild(tick);
+
+      if(isMajor || i===0){
+        const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+        label.setAttribute('x', x);
+        label.setAttribute('y', AXIS_Y + 20);
+        label.setAttribute('text-anchor','middle');
+        label.setAttribute('font-size', i===0 ? '15':'13');
+        label.setAttribute('font-weight', i===0 ? '700':'500');
+        label.setAttribute('fill', i===0 ? '#d9a52c' : '#1f3a5f');
+        label.setAttribute('class','num-text');
+        label.textContent = i;
+        axisLayer.appendChild(label);
+      }
+    }
+  }
+
+  function buildTile(value, id){
+    const wrapper = document.createElement('div');
+    wrapper.className = 'tile';
+    wrapper.dataset.id = id;
+    wrapper.dataset.value = value;
+
+    const w = Math.max(Math.abs(value) * TRAY_PX, 46);
+    const color = value < 0 ? '#e03131' : '#2f9e44';
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const s = document.createElementNS(svgNS,'svg');
+    s.setAttribute('width', w);
+    s.setAttribute('height', TILE_H);
+    s.setAttribute('viewBox', `0 0 ${w} ${TILE_H}`);
+
+    const marker = value < 0 ? 'url(#head-red)' : 'url(#head-green)';
+    const y = TILE_H/2 + 6;
+    const line = document.createElementNS(svgNS,'line');
+    if(value < 0){
+      line.setAttribute('x1', w-4); line.setAttribute('x2', 6);
+    } else {
+      line.setAttribute('x1', 4); line.setAttribute('x2', w-6);
+    }
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+    line.setAttribute('stroke', color);
+    line.setAttribute('stroke-width', 3.5);
+    line.setAttribute('stroke-linecap','round');
+    line.setAttribute('marker-end', marker);
+    s.appendChild(line);
+
+    const label = document.createElementNS(svgNS,'text');
+    label.setAttribute('x', w/2);
+    label.setAttribute('y', 15);
+    label.setAttribute('text-anchor','middle');
+    label.setAttribute('class','num-text arrow-label');
+    label.setAttribute('fill', color);
+    label.textContent = fmtSigned(value);
+    s.appendChild(label);
+
+    wrapper.appendChild(s);
+    return wrapper;
+  }
+
+  function renderTray(){
+    trayEl.innerHTML = '';
+    state.trayItems.filter(it => !it.used).forEach(it => {
+      const tile = buildTile(it.value, it.id);
+      attachDrag(tile, it);
+      trayEl.appendChild(tile);
+    });
+  }
+
+  function renderBuiltLine(){
+    if(state.chain.length === 0){
+      builtLineEl.textContent = '';
+      return;
+    }
+    const seq = state.chain.map(c => formatTerm(c.value)).join(' + ');
+    builtLineEl.innerHTML = 'התרגיל שיצרתם: <span class="val">' + seq + '</span>';
+  }
+
+  function drawChain(){
+    chainLayer.innerHTML = '';
+    tipLayer.innerHTML = '';
+    let running = 0;
+    let prevY = AXIS_Y;      // the chain starts on the axis, at 0
+    let prevSign = null;
+    let floorIndex = -1;
+    const svgNS = 'http://www.w3.org/2000/svg';
+
+    state.chain.forEach((item, idx) => {
+      const sign = item.value < 0 ? -1 : 1;
+      if(idx === 0){
+        floorIndex = 0;
+      } else if(sign !== prevSign){
+        floorIndex += 1;
+      }
+      const rowY = floorY(floorIndex);
+
+      const startX = X0 + running*PX;
+      running += item.value;
+      const endX = X0 + running*PX;
+      const color = item.value < 0 ? '#e03131' : '#2f9e44';
+      const marker = item.value < 0 ? 'url(#head-red)' : 'url(#head-green)';
+
+      const g = document.createElementNS(svgNS,'g');
+      g.style.cursor = 'pointer';
+      g.addEventListener('click', () => removeFromChain(item.id));
+
+      // connector when the floor rises (direction changed)
+      if(rowY !== prevY){
+        const connector = document.createElementNS(svgNS,'line');
+        connector.setAttribute('x1', startX); connector.setAttribute('x2', startX);
+        connector.setAttribute('y1', prevY); connector.setAttribute('y2', rowY);
+        connector.setAttribute('stroke', '#c9d8e6');
+        connector.setAttribute('stroke-width', 1.5);
+        connector.setAttribute('stroke-dasharray','3,3');
+        g.appendChild(connector);
+      }
+
+      const guide = document.createElementNS(svgNS,'line');
+      guide.setAttribute('x1', endX); guide.setAttribute('x2', endX);
+      guide.setAttribute('y1', rowY); guide.setAttribute('y2', AXIS_Y);
+      guide.setAttribute('stroke', '#c9d8e6');
+      guide.setAttribute('stroke-width', 1.5);
+      guide.setAttribute('stroke-dasharray','3,3');
+      if(idx === state.chain.length - 1){
+        g.appendChild(guide);
+      }
+
+      const line = document.createElementNS(svgNS,'line');
+      line.setAttribute('x1', startX); line.setAttribute('x2', endX);
+      line.setAttribute('y1', rowY); line.setAttribute('y2', rowY);
+      line.setAttribute('stroke', color);
+      line.setAttribute('stroke-width', 4);
+      line.setAttribute('stroke-linecap','round');
+      line.setAttribute('marker-end', marker);
+      g.appendChild(line);
+
+      const label = document.createElementNS(svgNS,'text');
+      label.setAttribute('x', (startX+endX)/2);
+      label.setAttribute('y', rowY - 10);
+      label.setAttribute('text-anchor','middle');
+      label.setAttribute('class','num-text');
+      label.setAttribute('font-weight','700');
+      label.setAttribute('font-size','14');
+      label.setAttribute('fill', color);
+      label.textContent = fmtSigned(item.value);
+      g.appendChild(label);
+
+      chainLayer.appendChild(g);
+      prevY = rowY;
+      prevSign = sign;
+    });
+
+    if(state.chain.length > 0){
+      const tipX = X0 + running*PX;
+      const pin = document.createElementNS(svgNS,'path');
+      pin.setAttribute('d', `M ${tipX} ${prevY-6} l 8 -14 l -16 0 z`);
+      pin.setAttribute('fill', '#d9a52c');
+      tipLayer.appendChild(pin);
+
+      const q = document.createElementNS(svgNS,'text');
+      q.setAttribute('x', tipX);
+      q.setAttribute('y', prevY-24);
+      q.setAttribute('text-anchor','middle');
+      q.setAttribute('font-size','16');
+      q.setAttribute('font-weight','700');
+      q.setAttribute('fill', '#d9a52c');
+      q.setAttribute('class','num-text');
+      q.textContent = state.revealed ? String(running) : '?';
+      tipLayer.appendChild(q);
+    }
+    return running;
+  }
+
+  function removeFromChain(id){
+    const idx = state.chain.findIndex(c => c.id === id);
+    if(idx === -1) return;
+    const removedIds = state.chain.slice(idx).map(c => c.id);
+    state.chain = state.chain.slice(0, idx);
+    removedIds.forEach(rid => {
+      const it = state.trayItems.find(t => t.id === rid);
+      if(it) it.used = false;
+    });
+    state.revealed = false;
+    feedbackEl.textContent = '';
+    feedbackEl.className = 'feedback';
+    renderTray();
+    updateLayout();
+    renderBuiltLine();
+  }
+
+  function commitDrop(id){
+    const it = state.trayItems.find(t => t.id === id);
+    if(!it || it.used) return;
+    it.used = true;
+    state.chain.push({id: it.id, value: it.value});
+    state.revealed = false;
+    feedbackEl.textContent = '';
+    feedbackEl.className = 'feedback';
+    renderTray();
+    updateLayout();
+    renderBuiltLine();
+  }
+
+  // --- pointer-based drag & drop ---
+  let dragging = null;
+
+  function attachDrag(tileEl, item){
+    tileEl.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      const rect = tileEl.getBoundingClientRect();
+      dragging = {
+        id: item.id,
+        el: tileEl,
+        offsetX: e.clientX - rect.left,
+        offsetY: e.clientY - rect.top,
+        origParent: tileEl.parentNode,
+        w: rect.width,
+        h: rect.height
+      };
+      tileEl.style.position = 'fixed';
+      tileEl.style.left = rect.left + 'px';
+      tileEl.style.top = rect.top + 'px';
+      tileEl.style.width = rect.width + 'px';
+      tileEl.style.zIndex = 1000;
+      document.body.appendChild(tileEl);
+      tileEl.setPointerCapture(e.pointerId);
+    });
+
+    tileEl.addEventListener('pointermove', (e) => {
+      if(!dragging || dragging.id !== item.id) return;
+      dragging.el.style.left = (e.clientX - dragging.offsetX) + 'px';
+      dragging.el.style.top = (e.clientY - dragging.offsetY) + 'px';
+    });
+
+    tileEl.addEventListener('pointerup', (e) => {
+      if(!dragging || dragging.id !== item.id) return;
+      const svgRect = svg.getBoundingClientRect();
+      const inside = e.clientX >= svgRect.left && e.clientX <= svgRect.right &&
+                     e.clientY >= svgRect.top && e.clientY <= svgRect.bottom;
+      dragging.el.style.position = '';
+      dragging.el.style.left = '';
+      dragging.el.style.top = '';
+      dragging.el.style.width = '';
+      dragging.el.style.zIndex = '';
+      dragging.el.remove();
+      dragging = null;
+      if(inside){
+        commitDrop(item.id);
+      } else {
+        renderTray();
+      }
+    });
+
+    tileEl.addEventListener('pointercancel', () => {
+      if(dragging){ dragging.el.remove(); }
+      dragging = null;
+      renderTray();
+    });
+  }
+
+  function checkAnswer(){
+    const chainSum = state.chain.reduce((s,c) => s+c.value, 0);
+    const targetSum = state.terms.reduce((s,t) => s+t, 0);
+    const chainVals = state.chain.map(c=>c.value).slice().sort((a,b)=>a-b);
+    const targetVals = state.terms.slice().sort((a,b)=>a-b);
+    const sameSet = chainVals.length === targetVals.length &&
+                    chainVals.every((v,i) => v === targetVals[i]);
+
+    const typed = answerInput.value.trim();
+    const typedNum = typed === '' ? null : Number(typed);
+
+    state.revealed = true;
+    updateLayout();
+
+    if(state.chain.length === 0){
+      feedbackEl.textContent = 'קודם גררו חצים אל הציר.';
+      feedbackEl.className = 'feedback bad';
+      return;
+    }
+
+    if(!sameSet){
+      feedbackEl.textContent = 'החצים שבחרתם לא תואמים בדיוק את התרגיל — נסו שוב.';
+      feedbackEl.className = 'feedback bad';
+      return;
+    }
+
+    if(typedNum === null){
+      feedbackEl.textContent = 'התוצאה על הציר נכונה: ' + chainSum + '. הקלידו אותה בתיבה כדי לאשר.';
+      feedbackEl.className = 'feedback';
+      return;
+    }
+
+    if(typedNum === chainSum && chainSum === targetSum){
+      feedbackEl.textContent = 'תשובה נכונה 🎉';
+      feedbackEl.className = 'feedback ok';
+      if(!state.solvedThisRound){
+        state.solvedThisRound = true;
+        state.score++;
+        scoreEl.textContent = state.score;
+      }
+    } else {
+      feedbackEl.textContent = 'לא בדיוק — בדקו שוב את הראש של החץ האחרון.';
+      feedbackEl.className = 'feedback bad';
+    }
+  }
+
+  function resetCurrent(){
+    state.chain = [];
+    state.trayItems.forEach(it => it.used = false);
+    state.revealed = false;
+    answerInput.value = '';
+    feedbackEl.textContent = '';
+    feedbackEl.className = 'feedback';
+    renderTray();
+    updateLayout();
+    renderBuiltLine();
+  }
+
+  function newExercise(){
+    const terms = generateExercise();
+    const decoys = generateDecoys(terms);
+    const allValues = shuffle(terms.concat(decoys));
+    state.terms = terms;
+    state.trayItems = allValues.map((v,i) => ({id: 't'+Date.now()+'_'+i, value: v, used:false}));
+    state.chain = [];
+    state.revealed = false;
+    state.solvedThisRound = false;
+    answerInput.value = '';
+    feedbackEl.textContent = '';
+    feedbackEl.className = 'feedback';
+    renderExpression();
+    renderTray();
+    updateLayout();
+    renderBuiltLine();
+  }
+
+  document.getElementById('btn-check').addEventListener('click', checkAnswer);
+  document.getElementById('btn-reset').addEventListener('click', resetCurrent);
+  document.getElementById('btn-new').addEventListener('click', newExercise);
+  answerInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') checkAnswer(); });
+
+  // ------------------------------------------------------------------
+  // "Rule discovery" module: two mirrored same-sign exercises + a quiz
+  // ------------------------------------------------------------------
+  const ruleExprPos = document.getElementById('rule-expr-pos');
+  const ruleExprNeg = document.getElementById('rule-expr-neg');
+  const ruleSvgPos = document.getElementById('rule-svg-pos');
+  const ruleSvgNeg = document.getElementById('rule-svg-neg');
+  const ruleOptionsEl = document.getElementById('rule-options');
+  const ruleExplainEl = document.getElementById('rule-explain');
+
+  const RULE_OPTIONS = [
+    { text: 'מחברים את הערכים המוחלטים, והתוצאה מקבלת את הסימן המשותף', correct: true },
+    { text: 'מחסרים בין הערכים המוחלטים', correct: false },
+    { text: 'התוצאה תמיד יוצאת חיובית', correct: false },
+    { text: 'אי אפשר לדעת מראש מה יהיה סימן התוצאה', correct: false }
+  ];
+
+  let ruleMags = [];
+
+  function genRuleMags(){
+    let mags, S, guard = 0;
+    do {
+      mags = [randInt(1,6), randInt(1,6), randInt(1,6)];
+      S = mags.reduce((a,b)=>a+b,0);
+      guard++;
+    } while((S < 4 || S > 12 || new Set(mags).size < 3) && guard < 300);
+    return mags;
+  }
+
+  function renderRuleExpr(el, mags, sign){
+    el.innerHTML = '';
+    mags.forEach((m, idx) => {
+      if(idx > 0){
+        const op = document.createElement('span');
+        op.textContent = ' + ';
+        el.appendChild(op);
+      }
+      const span = document.createElement('span');
+      const v = sign * m;
+      span.className = v < 0 ? 'neg' : 'pos';
+      span.textContent = formatTerm(v);
+      el.appendChild(span);
+    });
+    const eq = document.createElement('span');
+    const total = sign * mags.reduce((a,b)=>a+b,0);
+    eq.textContent = ' = ' + total;
+    el.appendChild(eq);
+  }
+
+  function drawRuleDiagram(svgEl, mags, sign){
+    const S = mags.reduce((a,b)=>a+b,0);
+    const extent = S + 1;
+    const W = 340, H = 110;
+    const cx = W/2;
+    const px = Math.max(11, Math.min(26, Math.floor((W/2 - 20) / extent)));
+    const axisY = 74;
+    const rowY = 40;
+    svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svgEl.innerHTML = '';
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const color = sign < 0 ? '#e03131' : '#2f9e44';
+    const marker = sign < 0 ? 'url(#head-red)' : 'url(#head-green)';
+
+    const axis = document.createElementNS(svgNS,'line');
+    axis.setAttribute('x1', cx - extent*px); axis.setAttribute('x2', cx + extent*px);
+    axis.setAttribute('y1', axisY); axis.setAttribute('y2', axisY);
+    axis.setAttribute('stroke', '#1f3a5f');
+    axis.setAttribute('stroke-width', 2);
+    svgEl.appendChild(axis);
+
+    [-extent, 0, extent].forEach(i => {
+      const x = cx + i*px;
+      const tick = document.createElementNS(svgNS,'line');
+      tick.setAttribute('x1', x); tick.setAttribute('x2', x);
+      tick.setAttribute('y1', axisY-6); tick.setAttribute('y2', axisY+6);
+      tick.setAttribute('stroke', i===0 ? '#d9a52c' : '#4c6480');
+      tick.setAttribute('stroke-width', i===0 ? 2.5 : 1.5);
+      svgEl.appendChild(tick);
+      if(i === 0){
+        const lbl = document.createElementNS(svgNS,'text');
+        lbl.setAttribute('x', x); lbl.setAttribute('y', axisY+22);
+        lbl.setAttribute('text-anchor','middle');
+        lbl.setAttribute('font-size','12');
+        lbl.setAttribute('font-weight','700');
+        lbl.setAttribute('fill','#d9a52c');
+        lbl.setAttribute('class','num-text');
+        lbl.textContent = '0';
+        svgEl.appendChild(lbl);
+      }
+    });
+
+    let running = 0;
+    mags.forEach(m => {
+      const value = sign * m;
+      const startX = cx + running*px;
+      running += value;
+      const endX = cx + running*px;
+
+      const guide = document.createElementNS(svgNS,'line');
+      guide.setAttribute('x1', endX); guide.setAttribute('x2', endX);
+      guide.setAttribute('y1', rowY); guide.setAttribute('y2', axisY);
+      guide.setAttribute('stroke', '#c9d8e6');
+      guide.setAttribute('stroke-width', 1.5);
+      guide.setAttribute('stroke-dasharray','3,3');
+      svgEl.appendChild(guide);
+
+      const line = document.createElementNS(svgNS,'line');
+      line.setAttribute('x1', startX); line.setAttribute('x2', endX);
+      line.setAttribute('y1', rowY); line.setAttribute('y2', rowY);
+      line.setAttribute('stroke', color);
+      line.setAttribute('stroke-width', 4);
+      line.setAttribute('stroke-linecap','round');
+      line.setAttribute('marker-end', marker);
+      svgEl.appendChild(line);
+
+      const label = document.createElementNS(svgNS,'text');
+      label.setAttribute('x', (startX+endX)/2);
+      label.setAttribute('y', rowY-8);
+      label.setAttribute('text-anchor','middle');
+      label.setAttribute('class','num-text');
+      label.setAttribute('font-weight','700');
+      label.setAttribute('font-size','12');
+      label.setAttribute('fill', color);
+      label.textContent = fmtSigned(value);
+      svgEl.appendChild(label);
+    });
+
+    const tipX = cx + running*px;
+    const finalLbl = document.createElementNS(svgNS,'text');
+    finalLbl.setAttribute('x', tipX); finalLbl.setAttribute('y', axisY+22);
+    finalLbl.setAttribute('text-anchor','middle');
+    finalLbl.setAttribute('font-size','12');
+    finalLbl.setAttribute('font-weight','700');
+    finalLbl.setAttribute('fill', color);
+    finalLbl.setAttribute('class','num-text');
+    finalLbl.textContent = String(running);
+    svgEl.appendChild(finalLbl);
+  }
+
+  function renderRuleOptions(){
+    ruleOptionsEl.innerHTML = '';
+    ruleExplainEl.style.display = 'none';
+    ruleExplainEl.textContent = '';
+    shuffle(RULE_OPTIONS).forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'rule-option';
+      btn.textContent = opt.text;
+      btn.addEventListener('click', () => onRuleOptionClick(btn, opt));
+      ruleOptionsEl.appendChild(btn);
+    });
+  }
+
+  function onRuleOptionClick(btn, opt){
+    const S = ruleMags.reduce((a,b)=>a+b,0);
+    Array.from(ruleOptionsEl.children).forEach(b => { b.disabled = true; });
+    if(opt.correct){
+      btn.classList.add('correct');
+      ruleExplainEl.textContent = 'נכון! כששני המחוברים נעים לאותו כיוון, כל צעד ממשיך הלאה באותה הדרך — לכן מספיק לחבר את גדלי הצעדים (' + ruleMags.join(' + ') + ' = ' + S + '), ולתת לתוצאה את הסימן המשותף: +' + S + ' בתרגיל הראשון, ו-' + (-S) + ' בתרגיל השני.';
+    } else {
+      btn.classList.add('incorrect');
+      const correctBtn = Array.from(ruleOptionsEl.children).find(b => b.textContent === RULE_OPTIONS.find(o=>o.correct).text);
+      if(correctBtn) correctBtn.classList.add('correct');
+      ruleExplainEl.textContent = 'לא בדיוק. הכלל הוא: כששני המחוברים נעים לאותו כיוון, מחברים את גדלי הצעדים (' + ruleMags.join(' + ') + ' = ' + S + ') ונותנים לתוצאה את הסימן המשותף: +' + S + ' בתרגיל הראשון, ו-' + (-S) + ' בתרגיל השני.';
+    }
+    ruleExplainEl.style.display = 'block';
+  }
+
+  function newRuleExample(){
+    ruleMags = genRuleMags();
+    renderRuleExpr(ruleExprPos, ruleMags, 1);
+    renderRuleExpr(ruleExprNeg, ruleMags, -1);
+    drawRuleDiagram(ruleSvgPos, ruleMags, 1);
+    drawRuleDiagram(ruleSvgNeg, ruleMags, -1);
+    renderRuleOptions();
+  }
+
+  document.getElementById('btn-rule-new').addEventListener('click', newRuleExample);
+
+  // ------------------------------------------------------------------
+  // "Rule discovery" module #2: adding numbers with different signs
+  // ------------------------------------------------------------------
+  const rule2ExprA = document.getElementById('rule2-expr-a');
+  const rule2ExprB = document.getElementById('rule2-expr-b');
+  const rule2SvgA = document.getElementById('rule2-svg-a');
+  const rule2SvgB = document.getElementById('rule2-svg-b');
+  const rule2OptionsEl = document.getElementById('rule2-options');
+  const rule2ExplainEl = document.getElementById('rule2-explain');
+
+  const RULE2_OPTIONS = [
+    { text: 'מחסרים את הערך המוחלט הקטן מהגדול, והתוצאה מקבלת את הסימן של המספר בעל הערך המוחלט הגדול', correct: true },
+    { text: 'מחברים את שני הערכים המוחלטים יחד, בדיוק כמו כשהסימנים זהים', correct: false },
+    { text: 'התוצאה תמיד יוצאת אפס', correct: false },
+    { text: 'הסימן של התוצאה תמיד זהה לסימן של האיבר שנכתב ראשון בתרגיל', correct: false }
+  ];
+
+  let rule2Data = null;
+
+  function genRule2Data(){
+    let p, q, guard = 0;
+    do {
+      p = randInt(4,9);
+      q = randInt(2,7);
+      guard++;
+    } while((p === q) && guard < 300);
+    if(p < q){ const t = p; p = q; q = t; }
+    const dominantFirst = Math.random() < 0.5;
+    return { p, q, dominantFirst };
+  }
+
+  function makeRule2Terms(data, mirror){
+    const base = data.dominantFirst ? [data.p, -data.q] : [-data.q, data.p];
+    return base.map(v => v * mirror);
+  }
+
+  function renderRule2Expr(el, terms){
+    el.innerHTML = '';
+    terms.forEach((t, idx) => {
+      if(idx > 0){
+        const op = document.createElement('span');
+        op.textContent = ' + ';
+        el.appendChild(op);
+      }
+      const span = document.createElement('span');
+      span.className = t < 0 ? 'neg' : 'pos';
+      span.textContent = formatTerm(t);
+      el.appendChild(span);
+    });
+    const eq = document.createElement('span');
+    const total = terms.reduce((a,b) => a+b, 0);
+    eq.textContent = ' = ' + total;
+    el.appendChild(eq);
+  }
+
+  function drawRule2Diagram(svgEl, terms){
+    let running = 0;
+    const positions = [0];
+    terms.forEach(t => { running += t; positions.push(running); });
+    const extent = Math.max(...positions.map(Math.abs)) + 1;
+
+    const W = 340, H = 110;
+    const cx = W/2;
+    const px = Math.max(11, Math.min(30, Math.floor((W/2 - 20) / extent)));
+    const axisY = 78;
+    const rows = [38, 54];
+    svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svgEl.innerHTML = '';
+    const svgNS = 'http://www.w3.org/2000/svg';
+
+    const axis = document.createElementNS(svgNS,'line');
+    axis.setAttribute('x1', cx - extent*px); axis.setAttribute('x2', cx + extent*px);
+    axis.setAttribute('y1', axisY); axis.setAttribute('y2', axisY);
+    axis.setAttribute('stroke', '#1f3a5f');
+    axis.setAttribute('stroke-width', 2);
+    svgEl.appendChild(axis);
+
+    [-extent, 0, extent].forEach(i => {
+      const x = cx + i*px;
+      const tick = document.createElementNS(svgNS,'line');
+      tick.setAttribute('x1', x); tick.setAttribute('x2', x);
+      tick.setAttribute('y1', axisY-6); tick.setAttribute('y2', axisY+6);
+      tick.setAttribute('stroke', i===0 ? '#d9a52c' : '#4c6480');
+      tick.setAttribute('stroke-width', i===0 ? 2.5 : 1.5);
+      svgEl.appendChild(tick);
+      if(i === 0){
+        const lbl = document.createElementNS(svgNS,'text');
+        lbl.setAttribute('x', x); lbl.setAttribute('y', axisY+22);
+        lbl.setAttribute('text-anchor','middle');
+        lbl.setAttribute('font-size','12');
+        lbl.setAttribute('font-weight','700');
+        lbl.setAttribute('fill','#d9a52c');
+        lbl.setAttribute('class','num-text');
+        lbl.textContent = '0';
+        svgEl.appendChild(lbl);
+      }
+    });
+
+    let run = 0;
+    terms.forEach((t, idx) => {
+      const rowY = rows[idx % rows.length];
+      const color = t < 0 ? '#e03131' : '#2f9e44';
+      const marker = t < 0 ? 'url(#head-red)' : 'url(#head-green)';
+      const startX = cx + run*px;
+      run += t;
+      const endX = cx + run*px;
+
+      const guide = document.createElementNS(svgNS,'line');
+      guide.setAttribute('x1', endX); guide.setAttribute('x2', endX);
+      guide.setAttribute('y1', rowY); guide.setAttribute('y2', axisY);
+      guide.setAttribute('stroke', '#c9d8e6');
+      guide.setAttribute('stroke-width', 1.5);
+      guide.setAttribute('stroke-dasharray','3,3');
+      svgEl.appendChild(guide);
+
+      const line = document.createElementNS(svgNS,'line');
+      line.setAttribute('x1', startX); line.setAttribute('x2', endX);
+      line.setAttribute('y1', rowY); line.setAttribute('y2', rowY);
+      line.setAttribute('stroke', color);
+      line.setAttribute('stroke-width', 4);
+      line.setAttribute('stroke-linecap','round');
+      line.setAttribute('marker-end', marker);
+      svgEl.appendChild(line);
+
+      const label = document.createElementNS(svgNS,'text');
+      label.setAttribute('x', (startX+endX)/2);
+      label.setAttribute('y', rowY-8);
+      label.setAttribute('text-anchor','middle');
+      label.setAttribute('class','num-text');
+      label.setAttribute('font-weight','700');
+      label.setAttribute('font-size','12');
+      label.setAttribute('fill', color);
+      label.textContent = fmtSigned(t);
+      svgEl.appendChild(label);
+    });
+
+    const tipX = cx + run*px;
+    const finalLbl = document.createElementNS(svgNS,'text');
+    finalLbl.setAttribute('x', tipX); finalLbl.setAttribute('y', axisY+22);
+    finalLbl.setAttribute('text-anchor','middle');
+    finalLbl.setAttribute('font-size','12');
+    finalLbl.setAttribute('font-weight','700');
+    finalLbl.setAttribute('fill', run < 0 ? '#e03131' : '#2f9e44');
+    finalLbl.setAttribute('class','num-text');
+    finalLbl.textContent = String(run);
+    svgEl.appendChild(finalLbl);
+  }
+
+  function renderRule2Options(){
+    rule2OptionsEl.innerHTML = '';
+    rule2ExplainEl.style.display = 'none';
+    rule2ExplainEl.textContent = '';
+    shuffle(RULE2_OPTIONS).forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'rule-option';
+      btn.textContent = opt.text;
+      btn.addEventListener('click', () => onRule2OptionClick(btn, opt));
+      rule2OptionsEl.appendChild(btn);
+    });
+  }
+
+  function onRule2OptionClick(btn, opt){
+    const diff = rule2Data.p - rule2Data.q;
+    Array.from(rule2OptionsEl.children).forEach(b => { b.disabled = true; });
+    const msgBase = 'הערך המוחלט הגדול הוא ' + rule2Data.p + ' והקטן הוא ' + rule2Data.q +
+      '. ההפרש ביניהם הוא ' + diff + ' — ולכן בתרגיל הראשון קיבלנו +' + diff +
+      ' (כי ' + rule2Data.p + ' הוא החיובי הגדול), ובתרגיל השני ' + (-diff) +
+      ' (כי הפעם ' + rule2Data.p + ' הוא השלילי הגדול).';
+    if(opt.correct){
+      btn.classList.add('correct');
+      rule2ExplainEl.textContent = 'נכון! ' + msgBase;
+    } else {
+      btn.classList.add('incorrect');
+      const correctBtn = Array.from(rule2OptionsEl.children).find(b => b.textContent === RULE2_OPTIONS.find(o=>o.correct).text);
+      if(correctBtn) correctBtn.classList.add('correct');
+      rule2ExplainEl.textContent = 'לא בדיוק. ' + msgBase;
+    }
+    rule2ExplainEl.style.display = 'block';
+  }
+
+  function newRule2Example(){
+    rule2Data = genRule2Data();
+    const termsA = makeRule2Terms(rule2Data, 1);
+    const termsB = makeRule2Terms(rule2Data, -1);
+    renderRule2Expr(rule2ExprA, termsA);
+    renderRule2Expr(rule2ExprB, termsB);
+    drawRule2Diagram(rule2SvgA, termsA);
+    drawRule2Diagram(rule2SvgB, termsB);
+    renderRule2Options();
+  }
+
+  document.getElementById('btn-rule2-new').addEventListener('click', newRule2Example);
+
+  // ------------------------------------------------------------------
+  // "Rule discovery" module #3: order doesn't matter (commutativity),
+  // even with negative numbers involved
+  // ------------------------------------------------------------------
+  const rule3ExprA = document.getElementById('rule3-expr-a');
+  const rule3ExprB = document.getElementById('rule3-expr-b');
+  const rule3SvgA = document.getElementById('rule3-svg-a');
+  const rule3SvgB = document.getElementById('rule3-svg-b');
+  const rule3OptionsEl = document.getElementById('rule3-options');
+  const rule3ExplainEl = document.getElementById('rule3-explain');
+
+  const RULE3_OPTIONS = [
+    { text: 'אפשר לשנות את סדר האיברים גם כשיש ביניהם מספרים שליליים, והתוצאה תישאר זהה', correct: true },
+    { text: 'שינוי הסדר משנה את התוצאה ברגע שיש מספר שלילי בין האיברים', correct: false },
+    { text: 'חוק החילוף תקף רק כשכל האיברים חיוביים', correct: false },
+    { text: 'צריך תמיד לחבר קודם את האיברים החיוביים ורק אחר כך את השליליים', correct: false }
+  ];
+
+  function genCommuteTerms(){
+    let terms, guard = 0;
+    while(guard < 500){
+      guard++;
+      terms = [randNonZero(-8,8), randNonZero(-8,8), randNonZero(-8,8)];
+      const hasPos = terms.some(t => t > 0);
+      const hasNeg = terms.some(t => t < 0);
+      if(!hasPos || !hasNeg) continue;
+      let running = 0, within = true;
+      for(const t of terms){ running += t; if(Math.abs(running) > 12){ within = false; break; } }
+      if(within && Math.abs(running) <= 10) break;
+    }
+    return terms;
+  }
+
+  function differentOrder(terms){
+    let order = shuffle(terms), guard = 0;
+    while(order.every((v,i) => v === terms[i]) && guard < 30){
+      order = shuffle(terms);
+      guard++;
+    }
+    return order;
+  }
+
+  function renderRule3Expr(el, terms){
+    el.innerHTML = '';
+    terms.forEach((t, idx) => {
+      if(idx > 0){
+        const op = document.createElement('span');
+        op.textContent = ' + ';
+        el.appendChild(op);
+      }
+      const span = document.createElement('span');
+      span.className = t < 0 ? 'neg' : 'pos';
+      span.textContent = formatTerm(t);
+      el.appendChild(span);
+    });
+    const eq = document.createElement('span');
+    const total = terms.reduce((a,b) => a+b, 0);
+    eq.textContent = ' = ' + total;
+    el.appendChild(eq);
+  }
+
+  function drawCommuteDiagram(svgEl, terms){
+    const BASE_OFFSET = 40, ROW_GAP = 26, TOP_MARGIN = 22, BOTTOM_MARGIN = 34;
+    let maxFloor = 0, prevSign = null;
+    terms.forEach((t, idx) => {
+      const sign = t < 0 ? -1 : 1;
+      if(idx > 0 && sign !== prevSign) maxFloor += 1;
+      prevSign = sign;
+    });
+    const axisY = BASE_OFFSET + maxFloor*ROW_GAP + TOP_MARGIN;
+    const H = axisY + BOTTOM_MARGIN;
+    const W = 340, cx = W/2;
+
+    let running = 0;
+    const positions = [0];
+    terms.forEach(t => { running += t; positions.push(running); });
+    const extent = Math.max(...positions.map(Math.abs)) + 1;
+    const px = Math.max(10, Math.min(26, Math.floor((W/2 - 20) / extent)));
+
+    svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svgEl.innerHTML = '';
+    const svgNS = 'http://www.w3.org/2000/svg';
+
+    const axis = document.createElementNS(svgNS,'line');
+    axis.setAttribute('x1', cx - extent*px); axis.setAttribute('x2', cx + extent*px);
+    axis.setAttribute('y1', axisY); axis.setAttribute('y2', axisY);
+    axis.setAttribute('stroke', '#1f3a5f');
+    axis.setAttribute('stroke-width', 2);
+    svgEl.appendChild(axis);
+
+    [-extent, 0, extent].forEach(i => {
+      const x = cx + i*px;
+      const tick = document.createElementNS(svgNS,'line');
+      tick.setAttribute('x1', x); tick.setAttribute('x2', x);
+      tick.setAttribute('y1', axisY-6); tick.setAttribute('y2', axisY+6);
+      tick.setAttribute('stroke', i===0 ? '#d9a52c' : '#4c6480');
+      tick.setAttribute('stroke-width', i===0 ? 2.5 : 1.5);
+      svgEl.appendChild(tick);
+      if(i === 0){
+        const lbl = document.createElementNS(svgNS,'text');
+        lbl.setAttribute('x', x); lbl.setAttribute('y', axisY+22);
+        lbl.setAttribute('text-anchor','middle');
+        lbl.setAttribute('font-size','12');
+        lbl.setAttribute('font-weight','700');
+        lbl.setAttribute('fill','#d9a52c');
+        lbl.setAttribute('class','num-text');
+        lbl.textContent = '0';
+        svgEl.appendChild(lbl);
+      }
+    });
+
+    function floorY(i){ return axisY - BASE_OFFSET - i*ROW_GAP; }
+
+    let run = 0, prevY = axisY, prevS = null, floorIndex = -1;
+    terms.forEach((t, idx) => {
+      const sign = t < 0 ? -1 : 1;
+      if(idx === 0){ floorIndex = 0; }
+      else if(sign !== prevS){ floorIndex += 1; }
+      const rowY = floorY(floorIndex);
+      const color = t < 0 ? '#e03131' : '#2f9e44';
+      const marker = t < 0 ? 'url(#head-red)' : 'url(#head-green)';
+      const startX = cx + run*px;
+      run += t;
+      const endX = cx + run*px;
+
+      if(rowY !== prevY){
+        const connector = document.createElementNS(svgNS,'line');
+        connector.setAttribute('x1', startX); connector.setAttribute('x2', startX);
+        connector.setAttribute('y1', prevY); connector.setAttribute('y2', rowY);
+        connector.setAttribute('stroke', '#c9d8e6');
+        connector.setAttribute('stroke-width', 1.5);
+        connector.setAttribute('stroke-dasharray','3,3');
+        svgEl.appendChild(connector);
+      }
+
+      if(idx === terms.length - 1){
+        const guide = document.createElementNS(svgNS,'line');
+        guide.setAttribute('x1', endX); guide.setAttribute('x2', endX);
+        guide.setAttribute('y1', rowY); guide.setAttribute('y2', axisY);
+        guide.setAttribute('stroke', '#c9d8e6');
+        guide.setAttribute('stroke-width', 1.5);
+        guide.setAttribute('stroke-dasharray','3,3');
+        svgEl.appendChild(guide);
+      }
+
+      const line = document.createElementNS(svgNS,'line');
+      line.setAttribute('x1', startX); line.setAttribute('x2', endX);
+      line.setAttribute('y1', rowY); line.setAttribute('y2', rowY);
+      line.setAttribute('stroke', color);
+      line.setAttribute('stroke-width', 4);
+      line.setAttribute('stroke-linecap','round');
+      line.setAttribute('marker-end', marker);
+      svgEl.appendChild(line);
+
+      const label = document.createElementNS(svgNS,'text');
+      label.setAttribute('x', (startX+endX)/2);
+      label.setAttribute('y', rowY-8);
+      label.setAttribute('text-anchor','middle');
+      label.setAttribute('class','num-text');
+      label.setAttribute('font-weight','700');
+      label.setAttribute('font-size','12');
+      label.setAttribute('fill', color);
+      label.textContent = fmtSigned(t);
+      svgEl.appendChild(label);
+
+      prevY = rowY;
+      prevS = sign;
+    });
+
+    const tipX = cx + run*px;
+    const pin = document.createElementNS(svgNS,'path');
+    pin.setAttribute('d', `M ${tipX} ${prevY-6} l 7 -13 l -14 0 z`);
+    pin.setAttribute('fill', '#d9a52c');
+    svgEl.appendChild(pin);
+
+    const q = document.createElementNS(svgNS,'text');
+    q.setAttribute('x', tipX);
+    q.setAttribute('y', prevY-22);
+    q.setAttribute('text-anchor','middle');
+    q.setAttribute('font-size','13');
+    q.setAttribute('font-weight','700');
+    q.setAttribute('fill', '#d9a52c');
+    q.setAttribute('class','num-text');
+    q.textContent = String(run);
+    svgEl.appendChild(q);
+  }
+
+  function renderRule3Options(){
+    rule3OptionsEl.innerHTML = '';
+    rule3ExplainEl.style.display = 'none';
+    rule3ExplainEl.textContent = '';
+    shuffle(RULE3_OPTIONS).forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'rule-option';
+      btn.textContent = opt.text;
+      btn.addEventListener('click', () => onRule3OptionClick(btn, opt));
+      rule3OptionsEl.appendChild(btn);
+    });
+  }
+
+  let rule3Sum = 0;
+
+  function onRule3OptionClick(btn, opt){
+    Array.from(rule3OptionsEl.children).forEach(b => { b.disabled = true; });
+    const msgBase = 'בשני התרגילים הופיעו בדיוק אותם שלושה איברים, רק בסדר שונה — ובכל זאת שני הסכומים יצאו ' + rule3Sum + '. חוק החילוף של החיבור תקף גם כשיש בין האיברים מספרים שליליים.';
+    if(opt.correct){
+      btn.classList.add('correct');
+      rule3ExplainEl.textContent = 'נכון! ' + msgBase;
+    } else {
+      btn.classList.add('incorrect');
+      const correctBtn = Array.from(rule3OptionsEl.children).find(b => b.textContent === RULE3_OPTIONS.find(o=>o.correct).text);
+      if(correctBtn) correctBtn.classList.add('correct');
+      rule3ExplainEl.textContent = 'לא בדיוק. ' + msgBase;
+    }
+    rule3ExplainEl.style.display = 'block';
+  }
+
+  function newRule3Example(){
+    const base = genCommuteTerms();
+    const orderA = base.slice();
+    const orderB = differentOrder(base);
+    rule3Sum = base.reduce((a,b) => a+b, 0);
+    renderRule3Expr(rule3ExprA, orderA);
+    renderRule3Expr(rule3ExprB, orderB);
+    drawCommuteDiagram(rule3SvgA, orderA);
+    drawCommuteDiagram(rule3SvgB, orderB);
+    renderRule3Options();
+  }
+
+  document.getElementById('btn-rule3-new').addEventListener('click', newRule3Example);
+
+  newExercise();
+  newRuleExample();
+  newRule2Example();
+  newRule3Example();
+})();
+</script>
+</body>
+</html>
