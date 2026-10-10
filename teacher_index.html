@@ -201,6 +201,12 @@
   .hi-date { color: #9CA3AF; font-size: 11.5px; white-space: nowrap; }
   .hi-pass { color: #047857; font-weight: 700; }
   .hi-fail { color: #B91C1C; font-weight: 700; }
+  .hi-del-btn {
+    background: none; border: none; cursor: pointer; font-size: 14px;
+    opacity: 0.35; padding: 0 2px; line-height: 1; transition: opacity .15s;
+  }
+  .hi-del-btn:hover { opacity: 1; }
+  .history-item.deleting { opacity: 0.4; pointer-events: none; }
 
   /* Toast */
   .toast {
@@ -683,12 +689,20 @@ function renderHistory() {
   el.innerHTML = '<div class="history-list">' + evts.map(function(e) {
     const d = new Date(e.timestamp);
     const dateStr = d.toLocaleDateString('he-IL') + ' ' + d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
-    return '<div class="history-item">' +
+    return '<div class="history-item" data-eid="' + escHtml(e.id) + '">' +
       '<span class="hi-unit">' + escHtml(e.unit) + '</span>' +
       '<span class="' + (e.passed ? 'hi-pass' : 'hi-fail') + '">' + (e.passed ? '✓' : '✗') + '</span>' +
       '<span class="hi-date">' + dateStr + '</span>' +
+      '<button class="hi-del-btn" title="מחק רשומה">🗑️</button>' +
       '</div>';
   }).join('') + '</div>';
+
+  el.querySelectorAll('.hi-del-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const item = btn.closest('.history-item');
+      deleteEvent(item.dataset.eid, item);
+    });
+  });
 }
 
 // ════════════════════════════════
@@ -729,6 +743,31 @@ function logEvent(passed) {
       showToast('שגיאה בשמירה: ' + err.message);
     })
     .addEventServer(studentId, unit, passed);
+}
+
+// ════════════════════════════════
+// מחיקת רשומה
+// ════════════════════════════════
+function deleteEvent(eventId, itemEl) {
+  if (!confirm('למחוק רשומה זו?')) return;
+  itemEl.classList.add('deleting');
+
+  // מחיקה מיידית מהזיכרון
+  state.events = state.events.filter(function(e) { return e.id !== eventId; });
+  render();
+  renderStats();
+
+  // מחיקה מהגיליון
+  google.script.run
+    .withSuccessHandler(function(res) {
+      if (!res.ok) showToast('שגיאה במחיקה: ' + (res.error || ''));
+      else showToast('הרשומה נמחקה ✓');
+      setTimeout(loadData, 800);
+    })
+    .withFailureHandler(function(err) {
+      showToast('שגיאה: ' + err.message);
+    })
+    .deleteEventServer(eventId);
 }
 
 // ════════════════════════════════
