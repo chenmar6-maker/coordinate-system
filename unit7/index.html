@@ -540,12 +540,19 @@ function nextQ(){ state.qi++; state.answered=false; state.lastAnswer=-1; render(
 function renderGameResults(){
   const total = currentLevels().length;
   const pct = Math.round(state.score/total*100);
+  let emoji, msg;
+  if(pct===100){ emoji='🌟'; msg='מושלם! שלטת בחומר על הצד הטוב ביותר!'; }
+  else if(pct>=80){ emoji='💪'; msg='כל הכבוד! עבודה מצוינת.'; }
+  else if(pct>=60){ emoji='👍'; msg='עבודה טובה, עוד קצת תרגול ותשלוט בחומר!'; }
+  else { emoji='📚'; msg='המשך להתאמן — אתה בדרך הנכונה!'; }
   return `<div class="panel" style="text-align:center;">
-    <div class="qtitle">סיימת את התרגול!</div>
+    <div style="font-size:52px;margin-bottom:8px;">${emoji}</div>
+    <h2 class="qtitle">סיימת את התרגול!</h2>
     <div class="scorebig">${state.score}/${total}</div>
-    <div style="font-size:16px;opacity:.8;margin-bottom:20px;">${pct}% תשובות נכונות</div>
+    <div style="font-size:15px;opacity:.75;margin-bottom:6px;">${pct}% תשובות נכונות</div>
+    <div style="font-size:16px;font-weight:600;color:var(--gold);margin-bottom:22px;">${msg}</div>
     <div class="btnrow">
-      <button class="btn" onclick="startGame()">שוב ←</button>
+      <button class="btn" onclick="startGame()">נסה שוב ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
