@@ -342,7 +342,10 @@ function renderGameResults(){
 }
 
 render();
-requestAnimationFrame(function(){ window.scrollTo(0,0); });
+window.scrollTo(0,0);
+window.addEventListener('pageshow', function(){ window.scrollTo(0,0); });
+setTimeout(function(){ window.scrollTo(0,0); }, 0);
+setTimeout(function(){ window.scrollTo(0,0); }, 100);
 </script>
 <footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
 </body>
