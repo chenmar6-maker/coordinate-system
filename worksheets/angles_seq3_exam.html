@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>מבדק שליטה — רצף 3: סכום והפרש זוויות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Rubik',sans-serif;font-size:13px;color:#111;direction:rtl;background:#fff;padding:18px 22px 14px;}
+  .header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2.5px solid #111;padding-bottom:8px;margin-bottom:10px;}
+  .header-title{font-size:18px;font-weight:700;}
+  .header-sub{font-size:12px;color:#444;margin-top:2px;}
+  .part-label{font-size:13px;font-weight:700;background:#111;color:#fff;padding:3px 10px;border-radius:3px;display:inline-block;margin-bottom:7px;}
+  .sec-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+  .name-f{font-size:11.5px;}
+  .name-f span{border-bottom:1px solid #555;display:inline-block;min-width:130px;}
+  .q{margin-bottom:7px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;font-size:12.5px;}
+  .qn{font-weight:700;margin-left:4px;}
+  .mc{display:flex;flex-wrap:wrap;gap:5px 10px;margin-top:5px;}
+  .mc span{border:1px solid #aaa;border-radius:12px;padding:2px 10px;font-size:12px;}
+  .wl{border-bottom:1px solid #ccc;margin-top:13px;}
+  .tl{border-bottom:1px solid #bbb;margin-top:13px;}
+  .b{border-bottom:1px solid #555;display:inline-block;min-width:55px;}
+  .bw{border-bottom:1px solid #555;display:inline-block;min-width:110px;}
+  .bs{border-bottom:1px solid #555;display:inline-block;min-width:32px;}
+  .hr{border:none;border-top:2px dashed #aaa;margin:10px 0;}
+  .sbar{display:flex;gap:14px;justify-content:flex-end;font-size:12px;margin-top:8px;color:#444;border-top:1px solid #ccc;padding-top:6px;flex-wrap:wrap;}
+  .sf{border-bottom:1px solid #555;min-width:40px;display:inline-block;}
+  @media print{.noprint{display:none;}@page{size:A4;margin:0;}}
+  .scaler{transform:scale(0.74);transform-origin:top right;width:calc(100% / 0.74);}
+  .pbtn{position:fixed;bottom:18px;left:18px;background:#111;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.25);}
+  .pbtn:hover{background:#333;}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:5px 16px;}
+  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px 14px;}
+  .qd{display:flex;gap:12px;align-items:flex-start;}
+  .qt{flex:1;}
+  .fig{flex-shrink:0;}
+  svg text{font-family:'Rubik',sans-serif;fill:#111;}
+  .lbl{font-size:12px;font-weight:700;}
+  .slbl{font-size:10px;fill:#555;}
+  .tname{font-size:11px;font-weight:700;text-anchor:middle;}
+  .jxgbox { touch-action: none; overflow: hidden; border: none !important; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.9.2/distrib/jsxgraph.css"/>
+<script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.9.2/distrib/jsxgraphcore.js"></script>
+</head>
+<body>
+<div class="scaler">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — רצף 3: סכום והפרש זוויות</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; יחידה: זוויות</div>
+  </div>
+  <div style="font-size:13px;font-weight:700;color:#333;">חן מרגלית למידה אקטיבית</div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     רצף 3 — סכום והפרש זוויות
+═══════════════════════════════════ -->
+<div class="sec-hdr">
+  <span class="part-label" style="margin-bottom:0">רצף 3 — סכום והפרש זוויות</span>
+</div>
+
+<div class="q">
+  <div style="margin-bottom:5px;"><span class="qn">9.</span> חשבו את הסכום (שוק אמצעי מחלק את הזווית הגדולה):</div>
+  <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;">
+    <div>א. <span dir="ltr">∡ABC=40°, ∡CBD=50°</span>. מה <span dir="ltr">∡ABD</span>? <span class="bs">&nbsp;</span><div class="wl"></div></div>
+    <div id="q9a-board" class="fig" style="width:96px;height:78px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q9a-board', {
+        boundingbox: [-1.5,5.5,5.5,-0.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var Bpt = b.create('point',[0,0], Object.assign({name:'B', label:lbl(-14,-8)}, ps));
+      var D = b.create('point',[4,0], Object.assign({name:'D', label:lbl(5,-7)}, ps));
+      var C = b.create('point',[1.93,2.30], Object.assign({name:'C', label:lbl(5,5)}, ps));
+      var A = b.create('point',[0,4], Object.assign({name:'A', label:lbl(-14,5)}, ps));
+      b.create('arrow',[Bpt, D], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[Bpt, C], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[Bpt, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[D, Bpt, C], {radius:1.2, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[2.0,0.7,'50°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+      b.create('text',[0.5,2.3,'40°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;margin-top:4px;">
+    <div>ב. <span dir="ltr">∡DEF=65°, ∡FEG=25°</span>. מה <span dir="ltr">∡DEG</span>? <span class="bs">&nbsp;</span><div class="wl"></div></div>
+    <div id="q9b-board" class="fig" style="width:96px;height:78px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q9b-board', {
+        boundingbox: [-1.5,5.5,5.5,-0.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var E = b.create('point',[0,0], Object.assign({name:'E', label:lbl(-14,-8)}, ps));
+      var G = b.create('point',[4,0], Object.assign({name:'G', label:lbl(5,-7)}, ps));
+      var F = b.create('point',[3.6,1.7], Object.assign({name:'F', label:lbl(5,5)}, ps));
+      var D = b.create('point',[0,4], Object.assign({name:'D', label:lbl(-14,5)}, ps));
+      b.create('arrow',[E, G], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[E, F], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[E, D], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[G, E, D], {type:'square', radius:0.7, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[G, E, F], {radius:1.2, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[F, E, D], {radius:1.8, strokeColor:'#777', strokeWidth:1.2, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[2.1,0.45,'25°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+      b.create('text',[0.9,2.1,'65°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
+  </div>
+</div>
+
+<div class="q">
+  <div style="margin-bottom:5px;"><span class="qn">10.</span> חשבו את ההפרש:</div>
+  <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;">
+    <div>א. <span dir="ltr">∡AOB=130°, ∡AOC=80°</span>. מה <span dir="ltr">∡COB</span>? <span class="bs">&nbsp;</span><div class="wl"></div></div>
+    <div id="q10a-board" class="fig" style="width:108px;height:78px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q10a-board', {
+        boundingbox: [-3.8,5.0,5.5,-0.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
+      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
+      var C = b.create('point',[2.46,3.15], Object.assign({name:'C', label:lbl(5,5)}, ps));
+      var A = b.create('point',[-2.57,3.06], Object.assign({name:'A', label:lbl(-14,5)}, ps));
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, C], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.3, strokeColor:'#555', strokeWidth:1.5, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[1.9,0.7,'?'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;margin-top:4px;">
+    <div>ב. <span dir="ltr">∡XYZ=95°, ∡XYW=55°</span>. מה <span dir="ltr">∡WYZ</span>? <span class="bs">&nbsp;</span><div class="wl"></div></div>
+    <div id="q10b-board" class="fig" style="width:108px;height:78px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q10b-board', {
+        boundingbox: [-1.5,5.5,5.5,-0.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var Y = b.create('point',[0,0], Object.assign({name:'Y', label:lbl(-14,-8)}, ps));
+      var Z = b.create('point',[4,0], Object.assign({name:'Z', label:lbl(5,-7)}, ps));
+      var W = b.create('point',[3.09,2.57], Object.assign({name:'W', label:lbl(5,5)}, ps));
+      var X = b.create('point',[-0.35,4.0], Object.assign({name:'X', label:lbl(-14,5)}, ps));
+      b.create('arrow',[Y, Z], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[Y, W], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[Y, X], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Z, Y, W], {radius:1.3, strokeColor:'#555', strokeWidth:1.5, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[2.0,0.65,'?'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
+  </div>
+</div>
+
+<!-- Q11: flat angle -->
+<div class="q">
+  <div style="display:flex;gap:10px;align-items:center;">
+    <div>
+      <div><span class="qn">11.</span> <span dir="ltr">∡AOB=180°</span>. שוק OC בתוך הזווית. נתון: <span dir="ltr">∡AOC=75°</span>. חשבו <span dir="ltr">∡COB</span>.</div>
+      <div style="margin-top:4px;"><span dir="ltr">∡COB</span> = <span class="b">&nbsp;</span></div>
+      <div class="wl"></div>
+    </div>
+    <div id="q11-board" class="fig" style="width:135px;height:80px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q11-board', {
+        boundingbox: [-5.5,5.0,5.5,-1.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-5,-10)}, ps));
+      var A = b.create('point',[-4,0], Object.assign({name:'A', label:lbl(-14,5)}, ps));
+      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,5)}, ps));
+      var C = b.create('point',[1.04,3.86], Object.assign({name:'C', label:lbl(5,5)}, ps));
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, C], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.4, strokeColor:'#555', strokeWidth:1.5, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:0.95, strokeColor:'#aaa', strokeWidth:1.1, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[1.9,1.4,'?'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+      b.create('text',[-1.7,1.3,'75°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
+  </div>
+</div>
+
+<!-- Q12: right angle — stated verbally -->
+<div class="q">
+  <div style="display:flex;gap:10px;align-items:center;">
+    <div>
+      <div><span class="qn">12.</span> <span dir="ltr">∡AOB</span> היא זווית ישרה. שוק OC בתוך הזווית. נתון: <span dir="ltr">∡AOC=32°</span>. חשבו <span dir="ltr">∡COB</span>.</div>
+      <div style="margin-top:4px;"><span dir="ltr">∡COB</span> = <span class="b">&nbsp;</span></div>
+      <div class="wl"></div>
+    </div>
+    <div id="q12-board" class="fig" style="width:108px;height:88px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q12-board', {
+        boundingbox: [-1.5,5.5,5.5,-0.9],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
+      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
+      var A = b.create('point',[0,4], Object.assign({name:'A', label:lbl(-14,5)}, ps));
+      var C = b.create('point',[3.39,2.12], Object.assign({name:'C', label:lbl(5,5)}, ps));
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, C], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Bpt, O, A], {type:'square', radius:0.7, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.3, strokeColor:'#555', strokeWidth:1.5, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:2.0, strokeColor:'#aaa', strokeWidth:1.1, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[1.8,0.55,'?'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+      b.create('text',[1.5,2.9,'32°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
+  </div>
+</div>
+<div class="sbar"><div>ניקוד: <span class="sf">&nbsp;</span></div></div>
+
+</div><!-- end scaler -->
+<button class="pbtn noprint" onclick="window.print()">🖨️ הדפסה / שמירה כ-PDF</button>
+</body>
+</html>

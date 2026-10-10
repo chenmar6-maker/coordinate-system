@@ -94,12 +94,62 @@ const gameLevels1 = [
   {q:'איזה מהבאים הוא זווית חדה?',opts:['90°','120°','35°','180°'],ans:2,exp:'זווית חדה היא בין 0° ל-90°. 35° < 90° — לכן חדה.'},
 ];
 
+const gameLevels2 = [
+  {q:'בכתיב ∡ABC, מה הוא הקודקוד?',opts:['A','B','C','לא ניתן לדעת'],ans:1,exp:'הקודקוד תמיד האות האמצעית. ב-∡ABC — הקודקוד הוא B.'},
+  {q:'בכתיב ∡PQR, מה הן השוקיים?',opts:['PQ ו-PR','QP ו-QR','PQ ו-QR','RP ו-RQ'],ans:1,exp:'הקודקוד Q (אמצעי), לכן השוקיים הן הקרניים היוצאות ממנו: QP ו-QR.'},
+  {q:'∡BAC — הקודקוד הוא:',opts:['B','A','C','BA'],ans:1,exp:'האות האמצעית ב-∡BAC היא A — זהו הקודקוד.'},
+  {q:'זווית שקודקודה M ושוקיה MA ו-MB. אילו כתיבים נכונים?',opts:['∡AMB בלבד','∡BMA בלבד','∡AMB ו-∡BMA שניהם','∡MAB'],ans:2,exp:'אפשר להפוך את סדר השוקיים: ∡AMB ו-∡BMA מתארים את אותה הזווית.'},
+  {q:'∡CAT — מה הקודקוד?',opts:['C','A','T','CA'],ans:1,exp:'∡CAT: C — שוק, A — קודקוד (אמצעי), T — שוק.'},
+  {q:'מתי מותר לכתוב רק ∡B (ללא שלוש אותיות)?',opts:['תמיד','רק כשהזווית חדה','רק כשיש זווית אחת בקודקוד B','אף פעם'],ans:2,exp:'כותבים ∡B ללא שלוש אותיות רק כשאין בלבול — כלומר יש זווית אחת בלבד בקודקוד B.'},
+];
+
+const gameLevels3 = [
+  {q:'∡AOB=40°, ∡BOC=30°, C בתוך ∡AOB. מה ∡AOC?',opts:['10°','70°','40°','80°'],ans:1,exp:'סכום: ∡AOC = 40°+30° = 70°. (שגיאה נפוצה: בלבול בין C לבין ∡AOB — כאן C הוא שוק פנימי)'},
+  {q:'∡XYZ=90°, ∡XYW=55°, W בתוך הזווית. מה ∡WYZ?',opts:['55°','145°','35°','90°'],ans:2,exp:'הפרש: ∡WYZ = 90°−55° = 35°.'},
+  {q:'∡AOC=180°, ∡AOB=110°. מה ∡BOC?',opts:['110°','70°','80°','290°'],ans:1,exp:'הפרש: 180°−110° = 70°.'},
+  {q:'שוק בתוך זווית ישרה מחלק אותה לשני חלקים שווים. כמה כל חלק?',opts:['30°','45°','60°','90°'],ans:1,exp:'זווית ישרה=90°. שני חלקים שווים: 90°÷2=45°.'},
+  {q:'∡ABC=120°, ∡ABD=80°, D בתוך ∡ABC. מה ∡DBC?',opts:['200°','40°','80°','120°'],ans:1,exp:'הפרש: 120°−80° = 40°.'},
+  {q:'שלוש קרניים מקודקוד O. ∡AOB=35°, ∡BOC=55°. מה ∡AOC?',opts:['20°','55°','90°','80°'],ans:2,exp:'סכום: 35°+55° = 90°. ∡AOC = ∡AOB + ∡BOC.'},
+];
+
+const gameLevels4 = [
+  {q:'OC חוצה-זווית של ∡AOB=60°. מה ∡AOC?',opts:['60°','120°','30°','45°'],ans:2,exp:'חוצה-זווית מחלקת לשניים: 60°÷2=30°.'},
+  {q:'OC חוצה-זווית של ∡AOB, ∡AOC=40°. מה ∡AOB?',opts:['20°','40°','80°','160°'],ans:2,exp:'∡AOB = 2×∡AOC = 2×40° = 80°.'},
+  {q:'OC חוצה-זווית של זווית ישרה (90°). מה ∡AOC?',opts:['30°','45°','60°','90°'],ans:1,exp:'90°÷2=45°.'},
+  {q:'מה הגדרת חוצה-זווית?',opts:['קרן שמאריכה זווית','קרן שמחלקת זווית לשני חלקים שווים','קרן שנמצאת בתוך הזווית','קרן ניצבת לשוק'],ans:1,exp:'חוצה-זווית = קרן שמחלקת את הזווית לשני חלקים שווים בדיוק.'},
+  {q:'OD חוצה ∡AOB=90°. OE חוצה ∡DOB. מה ∡EOB?',opts:['45°','22.5°','30°','67.5°'],ans:1,exp:'∡DOB=45°. OE חוצה: ∡EOB=45°÷2=22.5°.'},
+  {q:'OC חוצה ∡AOB=80°. מה ∡BOC?',opts:['40°','80°','20°','160°'],ans:0,exp:'∡BOC = ∡AOB÷2 = 80°÷2 = 40°.'},
+];
+
+const gameLevels5 = [
+  {q:'שתי זוויות צמודות. אחת=70°. השנייה=?',opts:['70°','110°','100°','180°'],ans:1,exp:'180°−70°=110°.'},
+  {q:'שתי זוויות צמודות שוות. מה גודל כל אחת?',opts:['45°','60°','90°','180°'],ans:2,exp:'α+α=180° → 2α=180° → α=90°.'},
+  {q:'האם יכולות שתי זוויות צמודות להיות שתיהן חדות?',opts:['כן, תמיד','לא — סכומן חייב להיות 180°','כן, אם כל אחת <90°','כן, אם סכומן < 180°'],ans:1,exp:'שתי חדות <90° → סכום <180°. אי-אפשר כי זוויות צמודות מסכימות ל-180° בדיוק.'},
+  {q:'זווית אחת = 3 פעמים השנייה, שתיהן צמודות. הקטנה=?',opts:['30°','45°','60°','90°'],ans:1,exp:'x+3x=180° → 4x=180° → x=45°.'},
+  {q:'מה סכום שתי זוויות צמודות?',opts:['90°','180°','270°','360°'],ans:1,exp:'זוויות צמודות על קו ישר — סכום = 180°.'},
+  {q:'קרן יוצאת מנקודה על קו ישר. הזווית האחת=115°. השנייה=?',opts:['65°','115°','75°','55°'],ans:0,exp:'180°−115°=65°.'},
+];
+
+const gameLevels6 = [
+  {q:'שני קווים נחתכים. זווית אחת=50°. הזווית הקודקודית=?',opts:['130°','50°','40°','100°'],ans:1,exp:'זוויות קודקודיות שוות: גם היא=50°.'},
+  {q:'שני קווים נחתכים. זווית אחת=50°. הסמוכה לה=?',opts:['50°','130°','100°','140°'],ans:1,exp:'זוויות סמוכות: 180°−50°=130°.'},
+  {q:'כמה זוויות נוצרות בחיתוך שני קווים?',opts:['2','3','4','6'],ans:2,exp:'שני קווים נחתכים יוצרים 4 זוויות.'},
+  {q:'שני קווים נחתכים, כל הזוויות שוות. כמה דרגות כל זווית?',opts:['45°','60°','90°','180°'],ans:2,exp:'4×90°=360°. כאשר כל הזוויות שוות (קווים ניצבים), כל אחת=90°.'},
+  {q:'∡1=110°. מה ∡3 (הקודקודית)?',opts:['70°','110°','80°','220°'],ans:1,exp:'זוויות קודקודיות שוות: ∡3=110°.'},
+  {q:'מה סכום כל 4 הזוויות בחיתוך שני קווים?',opts:['180°','270°','360°','720°'],ans:2,exp:'סכום כל הזוויות סביב נקודה=360°.'},
+];
+
 const gameLevelsPlaceholder = [
   {q:'שאלה לדוגמה — תוכן יתווסף בקרוב',opts:['א','ב','ג','ד'],ans:0,exp:'תוכן תרגול לרצף זה יתווסף בקרוב.'},
 ];
 
 function currentLevels(){
   if(state.sequence===1) return gameLevels1;
+  if(state.sequence===2) return gameLevels2;
+  if(state.sequence===3) return gameLevels3;
+  if(state.sequence===4) return gameLevels4;
+  if(state.sequence===5) return gameLevels5;
+  if(state.sequence===6) return gameLevels6;
   return gameLevelsPlaceholder;
 }
 
@@ -167,16 +217,16 @@ function renderHome(){
     </div>
     <div class="section-block">
       <div style="${SH}">יסודות הזוויות</div>
-      ${seqRow(1,  '1. סוגי זוויות', {})}
-      ${seqRow(2,  '2. כתיב מתמטי של זוויות', {noGame:true, noQuiz:true})}
+      ${seqRow(1,  '1. סוגי זוויות', {worksheetUrl:'../worksheets/angles_seq1_exam.html'})}
+      ${seqRow(2,  '2. כתיב מתמטי של זוויות', {worksheetUrl:'../worksheets/angles_seq2_exam.html'})}
 
       <div style="${SH}">פעולות עם זוויות</div>
-      ${seqRow(3,  '3. סכום והפרש זוויות', {noGame:true, noQuiz:true})}
-      ${seqRow(4,  '4. חוצה-זווית', {noGame:true, noQuiz:true})}
+      ${seqRow(3,  '3. סכום והפרש זוויות', {worksheetUrl:'../worksheets/angles_seq3_exam.html'})}
+      ${seqRow(4,  '4. חוצה-זווית', {worksheetUrl:'../worksheets/angles_seq4_exam.html'})}
 
       <div style="${SH}">זוויות מיוחדות</div>
-      ${seqRow(5,  '5. זוויות צמודות', {noGame:true, noQuiz:true})}
-      ${seqRow(6,  '6. זוויות קודקודיות', {noGame:true, noQuiz:true})}
+      ${seqRow(5,  '5. זוויות צמודות', {worksheetUrl:'../worksheets/angles_seq5_exam.html'})}
+      ${seqRow(6,  '6. זוויות קודקודיות', {worksheetUrl:'../worksheets/angles_seq6_exam.html'})}
 
       <div style="${SH}">משולשים ומרובעים</div>
       ${seqRow(7,  '7. משולש שווה-צלעות', {noGame:true, noQuiz:true})}
@@ -192,6 +242,11 @@ function renderHome(){
 
 function renderLearn(){
   if(state.sequence===1) return renderLearn1();
+  if(state.sequence===2) return renderLearn2();
+  if(state.sequence===3) return renderLearn3();
+  if(state.sequence===4) return renderLearn4();
+  if(state.sequence===5) return renderLearn5();
+  if(state.sequence===6) return renderLearn6();
   return renderLearnPlaceholder();
 }
 
@@ -253,6 +308,145 @@ function renderLearn1(){
     <div class="learn-note">טריק לזכור: <strong>חדה</strong> = חד = מחודד = קטן מ-90°. <strong>קהה</strong> = לא חד = גדול מ-90°.</div>
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn2(){
+  return `<div class="panel">
+    <h2 class="qtitle">כתיב מתמטי של זוויות</h2>
+    <div class="gold-box">∡ABC — שלוש אותיות מתארות זווית: A ו-C הן נקודות על השוקיים, B הוא הקודקוד (תמיד באמצע)</div>
+    <div style="text-align:center;margin:20px 0;">
+      <svg width="200" height="120" viewBox="0 0 200 120"><line x1="100" y1="10" x2="30" y2="100" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><line x1="100" y1="10" x2="170" y2="100" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="100" x2="170" y2="100" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><circle cx="100" cy="10" r="3.5" fill="#EFA94A"/><circle cx="30" cy="100" r="3.5" fill="#EFA94A"/><circle cx="170" cy="100" r="3.5" fill="#EFA94A"/><path d="M 88 22 A 15 15 0 0 1 112 22" stroke="#EFA94A" stroke-width="2" fill="none"/><text x="98" y="8" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif" text-anchor="middle">A</text><text x="20" y="115" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">B</text><text x="174" y="115" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">C</text><text x="100" y="35" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif" text-anchor="middle">∡BAC</text></svg>
+    </div>
+    <ul class="bullets">
+      <li>הכתיב ∡BAC — קודקוד A, שוקיים AB ו-AC</li>
+      <li>אפשר גם ∡CAB (הפיכת סדר השוקיים מותרת)</li>
+      <li>אם יש זווית אחת בלבד בקודקוד — מותר לכתוב רק ∡A</li>
+      <li>אסור: הקודקוד בקצה! ∡BAC — A חייב להיות באמצע</li>
+    </ul>
+    <div class="learn-note">טריק: הקודקוד — האות האמצעית. ∡ABC → קודקוד B</div>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn3(){
+  return `<div class="panel">
+    <h2 class="qtitle">סכום והפרש זוויות</h2>
+    <div class="gold-box">כאשר שוק נמצא בתוך זווית: ∡AOB = ∡AOC + ∡COB (ניתן לחבר ולחסר זוויות!)</div>
+    <div style="text-align:center;margin:20px 0;">
+      <svg width="200" height="130" viewBox="0 0 200 130"><line x1="60" y1="110" x2="190" y2="110" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="110" x2="130" y2="30" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="110" x2="20" y2="30" stroke="#EFA94A" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round"/><circle cx="60" cy="110" r="4" fill="#EFA94A"/><path d="M 100 110 A 40 40 0 0 1 74 75" stroke="#EFA94A" stroke-width="1.8" fill="none"/><path d="M 85 93 A 28 28 0 0 1 65 82" stroke="#10B981" stroke-width="1.8" fill="none"/><text x="180" y="125" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">B</text><text x="128" y="22" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">C</text><text x="10" y="22" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif">A</text><text x="48" y="126" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif" font-weight="700">O</text><text x="110" y="102" fill="#EFA94A" font-size="12" font-family="Rubik,sans-serif">∡BOC</text><text x="73" y="78" fill="#10B981" font-size="12" font-family="Rubik,sans-serif">∡COA</text></svg>
+    </div>
+    <ul class="bullets">
+      <li>סכום: אם C בתוך ∡AOB, אז ∡AOB = ∡AOC + ∡COB</li>
+      <li>הפרש: ∡COB = ∡AOB − ∡AOC</li>
+      <li>זווית שטוחה = 180°: שוק בתוכה יוצר שתי זוויות שסכומן 180°</li>
+      <li>זווית ישרה = 90°: שוק בתוכה יוצר שתי זוויות שסכומן 90°</li>
+    </ul>
+    <div class="learn-note">טריק: חשבו על פיצה — חיתוך = חלוקה לפרוסות. הפרוסות מסתכמות לפיצה שלמה.</div>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn4(){
+  return `<div class="panel">
+    <h2 class="qtitle">חוצה-זווית</h2>
+    <div class="gold-box">חוצה-זווית = קרן הנמצאת בתוך זווית ומחלקת אותה לשני חלקים שווים בדיוק</div>
+    <div style="text-align:center;margin:20px 0;">
+      <svg width="200" height="130" viewBox="0 0 200 130">
+        <line x1="30" y1="110" x2="190" y2="110" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="30" y1="110" x2="60" y2="10" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="30" y1="110" x2="155" y2="40" stroke="#EFA94A" stroke-width="2" stroke-dasharray="5,3" stroke-linecap="round"/>
+        <path d="M 80 110 A 50 50 0 0 1 64 67" stroke="#10B981" stroke-width="1.8" fill="none"/>
+        <path d="M 70 80 A 42 42 0 0 1 95 50" stroke="#EFA94A" stroke-width="1.8" fill="none"/>
+        <line x1="71" y1="90" x2="74" y2="85" stroke="#10B981" stroke-width="2"/>
+        <line x1="83" y1="63" x2="86" y2="58" stroke="#EFA94A" stroke-width="2"/>
+        <circle cx="30" cy="110" r="3.5" fill="#EFA94A"/>
+        <text x="190" y="125" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">B</text>
+        <text x="55" y="8" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">A</text>
+        <text x="158" y="35" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif">C</text>
+        <text x="18" y="126" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif" font-weight="700">O</text>
+        <text x="105" y="108" fill="#10B981" font-size="11" font-family="Rubik,sans-serif">∡BOC</text>
+        <text x="55" y="52" fill="#EFA94A" font-size="11" font-family="Rubik,sans-serif">∡COA</text>
+      </svg>
+    </div>
+    <ul class="bullets">
+      <li>אם OC חוצה ∡AOB: ∡AOC = ∡COB = ½ · ∡AOB</li>
+      <li>∡AOB = 2 × ∡AOC (הכפלה)</li>
+      <li>נסמן את החוצה בקו מקווקו</li>
+      <li>את שתי הזוויות השוות נסמן בקשתות עם סימן שוויון (√)</li>
+    </ul>
+    <div class="learn-note">טריק: חוצה = חצי. ∡AOB=80° → ∡AOC=40°. ∡AOC=35° → ∡AOB=70°.</div>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn5(){
+  return `<div class="panel">
+    <h2 class="qtitle">זוויות צמודות</h2>
+    <div class="gold-box">זוויות צמודות = שתי זוויות הנמצאות על קו ישר. סכומן תמיד 180°</div>
+    <div style="text-align:center;margin:20px 0;">
+      <svg width="200" height="100" viewBox="0 0 200 100">
+        <line x1="10" y1="80" x2="190" y2="80" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="100" y1="80" x2="145" y2="15" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="100" cy="80" r="3.5" fill="#EFA94A"/>
+        <path d="M 140 80 A 40 40 0 0 1 120 47" stroke="#EFA94A" stroke-width="1.8" fill="none"/>
+        <path d="M 80 80 A 25 25 0 0 0 118 57" stroke="#10B981" stroke-width="1.8" fill="none"/>
+        <text x="148" y="76" fill="#EFA94A" font-size="16" font-family="Rubik,sans-serif" font-weight="700">α</text>
+        <text x="72" y="68" fill="#10B981" font-size="16" font-family="Rubik,sans-serif" font-weight="700">β</text>
+        <text x="85" y="96" fill="#EFA94A" font-size="12" font-family="Rubik,sans-serif" text-anchor="middle">α + β = 180°</text>
+      </svg>
+    </div>
+    <ul class="bullets">
+      <li>α + β = 180°</li>
+      <li>אם α=70°, אז β=180°−70°=110°</li>
+      <li>שתי זוויות צמודות לא יכולות להיות שתיהן חדות (כי שתי חדות &lt; 180°)</li>
+      <li>שתי זוויות צמודות לא יכולות להיות שתיהן קהות (כי שתי קהות &gt; 180°)</li>
+      <li>אחת חייבת להיות חדה ואחת קהה — או שתיהן 90°</li>
+    </ul>
+    <div class="learn-note">טריק: β = 180° − α. זכרו: צמודות = ישר = 180°.</div>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn6(){
+  return `<div class="panel">
+    <h2 class="qtitle">זוויות קודקודיות</h2>
+    <div class="gold-box">זוויות קודקודיות = זוויות מול אחת לשנייה בחיתוך שני קווים — הן תמיד שוות!</div>
+    <div style="text-align:center;margin:20px 0;">
+      <svg width="200" height="160" viewBox="0 0 200 160">
+        <line x1="20" y1="130" x2="180" y2="30" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="20" y1="30" x2="180" y2="130" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="100" cy="80" r="3.5" fill="#EFA94A"/>
+        <text x="100" y="40" fill="#EFA94A" font-size="16" font-family="Rubik,sans-serif" text-anchor="middle" font-weight="700">α</text>
+        <text x="145" y="85" fill="#10B981" font-size="16" font-family="Rubik,sans-serif" font-weight="700">β</text>
+        <text x="100" y="125" fill="#EFA94A" font-size="16" font-family="Rubik,sans-serif" text-anchor="middle" font-weight="700">α′</text>
+        <text x="45" y="85" fill="#10B981" font-size="16" font-family="Rubik,sans-serif" font-weight="700">β′</text>
+        <text x="100" y="148" fill="rgba(234,244,241,0.7)" font-size="12" font-family="Rubik,sans-serif" text-anchor="middle">α=α′ (קודקודיות) &nbsp; β=β′ &nbsp; α+β=180°</text>
+      </svg>
+    </div>
+    <ul class="bullets">
+      <li>שני קווים נחתכים → 4 זוויות</li>
+      <li>זוויות קודקודיות (מולאחת לשנייה): α=α′, β=β′</li>
+      <li>זוויות סמוכות (על קו ישר): α+β=180°</li>
+      <li>מספיק לדעת זווית אחת כדי לחשב את כל השאר!</li>
+    </ul>
+    <div class="learn-note">טריק: קודקודיות = שוות. סמוכות = 180°. דע אחת — דע הכל.</div>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=6;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
