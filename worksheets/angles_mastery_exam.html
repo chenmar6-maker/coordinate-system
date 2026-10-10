@@ -64,7 +64,6 @@
 ═══════════════════════════════════ -->
 <div class="sec-hdr">
   <span class="part-label" style="margin-bottom:0">רצף 1 — סוגי זוויות</span>
-  <span class="name-f">שם מלא: <span>&nbsp;</span></span>
 </div>
 
 <!-- Q1 with type-reference diagrams -->
@@ -74,11 +73,11 @@
   <div style="display:flex;gap:4px;justify-content:flex-start;margin:6px 0 8px;flex-wrap:wrap;">
 
     <!-- חדה ~45° -->
-    <div id="q1a-board" class="fig" style="width:76px;height:66px;"></div>
+    <div id="q1a-board" class="fig" style="width:76px;height:80px;"></div>
     <script>
     (function(){
       var b = JXG.JSXGraph.initBoard('q1a-board', {
-        boundingbox: [-0.5,3.0,4.0,-1.2],
+        boundingbox: [-0.5,3.0,4.0,-2.2],
         axis:false, grid:false,
         showCopyright:false, showNavigation:false,
         pan:{enabled:false}, zoom:{enabled:false},
@@ -96,11 +95,11 @@
     </script>
 
     <!-- ישרה 90° -->
-    <div id="q1b-board" class="fig" style="width:76px;height:66px;"></div>
+    <div id="q1b-board" class="fig" style="width:76px;height:80px;"></div>
     <script>
     (function(){
       var b = JXG.JSXGraph.initBoard('q1b-board', {
-        boundingbox: [-0.5,3.8,4.0,-1.2],
+        boundingbox: [-0.5,3.8,4.0,-2.2],
         axis:false, grid:false,
         showCopyright:false, showNavigation:false,
         pan:{enabled:false}, zoom:{enabled:false},
@@ -118,11 +117,11 @@
     </script>
 
     <!-- קהה ~115° -->
-    <div id="q1c-board" class="fig" style="width:80px;height:66px;"></div>
+    <div id="q1c-board" class="fig" style="width:80px;height:80px;"></div>
     <script>
     (function(){
       var b = JXG.JSXGraph.initBoard('q1c-board', {
-        boundingbox: [-2.2,3.5,4.0,-1.2],
+        boundingbox: [-2.2,3.5,4.0,-2.2],
         axis:false, grid:false,
         showCopyright:false, showNavigation:false,
         pan:{enabled:false}, zoom:{enabled:false},
@@ -140,11 +139,11 @@
     </script>
 
     <!-- שטוחה 180° -->
-    <div id="q1d-board" class="fig" style="width:78px;height:56px;"></div>
+    <div id="q1d-board" class="fig" style="width:78px;height:68px;"></div>
     <script>
     (function(){
       var b = JXG.JSXGraph.initBoard('q1d-board', {
-        boundingbox: [-3.8,2.5,3.8,-1.2],
+        boundingbox: [-3.8,2.5,3.8,-2.2],
         axis:false, grid:false,
         showCopyright:false, showNavigation:false,
         pan:{enabled:false}, zoom:{enabled:false},
@@ -162,11 +161,11 @@
     </script>
 
     <!-- שלמה 360° -->
-    <div id="q1e-board" class="fig" style="width:68px;height:56px;"></div>
+    <div id="q1e-board" class="fig" style="width:68px;height:80px;"></div>
     <script>
     (function(){
       var b = JXG.JSXGraph.initBoard('q1e-board', {
-        boundingbox: [-2.5,2.5,2.5,-1.2],
+        boundingbox: [-2.5,2.5,2.5,-2.8],
         axis:false, grid:false,
         showCopyright:false, showNavigation:false,
         pan:{enabled:false}, zoom:{enabled:false},
@@ -182,27 +181,35 @@
     </script>
   </div>
 
-  <div class="g2" style="margin-top:3px;justify-items:start;">
-    <span>א. 35° &nbsp;<span class="bw">&nbsp;</span></span>
-    <span>ב. 90° &nbsp;<span class="bw">&nbsp;</span></span>
-    <span>ג. 120° &nbsp;<span class="bw">&nbsp;</span></span>
-    <span>ד. 180° &nbsp;<span class="bw">&nbsp;</span></span>
-    <span>ה. 360° &nbsp;<span class="bw">&nbsp;</span></span>
-    <span>ו. 67° &nbsp;<span class="bw">&nbsp;</span></span>
-    <span>ז. 91° &nbsp;<span class="bw">&nbsp;</span></span>
-    <span>ח. 179° &nbsp;<span class="bw">&nbsp;</span></span>
+  <div style="display:flex;gap:20px;margin-top:3px;">
+    <div style="display:flex;flex-direction:column;gap:3px;">
+      <span>א. 35° &nbsp;<span class="bw">&nbsp;</span></span>
+      <span>ב. 90° &nbsp;<span class="bw">&nbsp;</span></span>
+      <span>ג. 120° &nbsp;<span class="bw">&nbsp;</span></span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:3px;">
+      <span>ד. 180° &nbsp;<span class="bw">&nbsp;</span></span>
+      <span>ה. 360° &nbsp;<span class="bw">&nbsp;</span></span>
+      <span>ו. 67° &nbsp;<span class="bw">&nbsp;</span></span>
+      <span>ז. 91° &nbsp;<span class="bw">&nbsp;</span></span>
+      <span>ח. 179° &nbsp;<span class="bw">&nbsp;</span></span>
+    </div>
   </div>
 </div>
 
 <div class="q">
   <div><span class="qn">2.</span> ענו נכון / לא נכון:</div>
-  <div class="g2" style="margin-top:4px;">
-    <span>א. זווית ישרה גדולה מזווית קהה. <span class="bs">&nbsp;</span></span>
-    <span>ב. זווית חדה קטנה מ-90°. <span class="bs">&nbsp;</span></span>
-    <span>ג. זווית שטוחה שווה ל-180°. <span class="bs">&nbsp;</span></span>
-    <span>ד. זווית קהה יכולה להיות 95°. <span class="bs">&nbsp;</span></span>
-    <span>ה. זווית בת 90° היא זווית חדה. <span class="bs">&nbsp;</span></span>
-    <span>ו. כל זווית בין 90° ל-180° היא קהה. <span class="bs">&nbsp;</span></span>
+  <div style="display:flex;gap:20px;margin-top:4px;">
+    <div style="display:flex;flex-direction:column;gap:3px;">
+      <span>א. זווית ישרה גדולה מזווית קהה. <span class="bs">&nbsp;</span></span>
+      <span>ב. זווית חדה קטנה מ-90°. <span class="bs">&nbsp;</span></span>
+      <span>ג. זווית שטוחה שווה ל-180°. <span class="bs">&nbsp;</span></span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:3px;">
+      <span>ד. זווית קהה יכולה להיות 95°. <span class="bs">&nbsp;</span></span>
+      <span>ה. זווית בת 90° היא זווית חדה. <span class="bs">&nbsp;</span></span>
+      <span>ו. כל זווית בין 90° ל-180° היא קהה. <span class="bs">&nbsp;</span></span>
+    </div>
   </div>
 </div>
 
@@ -229,7 +236,6 @@
 ═══════════════════════════════════ -->
 <div class="sec-hdr">
   <span class="part-label" style="margin-bottom:0">רצף 2 — כתיב מתמטי של זוויות</span>
-  <span class="name-f">שם מלא: <span>&nbsp;</span></span>
 </div>
 
 <div class="q">
@@ -291,7 +297,6 @@
 ═══════════════════════════════════ -->
 <div class="sec-hdr">
   <span class="part-label" style="margin-bottom:0">רצף 3 — סכום והפרש זוויות</span>
-  <span class="name-f">שם מלא: <span>&nbsp;</span></span>
 </div>
 
 <div class="q">
@@ -302,7 +307,7 @@
     <script>
     (function(){
       var b = JXG.JSXGraph.initBoard('q9a-board', {
-        boundingbox: [-0.5,5.5,5.5,-0.8],
+        boundingbox: [-1.5,5.5,5.5,-0.8],
         axis:false, grid:false,
         showCopyright:false, showNavigation:false,
         pan:{enabled:false}, zoom:{enabled:false},
@@ -318,7 +323,6 @@
       b.create('arrow',[Bpt, C], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
       b.create('arrow',[Bpt, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
       b.create('angle',[D, Bpt, C], {radius:1.2, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('angle',[D, Bpt, A], {radius:1.8, strokeColor:'#777', strokeWidth:1.2, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
       b.create('text',[2.0,0.7,'50°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
       b.create('text',[0.5,2.3,'40°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
     })();
@@ -330,7 +334,7 @@
     <script>
     (function(){
       var b = JXG.JSXGraph.initBoard('q9b-board', {
-        boundingbox: [-0.5,5.5,5.5,-0.8],
+        boundingbox: [-1.5,5.5,5.5,-0.8],
         axis:false, grid:false,
         showCopyright:false, showNavigation:false,
         pan:{enabled:false}, zoom:{enabled:false},
@@ -356,7 +360,7 @@
 </div>
 
 <div class="q">
-  <div style="margin-bottom:5px;"><span class="qn">10.</span> חשבו את ההפרש (שוק פנימי מחסיר מהזווית הגדולה):</div>
+  <div style="margin-bottom:5px;"><span class="qn">10.</span> חשבו את ההפרש:</div>
   <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;">
     <div>א. <span dir="ltr">∡AOB=130°, ∡AOC=80°</span>. מה <span dir="ltr">∡COB</span>? <span class="bs">&nbsp;</span><div class="wl"></div></div>
     <div id="q10a-board" class="fig" style="width:108px;height:78px;"></div>
@@ -379,7 +383,6 @@
       b.create('arrow',[O, C], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
       b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
       b.create('angle',[Bpt, O, C], {radius:1.3, strokeColor:'#555', strokeWidth:1.5, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('angle',[Bpt, O, A], {radius:1.9, strokeColor:'#777', strokeWidth:1.2, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
       b.create('text',[1.9,0.7,'?'], {fontSize:10, color:'#555', highlight:false, fixed:true});
     })();
     </script>
@@ -406,7 +409,6 @@
       b.create('arrow',[Y, W], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
       b.create('arrow',[Y, X], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
       b.create('angle',[Z, Y, W], {radius:1.3, strokeColor:'#555', strokeWidth:1.5, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('angle',[Z, Y, X], {radius:1.9, strokeColor:'#777', strokeWidth:1.2, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
       b.create('text',[2.0,0.65,'?'], {fontSize:10, color:'#555', highlight:false, fixed:true});
     })();
     </script>
@@ -421,11 +423,11 @@
       <div style="margin-top:4px;"><span dir="ltr">∡COB</span> = <span class="b">&nbsp;</span></div>
       <div class="wl"></div>
     </div>
-    <div id="q11-board" class="fig" style="width:135px;height:66px;"></div>
+    <div id="q11-board" class="fig" style="width:135px;height:80px;"></div>
     <script>
     (function(){
       var b = JXG.JSXGraph.initBoard('q11-board', {
-        boundingbox: [-5.5,5.0,5.5,-0.9],
+        boundingbox: [-5.5,5.0,5.5,-1.8],
         axis:false, grid:false,
         showCopyright:false, showNavigation:false,
         pan:{enabled:false}, zoom:{enabled:false},
@@ -461,7 +463,7 @@
     <script>
     (function(){
       var b = JXG.JSXGraph.initBoard('q12-board', {
-        boundingbox: [-1.0,5.5,5.5,-0.9],
+        boundingbox: [-1.5,5.5,5.5,-0.9],
         axis:false, grid:false,
         showCopyright:false, showNavigation:false,
         pan:{enabled:false}, zoom:{enabled:false},
@@ -493,7 +495,6 @@
 ═══════════════════════════════════ -->
 <div class="sec-hdr">
   <span class="part-label" style="margin-bottom:0">רצף 4 — חוצה-זווית</span>
-  <span class="name-f">שם מלא: <span>&nbsp;</span></span>
 </div>
 
 <div class="q">
@@ -521,10 +522,10 @@
       b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
       b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
       b.create('arrow',[O, C], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
-      b.create('angle',[Bpt, O, C], {radius:1.6, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('angle',[C, O, A], {radius:1.6, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('segment',[[1.73,0.50],[1.67,0.66]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('segment',[[1.07,1.45],[0.93,1.54]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.5, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:1.65, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('segment',[[1.184,0.401],[1.658,0.561]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('segment',[[0.779,1.163],[1.057,1.579]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
     })();
     </script>
   </div>
@@ -551,10 +552,10 @@
       b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
       b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
       b.create('arrow',[O, C], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
-      b.create('angle',[Bpt, O, C], {radius:1.6, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('angle',[C, O, A], {radius:1.6, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('segment',[[1.56,0.90],[1.48,1.04]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('segment',[[-0.16,1.80],[-0.31,1.77]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.5, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:1.65, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('segment',[[1.054,0.672],[1.476,0.94]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('segment',[[-0.183,1.388],[-0.248,1.884]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
     })();
     </script>
   </div>
@@ -581,11 +582,11 @@
       b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
       b.create('arrow',[O, C], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
       b.create('angle',[Bpt, O, A], {type:'square', radius:0.7, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('angle',[Bpt, O, C], {radius:1.4, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('angle',[C, O, A], {radius:1.4, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('segment',[[1.51,0.54],[1.45,0.69]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('segment',[[0.68,1.45],[0.54,1.51]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('text',[1.8,0.5,'45°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+      b.create('angle',[Bpt, O, C], {radius:1.3, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:1.5, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('segment',[[0.97,0.402],[1.432,0.593]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('segment',[[0.478,1.155],[0.67,1.617]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('text',[1.9,0.65,'45°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
     })();
     </script>
   </div>
@@ -619,11 +620,11 @@
       b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
       b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
       b.create('arrow',[O, C], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
-      b.create('angle',[Bpt, O, C], {radius:1.5, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('angle',[C, O, A], {radius:1.5, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('segment',[[1.90,0.54],[1.83,0.69]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('segment',[[1.10,1.48],[0.96,1.56]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('text',[2.0,0.48,'38°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+      b.create('angle',[Bpt, O, C], {radius:1.4, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:1.6, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('segment',[[1.091,0.365],[1.565,0.524]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('segment',[[0.745,1.126],[1.021,1.543]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('text',[2.05,0.48,'38°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
     })();
     </script>
   </div>
@@ -679,7 +680,6 @@
 ═══════════════════════════════════ -->
 <div class="sec-hdr">
   <span class="part-label" style="margin-bottom:0">רצף 5 — זוויות צמודות</span>
-  <span class="name-f">שם מלא: <span>&nbsp;</span></span>
 </div>
 
 <!-- Note: adjacent vs supplementary -->
@@ -817,7 +817,6 @@
 ═══════════════════════════════════ -->
 <div class="sec-hdr">
   <span class="part-label" style="margin-bottom:0">רצף 6 — זוויות קודקודיות</span>
-  <span class="name-f">שם מלא: <span>&nbsp;</span></span>
 </div>
 
 <div class="q">
