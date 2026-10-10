@@ -73,13 +73,13 @@
 <body>
 <div id="app"></div>
 <script>
-const state = { screen:'home', sequence:1, qi:0, score:0, answered:false };
+const state = { screen:'home', sequence:1, qi:0, score:0, answered:false, lastAnswer:-1 };
 const openSections = new Set();
 
 function goTo(s){ state.screen=s; render(); window.scrollTo(0,0); }
 function goHome(){ state.screen='home'; render(); window.scrollTo(0,0); }
 function toggleSection(n){ openSections.has(n)?openSections.delete(n):openSections.add(n); render(); }
-function startGame(){ state.qi=0; state.score=0; state.answered=false; goTo('game'); }
+function startGame(){ state.qi=0; state.score=0; state.answered=false; state.lastAnswer=-1; goTo('game'); }
 
 /* ══════════════════════════════════════
    LEVELS
@@ -486,7 +486,11 @@ function renderGame(){
   if(state.qi >= levels.length){ state.screen='gameResults'; render(); return ''; }
   const q = levels[state.qi];
   const dots = levels.map((_,i)=>`<div class="dot${i<state.qi?' done':i===state.qi?' active':''}"></div>`).join('');
-  const opts = q.opts.map((o,i)=>`<button class="mc-btn" id="opt${i}" onclick="answerQ(${i})">${o}</button>`).join('');
+  const opts = q.opts.map((o,i)=>{
+    let cls='mc-btn';
+    if(state.answered){ if(i===q.ans) cls+=' correct'; else if(i===state.lastAnswer) cls+=' wrong'; }
+    return `<button class="${cls}" id="opt${i}" onclick="answerQ(${i})"${state.answered?' disabled':''}>${o}</button>`;
+  }).join('');
   const explainHtml = state.answered
     ? `<div class="explain-box">${q.exp}</div><div class="btnrow" style="margin-top:12px;"><button class="btn" onclick="nextQ()">הבא ←</button></div>`
     : '';
@@ -503,20 +507,14 @@ function renderGame(){
 function answerQ(i){
   if(state.answered) return;
   state.answered = true;
+  state.lastAnswer = i;
   const q = currentLevels()[state.qi];
   const correct = i===q.ans;
   if(correct) state.score++;
-  document.querySelectorAll('.mc-btn').forEach((b,j)=>{
-    b.disabled=true;
-    if(j===q.ans) b.classList.add('correct');
-    else if(j===i) b.classList.add('wrong');
-  });
-  document.getElementById('fb').textContent = correct?'✓ נכון!':'✗ לא נכון';
-  document.getElementById('fb').className='feedback '+(correct?'ok':'bad');
   render();
 }
 
-function nextQ(){ state.qi++; state.answered=false; render(); window.scrollTo(0,0); }
+function nextQ(){ state.qi++; state.answered=false; state.lastAnswer=-1; render(); window.scrollTo(0,0); }
 
 function renderGameResults(){
   const total = currentLevels().length;
