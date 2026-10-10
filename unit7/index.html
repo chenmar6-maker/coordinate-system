@@ -73,7 +73,7 @@
 <body>
 <div id="app"></div>
 <script>
-const state = { screen:'learn', sequence:1, qi:0, score:0, answered:false };
+const state = { screen:'home', sequence:1, qi:0, score:0, answered:false };
 const openSections = new Set();
 
 function goTo(s){ state.screen=s; render(); window.scrollTo(0,0); }
@@ -340,7 +340,7 @@ function renderGameResults(){
   </div>`;
 }
 
-render();
+render(); window.scrollTo(0,0);
 </script>
 <footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
 </body>
