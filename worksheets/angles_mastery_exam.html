@@ -195,7 +195,7 @@
         pan: {enabled: false}, zoom: {enabled: false},
         renderer: 'svg'
       });
-      var ps = {fixed: true, size: 2, fillColor: '#111', strokeColor: '#111', highlight: false};
+      var ps = {fixed: true, size: 0, fillColor: 'none', strokeColor: 'none', highlight: false};
       var lbl = function(dx, dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
       var A = b.create('point', [0,   0],   Object.assign({name:'A', label: lbl(-14,-8)},  ps));
       var B = b.create('point', [1.4, 3.1], Object.assign({name:'B', label: lbl(4,  4)},   ps));
