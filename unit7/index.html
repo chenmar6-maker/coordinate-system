@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סוגי זוויות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --navy:#1E1B2E;
+    --deep-navy:#0F0D1A;
+    --green:#10B981;
+    --green-dark:#059669;
+    --foam:#EAF4F1;
+    --gold:#EFA94A;
+    --coral:#E2604F;
+    --seafoam:#48B08C;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Rubik',sans-serif;
+    background: radial-gradient(ellipse at 50% -10%, #0D3D2E 0%, #1E1B2E 50%, #0F0D1A 100%);
+    color:var(--foam);
+    direction:rtl;
+    min-height:100vh;
+    line-height:1.6;
+  }
+
+  .wrap{max-width:900px;margin:0 auto;padding:20px 18px 70px;}
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;max-width:900px;margin:0 auto;}
+  .brand{font-size:19px;color:var(--green);}
+  .homebtn{background:transparent;border:1.5px solid var(--foam);color:var(--foam);padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;cursor:pointer;opacity:.85;text-decoration:none;display:inline-block;}
+  .homebtn:hover{opacity:1;border-color:var(--green);color:var(--green);}
+
+  .hero{text-align:center;padding:18px 10px 10px;}
+  h1.title{font-weight:800;font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:#FFFFFF;letter-spacing:-0.5px;}
+  p.subtitle{font-size:17px;opacity:.85;margin:0 0 8px;}
+
+  .cards{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+  .sequence-section{margin-bottom:28px;background:rgba(234,244,241,0.04);border-radius:14px;padding:18px 20px;}
+  .sequence-title{font-weight:700;font-size:17px;color:var(--foam);text-align:center;margin:0 0 14px;opacity:.9;}
+
+  .flow-arrow{display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(16,185,129,0.5);flex-shrink:0;}
+
+  .card{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:50px;cursor:pointer;font-family:'Rubik',sans-serif;font-weight:600;font-size:15px;transition:transform .15s ease, box-shadow .15s ease;border:none;}
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.25);}
+  .card h3{font-size:15px;font-weight:600;margin:0;}
+  .card.learn{background:rgba(16,185,129,0.18);border:1.5px solid var(--green);color:var(--green);}
+  .card.game{background:rgba(239,169,74,0.18);border:1.5px solid var(--gold);color:var(--gold);}
+  .card.quiz{background:rgba(226,96,79,0.18);border:1.5px solid var(--coral);color:var(--coral);}
+
+  .panel{background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.15);border-radius:10px;padding:22px;margin:18px 0;}
+
+  .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+  .btn{background:var(--green);color:#0F1E18;border:none;font-weight:700;font-family:'Rubik',sans-serif;font-size:15px;padding:11px 26px;border-radius:24px;cursor:pointer;transition:transform .12s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn.secondary{background:transparent;border:1.5px solid var(--foam);color:var(--foam);}
+  .btn.secondary:hover{border-color:var(--green);color:var(--green);}
+  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+  .feedback{text-align:center;font-size:16px;font-weight:700;margin:14px 0;min-height:24px;}
+  .feedback.ok{color:var(--seafoam);}
+  .feedback.bad{color:var(--coral);}
+
+  .progressdots{display:flex;gap:8px;justify-content:center;margin-bottom:6px;}
+  .dot{width:11px;height:11px;border-radius:50%;background:rgba(234,244,241,0.25);border:none;padding:0;}
+  .dot.done{background:var(--seafoam);}
+  .dot.active{background:var(--gold);}
+
+  .mc-options{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:16px auto 0;}
+  .mc-btn{background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;cursor:pointer;font-family:'Rubik',sans-serif;text-align:right;}
+  .mc-btn:hover{border-color:var(--green);}
+  .mc-btn.correct{background:rgba(72,176,140,0.3);border-color:var(--seafoam);}
+  .mc-btn.wrong{background:rgba(226,96,79,0.3);border-color:var(--coral);}
+  .mc-btn:disabled{cursor:default;}
+
+  .explain-box{background:rgba(72,176,140,0.1);border-right:4px solid var(--seafoam);border-radius:6px;padding:12px 16px;margin-top:14px;font-size:15px;}
+  .qtitle{font-size:18px;font-weight:700;text-align:center;margin:6px 0 4px;}
+  .qmeta{text-align:center;font-size:14px;opacity:.75;margin-bottom:6px;}
+  .scorebig{font-size:52px;color:var(--gold);text-align:center;margin:10px 0;}
+
+  ul.bullets{list-style:none;margin:18px 0 6px;padding:0;text-align:right;}
+  ul.bullets li{position:relative;padding-right:22px;margin-bottom:10px;font-size:16px;line-height:1.55;}
+  ul.bullets li::before{content:"•";color:var(--green);position:absolute;right:0;top:0;font-size:18px;}
+
+  .learn-note{background:rgba(16,185,129,0.1);border-right:4px solid var(--green);border-radius:6px;padding:12px 16px;margin-top:16px;font-size:15px;text-align:right;}
+  .gold-box{background:rgba(239,169,74,0.12);border-right:4px solid var(--gold);border-radius:6px;padding:14px 18px;margin:14px 0;font-size:17px;font-weight:700;color:var(--gold);text-align:right;}
+
+  /* angle type cards */
+  .angle-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0;}
+  .angle-card{background:rgba(234,244,241,0.06);border:1.5px solid rgba(234,244,241,0.15);border-radius:12px;padding:16px 12px;text-align:center;}
+  .angle-svg{display:block;margin:0 auto 10px;}
+  .angle-name{font-size:15px;font-weight:700;color:var(--green);margin-bottom:4px;}
+  .angle-range{font-size:13px;color:rgba(234,244,241,0.6);direction:ltr;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+const state = { screen:'home', sequence:1, qi:0, score:0, answered:false };
+const openSections = new Set();
+
+function goTo(s){ state.screen=s; render(); window.scrollTo(0,0); }
+function goHome(){ state.screen='home'; render(); window.scrollTo(0,0); }
+function toggleSection(n){ openSections.has(n)?openSections.delete(n):openSections.add(n); render(); }
+function startGame(){ state.qi=0; state.score=0; state.answered=false; goTo('game'); }
+
+/* ============ LEVELS ============ */
+
+const gameLevels1 = [
+  {
+    q:'מה היא זווית?',
+    opts:['קו ישר ארוך','שני קרניים היוצאות מנקודה משותפת','שטח סגור','מרחק בין שתי נקודות'],
+    ans:1,
+    exp:'זווית נוצרת בין שני קרניים (ישרי-חצי) היוצאות מנקודה אחת שנקראת קדקוד.'
+  },
+  {
+    q:'מה יחידת המידה של זווית?',
+    opts:['מטרים','שניות','דרגות (°)','סנטימטרים'],
+    ans:2,
+    exp:'זוויות נמדדות בדרגות. סיבוב מלא = 360°.'
+  },
+  {
+    q:'כמה דרגות יש בזווית ישרה?',
+    opts:['45°','90°','180°','360°'],
+    ans:1,
+    exp:'זווית ישרה = 90°. היא נראית כמו פינה של ריבוע.'
+  },
+  {
+    q:'איזו זווית גדולה מ-90° וקטנה מ-180°?',
+    opts:['זווית חדה','זווית ישרה','זווית קהה','זווית שטוחה'],
+    ans:2,
+    exp:'זווית קהה היא בין 90° ל-180°. היא "רחבה" יותר מזווית ישרה.'
+  },
+  {
+    q:'זווית של 180° נקראת...',
+    opts:['זווית חדה','זווית קהה','זווית ישרה','זווית שטוחה'],
+    ans:3,
+    exp:'זווית שטוחה = 180°. שני הקרניים יוצרים ביחד קו ישר אחד.'
+  },
+  {
+    q:'איזה מהבאים הוא זווית חדה?',
+    opts:['90°','120°','35°','180°'],
+    ans:2,
+    exp:'זווית חדה היא כל זווית בין 0° ל-90°. 35° קטן מ-90° — לכן חדה.'
+  },
+];
+
+const gameLevels2 = [
+  {
+    q:'זווית של 270° — מאיזה סוג?',
+    opts:['קהה','שטוחה','גדולה מ-180°','חדה'],
+    ans:2,
+    exp:'זווית גדולה מ-180° (ועד 360°) נקראת לפעמים זווית קעורה או גדולה.'
+  },
+  {
+    q:'איזו זווית "פחות פתוחה" מזווית ישרה?',
+    opts:['קהה','שטוחה','חדה','כולן שוות'],
+    ans:2,
+    exp:'זווית חדה קטנה מ-90° — היא "צרה" יותר, פחות פתוחה מהזווית הישרה.'
+  },
+  {
+    q:'סיבוב מלא שווה ל...',
+    opts:['90°','180°','270°','360°'],
+    ans:3,
+    exp:'סיבוב מלא = 360°. חצי סיבוב = 180° (זווית שטוחה).'
+  },
+  {
+    q:'זווית ישרה (90°) מה המאפיין שלה?',
+    opts:['היא שווה לחצי סיבוב','היא יוצרת פינה מרובעת מושלמת','היא תמיד חדה','היא גדולה מ-180°'],
+    ans:1,
+    exp:'זווית ישרה = 90°. היא נראית כמו פינה של ריבוע ומסומנת בריבועון קטן.'
+  },
+];
+
+function currentLevels(){
+  if(state.sequence===2) return gameLevels2;
+  return gameLevels1;
+}
+
+/* ============ RENDER ============ */
+
+function render(){
+  const app = document.getElementById('app');
+  if(state.screen==='home')             app.innerHTML = renderTopbar() + '<div class="wrap">' + renderHome() + '</div>';
+  else if(state.screen==='learn')       app.innerHTML = renderTopbar() + '<div class="wrap">' + renderLearn() + '</div>';
+  else if(state.screen==='game')        app.innerHTML = renderTopbar() + '<div class="wrap">' + renderGame() + '</div>';
+  else if(state.screen==='gameResults') app.innerHTML = renderTopbar() + '<div class="wrap">' + renderGameResults() + '</div>';
+}
+
+function renderTopbar(){
+  return `<div class="topbar">
+    <div class="brand">חן מרגלית למידה אקטיבית</div>
+    <a class="homebtn" href="../index.html">תפריט ראשי</a>
+  </div>`;
+}
+
+/* ============ seqRow ============ */
+
+function seqRow(seqNum, label, opts={}){
+  const isOpen = openSections.has(seqNum);
+  const chevron = isOpen ? '▾' : '◂';
+  let cards = '';
+  if(isOpen){
+    const quizCard = opts.worksheetUrl
+      ? `<div class="flow-arrow">←</div><div class="card quiz" onclick="showWorksheet('${opts.worksheetUrl}')"><h3>מבדק שליטה</h3></div>`
+      : `<div class="flow-arrow">←</div><div class="card quiz" onclick="state.sequence=${seqNum};startGame()"><h3>מבדק שליטה</h3></div>`;
+    cards = `<div class="cards" style="margin-bottom:6px;">
+      <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
+      <div class="flow-arrow">←</div>
+      <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
+      ${quizCard}
+    </div>`;
+  }
+  return `
+    <div onclick="toggleSection(${seqNum})" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:10px 4px;border-bottom:1px solid rgba(234,244,241,0.08);user-select:none;">
+      <span class="sequence-title" style="margin:0;">${label}</span>
+      <span style="font-size:20px;color:rgba(234,244,241,0.4);">${chevron}</span>
+    </div>
+    ${cards}`;
+}
+
+/* ============ HOME ============ */
+
+function renderHome(){
+  return `
+    <div class="hero">
+      <h1 class="title">סוגי זוויות</h1>
+      <p class="subtitle">יחידה 2 — תחום גיאומטרי</p>
+    </div>
+    <div class="sequence-section">
+      ${seqRow(1, '1. הגדרת זווית', {})}
+      ${seqRow(2, '2. סוגי הזוויות', {})}
+    </div>
+  `;
+}
+
+/* ============ LEARN ============ */
+
+function renderLearn(){
+  if(state.sequence===2) return renderLearn2();
+  return renderLearn1();
+}
+
+function renderLearn1(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle">מה זו זווית?</h2>
+
+      <div class="gold-box">
+        זווית = שני קרניים היוצאות מנקודה משותפת אחת, שנקראת <strong>קדקוד</strong>
+      </div>
+
+      <div style="text-align:center;margin:20px 0;">
+        <svg width="200" height="130" viewBox="0 0 200 130">
+          <!-- קרן ראשונה -->
+          <line x1="100" y1="100" x2="30" y2="20" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- קרן שנייה -->
+          <line x1="100" y1="100" x2="185" y2="40" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- קדקוד -->
+          <circle cx="100" cy="100" r="4" fill="#EFA94A"/>
+          <!-- קשת זווית -->
+          <path d="M 70 72 A 36 36 0 0 1 136 75" stroke="#EFA94A" stroke-width="2" fill="none"/>
+          <!-- תוויות -->
+          <text x="26" y="16" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">קרן א׳</text>
+          <text x="150" y="35" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">קרן ב׳</text>
+          <text x="88" y="118" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif" font-weight="700">קדקוד</text>
+          <text x="88" y="60" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif">α</text>
+        </svg>
+      </div>
+
+      <ul class="bullets">
+        <li>הזווית נמדדת ב<strong>דרגות (°)</strong></li>
+        <li>סיבוב מלא = <strong>360°</strong></li>
+        <li>הזווית מסומנת לרוב באות יוונית כמו α (אלפא) או β (בטא)</li>
+        <li>את הזווית מודדים עם מד-זוויות (שדרון)</li>
+      </ul>
+
+      <div class="learn-note">
+        המילה "קדקוד" מגיעה מהשורש ק.ד.ק.ד — קוד-קוד, ראש-ראש. זו הנקודה שבה פוגשות שתי הקרניים.
+      </div>
+
+      <div class="btnrow">
+        <button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>`;
+}
+
+function renderLearn2(){
+  return `
+    <div class="panel">
+      <h2 class="qtitle">סוגי הזוויות</h2>
+
+      <div class="angle-grid">
+        <div class="angle-card">
+          <svg class="angle-svg" width="80" height="70" viewBox="0 0 80 70">
+            <line x1="40" y1="60" x2="15" y2="10" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="40" y1="60" x2="70" y2="40" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M 30 42 A 16 16 0 0 1 52 50" stroke="#EFA94A" stroke-width="2" fill="none"/>
+            <text x="36" y="38" fill="#EFA94A" font-size="11" font-family="Rubik,sans-serif">α</text>
+          </svg>
+          <div class="angle-name">חדה</div>
+          <div class="angle-range">0° &lt; α &lt; 90°</div>
+        </div>
+
+        <div class="angle-card">
+          <svg class="angle-svg" width="80" height="70" viewBox="0 0 80 70">
+            <line x1="20" y1="55" x2="20" y2="10" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="20" y1="55" x2="68" y2="55" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="20" y="42" width="13" height="13" stroke="#EFA94A" stroke-width="1.8" fill="none"/>
+          </svg>
+          <div class="angle-name">ישרה</div>
+          <div class="angle-range">α = 90°</div>
+        </div>
+
+        <div class="angle-card">
+          <svg class="angle-svg" width="80" height="70" viewBox="0 0 80 70">
+            <line x1="40" y1="60" x2="8" y2="20" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="40" y1="60" x2="75" y2="40" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M 20 42 A 24 24 0 0 1 60 50" stroke="#EFA94A" stroke-width="2" fill="none"/>
+            <text x="32" y="38" fill="#EFA94A" font-size="11" font-family="Rubik,sans-serif">α</text>
+          </svg>
+          <div class="angle-name">קהה</div>
+          <div class="angle-range">90° &lt; α &lt; 180°</div>
+        </div>
+
+        <div class="angle-card">
+          <svg class="angle-svg" width="80" height="70" viewBox="0 0 80 70">
+            <line x1="5" y1="40" x2="75" y2="40" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="40" cy="40" r="3.5" fill="#EFA94A"/>
+            <path d="M 20 40 A 20 20 0 0 1 60 40" stroke="#EFA94A" stroke-width="2" fill="none"/>
+            <text x="36" y="28" fill="#EFA94A" font-size="11" font-family="Rubik,sans-serif">180°</text>
+          </svg>
+          <div class="angle-name">שטוחה</div>
+          <div class="angle-range">α = 180°</div>
+        </div>
+      </div>
+
+      <ul class="bullets">
+        <li><strong>חדה</strong> — קטנה מ-90°, "צרה ומחודדת"</li>
+        <li><strong>ישרה</strong> — בדיוק 90°, נראית כמו פינה של ריבוע, מסומנת בריבועון</li>
+        <li><strong>קהה</strong> — בין 90° ל-180°, "רחבה ועמומה"</li>
+        <li><strong>שטוחה</strong> — בדיוק 180°, שני הקרניים יוצרים קו ישר</li>
+      </ul>
+
+      <div class="learn-note">
+        טריק לזכור: <strong>חדה</strong> = חד = מחודד = קטן. <strong>קהה</strong> = קהה = לא חד = גדול מ-90°.
+      </div>
+
+      <div class="btnrow">
+        <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>`;
+}
+
+/* ============ GAME ============ */
+
+function renderGame(){
+  const levels = currentLevels();
+  if(state.qi >= levels.length){ state.screen='gameResults'; render(); return ''; }
+  const q = levels[state.qi];
+  const dots = levels.map((_,i)=>`<div class="dot${i<state.qi?' done':i===state.qi?' active':''}"></div>`).join('');
+  const opts = q.opts.map((o,i)=>`<button class="mc-btn" id="opt${i}" onclick="answerQ(${i})">${o}</button>`).join('');
+  const explainHtml = state.answered
+    ? `<div class="explain-box">${q.exp}</div>
+       <div class="btnrow" style="margin-top:12px;"><button class="btn" onclick="nextQ()">הבא ←</button></div>`
+    : '';
+  return `
+    <div class="panel">
+      <div class="progressdots">${dots}</div>
+      <div class="qmeta">שאלה ${state.qi+1} מתוך ${levels.length}</div>
+      <div class="qtitle">${q.q}</div>
+      <div class="mc-options">${opts}</div>
+      <div class="feedback" id="fb"></div>
+      ${explainHtml}
+    </div>`;
+}
+
+function answerQ(i){
+  if(state.answered) return;
+  state.answered = true;
+  const levels = currentLevels();
+  const q = levels[state.qi];
+  const correct = i === q.ans;
+  if(correct) state.score++;
+  document.querySelectorAll('.mc-btn').forEach((b,j)=>{
+    b.disabled = true;
+    if(j===q.ans) b.classList.add('correct');
+    else if(j===i) b.classList.add('wrong');
+  });
+  document.getElementById('fb').textContent = correct ? '✓ נכון!' : '✗ לא נכון';
+  document.getElementById('fb').className = 'feedback '+(correct?'ok':'bad');
+  render();
+}
+
+function nextQ(){
+  state.qi++;
+  state.answered = false;
+  render();
+  window.scrollTo(0,0);
+}
+
+function renderGameResults(){
+  const total = currentLevels().length;
+  const pct = Math.round(state.score/total*100);
+  return `
+    <div class="panel" style="text-align:center;">
+      <div class="qtitle">סיימת את התרגול!</div>
+      <div class="scorebig">${state.score}/${total}</div>
+      <div style="font-size:16px;opacity:.8;margin-bottom:20px;">${pct}% תשובות נכונות</div>
+      <div class="btnrow">
+        <button class="btn" onclick="startGame()">שוב ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>`;
+}
+
+render();
+</script>
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>

@@ -198,15 +198,20 @@ function seqRow(seqNum, label, opts={}){
   const chevron = isOpen ? '▾' : '◂';
   let cards = '';
   if(isOpen){
-    const quizCard = opts.worksheetUrl
-      ? `<div class="card quiz" onclick="showWorksheet('${opts.worksheetUrl}')"><h3>מבדק שליטה</h3></div>`
-      : `<div class="card quiz" onclick="state.sequence=${seqNum};startQuiz()"><h3>מבדק שליטה</h3></div>`;
+    const nextCard = opts.nextUrl
+      ? `<div class="flow-arrow">←</div>
+         <div class="card" onclick="window.location.href='${opts.nextUrl}'" style="background:rgba(16,185,129,0.18);border:1.5px solid var(--green);color:var(--green);flex-direction:column;gap:2px;padding:10px 18px;border-radius:14px;text-align:center;">
+           <h3 style="margin:0;">אין מבדק שליטה!</h3>
+           <span style="font-size:12px;opacity:.8;">אפשר להתקדם ליחידה הבאה ←</span>
+         </div>`
+      : opts.worksheetUrl
+        ? `<div class="flow-arrow">←</div><div class="card quiz" onclick="showWorksheet('${opts.worksheetUrl}')"><h3>מבדק שליטה</h3></div>`
+        : `<div class="flow-arrow">←</div><div class="card quiz" onclick="state.sequence=${seqNum};startQuiz()"><h3>מבדק שליטה</h3></div>`;
     cards = `<div class="cards" style="margin-bottom:6px;">
       <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
       <div class="flow-arrow">←</div>
       <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
-      <div class="flow-arrow">←</div>
-      ${quizCard}
+      ${nextCard}
     </div>`;
   }
   return `
@@ -226,7 +231,7 @@ function renderHome(){
       <p class="subtitle">יחידה 1 — תחום גיאומטרי</p>
     </div>
     <div class="sequence-section">
-      ${seqRow(1, '1. מבוא — מה זו גיאומטריה?', {})}
+      ${seqRow(1, '1. מבוא — מה זו גיאומטריה?', {nextUrl:'../unit7/'})}
     </div>
   `;
 }
