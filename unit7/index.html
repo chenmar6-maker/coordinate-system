@@ -99,30 +99,30 @@ const gameLevels1 = [
 ];
 
 const gameLevels2 = [
-  {q:'בכתיב ∡ABC, מה הוא הקודקוד?',opts:['A','B','C','לא ניתן לדעת'],ans:1,exp:'הקודקוד תמיד האות האמצעית. ב-∡ABC — הקודקוד הוא B.'},
-  {q:'בכתיב ∡PQR, מה הן השוקיים?',opts:['PQ ו-PR','QP ו-QR','PQ ו-QR','RP ו-RQ'],ans:1,exp:'הקודקוד Q (אמצעי), לכן השוקיים הן הקרניים היוצאות ממנו: QP ו-QR.'},
-  {q:'∡BAC — הקודקוד הוא:',opts:['B','A','C','BA'],ans:1,exp:'האות האמצעית ב-∡BAC היא A — זהו הקודקוד.'},
-  {q:'זווית שקודקודה M ושוקיה MA ו-MB. אילו כתיבים נכונים?',opts:['∡AMB בלבד','∡BMA בלבד','∡AMB ו-∡BMA שניהם','∡MAB'],ans:2,exp:'אפשר להפוך את סדר השוקיים: ∡AMB ו-∡BMA מתארים את אותה הזווית.'},
-  {q:'∡CAT — מה הקודקוד?',opts:['C','A','T','CA'],ans:1,exp:'∡CAT: C — שוק, A — קודקוד (אמצעי), T — שוק.'},
-  {q:'מתי מותר לכתוב רק ∡B (ללא שלוש אותיות)?',opts:['תמיד','רק כשהזווית חדה','רק כשיש זווית אחת בקודקוד B','אף פעם'],ans:2,exp:'כותבים ∡B ללא שלוש אותיות רק כשאין בלבול — כלומר יש זווית אחת בלבד בקודקוד B.'},
+  {q:'בכתיב <span dir="ltr">∡ABC</span>, מה הוא הקודקוד?',opts:['A','B','C','לא ניתן לדעת'],ans:1,exp:'הקודקוד תמיד האות האמצעית. ב-<span dir="ltr">∡ABC</span> — הקודקוד הוא B.'},
+  {q:'בכתיב <span dir="ltr">∡PQR</span>, מה הן השוקיים?',opts:['PQ ו-PR','QP ו-QR','PQ ו-QR','RP ו-RQ'],ans:1,exp:'הקודקוד Q (אמצעי), לכן השוקיים הן הקרניים היוצאות ממנו: QP ו-QR.'},
+  {q:'<span dir="ltr">∡BAC</span> — הקודקוד הוא:',opts:['B','A','C','BA'],ans:1,exp:'האות האמצעית ב-<span dir="ltr">∡BAC</span> היא A — זהו הקודקוד.'},
+  {q:'זווית שקודקודה M ושוקיה MA ו-MB. אילו כתיבים נכונים?',opts:['<span dir="ltr">∡AMB</span> בלבד','<span dir="ltr">∡BMA</span> בלבד','<span dir="ltr">∡AMB</span> ו-<span dir="ltr">∡BMA</span> שניהם','<span dir="ltr">∡MAB'</span>],ans:2,exp:'אפשר להפוך את סדר השוקיים: <span dir="ltr">∡AMB</span> ו-<span dir="ltr">∡BMA</span> מתארים את אותה הזווית.'},
+  {q:'<span dir="ltr">∡CAT</span> — מה הקודקוד?',opts:['C','A','T','CA'],ans:1,exp:'<span dir="ltr">∡CAT</span>: C — שוק, A — קודקוד (אמצעי), T — שוק.'},
+  {q:'מתי מותר לכתוב רק <span dir="ltr">∡B</span> (ללא שלוש אותיות)?',opts:['תמיד','רק כשהזווית חדה','רק כשיש זווית אחת בקודקוד B','אף פעם'],ans:2,exp:'כותבים <span dir="ltr">∡B</span> ללא שלוש אותיות רק כשאין בלבול — כלומר יש זווית אחת בלבד בקודקוד B.'},
 ];
 
 const gameLevels3 = [
-  {q:'∡AOB=40°, ∡BOC=30°, C בתוך ∡AOB. מה ∡AOC?',opts:['10°','70°','40°','80°'],ans:1,exp:'סכום: ∡AOC = 40°+30° = 70°. (שגיאה נפוצה: בלבול בין C לבין ∡AOB — כאן C הוא שוק פנימי)'},
-  {q:'∡XYZ=90°, ∡XYW=55°, W בתוך הזווית. מה ∡WYZ?',opts:['55°','145°','35°','90°'],ans:2,exp:'הפרש: ∡WYZ = 90°−55° = 35°.'},
-  {q:'∡AOC=180°, ∡AOB=110°. מה ∡BOC?',opts:['110°','70°','80°','290°'],ans:1,exp:'הפרש: 180°−110° = 70°.'},
+  {q:'<span dir="ltr">∡AOB=40°</span>, <span dir="ltr">∡BOC=30°</span>, C בתוך <span dir="ltr">∡AOB</span>. מה <span dir="ltr">∡AOC</span>?',opts:['10°','70°','40°','80°'],ans:1,exp:'סכום: <span dir="ltr">∡AOC</span> = 40°+30° = 70°. (שגיאה נפוצה: בלבול בין C לבין <span dir="ltr">∡AOB</span> — כאן C הוא שוק פנימי)'},
+  {q:'<span dir="ltr">∡XYZ=90°</span>, <span dir="ltr">∡XYW=55°</span>, W בתוך הזווית. מה <span dir="ltr">∡WYZ</span>?',opts:['55°','145°','35°','90°'],ans:2,exp:'הפרש: <span dir="ltr">∡WYZ</span> = 90°−55° = 35°.'},
+  {q:'<span dir="ltr">∡AOC=180°</span>, <span dir="ltr">∡AOB=110°</span>. מה <span dir="ltr">∡BOC</span>?',opts:['110°','70°','80°','290°'],ans:1,exp:'הפרש: 180°−110° = 70°.'},
   {q:'שוק בתוך זווית ישרה מחלק אותה לשני חלקים שווים. כמה כל חלק?',opts:['30°','45°','60°','90°'],ans:1,exp:'זווית ישרה=90°. שני חלקים שווים: 90°÷2=45°.'},
-  {q:'∡ABC=120°, ∡ABD=80°, D בתוך ∡ABC. מה ∡DBC?',opts:['200°','40°','80°','120°'],ans:1,exp:'הפרש: 120°−80° = 40°.'},
-  {q:'שלוש קרניים מקודקוד O. ∡AOB=35°, ∡BOC=55°. מה ∡AOC?',opts:['20°','55°','90°','80°'],ans:2,exp:'סכום: 35°+55° = 90°. ∡AOC = ∡AOB + ∡BOC.'},
+  {q:'<span dir="ltr">∡ABC=120°</span>, <span dir="ltr">∡ABD=80°</span>, D בתוך <span dir="ltr">∡ABC</span>. מה <span dir="ltr">∡DBC</span>?',opts:['200°','40°','80°','120°'],ans:1,exp:'הפרש: 120°−80° = 40°.'},
+  {q:'שלוש קרניים מקודקוד O. <span dir="ltr">∡AOB=35°</span>, <span dir="ltr">∡BOC=55°</span>. מה <span dir="ltr">∡AOC</span>?',opts:['20°','55°','90°','80°'],ans:2,exp:'סכום: 35°+55° = 90°. <span dir="ltr">∡AOC</span> = <span dir="ltr">∡AOB</span> + <span dir="ltr">∡BOC</span>.'},
 ];
 
 const gameLevels4 = [
-  {q:'OC חוצה-זווית של ∡AOB=60°. מה ∡AOC?',opts:['60°','120°','30°','45°'],ans:2,exp:'חוצה-זווית מחלקת לשניים: 60°÷2=30°.'},
-  {q:'OC חוצה-זווית של ∡AOB, ∡AOC=40°. מה ∡AOB?',opts:['20°','40°','80°','160°'],ans:2,exp:'∡AOB = 2×∡AOC = 2×40° = 80°.'},
-  {q:'OC חוצה-זווית של זווית ישרה (90°). מה ∡AOC?',opts:['30°','45°','60°','90°'],ans:1,exp:'90°÷2=45°.'},
+  {q:'OC חוצה-זווית של <span dir="ltr">∡AOB=60°</span>. מה <span dir="ltr">∡AOC</span>?',opts:['60°','120°','30°','45°'],ans:2,exp:'חוצה-זווית מחלקת לשניים: 60°÷2=30°.'},
+  {q:'OC חוצה-זווית של <span dir="ltr">∡AOB</span>, <span dir="ltr">∡AOC=40°</span>. מה <span dir="ltr">∡AOB</span>?',opts:['20°','40°','80°','160°'],ans:2,exp:'<span dir="ltr">∡AOB</span> = 2×<span dir="ltr">∡AOC</span> = 2×40° = 80°.'},
+  {q:'OC חוצה-זווית של זווית ישרה (90°). מה <span dir="ltr">∡AOC</span>?',opts:['30°','45°','60°','90°'],ans:1,exp:'90°÷2=45°.'},
   {q:'מה הגדרת חוצה-זווית?',opts:['קרן שמאריכה זווית','קרן שמחלקת זווית לשני חלקים שווים','קרן שנמצאת בתוך הזווית','קרן ניצבת לשוק'],ans:1,exp:'חוצה-זווית = קרן שמחלקת את הזווית לשני חלקים שווים בדיוק.'},
-  {q:'OD חוצה ∡AOB=90°. OE חוצה ∡DOB. מה ∡EOB?',opts:['45°','22.5°','30°','67.5°'],ans:1,exp:'∡DOB=45°. OE חוצה: ∡EOB=45°÷2=22.5°.'},
-  {q:'OC חוצה ∡AOB=80°. מה ∡BOC?',opts:['40°','80°','20°','160°'],ans:0,exp:'∡BOC = ∡AOB÷2 = 80°÷2 = 40°.'},
+  {q:'OD חוצה <span dir="ltr">∡AOB=90°</span>. OE חוצה <span dir="ltr">∡DOB</span>. מה <span dir="ltr">∡EOB</span>?',opts:['45°','22.5°','30°','67.5°'],ans:1,exp:'<span dir="ltr">∡DOB=45°</span>. OE חוצה: <span dir="ltr">∡EOB=45°÷2=22</span>.5°.'},
+  {q:'OC חוצה <span dir="ltr">∡AOB=80°</span>. מה <span dir="ltr">∡BOC</span>?',opts:['40°','80°','20°','160°'],ans:0,exp:'<span dir="ltr">∡BOC</span> = <span dir="ltr">∡AOB÷2</span> = 80°÷2 = 40°.'},
 ];
 
 const gameLevels5 = [
@@ -229,16 +229,16 @@ function renderHome(){
     </div>
     <div class="section-block">
       <div style="${SH}">יסודות הזוויות</div>
-      ${seqRow(1,  '1. סוגי זוויות',           {worksheetUrl:'../worksheets/angles_seq1_exam.html', checkUrl:'../worksheets/angles_seq1_exam_check.html', answersUrl:'../worksheets/angles_seq1_exam_answers.html'})}
-      ${seqRow(2,  '2. כתיב מתמטי של זוויות', {worksheetUrl:'../worksheets/angles_seq2_exam.html', checkUrl:'../worksheets/angles_seq2_exam_check.html', answersUrl:'../worksheets/angles_seq2_exam_answers.html'})}
+      ${seqRow(1,  '1. סוגי זוויות',           {noGame:true, worksheetUrl:'../worksheets/angles_seq1_exam.html', checkUrl:'../worksheets/angles_seq1_exam_check.html', answersUrl:'../worksheets/angles_seq1_exam_answers.html'})}
+      ${seqRow(2,  '2. כתיב מתמטי של זוויות', {noGame:true, worksheetUrl:'../worksheets/angles_seq2_exam.html', checkUrl:'../worksheets/angles_seq2_exam_check.html', answersUrl:'../worksheets/angles_seq2_exam_answers.html'})}
 
       <div style="${SH}">פעולות עם זוויות</div>
-      ${seqRow(3,  '3. סכום והפרש זוויות',    {worksheetUrl:'../worksheets/angles_seq3_exam.html', checkUrl:'../worksheets/angles_seq3_exam_check.html', answersUrl:'../worksheets/angles_seq3_exam_answers.html'})}
-      ${seqRow(4,  '4. חוצה-זווית',           {worksheetUrl:'../worksheets/angles_seq4_exam.html', checkUrl:'../worksheets/angles_seq4_exam_check.html', answersUrl:'../worksheets/angles_seq4_exam_answers.html'})}
+      ${seqRow(3,  '3. סכום והפרש זוויות',    {noGame:true, worksheetUrl:'../worksheets/angles_seq3_exam.html', checkUrl:'../worksheets/angles_seq3_exam_check.html', answersUrl:'../worksheets/angles_seq3_exam_answers.html'})}
+      ${seqRow(4,  '4. חוצה-זווית',           {noGame:true, worksheetUrl:'../worksheets/angles_seq4_exam.html', checkUrl:'../worksheets/angles_seq4_exam_check.html', answersUrl:'../worksheets/angles_seq4_exam_answers.html'})}
 
       <div style="${SH}">זוויות מיוחדות</div>
-      ${seqRow(5,  '5. זוויות צמודות',        {worksheetUrl:'../worksheets/angles_seq5_exam.html', checkUrl:'../worksheets/angles_seq5_exam_check.html', answersUrl:'../worksheets/angles_seq5_exam_answers.html'})}
-      ${seqRow(6,  '6. זוויות קודקודיות',     {worksheetUrl:'../worksheets/angles_seq6_exam.html', checkUrl:'../worksheets/angles_seq6_exam_check.html', answersUrl:'../worksheets/angles_seq6_exam_answers.html'})}
+      ${seqRow(5,  '5. זוויות צמודות',        {noGame:true, worksheetUrl:'../worksheets/angles_seq5_exam.html', checkUrl:'../worksheets/angles_seq5_exam_check.html', answersUrl:'../worksheets/angles_seq5_exam_answers.html'})}
+      ${seqRow(6,  '6. זוויות קודקודיות',     {noGame:true, worksheetUrl:'../worksheets/angles_seq6_exam.html', checkUrl:'../worksheets/angles_seq6_exam_check.html', answersUrl:'../worksheets/angles_seq6_exam_answers.html'})}
 
       <div style="${SH}">משולשים ומרובעים</div>
       ${seqRow(7,  '7. משולש שווה-צלעות', {noGame:true, noQuiz:true})}
@@ -334,17 +334,17 @@ function renderLearn2(){
     <div class="video-wrap">
       <iframe src="https://www.youtube.com/embed/WULROd_Xh0s" title="כתיב מתמטי של זוויות" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-    <div class="gold-box">∡ABC — שלוש אותיות מתארות זווית: A ו-C הן נקודות על השוקיים, B הוא הקודקוד (תמיד באמצע)</div>
+    <div class="gold-box"><span dir="ltr">∡ABC</span> — שלוש אותיות מתארות זווית: A ו-C הן נקודות על השוקיים, B הוא הקודקוד (תמיד באמצע)</div>
     <div style="text-align:center;margin:20px 0;">
-      <svg width="200" height="120" viewBox="0 0 200 120"><line x1="100" y1="10" x2="30" y2="100" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><line x1="100" y1="10" x2="170" y2="100" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="100" x2="170" y2="100" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><circle cx="100" cy="10" r="3.5" fill="#EFA94A"/><circle cx="30" cy="100" r="3.5" fill="#EFA94A"/><circle cx="170" cy="100" r="3.5" fill="#EFA94A"/><path d="M 88 22 A 15 15 0 0 1 112 22" stroke="#EFA94A" stroke-width="2" fill="none"/><text x="98" y="8" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif" text-anchor="middle">A</text><text x="20" y="115" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">B</text><text x="174" y="115" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">C</text><text x="100" y="35" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif" text-anchor="middle">∡BAC</text></svg>
+      <svg width="200" height="120" viewBox="0 0 200 120"><line x1="100" y1="10" x2="30" y2="100" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><line x1="100" y1="10" x2="170" y2="100" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="100" x2="170" y2="100" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><circle cx="100" cy="10" r="3.5" fill="#EFA94A"/><circle cx="30" cy="100" r="3.5" fill="#EFA94A"/><circle cx="170" cy="100" r="3.5" fill="#EFA94A"/><path d="M 88 22 A 15 15 0 0 1 112 22" stroke="#EFA94A" stroke-width="2" fill="none"/><text x="98" y="8" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif" text-anchor="middle" direction="ltr">A</text><text x="20" y="115" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">B</text><text x="174" y="115" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">C</text><text x="100" y="35" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif" text-anchor="middle">∡BAC</text></svg>
     </div>
     <ul class="bullets">
-      <li>הכתיב ∡BAC — קודקוד A, שוקיים AB ו-AC</li>
-      <li>אפשר גם ∡CAB (הפיכת סדר השוקיים מותרת)</li>
-      <li>אם יש זווית אחת בלבד בקודקוד — מותר לכתוב רק ∡A</li>
-      <li>אסור: הקודקוד בקצה! ∡BAC — A חייב להיות באמצע</li>
+      <li>הכתיב <span dir="ltr">∡BAC</span> — קודקוד A, שוקיים AB ו-AC</li>
+      <li>אפשר גם <span dir="ltr">∡CAB</span> (הפיכת סדר השוקיים מותרת)</li>
+      <li>אם יש זווית אחת בלבד בקודקוד — מותר לכתוב רק <span dir="ltr">∡A</span></li>
+      <li>אסור: הקודקוד בקצה! <span dir="ltr">∡BAC</span> — A חייב להיות באמצע</li>
     </ul>
-    <div class="learn-note">טריק: הקודקוד — האות האמצעית. ∡ABC → קודקוד B</div>
+    <div class="learn-note">טריק: הקודקוד — האות האמצעית. <span dir="ltr">∡ABC</span> → קודקוד B</div>
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -358,13 +358,13 @@ function renderLearn3(){
     <div class="video-wrap">
       <iframe src="https://www.youtube.com/embed/hPpIIspYhC4" title="סכום והפרש זוויות" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-    <div class="gold-box">כאשר שוק נמצא בתוך זווית: ∡AOB = ∡AOC + ∡COB (ניתן לחבר ולחסר זוויות!)</div>
+    <div class="gold-box">כאשר שוק נמצא בתוך זווית: <span dir="ltr">∡AOB</span> = <span dir="ltr">∡AOC</span> + <span dir="ltr">∡COB</span> (ניתן לחבר ולחסר זוויות!)</div>
     <div style="text-align:center;margin:20px 0;">
-      <svg width="200" height="130" viewBox="0 0 200 130"><line x1="60" y1="110" x2="190" y2="110" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="110" x2="130" y2="30" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="110" x2="20" y2="30" stroke="#EFA94A" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round"/><circle cx="60" cy="110" r="4" fill="#EFA94A"/><path d="M 100 110 A 40 40 0 0 1 74 75" stroke="#EFA94A" stroke-width="1.8" fill="none"/><path d="M 85 93 A 28 28 0 0 1 65 82" stroke="#10B981" stroke-width="1.8" fill="none"/><text x="180" y="125" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">B</text><text x="128" y="22" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">C</text><text x="10" y="22" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif">A</text><text x="48" y="126" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif" font-weight="700">O</text><text x="110" y="102" fill="#EFA94A" font-size="12" font-family="Rubik,sans-serif">∡BOC</text><text x="73" y="78" fill="#10B981" font-size="12" font-family="Rubik,sans-serif">∡COA</text></svg>
+      <svg width="200" height="130" viewBox="0 0 200 130"><line x1="60" y1="110" x2="190" y2="110" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="110" x2="130" y2="30" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/><line x1="60" y1="110" x2="20" y2="30" stroke="#EFA94A" stroke-width="2" stroke-dasharray="4,3" stroke-linecap="round"/><circle cx="60" cy="110" r="4" fill="#EFA94A"/><path d="M 100 110 A 40 40 0 0 1 74 75" stroke="#EFA94A" stroke-width="1.8" fill="none"/><path d="M 85 93 A 28 28 0 0 1 65 82" stroke="#10B981" stroke-width="1.8" fill="none"/><text x="180" y="125" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif" direction="ltr">B</text><text x="128" y="22" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">C</text><text x="10" y="22" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif">A</text><text x="48" y="126" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif" font-weight="700">O</text><text x="110" y="102" fill="#EFA94A" font-size="12" font-family="Rubik,sans-serif">∡BOC</text><text x="73" y="78" fill="#10B981" font-size="12" font-family="Rubik,sans-serif" direction="ltr">∡COA</text></svg>
     </div>
     <ul class="bullets">
-      <li>סכום: אם C בתוך ∡AOB, אז ∡AOB = ∡AOC + ∡COB</li>
-      <li>הפרש: ∡COB = ∡AOB − ∡AOC</li>
+      <li>סכום: אם C בתוך <span dir="ltr">∡AOB</span>, אז <span dir="ltr">∡AOB</span> = <span dir="ltr">∡AOC</span> + <span dir="ltr">∡COB</span></li>
+      <li>הפרש: <span dir="ltr">∡COB</span> = <span dir="ltr">∡AOB</span> − <span dir="ltr">∡AOC</span></li>
       <li>זווית שטוחה = 180°: שוק בתוכה יוצר שתי זוויות שסכומן 180°</li>
       <li>זווית ישרה = 90°: שוק בתוכה יוצר שתי זוויות שסכומן 90°</li>
     </ul>
@@ -394,17 +394,17 @@ function renderLearn4(){
         <text x="55" y="8" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">A</text>
         <text x="158" y="35" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif">C</text>
         <text x="18" y="126" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif" font-weight="700">O</text>
-        <text x="105" y="108" fill="#10B981" font-size="11" font-family="Rubik,sans-serif">∡BOC</text>
-        <text x="55" y="52" fill="#EFA94A" font-size="11" font-family="Rubik,sans-serif">∡COA</text>
+        <text x="105" y="108" fill="#10B981" font-size="11" font-family="Rubik,sans-serif" direction="ltr">∡BOC</text>
+        <text x="55" y="52" fill="#EFA94A" font-size="11" font-family="Rubik,sans-serif" direction="ltr">∡COA</text>
       </svg>
     </div>
     <ul class="bullets">
-      <li>אם OC חוצה ∡AOB: ∡AOC = ∡COB = ½ · ∡AOB</li>
-      <li>∡AOB = 2 × ∡AOC (הכפלה)</li>
+      <li>אם OC חוצה <span dir="ltr">∡AOB</span>: <span dir="ltr">∡AOC</span> = <span dir="ltr">∡COB</span> = ½ · <span dir="ltr">∡AOB</span></li>
+      <li><span dir="ltr">∡AOB</span> = 2 × <span dir="ltr">∡AOC</span> (הכפלה)</li>
       <li>נסמן את החוצה בקו מקווקו</li>
       <li>את שתי הזוויות השוות נסמן בקשתות עם סימן שוויון (√)</li>
     </ul>
-    <div class="learn-note">טריק: חוצה = חצי. ∡AOB=80° → ∡AOC=40°. ∡AOC=35° → ∡AOB=70°.</div>
+    <div class="learn-note">טריק: חוצה = חצי. <span dir="ltr">∡AOB=80°</span> → <span dir="ltr">∡AOC=40°</span>. <span dir="ltr">∡AOC=35°</span> → <span dir="ltr">∡AOB=70°</span>.</div>
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
