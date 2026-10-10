@@ -74,63 +74,112 @@
   <div style="display:flex;gap:4px;justify-content:flex-start;margin:6px 0 8px;flex-wrap:wrap;">
 
     <!-- חדה ~45° -->
-    <!-- V=(14,52) R1(0°,L=50)=(64,52) R2(45°,L=42)=(14+30,52-30)=(44,22)
-         arc r=16: start(30,52) end=(14+11,52-11)=(25,41)
-         M30 52 A16 16 0 0 0 25 41 -->
-    <svg width="76" height="66" viewBox="0 0 76 66">
-      <defs><marker id="m0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="14" y1="52" x2="64" y2="52" stroke="#333" stroke-width="1.5" marker-end="url(#m0)"/>
-      <line x1="14" y1="52" x2="44" y2="22" stroke="#333" stroke-width="1.5" marker-end="url(#m0)"/>
-      <circle cx="14" cy="52" r="2.5" fill="#333"/>
-      <path d="M30,52 A16,16 0 0,0 25,41" fill="none" stroke="#555" stroke-width="1.2"/>
-      <text x="38" y="64" class="tname" fill="#111">חדה</text>
-    </svg>
+    <div id="q1a-board" class="fig" style="width:76px;height:66px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q1a-board', {
+        boundingbox: [-0.5,3.0,4.0,-1.2],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var O = b.create('point',[0,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var C = b.create('point',[3,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var Bpt = b.create('point',[2.1,2.1], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      b.create('arrow',[O, C], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[C, O, Bpt], {radius:0.9, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[1.5,-0.9,'חדה'], {fontSize:11, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
+    })();
+    </script>
 
     <!-- ישרה 90° -->
-    <!-- V=(14,52) R1(0°,L=50)=(64,52) R2(90°,L=40)=(14,12)
-         square: (26,52)→(26,40)→(14,40) -->
-    <svg width="76" height="66" viewBox="0 0 76 66">
-      <defs><marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="14" y1="52" x2="64" y2="52" stroke="#333" stroke-width="1.5" marker-end="url(#m1)"/>
-      <line x1="14" y1="52" x2="14" y2="12" stroke="#333" stroke-width="1.5" marker-end="url(#m1)"/>
-      <circle cx="14" cy="52" r="2.5" fill="#333"/>
-      <polyline points="26,52 26,40 14,40" fill="none" stroke="#555" stroke-width="1.2"/>
-      <text x="38" y="64" class="tname" fill="#111">ישרה</text>
-    </svg>
+    <div id="q1b-board" class="fig" style="width:76px;height:66px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q1b-board', {
+        boundingbox: [-0.5,3.8,4.0,-1.2],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var O = b.create('point',[0,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var Bpt = b.create('point',[3,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var A = b.create('point',[0,3], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Bpt, O, A], {type:'square', radius:0.7, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[1.5,-0.9,'ישרה'], {fontSize:11, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
+    })();
+    </script>
 
     <!-- קהה ~115° -->
-    <!-- V=(26,52) R1(0°,L=46)=(72,52) R2(115°,L=38):
-         cos115=-0.423 sin115=0.906 → (26-16,52-34)=(10,18)
-         arc r=16: 0°→115°: start(42,52) end=(26+16*(-0.423), 52-16*0.906)=(19,38)
-         M42,52 A16,16 0 0,0 19,38 -->
-    <svg width="80" height="66" viewBox="0 0 80 66">
-      <defs><marker id="m2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="26" y1="52" x2="72" y2="52" stroke="#333" stroke-width="1.5" marker-end="url(#m2)"/>
-      <line x1="26" y1="52" x2="10" y2="18" stroke="#333" stroke-width="1.5" marker-end="url(#m2)"/>
-      <circle cx="26" cy="52" r="2.5" fill="#333"/>
-      <path d="M42,52 A16,16 0 0,0 19,38" fill="none" stroke="#555" stroke-width="1.2"/>
-      <text x="40" y="64" class="tname" fill="#111">קהה</text>
-    </svg>
+    <div id="q1c-board" class="fig" style="width:80px;height:66px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q1c-board', {
+        boundingbox: [-2.2,3.5,4.0,-1.2],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var O = b.create('point',[0,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var Bpt = b.create('point',[3,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var A = b.create('point',[-1.3,2.7], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Bpt, O, A], {radius:0.9, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[0.5,-0.9,'קהה'], {fontSize:11, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
+    })();
+    </script>
 
     <!-- שטוחה 180° -->
-    <!-- V=(38,36) R1(0°,L=30)=(68,36) R2(180°,L=30)=(8,36)
-         arc r=14: M52,36 A14,14 0 0,0 24,36 (sweep=0 → upward) -->
-    <svg width="78" height="56" viewBox="0 0 78 56">
-      <defs><marker id="m3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="38" y1="36" x2="68" y2="36" stroke="#333" stroke-width="1.5" marker-end="url(#m3)"/>
-      <line x1="38" y1="36" x2="8"  y2="36" stroke="#333" stroke-width="1.5" marker-end="url(#m3)"/>
-      <circle cx="38" cy="36" r="2.5" fill="#333"/>
-      <path d="M52,36 A14,14 0 0,0 24,36" fill="none" stroke="#555" stroke-width="1.2"/>
-      <text x="39" y="53" class="tname" fill="#111">שטוחה</text>
-    </svg>
+    <div id="q1d-board" class="fig" style="width:78px;height:56px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q1d-board', {
+        boundingbox: [-3.8,2.5,3.8,-1.2],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var O = b.create('point',[0,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var Bpt = b.create('point',[3,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var A = b.create('point',[-3,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[A, O, Bpt], {radius:0.9, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[0,-1.0,'שטוחה'], {fontSize:11, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
+    })();
+    </script>
 
-    <!-- שלמה 360° — circle around point -->
-    <svg width="68" height="56" viewBox="0 0 68 56">
-      <circle cx="34" cy="28" r="18" fill="none" stroke="#333" stroke-width="1.5"/>
-      <circle cx="34" cy="28" r="2.5" fill="#333"/>
-      <line x1="34" y1="28" x2="52" y2="28" stroke="#333" stroke-width="1.5"/>
-      <text x="34" y="52" class="tname" fill="#111">שלמה</text>
-    </svg>
+    <!-- שלמה 360° -->
+    <div id="q1e-board" class="fig" style="width:68px;height:56px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q1e-board', {
+        boundingbox: [-2.5,2.5,2.5,-1.2],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var O = b.create('point',[0,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var R = b.create('point',[2,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      b.create('arrow',[O, R], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('circle',[O, R], {strokeColor:'#111', strokeWidth:1.5, fillColor:'none', highlight:false});
+      b.create('text',[0,-1.0,'שלמה'], {fontSize:11, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
+    })();
+    </script>
   </div>
 
   <div class="g2" style="margin-top:3px;justify-items:start;">
@@ -249,40 +298,60 @@
   <div style="margin-bottom:5px;"><span class="qn">9.</span> חשבו את הסכום (שוק אמצעי מחלק את הזווית הגדולה):</div>
   <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;">
     <div style="flex:1;">א. <span dir="ltr">∡ABC=40°, ∡CBD=50°</span>. מה <span dir="ltr">∡ABD</span>? <span class="bs">&nbsp;</span><div class="wl"></div></div>
-    <svg class="fig" width="96" height="78" viewBox="0 0 96 78">
-      <defs><marker id="m8a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="14" y1="68" x2="80" y2="68" stroke="#333" stroke-width="1.5" marker-end="url(#m8a)"/>
-      <line x1="14" y1="68" x2="44" y2="33" stroke="#333" stroke-width="1.5" marker-end="url(#m8a)"/>
-      <line x1="14" y1="68" x2="14" y2="21" stroke="#333" stroke-width="1.5" marker-end="url(#m8a)"/>
-      <circle cx="14" cy="68" r="2.5" fill="#333"/>
-      <path d="M34,68 A20,20 0 0,0 27,53" fill="none" stroke="#777" stroke-width="1.2"/>
-      <path d="M32,47 A28,28 0 0,0 14,40" fill="none" stroke="#555" stroke-width="1.2" stroke-dasharray="4,2"/>
-      <text x="83" y="72" class="lbl">D</text>
-      <text x="47" y="29" class="lbl">C</text>
-      <text x="6"  y="17" class="lbl">A</text>
-      <text x="4"  y="77" class="lbl">B</text>
-      <text class="slbl" x="39" y="54">50°</text>
-      <text class="slbl" x="22" y="34">40°</text>
-    </svg>
+    <div id="q9a-board" class="fig" style="width:96px;height:78px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q9a-board', {
+        boundingbox: [-0.5,5.5,5.5,-0.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var Bpt = b.create('point',[0,0], Object.assign({name:'B', label:lbl(-14,-8)}, ps));
+      var D = b.create('point',[4,0], Object.assign({name:'D', label:lbl(5,-7)}, ps));
+      var C = b.create('point',[1.93,2.30], Object.assign({name:'C', label:lbl(5,5)}, ps));
+      var A = b.create('point',[0,4], Object.assign({name:'A', label:lbl(-14,5)}, ps));
+      b.create('arrow',[Bpt, D], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[Bpt, C], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[Bpt, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[D, Bpt, C], {radius:1.2, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[D, Bpt, A], {radius:1.8, strokeColor:'#777', strokeWidth:1.2, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[2.0,0.7,'50°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+      b.create('text',[0.5,2.3,'40°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
   </div>
   <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;margin-top:4px;">
     <div style="flex:1;">ב. <span dir="ltr">∡DEF=65°, ∡FEG=25°</span>. מה <span dir="ltr">∡DEG</span>? <span class="bs">&nbsp;</span><div class="wl"></div></div>
-    <svg class="fig" width="96" height="78" viewBox="0 0 96 78">
-      <defs><marker id="m8b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="14" y1="68" x2="80" y2="68" stroke="#333" stroke-width="1.5" marker-end="url(#m8b)"/>
-      <line x1="14" y1="68" x2="61" y2="46" stroke="#333" stroke-width="1.5" marker-end="url(#m8b)"/>
-      <line x1="14" y1="68" x2="14" y2="21" stroke="#333" stroke-width="1.5" marker-end="url(#m8b)"/>
-      <circle cx="14" cy="68" r="2.5" fill="#333"/>
-      <polyline points="26,68 26,56 14,56" fill="none" stroke="#555" stroke-width="1.2"/>
-      <path d="M34,68 A20,20 0 0,0 32,60" fill="none" stroke="#777" stroke-width="1.2"/>
-      <path d="M39,56 A28,28 0 0,0 14,40" fill="none" stroke="#555" stroke-width="1.2" stroke-dasharray="4,2"/>
-      <text x="83" y="72" class="lbl">G</text>
-      <text x="64" y="43" class="lbl">F</text>
-      <text x="6"  y="17" class="lbl">D</text>
-      <text x="4"  y="77" class="lbl">E</text>
-      <text class="slbl" x="40" y="60">25°</text>
-      <text class="slbl" x="31" y="37">65°</text>
-    </svg>
+    <div id="q9b-board" class="fig" style="width:96px;height:78px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q9b-board', {
+        boundingbox: [-0.5,5.5,5.5,-0.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var E = b.create('point',[0,0], Object.assign({name:'E', label:lbl(-14,-8)}, ps));
+      var G = b.create('point',[4,0], Object.assign({name:'G', label:lbl(5,-7)}, ps));
+      var F = b.create('point',[3.6,1.7], Object.assign({name:'F', label:lbl(5,5)}, ps));
+      var D = b.create('point',[0,4], Object.assign({name:'D', label:lbl(-14,5)}, ps));
+      b.create('arrow',[E, G], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[E, F], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[E, D], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[G, E, D], {type:'square', radius:0.7, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[G, E, F], {radius:1.2, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[F, E, D], {radius:1.8, strokeColor:'#777', strokeWidth:1.2, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[2.1,0.45,'25°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+      b.create('text',[0.9,2.1,'65°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
   </div>
 </div>
 
@@ -290,37 +359,57 @@
   <div style="margin-bottom:5px;"><span class="qn">10.</span> חשבו את ההפרש (שוק פנימי מחסיר מהזווית הגדולה):</div>
   <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;">
     <div style="flex:1;">א. <span dir="ltr">∡AOB=130°, ∡AOC=80°</span>. מה <span dir="ltr">∡COB</span>? <span class="bs">&nbsp;</span><div class="wl"></div></div>
-    <svg class="fig" width="108" height="78" viewBox="0 0 108 78">
-      <defs><marker id="m9a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="48" y1="68" x2="92" y2="68" stroke="#333" stroke-width="1.5" marker-end="url(#m9a)"/>
-      <line x1="48" y1="68" x2="79" y2="28" stroke="#333" stroke-width="1.5" marker-end="url(#m9a)"/>
-      <line x1="48" y1="68" x2="20" y2="34" stroke="#333" stroke-width="1.5" marker-end="url(#m9a)"/>
-      <circle cx="48" cy="68" r="2.5" fill="#333"/>
-      <path d="M72,68 A24,24 0 0,0 63,50" fill="none" stroke="#555" stroke-width="1.5"/>
-      <path d="M82,68 A34,34 0 0,0 26,42" fill="none" stroke="#777" stroke-width="1.2" stroke-dasharray="4,2"/>
-      <text x="95" y="72" class="lbl">B</text>
-      <text x="82" y="25" class="lbl">C</text>
-      <text x="10" y="31" class="lbl">A</text>
-      <text x="41" y="77" class="lbl">O</text>
-      <text class="slbl" x="76" y="51">?</text>
-    </svg>
+    <div id="q10a-board" class="fig" style="width:108px;height:78px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q10a-board', {
+        boundingbox: [-3.8,5.0,5.5,-0.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
+      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
+      var C = b.create('point',[2.46,3.15], Object.assign({name:'C', label:lbl(5,5)}, ps));
+      var A = b.create('point',[-2.57,3.06], Object.assign({name:'A', label:lbl(-14,5)}, ps));
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, C], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.3, strokeColor:'#555', strokeWidth:1.5, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[Bpt, O, A], {radius:1.9, strokeColor:'#777', strokeWidth:1.2, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[1.9,0.7,'?'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
   </div>
   <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;margin-top:4px;">
     <div style="flex:1;">ב. <span dir="ltr">∡XYZ=95°, ∡XYW=55°</span>. מה <span dir="ltr">∡WYZ</span>? <span class="bs">&nbsp;</span><div class="wl"></div></div>
-    <svg class="fig" width="108" height="78" viewBox="0 0 108 78">
-      <defs><marker id="m9b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="48" y1="68" x2="92" y2="68" stroke="#333" stroke-width="1.5" marker-end="url(#m9b)"/>
-      <line x1="48" y1="68" x2="88" y2="35" stroke="#333" stroke-width="1.5" marker-end="url(#m9b)"/>
-      <line x1="48" y1="68" x2="44" y2="22" stroke="#333" stroke-width="1.5" marker-end="url(#m9b)"/>
-      <circle cx="48" cy="68" r="2.5" fill="#333"/>
-      <path d="M70,68 A22,22 0 0,0 65,54" fill="none" stroke="#555" stroke-width="1.5"/>
-      <path d="M80,68 A32,32 0 0,0 45,36" fill="none" stroke="#777" stroke-width="1.2" stroke-dasharray="4,2"/>
-      <text x="95" y="72" class="lbl">Z</text>
-      <text x="91" y="32" class="lbl">W</text>
-      <text x="47" y="18" class="lbl">X</text>
-      <text x="41" y="77" class="lbl">Y</text>
-      <text class="slbl" x="75" y="55">?</text>
-    </svg>
+    <div id="q10b-board" class="fig" style="width:108px;height:78px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q10b-board', {
+        boundingbox: [-1.5,5.5,5.5,-0.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var Y = b.create('point',[0,0], Object.assign({name:'Y', label:lbl(-14,-8)}, ps));
+      var Z = b.create('point',[4,0], Object.assign({name:'Z', label:lbl(5,-7)}, ps));
+      var W = b.create('point',[3.09,2.57], Object.assign({name:'W', label:lbl(5,5)}, ps));
+      var X = b.create('point',[-0.35,4.0], Object.assign({name:'X', label:lbl(-14,5)}, ps));
+      b.create('arrow',[Y, Z], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[Y, W], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[Y, X], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Z, Y, W], {radius:1.3, strokeColor:'#555', strokeWidth:1.5, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[Z, Y, X], {radius:1.9, strokeColor:'#777', strokeWidth:1.2, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[2.0,0.65,'?'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
   </div>
 </div>
 
@@ -332,21 +421,31 @@
       <div style="margin-top:4px;"><span dir="ltr">∡COB</span> = <span class="b">&nbsp;</span></div>
       <div class="wl"></div>
     </div>
-    <svg class="fig" width="135" height="66" viewBox="0 0 135 66">
-      <defs><marker id="m10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="66" y1="56" x2="14"  y2="56" stroke="#333" stroke-width="1.5" marker-end="url(#m10)"/>
-      <line x1="66" y1="56" x2="118" y2="56" stroke="#333" stroke-width="1.5" marker-end="url(#m10)"/>
-      <line x1="66" y1="56" x2="78"  y2="10" stroke="#333" stroke-width="1.5" marker-end="url(#m10)"/>
-      <circle cx="66" cy="56" r="2.5" fill="#333"/>
-      <path d="M90,56 A24,24 0 0,0 72,33" fill="none" stroke="#555" stroke-width="1.5"/>
-      <path d="M71,39 A18,18 0 0,0 48,56" fill="none" stroke="#aaa" stroke-width="1.1" stroke-dasharray="3,2"/>
-      <text x="5"   y="53" class="lbl">A</text>
-      <text x="121" y="53" class="lbl">B</text>
-      <text x="80"  y="8"  class="lbl">C</text>
-      <text x="60"  y="66" class="lbl">O</text>
-      <text class="slbl" x="90" y="35">?</text>
-      <text class="slbl" x="46" y="35">75°</text>
-    </svg>
+    <div id="q11-board" class="fig" style="width:135px;height:66px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q11-board', {
+        boundingbox: [-5.5,5.0,5.5,-0.9],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-5,-10)}, ps));
+      var A = b.create('point',[-4,0], Object.assign({name:'A', label:lbl(-14,5)}, ps));
+      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,5)}, ps));
+      var C = b.create('point',[1.04,3.86], Object.assign({name:'C', label:lbl(5,5)}, ps));
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, C], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.4, strokeColor:'#555', strokeWidth:1.5, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:0.95, strokeColor:'#aaa', strokeWidth:1.1, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[1.9,1.4,'?'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+      b.create('text',[-1.7,1.3,'75°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
   </div>
 </div>
 
@@ -358,22 +457,32 @@
       <div style="margin-top:4px;"><span dir="ltr">∡COB</span> = <span class="b">&nbsp;</span></div>
       <div class="wl"></div>
     </div>
-    <svg class="fig" width="108" height="88" viewBox="0 0 108 88">
-      <defs><marker id="m11" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="16" y1="76" x2="96" y2="76" stroke="#333" stroke-width="1.5" marker-end="url(#m11)"/>
-      <line x1="16" y1="76" x2="16" y2="16" stroke="#333" stroke-width="1.5" marker-end="url(#m11)"/>
-      <line x1="16" y1="76" x2="69" y2="43" stroke="#333" stroke-width="1.5" marker-end="url(#m11)"/>
-      <circle cx="16" cy="76" r="2.5" fill="#333"/>
-      <polyline points="28,76 28,64 16,64" fill="none" stroke="#555" stroke-width="1.2"/>
-      <path d="M40,76 A24,24 0 0,0 36,63" fill="none" stroke="#555" stroke-width="1.5"/>
-      <path d="M45,58 A34,34 0 0,0 16,42" fill="none" stroke="#aaa" stroke-width="1.1" stroke-dasharray="3,2"/>
-      <text x="98" y="73" class="lbl">B</text>
-      <text x="7"  y="14" class="lbl">A</text>
-      <text x="71" y="40" class="lbl">C</text>
-      <text x="5"  y="87" class="lbl">O</text>
-      <text class="slbl" x="46" y="65">?</text>
-      <text class="slbl" x="35" y="38">32°</text>
-    </svg>
+    <div id="q12-board" class="fig" style="width:108px;height:88px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q12-board', {
+        boundingbox: [-1.0,5.5,5.5,-0.9],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
+      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
+      var A = b.create('point',[0,4], Object.assign({name:'A', label:lbl(-14,5)}, ps));
+      var C = b.create('point',[3.39,2.12], Object.assign({name:'C', label:lbl(5,5)}, ps));
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, C], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Bpt, O, A], {type:'square', radius:0.7, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.3, strokeColor:'#555', strokeWidth:1.5, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:2.0, strokeColor:'#aaa', strokeWidth:1.1, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[1.8,0.55,'?'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+      b.create('text',[1.5,2.9,'32°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
   </div>
 </div>
 
@@ -391,85 +500,125 @@
   <div style="margin-bottom:5px;"><span class="qn">13.</span> שוק OC הוא חוצה-זווית של ∡AOB (מחלק לשני חלקים שווים).</div>
   <!-- א: ∡AOB=80°, OC bisects → each half=40° -->
   <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;">
-    <svg class="fig" width="96" height="78" viewBox="0 0 96 78">
-      <defs><marker id="m12a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="14" y1="68" x2="80" y2="68" stroke="#333" stroke-width="1.5" marker-end="url(#m12a)"/>
-      <line x1="14" y1="68" x2="28" y2="15" stroke="#333" stroke-width="1.5" marker-end="url(#m12a)"/>
-      <line x1="14" y1="68" x2="62" y2="26" stroke="#333" stroke-width="1.3" stroke-dasharray="5,3" marker-end="url(#m12a)"/>
-      <circle cx="14" cy="68" r="2.5" fill="#333"/>
-      <path d="M38,68 A24,24 0 0,0 32,53" fill="none" stroke="#555" stroke-width="1.2"/>
-      <path d="M32,53 A24,24 0 0,0 18,46" fill="none" stroke="#555" stroke-width="1.2"/>
-      <line x1="36" y1="57" x2="40" y2="54" stroke="#333" stroke-width="1.5"/>
-      <line x1="25" y1="48" x2="29" y2="45" stroke="#333" stroke-width="1.5"/>
-      <text x="83" y="72" class="lbl">B</text>
-      <text x="28" y="11" class="lbl">A</text>
-      <text x="65" y="23" class="lbl">C</text>
-      <text x="4"  y="77" class="lbl">O</text>
-    </svg>
+    <div id="q13a-board" class="fig" style="width:96px;height:78px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q13a-board', {
+        boundingbox: [-0.5,5.5,5.5,-0.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
+      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
+      var A = b.create('point',[1.04,3.86], Object.assign({name:'A', label:lbl(-14,5)}, ps));
+      var C = b.create('point',[3.18,2.43], Object.assign({name:'C', label:lbl(5,5)}, ps));
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, C], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.6, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:1.6, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('segment',[[1.73,0.50],[1.67,0.66]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('segment',[[1.07,1.45],[0.93,1.54]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+    })();
+    </script>
     <div style="flex:1;">א. <span dir="ltr">∡AOB=80°</span>:<br>
       <span dir="ltr">∡AOC</span>=<span class="bs">&nbsp;</span> &nbsp;|&nbsp; <span dir="ltr">∡COB</span>=<span class="bs">&nbsp;</span><div class="wl"></div></div>
   </div>
   <!-- ב: ∡AOB=130°, OC bisects → each half=65° -->
   <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;margin-top:4px;">
-    <svg class="fig" width="110" height="78" viewBox="0 0 110 78">
-      <defs><marker id="m12b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="50" y1="68" x2="98" y2="68" stroke="#333" stroke-width="1.5" marker-end="url(#m12b)"/>
-      <line x1="50" y1="68" x2="22" y2="34" stroke="#333" stroke-width="1.5" marker-end="url(#m12b)"/>
-      <line x1="50" y1="68" x2="74" y2="17" stroke="#333" stroke-width="1.3" stroke-dasharray="5,3" marker-end="url(#m12b)"/>
-      <circle cx="50" cy="68" r="2.5" fill="#333"/>
-      <path d="M72,68 A22,22 0 0,0 59,48" fill="none" stroke="#555" stroke-width="1.2"/>
-      <path d="M59,48 A22,22 0 0,0 36,51" fill="none" stroke="#555" stroke-width="1.2"/>
-      <line x1="69" y1="52" x2="73" y2="49" stroke="#333" stroke-width="1.5"/>
-      <line x1="46" y1="47" x2="50" y2="44" stroke="#333" stroke-width="1.5"/>
-      <text x="101" y="72" class="lbl">B</text>
-      <text x="13"  y="32" class="lbl">A</text>
-      <text x="77"  y="14" class="lbl">C</text>
-      <text x="43"  y="77" class="lbl">O</text>
-    </svg>
+    <div id="q13b-board" class="fig" style="width:110px;height:78px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q13b-board', {
+        boundingbox: [-3.8,5.5,5.5,-0.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
+      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
+      var A = b.create('point',[-2.57,3.06], Object.assign({name:'A', label:lbl(-14,5)}, ps));
+      var C = b.create('point',[1.69,3.63], Object.assign({name:'C', label:lbl(5,5)}, ps));
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, C], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.6, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:1.6, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('segment',[[1.56,0.90],[1.48,1.04]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('segment',[[-0.16,1.80],[-0.31,1.77]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+    })();
+    </script>
     <div style="flex:1;">ב. <span dir="ltr">∡AOB=130°</span>:<br>
       <span dir="ltr">∡AOC</span>=<span class="bs">&nbsp;</span> &nbsp;|&nbsp; <span dir="ltr">∡COB</span>=<span class="bs">&nbsp;</span><div class="wl"></div></div>
   </div>
   <!-- ג: given ∡AOC=45°, find ∡AOB -->
   <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;margin-top:4px;">
-    <svg class="fig" width="96" height="78" viewBox="0 0 96 78">
-      <defs><marker id="m12c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="14" y1="68" x2="80" y2="68" stroke="#333" stroke-width="1.5" marker-end="url(#m12c)"/>
-      <line x1="14" y1="68" x2="14" y2="20" stroke="#333" stroke-width="1.5" marker-end="url(#m12c)"/>
-      <line x1="14" y1="68" x2="57" y2="25" stroke="#333" stroke-width="1.3" stroke-dasharray="5,3" marker-end="url(#m12c)"/>
-      <circle cx="14" cy="68" r="2.5" fill="#333"/>
-      <polyline points="26,68 26,56 14,56" fill="none" stroke="#555" stroke-width="1.2"/>
-      <path d="M36,68 A22,22 0 0,0 30,52" fill="none" stroke="#555" stroke-width="1.2"/>
-      <path d="M30,52 A22,22 0 0,0 14,46" fill="none" stroke="#555" stroke-width="1.2"/>
-      <line x1="34" y1="56" x2="38" y2="53" stroke="#333" stroke-width="1.5"/>
-      <line x1="22" y1="47" x2="26" y2="44" stroke="#333" stroke-width="1.5"/>
-      <text x="83" y="72" class="lbl">B</text>
-      <text x="6"  y="16" class="lbl">A</text>
-      <text x="60" y="22" class="lbl">C</text>
-      <text x="4"  y="77" class="lbl">O</text>
-      <text class="slbl" x="32" y="64">45°</text>
-    </svg>
+    <div id="q13c-board" class="fig" style="width:96px;height:78px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q13c-board', {
+        boundingbox: [-0.5,5.5,5.5,-0.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
+      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
+      var A = b.create('point',[0,4], Object.assign({name:'A', label:lbl(-14,5)}, ps));
+      var C = b.create('point',[2.83,2.83], Object.assign({name:'C', label:lbl(5,5)}, ps));
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, C], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
+      b.create('angle',[Bpt, O, A], {type:'square', radius:0.7, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.4, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:1.4, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('segment',[[1.51,0.54],[1.45,0.69]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('segment',[[0.68,1.45],[0.54,1.51]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('text',[1.8,0.5,'45°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
     <div style="flex:1;">ג. <span dir="ltr">∡AOC=45°</span>. מה <span dir="ltr">∡AOB</span>? <span class="b">&nbsp;</span><div class="wl"></div></div>
   </div>
 </div>
 
 <div class="q">
   <div style="display:flex;gap:10px;align-items:center;">
-    <svg class="fig" width="94" height="78" viewBox="0 0 94 78">
-      <defs><marker id="m12d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="14" y1="68" x2="80" y2="68" stroke="#333" stroke-width="1.5" marker-end="url(#m12d)"/>
-      <line x1="14" y1="68" x2="26" y2="16" stroke="#333" stroke-width="1.5" marker-end="url(#m12d)"/>
-      <line x1="14" y1="68" x2="64" y2="30" stroke="#333" stroke-width="1.3" stroke-dasharray="5,3" marker-end="url(#m12d)"/>
-      <circle cx="14" cy="68" r="2.5" fill="#333"/>
-      <path d="M36,68 A22,22 0 0,0 31,55" fill="none" stroke="#555" stroke-width="1.2"/>
-      <path d="M31,55 A22,22 0 0,0 19,48" fill="none" stroke="#555" stroke-width="1.2"/>
-      <line x1="34" y1="57" x2="38" y2="54" stroke="#333" stroke-width="1.5"/>
-      <line x1="23" y1="49" x2="27" y2="46" stroke="#333" stroke-width="1.5"/>
-      <text x="83" y="72" class="lbl">B</text>
-      <text x="26" y="12" class="lbl">A</text>
-      <text x="67" y="27" class="lbl">C</text>
-      <text x="4"  y="77" class="lbl">O</text>
-      <text class="slbl" x="34" y="64">38°</text>
-    </svg>
+    <div id="q14-board" class="fig" style="width:94px;height:78px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q14-board', {
+        boundingbox: [-0.5,5.5,5.5,-0.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
+      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
+      var A = b.create('point',[0.97,3.88], Object.assign({name:'A', label:lbl(-14,5)}, ps));
+      var C = b.create('point',[3.19,2.41], Object.assign({name:'C', label:lbl(5,5)}, ps));
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, C], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.5, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:1.5, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('segment',[[1.90,0.54],[1.83,0.69]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('segment',[[1.10,1.48],[0.96,1.56]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('text',[2.0,0.48,'38°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
     <div style="flex:1;">
       <div><span class="qn">14.</span> שוק OC הוא חוצה-זווית. נתון: <span dir="ltr">∡COB=38°</span>. חשבו:</div>
       <div style="display:flex;gap:24px;margin-top:4px;">
@@ -482,24 +631,30 @@
 
 <div class="q">
   <div style="display:flex;gap:10px;align-items:center;">
-    <!-- V=(14,76) OA(90°,L=58)=(14,18) OB(0°,L=88)=(102,76)
-         OD(45°,L=68): (14+48,76-48)=(62,28) — dashed
-         OE(22.5°,L=76): cos22.5=0.924 sin22.5=0.383 → (14+70,76-29)=(84,47) — dashed
-         square at V: (26,76)→(26,64)→(14,64) -->
-    <svg class="fig" width="112" height="88" viewBox="0 0 112 88">
-      <defs><marker id="m13" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="14" y1="76" x2="102" y2="76" stroke="#333" stroke-width="1.5" marker-end="url(#m13)"/>
-      <line x1="14" y1="76" x2="14"  y2="18" stroke="#333" stroke-width="1.5" marker-end="url(#m13)"/>
-      <line x1="14" y1="76" x2="62"  y2="28" stroke="#333" stroke-width="1.3" stroke-dasharray="5,3" marker-end="url(#m13)"/>
-      <line x1="14" y1="76" x2="84"  y2="47" stroke="#333" stroke-width="1.3" stroke-dasharray="5,3" marker-end="url(#m13)"/>
-      <circle cx="14" cy="76" r="2.5" fill="#333"/>
-      <polyline points="26,76 26,64 14,64" fill="none" stroke="#555" stroke-width="1.2"/>
-      <text x="104" y="80" class="lbl">B</text>
-      <text x="6"   y="16" class="lbl">A</text>
-      <text x="64"  y="25" class="lbl">D</text>
-      <text x="86"  y="44" class="lbl">E</text>
-      <text x="4"   y="87" class="lbl">O</text>
-    </svg>
+    <div id="q15-board" class="fig" style="width:112px;height:88px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q15-board', {
+        boundingbox: [-0.5,5.5,5.5,-0.8],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
+      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
+      var A = b.create('point',[0,4], Object.assign({name:'A', label:lbl(-14,5)}, ps));
+      var D = b.create('point',[2.83,2.83], Object.assign({name:'D', label:lbl(5,5)}, ps));
+      var E = b.create('point',[3.70,1.53], Object.assign({name:'E', label:lbl(5,5)}, ps));
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, D], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
+      b.create('arrow',[O, E], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
+      b.create('angle',[Bpt, O, A], {type:'square', radius:0.7, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+    })();
+    </script>
     <div style="flex:1;">
       <div><span class="qn">15.</span> שוק OD הוא חוצה-זווית של <span dir="ltr">∡AOB</span> (זווית ישרה). שוק OE הוא חוצה-זווית של <span dir="ltr">∡DOB</span>. חשבו <span dir="ltr">∡AOE</span>.</div>
       <div style="margin-top:4px;"><span dir="ltr">∡AOE</span>=<span class="b">&nbsp;</span></div>
@@ -529,17 +684,30 @@
 
 <!-- Note: adjacent vs supplementary -->
 <div style="background:rgba(16,185,129,0.06);border-right:3px solid #10B981;border-radius:6px;padding:8px 12px;margin-bottom:8px;font-size:12px;display:flex;gap:12px;align-items:center;">
-  <svg width="90" height="54" viewBox="0 0 90 54">
-    <defs><marker id="mAdj" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#10B981"/></marker></defs>
-    <line x1="16" y1="44" x2="76" y2="44" stroke="#10B981" stroke-width="1.4" marker-end="url(#mAdj)"/>
-    <line x1="16" y1="44" x2="58" y2="10" stroke="#10B981" stroke-width="1.4" marker-end="url(#mAdj)"/>
-    <line x1="16" y1="44" x2="16" y2="6"  stroke="#555"    stroke-width="1.4" marker-end="url(#mAdj)"/>
-    <circle cx="16" cy="44" r="2" fill="#10B981"/>
-    <path d="M32,44 A16,16 0 0,0 27,32" fill="none" stroke="#10B981" stroke-width="1.1"/>
-    <path d="M27,32 A22,22 0 0,0 16,22" fill="none" stroke="#555" stroke-width="1.1"/>
-    <text x="29" y="42" font-size="9" fill="#10B981">α</text>
-    <text x="17" y="31" font-size="9" fill="#555">β</text>
-  </svg>
+  <div id="adj-board" style="width:90px;height:54px;flex-shrink:0;"></div>
+  <script>
+  (function(){
+    var b = JXG.JSXGraph.initBoard('adj-board', {
+      boundingbox: [-0.5,4.8,5.5,-0.8],
+      axis:false, grid:false,
+      showCopyright:false, showNavigation:false,
+      pan:{enabled:false}, zoom:{enabled:false},
+      renderer:'svg'
+    });
+    var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+    var O = b.create('point',[0,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+    var R1 = b.create('point',[4,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+    var R2 = b.create('point',[2.29,3.28], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+    var R3 = b.create('point',[0,3.5], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+    b.create('arrow',[O, R1], {strokeColor:'#10B981', strokeWidth:1.4, highlight:false});
+    b.create('arrow',[O, R2], {strokeColor:'#10B981', strokeWidth:1.4, highlight:false});
+    b.create('arrow',[O, R3], {strokeColor:'#555', strokeWidth:1.4, highlight:false});
+    b.create('angle',[R1, O, R2], {radius:1.0, strokeColor:'#10B981', strokeWidth:1.1, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+    b.create('angle',[R2, O, R3], {radius:1.4, strokeColor:'#555', strokeWidth:1.1, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+    b.create('text',[1.4,0.5,'α'], {fontSize:9, color:'#10B981', highlight:false, fixed:true});
+    b.create('text',[0.2,1.7,'β'], {fontSize:9, color:'#555', highlight:false, fixed:true});
+  })();
+  </script>
   <div>
     <strong>זוויות סמוכות</strong> — חולקות קודקוד ושוק משותפים, אך <em>אינן בהכרח</em> על אותו קו ישר.<br>
     דוגמה: α ו-β סמוכות. סכומן = ∡בין השוקיים החיצוניות, <strong>לא בהכרח 180°</strong>.<br>
@@ -549,18 +717,31 @@
 
 <div class="q">
   <div style="display:flex;gap:10px;align-items:center;">
-    <svg class="fig" width="132" height="64" viewBox="0 0 132 64">
-      <defs><marker id="m14" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="65" y1="52" x2="11"  y2="52" stroke="#333" stroke-width="1.5" marker-end="url(#m14)"/>
-      <line x1="65" y1="52" x2="119" y2="52" stroke="#333" stroke-width="1.5" marker-end="url(#m14)"/>
-      <line x1="65" y1="52" x2="91"  y2="14" stroke="#333" stroke-width="1.5" marker-end="url(#m14)"/>
-      <circle cx="65" cy="52" r="2.5" fill="#333"/>
-      <path d="M85,52 A20,20 0 0,0 76,36" fill="none" stroke="#555" stroke-width="1.3"/>
-      <path d="M74,39 A16,16 0 0,0 49,52" fill="none" stroke="#777" stroke-width="1.2" stroke-dasharray="3,2"/>
-      <text class="slbl" x="82" y="50">α</text>
-      <text class="slbl" x="47" y="48">β</text>
-      <text x="60" y="63" class="lbl" style="font-size:11px">O</text>
-    </svg>
+    <div id="q17-board" class="fig" style="width:132px;height:64px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q17-board', {
+        boundingbox: [-5.5,4.5,5.5,-0.9],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
+      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(2,-10)}, ps));
+      var A = b.create('point',[-4,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var Bpt = b.create('point',[4,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var C = b.create('point',[2.29,3.28], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, C], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.3, strokeColor:'#555', strokeWidth:1.3, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:0.95, strokeColor:'#777', strokeWidth:1.2, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('text',[1.4,0.6,'α'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+      b.create('text',[-0.55,0.9,'β'], {fontSize:10, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
     <div style="flex:1;">
       <div><span class="qn">17.</span> שוק יוצא מנקודה על קו ישר ויוצר שתי זוויות צמודות (סכומן 180°).</div>
       <div style="margin-top:5px;">
@@ -587,19 +768,28 @@
         <span>גדולה: <span class="b">&nbsp;</span></span>
       </div><div class="wl"></div>
     </div>
-    <!-- Same supplementary diagram but proportional (36° and 144°) -->
-    <!-- V=(55,46) ray(20°,L=40): cos20=0.940 sin20=0.342 → (55+38,46-14)=(93,32)
-         arc right r=18 0°→20°: start(73,46) end=(55+18*0.940,46-18*0.342)=(72,40) M73,46 A18,18 0 0,0 72,40
-         arc left r=14 20°→180°: start=(55+14*0.940,46-14*0.342)=(68,41) end=(41,46) M68,41 A14,14 0 0,0 41,46 -->
-    <svg class="fig" width="110" height="58" viewBox="0 0 110 58">
-      <defs><marker id="m15" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="55" y1="46" x2="8"   y2="46" stroke="#333" stroke-width="1.5" marker-end="url(#m15)"/>
-      <line x1="55" y1="46" x2="102" y2="46" stroke="#333" stroke-width="1.5" marker-end="url(#m15)"/>
-      <line x1="55" y1="46" x2="93"  y2="32" stroke="#333" stroke-width="1.5" marker-end="url(#m15)"/>
-      <circle cx="55" cy="46" r="2.5" fill="#333"/>
-      <path d="M73,46 A18,18 0 0,0 72,40" fill="none" stroke="#555" stroke-width="1.3"/>
-      <path d="M68,41 A14,14 0 0,0 41,46" fill="none" stroke="#777" stroke-width="1.2" stroke-dasharray="3,2"/>
-    </svg>
+    <div id="q19-board" class="fig" style="width:110px;height:58px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q19-board', {
+        boundingbox: [-5.5,3.0,5.5,-0.9],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var O = b.create('point',[0,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var A = b.create('point',[-4,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var Bpt = b.create('point',[4,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var C = b.create('point',[3.76,1.37], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, C], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('angle',[Bpt, O, C], {radius:1.4, strokeColor:'#555', strokeWidth:1.3, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+      b.create('angle',[C, O, A], {radius:1.0, strokeColor:'#777', strokeWidth:1.2, dash:2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
+    })();
+    </script>
   </div>
 </div>
 
@@ -633,17 +823,33 @@
 <div class="q">
   <div style="margin-bottom:5px;"><span class="qn">22.</span> בעזרת האיורים חשבו:</div>
   <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;">
-    <svg class="fig" width="100" height="82" viewBox="0 0 100 82">
-      <defs><marker id="m16a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="8"  y1="6"  x2="90" y2="74" stroke="#333" stroke-width="1.5" marker-end="url(#m16a)"/>
-      <line x1="90" y1="6"  x2="8"  y2="74" stroke="#333" stroke-width="1.5" marker-end="url(#m16a)"/>
-      <circle cx="49" cy="40" r="2.5" fill="#333"/>
-      <text x="43" y="23" font-size="13" font-weight="700" fill="#111">α</text>
-      <text x="63" y="44" font-size="13" font-weight="700" fill="#111">β</text>
-      <text x="41" y="60" font-size="13" font-weight="700" fill="#111">α'</text>
-      <text x="24" y="44" font-size="13" font-weight="700" fill="#111">β'</text>
-      <text x="38" y="19" font-size="11" fill="#555">70°</text>
-    </svg>
+    <div id="q22a-board" class="fig" style="width:100px;height:82px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q22a-board', {
+        boundingbox: [-3.5,4.5,3.5,-4.5],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var O = b.create('point',[0,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var P1 = b.create('point',[2.3,3.3], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var P2 = b.create('point',[-2.3,-3.3], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var P3 = b.create('point',[-2.3,3.3], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var P4 = b.create('point',[2.3,-3.3], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      b.create('arrow',[O, P1], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, P2], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, P3], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, P4], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('text',[0,2.0,'α'], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
+      b.create('text',[1.8,0,'β'], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true});
+      b.create('text',[0,-2.2,"α'"], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
+      b.create('text',[-1.8,0,"β'"], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true});
+      b.create('text',[0.3,1.5,'70°'], {fontSize:11, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
     <div style="flex:1;">א. נתון: <strong>α=70°</strong><br>
       <div class="g3" style="margin-top:3px;font-size:12px;">
         <span>β=<span class="bs">&nbsp;</span></span>
@@ -652,17 +858,33 @@
       </div><div class="wl"></div></div>
   </div>
   <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;margin-top:4px;">
-    <svg class="fig" width="100" height="82" viewBox="0 0 100 82">
-      <defs><marker id="m16b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="8"  y1="6"  x2="90" y2="74" stroke="#333" stroke-width="1.5" marker-end="url(#m16b)"/>
-      <line x1="90" y1="6"  x2="8"  y2="74" stroke="#333" stroke-width="1.5" marker-end="url(#m16b)"/>
-      <circle cx="49" cy="40" r="2.5" fill="#333"/>
-      <text x="43" y="23" font-size="13" font-weight="700" fill="#111">α</text>
-      <text x="63" y="44" font-size="13" font-weight="700" fill="#111">β</text>
-      <text x="41" y="60" font-size="13" font-weight="700" fill="#111">α'</text>
-      <text x="24" y="44" font-size="13" font-weight="700" fill="#111">β'</text>
-      <text x="35" y="19" font-size="11" fill="#555">115°</text>
-    </svg>
+    <div id="q22b-board" class="fig" style="width:100px;height:82px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q22b-board', {
+        boundingbox: [-4.5,3.5,4.5,-3.5],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var O = b.create('point',[0,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var P1 = b.create('point',[3.38,2.16], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var P2 = b.create('point',[-3.38,-2.16], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var P3 = b.create('point',[-3.38,2.16], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var P4 = b.create('point',[3.38,-2.16], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      b.create('arrow',[O, P1], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, P2], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, P3], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, P4], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('text',[0,2.0,'α'], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
+      b.create('text',[1.8,0,'β'], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true});
+      b.create('text',[0,-2.2,"α'"], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
+      b.create('text',[-1.8,0,"β'"], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true});
+      b.create('text',[0.5,1.5,'115°'], {fontSize:11, color:'#555', highlight:false, fixed:true});
+    })();
+    </script>
     <div style="flex:1;">ב. נתון: <strong>α=115°</strong><br>
       <div class="g3" style="margin-top:3px;font-size:12px;">
         <span>β=<span class="bs">&nbsp;</span></span>
@@ -674,16 +896,32 @@
 
 <div class="q">
   <div style="display:flex;gap:10px;align-items:center;">
-    <svg class="fig" width="90" height="76" viewBox="0 0 90 76">
-      <defs><marker id="m17" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#333"/></marker></defs>
-      <line x1="8"  y1="8"  x2="82" y2="68" stroke="#333" stroke-width="1.5" marker-end="url(#m17)"/>
-      <line x1="82" y1="8"  x2="8"  y2="68" stroke="#333" stroke-width="1.5" marker-end="url(#m17)"/>
-      <circle cx="45" cy="38" r="2.5" fill="#333"/>
-      <text x="37" y="20" font-size="11" font-weight="700" fill="#111">①40°</text>
-      <text x="57" y="41" font-size="11" font-weight="600" fill="#333">②</text>
-      <text x="37" y="58" font-size="11" font-weight="600" fill="#333">③</text>
-      <text x="18" y="41" font-size="11" font-weight="600" fill="#333">④</text>
-    </svg>
+    <div id="q23-board" class="fig" style="width:90px;height:76px;"></div>
+    <script>
+    (function(){
+      var b = JXG.JSXGraph.initBoard('q23-board', {
+        boundingbox: [-3.0,5.0,3.0,-5.0],
+        axis:false, grid:false,
+        showCopyright:false, showNavigation:false,
+        pan:{enabled:false}, zoom:{enabled:false},
+        renderer:'svg'
+      });
+      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
+      var O = b.create('point',[0,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var P1 = b.create('point',[1.37,3.76], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var P2 = b.create('point',[-1.37,-3.76], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var P3 = b.create('point',[-1.37,3.76], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      var P4 = b.create('point',[1.37,-3.76], Object.assign({name:'', label:{offset:[0,0]}}, ps));
+      b.create('arrow',[O, P1], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, P2], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, P3], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('arrow',[O, P4], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
+      b.create('text',[0.0,2.5,'①40°'], {fontSize:11, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
+      b.create('text',[1.6,0,'②'], {fontSize:11, color:'#333', highlight:false, fixed:true});
+      b.create('text',[0,-2.7,'③'], {fontSize:11, color:'#333', highlight:false, fixed:true, anchorX:'middle'});
+      b.create('text',[-1.6,0,'④'], {fontSize:11, color:'#333', highlight:false, fixed:true});
+    })();
+    </script>
     <div style="flex:1;">
       <div><span class="qn">23.</span> שני קווים נחתכים. הזווית הממוספרת ① = 40°. ציינו את גודל כל ארבע הזוויות:</div>
       <div style="display:flex;gap:16px;margin-top:5px;font-size:12px;flex-wrap:wrap;">
