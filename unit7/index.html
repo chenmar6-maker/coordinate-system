@@ -514,7 +514,7 @@ function renderGame(){
   }).join('');
   const explainHtml = state.answered
     ? `<div class="explain-box">${q.exp}</div><div class="btnrow" style="margin-top:12px;"><button class="btn" onclick="nextQ()">הבא ←</button></div>`
-    : '';
+    : `<div class="btnrow" style="margin-top:8px;"><button class="btn secondary" style="font-size:13px;padding:7px 16px;" onclick="skipQ()">דלג ←</button></div>`;
   return `<div class="panel">
     <div class="progressdots">${dots}</div>
     <div class="qmeta">שאלה ${state.qi+1} מתוך ${levels.length}</div>
@@ -536,23 +536,23 @@ function answerQ(i){
 }
 
 function nextQ(){ state.qi++; state.answered=false; state.lastAnswer=-1; render(); window.scrollTo(0,0); }
+function skipQ(){ state.qi++; state.answered=false; state.lastAnswer=-1; render(); window.scrollTo(0,0); }
 
 function renderGameResults(){
   const total = currentLevels().length;
   const pct = Math.round(state.score/total*100);
-  let emoji, msg;
-  if(pct===100){ emoji='🌟'; msg='מושלם! שלטת בחומר על הצד הטוב ביותר!'; }
-  else if(pct>=80){ emoji='💪'; msg='כל הכבוד! עבודה מצוינת.'; }
-  else if(pct>=60){ emoji='👍'; msg='עבודה טובה, עוד קצת תרגול ותשלוט בחומר!'; }
-  else { emoji='📚'; msg='המשך להתאמן — אתה בדרך הנכונה!'; }
+  const seqUrls = {1:'../worksheets/angles_seq1_exam.html',2:'../worksheets/angles_seq2_exam.html',3:'../worksheets/angles_seq3_exam.html',4:'../worksheets/angles_seq4_exam.html',5:'../worksheets/angles_seq5_exam.html',6:'../worksheets/angles_seq6_exam.html'};
+  const examUrl = seqUrls[state.sequence] || '';
+  const examBtn = examUrl
+    ? `<button class="btn" onclick="window.open('${examUrl}','_blank')">למבדק שליטה ←</button>`
+    : '';
   return `<div class="panel" style="text-align:center;">
-    <div style="font-size:52px;margin-bottom:8px;">${emoji}</div>
-    <h2 class="qtitle">סיימת את התרגול!</h2>
-    <div class="scorebig">${state.score}/${total}</div>
-    <div style="font-size:15px;opacity:.75;margin-bottom:6px;">${pct}% תשובות נכונות</div>
-    <div style="font-size:16px;font-weight:600;color:var(--gold);margin-bottom:22px;">${msg}</div>
+    <h2 class="qtitle">סיימתם את התרגול!</h2>
+    <div class="scorebig">${state.score} / ${total}</div>
+    <div style="font-size:15px;opacity:.75;margin-bottom:18px;">${pct}% תשובות נכונות</div>
+    <div style="font-size:15px;margin-bottom:22px;">עכשיו אפשר לבדוק את הידע שלכם במבדק שליטה.</div>
     <div class="btnrow">
-      <button class="btn" onclick="startGame()">נסה שוב ←</button>
+      ${examBtn}
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
