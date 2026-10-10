@@ -88,16 +88,10 @@ function startGame(){ state.qi=0; state.score=0; state.answered=false; goTo('gam
 const gameLevels1 = [
   {q:'מה היא זווית?',opts:['קו ישר ארוך','שני קרניים היוצאות מנקודה משותפת','שטח סגור','מרחק בין שתי נקודות'],ans:1,exp:'זווית נוצרת בין שני קרניים היוצאות מנקודה אחת שנקראת קדקוד.'},
   {q:'מה יחידת המידה של זווית?',opts:['מטרים','שניות','דרגות (°)','סנטימטרים'],ans:2,exp:'זוויות נמדדות בדרגות. סיבוב מלא = 360°.'},
-  {q:'כמה דרגות יש בסיבוב מלא?',opts:['90°','180°','270°','360°'],ans:3,exp:'סיבוב מלא = 360°. חצי סיבוב = 180°.'},
-  {q:'מה שמה של הנקודה שממנה יוצאות קרניי הזווית?',opts:['מרכז','בסיס','קדקוד','ראשית'],ans:2,exp:'הנקודה המשותפת שממנה יוצאות שתי הקרניים נקראת קדקוד הזווית.'},
-];
-
-const gameLevels2 = [
   {q:'כמה דרגות יש בזווית ישרה?',opts:['45°','90°','180°','360°'],ans:1,exp:'זווית ישרה = 90°. היא נראית כמו פינה של ריבוע.'},
   {q:'איזו זווית גדולה מ-90° וקטנה מ-180°?',opts:['חדה','ישרה','קהה','שטוחה'],ans:2,exp:'זווית קהה היא בין 90° ל-180°.'},
   {q:'זווית של 180° נקראת...',opts:['חדה','קהה','ישרה','שטוחה'],ans:3,exp:'זווית שטוחה = 180°. שני הקרניים יוצרים קו ישר אחד.'},
   {q:'איזה מהבאים הוא זווית חדה?',opts:['90°','120°','35°','180°'],ans:2,exp:'זווית חדה היא בין 0° ל-90°. 35° < 90° — לכן חדה.'},
-  {q:'טריק לזכור: "קהה" פירושו...',opts:['חד ומחודד','רחב ועמום','שטוח לגמרי','קטן מ-45°'],ans:1,exp:'קהה = לא חד. זווית קהה "רחבה ועמומה" — גדולה מ-90°.'},
 ];
 
 const gameLevelsPlaceholder = [
@@ -106,7 +100,6 @@ const gameLevelsPlaceholder = [
 
 function currentLevels(){
   if(state.sequence===1) return gameLevels1;
-  if(state.sequence===2) return gameLevels2;
   return gameLevelsPlaceholder;
 }
 
@@ -175,34 +168,23 @@ function renderHome(){
     <div class="section-block">
       <div style="${SH}">יסודות הזוויות</div>
       ${seqRow(1,  '1. זיהוי זוויות וסוגי זוויות', {})}
-      ${seqRow(2,  '2. סוגי הזוויות — חדה, ישרה, קהה, שטוחה', {})}
-      ${seqRow(3,  '3. סימון זוויות — אות הקודקוד', {noGame:true, noQuiz:true})}
-      ${seqRow(4,  '4. סימון זוויות — שלוש אותיות', {noGame:true, noQuiz:true})}
-      ${seqRow(5,  '5. סימון זוויות — אותיות יווניות', {noGame:true, noQuiz:true})}
-      ${seqRow(6,  '6. השוואה בין גדלים של זוויות', {noGame:true, noQuiz:true})}
-      ${seqRow(7,  '7. מדידה של זוויות', {noGame:true, noQuiz:true})}
+      ${seqRow(2,  '2. סימון זוויות בכתיב מתמטי', {noGame:true, noQuiz:true})}
+      ${seqRow(3,  '3. השוואה בין גדלים של זוויות', {noGame:true, noQuiz:true})}
+      ${seqRow(4,  '4. מדידה של זוויות', {noGame:true, noQuiz:true})}
 
       <div style="${SH}">פעולות עם זוויות</div>
-      ${seqRow(8,  '8. סכום והפרש של שתי זוויות', {noGame:true, noQuiz:true})}
-      ${seqRow(9,  '9. סרטוט זווית — סכום והפרש', {noGame:true, noQuiz:true})}
-      ${seqRow(10, '10. זיהוי חוצה-זווית', {noGame:true, noQuiz:true})}
-      ${seqRow(11, '11. חישובים עם חוצה-זווית', {noGame:true, noQuiz:true})}
-      ${seqRow(12, '12. סרטוט חוצה-זווית', {noGame:true, noQuiz:true})}
-      ${seqRow(13, '13. מטלת סיכום — זוויות (פרקים 20–25)', {noGame:true, noQuiz:true})}
+      ${seqRow(5,  '5. סכום והפרש זוויות', {noGame:true, noQuiz:true})}
+      ${seqRow(6,  '6. חוצה-זווית', {noGame:true, noQuiz:true})}
 
       <div style="${SH}">זוויות מיוחדות</div>
-      ${seqRow(14, '14. זיהוי זוויות צמודות', {noGame:true, noQuiz:true})}
-      ${seqRow(15, '15. חישובים עם זוויות צמודות', {noGame:true, noQuiz:true})}
-      ${seqRow(16, '16. חוצי-זוויות של זוויות צמודות', {noGame:true, noQuiz:true})}
-      ${seqRow(17, '17. זיהוי זוויות קודקודיות', {noGame:true, noQuiz:true})}
-      ${seqRow(18, '18. חישובים עם זוויות קודקודיות', {noGame:true, noQuiz:true})}
-      ${seqRow(19, '19. חוצי-זוויות של זוויות קודקודיות', {noGame:true, noQuiz:true})}
+      ${seqRow(7,  '7. זוויות צמודות', {noGame:true, noQuiz:true})}
+      ${seqRow(8,  '8. זוויות קודקודיות', {noGame:true, noQuiz:true})}
 
       <div style="${SH}">משולשים ומרובעים</div>
-      ${seqRow(20, '20. משולש שווה-צלעות', {noGame:true, noQuiz:true})}
-      ${seqRow(21, '21. משולש שווה-שוקיים', {noGame:true, noQuiz:true})}
-      ${seqRow(22, '22. סכום זוויות במשולש', {noGame:true, noQuiz:true})}
-      ${seqRow(23, '23. סכום זוויות במרובע', {noGame:true, noQuiz:true})}
+      ${seqRow(9,  '9. משולש שווה-צלעות', {noGame:true, noQuiz:true})}
+      ${seqRow(10, '10. משולש שווה-שוקיים', {noGame:true, noQuiz:true})}
+      ${seqRow(11, '11. סכום זוויות במשולש', {noGame:true, noQuiz:true})}
+      ${seqRow(12, '12. סכום זוויות במרובע', {noGame:true, noQuiz:true})}
     </div>`;
 }
 
@@ -212,13 +194,12 @@ function renderHome(){
 
 function renderLearn(){
   if(state.sequence===1) return renderLearn1();
-  if(state.sequence===2) return renderLearn2();
   return renderLearnPlaceholder();
 }
 
 function renderLearn1(){
   return `<div class="panel">
-    <h2 class="qtitle">מה זו זווית?</h2>
+    <h2 class="qtitle">זיהוי זוויות וסוגי זוויות</h2>
     <div class="gold-box">זווית = שני קרניים היוצאות מנקודה משותפת אחת, שנקראת <strong>קדקוד</strong></div>
     <div style="text-align:center;margin:20px 0;">
       <svg width="200" height="130" viewBox="0 0 200 130">
@@ -236,28 +217,15 @@ function renderLearn1(){
       <li>הזווית נמדדת ב<strong>דרגות (°)</strong></li>
       <li>סיבוב מלא = <strong>360°</strong></li>
       <li>הזווית מסומנת לרוב באות יוונית כמו α (אלפא) או β (בטא)</li>
-      <li>את הזווית מודדים עם מד-זוויות (שדרון)</li>
     </ul>
-    <div class="learn-note">המילה "קדקוד" מגיעה מהשורש ק.ד.ק.ד — קוד-קוד, ראש-ראש. זו הנקודה שבה פוגשות שתי הקרניים.</div>
-    <div class="btnrow">
-      <button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button>
-      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
-    </div>
-  </div>`;
-}
-
-function renderLearn2(){
-  return `<div class="panel">
-    <h2 class="qtitle">סוגי הזוויות</h2>
-    <div class="angle-grid">
+    <div class="angle-grid" style="margin-top:20px;">
       <div class="angle-card">
         <svg width="80" height="70" viewBox="0 0 80 70" style="display:block;margin:0 auto 10px;">
           <line x1="40" y1="60" x2="15" y2="10" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
           <line x1="40" y1="60" x2="70" y2="40" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
           <path d="M 30 42 A 16 16 0 0 1 52 50" stroke="#EFA94A" stroke-width="2" fill="none"/>
         </svg>
-        <div class="angle-name">חדה</div>
-        <div class="angle-range">0° &lt; α &lt; 90°</div>
+        <div class="angle-name">חדה</div><div class="angle-range">0° &lt; α &lt; 90°</div>
       </div>
       <div class="angle-card">
         <svg width="80" height="70" viewBox="0 0 80 70" style="display:block;margin:0 auto 10px;">
@@ -265,8 +233,7 @@ function renderLearn2(){
           <line x1="20" y1="55" x2="68" y2="55" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
           <rect x="20" y="42" width="13" height="13" stroke="#EFA94A" stroke-width="1.8" fill="none"/>
         </svg>
-        <div class="angle-name">ישרה</div>
-        <div class="angle-range">α = 90°</div>
+        <div class="angle-name">ישרה</div><div class="angle-range">α = 90°</div>
       </div>
       <div class="angle-card">
         <svg width="80" height="70" viewBox="0 0 80 70" style="display:block;margin:0 auto 10px;">
@@ -274,8 +241,7 @@ function renderLearn2(){
           <line x1="40" y1="60" x2="75" y2="40" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
           <path d="M 20 42 A 24 24 0 0 1 60 50" stroke="#EFA94A" stroke-width="2" fill="none"/>
         </svg>
-        <div class="angle-name">קהה</div>
-        <div class="angle-range">90° &lt; α &lt; 180°</div>
+        <div class="angle-name">קהה</div><div class="angle-range">90° &lt; α &lt; 180°</div>
       </div>
       <div class="angle-card">
         <svg width="80" height="70" viewBox="0 0 80 70" style="display:block;margin:0 auto 10px;">
@@ -283,46 +249,29 @@ function renderLearn2(){
           <circle cx="40" cy="40" r="3.5" fill="#EFA94A"/>
           <path d="M 20 40 A 20 20 0 0 1 60 40" stroke="#EFA94A" stroke-width="2" fill="none"/>
         </svg>
-        <div class="angle-name">שטוחה</div>
-        <div class="angle-range">α = 180°</div>
+        <div class="angle-name">שטוחה</div><div class="angle-range">α = 180°</div>
       </div>
     </div>
-    <ul class="bullets">
-      <li><strong>חדה</strong> — קטנה מ-90°, "צרה ומחודדת"</li>
-      <li><strong>ישרה</strong> — בדיוק 90°, מסומנת בריבועון</li>
-      <li><strong>קהה</strong> — בין 90° ל-180°, "רחבה ועמומה"</li>
-      <li><strong>שטוחה</strong> — בדיוק 180°, שני הקרניים יוצרים קו ישר</li>
-    </ul>
     <div class="learn-note">טריק לזכור: <strong>חדה</strong> = חד = מחודד = קטן מ-90°. <strong>קהה</strong> = לא חד = גדול מ-90°.</div>
     <div class="btnrow">
-      <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
+      <button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
 }
 
 const LEARN_TITLES = {
-  3:  'סימון זוויות — אות הקודקוד',
-  4:  'סימון זוויות — שלוש אותיות',
-  5:  'סימון זוויות — אותיות יווניות',
-  6:  'השוואה בין גדלים של זוויות',
-  7:  'מדידה של זוויות',
-  8:  'סכום והפרש של שתי זוויות',
-  9:  'סרטוט זווית — סכום והפרש',
-  10: 'זיהוי חוצה-זווית',
-  11: 'חישובים עם חוצה-זווית',
-  12: 'סרטוט חוצה-זווית',
-  13: 'מטלת סיכום — זוויות (פרקים 20–25)',
-  14: 'זיהוי זוויות צמודות',
-  15: 'חישובים עם זוויות צמודות',
-  16: 'חוצי-זוויות של זוויות צמודות',
-  17: 'זיהוי זוויות קודקודיות',
-  18: 'חישובים עם זוויות קודקודיות',
-  19: 'חוצי-זוויות של זוויות קודקודיות',
-  20: 'משולש שווה-צלעות',
-  21: 'משולש שווה-שוקיים',
-  22: 'סכום זוויות במשולש',
-  23: 'סכום זוויות במרובע',
+  2:  'סימון זוויות בכתיב מתמטי',
+  3:  'השוואה בין גדלים של זוויות',
+  4:  'מדידה של זוויות',
+  5:  'סכום והפרש זוויות',
+  6:  'חוצה-זווית',
+  7:  'זוויות צמודות',
+  8:  'זוויות קודקודיות',
+  9:  'משולש שווה-צלעות',
+  10: 'משולש שווה-שוקיים',
+  11: 'סכום זוויות במשולש',
+  12: 'סכום זוויות במרובע',
 };
 
 function renderLearnPlaceholder(){
