@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>זוויות</title>
+<script>if('scrollRestoration'in history)history.scrollRestoration='manual';</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
 
@@ -340,10 +341,8 @@ function renderGameResults(){
   </div>`;
 }
 
-if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 render();
-document.documentElement.scrollTop = 0;
-document.body.scrollTop = 0;
+requestAnimationFrame(function(){ window.scrollTo(0,0); });
 </script>
 <footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
 </body>
