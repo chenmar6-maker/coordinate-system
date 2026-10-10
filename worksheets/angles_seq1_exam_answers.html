@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תשובות — רצף 1: סוגי זוויות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 80px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .pin-overlay { position: fixed; inset: 0; background: rgba(15,13,26,0.85); display: flex; align-items: center; justify-content: center; z-index: 999; }
+  .pin-box { background: #fff; border-radius: 16px; padding: 32px 36px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); max-width: 320px; width: 90%; }
+  .pin-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .pin-sub { font-size: 13px; color: #666; margin-bottom: 20px; }
+  .pin-input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 22px; text-align: center; letter-spacing: 8px; font-family: 'Rubik', sans-serif; margin-bottom: 14px; outline: none; }
+  .pin-input:focus { border-color: #10B981; }
+  .pin-btn { width: 100%; padding: 12px; background: #10B981; color: #fff; border: none; border-radius: 8px; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .pin-err { color: #DC2626; font-size: 13px; margin-top: 8px; display: none; }
+  #answers-content { display: none; }
+  .part-label { font-size: 13px; font-weight: 700; color: #fff; padding: 5px 14px; border-radius: 6px; display: inline-block; margin-bottom: 10px; background: #10B981; }
+  .ans-card { background: #fff; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); line-height: 1.9; border-right: 4px solid #10B981; }
+  .qnum { font-weight: 700; margin-left: 6px; }
+  .ans { color: #065F46; font-weight: 700; }
+  .think-box { margin-top: 8px; background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 6px; padding: 10px 14px; font-size: 13px; line-height: 1.8; }
+  .sol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; margin: 8px 0; }
+  .sol-item { border: 1px solid #e8edf5; border-radius: 7px; padding: 8px 12px; background: #FAFBFD; font-size: 13px; }
+  .sol-lbl { font-weight: 700; color: #888; font-size: 12px; }
+  .sol-ans { color: #065F46; font-weight: 700; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+  .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  @media print { .no-print { display: none; } @page { size: A4; margin: 12mm; } body { background: #fff; padding: 10px; } }
+</style>
+</head>
+<body>
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <div class="pin-title">🔒 תשובות — מורה בלבד</div>
+    <div class="pin-sub">הכניסו את קוד הגישה</div>
+    <input class="pin-input" type="password" id="pinInput" maxlength="4" placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()"/>
+    <button class="pin-btn" onclick="checkPin()">כניסה</button>
+    <div class="pin-err" id="pinErr">קוד שגוי, נסו שוב</div>
+  </div>
+</div>
+<script>
+function checkPin(){
+  if(document.getElementById('pinInput').value==='2357'){
+    document.getElementById('pinOverlay').style.display='none';
+    document.getElementById('answers-content').style.display='block';
+  } else { document.getElementById('pinErr').style.display='block'; document.getElementById('pinInput').value=''; }
+}
+</script>
+
+<div id="answers-content">
+<div class="page-wrap">
+<div class="header">
+  <div><div class="header-title">תשובות — רצף 1: סוגי זוויות</div><div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מורה בלבד</div></div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<span class="part-label">רצף 1 — סוגי זוויות</span>
+
+<div class="ans-card">
+  <span class="qnum">1.</span> סיווג זוויות
+  <div class="sol-grid">
+    <div class="sol-item"><div class="sol-lbl">א. 35°</div><span class="sol-ans">חדה</span></div>
+    <div class="sol-item"><div class="sol-lbl">ב. 90°</div><span class="sol-ans">ישרה</span></div>
+    <div class="sol-item"><div class="sol-lbl">ג. 120°</div><span class="sol-ans">קהה</span></div>
+    <div class="sol-item"><div class="sol-lbl">ד. 180°</div><span class="sol-ans">שטוחה</span></div>
+    <div class="sol-item"><div class="sol-lbl">ה. 360°</div><span class="sol-ans">שלמה</span></div>
+    <div class="sol-item"><div class="sol-lbl">ו. 67°</div><span class="sol-ans">חדה</span></div>
+    <div class="sol-item"><div class="sol-lbl">ז. 91°</div><span class="sol-ans">קהה</span></div>
+    <div class="sol-item"><div class="sol-lbl">ח. 179°</div><span class="sol-ans">קהה</span></div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">2.</span> נכון / לא נכון
+  <div class="sol-grid">
+    <div class="sol-item"><div class="sol-lbl">א. ישרה גדולה מקהה</div><span class="sol-ans">לא נכון</span> — ישרה=90° קטנה מקהה (90°–180°)</div>
+    <div class="sol-item"><div class="sol-lbl">ב. חדה קטנה מ-90°</div><span class="sol-ans">נכון</span></div>
+    <div class="sol-item"><div class="sol-lbl">ג. שטוחה=180°</div><span class="sol-ans">נכון</span></div>
+    <div class="sol-item"><div class="sol-lbl">ד. קהה יכולה להיות 95°</div><span class="sol-ans">נכון</span></div>
+    <div class="sol-item"><div class="sol-lbl">ה. 90° היא חדה</div><span class="sol-ans">לא נכון</span> — 90° היא ישרה בדיוק</div>
+    <div class="sol-item"><div class="sol-lbl">ו. בין 90° ל-180° = קהה</div><span class="sol-ans">נכון</span></div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">3.</span> דוגמות לסוגי זוויות
+  <div class="sol-grid">
+    <div class="sol-item"><div class="sol-lbl">חדה</div><span class="sol-ans">כל מספר בין 1° ל-89°</span></div>
+    <div class="sol-item"><div class="sol-lbl">ישרה</div><span class="sol-ans">90° בדיוק</span></div>
+    <div class="sol-item"><div class="sol-lbl">קהה</div><span class="sol-ans">כל מספר בין 91° ל-179°</span></div>
+    <div class="sol-item"><div class="sol-lbl">שטוחה</div><span class="sol-ans">180° בדיוק</span></div>
+    <div class="sol-item"><div class="sol-lbl">שלמה</div><span class="sol-ans">360° בדיוק</span></div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">4.</span> ממעוף הציפור — הבדל בין שטוחה לשלמה
+  <div class="think-box">
+    זווית <span class="ans">שטוחה (180°)</span> היא חצי מעגל — שני השוקיים מצביעים לכיוונים מנוגדים על אותו קו ישר.<br>
+    זווית <span class="ans">שלמה (360°)</span> היא סיבוב מלא — חזרה לנקודת ההתחלה, כמו מעגל שלם.
+  </div>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+</div>
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#065F46;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>

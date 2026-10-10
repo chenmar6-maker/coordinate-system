@@ -2,67 +2,63 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>מבדק שליטה — רצף 6: זוויות קודקודיות</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
 
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Rubik',sans-serif;font-size:13px;color:#111;direction:rtl;background:#fff;padding:18px 22px 14px;}
-  .header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2.5px solid #111;padding-bottom:8px;margin-bottom:10px;}
-  .header-title{font-size:18px;font-weight:700;}
-  .header-sub{font-size:12px;color:#444;margin-top:2px;}
-  .part-label{font-size:13px;font-weight:700;background:#111;color:#fff;padding:3px 10px;border-radius:3px;display:inline-block;margin-bottom:7px;}
-  .sec-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
-  .name-f{font-size:11.5px;}
-  .name-f span{border-bottom:1px solid #555;display:inline-block;min-width:130px;}
-  .q{margin-bottom:7px;padding:6px 8px;border:1px solid #ccc;border-radius:4px;font-size:12.5px;}
+  body{font-family:'Rubik',sans-serif;font-size:14px;color:#1a1a2e;direction:rtl;background:#F0F2F8;min-height:100vh;padding:24px 16px 80px;}
+
+  .page-wrap{max-width:780px;margin:0 auto;}
+
+  .header{background:linear-gradient(135deg,#1E1B2E 0%,#2D2A45 100%);color:#fff;border-radius:14px;padding:18px 22px 14px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-end;}
+  .header-title{font-size:20px;font-weight:700;color:#fff;}
+  .header-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:4px;}
+  .brand{font-size:12px;font-weight:600;color:rgba(255,255,255,0.45);}
+
+  .part-label{font-size:13px;font-weight:700;color:#fff;padding:5px 14px;border-radius:6px;display:inline-block;margin-bottom:10px;background:#10B981;}
+
+  .q{margin-bottom:8px;padding:10px 14px;background:#fff;border-radius:8px;font-size:13.5px;line-height:1.65;box-shadow:0 1px 3px rgba(0,0,0,0.07);border-right:4px solid #10B981;}
   .qn{font-weight:700;margin-left:4px;}
-  .mc{display:flex;flex-wrap:wrap;gap:5px 10px;margin-top:5px;}
-  .mc span{border:1px solid #aaa;border-radius:12px;padding:2px 10px;font-size:12px;}
+  .b{border-bottom:1px solid #555;display:inline-block;min-width:55px;}
+  .bs{border-bottom:1px solid #555;display:inline-block;min-width:32px;}
   .wl{border-bottom:1px solid #ccc;margin-top:13px;}
   .tl{border-bottom:1px solid #bbb;margin-top:13px;}
-  .b{border-bottom:1px solid #555;display:inline-block;min-width:55px;}
-  .bw{border-bottom:1px solid #555;display:inline-block;min-width:110px;}
-  .bs{border-bottom:1px solid #555;display:inline-block;min-width:32px;}
-  .hr{border:none;border-top:2px dashed #aaa;margin:10px 0;}
-  .sbar{display:flex;gap:14px;justify-content:flex-end;font-size:12px;margin-top:8px;color:#444;border-top:1px solid #ccc;padding-top:6px;flex-wrap:wrap;}
-  .sf{border-bottom:1px solid #555;min-width:40px;display:inline-block;}
-  @media print{.noprint{display:none;}@page{size:A4;margin:0;}}
-  .scaler{transform:scale(0.74);transform-origin:top right;width:calc(100% / 0.74);}
-  .pbtn{position:fixed;bottom:18px;left:18px;background:#111;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.25);}
-  .pbtn:hover{background:#333;}
-  .g2{display:grid;grid-template-columns:1fr 1fr;gap:5px 16px;}
+  .mc{display:flex;flex-wrap:wrap;gap:5px 10px;margin-top:5px;}
+  .mc span{border:1px solid #aaa;border-radius:12px;padding:2px 10px;font-size:12px;}
   .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px 14px;}
-  .qd{display:flex;gap:12px;align-items:flex-start;}
-  .qt{flex:1;}
   .fig{flex-shrink:0;}
-  svg text{font-family:'Rubik',sans-serif;fill:#111;}
-  .lbl{font-size:12px;font-weight:700;}
-  .slbl{font-size:10px;fill:#555;}
-  .tname{font-size:11px;font-weight:700;text-anchor:middle;}
-  .jxgbox { touch-action: none; overflow: hidden; border: none !important; }
+  .sbar{display:flex;gap:14px;justify-content:flex-end;font-size:12px;margin-top:8px;color:#444;border-top:1px solid #ccc;padding-top:6px;flex-wrap:wrap;background:#fff;border-radius:8px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.07);}
+  .sf{border-bottom:1px solid #555;min-width:40px;display:inline-block;}
+
+  .jxgbox{touch-action:none;overflow:hidden;border:none !important;}
+
+  .print-btn{position:fixed;bottom:18px;left:18px;background:#1a1a2e;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);}
+  .print-btn:hover{background:#333;}
+
+  @media print{.no-print{display:none;}@page{size:A4;margin:12mm;}body{background:#fff;padding:10px;}.q{box-shadow:none;border:1px solid #ddd;}}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.9.2/distrib/jsxgraph.css"/>
 <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.9.2/distrib/jsxgraphcore.js"></script>
 </head>
 <body>
-<div class="scaler">
+<div class="page-wrap">
 
 <div class="header">
   <div>
     <div class="header-title">מבדק שליטה — רצף 6: זוויות קודקודיות</div>
     <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; יחידה: זוויות</div>
   </div>
-  <div style="font-size:13px;font-weight:700;color:#333;">חן מרגלית למידה אקטיבית</div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
 </div>
 
-
-<!-- ═══════════════════════════════════
-     רצף 6 — זוויות קודקודיות
-═══════════════════════════════════ -->
-<div class="sec-hdr">
-  <span class="part-label" style="margin-bottom:0">רצף 6 — זוויות קודקודיות</span>
+<div style="background:#ECFDF5;border:2px solid #10B981;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#065F46;display:flex;align-items:center;gap:10px;">
+  <span style="font-size:20px;">📝</span>
+  <span>כתבו את התשובות על דף נפרד — ממספרים לפי מספר השאלה! תזדקקו לזה בבדיקה העצמית.</span>
 </div>
+
+<span class="part-label">רצף 6 — זוויות קודקודיות</span>
 
 <div class="q">
   <div style="margin-bottom:5px;"><span class="qn">22.</span> בעזרת האיורים חשבו:</div>
@@ -200,7 +196,6 @@
   <div class="tl"></div><div class="tl"></div>
 </div>
 
-<!-- SCORE BAR -->
 <div class="sbar">
   <div>רצף 1: <span class="sf">&nbsp;</span></div>
   <div>רצף 2: <span class="sf">&nbsp;</span></div>
@@ -210,9 +205,11 @@
   <div>רצף 6: <span class="sf">&nbsp;</span></div>
   <div><strong>סה״כ: <span class="sf">&nbsp;</span></strong></div>
 </div>
-<div class="sbar"><div>ניקוד: <span class="sf">&nbsp;</span></div></div>
 
-</div><!-- end scaler -->
-<button class="pbtn noprint" onclick="window.print()">🖨️ הדפסה / שמירה כ-PDF</button>
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
 </body>
 </html>
