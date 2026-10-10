@@ -139,6 +139,8 @@ function goHome(){ state.screen='home'; render(); window.scrollTo(0,0); }
 function toggleSection(n){ openSections.has(n)?openSections.delete(n):openSections.add(n); render(); }
 function startGame(){ state.qi=0; state.score=0; state.answered=false; goTo('game'); }
 function startQuiz(){ goTo('quiz'); }
+let nextUnitUrl = '';
+function showNoQuiz(url){ nextUnitUrl=url; goTo('noQuiz'); }
 
 /* ============ LEVELS ============ */
 
@@ -182,6 +184,7 @@ function render(){
   else if(state.screen==='learn')  app.innerHTML = renderTopbar() + '<div class="wrap">' + renderLearn() + '</div>';
   else if(state.screen==='game')   app.innerHTML = renderTopbar() + '<div class="wrap">' + renderGame() + '</div>';
   else if(state.screen==='gameResults') app.innerHTML = renderTopbar() + '<div class="wrap">' + renderGameResults() + '</div>';
+  else if(state.screen==='noQuiz') app.innerHTML = renderTopbar() + '<div class="wrap">' + renderNoQuiz() + '</div>';
 }
 
 function renderTopbar(){
@@ -199,11 +202,7 @@ function seqRow(seqNum, label, opts={}){
   let cards = '';
   if(isOpen){
     const nextCard = opts.nextUrl
-      ? `<div class="flow-arrow">←</div>
-         <div class="card" onclick="window.location.href='${opts.nextUrl}'" style="background:rgba(16,185,129,0.18);border:1.5px solid var(--green);color:var(--green);flex-direction:column;gap:2px;padding:10px 18px;border-radius:14px;text-align:center;">
-           <h3 style="margin:0;">אין מבדק שליטה!</h3>
-           <span style="font-size:12px;opacity:.8;">אפשר להתקדם ליחידה הבאה ←</span>
-         </div>`
+      ? `<div class="flow-arrow">←</div><div class="card quiz" onclick="showNoQuiz('${opts.nextUrl}')"><h3>מבדק שליטה</h3></div>`
       : opts.worksheetUrl
         ? `<div class="flow-arrow">←</div><div class="card quiz" onclick="showWorksheet('${opts.worksheetUrl}')"><h3>מבדק שליטה</h3></div>`
         : `<div class="flow-arrow">←</div><div class="card quiz" onclick="state.sequence=${seqNum};startQuiz()"><h3>מבדק שליטה</h3></div>`;
@@ -306,6 +305,18 @@ function renderLearn1(){
 }
 
 /* ============ GAME ============ */
+
+function renderNoQuiz(){
+  return `<div class="panel" style="text-align:center;padding:36px 24px;">
+    <div style="font-size:48px;margin-bottom:16px;">🎉</div>
+    <h2 class="qtitle">אין מבדק שליטה לרצף זה!</h2>
+    <p style="font-size:16px;opacity:.75;margin:12px 0 28px;">סיימת את הרצף — אפשר להתקדם ליחידה הבאה</p>
+    <div class="btnrow">
+      <button class="btn" onclick="window.location.href='${nextUnitUrl}'">ליחידה הבאה ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
 
 function renderGame(){
   const levels = currentLevels();
