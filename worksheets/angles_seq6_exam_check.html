@@ -124,7 +124,7 @@
   <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק".
 </div>
 
-<!-- שאלה 22 -->
+<!-- שאלה 1 -->
 <div class="q-card" id="q22-card">
   <div class="q-title"><span class="q-num">22.</span> זוויות קודקודיות וצמודות</div>
   <div style="font-size:13px;margin-bottom:6px;">א. נתון α=70°:</div>
@@ -137,7 +137,7 @@
   <div class="sub-row"><span class="sub-lbl">β' =</span><input class="ans-input" id="q22bb2" type="text" placeholder="°">°</div>
 </div>
 
-<!-- שאלה 23 -->
+<!-- שאלה 2 -->
 <div class="q-card" id="q23-card">
   <div class="q-title"><span class="q-num">23.</span> ① = 40°. מה גודל שאר הזוויות?</div>
   <div class="sub-row"><span class="sub-lbl">② =</span><input class="ans-input" id="q23_2" type="text" placeholder="°">°</div>
@@ -145,7 +145,7 @@
   <div class="sub-row"><span class="sub-lbl">④ =</span><input class="ans-input" id="q23_4" type="text" placeholder="°">°</div>
 </div>
 
-<!-- שאלה 24 -->
+<!-- שאלה 3 -->
 <div class="q-card" id="q24-card">
   <div class="q-title"><span class="q-num">24.</span> שני קווים נחתכים, זוויות שכנות שוות. מה גודל כל זווית?</div>
   <div class="chips" id="q24-chips">
@@ -157,7 +157,7 @@
   <input type="hidden" id="q24" value="">
 </div>
 
-<!-- שאלה 25 -->
+<!-- שאלה 4 -->
 <div class="q-card" id="q25-card">
   <div class="q-title"><span class="q-num">25.</span> נכון / לא נכון</div>
   <div style="margin-bottom:10px;font-size:13px;">א. זוויות קודקודיות תמיד שוות זו לזו.</div>
@@ -186,7 +186,7 @@
   <input type="hidden" id="q25d" value="">
 </div>
 
-<!-- שאלה 26 — open -->
+<!-- שאלה 5 — open -->
 <div class="q-card">
   <div class="q-title"><span class="q-num">26.</span> ממעוף הציפור — שאלת חשיבה פתוחה</div>
   <div class="open-ans-box">
@@ -262,7 +262,7 @@ function checkAnswers() {
 function showScore(correct, total, wrong) {
   const pct = correct / total;
   document.getElementById('score-num').textContent = correct;
-  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות (שאלה 26 לבדיקה עצמית)';
+  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות (שאלה 5 לבדיקה עצמית)';
   const bar = document.getElementById('score-bar');
   bar.style.width = (pct * 100) + '%';
   let msg, cls, barColor;
