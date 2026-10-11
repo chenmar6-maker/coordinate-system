@@ -181,6 +181,13 @@ function renderTopbar(){
 ══════════════════════════════════════ */
 
 function seqRow(seqNum, label, opts={}){
+  if(opts.wip){
+    return `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 4px;border-bottom:1px solid rgba(234,244,241,0.08);opacity:.4;cursor:not-allowed;user-select:none;">
+      <span class="sequence-title">${label}</span>
+      <span style="font-size:11px;font-weight:700;letter-spacing:1px;color:#EFA94A;background:rgba(239,169,74,0.15);border:1px solid rgba(239,169,74,0.4);border-radius:20px;padding:3px 10px;">בפיתוח</span>
+    </div>`;
+  }
   const isOpen = openSections.has(seqNum);
   const chevron = isOpen ? '▾' : '◂';
   let cards = '';
@@ -234,17 +241,17 @@ function renderHome(){
 
       <div style="${SH}">פעולות עם זוויות</div>
       ${seqRow(3,  '3. סכום והפרש זוויות',    {noGame:true, worksheetUrl:'../worksheets/angles_seq3_exam.html', checkUrl:'../worksheets/angles_seq3_exam_check.html', answersUrl:'../worksheets/angles_seq3_exam_answers.html'})}
-      ${seqRow(4,  '4. חוצה-זווית',           {noGame:true, worksheetUrl:'../worksheets/angles_seq4_exam.html', checkUrl:'../worksheets/angles_seq4_exam_check.html', answersUrl:'../worksheets/angles_seq4_exam_answers.html'})}
+      ${seqRow(4,  '4. חוצה-זווית',           {wip:true})}
 
       <div style="${SH}">זוויות מיוחדות</div>
-      ${seqRow(5,  '5. זוויות צמודות',        {noGame:true, worksheetUrl:'../worksheets/angles_seq5_exam.html', checkUrl:'../worksheets/angles_seq5_exam_check.html', answersUrl:'../worksheets/angles_seq5_exam_answers.html'})}
-      ${seqRow(6,  '6. זוויות קודקודיות',     {noGame:true, worksheetUrl:'../worksheets/angles_seq6_exam.html', checkUrl:'../worksheets/angles_seq6_exam_check.html', answersUrl:'../worksheets/angles_seq6_exam_answers.html'})}
+      ${seqRow(5,  '5. זוויות צמודות',        {wip:true})}
+      ${seqRow(6,  '6. זוויות קודקודיות',     {wip:true})}
 
       <div style="${SH}">משולשים ומרובעים</div>
-      ${seqRow(7,  '7. משולש שווה-צלעות', {noGame:true, noQuiz:true})}
-      ${seqRow(8,  '8. משולש שווה-שוקיים', {noGame:true, noQuiz:true})}
-      ${seqRow(9,  '9. סכום זוויות במשולש', {noGame:true, noQuiz:true})}
-      ${seqRow(10, '10. סכום זוויות במרובע', {noGame:true, noQuiz:true})}
+      ${seqRow(7,  '7. משולש שווה-צלעות',   {wip:true})}
+      ${seqRow(8,  '8. משולש שווה-שוקיים',  {wip:true})}
+      ${seqRow(9,  '9. סכום זוויות במשולש', {wip:true})}
+      ${seqRow(10, '10. סכום זוויות במרובע',{wip:true})}
     </div>`;
 }
 
