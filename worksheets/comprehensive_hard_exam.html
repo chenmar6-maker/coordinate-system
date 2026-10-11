@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבחן מסכם — מספרי ואלגברי (קשה)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Rubik',sans-serif;font-size:14px;color:#1a1a2e;direction:rtl;background:#F0F2F8;min-height:100vh;padding:24px 16px 80px;}
+  .page-wrap{max-width:780px;margin:0 auto;}
+
+  .header{background:linear-gradient(135deg,#1E1B2E 0%,#2D2A45 100%);color:#fff;border-radius:14px;padding:18px 22px 14px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-end;}
+  .header-title{font-size:20px;font-weight:700;color:#fff;}
+  .header-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:4px;}
+  .brand{font-size:12px;font-weight:600;color:rgba(255,255,255,0.45);}
+
+  .name-row{background:#fff;border-radius:10px;padding:12px 18px;margin-bottom:16px;font-size:13px;color:#444;display:flex;gap:24px;flex-wrap:wrap;box-shadow:0 1px 3px rgba(0,0,0,0.07);}
+  .name-field{display:flex;align-items:center;gap:8px;}
+  .name-field span{border-bottom:1.5px solid #555;display:inline-block;min-width:160px;}
+
+  .part-label{font-size:13px;font-weight:700;color:#fff;padding:5px 14px;border-radius:6px;display:inline-block;margin:18px 0 10px;}
+  .numeric{background:#3B82F6;}
+  .algebra{background:#8B5CF6;}
+
+  .q{margin-bottom:8px;padding:12px 14px;background:#fff;border-radius:8px;font-size:13.5px;line-height:1.75;box-shadow:0 1px 3px rgba(0,0,0,0.07);}
+  .q.blue{border-right:4px solid #3B82F6;}
+  .q.purple{border-right:4px solid #8B5CF6;}
+  .qn{font-weight:700;margin-left:6px;}
+  .sub{padding-right:18px;margin-top:4px;}
+  .b{border-bottom:1px solid #555;display:inline-block;min-width:60px;}
+  .bw{border-bottom:1px solid #555;display:inline-block;min-width:130px;}
+  .bm{border-bottom:1px solid #555;display:inline-block;min-width:90px;}
+  .wl{border-bottom:1px solid #ccc;margin-top:14px;display:block;}
+  .wl2{border-bottom:1px solid #ccc;margin-top:30px;display:block;}
+  .pts{font-size:11px;font-weight:700;color:#9CA3AF;float:left;margin-top:2px;}
+
+  .score-bar{display:flex;gap:18px;justify-content:flex-end;font-size:12px;margin-top:12px;color:#444;border-top:1px solid #ccc;padding-top:8px;flex-wrap:wrap;background:#fff;border-radius:8px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.07);}
+  .sf{border-bottom:1px solid #555;min-width:40px;display:inline-block;}
+
+  .hard-banner{background:#FEF3C7;border:2px solid #F59E0B;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#92400E;display:flex;align-items:center;gap:10px;}
+  .instructions{background:#EFF6FF;border:2px solid #3B82F6;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13px;color:#1E40AF;}
+  .instructions li{margin-top:4px;margin-right:16px;}
+
+  .print-btn{position:fixed;bottom:18px;left:18px;background:#1a1a2e;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);}
+  .print-btn:hover{background:#333;}
+
+  @media print{
+    .no-print{display:none;}
+    @page{size:A4;margin:12mm;}
+    body{background:#fff;padding:10px;}
+    .q{box-shadow:none;border:1px solid #ddd;}
+    .page-break{page-break-before:always;}
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבחן מסכם — מספרי ואלגברי ⭐⭐⭐</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; חומר: מספרים מכוונים · מערכת הצירים · חזקות ושורשים · ביטויים · משוואות</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div class="name-row">
+  <div class="name-field">שם: <span></span></div>
+  <div class="name-field">כיתה: <span style="min-width:60px;"></span></div>
+  <div class="name-field">תאריך: <span style="min-width:80px;"></span></div>
+</div>
+
+<div class="hard-banner">
+  <span style="font-size:20px;">⚠️</span>
+  <span>מבחן מאתגר מאוד — הוא מכיל שאלות הדורשות חשיבה עמוקה ומספר שלבים. קראו כל שאלה בעיון!</span>
+</div>
+
+<div class="instructions">
+  <ul>
+    <li>הראו את כל שלבי הפתרון — תשובה בלבד לא תקבל ניקוד מלא.</li>
+    <li>שימו לב לסימנים ולסדר פעולות בכל שאלה.</li>
+    <li>ניקוד כולל: 100 נקודות.</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!--   חלק א: מספרים מכוונים           -->
+<!-- ═══════════════════════════════════ -->
+<span class="part-label numeric">חלק א — מספרים מכוונים (22 נקודות)</span>
+
+<div class="q blue">
+  <span class="pts">6 נק׳</span>
+  <div><span class="qn">1.</span> חשבו (הראו כל שלב):</div>
+  <div class="sub" style="margin-top:8px;">
+    <div style="margin-bottom:12px;">א. &nbsp;
+      <span style="font-size:15px;">
+        <span style="display:inline-block;text-align:center;vertical-align:middle;">
+          <span style="display:block;border-bottom:1.5px solid #1a1a2e;padding-bottom:2px;">(-3)² − 5·(-2)</span>
+          <span style="display:block;padding-top:2px;">(-2)³ + 2·5</span>
+        </span>
+      </span>
+      &nbsp;= <span class="b"></span>
+    </div>
+    <div>ב. &nbsp; −|−8| &nbsp;+&nbsp; (−2)³ &nbsp;−&nbsp; (−1)¹⁰⁰ · 3 &nbsp;= <span class="b"></span></div>
+  </div>
+  <span class="wl"></span><span class="wl"></span><span class="wl"></span>
+</div>
+
+<div class="q blue">
+  <span class="pts">6 נק׳</span>
+  <div><span class="qn">2.</span> חשבו:</div>
+  <div class="sub" style="margin-top:6px;">
+    (−4) · (−3) &nbsp;−&nbsp; 5² ÷ (−5) &nbsp;+&nbsp; (−2)² · 3 &nbsp;= <span class="b"></span>
+  </div>
+  <span class="wl"></span><span class="wl"></span><span class="wl"></span>
+</div>
+
+<div class="q blue">
+  <span class="pts">5 נק׳</span>
+  <div><span class="qn">3.</span> <strong>נכון / לא נכון</strong> — הסבירו בקצרה:</div>
+  <div class="sub" style="margin-top:6px;">
+    <div style="margin-bottom:8px;">א. &nbsp; (−5)² = −25 &nbsp;&nbsp; <span class="bs" style="min-width:28px;border-bottom:1px solid #555;display:inline-block;"></span> &nbsp;&nbsp; הסבר: <span class="bw"></span></div>
+    <div style="margin-bottom:8px;">ב. &nbsp; |−7| > |6| &nbsp;&nbsp; <span class="bs" style="min-width:28px;border-bottom:1px solid #555;display:inline-block;"></span> &nbsp;&nbsp; הסבר: <span class="bw"></span></div>
+    <div>ג. &nbsp; (−2)⁵ · (−3)² < 0 &nbsp;&nbsp; <span class="bs" style="min-width:28px;border-bottom:1px solid #555;display:inline-block;"></span> &nbsp;&nbsp; הסבר: <span class="bw"></span></div>
+  </div>
+</div>
+
+<div class="q blue">
+  <span class="pts">5 נק׳</span>
+  <div><span class="qn">4.</span> <strong>שאלה מילולית:</strong> הטמפרטורה בעיר מסוימת ביום ראשון היא 4°C−. בכל יום בשבוע הטמפרטורה יורדת ב-3 מעלות. ביום ראשון הבא היא עולה בבת-אחת ב-25 מעלות.</div>
+  <div class="sub" style="margin-top:6px;">
+    <div>א. מה הטמפרטורה בסוף השבוע (לפני העלייה)? <span class="bm"></span></div>
+    <div style="margin-top:6px;">ב. מה הטמפרטורה אחרי העלייה? <span class="bm"></span></div>
+  </div>
+  <span class="wl"></span><span class="wl"></span><span class="wl"></span>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!--   חלק ב: מערכת הצירים              -->
+<!-- ═══════════════════════════════════ -->
+<span class="part-label numeric">חלק ב — מערכת הצירים (18 נקודות)</span>
+
+<div class="q blue">
+  <span class="pts">10 נק׳</span>
+  <div><span class="qn">5.</span> נקודות A(−3, 4), B(5, 4), C(5, −2), D(−3, −2) הן קודקודי מלבן ABCD.</div>
+  <div class="sub" style="margin-top:6px;">
+    <div style="margin-bottom:6px;">א. באיזה רביע נמצאת כל נקודה? &nbsp;&nbsp; A: <span class="b" style="min-width:50px;"></span> &nbsp; B: <span class="b" style="min-width:50px;"></span> &nbsp; C: <span class="b" style="min-width:50px;"></span> &nbsp; D: <span class="b" style="min-width:50px;"></span></div>
+    <div style="margin-bottom:6px;">ב. מה אורך צלע AB? <span class="b"></span> &nbsp;&nbsp; מה אורך צלע BC? <span class="b"></span></div>
+    <div style="margin-bottom:6px;">ג. חשבו את שטח המלבן: <span class="b"></span></div>
+    <div style="margin-bottom:6px;">ד. חשבו את היקף המלבן: <span class="b"></span></div>
+    <div>ה. האלכסון מחבר בין A ל-C. חשבו את אורכו (רמז: 6² + 8² = ?): <span class="b"></span></div>
+  </div>
+  <span class="wl"></span><span class="wl"></span>
+</div>
+
+<div class="q blue">
+  <span class="pts">8 נק׳</span>
+  <div><span class="qn">6.</span> נקודה P נמצאת ברביע השלישי. המרחק שלה מציר ה-x הוא 5 והמרחק מציר ה-y הוא 3.</div>
+  <div class="sub" style="margin-top:6px;">
+    <div style="margin-bottom:6px;">א. כתבו את הקואורדינטות של P: <span class="b"></span></div>
+    <div style="margin-bottom:6px;">ב. נקודה Q נמצאת על ציר ה-x והמרחק שלה מציר ה-y שווה ל-3 (באותו צד כמו P). כתבו את הקואורדינטות של Q: <span class="b"></span></div>
+    <div>ג. חשבו את שטח המשולש שיוצרות P, Q וראשית הצירים (0,0):</div>
+  </div>
+  <span class="wl"></span><span class="wl"></span><span class="wl"></span>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!--   חלק ג: חזקות ושורשים             -->
+<!-- ═══════════════════════════════════ -->
+<span class="part-label numeric">חלק ג — חזקות ושורשים (20 נקודות)</span>
+
+<div class="q blue">
+  <span class="pts">6 נק׳</span>
+  <div><span class="qn">7.</span> חשבו:</div>
+  <div class="sub" style="margin-top:6px;">
+    <div style="margin-bottom:8px;">א. &nbsp; √169 &nbsp;−&nbsp; 2⁵ &nbsp;+&nbsp; (−3)² · (⅓)⁰ &nbsp;= <span class="b"></span></div>
+    <div>ב. &nbsp;
+      <span style="display:inline-block;text-align:center;vertical-align:middle;">
+        <span style="display:block;border-bottom:1.5px solid #1a1a2e;padding-bottom:2px;">3³ + √64</span>
+        <span style="display:block;padding-top:2px;">(−1)⁷ · 5 + 6</span>
+      </span>
+      &nbsp;= <span class="b"></span>
+    </div>
+  </div>
+  <span class="wl"></span><span class="wl"></span><span class="wl"></span>
+</div>
+
+<div class="q blue">
+  <span class="pts">6 נק׳</span>
+  <div><span class="qn">8.</span> סדרו את הביטויים <strong>מהקטן לגדול</strong>:</div>
+  <div class="sub" style="margin-top:8px;font-size:15px;letter-spacing:1px;">
+    &nbsp;&nbsp; (−2)⁴ &nbsp;&nbsp;&nbsp; √81 &nbsp;&nbsp;&nbsp; 2⁵ &nbsp;&nbsp;&nbsp; (−3)⁰ &nbsp;&nbsp;&nbsp; (√4)³
+  </div>
+  <div class="sub" style="margin-top:10px;">
+    חשבו את ערך כל ביטוי: <span class="wl"></span>
+    <br>מהקטן לגדול: <span class="wl"></span>
+  </div>
+</div>
+
+<div class="q blue">
+  <span class="pts">8 נק׳</span>
+  <div><span class="qn">9.</span> <strong>נכון / לא נכון + הסבר:</strong></div>
+  <div class="sub" style="margin-top:6px;">
+    <div style="margin-bottom:8px;">א. √36 + √64 = √100 &nbsp;&nbsp; <span class="bs" style="min-width:28px;border-bottom:1px solid #555;display:inline-block;"></span> &nbsp;&nbsp; הסבר: <span class="bw"></span></div>
+    <div style="margin-bottom:8px;">ב. (−4)² = −4² &nbsp;&nbsp; <span class="bs" style="min-width:28px;border-bottom:1px solid #555;display:inline-block;"></span> &nbsp;&nbsp; הסבר: <span class="bw"></span></div>
+    <div style="margin-bottom:8px;">ג. 2⁰ + 3⁰ = 5⁰ &nbsp;&nbsp; <span class="bs" style="min-width:28px;border-bottom:1px solid #555;display:inline-block;"></span> &nbsp;&nbsp; הסבר: <span class="bw"></span></div>
+    <div>ד. √(−9) לא מוגדר &nbsp;&nbsp; <span class="bs" style="min-width:28px;border-bottom:1px solid #555;display:inline-block;"></span> &nbsp;&nbsp; הסבר: <span class="bw"></span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!--   חלק ד: ביטויים אלגבריים          -->
+<!-- ═══════════════════════════════════ -->
+<div class="page-break"></div>
+<span class="part-label algebra">חלק ד — ביטויים אלגבריים (20 נקודות)</span>
+
+<div class="q purple">
+  <span class="pts">5 נק׳</span>
+  <div><span class="qn">10.</span> פשטו על ידי כינוס איברים דומים:</div>
+  <div class="sub" style="margin-top:8px;font-size:15px;">
+    4x² + 3x − 7 − 2x² + 5 + x − 3x² + 8x
+  </div>
+  <span class="wl"></span><span class="wl"></span>
+</div>
+
+<div class="q purple">
+  <span class="pts">6 נק׳</span>
+  <div><span class="qn">11.</span> בביטוי &nbsp;<strong>a² − b</strong> &nbsp;הציבו a = −3, b = 5 וחשבו. לאחר מכן, בביטוי &nbsp;<strong>2(2a+b)</strong> הציבו את אותם הערכים.</div>
+  <div class="sub" style="margin-top:6px;">
+    <div>א. a² − b = <span class="b"></span></div>
+    <div style="margin-top:6px;">ב. 2(2a + b) = <span class="b"></span></div>
+    <div style="margin-top:6px;">ג. האם הביטויים שווים לאותו ערך? <span class="b"></span></div>
+  </div>
+  <span class="wl"></span><span class="wl"></span>
+</div>
+
+<div class="q purple">
+  <span class="pts">9 נק׳</span>
+  <div><span class="qn">12.</span> <strong>שאלה מילולית — כתיבה ופישוט:</strong> בחנות ספרים ספר עולה x שקלים. דגן קנה 4 ספרים וקיבל הנחה של 15 שקלים. מיכל קנה פי 3 ספרים מדגן ושילמה מחיר מלא. ז׳אן קנה 2 ספרים וקיבל הנחה של 8 שקלים.</div>
+  <div class="sub" style="margin-top:6px;">
+    <div>א. כתבו ביטוי לסכום הכסף ששילמו יחד (לפני פישוט): <span class="wl"></span></div>
+    <div style="margin-top:8px;">ב. פשטו את הביטוי: <span class="b"></span></div>
+    <div style="margin-top:6px;">ג. אם ספר עולה 12 ש"ח — כמה שילמו יחד? <span class="b"></span></div>
+  </div>
+  <span class="wl"></span><span class="wl"></span>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!--   חלק ה: משוואות                   -->
+<!-- ═══════════════════════════════════ -->
+<span class="part-label algebra">חלק ה — משוואות (20 נקודות)</span>
+
+<div class="q purple">
+  <span class="pts">5 נק׳</span>
+  <div><span class="qn">13.</span> פתרו ובדקו:</div>
+  <div class="sub" style="margin-top:8px;font-size:15px;">
+    5(x − 3) − 3(2x + 1) = 2(x − 7) − 4
+  </div>
+  <span class="wl"></span><span class="wl"></span><span class="wl"></span><span class="wl2"></span>
+  <div style="margin-top:6px;font-size:13px;">בדיקה: <span class="wl"></span></div>
+</div>
+
+<div class="q purple">
+  <span class="pts">5 נק׳</span>
+  <div><span class="qn">14.</span> פתרו ובדקו:</div>
+  <div class="sub" style="margin-top:8px;font-size:15px;">
+    <span style="display:inline-block;text-align:center;vertical-align:middle;">
+      <span style="display:block;border-bottom:1.5px solid #1a1a2e;padding-bottom:2px;">x + 2</span>
+      <span style="display:block;padding-top:2px;">3</span>
+    </span>
+    &nbsp;−&nbsp;
+    <span style="display:inline-block;text-align:center;vertical-align:middle;">
+      <span style="display:block;border-bottom:1.5px solid #1a1a2e;padding-bottom:2px;">x − 4</span>
+      <span style="display:block;padding-top:2px;">6</span>
+    </span>
+    &nbsp;= 5
+  </div>
+  <span class="wl"></span><span class="wl"></span><span class="wl"></span><span class="wl2"></span>
+  <div style="margin-top:6px;font-size:13px;">בדיקה: <span class="wl"></span></div>
+</div>
+
+<div class="q purple">
+  <span class="pts">5 נק׳</span>
+  <div><span class="qn">15.</span> <strong>שאלה מילולית — גיאומטריה ואלגברה:</strong> היקף מלבן הוא 56 ס"מ. האורך גדול מהרוחב ב-8 ס"מ.</div>
+  <div class="sub" style="margin-top:6px;">
+    <div>א. הגדירו משתנה: <span class="wl"></span></div>
+    <div style="margin-top:8px;">ב. כתבו משוואה: <span class="wl"></span></div>
+    <div style="margin-top:8px;">ג. פתרו: &nbsp; רוחב = <span class="b"></span> &nbsp;&nbsp; אורך = <span class="b"></span></div>
+    <div style="margin-top:6px;">ד. חשבו את שטח המלבן: <span class="b"></span></div>
+  </div>
+  <span class="wl"></span><span class="wl"></span>
+</div>
+
+<div class="q purple">
+  <span class="pts">5 נק׳</span>
+  <div><span class="qn">16.</span> <strong>שאלה מילולית:</strong> בקופסה יש כדורים כחולים ואדומים. מספר הכחולים גדול ב-6 מהאדומים. אם מכפילים את מספר הכחולים ב-3 ומוסיפים את מספר האדומים, מקבלים 74.</div>
+  <div class="sub" style="margin-top:6px;">
+    <div>א. הגדירו משתנה וכתבו משוואה: <span class="wl"></span></div>
+    <div style="margin-top:8px;">ב. פתרו: &nbsp; כחולים = <span class="b"></span> &nbsp;&nbsp; אדומים = <span class="b"></span></div>
+    <div style="margin-top:6px;">ג. בדיקה: <span class="wl"></span></div>
+  </div>
+  <span class="wl"></span><span class="wl"></span>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!--   שאלת בונוס                        -->
+<!-- ═══════════════════════════════════ -->
+<span class="part-label" style="background:#DC2626;">שאלת בונוס — 5 נקודות נוספות 🔥</span>
+
+<div class="q" style="border-right:4px solid #DC2626;">
+  <span class="pts" style="color:#DC2626;">5 נק׳</span>
+  <div><span class="qn">17.</span> לאה, מיה ורון חוסכים כסף. מיה חוסכת פי 3 ממה שחוסכת לאה ועוד 10 ש"ח. רון חוסך 5 ש"ח פחות ממיה. ביחד הם חוסכים 120 ש"ח.</div>
+  <div class="sub" style="margin-top:6px;">
+    <div>א. הגדירו משתנה: <span class="wl"></span></div>
+    <div style="margin-top:8px;">ב. כתבו ביטוי לחיסכון של כל אחד: &nbsp; לאה: <span class="b"></span> &nbsp; מיה: <span class="b"></span> &nbsp; רון: <span class="b"></span></div>
+    <div style="margin-top:8px;">ג. כתבו וגם פתרו משוואה:</div>
+  </div>
+  <span class="wl"></span><span class="wl"></span><span class="wl"></span><span class="wl2"></span>
+  <div style="margin-top:6px;">ד. כמה חוסך כל אחד? &nbsp; לאה: <span class="b"></span> &nbsp; מיה: <span class="b"></span> &nbsp; רון: <span class="b"></span></div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!--   ציון                             -->
+<!-- ═══════════════════════════════════ -->
+<div class="score-bar">
+  <span>ח"א: <span class="sf"></span>/22</span>
+  <span>ח"ב: <span class="sf"></span>/18</span>
+  <span>ח"ג: <span class="sf"></span>/20</span>
+  <span>ח"ד: <span class="sf"></span>/20</span>
+  <span>ח"ה: <span class="sf"></span>/20</span>
+  <span>בונוס: <span class="sf"></span>/5</span>
+  <span><strong>סה"כ: <span class="sf"></span>/100</strong></span>
+</div>
+
+</div><!-- /page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+
+</body>
+</html>
