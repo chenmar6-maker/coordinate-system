@@ -149,7 +149,7 @@ const A6 = s => s.replace(/∡/g,'<span data-angsized="1" style="font-size:1.8em
 const gameLevels6 = [
   {q:IMG6SA+'<div style="margin-top:4px;">מה גודל α?</div>',opts:['137°','47°','43°','53°'],ans:2,exp:'α צמודה ל-137°, לכן α = 180° − 137° = 43°.'},
   {q:IMG6SB+'<div style="margin-top:4px;">מה גודל α?</div>',opts:['66°','104°','114°','24°'],ans:2,exp:'α קודקודית ל-66° — שתיהן מול אחת לשנייה בחיתוך. לכן α = 180° − 66° = 114°... רגע — α צמודה ל-66°: 180° − 66° = 114°.'},
-  {q:IMG6BD+'<div style="margin-top:4px;">'+A6('BE⊥MA במחיתוך. <span dir="ltr">∡EMD=34°</span>. מה גודל <span dir="ltr">∡AMD</span>?')+'</div>',opts:['34°','90°','46°','124°'],ans:3,exp:A6('<span dir="ltr">∡AME = 90°</span> (BE⊥MA). <span dir="ltr">∡AMD = ∡AME + ∡EMD = 90° + 34° = 124°</span>.')},
+  {q:IMG6BD+'<div style="margin-top:4px;">'+A6('BE⊥MA בחיתוך. <span dir="ltr">∡EMD=34°</span>. מה גודל <span dir="ltr">∡AMD</span>?')+'</div>',opts:['34°','90°','46°','124°'],ans:3,exp:A6('<span dir="ltr">∡AME = 90°</span> (BE⊥MA). <span dir="ltr">∡AMD = ∡AME + ∡EMD = 90° + 34° = 124°</span>.')},
   {q:IMG6L3+'<div style="margin-top:4px;">מי הזווית הקדקודית ל-70°?</div>',opts:['γ','α','β','85°'],ans:1,exp:'α ו-70° נמצאות מול אחת לשנייה בחיתוך הישרים — הן זוויות קודקודיות ושוות. לכן α = 70°.'},
   {q:IMG6XP+'<div style="margin-top:4px;">'+A6('A, P, B הם על קו ישר. <span dir="ltr">∡APD=50°</span>, <span dir="ltr">∡CPE=10°</span>. מה ערכו של x?')+'</div>',opts:['50°','40°','30°','60°'],ans:1,exp:A6('הזווית הקודקודית ל-<span dir="ltr">∡APD</span> היא <span dir="ltr">∡BPC = 50°</span>. <span dir="ltr">x = ∡BPE = ∡BPC − ∡CPE = 50° − 10° = 40°</span>.')},
 ];
@@ -285,7 +285,7 @@ function renderHome(){
       ${seqRow(4,  '4. חוצה-זווית',           {worksheetUrl:'../worksheets/angles_seq4_exam.html', checkUrl:'../worksheets/angles_seq4_exam_check.html', answersUrl:'../worksheets/angles_seq4_exam_answers.html'})}
 
       <div style="${SH}">זוויות מיוחדות</div>
-      ${seqRow(5,  '5. זוויות צמודות',        {noGame:true, worksheetUrl:'../worksheets/angles_seq5_exam.html', checkUrl:'../worksheets/angles_seq5_exam_check.html', answersUrl:'../worksheets/angles_seq5_exam_answers.html'})}
+      ${seqRow(5,  '5. זוויות צמודות',        {worksheetUrl:'../worksheets/angles_seq5_exam.html', checkUrl:'../worksheets/angles_seq5_exam_check.html', answersUrl:'../worksheets/angles_seq5_exam_answers.html'})}
       ${seqRow(6,  '6. זוויות קודקודיות',     {worksheetUrl:'../worksheets/angles_seq6_exam.html', checkUrl:'../worksheets/angles_seq6_exam_check.html', answersUrl:'../worksheets/angles_seq6_exam_answers.html'})}
 
       <div style="${SH}">משולשים ומרובעים</div>
