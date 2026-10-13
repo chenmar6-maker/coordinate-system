@@ -124,13 +124,20 @@ const gameLevels4 = [
   {q:IMG4H+'<div style="margin-top:4px;">'+A4('BF מחלקת את <span dir="ltr">∡KBC</span> לשתי זוויות שוות. מה <span dir="ltr">∡FBC</span>?')+'</div>',opts:['45°','30°','22.5°','15°'],ans:2,exp:A4('<span dir="ltr">∡KBC = 45°</span>. BF חוצה אותה: <span dir="ltr">∡FBC = 45°÷2 = 22.5°</span>.')},
 ];
 
+const IMG5A = '<img src="seq5_adj_a.png" style="width:100%;max-width:340px;border-radius:8px;display:block;margin:0 auto 8px;" />';
+const IMG5B = '<img src="seq5_adj_b.png" style="width:100%;max-width:340px;border-radius:8px;display:block;margin:0 auto 8px;" />';
+const IMG5C = '<img src="seq5_adj_c.png" style="width:100%;max-width:340px;border-radius:8px;display:block;margin:0 auto 8px;" />';
+const IMG5BI = '<img src="seq5_bisect.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 8px;" />';
+const IMG5T1 = '<img src="seq5_tf1.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 8px;" />';
+const IMG5T2 = '<img src="seq5_tf2.png" style="width:100%;max-width:380px;border-radius:8px;display:block;margin:0 auto 8px;" />';
+const A5 = s => s.replace(/∡/g,'<span data-angsized="1" style="font-size:1.8em;font-weight:700;line-height:1;">∡</span>');
 const gameLevels5 = [
-  {q:'שתי זוויות צמודות. אחת=70°. השנייה=?',opts:['70°','110°','100°','180°'],ans:1,exp:'180°−70°=110°.'},
-  {q:'שתי זוויות צמודות שוות. מה גודל כל אחת?',opts:['45°','60°','90°','180°'],ans:2,exp:'α+α=180° → 2α=180° → α=90°.'},
-  {q:'האם יכולות שתי זוויות צמודות להיות שתיהן חדות?',opts:['כן, תמיד','לא — סכומן חייב להיות 180°','כן, אם כל אחת <90°','כן, אם סכומן < 180°'],ans:1,exp:'שתי חדות <90° → סכום <180°. אי-אפשר כי זוויות צמודות מסכימות ל-180° בדיוק.'},
-  {q:'זווית אחת = 3 פעמים השנייה, שתיהן צמודות. הקטנה=?',opts:['30°','45°','60°','90°'],ans:1,exp:'x+3x=180° → 4x=180° → x=45°.'},
-  {q:'מה סכום שתי זוויות צמודות?',opts:['90°','180°','270°','360°'],ans:1,exp:'זוויות צמודות על קו ישר — סכום = 180°.'},
-  {q:'קרן יוצאת מנקודה על קו ישר. הזווית האחת=115°. השנייה=?',opts:['65°','115°','75°','55°'],ans:0,exp:'180°−115°=65°.'},
+  {q:IMG5A+'<div style="margin-top:4px;">'+A5('מה גודל <span dir="ltr">α</span>?')+'</div>',opts:['22°','158°','68°','148°'],ans:1,exp:A5('זוויות צמודות — סכומן 180°. לכן α = 180° − 22° = 158°.')},
+  {q:IMG5B+'<div style="margin-top:4px;">'+A5('מה גודל <span dir="ltr">α</span>?')+'</div>',opts:['62°','162°','28°','18°'],ans:3,exp:A5('α + 162° = 180° → α = 180° − 162° = 18°.')},
+  {q:IMG5C+'<div style="margin-top:4px;">'+A5('מה גודל <span dir="ltr">α</span>?')+'</div>',opts:['67°','123°','103°','113°'],ans:3,exp:A5('67° + α = 180° → α = 180° − 67° = 113°.')},
+  {q:IMG5BI+'<div style="margin-top:4px;">'+A5('מה גודל הזווית הצמודה ל-<span dir="ltr">∡ABC</span>?')+'</div>',opts:['70°','35°','110°','140°'],ans:2,exp:A5('זוויות צמודות — סכומן 180°. <span dir="ltr">∡ABC = 70°</span>, לכן הצמודה = 180° − 70° = 110°.')},
+  {q:IMG5T1+'<div style="margin-top:4px;">נכון או לא נכון? לכל אחת מהזוויות המסומנות בסרטוט יש זווית צמודה.</div>',opts:['נכון — לכל שלוש יש צמודה','לא נכון — '+A5('ל-∡2 אין זווית צמודה'),'לא נכון — אף זווית אינה צמודה','נכון — כי הן על קו ישר'],ans:1,exp:A5('∡1 ו-∡3 כל אחת בין קרן לבין חלק קו ישר — כן יש להן צמודה. ∡2 בין שתי קרניים בלבד — אין לה זווית צמודה.')},
+  {q:IMG5T2+'<div style="margin-top:4px;">ירון טוען: "לפנינו שתי זוויות שסכומן 180°, ולכן הן זוויות צמודות." האם ירון צודק?</div>',opts:['כן — כל זוג זוויות שסכומן 180° הן צמודות','לא — סכום 180° לא מספיק; צמודות חייבות להיות על קו ישר עם קרן','כן — כי 76°+104°=180°','לא — הן לא שוות'],ans:1,exp:'ירון טועה. זוויות צמודות הן קרן היוצאת מנקודה על קו ישר ויוצרת שתי זוויות. כאן שתי הזוויות נמצאות בחיתוך של שני קווים — לא על קו ישר עם קרן אחת.'},
 ];
 
 const gameLevels6 = [
