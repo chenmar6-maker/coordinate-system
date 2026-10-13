@@ -98,13 +98,12 @@ const gameLevels1 = [
   {q:'איזה מהבאים הוא זווית חדה?',opts:['90°','120°','35°','180°'],ans:2,exp:'זווית חדה היא בין 0° ל-90°. 35° < 90° — לכן חדה.'},
 ];
 
+const IMG2 = '<img src="angle_notation_ex.png" style="width:100%;max-width:500px;border-radius:8px;display:block;margin:0 auto 10px;" />';
 const gameLevels2 = [
-  {q:'בכתיב <span dir="ltr">∡ABC</span>, מה הוא הקודקוד?',opts:['A','B','C','לא ניתן לדעת'],ans:1,exp:'הקודקוד תמיד האות האמצעית. ב-<span dir="ltr">∡ABC</span> — הקודקוד הוא B.'},
-  {q:'בכתיב <span dir="ltr">∡PQR</span>, מה הן השוקיים?',opts:['PQ ו-PR','QP ו-QR','PQ ו-QR','RP ו-RQ'],ans:1,exp:'הקודקוד Q (אמצעי), לכן השוקיים הן הקרניים היוצאות ממנו: QP ו-QR.'},
-  {q:'<span dir="ltr">∡BAC</span> — הקודקוד הוא:',opts:['B','A','C','BA'],ans:1,exp:'האות האמצעית ב-<span dir="ltr">∡BAC</span> היא A — זהו הקודקוד.'},
-  {q:'זווית שקודקודה M ושוקיה MA ו-MB. אילו כתיבים נכונים?',opts:['<span dir="ltr">∡AMB</span> בלבד','<span dir="ltr">∡BMA</span> בלבד','<span dir="ltr">∡AMB</span> ו-<span dir="ltr">∡BMA</span> שניהם','<span dir="ltr">∡MAB</span>'],ans:2,exp:'אפשר להפוך את סדר השוקיים: <span dir="ltr">∡AMB</span> ו-<span dir="ltr">∡BMA</span> מתארים את אותה הזווית.'},
-  {q:'<span dir="ltr">∡CAT</span> — מה הקודקוד?',opts:['C','A','T','CA'],ans:1,exp:'<span dir="ltr">∡CAT</span>: C — שוק, A — קודקוד (אמצעי), T — שוק.'},
-  {q:'מתי מותר לכתוב רק <span dir="ltr">∡B</span> (ללא שלוש אותיות)?',opts:['תמיד','רק כשהזווית חדה','רק כשיש זווית אחת בקודקוד B','אף פעם'],ans:2,exp:'כותבים <span dir="ltr">∡B</span> ללא שלוש אותיות רק כשאין בלבול — כלומר יש זווית אחת בלבד בקודקוד B.'},
+  {q:IMG2+'<div style="margin-top:6px;">הסתכלו בסרטוט <strong>(א)</strong> — מה הכתיב הנכון של הזווית המסומנת?</div>',opts:['<span dir="ltr">∡GAL</span>','<span dir="ltr">∡AGL</span>','<span dir="ltr">∡LAG</span>','<span dir="ltr">∡GLA</span>'],ans:1,exp:'הקודקוד הוא G — הוא חייב להיות האות <strong>האמצעית</strong>. לכן: <span dir="ltr">∡AGL</span> (גם <span dir="ltr">∡LGA</span> נכון).'},
+  {q:IMG2+'<div style="margin-top:6px;">הסתכלו בסרטוט <strong>(ב)</strong> — מה הכתיב הנכון של הזווית המסומנת?</div>',opts:['<span dir="ltr">∡EBD</span>','<span dir="ltr">∡BED</span>','<span dir="ltr">∡DBE</span>','<span dir="ltr">∡BDE</span>'],ans:1,exp:'הקודקוד הוא E — האות האמצעית. לכן: <span dir="ltr">∡BED</span> (גם <span dir="ltr">∡DEB</span> נכון).'},
+  {q:IMG2+'<div style="margin-top:6px;">הסתכלו בסרטוט <strong>(ג)</strong> — מה הכתיב הנכון של הזווית המסומנת?</div>',opts:['<span dir="ltr">∡SKR</span>','<span dir="ltr">∡RKS</span>','<span dir="ltr">∡KSR</span>','<span dir="ltr">∡KRS</span>'],ans:2,exp:'הקודקוד הוא S — האות האמצעית. לכן: <span dir="ltr">∡KSR</span> (גם <span dir="ltr">∡RSK</span> נכון).'},
+  {q:IMG2+'<div style="margin-top:6px;">הסתכלו בסרטוט <strong>(ד)</strong> — מה הכתיב הנכון של הזווית המסומנת?</div>',opts:['<span dir="ltr">∡CAK</span>','<span dir="ltr">∡ACK</span>','<span dir="ltr">∡AKC</span>','<span dir="ltr">∡KAC</span>'],ans:1,exp:'הקודקוד הוא C — האות האמצעית. לכן: <span dir="ltr">∡ACK</span> (גם <span dir="ltr">∡KCA</span> נכון).'},
 ];
 
 const gameLevels3 = [
@@ -239,7 +238,7 @@ function renderHome(){
     <div class="section-block">
       <div style="${SH}">יסודות הזוויות</div>
       ${seqRow(1,  '1. סוגי זוויות',           {noGame:true, worksheetUrl:'../worksheets/angles_seq1_exam.html', checkUrl:'../worksheets/angles_seq1_exam_check.html', answersUrl:'../worksheets/angles_seq1_exam_answers.html'})}
-      ${seqRow(2,  '2. כתיב מתמטי של זוויות', {noGame:true, worksheetUrl:'../worksheets/angles_seq2_exam.html', checkUrl:'../worksheets/angles_seq2_exam_check.html', answersUrl:'../worksheets/angles_seq2_exam_answers.html'})}
+      ${seqRow(2,  '2. כתיב מתמטי של זוויות', {worksheetUrl:'../worksheets/angles_seq2_exam.html', checkUrl:'../worksheets/angles_seq2_exam_check.html', answersUrl:'../worksheets/angles_seq2_exam_answers.html'})}
 
       <div style="${SH}">פעולות עם זוויות</div>
       ${seqRow(3,  '3. סכום והפרש זוויות',    {noGame:true, worksheetUrl:'../worksheets/angles_seq3_exam.html', checkUrl:'../worksheets/angles_seq3_exam_check.html', answersUrl:'../worksheets/angles_seq3_exam_answers.html'})}
