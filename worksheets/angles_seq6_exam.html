@@ -19,28 +19,17 @@
 
   .part-label{font-size:13px;font-weight:700;color:#fff;padding:5px 14px;border-radius:6px;display:inline-block;margin-bottom:10px;background:#10B981;}
 
-  .q{margin-bottom:8px;padding:10px 14px;background:#fff;border-radius:8px;font-size:13.5px;line-height:1.65;box-shadow:0 1px 3px rgba(0,0,0,0.07);border-right:4px solid #10B981;}
+  .q{margin-bottom:12px;padding:14px 16px;background:#fff;border-radius:8px;font-size:13.5px;line-height:1.75;box-shadow:0 1px 3px rgba(0,0,0,0.07);border-right:4px solid #10B981;}
   .qn{font-weight:700;margin-left:4px;}
-  .b{border-bottom:1px solid #555;display:inline-block;min-width:55px;}
-  .bs{border-bottom:1px solid #555;display:inline-block;min-width:32px;}
-  .wl{border-bottom:1px solid #ccc;margin-top:13px;}
-  .tl{border-bottom:1px solid #bbb;margin-top:13px;}
-  .mc{display:flex;flex-wrap:wrap;gap:5px 10px;margin-top:5px;}
-  .mc span{border:1px solid #aaa;border-radius:12px;padding:2px 10px;font-size:12px;}
-  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px 14px;}
-  .fig{flex-shrink:0;}
-  .sbar{display:flex;gap:14px;justify-content:flex-end;font-size:12px;margin-top:8px;color:#444;border-top:1px solid #ccc;padding-top:6px;flex-wrap:wrap;background:#fff;border-radius:8px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.07);}
+  .b{border-bottom:1px solid #555;display:inline-block;min-width:80px;}
+  .wl{border-bottom:1px solid #ccc;margin-top:14px;height:1px;}
+  .ang{font-size:1.25em;font-weight:700;direction:ltr;unicode-bidi:isolate;}
+  .sbar{font-size:12px;color:#444;background:#fff;border-radius:8px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.07);display:flex;justify-content:flex-end;}
   .sf{border-bottom:1px solid #555;min-width:40px;display:inline-block;}
 
-  .jxgbox{touch-action:none;overflow:hidden;border:none !important;}
-
   .print-btn{position:fixed;bottom:18px;left:18px;background:#1a1a2e;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);}
-  .print-btn:hover{background:#333;}
-
   @media print{.no-print{display:none;}@page{size:A4;margin:12mm;}body{background:#fff;padding:10px;}.q{box-shadow:none;border:1px solid #ddd;}}
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.9.2/distrib/jsxgraph.css"/>
-<script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.9.2/distrib/jsxgraphcore.js"></script>
 </head>
 <body>
 <div class="page-wrap">
@@ -61,155 +50,30 @@
 <span class="part-label">רצף 6 — זוויות קודקודיות</span>
 
 <div class="q">
-  <div style="margin-bottom:5px;"><span class="qn">1.</span> בעזרת האיורים חשבו:</div>
-  <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;">
-    <div>א. נתון: <strong>α=70°</strong><br>
-      <div class="g3" style="margin-top:3px;font-size:12px;">
-        <span>β=<span class="bs">&nbsp;</span></span>
-        <span>α'=<span class="bs">&nbsp;</span></span>
-        <span>β'=<span class="bs">&nbsp;</span></span>
-      </div><div class="wl"></div></div>
-    <div id="q22a-board" class="fig" style="width:100px;height:82px;"></div>
-    <script>
-    (function(){
-      var b = JXG.JSXGraph.initBoard('q22a-board', {
-        boundingbox: [-3.5,4.5,3.5,-4.5],
-        axis:false, grid:false,
-        showCopyright:false, showNavigation:false,
-        pan:{enabled:false}, zoom:{enabled:false},
-        renderer:'svg'
-      });
-      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
-      var O = b.create('point',[0,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      var P1 = b.create('point',[2.3,3.3], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      var P2 = b.create('point',[-2.3,-3.3], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      var P3 = b.create('point',[-2.3,3.3], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      var P4 = b.create('point',[2.3,-3.3], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      b.create('arrow',[O, P1], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, P2], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, P3], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, P4], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('text',[0,2.0,'α'], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
-      b.create('text',[1.8,0,'β'], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true});
-      b.create('text',[0,-2.2,"α'"], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
-      b.create('text',[-1.8,0,"β'"], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true});
-      b.create('text',[0.3,1.5,'70°'], {fontSize:11, color:'#555', highlight:false, fixed:true});
-    })();
-    </script>
-  </div>
-  <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;margin-top:4px;">
-    <div>ב. נתון: <strong>α=115°</strong><br>
-      <div class="g3" style="margin-top:3px;font-size:12px;">
-        <span>β=<span class="bs">&nbsp;</span></span>
-        <span>α'=<span class="bs">&nbsp;</span></span>
-        <span>β'=<span class="bs">&nbsp;</span></span>
-      </div><div class="wl"></div></div>
-    <div id="q22b-board" class="fig" style="width:100px;height:82px;"></div>
-    <script>
-    (function(){
-      var b = JXG.JSXGraph.initBoard('q22b-board', {
-        boundingbox: [-4.5,3.5,4.5,-3.5],
-        axis:false, grid:false,
-        showCopyright:false, showNavigation:false,
-        pan:{enabled:false}, zoom:{enabled:false},
-        renderer:'svg'
-      });
-      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
-      var O = b.create('point',[0,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      var P1 = b.create('point',[3.38,2.16], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      var P2 = b.create('point',[-3.38,-2.16], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      var P3 = b.create('point',[-3.38,2.16], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      var P4 = b.create('point',[3.38,-2.16], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      b.create('arrow',[O, P1], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, P2], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, P3], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, P4], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('text',[0,2.0,'α'], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
-      b.create('text',[1.8,0,'β'], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true});
-      b.create('text',[0,-2.2,"α'"], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
-      b.create('text',[-1.8,0,"β'"], {fontSize:13, fontWeight:'bold', color:'#111', highlight:false, fixed:true});
-      b.create('text',[0.5,1.5,'115°'], {fontSize:11, color:'#555', highlight:false, fixed:true});
-    })();
-    </script>
+  <div style="margin-bottom:10px;"><span class="qn">1.</span> התבוננו בסרטוט.</div>
+  <img src="seq6_exam_q1.png" style="width:100%;max-width:480px;display:block;margin:0 auto 14px;border-radius:6px;" />
+  <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
+    <div>א. חשבו את <span class="ang">∡BMC</span>: <span class="b">&nbsp;</span><div class="wl"></div><div class="wl" style="margin-top:14px;"></div></div>
+    <div>ב. חשבו את <span class="ang">∡BMA</span>: <span class="b">&nbsp;</span><div class="wl"></div><div class="wl" style="margin-top:14px;"></div></div>
+    <div>ג. חשבו את <span class="ang">∡AMF</span>. נמקו:<div class="wl"></div><div class="wl" style="margin-top:14px;"></div><div class="wl" style="margin-top:14px;"></div></div>
   </div>
 </div>
 
 <div class="q">
-  <div style="display:flex;gap:10px;align-items:center;">
-    <div>
-      <div><span class="qn">2.</span> שני קווים נחתכים. הזווית הממוספרת ① = 40°. ציינו את גודל כל ארבע הזוויות:</div>
-      <div style="display:flex;gap:16px;margin-top:5px;font-size:12px;flex-wrap:wrap;">
-        <span>① = 40°</span>
-        <span>② = <span class="bs">&nbsp;</span></span>
-        <span>③ = <span class="bs">&nbsp;</span></span>
-        <span>④ = <span class="bs">&nbsp;</span></span>
-      </div>
-    </div>
-    <div id="q23-board" class="fig" style="width:90px;height:76px;"></div>
-    <script>
-    (function(){
-      var b = JXG.JSXGraph.initBoard('q23-board', {
-        boundingbox: [-3.0,5.0,3.0,-5.0],
-        axis:false, grid:false,
-        showCopyright:false, showNavigation:false,
-        pan:{enabled:false}, zoom:{enabled:false},
-        renderer:'svg'
-      });
-      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
-      var O = b.create('point',[0,0], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      var P1 = b.create('point',[1.37,3.76], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      var P2 = b.create('point',[-1.37,-3.76], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      var P3 = b.create('point',[-1.37,3.76], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      var P4 = b.create('point',[1.37,-3.76], Object.assign({name:'', label:{offset:[0,0]}}, ps));
-      b.create('arrow',[O, P1], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, P2], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, P3], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, P4], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('text',[0.0,2.5,'①40°'], {fontSize:11, fontWeight:'bold', color:'#111', highlight:false, fixed:true, anchorX:'middle'});
-      b.create('text',[1.6,0,'②'], {fontSize:11, color:'#333', highlight:false, fixed:true});
-      b.create('text',[0,-2.7,'③'], {fontSize:11, color:'#333', highlight:false, fixed:true, anchorX:'middle'});
-      b.create('text',[-1.6,0,'④'], {fontSize:11, color:'#333', highlight:false, fixed:true});
-    })();
-    </script>
+  <div style="margin-bottom:10px;"><span class="qn">2.</span> התבוננו בסרטוט.</div>
+  <img src="seq6_exam_q2.png" style="width:100%;max-width:380px;display:block;margin:0 auto 14px;border-radius:6px;" />
+  <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
+    <div>חשבו את גודל הזוויות <span class="ang">α</span>, <span class="ang">β</span>, <span class="ang">γ</span>, <span class="ang">δ</span>. נמקו:<div class="wl"></div><div class="wl" style="margin-top:14px;"></div><div class="wl" style="margin-top:14px;"></div><div class="wl" style="margin-top:14px;"></div></div>
   </div>
 </div>
 
-<div class="q">
-  <div><span class="qn">3.</span> שני קווים נחתכים ושתי זוויות שכנות שוות. מה גודל כל אחת מ-4 הזוויות?</div>
-  <div class="mc" style="margin-top:4px;">
-    <span>45° לכולן</span><span>90° לכולן</span><span>180° לכולן</span><span>תלוי בקווים</span>
-  </div>
-</div>
-
-<div class="q">
-  <div><span class="qn">4.</span> ענו נכון / לא נכון:</div>
-  <div style="margin-top:4px;">
-    <div style="margin-bottom:3px;">א. זוויות קודקודיות תמיד שוות זו לזו. <span class="bs">&nbsp;</span></div>
-    <div style="margin-bottom:3px;">ב. שני קווים נחתכים יוצרים 4 זוויות שכולן שוות תמיד. <span class="bs">&nbsp;</span></div>
-    <div style="margin-bottom:3px;">ג. אם זווית אחת בחיתוך=90°, אז כל ארבע הזוויות הן 90°. <span class="bs">&nbsp;</span></div>
-    <div>ד. סכום כל ארבע הזוויות בחיתוך=360° תמיד. <span class="bs">&nbsp;</span></div>
-  </div>
-</div>
-
-<div class="q">
-  <div><span class="qn">5.</span> <strong>ממעוף הציפור:</strong> מדוע מספיק לדעת זווית אחת בחיתוך שני קווים כדי לחשב את שלוש האחרות?</div>
-  <div class="tl"></div><div class="tl"></div>
-</div>
-
-<div class="sbar">
-  <div>רצף 1: <span class="sf">&nbsp;</span></div>
-  <div>רצף 2: <span class="sf">&nbsp;</span></div>
-  <div>רצף 3: <span class="sf">&nbsp;</span></div>
-  <div>רצף 4: <span class="sf">&nbsp;</span></div>
-  <div>רצף 5: <span class="sf">&nbsp;</span></div>
-  <div>רצף 6: <span class="sf">&nbsp;</span></div>
-  <div><strong>סה״כ: <span class="sf">&nbsp;</span></strong></div>
-</div>
+<div class="sbar">ניקוד: <span class="sf">&nbsp;</span></div>
 
 </div><!-- end page-wrap -->
 
 <button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
 <button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#10B981;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
 <footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
 </body>
 </html>

@@ -140,15 +140,18 @@ const gameLevels5 = [
   {q:IMG5T2+'<div style="margin-top:4px;">ירון טוען: "לפנינו שתי זוויות שסכומן 180°, ולכן הן זוויות צמודות." האם ירון צודק?</div>',opts:['כן — כל זוג זוויות שסכומן 180° הן צמודות','לא — סכום 180° לא מספיק; צמודות חייבות להיות על קו ישר עם קרן','כן — כי 76°+104°=180°','לא — הן לא שוות'],ans:1,exp:'ירון טועה. זוויות צמודות הן קרן היוצאת מנקודה על קו ישר ויוצרת שתי זוויות. כאן שתי הזוויות נמצאות בחיתוך של שני קווים — לא על קו ישר עם קרן אחת.'},
 ];
 
+const IMG6SA = '<img src="seq6_simple_a.png" style="width:100%;max-width:320px;border-radius:8px;display:block;margin:0 auto 8px;" />';
+const IMG6SB = '<img src="seq6_simple_b.png" style="width:100%;max-width:280px;border-radius:8px;display:block;margin:0 auto 8px;" />';
+const IMG6BD = '<img src="seq6_be_dc.png" style="width:100%;max-width:460px;border-radius:8px;display:block;margin:0 auto 8px;" />';
+const IMG6L3 = '<img src="seq6_3lines.png" style="width:100%;max-width:280px;border-radius:8px;display:block;margin:0 auto 8px;" />';
+const IMG6XP = '<img src="seq6_x_pt.png" style="width:100%;max-width:380px;border-radius:8px;display:block;margin:0 auto 8px;" />';
+const A6 = s => s.replace(/∡/g,'<span data-angsized="1" style="font-size:1.8em;font-weight:700;line-height:1;">∡</span>');
 const gameLevels6 = [
-  {q:'<img src="vertical_angles_ex1.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 10px;" /><div style="margin-top:6px;">לפי סעיף (א) — מה גודל <span dir="ltr">∡3</span>?</div>',opts:['179°','89°','181°','1°'],ans:3,exp:'<span dir="ltr">∡1</span> ו-<span dir="ltr">∡3</span> הן זוויות קודקודיות — מול אחת לשנייה — ולכן שוות: <span dir="ltr">∡3 = 1°</span>. הזוויות הצמודות: <span dir="ltr">∡2 = ∡4 = 179°</span>.'},
-  {q:'שני קווים נחתכים ויוצרים 4 זוויות. <span dir="ltr">∡1 = 1°</span>. מה גודל <span dir="ltr">∡2</span>?',opts:['1°','89°','179°','91°'],ans:2,exp:'<span dir="ltr">∡1</span> ו-<span dir="ltr">∡2</span> זוויות צמודות: <span dir="ltr">∡2 = 180° − 1° = 179°</span>. (ו-<span dir="ltr">∡4 = ∡2 = 179°</span> כי קודקודיות)'},
-  {q:'שני קווים נחתכים. זווית אחת=50°. הזווית הקודקודית=?',opts:['130°','50°','40°','100°'],ans:1,exp:'זוויות קודקודיות שוות: גם היא=50°.'},
-  {q:'שני קווים נחתכים. זווית אחת=50°. הסמוכה לה=?',opts:['50°','130°','100°','140°'],ans:1,exp:'זוויות סמוכות: 180°−50°=130°.'},
-  {q:'כמה זוויות נוצרות בחיתוך שני קווים?',opts:['2','3','4','6'],ans:2,exp:'שני קווים נחתכים יוצרים 4 זוויות.'},
-  {q:'שני קווים נחתכים, כל הזוויות שוות. כמה מעלות כל זווית?',opts:['45°','60°','90°','180°'],ans:2,exp:'4×90°=360°. כאשר כל הזוויות שוות (קווים ניצבים), כל אחת=90°.'},
-  {q:'∡1=110°. מה ∡3 (הקודקודית)?',opts:['70°','110°','80°','220°'],ans:1,exp:'זוויות קודקודיות שוות: ∡3=110°.'},
-  {q:'מה סכום כל 4 הזוויות בחיתוך שני קווים?',opts:['180°','270°','360°','720°'],ans:2,exp:'סכום כל הזוויות סביב נקודה=360°.'},
+  {q:IMG6SA+'<div style="margin-top:4px;">מה גודל α?</div>',opts:['137°','47°','43°','53°'],ans:2,exp:'α צמודה ל-137°, לכן α = 180° − 137° = 43°.'},
+  {q:IMG6SB+'<div style="margin-top:4px;">מה גודל α?</div>',opts:['66°','104°','114°','24°'],ans:2,exp:'α קודקודית ל-66° — שתיהן מול אחת לשנייה בחיתוך. לכן α = 180° − 66° = 114°... רגע — α צמודה ל-66°: 180° − 66° = 114°.'},
+  {q:IMG6BD+'<div style="margin-top:4px;">'+A6('BE⊥MA במחיתוך. <span dir="ltr">∡EMD=34°</span>. מה גודל <span dir="ltr">∡AMD</span>?')+'</div>',opts:['34°','90°','46°','124°'],ans:3,exp:A6('<span dir="ltr">∡AME = 90°</span> (BE⊥MA). <span dir="ltr">∡AMD = ∡AME + ∡EMD = 90° + 34° = 124°</span>.')},
+  {q:IMG6L3+'<div style="margin-top:4px;">מי הזווית הקדקודית ל-70°?</div>',opts:['γ','α','β','85°'],ans:1,exp:'α ו-70° נמצאות מול אחת לשנייה בחיתוך הישרים — הן זוויות קודקודיות ושוות. לכן α = 70°.'},
+  {q:IMG6XP+'<div style="margin-top:4px;">'+A6('A, P, B הם על קו ישר. <span dir="ltr">∡APD=50°</span>, <span dir="ltr">∡CPE=10°</span>. מה ערכו של x?')+'</div>',opts:['50°','40°','30°','60°'],ans:1,exp:A6('הזווית הקודקודית ל-<span dir="ltr">∡APD</span> היא <span dir="ltr">∡BPC = 50°</span>. <span dir="ltr">x = ∡BPE = ∡BPC − ∡CPE = 50° − 10° = 40°</span>.')},
 ];
 
 const gameLevelsPlaceholder = [
