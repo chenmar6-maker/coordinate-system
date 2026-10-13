@@ -19,25 +19,17 @@
 
   .part-label{font-size:13px;font-weight:700;color:#fff;padding:5px 14px;border-radius:6px;display:inline-block;margin-bottom:10px;background:#10B981;}
 
-  .q{margin-bottom:8px;padding:10px 14px;background:#fff;border-radius:8px;font-size:13.5px;line-height:1.65;box-shadow:0 1px 3px rgba(0,0,0,0.07);border-right:4px solid #10B981;}
+  .q{margin-bottom:12px;padding:14px 16px;background:#fff;border-radius:8px;font-size:13.5px;line-height:1.75;box-shadow:0 1px 3px rgba(0,0,0,0.07);border-right:4px solid #10B981;}
   .qn{font-weight:700;margin-left:4px;}
-  .b{border-bottom:1px solid #555;display:inline-block;min-width:55px;}
-  .bs{border-bottom:1px solid #555;display:inline-block;min-width:32px;}
-  .wl{border-bottom:1px solid #ccc;margin-top:13px;}
-  .fig{flex-shrink:0;}
-  .sbar{display:flex;gap:14px;justify-content:flex-end;font-size:12px;margin-top:8px;color:#444;border-top:1px solid #ccc;padding-top:6px;flex-wrap:wrap;background:#fff;border-radius:8px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.07);}
+  .b{border-bottom:1px solid #555;display:inline-block;min-width:80px;}
+  .wl{border-bottom:1px solid #ccc;margin-top:14px;height:1px;}
+  .ang{font-size:1.25em;font-weight:700;direction:ltr;unicode-bidi:isolate;}
+  .sbar{font-size:12px;color:#444;background:#fff;border-radius:8px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.07);display:flex;justify-content:flex-end;}
   .sf{border-bottom:1px solid #555;min-width:40px;display:inline-block;}
-  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px 14px;}
-
-  .jxgbox{touch-action:none;overflow:hidden;border:none !important;}
 
   .print-btn{position:fixed;bottom:18px;left:18px;background:#1a1a2e;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);}
-  .print-btn:hover{background:#333;}
-
   @media print{.no-print{display:none;}@page{size:A4;margin:12mm;}body{background:#fff;padding:10px;}.q{box-shadow:none;border:1px solid #ddd;}}
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.9.2/distrib/jsxgraph.css"/>
-<script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.9.2/distrib/jsxgraphcore.js"></script>
 </head>
 <body>
 <div class="page-wrap">
@@ -58,184 +50,31 @@
 <span class="part-label">רצף 4 — חוצה-זווית</span>
 
 <div class="q">
-  <div style="margin-bottom:5px;"><span class="qn">1.</span> שוק OC הוא חוצה-זווית של ∡AOB (מחלק לשני חלקים שווים).</div>
-  <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;">
-    <div>א. <span dir="ltr">∡AOB=80°</span>:<br>
-      <span dir="ltr">∡AOC</span>=<span class="bs">&nbsp;</span> &nbsp;|&nbsp; <span dir="ltr">∡COB</span>=<span class="bs">&nbsp;</span><div class="wl"></div></div>
-    <div id="q13a-board" class="fig" style="width:96px;height:78px;"></div>
-    <script>
-    (function(){
-      var b = JXG.JSXGraph.initBoard('q13a-board', {
-        boundingbox: [-0.5,5.5,5.5,-0.8],
-        axis:false, grid:false,
-        showCopyright:false, showNavigation:false,
-        pan:{enabled:false}, zoom:{enabled:false},
-        renderer:'svg'
-      });
-      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
-      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
-      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
-      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
-      var A = b.create('point',[1.04,3.86], Object.assign({name:'A', label:lbl(-14,5)}, ps));
-      var C = b.create('point',[3.18,2.43], Object.assign({name:'C', label:lbl(5,5)}, ps));
-      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, C], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
-      b.create('angle',[Bpt, O, C], {radius:1.5, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('angle',[C, O, A], {radius:1.65, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('segment',[[1.184,0.401],[1.658,0.561]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('segment',[[0.779,1.163],[1.057,1.579]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-    })();
-    </script>
-  </div>
-  <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;margin-top:4px;">
-    <div>ב. <span dir="ltr">∡AOB=130°</span>:<br>
-      <span dir="ltr">∡AOC</span>=<span class="bs">&nbsp;</span> &nbsp;|&nbsp; <span dir="ltr">∡COB</span>=<span class="bs">&nbsp;</span><div class="wl"></div></div>
-    <div id="q13b-board" class="fig" style="width:110px;height:78px;"></div>
-    <script>
-    (function(){
-      var b = JXG.JSXGraph.initBoard('q13b-board', {
-        boundingbox: [-3.8,5.5,5.5,-0.8],
-        axis:false, grid:false,
-        showCopyright:false, showNavigation:false,
-        pan:{enabled:false}, zoom:{enabled:false},
-        renderer:'svg'
-      });
-      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
-      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
-      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
-      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
-      var A = b.create('point',[-2.57,3.06], Object.assign({name:'A', label:lbl(-14,5)}, ps));
-      var C = b.create('point',[1.69,3.63], Object.assign({name:'C', label:lbl(5,5)}, ps));
-      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, C], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
-      b.create('angle',[Bpt, O, C], {radius:1.5, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('angle',[C, O, A], {radius:1.65, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('segment',[[1.054,0.672],[1.476,0.94]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('segment',[[-0.183,1.388],[-0.248,1.884]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-    })();
-    </script>
-  </div>
-  <div style="display:flex;gap:10px;align-items:center;border-top:1px solid #eee;padding-top:5px;margin-top:4px;">
-    <div>ג. <span dir="ltr">∡AOC=45°</span>. מה <span dir="ltr">∡AOB</span>? <span class="b">&nbsp;</span><div class="wl"></div></div>
-    <div id="q13c-board" class="fig" style="width:96px;height:78px;"></div>
-    <script>
-    (function(){
-      var b = JXG.JSXGraph.initBoard('q13c-board', {
-        boundingbox: [-0.5,5.5,5.5,-0.8],
-        axis:false, grid:false,
-        showCopyright:false, showNavigation:false,
-        pan:{enabled:false}, zoom:{enabled:false},
-        renderer:'svg'
-      });
-      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
-      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
-      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
-      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
-      var A = b.create('point',[0,4], Object.assign({name:'A', label:lbl(-14,5)}, ps));
-      var C = b.create('point',[2.83,2.83], Object.assign({name:'C', label:lbl(5,5)}, ps));
-      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, C], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
-      b.create('angle',[Bpt, O, A], {type:'square', radius:0.7, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('angle',[Bpt, O, C], {radius:1.3, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('angle',[C, O, A], {radius:1.5, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('segment',[[0.97,0.402],[1.432,0.593]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('segment',[[0.478,1.155],[0.67,1.617]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('text',[1.9,0.65,'45°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
-    })();
-    </script>
+  <div style="margin-bottom:10px;"><span class="qn">1.</span> נתון: <span class="ang">∡ABC = 120°</span></div>
+  <img src="seq4_exam_q1.png" style="width:100%;max-width:560px;display:block;margin:0 auto 14px;border-radius:6px;" />
+  <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
+    <div>קרן BD מחלקת את <span class="ang">∡ABE</span> לשתי זוויות שוות, וקרן BE מחלקת את <span class="ang">∡DBC</span> לשתי זוויות שוות.</div>
+    <div>חשבו את <span class="ang">∡DBC</span>. נמקו:<div class="wl"></div><div class="wl" style="margin-top:14px;"></div><div class="wl" style="margin-top:14px;"></div></div>
   </div>
 </div>
 
 <div class="q">
-  <div style="display:flex;gap:10px;align-items:center;">
-    <div>
-      <div><span class="qn">2.</span> שוק OC הוא חוצה-זווית. נתון: <span dir="ltr">∡COB=38°</span>. חשבו:</div>
-      <div style="display:flex;gap:24px;margin-top:4px;">
-        <span>א. <span dir="ltr">∡AOC</span>=<span class="b">&nbsp;</span></span>
-        <span>ב. <span dir="ltr">∡AOB</span>=<span class="b">&nbsp;</span></span>
-      </div><div class="wl"></div>
-    </div>
-    <div id="q14-board" class="fig" style="width:94px;height:78px;"></div>
-    <script>
-    (function(){
-      var b = JXG.JSXGraph.initBoard('q14-board', {
-        boundingbox: [-0.5,5.5,5.5,-0.8],
-        axis:false, grid:false,
-        showCopyright:false, showNavigation:false,
-        pan:{enabled:false}, zoom:{enabled:false},
-        renderer:'svg'
-      });
-      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
-      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
-      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
-      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
-      var A = b.create('point',[0.97,3.88], Object.assign({name:'A', label:lbl(-14,5)}, ps));
-      var C = b.create('point',[3.19,2.41], Object.assign({name:'C', label:lbl(5,5)}, ps));
-      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, C], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
-      b.create('angle',[Bpt, O, C], {radius:1.4, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('angle',[C, O, A], {radius:1.6, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-      b.create('segment',[[1.091,0.365],[1.565,0.524]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('segment',[[0.745,1.126],[1.021,1.543]], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('text',[2.05,0.48,'38°'], {fontSize:10, color:'#555', highlight:false, fixed:true});
-    })();
-    </script>
+  <div style="margin-bottom:10px;"><span class="qn">2.</span> <span class="ang">∡BCE</span> היא זווית ישרה. נתון: <span class="ang">∡DCE = 62°</span></div>
+  <img src="seq4_exam_q2.png" style="width:100%;max-width:500px;display:block;margin:0 auto 14px;border-radius:6px;" />
+  <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
+    <div>קרן BC מחלקת את <span class="ang">∡ACD</span> לשתי זוויות שוות.</div>
+    <div>א. חשבו את <span class="ang">∡BCD</span>: <span class="b">&nbsp;</span><div class="wl"></div><div class="wl" style="margin-top:14px;"></div></div>
+    <div>ב. חשבו את <span class="ang">∡ACE</span>. נמקו:<div class="wl"></div><div class="wl" style="margin-top:14px;"></div><div class="wl" style="margin-top:14px;"></div></div>
   </div>
 </div>
 
-<div class="q">
-  <div style="display:flex;gap:10px;align-items:center;">
-    <div>
-      <div><span class="qn">3.</span> שוק OD הוא חוצה-זווית של <span dir="ltr">∡AOB</span> (זווית ישרה). שוק OE הוא חוצה-זווית של <span dir="ltr">∡DOB</span>. חשבו <span dir="ltr">∡AOE</span>.</div>
-      <div style="margin-top:4px;"><span dir="ltr">∡AOE</span>=<span class="b">&nbsp;</span></div>
-      <div class="wl"></div><div class="wl"></div>
-    </div>
-    <div id="q15-board" class="fig" style="width:112px;height:88px;"></div>
-    <script>
-    (function(){
-      var b = JXG.JSXGraph.initBoard('q15-board', {
-        boundingbox: [-0.5,5.5,5.5,-0.8],
-        axis:false, grid:false,
-        showCopyright:false, showNavigation:false,
-        pan:{enabled:false}, zoom:{enabled:false},
-        renderer:'svg'
-      });
-      var ps = {fixed:true, size:0, fillColor:'none', strokeColor:'none', highlight:false};
-      var lbl = function(dx,dy){ return {offset:[dx,dy], fontSize:12, fontWeight:'bold', color:'#111', highlight:false}; };
-      var O = b.create('point',[0,0], Object.assign({name:'O', label:lbl(-14,-8)}, ps));
-      var Bpt = b.create('point',[4,0], Object.assign({name:'B', label:lbl(5,-7)}, ps));
-      var A = b.create('point',[0,4], Object.assign({name:'A', label:lbl(-14,5)}, ps));
-      var D = b.create('point',[2.83,2.83], Object.assign({name:'D', label:lbl(5,5)}, ps));
-      var E = b.create('point',[3.70,1.53], Object.assign({name:'E', label:lbl(5,5)}, ps));
-      b.create('arrow',[O, Bpt], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, A], {strokeColor:'#111', strokeWidth:1.5, highlight:false});
-      b.create('arrow',[O, D], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
-      b.create('arrow',[O, E], {strokeColor:'#555', strokeWidth:1.3, dash:2, highlight:false});
-      b.create('angle',[Bpt, O, A], {type:'square', radius:0.7, strokeColor:'#555', strokeWidth:1.2, fillColor:'none', fillOpacity:0, withLabel:false, highlight:false});
-    })();
-    </script>
-  </div>
-</div>
-
-<div class="q">
-  <div><span class="qn">4.</span> ענו נכון / לא נכון:</div>
-  <div style="margin-top:4px;">
-    <div style="margin-bottom:3px;">א. חוצה-זווית מחלקת זווית לשני חלקים שווים. <span class="bs">&nbsp;</span></div>
-    <div style="margin-bottom:3px;">ב. חוצה-זווית של זווית ישרה יוצרת שתי זוויות של 45° כל אחת. <span class="bs">&nbsp;</span></div>
-    <div>ג. אפשר לחצות רק זוויות חדות. <span class="bs">&nbsp;</span></div>
-  </div>
-</div>
-
-<div class="sbar"><div>ניקוד: <span class="sf">&nbsp;</span></div></div>
+<div class="sbar">ניקוד: <span class="sf">&nbsp;</span></div>
 
 </div><!-- end page-wrap -->
 
 <button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
 <button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#10B981;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
 <footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
 </body>
 </html>
