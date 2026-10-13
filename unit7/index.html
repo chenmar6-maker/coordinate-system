@@ -313,6 +313,8 @@ function renderLearn(){
   return renderLearnPlaceholder();
 }
 
+const SEP = '<div style="border-top:1px solid rgba(234,244,241,0.15);margin:20px 0 10px;"></div><div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:rgba(234,244,241,0.38);text-transform:uppercase;margin-bottom:12px;">תכונות ומשפטים</div>';
+
 function renderLearn1(){
   return `<div class="panel">
     <h2 class="qtitle">זיהוי זוויות וסוגי זוויות</h2>
@@ -320,7 +322,8 @@ function renderLearn1(){
       <iframe src="https://www.youtube.com/embed/6MmGjlysa0g" title="סוגי זוויות" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="gold-box" style="margin-top:16px;">זווית = שתי קרניים היוצאות מנקודה משותפת אחת, שנקראת <strong>קדקוד</strong></div>
-    <ul class="bullets" style="margin-top:16px;">
+    ${SEP}
+    <ul class="bullets">
       <li>הזווית נמדדת ב<strong>מעלות (°)</strong></li>
       <li>סיבוב מלא = <strong>360°</strong></li>
       <li>הזווית מסומנת לרוב באות יוונית כמו α (אלפא) או β (בטא)</li>
@@ -374,7 +377,8 @@ function renderLearn2(){
       <iframe src="https://www.youtube.com/embed/WULROd_Xh0s" title="כתיב מתמטי של זוויות" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="gold-box"><span dir="ltr">∡ABC</span> — שלוש אותיות מתארות זווית: A ו-C הן נקודות על השוקיים, B הוא הקודקוד (תמיד באמצע)</div>
-    <ul class="bullets" style="margin-top:16px;">
+    ${SEP}
+    <ul class="bullets">
       <li>הכתיב <span dir="ltr">∡BAC</span> — קודקוד A, שוקיים AB ו-AC</li>
       <li>אפשר גם <span dir="ltr">∡CAB</span> (הפיכת סדר השוקיים מותרת)</li>
       <li>אם יש זווית אחת בלבד בקודקוד — מותר לכתוב רק <span dir="ltr">∡A</span></li>
@@ -423,6 +427,7 @@ function renderLearn4(){
         <text x="55" y="52" fill="#EFA94A" font-size="11" font-family="Rubik,sans-serif" direction="ltr">∡COA</text>
       </svg>
     </div>
+    ${SEP}
     <ul class="bullets">
       <li>אם OC חוצה <span dir="ltr">∡AOB</span>: <span dir="ltr">∡AOC</span> = <span dir="ltr">∡COB</span> = ½ · <span dir="ltr">∡AOB</span></li>
       <li><span dir="ltr">∡AOB</span> = 2 × <span dir="ltr">∡AOC</span> (הכפלה)</li>
@@ -452,6 +457,7 @@ function renderLearn5(){
         <text x="85" y="96" fill="#EFA94A" font-size="12" font-family="Rubik,sans-serif" text-anchor="middle">α + β = 180°</text>
       </svg>
     </div>
+    ${SEP}
     <ul class="bullets">
       <li>α + β = 180°</li>
       <li>אם α=70°, אז β=180°−70°=110°</li>
@@ -483,6 +489,7 @@ function renderLearn6(){
         <text x="100" y="148" fill="rgba(234,244,241,0.7)" font-size="12" font-family="Rubik,sans-serif" text-anchor="middle">α=α′ (קודקודיות) &nbsp; β=β′ &nbsp; α+β=180°</text>
       </svg>
     </div>
+    ${SEP}
     <ul class="bullets">
       <li>שני קווים נחתכים → 4 זוויות</li>
       <li>זוויות קודקודיות (מולאחת לשנייה): α=α′, β=β′</li>
