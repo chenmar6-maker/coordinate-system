@@ -197,7 +197,7 @@ function seqRow(seqNum, label, opts={}){
     const hasGame = !opts.noGame;
     const gameCard = hasGame
       ? `<div class="flow-arrow">←</div><div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>`
-      : '';
+      : `<div class="flow-arrow">←</div><div class="card game" style="opacity:.4;cursor:default;"><h3>תרגול — בקרוב</h3></div>`;
     const quizCard = opts.worksheetUrl
       ? `<div class="flow-arrow">←</div><div class="card quiz" onclick="window.open('${opts.worksheetUrl}','_blank')"><h3>מבדק שליטה</h3></div>`
       : opts.noQuiz ? ''
