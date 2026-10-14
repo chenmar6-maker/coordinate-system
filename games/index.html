@@ -111,18 +111,32 @@
   <!-- מפגש 2 -->
   <div class="session-block">
     <div class="session-label">מפגש 2</div>
-    <div id="session2-games">
-      <div class="games">
-        <a class="game-card" href="./nim/">
-          <div class="card-left">
-            <div class="card-icon">🔥</div>
-            <div>
-              <div class="card-name">משחק הגפרורים — Nim</div>
-              <div class="card-sub">שתי ערמות, מי שלוקח את האחרון מנצח</div>
-            </div>
+    <div class="games">
+      <a class="game-card" href="./nim/">
+        <div class="card-left">
+          <div class="card-icon">🔥</div>
+          <div>
+            <div class="card-name">משחק הגפרורים — Nim</div>
+            <div class="card-sub">שתי ערמות, מי שלוקח את האחרון מנצח</div>
           </div>
-          <div class="card-arrow">←</div>
-        </a>
+        </div>
+        <div class="card-arrow">←</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- מפגש 3 -->
+  <div class="session-block">
+    <div class="session-label">מפגש 3</div>
+    <div id="session3-locked" class="locked-card">
+      <div class="lock-icon">🔒</div>
+      <div class="lock-msg">מפגש זה נעול — הכנסו את הקוד כדי לפתוח</div>
+      <div class="code-row">
+        <input id="code-input3" class="code-input" type="text" maxlength="4" placeholder="קוד" oninput="tryCode3()" />
+      </div>
+    </div>
+    <div id="session3-games" style="display:none;">
+      <div class="games">
         <a class="game-card" href="./race100/">
           <div class="card-left">
             <div class="card-icon">🏁</div>
@@ -143,26 +157,25 @@
 </div>
 
 <script>
-const CODE = '2357';
+const CODE3 = '2357';
 
-// check sessionStorage so unlocking persists while tab is open
-if (sessionStorage.getItem('session2') === 'unlocked') unlock(false);
+if (sessionStorage.getItem('session3') === 'unlocked') unlock3(false);
 
-function tryCode() {
-  const val = document.getElementById('code-input').value;
-  if (val === CODE) {
-    sessionStorage.setItem('session2', 'unlocked');
-    unlock(true);
+function tryCode3() {
+  const val = document.getElementById('code-input3').value;
+  if (val === CODE3) {
+    sessionStorage.setItem('session3', 'unlocked');
+    unlock3(true);
   } else if (val.length === 4) {
-    const inp = document.getElementById('code-input');
+    const inp = document.getElementById('code-input3');
     inp.classList.add('error');
     setTimeout(() => { inp.classList.remove('error'); inp.value = ''; }, 400);
   }
 }
 
-function unlock(animate) {
-  document.getElementById('session2-locked').style.display = 'none';
-  const games = document.getElementById('session2-games');
+function unlock3(animate) {
+  document.getElementById('session3-locked').style.display = 'none';
+  const games = document.getElementById('session3-games');
   games.style.display = 'block';
   if (animate) {
     games.style.opacity = '0';
