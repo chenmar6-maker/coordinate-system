@@ -322,47 +322,6 @@ function renderLearn1(){
       <iframe src="https://www.youtube.com/embed/6MmGjlysa0g" title="סוגי זוויות" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="gold-box" style="margin-top:16px;">זווית = שתי קרניים היוצאות מנקודה משותפת אחת, שנקראת <strong>קדקוד</strong></div>
-    ${SEP}
-    <ul class="bullets">
-      <li>הזווית נמדדת ב<strong>מעלות (°)</strong></li>
-      <li>סיבוב מלא = <strong>360°</strong></li>
-      <li>הזווית מסומנת לרוב באות יוונית כמו α (אלפא) או β (בטא)</li>
-    </ul>
-    <div class="angle-grid" style="margin-top:20px;">
-      <div class="angle-card">
-        <svg width="80" height="70" viewBox="0 0 80 70" style="display:block;margin:0 auto 10px;">
-          <line x1="40" y1="60" x2="15" y2="10" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="40" y1="60" x2="70" y2="40" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M 30 42 A 16 16 0 0 1 52 50" stroke="#EFA94A" stroke-width="2" fill="none"/>
-        </svg>
-        <div class="angle-name">חדה</div><div class="angle-range">0° &lt; α &lt; 90°</div>
-      </div>
-      <div class="angle-card">
-        <svg width="80" height="70" viewBox="0 0 80 70" style="display:block;margin:0 auto 10px;">
-          <line x1="20" y1="55" x2="20" y2="10" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="20" y1="55" x2="68" y2="55" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
-          <rect x="20" y="42" width="13" height="13" stroke="#EFA94A" stroke-width="1.8" fill="none"/>
-        </svg>
-        <div class="angle-name">ישרה</div><div class="angle-range">α = 90°</div>
-      </div>
-      <div class="angle-card">
-        <svg width="80" height="70" viewBox="0 0 80 70" style="display:block;margin:0 auto 10px;">
-          <line x1="40" y1="60" x2="8" y2="20" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="40" y1="60" x2="75" y2="40" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M 20 42 A 24 24 0 0 1 60 50" stroke="#EFA94A" stroke-width="2" fill="none"/>
-        </svg>
-        <div class="angle-name">קהה</div><div class="angle-range">90° &lt; α &lt; 180°</div>
-      </div>
-      <div class="angle-card">
-        <svg width="80" height="70" viewBox="0 0 80 70" style="display:block;margin:0 auto 10px;">
-          <line x1="5" y1="40" x2="75" y2="40" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="40" cy="40" r="3.5" fill="#EFA94A"/>
-          <path d="M 20 40 A 20 20 0 0 1 60 40" stroke="#EFA94A" stroke-width="2" fill="none"/>
-        </svg>
-        <div class="angle-name">שטוחה</div><div class="angle-range">α = 180°</div>
-      </div>
-    </div>
-    <div class="learn-note">טריק לזכור: <strong>חדה</strong> = חד = מחודד = קטן מ-90°. <strong>קהה</strong> = לא חד = גדול מ-90°.</div>
     <div class="btnrow">
       <button class="btn" onclick="window.open('../worksheets/angles_seq1_exam.html','_blank')">למבדק שליטה ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -377,14 +336,6 @@ function renderLearn2(){
       <iframe src="https://www.youtube.com/embed/WULROd_Xh0s" title="כתיב מתמטי של זוויות" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="gold-box"><span dir="ltr">∡ABC</span> — שלוש אותיות מתארות זווית: A ו-C הן נקודות על השוקיים, B הוא הקודקוד (תמיד באמצע)</div>
-    ${SEP}
-    <ul class="bullets">
-      <li>הכתיב <span dir="ltr">∡BAC</span> — קודקוד A, שוקיים AB ו-AC</li>
-      <li>אפשר גם <span dir="ltr">∡CAB</span> (הפיכת סדר השוקיים מותרת)</li>
-      <li>אם יש זווית אחת בלבד בקודקוד — מותר לכתוב רק <span dir="ltr">∡A</span></li>
-      <li>אסור: הקודקוד בקצה! <span dir="ltr">∡BAC</span> — A חייב להיות באמצע</li>
-    </ul>
-    <div class="learn-note">טריק: הקודקוד — האות האמצעית. <span dir="ltr">∡ABC</span> → קודקוד B</div>
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -415,31 +366,6 @@ function renderLearn4(){
       <iframe src="https://www.youtube.com/embed/Zma4u4HQYhk" title="חוצה-זווית" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="gold-box">חוצה-זווית = קרן היוצאת מקודקוד הזווית ומחלקת אותה לשני חלקים שווים בדיוק</div>
-    <div style="text-align:center;margin:20px 0;">
-      <svg width="200" height="130" viewBox="0 0 200 130">
-        <line x1="30" y1="110" x2="190" y2="110" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="30" y1="110" x2="60" y2="10" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="30" y1="110" x2="155" y2="40" stroke="#EFA94A" stroke-width="2" stroke-dasharray="5,3" stroke-linecap="round"/>
-        <path d="M 80 110 A 50 50 0 0 1 64 67" stroke="#10B981" stroke-width="1.8" fill="none"/>
-        <path d="M 70 80 A 42 42 0 0 1 95 50" stroke="#EFA94A" stroke-width="1.8" fill="none"/>
-        <line x1="71" y1="90" x2="74" y2="85" stroke="#10B981" stroke-width="2"/>
-        <line x1="83" y1="63" x2="86" y2="58" stroke="#EFA94A" stroke-width="2"/>
-        <circle cx="30" cy="110" r="3.5" fill="#EFA94A"/>
-        <text x="190" y="125" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">B</text>
-        <text x="55" y="8" fill="#EAF4F1" font-size="13" font-family="Rubik,sans-serif">A</text>
-        <text x="158" y="35" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif">C</text>
-        <text x="18" y="126" fill="#EFA94A" font-size="13" font-family="Rubik,sans-serif" font-weight="700">O</text>
-        <text x="105" y="108" fill="#10B981" font-size="11" font-family="Rubik,sans-serif" direction="ltr">∡BOC</text>
-        <text x="55" y="52" fill="#EFA94A" font-size="11" font-family="Rubik,sans-serif" direction="ltr">∡COA</text>
-      </svg>
-    </div>
-    ${SEP}
-    <ul class="bullets">
-      <li>אם OC חוצה <span dir="ltr">∡AOB</span>: <span dir="ltr">∡AOC</span> = <span dir="ltr">∡COB</span> = ½ · <span dir="ltr">∡AOB</span></li>
-      <li><span dir="ltr">∡AOB</span> = 2 × <span dir="ltr">∡AOC</span> (הכפלה)</li>
-      <li>נסמן את החוצה בקו מקווקו</li>
-      <li>את שתי הזוויות השוות נסמן בקשתות עם סימן שוויון (√)</li>
-    </ul>
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -454,27 +380,6 @@ function renderLearn5(){
       <iframe src="https://www.youtube.com/embed/gxXMWRo9VZY" title="זוויות צמודות" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="gold-box">זוויות צמודות = שתי זוויות הנמצאות על קו ישר. סכומן תמיד 180°</div>
-    <div style="text-align:center;margin:20px 0;">
-      <svg width="200" height="100" viewBox="0 0 200 100">
-        <line x1="10" y1="80" x2="190" y2="80" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="100" y1="80" x2="145" y2="15" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="100" cy="80" r="3.5" fill="#EFA94A"/>
-        <path d="M 140 80 A 40 40 0 0 1 120 47" stroke="#EFA94A" stroke-width="1.8" fill="none"/>
-        <path d="M 80 80 A 25 25 0 0 0 118 57" stroke="#10B981" stroke-width="1.8" fill="none"/>
-        <text x="148" y="76" fill="#EFA94A" font-size="16" font-family="Rubik,sans-serif" font-weight="700">α</text>
-        <text x="72" y="68" fill="#10B981" font-size="16" font-family="Rubik,sans-serif" font-weight="700">β</text>
-        <text x="85" y="96" fill="#EFA94A" font-size="12" font-family="Rubik,sans-serif" text-anchor="middle">α + β = 180°</text>
-      </svg>
-    </div>
-    ${SEP}
-    <ul class="bullets">
-      <li>α + β = 180°</li>
-      <li>אם α=70°, אז β=180°−70°=110°</li>
-      <li>שתי זוויות צמודות לא יכולות להיות שתיהן חדות (כי שתי חדות &lt; 180°)</li>
-      <li>שתי זוויות צמודות לא יכולות להיות שתיהן קהות (כי שתי קהות &gt; 180°)</li>
-      <li>אחת חייבת להיות חדה ואחת קהה — או שתיהן 90°</li>
-    </ul>
-    <div class="learn-note">טריק: β = 180° − α. זכרו: צמודות = ישר = 180°.</div>
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -489,26 +394,6 @@ function renderLearn6(){
       <iframe src="https://www.youtube.com/embed/x_rvimVu1Lk" title="זוויות קודקודיות" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="gold-box">זוויות קודקודיות = זוויות מול אחת לשנייה בחיתוך שני קווים — הן תמיד שוות!</div>
-    <div style="text-align:center;margin:20px 0;">
-      <svg width="200" height="160" viewBox="0 0 200 160">
-        <line x1="20" y1="130" x2="180" y2="30" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="20" y1="30" x2="180" y2="130" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="100" cy="80" r="3.5" fill="#EFA94A"/>
-        <text x="100" y="40" fill="#EFA94A" font-size="16" font-family="Rubik,sans-serif" text-anchor="middle" font-weight="700">α</text>
-        <text x="145" y="85" fill="#10B981" font-size="16" font-family="Rubik,sans-serif" font-weight="700">β</text>
-        <text x="100" y="125" fill="#EFA94A" font-size="16" font-family="Rubik,sans-serif" text-anchor="middle" font-weight="700">α′</text>
-        <text x="45" y="85" fill="#10B981" font-size="16" font-family="Rubik,sans-serif" font-weight="700">β′</text>
-        <text x="100" y="148" fill="rgba(234,244,241,0.7)" font-size="12" font-family="Rubik,sans-serif" text-anchor="middle">α=α′ (קודקודיות) &nbsp; β=β′ &nbsp; α+β=180°</text>
-      </svg>
-    </div>
-    ${SEP}
-    <ul class="bullets">
-      <li>שני קווים נחתכים → 4 זוויות</li>
-      <li>זוויות קודקודיות (מולאחת לשנייה): α=α′, β=β′</li>
-      <li>זוויות סמוכות (על קו ישר): α+β=180°</li>
-      <li>מספיק לדעת זווית אחת כדי לחשב את כל השאר!</li>
-    </ul>
-    <div class="learn-note">טריק: קודקודיות = שוות. סמוכות = 180°. דע אחת — דע הכל.</div>
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=6;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
