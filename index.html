@@ -205,13 +205,10 @@
       <!-- מבחנים מסכמים — כפתור מתקפל -->
       <div style="margin-top:16px;border-top:1px solid rgba(59,130,246,0.18);padding-top:14px;">
         <button onclick="toggleNumExams()" id="num-exams-btn"
-          style="width:100%;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#1E40AF,#2563EB);color:#fff;border:none;border-radius:12px;padding:13px 18px;font-family:'Rubik',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .15s;letter-spacing:0.2px;"
-          onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <span style="font-size:19px;">🏆</span>
-            <span>מבחן מסכם</span>
-          </div>
-          <span id="num-exams-chevron" style="font-size:14px;transition:transform .25s;">▼</span>
+          style="width:100%;display:flex;align-items:center;justify-content:space-between;background:rgba(59,130,246,0.08);border:1.5px solid rgba(59,130,246,0.22);border-radius:10px;padding:11px 16px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:700;color:#2563EB;cursor:pointer;transition:background .15s;"
+          onmouseover="this.style.background='rgba(59,130,246,0.13)'" onmouseout="this.style.background='rgba(59,130,246,0.08)'">
+          <span>מבחן מסכם</span>
+          <span id="num-exams-chevron" style="font-size:12px;color:#93C5FD;transition:transform .25s;">▼</span>
         </button>
 
         <div id="num-exams-panel" style="display:none;margin-top:10px;flex-direction:column;gap:8px;opacity:0;transition:opacity .25s;">
