@@ -245,42 +245,33 @@
             <span style="font-size:16px;color:#93C5FD;">←</span>
           </a>
 
-          <!-- מבחנים נעולים -->
+          <!-- מבחנים רשמיים -->
           <div style="font-size:11.5px;font-weight:700;color:#93C5FD;letter-spacing:0.6px;padding-right:4px;margin-top:6px;margin-bottom:2px;">המבחן הרשמי</div>
 
-          <div id="num-exam-locked" style="background:#F0F4FF;border:1.5px dashed #93C5FD;border-radius:10px;padding:14px 16px;text-align:center;">
-            <div style="font-size:16px;margin-bottom:5px;">🔒</div>
-            <div style="font-size:12.5px;font-weight:600;color:#6B7280;margin-bottom:11px;">המבחן נפתח עם קוד מהמורה</div>
-            <input id="num-exam-code" type="text" maxlength="4" placeholder="קוד" oninput="tryNumExamCode()"
-              style="width:100px;padding:9px 12px;background:#fff;border:1.5px solid #BFDBFE;border-radius:8px;color:#1E40AF;font-family:'Rubik',sans-serif;font-size:17px;font-weight:700;text-align:center;letter-spacing:4px;direction:ltr;outline:none;transition:border-color .15s;" />
+          <div onclick="openExamModal('basic')"
+            style="display:flex;align-items:center;justify-content:space-between;background:#1E40AF;border:none;border-radius:10px;padding:12px 16px;cursor:pointer;color:#fff;transition:opacity .15s;"
+            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-size:21px;">📝</span>
+              <div>
+                <div style="font-size:14px;font-weight:700;">מבחן — רמה בסיסית</div>
+                <div style="font-size:12px;opacity:.7;margin-top:2px;">מבחן מסכם רשמי · נדרש קוד</div>
+              </div>
+            </div>
+            <span style="font-size:18px;opacity:.6;">🔒</span>
           </div>
 
-          <div id="num-exam-open" style="display:none;flex-direction:column;gap:8px;">
-            <a href="./worksheets/numbers_exam_basic.pdf" target="_blank"
-              style="display:flex;align-items:center;justify-content:space-between;background:#1E40AF;border:none;border-radius:10px;padding:12px 16px;text-decoration:none;color:#fff;transition:opacity .15s;"
-              onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-              <div style="display:flex;align-items:center;gap:12px;">
-                <span style="font-size:21px;">📝</span>
-                <div>
-                  <div style="font-size:14px;font-weight:700;">מבחן — רמה בסיסית</div>
-                  <div style="font-size:12px;opacity:.7;margin-top:2px;">מבחן מסכם רשמי</div>
-                </div>
+          <div onclick="openExamModal('advanced')"
+            style="display:flex;align-items:center;justify-content:space-between;background:#1E40AF;border:none;border-radius:10px;padding:12px 16px;cursor:pointer;color:#fff;transition:opacity .15s;"
+            onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-size:21px;">📝</span>
+              <div>
+                <div style="font-size:14px;font-weight:700;">מבחן — רמה מתקדמת</div>
+                <div style="font-size:12px;opacity:.7;margin-top:2px;">מבחן מסכם רשמי · נדרש קוד</div>
               </div>
-              <span style="font-size:16px;opacity:.7;">←</span>
-            </a>
-
-            <a href="./worksheets/numbers_exam_advanced.pdf" target="_blank"
-              style="display:flex;align-items:center;justify-content:space-between;background:#1E40AF;border:none;border-radius:10px;padding:12px 16px;text-decoration:none;color:#fff;transition:opacity .15s;"
-              onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-              <div style="display:flex;align-items:center;gap:12px;">
-                <span style="font-size:21px;">📝</span>
-                <div>
-                  <div style="font-size:14px;font-weight:700;">מבחן — רמה מתקדמת</div>
-                  <div style="font-size:12px;opacity:.7;margin-top:2px;">מבחן מסכם רשמי</div>
-                </div>
-              </div>
-              <span style="font-size:16px;opacity:.7;">←</span>
-            </a>
+            </div>
+            <span style="font-size:18px;opacity:.6;">🔒</span>
           </div>
 
         </div>
@@ -391,13 +382,17 @@ function openGate() {
   setTimeout(() => document.getElementById('games-code-input').focus(), 50);
 }
 const NUM_EXAM_CODE = '1111';
-if (sessionStorage.getItem('num_exam') === 'unlocked') unlockNumExam(false);
+const EXAM_URLS = {
+  basic:    './worksheets/numbers_exam_basic.pdf',
+  advanced: './worksheets/numbers_exam_advanced.pdf'
+};
+let _examTarget = null;
 
 function toggleNumExams() {
   const panel = document.getElementById('num-exams-panel');
   const chevron = document.getElementById('num-exams-chevron');
-  const open = panel.style.display === 'none' || panel.style.opacity === '0';
-  if (open) {
+  const isHidden = panel.style.display === 'none';
+  if (isHidden) {
     panel.style.display = 'flex';
     requestAnimationFrame(() => { panel.style.opacity = '1'; });
     chevron.style.transform = 'rotate(180deg)';
@@ -408,24 +403,35 @@ function toggleNumExams() {
   }
 }
 
-function tryNumExamCode() {
-  const inp = document.getElementById('num-exam-code');
-  if (!inp) return;
-  if (inp.value === NUM_EXAM_CODE) {
-    sessionStorage.setItem('num_exam', 'unlocked');
-    unlockNumExam(true);
-  } else if (inp.value.length === 4) {
-    inp.style.borderColor = 'rgba(239,68,68,0.7)';
-    setTimeout(() => { inp.value = ''; inp.style.borderColor = '#BFDBFE'; }, 500);
-  }
+function openExamModal(type) {
+  _examTarget = type;
+  const titles = { basic: 'מבחן — רמה בסיסית', advanced: 'מבחן — רמה מתקדמת' };
+  document.getElementById('exam-modal-title').textContent = titles[type] || 'מבחן מסכם';
+  document.getElementById('exam-modal-code').value = '';
+  document.getElementById('exam-modal-err').textContent = '';
+  document.getElementById('exam-modal-code').style.borderColor = '#BFDBFE';
+  const modal = document.getElementById('exam-modal');
+  modal.style.display = 'flex';
+  setTimeout(() => document.getElementById('exam-modal-code').focus(), 80);
 }
-function unlockNumExam(animate) {
-  const locked = document.getElementById('num-exam-locked');
-  const open = document.getElementById('num-exam-open');
-  if (locked) locked.style.display = 'none';
-  if (open) {
-    open.style.display = 'flex';
-    if (animate) { open.style.opacity = '0'; open.style.transition = 'opacity .4s'; requestAnimationFrame(() => { open.style.opacity = '1'; }); }
+
+function closeExamModal(e) {
+  if (e && e.target !== document.getElementById('exam-modal')) return;
+  document.getElementById('exam-modal').style.display = 'none';
+  _examTarget = null;
+}
+
+function checkExamCode() {
+  const inp = document.getElementById('exam-modal-code');
+  const err = document.getElementById('exam-modal-err');
+  if (inp.value === NUM_EXAM_CODE) {
+    document.getElementById('exam-modal').style.display = 'none';
+    window.open(EXAM_URLS[_examTarget], '_blank');
+    _examTarget = null;
+  } else if (inp.value.length === 4) {
+    inp.style.borderColor = '#FCA5A5';
+    err.textContent = 'קוד שגוי — נסה שוב';
+    setTimeout(() => { inp.value = ''; inp.style.borderColor = '#BFDBFE'; err.textContent = ''; }, 700);
   }
 }
 
@@ -445,6 +451,19 @@ function checkGateCode() {
   }
 }
 </script>
+<!-- מודל קוד מבחן -->
+<div id="exam-modal" onclick="closeExamModal(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);">
+  <div onclick="event.stopPropagation()" style="background:#fff;border-radius:20px;padding:32px 28px;width:100%;max-width:320px;text-align:center;box-shadow:0 16px 60px rgba(0,0,0,0.25);">
+    <div style="font-size:34px;margin-bottom:10px;">🔒</div>
+    <div style="font-size:18px;font-weight:800;color:#1E1B2E;margin-bottom:4px;" id="exam-modal-title">מבחן מסכם</div>
+    <div style="font-size:13px;color:#6B7280;margin-bottom:22px;">הכנס את הקוד שקיבלת מהמורה</div>
+    <input id="exam-modal-code" type="text" maxlength="4" placeholder="קוד" oninput="checkExamCode()"
+      style="width:130px;padding:12px 14px;background:#F0F4FF;border:2px solid #BFDBFE;border-radius:12px;color:#1E40AF;font-family:'Rubik',sans-serif;font-size:22px;font-weight:800;text-align:center;letter-spacing:6px;direction:ltr;outline:none;transition:border-color .15s;display:block;margin:0 auto 8px;" />
+    <div id="exam-modal-err" style="font-size:12px;color:#EF4444;min-height:18px;margin-bottom:4px;"></div>
+    <button onclick="closeExamModal(null)" style="margin-top:8px;background:none;border:none;font-family:'Rubik',sans-serif;font-size:13px;color:#9CA3AF;cursor:pointer;text-decoration:underline;">ביטול</button>
+  </div>
+</div>
+
 <footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
 </body>
 </html>
