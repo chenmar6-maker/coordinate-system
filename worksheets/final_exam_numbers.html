@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבחן מסכם — תחום המספרי</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Rubik',sans-serif;font-size:14px;color:#1a1a2e;direction:rtl;background:#F0F2F8;min-height:100vh;padding:24px 16px 80px;}
+
+  .page-wrap{max-width:780px;margin:0 auto;}
+
+  .header{background:linear-gradient(135deg,#1E1B2E 0%,#2D2A45 100%);color:#fff;border-radius:14px;padding:18px 22px 16px;margin-bottom:20px;}
+  .header-top{display:flex;justify-content:space-between;align-items:flex-start;}
+  .header-title{font-size:21px;font-weight:800;color:#fff;letter-spacing:-0.3px;}
+  .header-sub{font-size:12px;color:rgba(255,255,255,0.5);margin-top:5px;}
+  .brand{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);white-space:nowrap;margin-top:2px;}
+  .header-topics{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;}
+  .topic-chip{font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:20px;border:1.5px solid;}
+
+  .note-box{background:#EFF6FF;border:2px solid #3B82F6;border-radius:10px;padding:11px 16px;margin-bottom:18px;font-size:13px;font-weight:600;color:#1E40AF;display:flex;align-items:flex-start;gap:10px;line-height:1.6;}
+
+  .part-header{margin:20px 0 10px;display:flex;align-items:center;gap:10px;}
+  .part-label{font-size:13px;font-weight:800;color:#fff;padding:5px 16px;border-radius:6px;display:inline-block;}
+  .part-pts{font-size:12px;font-weight:600;color:#6B7280;}
+
+  .q{margin-bottom:14px;padding:16px 18px;background:#fff;border-radius:10px;font-size:13.5px;line-height:1.8;box-shadow:0 1px 4px rgba(0,0,0,0.07);}
+  .q-a{border-right:4px solid #3B82F6;}
+  .q-b{border-right:4px solid #10B981;}
+  .q-c{border-right:4px solid #7C3AED;}
+  .q-star{border-right:4px solid #F59E0B;background:#FFFBEB;}
+
+  .qrow{display:flex;align-items:baseline;gap:6px;margin-bottom:6px;}
+  .qn{font-weight:800;font-size:15px;}
+  .qpts{font-size:11px;font-weight:700;color:#6B7280;background:#F3F4F6;border-radius:10px;padding:2px 8px;}
+
+  .sub{margin-top:10px;display:flex;flex-direction:column;gap:14px;}
+  .wl{border-bottom:1px solid #D1D5DB;margin-top:12px;height:1px;}
+  .wl2{border-bottom:1px solid #D1D5DB;margin-top:12px;height:1px;}
+  .ans{border-bottom:1.5px solid #555;display:inline-block;min-width:90px;}
+
+  .grid-box{border:1.5px solid #D1D5DB;border-radius:8px;margin-top:10px;background:#FAFAFA;position:relative;overflow:hidden;}
+  .grid-inner{width:100%;height:200px;background-image:linear-gradient(rgba(209,213,219,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(209,213,219,0.5) 1px,transparent 1px);background-size:20px 20px;}
+
+  .sbar{font-size:13px;color:#374151;background:#fff;border-radius:10px;padding:14px 20px;box-shadow:0 1px 4px rgba(0,0,0,0.07);display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
+  .sf{border-bottom:1.5px solid #555;min-width:44px;display:inline-block;}
+  .pts-breakdown{font-size:11.5px;color:#9CA3AF;display:flex;gap:12px;}
+
+  .star-label{font-size:13px;color:#D97706;font-weight:700;}
+
+  .print-btn{position:fixed;bottom:18px;left:18px;background:#1a1a2e;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);}
+  @media print{
+    .no-print{display:none;}
+    @page{size:A4;margin:13mm;}
+    body{background:#fff;padding:8px;}
+    .q{box-shadow:none;border-top:none;border-bottom:none;border-left:none;page-break-inside:avoid;}
+    .header{border-radius:8px;}
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">מבחן מסכם — תחום המספרי</div>
+      <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; ללא מחשבון בחלקים א׳–ב׳</div>
+    </div>
+    <div class="brand">חן מרגלית למידה אקטיבית</div>
+  </div>
+  <div class="header-topics">
+    <span class="topic-chip" style="color:#93C5FD;border-color:#3B82F688;">מספרים מכוונים</span>
+    <span class="topic-chip" style="color:#6EE7B7;border-color:#10B98188;">מערכת הצירים</span>
+    <span class="topic-chip" style="color:#C4B5FD;border-color:#7C3AED88;">חזקות ושורשים</span>
+  </div>
+</div>
+
+<!-- NOTE -->
+<div class="note-box">
+  <span style="font-size:20px;flex-shrink:0;">📝</span>
+  <span>הראו את כל חישובי הביניים — תשובה בלי פתרון לא מקבלת ניקוד מלא. ניתן להשתמש במחשבון רק בחלק ג׳.</span>
+</div>
+
+<!-- ═══════════════════ חלק א׳ — מספרים מכוונים ═══════════════════ -->
+<div class="part-header">
+  <span class="part-label" style="background:#3B82F6;">חלק א׳ — מספרים מכוונים</span>
+  <span class="part-pts">35 נקודות</span>
+</div>
+
+<!-- שאלה 1 -->
+<div class="q q-a">
+  <div class="qrow"><span class="qn">1.</span><span class="qpts">12 נקודות</span><span style="color:#374151;">חשבו (3 נקודות לכל סעיף):</span></div>
+  <div class="sub">
+    <div>
+      א.&nbsp; (−3) × (−4) − (−18) ÷ 6 &nbsp;=&nbsp; <span class="ans">&nbsp;</span>
+      <div class="wl"></div>
+    </div>
+    <div>
+      ב.&nbsp; |2 − 9| − |−4 + 1| &nbsp;=&nbsp; <span class="ans">&nbsp;</span>
+      <div class="wl"></div>
+    </div>
+    <div>
+      ג.&nbsp; (−5 + 3) × (−2)² &nbsp;=&nbsp; <span class="ans">&nbsp;</span>
+      <div class="wl"></div>
+    </div>
+    <div>
+      ד.&nbsp; 3 − 2 × (−3) + (−1) &nbsp;=&nbsp; <span class="ans">&nbsp;</span>
+      <div class="wl"></div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 2 -->
+<div class="q q-a">
+  <div class="qrow"><span class="qn">2.</span><span class="qpts">8 נקודות</span><span style="font-weight:700;">טמפרטורות בחרמון</span></div>
+  <div style="margin-top:6px;background:#EFF6FF;border-radius:8px;padding:10px 14px;font-size:13px;line-height:1.9;color:#1E3A5F;">
+    הטמפרטורה בהר חרמון בבוקר הייתה <strong>−11°C</strong>. עד הצהריים עלתה ב-8 מעלות. אחר הצהריים ירדה ב-3 מעלות. בלילה ירדה עוד 12 מעלות.
+  </div>
+  <div class="sub">
+    <div>
+      א. <strong>(3 נק׳)</strong> כתבו ביטוי מספרי שמתאר את הטמפרטורה בלילה, וחשבו אותו:
+      <div class="wl"></div>
+      <div class="wl2"></div>
+    </div>
+    <div>
+      ב. <strong>(5 נק׳)</strong> מהו ההפרש בין הטמפרטורה הגבוהה ביותר ביום זה לנמוכה ביותר? נמקו מה היו שתי הטמפרטורות:
+      <div class="wl"></div>
+      <div class="wl2"></div>
+      <div class="wl2"></div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 3 -->
+<div class="q q-a">
+  <div class="qrow"><span class="qn">3.</span><span class="qpts">15 נקודות</span><span style="font-weight:700;">סדר פעולות וערך מוחלט</span></div>
+  <div class="sub">
+    <div>
+      א. <strong>(7 נק׳)</strong> חשבו שלב אחרי שלב:
+      <div style="margin-top:8px;font-size:15px;font-weight:700;direction:ltr;text-align:right;">
+        [(−2)³ + 4 × 3] ÷ (−2) + (−3)²
+      </div>
+      <div class="wl"></div>
+      <div class="wl2"></div>
+      <div class="wl2"></div>
+    </div>
+    <div>
+      ב. <strong>(8 נק׳)</strong> מצאו את <em>כל</em> מספרי השלמים x המקיימים: &nbsp;<strong>|x| = x + 6</strong><br>
+      <span style="font-size:12px;color:#6B7280;">רמז: חשבו בנפרד על x חיובי, x שלילי ו-x = 0</span>
+      <div class="wl"></div>
+      <div class="wl2"></div>
+      <div class="wl2"></div>
+      <div class="wl2"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ חלק ב׳ — מערכת הצירים ═══════════════════ -->
+<div class="part-header">
+  <span class="part-label" style="background:#10B981;">חלק ב׳ — מערכת הצירים</span>
+  <span class="part-pts">25 נקודות</span>
+</div>
+
+<!-- שאלה 4 -->
+<div class="q q-b">
+  <div class="qrow"><span class="qn">4.</span><span class="qpts">25 נקודות</span><span style="font-weight:700;">מלבן במערכת הצירים</span></div>
+  <div style="margin-top:6px;background:#ECFDF5;border-radius:8px;padding:10px 14px;font-size:13px;color:#065F46;">
+    נתונות שלוש נקודות: &nbsp;<strong>A(−4, 3)</strong>, &nbsp;<strong>B(2, 3)</strong>, &nbsp;<strong>C(2, −2)</strong>
+  </div>
+  <div class="sub">
+    <div>
+      א. <strong>(3 נק׳)</strong> ציירו את הנקודות A, B, C במערכת הצירים:
+      <div class="grid-box"><div class="grid-inner"></div></div>
+    </div>
+    <div>
+      ב. <strong>(6 נק׳)</strong> ABCD הוא מלבן. מהן הקואורדינטות של D? נמקו:
+      <div class="wl"></div>
+      <div class="wl2"></div>
+    </div>
+    <div>
+      ג. <strong>(4 נק׳)</strong> חשבו את אורכי הצלעות AB ו-BC:
+      <div class="wl"></div>
+      <div class="wl2"></div>
+    </div>
+    <div>
+      ד. <strong>(6 נק׳)</strong> חשבו את היקף המלבן ואת שטחו:
+      <div class="wl"></div>
+      <div class="wl2"></div>
+    </div>
+    <div>
+      ה. <strong>(6 נק׳)</strong> ⭐ מהן הקואורדינטות של נקודת חיתוך האלכסונות? נמקו:
+      <div class="wl"></div>
+      <div class="wl2"></div>
+      <div class="wl2"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ חלק ג׳ — חזקות ושורשים ═══════════════════ -->
+<div class="part-header">
+  <span class="part-label" style="background:#7C3AED;">חלק ג׳ — חזקות ושורשים</span>
+  <span class="part-pts">40 נקודות | ניתן להשתמש במחשבון</span>
+</div>
+
+<!-- שאלה 5 -->
+<div class="q q-c">
+  <div class="qrow"><span class="qn">5.</span><span class="qpts">12 נקודות</span><span style="color:#374151;">חשבו (3 נקודות לכל סעיף):</span></div>
+  <div class="sub">
+    <div>
+      א.&nbsp; 3³ − √81 + (−1)¹⁰ &nbsp;=&nbsp; <span class="ans">&nbsp;</span>
+      <div class="wl"></div>
+    </div>
+    <div>
+      ב.&nbsp; 2⁴ + (−3)² − √25 × 2 &nbsp;=&nbsp; <span class="ans">&nbsp;</span>
+      <div class="wl"></div>
+    </div>
+    <div>
+      ג.&nbsp; √(4² + 3²) &nbsp;=&nbsp; <span class="ans">&nbsp;</span>
+      <div class="wl"></div>
+    </div>
+    <div>
+      ד.&nbsp; (−2)⁵ ÷ (−2)² + 5⁰ &nbsp;=&nbsp; <span class="ans">&nbsp;</span>
+      <div class="wl"></div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 6 -->
+<div class="q q-c">
+  <div class="qrow"><span class="qn">6.</span><span class="qpts">10 נקודות</span><span style="font-weight:700;">חברת הזנק</span></div>
+  <div style="margin-top:6px;background:#F5F3FF;border-radius:8px;padding:10px 14px;font-size:13px;color:#4C1D95;line-height:1.8;">
+    חברת הייטק מרוויחה <strong>3 מיליון ₪</strong> בשנה הראשונה. בכל שנה עוקבת הרווח גדל <strong>פי 3</strong>.
+  </div>
+  <div class="sub">
+    <div>
+      א. <strong>(3 נק׳)</strong> כתבו נוסחה לרווח בשנה ה-n (בכתיב חזקה):
+      <div class="wl"></div>
+    </div>
+    <div>
+      ב. <strong>(3 נק׳)</strong> מה הרווח בשנה הרביעית?
+      <div class="wl"></div>
+      <div class="wl2"></div>
+    </div>
+    <div>
+      ג. <strong>(4 נק׳)</strong> נעמי טוענת: "בשנה השישית הרווח יעלה על מיליארד ₪". האם היא צודקת? הוכיחו בחישוב:
+      <div class="wl"></div>
+      <div class="wl2"></div>
+      <div class="wl2"></div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 7 — אתגר -->
+<div class="q q-star">
+  <div class="qrow"><span class="qn">7.</span><span class="qpts">18 נקודות</span><span class="star-label">⭐ שאלת אתגר — שורשים ואי-שוויון</span></div>
+  <div style="margin-top:8px;font-size:14px;">
+    מצאו את כל מספרי השלמים x המקיימים: &nbsp;<strong style="font-size:16px;direction:ltr;unicode-bidi:isolate;">1 &lt; √x &lt; 4</strong>
+  </div>
+  <div class="sub">
+    <div>
+      א. <strong>(6 נק׳)</strong> מה הערך המינימלי של x? מה הערך המקסימלי? הסבירו כיצד קיבלתם:
+      <div class="wl"></div>
+      <div class="wl2"></div>
+      <div class="wl2"></div>
+    </div>
+    <div>
+      ב. <strong>(6 נק׳)</strong> פרטו את כל הערכים השלמים המקיימים, וציינו כמה יש בסך הכל:
+      <div class="wl"></div>
+      <div class="wl2"></div>
+    </div>
+    <div>
+      ג. <strong>(6 נק׳)</strong> האם x = 0 מקיים? האם x = 16 מקיים? נמקו לכל אחד בנפרד:
+      <div class="wl"></div>
+      <div class="wl2"></div>
+      <div class="wl2"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCORE BAR -->
+<div class="sbar">
+  <div>ניקוד: &nbsp;<span class="sf">&nbsp;</span>&nbsp; / 100</div>
+  <div class="pts-breakdown">
+    <span>חלק א׳: 35</span>
+    <span>חלק ב׳: 25</span>
+    <span>חלק ג׳: 40</span>
+  </div>
+</div>
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
