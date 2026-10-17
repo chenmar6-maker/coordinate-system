@@ -609,10 +609,10 @@ function renderLearn1(){
       <ul class="bullets">
         <li><strong>a</strong> הוא הבסיס — המספר שמוכפל</li>
         <li><strong>n</strong> הוא המעריך — כמה פעמים מכפילים</li>
-        <li>חשוב: 2³ ≠ 2·3. 2³ = 2·2·2 = 8, אך 2·3 = 6</li>
+        <li>חשוב: <bdi style="direction:ltr;unicode-bidi:isolate;">2³ ≠ 2·3</bdi>. <bdi style="direction:ltr;unicode-bidi:isolate;">2³ = 2·2·2 = 8</bdi>, אך <bdi style="direction:ltr;unicode-bidi:isolate;">2·3 = 6</bdi></li>
       </ul>
       <div class="example-box">3<sup>4</sup> = 3 · 3 · 3 · 3 = 81</div>
-      <div class="learn-note">שגיאה נפוצה: 2⁴ ≠ 8. זה לא כפל! 2⁴ = 2·2·2·2 = 16</div>
+      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">2⁴ ≠ 8</bdi>. זה לא כפל! <bdi style="direction:ltr;unicode-bidi:isolate;">2⁴ = 2·2·2·2 = 16</bdi></div>
 
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button>
@@ -645,11 +645,11 @@ function renderLearn2(){
 
       <ul class="bullets">
         <li><strong>סוגריים חשובים!</strong> ב-<bdi style="direction:ltr;unicode-bidi:isolate;">(−3)²</bdi> הבסיס הוא −3</li>
-        <li>ב-<bdi style="direction:ltr;unicode-bidi:isolate;">−3²</bdi> הבסיס הוא 3, המינוס נשאר בחוץ: −(3²) = −9</li>
+        <li>ב-<bdi style="direction:ltr;unicode-bidi:isolate;">−3²</bdi> הבסיס הוא 3, המינוס נשאר בחוץ: <bdi style="direction:ltr;unicode-bidi:isolate;">−(3²) = −9</bdi></li>
         <li>מעריך זוגי → תוצאה תמיד חיובית (מינוס·מינוס = פלוס)</li>
         <li>מעריך אי-זוגי → תוצאה שלילית</li>
       </ul>
-      <div class="learn-note">שגיאה נפוצה: (−3)² ≠ −9. הסוגריים הופכים את הבסיס לשלילי — התוצאה חיובית!</div>
+      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">(−3)² ≠ −9</bdi>. הסוגריים הופכים את הבסיס לשלילי — התוצאה חיובית!</div>
 
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
@@ -673,13 +673,13 @@ function renderLearn3(){
       </div>
 
       <ul class="bullets">
-        <li>כל מספר שאינו אפס בחזקת 0 שווה 1: 7⁰ = 1, (−5)⁰ = 1</li>
-        <li>כל מספר בחזקת 1 שווה לעצמו: 99¹ = 99</li>
-        <li>אפס בכל חזקה חיובית שווה אפס: 0⁸ = 0</li>
-        <li>1 בכל חזקה שהיא שווה 1: 1¹⁰⁰⁰ = 1</li>
+        <li>כל מספר שאינו אפס בחזקת 0 שווה 1: <bdi style="direction:ltr;unicode-bidi:isolate;">7⁰ = 1, (−5)⁰ = 1</bdi></li>
+        <li>כל מספר בחזקת 1 שווה לעצמו: <bdi style="direction:ltr;unicode-bidi:isolate;">99¹ = 99</bdi></li>
+        <li>אפס בכל חזקה חיובית שווה אפס: <bdi style="direction:ltr;unicode-bidi:isolate;">0⁸ = 0</bdi></li>
+        <li>1 בכל חזקה שהיא שווה 1: <bdi style="direction:ltr;unicode-bidi:isolate;">1¹⁰⁰⁰ = 1</bdi></li>
       </ul>
 
-      <div class="learn-note">שגיאה נפוצה: 5⁰ ≠ 0. כל מספר בחזקת 0 שווה 1, לא 0!</div>
+      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">5⁰ ≠ 0</bdi>. כל מספר בחזקת 0 שווה 1, לא 0!</div>
 
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
@@ -702,7 +702,7 @@ function renderLearn4(){
       <ul class="bullets">
         <li>חזקה מחושבת לפני כפל וחיבור</li>
         <li>סוגריים תמיד קודמים לחזקה</li>
-        <li>2+3² ≠ (2+3)² — חשוב להבחין!</li>
+        <li><bdi style="direction:ltr;unicode-bidi:isolate;">2+3² ≠ (2+3)²</bdi> — חשוב להבחין!</li>
       </ul>
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
@@ -751,7 +751,7 @@ function renderLearn5(){
 
       <ul class="bullets">
         <li>ריבועים מושלמים: מספרים שיש להם שורש ריבועי שלם (1, 4, 9, 16, ...)</li>
-        <li>√n מוגדר רק עבור n ≥ 0 — אי אפשר לשלוף שורש של מספר שלילי</li>
+        <li><bdi style="direction:ltr;unicode-bidi:isolate;">√n</bdi> מוגדר רק עבור <bdi style="direction:ltr;unicode-bidi:isolate;">n ≥ 0</bdi> — אי אפשר לשלוף שורש של מספר שלילי</li>
         <li>קשר עם גיאומטריה: ריבוע שטחו n — צלעו √n</li>
       </ul>
 
@@ -768,7 +768,7 @@ function renderLearn5(){
         </div>
       </div>
 
-      <div class="learn-note">שגיאה נפוצה: √16 ≠ 8. √16 = 4, כי 4² = 16 (לא 8² = 64).</div>
+      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">√16 ≠ 8</bdi>. <bdi style="direction:ltr;unicode-bidi:isolate;">√16 = 4</bdi>, כי <bdi style="direction:ltr;unicode-bidi:isolate;">4² = 16</bdi> (לא <bdi style="direction:ltr;unicode-bidi:isolate;">8² = 64</bdi>).</div>
 
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button>
@@ -808,12 +808,12 @@ function renderLearn6(){
       </div>
 
       <ul class="bullets">
-        <li>שורש של מכפלה: √(a·b) = √a · √b — מותר לפרק!</li>
-        <li>שורש של סכום: √(a+b) ≠ √a + √b — אסור לפרק!</li>
-        <li>√(a²) = a ו-(√a)² = a (לכל a ≥ 0)</li>
+        <li>שורש של מכפלה: <bdi style="direction:ltr;unicode-bidi:isolate;">√(a·b) = √a · √b</bdi> — מותר לפרק!</li>
+        <li>שורש של סכום: <bdi style="direction:ltr;unicode-bidi:isolate;">√(a+b) ≠ √a + √b</bdi> — אסור לפרק!</li>
+        <li><bdi style="direction:ltr;unicode-bidi:isolate;">√(a²) = a</bdi> ו-<bdi style="direction:ltr;unicode-bidi:isolate;">(√a)² = a</bdi> (לכל <bdi style="direction:ltr;unicode-bidi:isolate;">a ≥ 0</bdi>)</li>
       </ul>
 
-      <div class="learn-note">שגיאה נפוצה: √(9+16) ≠ √9 + √16. נכון: √25 = 5, לא 3+4 = 7!</div>
+      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">√(9+16) ≠ √9 + √16</bdi>. נכון: <bdi style="direction:ltr;unicode-bidi:isolate;">√25 = 5</bdi>, לא <bdi style="direction:ltr;unicode-bidi:isolate;">3+4 = 7</bdi>!</div>
 
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=6;startGame()">לתרגול ←</button>
