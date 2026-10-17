@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בדיקה עצמית — בסיס שלילי</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 100px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .intro-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 13px 16px;
+    margin-bottom: 18px;
+    border-right: 4px solid #C4B5FD;
+    font-size: 13.5px;
+    line-height: 1.7;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .intro-box strong { color: #7C3AED; }
+
+  .q-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #C4B5FD;
+  }
+  .q-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .q-num { color: #7C3AED; font-size: 16px; }
+
+  .sub-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+  .sub-lbl {
+    font-weight: 700;
+    color: #555;
+    min-width: 24px;
+    flex-shrink: 0;
+  }
+
+  .ans-input {
+    border: none;
+    border-bottom: 2px solid #aaa;
+    background: transparent;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-align: center;
+    width: 70px;
+    padding: 2px 4px;
+    outline: none;
+    color: #1a1a2e;
+    transition: border-color .15s;
+  }
+  .ans-input:focus { border-color: #7C3AED; }
+  .ans-input.narrow { width: 50px; }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 6px 10px;
+    margin: 4px 0;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 20px;
+    margin: 4px 0;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .chip {
+    border: 1.5px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+    transition: all .15s;
+    background: #fafafa;
+    direction: rtl;
+  }
+  .chip:hover { border-color: #7C3AED; background: #F5F3FF; }
+  .chip.selected {
+    border-color: #7C3AED;
+    background: #F5F3FF;
+    color: #7C3AED;
+    font-weight: 700;
+  }
+
+  .check-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #7C3AED, #9F67F7);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(124,58,237,0.35);
+    transition: transform .12s, box-shadow .12s;
+    margin-top: 6px;
+  }
+  .check-btn:hover { transform: translateY(-1px); }
+
+  #score-card {
+    display: none;
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 24px 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  #score-card.show { display: block; }
+
+  .score-big { font-size: 64px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .score-out-of { font-size: 16px; color: #888; margin-bottom: 18px; }
+  .score-msg { font-size: 18px; font-weight: 700; padding: 10px 24px; border-radius: 24px; display: inline-block; }
+  .score-great  { color: #047857; background: #ECFDF5; }
+  .score-ok     { color: #92400E; background: #FEF3C7; }
+  .score-retry  { color: #991B1B; background: #FEF2F2; }
+
+  .score-bar-wrap { background: #f0f0f0; border-radius: 99px; height: 10px; margin: 16px 0 10px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
+
+  .retry-btn {
+    margin-top: 16px;
+    background: transparent; border: 1.5px solid #ccc; border-radius: 20px;
+    padding: 8px 22px; font-family: 'Rubik', sans-serif; font-size: 14px;
+    font-weight: 600; cursor: pointer; color: #555;
+  }
+
+  .ans-input.wrong   { border-bottom-color: #DC2626; background: #FEF2F2; color: #991B1B; }
+  .ans-input.correct { border-bottom-color: #047857; background: #ECFDF5; color: #065F46; }
+  .chip.chip-wrong   { border-color: #DC2626 !important; background: #FEF2F2 !important; color: #991B1B !important; font-weight: 700; }
+  .chip.chip-correct { border-color: #047857 !important; background: #ECFDF5 !important; color: #065F46 !important; font-weight: 700; }
+
+  .wrong-list-wrap { margin-top: 18px; text-align: right; }
+  .wrong-list-title { font-size: 13px; font-weight: 700; color: #991B1B; margin-bottom: 8px; }
+  .wrong-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .wrong-tag { background: #FEF2F2; border: 1.5px solid #FCA5A5; border-radius: 16px; padding: 4px 12px; font-size: 13px; font-weight: 600; color: #991B1B; }
+  .all-correct-note { margin-top: 14px; font-size: 14px; color: #047857; font-weight: 600; }
+
+  .nav-btn {
+    position: fixed; border: none; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; padding: 9px 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  .nav-back { bottom: 62px; right: 18px; background: #374151; color: #fff; }
+  .nav-done { bottom: 18px; right: 18px; background: #047857; color: #fff; }
+
+  @media print { .no-print { display: none; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">בדיקה עצמית — בסיס שלילי</div>
+    <div class="header-sub">הכניסו את תשובותיכם מהמבדק ולחצו "בדוק"</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div id="score-card">
+  <div class="score-big" id="score-num">—</div>
+  <div class="score-out-of" id="score-denom">מתוך 24 תשובות</div>
+  <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
+  <div class="score-msg" id="score-msg"></div>
+  <div id="wrong-list-container"></div>
+  <br>
+  <button class="retry-btn" onclick="resetForm()">נסו שוב ←</button>
+</div>
+
+<div class="intro-box">
+  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". שאלות 3 ו-6 נבדקות על ידי המורה.
+</div>
+
+<!-- ══ שאלה 1 — חישוב ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">1.</span> חשבו — מה הייתה תשובתכם?</div>
+  <div class="grid-4">
+    <div class="sub-row"><span class="sub-lbl">א.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">(−2)² =</span> <input class="ans-input narrow" id="q1a" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">ב.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">(−2)³ =</span> <input class="ans-input narrow" id="q1b" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">ג.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">(−3)² =</span> <input class="ans-input narrow" id="q1c" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">ד.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">(−3)³ =</span> <input class="ans-input narrow" id="q1d" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">ה.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">−2² =</span> <input class="ans-input narrow" id="q1e" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">ו.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">−3² =</span> <input class="ans-input narrow" id="q1f" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">ז.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">(−1)⁵ =</span> <input class="ans-input narrow" id="q1g" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">ח.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">(−1)⁸ =</span> <input class="ans-input narrow" id="q1h" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">ט.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">(−4)² =</span> <input class="ans-input narrow" id="q1i" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">י.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">−4² =</span> <input class="ans-input narrow" id="q1j" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">יא.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">(−2)⁴ =</span> <input class="ans-input narrow" id="q1k" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">יב.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">(−5)² =</span> <input class="ans-input narrow" id="q1l" type="text" placeholder="?"></div>
+  </div>
+</div>
+
+<!-- ══ שאלה 2 — נכון/לא נכון ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">2.</span> נכון / לא נכון — בחרו לכל משפט</div>
+
+  <div style="margin-bottom:10px;">
+    <div style="font-size:13px;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;"><strong>א.</strong> (−3)² = −9</div>
+    <div class="chips" id="q2a-chips">
+      <div class="chip" data-val="true" onclick="selectChip(this,'q2a')">נכון</div>
+      <div class="chip" data-val="false" onclick="selectChip(this,'q2a')">לא נכון</div>
+    </div>
+    <input type="hidden" id="q2a" value="">
+  </div>
+
+  <div style="margin-bottom:10px;border-top:1px solid #f0f0f0;padding-top:10px;">
+    <div style="font-size:13px;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;"><strong>ב.</strong> −5² = −25</div>
+    <div class="chips" id="q2b-chips">
+      <div class="chip" data-val="true" onclick="selectChip(this,'q2b')">נכון</div>
+      <div class="chip" data-val="false" onclick="selectChip(this,'q2b')">לא נכון</div>
+    </div>
+    <input type="hidden" id="q2b" value="">
+  </div>
+
+  <div style="margin-bottom:10px;border-top:1px solid #f0f0f0;padding-top:10px;">
+    <div style="font-size:13px;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;"><strong>ג.</strong> (−2)³ = 8</div>
+    <div class="chips" id="q2c-chips">
+      <div class="chip" data-val="true" onclick="selectChip(this,'q2c')">נכון</div>
+      <div class="chip" data-val="false" onclick="selectChip(this,'q2c')">לא נכון</div>
+    </div>
+    <input type="hidden" id="q2c" value="">
+  </div>
+
+  <div style="margin-bottom:10px;border-top:1px solid #f0f0f0;padding-top:10px;">
+    <div style="font-size:13px;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;"><strong>ד.</strong> (−1)¹⁰ = 1</div>
+    <div class="chips" id="q2d-chips">
+      <div class="chip" data-val="true" onclick="selectChip(this,'q2d')">נכון</div>
+      <div class="chip" data-val="false" onclick="selectChip(this,'q2d')">לא נכון</div>
+    </div>
+    <input type="hidden" id="q2d" value="">
+  </div>
+
+  <div style="margin-bottom:10px;border-top:1px solid #f0f0f0;padding-top:10px;">
+    <div style="font-size:13px;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;"><strong>ה.</strong> (−4)² = 4² = 16</div>
+    <div class="chips" id="q2e-chips">
+      <div class="chip" data-val="true" onclick="selectChip(this,'q2e')">נכון</div>
+      <div class="chip" data-val="false" onclick="selectChip(this,'q2e')">לא נכון</div>
+    </div>
+    <input type="hidden" id="q2e" value="">
+  </div>
+
+  <div style="border-top:1px solid #f0f0f0;padding-top:10px;">
+    <div style="font-size:13px;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;"><strong>ו.</strong> −2² = (−2)²</div>
+    <div class="chips" id="q2f-chips">
+      <div class="chip" data-val="true" onclick="selectChip(this,'q2f')">נכון</div>
+      <div class="chip" data-val="false" onclick="selectChip(this,'q2f')">לא נכון</div>
+    </div>
+    <input type="hidden" id="q2f" value="">
+  </div>
+</div>
+
+<!-- ══ שאלה 3 — טבלה, פתוח ══ -->
+<div class="q-card" style="background:#F9FAFB; border-right-color:#ccc;">
+  <div class="q-title" style="color:#888;"><span class="q-num" style="color:#ccc;">3.</span> טבלה — נבדקת על ידי המורה</div>
+</div>
+
+<!-- ══ שאלה 4 — השלמת סימנים ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">4.</span> השלמת סימן — בחרו לכל שורה</div>
+
+  <div style="margin-bottom:10px;">
+    <div style="font-size:13px;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;"><strong>א.</strong> (−3)² ___ 3²</div>
+    <div class="chips" id="q4a-chips">
+      <div class="chip" data-val="gt" onclick="selectChip(this,'q4a')">&gt;</div>
+      <div class="chip" data-val="eq" onclick="selectChip(this,'q4a')">=</div>
+      <div class="chip" data-val="lt" onclick="selectChip(this,'q4a')">&lt;</div>
+    </div>
+    <input type="hidden" id="q4a" value="">
+  </div>
+
+  <div style="margin-bottom:10px;border-top:1px solid #f0f0f0;padding-top:10px;">
+    <div style="font-size:13px;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;"><strong>ב.</strong> (−2)³ ___ 2³</div>
+    <div class="chips" id="q4b-chips">
+      <div class="chip" data-val="gt" onclick="selectChip(this,'q4b')">&gt;</div>
+      <div class="chip" data-val="eq" onclick="selectChip(this,'q4b')">=</div>
+      <div class="chip" data-val="lt" onclick="selectChip(this,'q4b')">&lt;</div>
+    </div>
+    <input type="hidden" id="q4b" value="">
+  </div>
+
+  <div style="margin-bottom:10px;border-top:1px solid #f0f0f0;padding-top:10px;">
+    <div style="font-size:13px;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;"><strong>ג.</strong> −4² ___ (−4)²</div>
+    <div class="chips" id="q4c-chips">
+      <div class="chip" data-val="gt" onclick="selectChip(this,'q4c')">&gt;</div>
+      <div class="chip" data-val="eq" onclick="selectChip(this,'q4c')">=</div>
+      <div class="chip" data-val="lt" onclick="selectChip(this,'q4c')">&lt;</div>
+    </div>
+    <input type="hidden" id="q4c" value="">
+  </div>
+
+  <div style="margin-bottom:10px;border-top:1px solid #f0f0f0;padding-top:10px;">
+    <div style="font-size:13px;margin-bottom:6px;direction:ltr;unicode-bidi:isolate;"><strong>ד.</strong> (−1)⁶ ___ (−1)⁷</div>
+    <div class="chips" id="q4d-chips">
+      <div class="chip" data-val="gt" onclick="selectChip(this,'q4d')">&gt;</div>
+      <div class="chip" data-val="eq" onclick="selectChip(this,'q4d')">=</div>
+      <div class="chip" data-val="lt" onclick="selectChip(this,'q4d')">&lt;</div>
+    </div>
+    <input type="hidden" id="q4d" value="">
+  </div>
+</div>
+
+<!-- ══ שאלה 5 — סדר פעולות ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">5.</span> סדר פעולות — מה היו תשובותיכם?</div>
+  <div class="grid-2">
+    <div class="sub-row"><span class="sub-lbl">א.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">−2² + (−2)² =</span> <input class="ans-input narrow" id="q5a" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">ב.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">(−3)² − 3² =</span> <input class="ans-input narrow" id="q5b" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">ג.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">2·(−3)² =</span> <input class="ans-input narrow" id="q5c" type="text" placeholder="?"></div>
+    <div class="sub-row"><span class="sub-lbl">ד.</span> <span style="direction:ltr;unicode-bidi:isolate;font-size:13px;">(−2)⁴ − (−2)³ =</span> <input class="ans-input narrow" id="q5d" type="text" placeholder="?"></div>
+  </div>
+</div>
+
+<!-- ══ שאלה 6 — open ══ -->
+<div class="q-card" style="background:#F9FAFB; border-right-color:#ccc;">
+  <div class="q-title" style="color:#888;"><span class="q-num" style="color:#ccc;">6.</span> הסבר בכתב — נבדק על ידי המורה</div>
+</div>
+
+<button class="check-btn no-print" onclick="checkAnswers()">בדוק ←</button>
+
+</div><!-- end page-wrap -->
+
+<button class="nav-btn nav-back no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}">← חזרה</button>
+<button class="nav-btn nav-done no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}">סיימתי ✓</button>
+
+<script>
+function selectChip(el, fieldId) {
+  const container = document.getElementById(fieldId + '-chips');
+  if (container) container.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById(fieldId).value = el.getAttribute('data-val');
+}
+
+function norm(s) {
+  return s.trim()
+    .replace(/\u2212/g, '-')
+    .replace(/\u00b9/g,'1').replace(/\u00b2/g,'2').replace(/\u00b3/g,'3')
+    .replace(/\u2074/g,'4').replace(/\u2075/g,'5').replace(/\u2076/g,'6')
+    .replace(/\u2077/g,'7').replace(/\u2078/g,'8').replace(/\u2079/g,'9')
+    .replace(/\^/g,'')
+    .replace(/\s+/g, '')
+    .toLowerCase();
+}
+
+function match(input, accepted) {
+  const n = norm(input);
+  if (n === '') return false;
+  for (const a of accepted) {
+    if (n === norm(a)) return true;
+    const nv = parseFloat(n), av = parseFloat(norm(a));
+    if (!isNaN(nv) && !isNaN(av) && Math.abs(nv - av) < 0.0001) return true;
+  }
+  return false;
+}
+
+const LABELS = {
+  q1a:'1א', q1b:'1ב', q1c:'1ג', q1d:'1ד', q1e:'1ה', q1f:'1ו',
+  q1g:'1ז', q1h:'1ח', q1i:'1ט', q1j:'1י', q1k:'1יא', q1l:'1יב',
+  q2a:'2א', q2b:'2ב', q2c:'2ג', q2d:'2ד', q2e:'2ה', q2f:'2ו',
+  q4a:'4א', q4b:'4ב', q4c:'4ג', q4d:'4ד',
+  q5a:'5א', q5b:'5ב', q5c:'5ג', q5d:'5ד',
+};
+
+const TEXTKEYS = {
+  q1a: ['4'],
+  q1b: ['-8','−8'],
+  q1c: ['9'],
+  q1d: ['-27','−27'],
+  q1e: ['-4','−4'],
+  q1f: ['-9','−9'],
+  q1g: ['-1','−1'],
+  q1h: ['1'],
+  q1i: ['16'],
+  q1j: ['-16','−16'],
+  q1k: ['16'],
+  q1l: ['25'],
+  q5a: ['0'],
+  q5b: ['0'],
+  q5c: ['18'],
+  q5d: ['24'],
+};
+
+const CHIPKEYS = {
+  q2a: 'false',  // (−3)² = −9 → לא נכון
+  q2b: 'true',   // −5² = −25 → נכון
+  q2c: 'false',  // (−2)³ = 8 → לא נכון
+  q2d: 'true',   // (−1)¹⁰ = 1 → נכון
+  q2e: 'true',   // (−4)² = 4² = 16 → נכון
+  q2f: 'false',  // −2² = (−2)² → לא נכון
+  q4a: 'eq',     // (−3)² = 3²
+  q4b: 'lt',     // (−2)³ < 2³
+  q4c: 'lt',     // −4² < (−4)²
+  q4d: 'gt',     // (−1)⁶ > (−1)⁷
+};
+
+function checkAnswers() {
+  let correct = 0;
+  const wrong = [];
+  const total = Object.keys(TEXTKEYS).length + Object.keys(CHIPKEYS).length; // 16+10=26 → but let's count per above
+
+  Object.entries(TEXTKEYS).forEach(([id, accepted]) => {
+    const el = document.getElementById(id);
+    if (match(el.value, accepted)) {
+      correct++;
+      el.classList.add('correct'); el.classList.remove('wrong');
+    } else {
+      el.classList.add('wrong'); el.classList.remove('correct');
+      wrong.push(LABELS[id] || id);
+    }
+  });
+
+  Object.entries(CHIPKEYS).forEach(([id, expected]) => {
+    const container = document.getElementById(id + '-chips');
+    const ok = document.getElementById(id).value === expected;
+    if (ok) {
+      correct++;
+      if (container) container.querySelectorAll('.chip.selected').forEach(c => { c.classList.add('chip-correct'); c.classList.remove('chip-wrong'); });
+    } else {
+      if (container) container.querySelectorAll('.chip.selected').forEach(c => { c.classList.add('chip-wrong'); c.classList.remove('chip-correct'); });
+      wrong.push(LABELS[id] || id);
+    }
+  });
+
+  showScore(correct, total, wrong);
+}
+
+function showScore(correct, total, wrong) {
+  const pct = correct / total;
+  document.getElementById('score-num').textContent = correct;
+  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות (שאלות 3 ו-6 נבדקות על ידי המורה)';
+  const bar = document.getElementById('score-bar');
+  bar.style.width = (pct * 100) + '%';
+  let msg, cls, barColor;
+  if (pct >= 0.85) { msg = 'מעולה! שולטים בחומר 💪'; cls = 'score-great'; barColor = '#047857'; }
+  else if (pct >= 0.54) { msg = 'טוב! עוד קצת אימון ✏️'; cls = 'score-ok'; barColor = '#D97706'; }
+  else { msg = 'כדאי לחזור על החומר 🔄'; cls = 'score-retry'; barColor = '#DC2626'; }
+  bar.style.background = barColor;
+  const msgEl = document.getElementById('score-msg');
+  msgEl.textContent = msg;
+  msgEl.className = 'score-msg ' + cls;
+  const container = document.getElementById('wrong-list-container');
+  if (wrong.length === 0) {
+    container.innerHTML = '<div class="all-correct-note">כל התשובות נכונות!</div>';
+  } else {
+    container.innerHTML = '<div class="wrong-list-wrap"><div class="wrong-list-title">כדאי לבדוק שוב: שאלות ' + wrong.join(', ') + '</div></div>';
+  }
+  const sc = document.getElementById('score-card');
+  sc.classList.add('show');
+  sc.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetForm() {
+  document.querySelectorAll('.ans-input').forEach(el => { el.value = ''; el.classList.remove('correct','wrong'); });
+  document.querySelectorAll('.chip').forEach(c => { c.classList.remove('selected','chip-correct','chip-wrong'); });
+  document.querySelectorAll('input[type=hidden]').forEach(el => { el.value = ''; });
+  document.getElementById('score-card').classList.remove('show');
+  document.getElementById('wrong-list-container').innerHTML = '';
+}
+</script>
+</body>
+</html>

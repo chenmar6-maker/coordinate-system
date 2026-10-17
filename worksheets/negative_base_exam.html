@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — בסיס שלילי</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .pa { background: #7C3AED; }
+
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 10px 14px 10px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .is-a .quiz-q { border-right: 4px solid #C4B5FD; }
+
+  .quiz-q .qrow {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+  .quiz-q .qnum { font-weight: 700; min-width: 18px; flex-shrink: 0; }
+  .qtext { direction: rtl; }
+
+  .math { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+
+  sup {
+    font-size: 0.68em;
+    font-weight: 700;
+    vertical-align: top;
+    position: relative;
+    top: -0.15em;
+    line-height: 1;
+  }
+
+  .miss {
+    display: inline-block;
+    min-width: 28px;
+    height: 24px;
+    border: 2px solid #444;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin: 0 3px;
+  }
+
+  .ans-line {
+    display: inline-block;
+    border-bottom: 1.5px solid #555;
+    min-width: 60px;
+    margin: 0 2px;
+    vertical-align: bottom;
+  }
+  .think-area { margin-top: 6px; padding-right: 22px; font-size: 12.5px; }
+  .think-line { display: block; border-bottom: 1px solid #bbb; margin-top: 14px; height: 1px; }
+
+  .pow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px 10px;
+    margin: 8px 0 4px;
+    padding-right: 8px;
+  }
+  .pow-cell {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+  .pow-cell .ans-line { min-width: 42px; }
+  .pow-grid sup { font-size: 0.6em; }
+
+  .check-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 20px;
+    margin: 6px 0;
+    padding-right: 8px;
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    padding: 3px 0;
+  }
+  .checkbox {
+    width: 17px; height: 17px;
+    border: 1.5px solid #555;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px; margin: 6px 0; padding-right: 8px; }
+  .ex-row { display: flex; align-items: baseline; gap: 6px; font-size: 13px; padding: 4px 0; }
+  .ex-row .letter { font-weight: 700; min-width: 20px; }
+
+  .cmp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 24px;
+    margin: 8px 0 4px;
+    padding-right: 8px;
+  }
+  .cmp-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    padding: 3px 0;
+    direction: ltr;
+  }
+  .cmp-circle {
+    width: 24px; height: 24px;
+    border: 1.5px solid #777;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 11px;
+    color: #bbb;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; border: 1px solid #e0e0e0 !important; }
+    .is-a .quiz-q { border-right: 4px solid #C4B5FD !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — בסיס שלילי</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; תחום המספרי</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+<div style="background:#FFF3CD;border:2px solid #F59E0B;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#92400E;display:flex;align-items:center;gap:10px;">
+  <span style="font-size:20px;">📝</span>
+  <span>כתבו את התשובות על דף נפרד — <u>ממספרים לפי מספר השאלה</u>! תזדקקו לזה בבדיקה העצמית.</span>
+</div>
+
+<div class="is-a">
+<span class="part-label pa">חלק א׳ — בסיס שלילי: עם סוגריים ובלי</span>
+
+<!-- Q1 – compute powers with negative base -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">חשבו:</span></div>
+  <div class="pow-grid">
+    <div class="pow-cell"><span style="white-space:nowrap;">(−2)<sup>2</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(−2)<sup>3</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(−3)<sup>2</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(−3)<sup>3</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">−2<sup>2</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">−3<sup>2</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(−1)<sup>5</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(−1)<sup>8</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(−4)<sup>2</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">−4<sup>2</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(−2)<sup>4</sup></span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="pow-cell"><span style="white-space:nowrap;">(−5)<sup>2</sup></span> = <span class="ans-line">&nbsp;</span></div>
+  </div>
+</div>
+
+<!-- Q2 – true/false about parentheses -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">נכון או לא נכון? אם לא נכון — כתבו את הערך הנכון:</span></div>
+  <div class="check-grid">
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">(−3)² = −9</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">−5² = −25</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">(−2)³ = 8</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">(−1)¹⁰ = 1</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">(−4)² = 4² = 16</span></span></div>
+    <div class="check-item"><span class="checkbox"></span><span><span class="math">−2² = (−2)²</span></span></div>
+  </div>
+  <div style="margin-top:8px;padding-right:8px;font-size:12.5px;">
+    תיקון: <span class="ans-line" style="min-width:280px;">&nbsp;</span>
+  </div>
+</div>
+
+<!-- Q3 – complete the table -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">השלימו את הטבלה — שימו לב: יש הבדל בין ביטוי עם סוגריים לבין ביטוי בלי:</span></div>
+  <div style="overflow-x:auto;margin:8px 0 4px;">
+    <table style="border-collapse:collapse;font-size:13px;min-width:480px;direction:ltr;">
+      <thead>
+        <tr style="background:#E9D5FF;">
+          <th style="border:1px solid #A78BFA;padding:7px 12px;text-align:center;font-weight:700;">ביטוי</th>
+          <th style="border:1px solid #A78BFA;padding:7px 12px;text-align:center;font-weight:700;">מה הבסיס?</th>
+          <th style="border:1px solid #A78BFA;padding:7px 12px;text-align:center;font-weight:700;">תוצאה</th>
+          <th style="border:1px solid #A78BFA;padding:7px 12px;text-align:center;font-weight:700;">חיובי / שלילי</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;">(−3)²</td>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;"><span style="display:inline-block;width:60px;border-bottom:1px solid #999;">&nbsp;</span></td>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;"><span style="display:inline-block;width:60px;border-bottom:1px solid #999;">&nbsp;</span></td>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;"><span style="display:inline-block;width:70px;border-bottom:1px solid #999;">&nbsp;</span></td>
+        </tr>
+        <tr style="background:#F9FAFB;">
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;">−3²</td>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;"><span style="display:inline-block;width:60px;border-bottom:1px solid #999;">&nbsp;</span></td>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;"><span style="display:inline-block;width:60px;border-bottom:1px solid #999;">&nbsp;</span></td>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;"><span style="display:inline-block;width:70px;border-bottom:1px solid #999;">&nbsp;</span></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;">(−2)⁴</td>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;"><span style="display:inline-block;width:60px;border-bottom:1px solid #999;">&nbsp;</span></td>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;"><span style="display:inline-block;width:60px;border-bottom:1px solid #999;">&nbsp;</span></td>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;"><span style="display:inline-block;width:70px;border-bottom:1px solid #999;">&nbsp;</span></td>
+        </tr>
+        <tr style="background:#F9FAFB;">
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;">(−2)⁵</td>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;"><span style="display:inline-block;width:60px;border-bottom:1px solid #999;">&nbsp;</span></td>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;"><span style="display:inline-block;width:60px;border-bottom:1px solid #999;">&nbsp;</span></td>
+          <td style="border:1px solid #DDD;padding:7px 12px;text-align:center;"><span style="display:inline-block;width:70px;border-bottom:1px solid #999;">&nbsp;</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Q4 – insert comparison signs -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">4.</span><span class="qtext">השלימו עם &gt;, &lt; או =:</span></div>
+  <div class="cmp-grid">
+    <div class="cmp-item"><span class="math">(−3)²</span> <span class="cmp-circle"></span> <span class="math">3²</span></div>
+    <div class="cmp-item"><span class="math">(−2)³</span> <span class="cmp-circle"></span> <span class="math">2³</span></div>
+    <div class="cmp-item"><span class="math">−4²</span> <span class="cmp-circle"></span> <span class="math">(−4)²</span></div>
+    <div class="cmp-item"><span class="math">(−1)⁶</span> <span class="cmp-circle"></span> <span class="math">(−1)⁷</span></div>
+    <div class="cmp-item"><span class="math">(−5)²</span> <span class="cmp-circle"></span> <span class="math">−5²</span></div>
+    <div class="cmp-item"><span class="math">−3²</span> <span class="cmp-circle"></span> <span class="math">−9</span></div>
+  </div>
+</div>
+
+<!-- Q5 – order of operations -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">5.</span><span class="qtext">חשבו לפי סדר פעולות נכון:</span></div>
+  <div class="two-col" style="gap:10px 24px;">
+    <div class="ex-row"><span class="letter">א.</span><span class="math">−2² + (−2)²</span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="ex-row"><span class="letter">ב.</span><span class="math">(−3)² − 3²</span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="ex-row"><span class="letter">ג.</span><span class="math">2·(−3)²</span> = <span class="ans-line">&nbsp;</span></div>
+    <div class="ex-row"><span class="letter">ד.</span><span class="math">(−2)⁴ − (−2)³</span> = <span class="ans-line">&nbsp;</span></div>
+  </div>
+</div>
+
+<!-- Q6 – explain in words -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">6.</span><span class="qtext">הסבירו בכתב: מה ההבדל בין <span class="math">(−a)ⁿ</span> לבין <span class="math">−aⁿ</span>?</span></div>
+  <div class="think-area">
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+    <span class="think-line"></span>
+  </div>
+</div>
+</div><!-- end is-a -->
+
+<!-- שאלת היכרות -->
+<div style="margin-top:22px;padding:16px 18px;background:#FFFBEB;border:1.5px solid #FCD34D;border-right:4px solid #F59E0B;border-radius:10px;font-size:13.5px;line-height:1.8;">
+  <div style="font-size:11px;font-weight:800;color:#D97706;letter-spacing:1px;margin-bottom:10px;">💬 שאלת היכרות</div>
+  <div style="background:#FEF3C7;border-radius:8px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#92400E;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span>✏️</span><span>לפני שאתם עונים — כתבו את השאלה במלואה בדף!</span></div>
+  <div style="font-size:14px;font-weight:700;color:#1a1a2e;">מה הדבר שאתם הכי גאים בו שעשיתם השנה?</div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:16px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+</div>
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">הדפסה</button>
+
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>

@@ -234,6 +234,21 @@ const gameLevels1 = [
     options:['12','32','64','128'],
     correct:'64',
     explain:'2⁶ = 2·2·2·2·2·2 = 64.' },
+  { id:'typedSum', title:'חשבו', expr:'4<sup>3</sup>', correct:64,
+    explain:'4³ = 4·4·4 = 16·4 = 64.' },
+  { id:'mc', title:'כתיב',
+    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">2 · 2 · 2 · 2 · 2</bdi> בכתיב חזקות הוא:',
+    options:['2⁵','5²','10','25'],
+    correct:'2⁵',
+    explain:'2 מוכפל 5 פעמים — זה 2⁵ = 32.' },
+  { id:'mc', title:'חזקה ≠ כפל',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">3<sup>4</sup></bdi>?',
+    options:['12','64','81','27'],
+    correct:'81',
+    explain:'3⁴ = 3·3·3·3 = 81. שגיאה נפוצה: 3·4 = 12 — זה כפל, לא חזקה!' },
+];
+
+const gameLevels2 = [
   { id:'mc', title:'בסיס שלילי — מעריך זוגי',
     question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(−3)²</bdi>?',
     options:['9','−9','6','−6'],
@@ -244,56 +259,68 @@ const gameLevels1 = [
     options:['8','−8','6','−6'],
     correct:'−8',
     explain:'(−2)·(−2)·(−2) = 4·(−2) = −8. מעריך אי-זוגי → תוצאה שלילית.' },
-  { id:'mc', title:'סוגריים משנים הכל',
+  { id:'mc', title:'סוגריים משנים הכל!',
     question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">−3²</bdi>?',
     options:['9','−9','6','−6'],
     correct:'−9',
     explain:'ללא סוגריים הבסיס הוא 3 בלבד. −3² = −(3²) = −9.' },
-  { id:'mc', title:'(−1) בחזקה',
+  { id:'mc', title:'(−3)² לעומת −3²',
+    question:'מה ההבדל בין <bdi style="direction:ltr;unicode-bidi:isolate;">(−3)²</bdi> לבין <bdi style="direction:ltr;unicode-bidi:isolate;">−3²</bdi>?',
+    options:['(−3)² = 9 אבל −3² = −9','שניהם שווים 9','(−3)² = −9 אבל −3² = 9','שניהם שווים −9'],
+    correct:'(−3)² = 9 אבל −3² = −9',
+    explain:'ב-(−3)² הבסיס הוא −3 → תוצאה חיובית. ב-−3² הבסיס הוא 3 והמינוס בחוץ → תוצאה שלילית.' },
+  { id:'mc', title:'כלל הזוגי/האי-זוגי',
     question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(−1)⁷</bdi>?',
     options:['1','−1','7','−7'],
     correct:'−1',
-    explain:'(−1) בחזקה אי-זוגית = −1. בחזקה זוגית = 1.' },
-  { id:'mc', title:'האם (−5)² = 5²?',
-    question:'האם <bdi style="direction:ltr;unicode-bidi:isolate;">(−5)²</bdi> שווה ל-<bdi style="direction:ltr;unicode-bidi:isolate;">5²</bdi>?',
+    explain:'(−1) בחזקה אי-זוגית = −1. בחזקה זוגית = 1. 7 הוא אי-זוגי.' },
+  { id:'mc', title:'השוואה',
+    question:'האם <bdi style="direction:ltr;unicode-bidi:isolate;">(−5)² = 5²</bdi>?',
     options:['כן, שניהם 25','לא, (−5)² שלילי','לא, ערכים שונים','תלוי ב-5'],
     correct:'כן, שניהם 25',
     explain:'(−5)² = 25 וגם 5² = 25. חזקה זוגית תמיד נותנת תוצאה חיובית.' },
-  { id:'mc', title:'אתגר — סדר פעולות',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">−2² + (−2)²</bdi>?',
-    options:['0','8','−8','4'],
-    correct:'0',
-    explain:'−2² = −4 ו-(−2)² = 4. הסכום: −4 + 4 = 0.' },
-];
-
-const gameLevels2 = [
-  { id:'mc', title:'חזקת אפס',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">7<sup>0</sup></bdi>?',
-    options:['0','1','7','לא מוגדר'],
-    correct:'1',
-    explain:'כל מספר שאינו אפס בחזקת 0 שווה 1. 7⁰ = 1.' },
-  { id:'typedSum', title:'חשבו', expr:'1<sup>99</sup>', correct:1,
-    explain:'1 בכל חזקה שהיא שווה 1. 1·1·1·...·1 = 1.' },
-  { id:'mc', title:'חזקת 1',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">a<sup>1</sup></bdi> לכל מספר a?',
-    options:['1','0','a','a²'],
-    correct:'a',
-    explain:'כל מספר בחזקת 1 שווה לעצמו. a¹ = a.' },
-  { id:'mc', title:'חזקה של שבר',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(½)<sup>2</sup></bdi>?',
-    options:['1','¼','½','2'],
-    correct:'¼',
-    explain:'(½)² = ½ · ½ = ¼. חזקה של שבר קטן מ-1 נותנת תוצאה קטנה עוד יותר.' },
-  { id:'typedSum', title:'חשבו', expr:'5<sup>0</sup>', correct:1,
-    explain:'5⁰ = 1. כל מספר שאינו אפס בחזקת 0 שווה 1.' },
-  { id:'mc', title:'חזקה של שבר — גדול או קטן?',
-    question:'האם <bdi style="direction:ltr;unicode-bidi:isolate;">(¼)<sup>2</sup></bdi> גדול מ-¼ או קטן ממנו?',
-    options:['גדול מ-¼','קטן מ-¼','שווה ל-¼','שווה ל-1'],
-    correct:'קטן מ-¼',
-    explain:'(¼)² = 1/16, שהוא קטן מ-¼. כשמעלים שבר החי בין 0 ל-1 בחזקה גדולה מ-1, התוצאה קטנה יותר.' },
+  { id:'typedSum', title:'חשבו', expr:'(−2)<sup>4</sup>', correct:16,
+    explain:'(−2)⁴ = (−2)·(−2)·(−2)·(−2) = 4·4 = 16. מעריך זוגי → חיובי.' },
+  { id:'mc', title:'אתגר — מי שונה?',
+    question:'מי מהביטויים שונה מהאחרים?',
+    options:['(−4)²','4²','−4²','16'],
+    correct:'−4²',
+    explain:'(−4)² = 16, 4² = 16, 16 = 16. רק −4² = −16 — שונה!' },
 ];
 
 const gameLevels3 = [
+  { id:'mc', title:'חזקת אפס',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">7⁰</bdi>?',
+    options:['0','1','7','לא מוגדר'],
+    correct:'1',
+    explain:'כל מספר שאינו אפס בחזקת 0 שווה 1. 7⁰ = 1.' },
+  { id:'typedSum', title:'חשבו', expr:'5<sup>0</sup>', correct:1,
+    explain:'5⁰ = 1. כל מספר שאינו אפס בחזקת 0 שווה 1.' },
+  { id:'mc', title:'חזקת 1',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">a¹</bdi> לכל מספר a?',
+    options:['1','0','a','a²'],
+    correct:'a',
+    explain:'כל מספר בחזקת 1 שווה לעצמו. a¹ = a.' },
+  { id:'typedSum', title:'חשבו', expr:'1<sup>99</sup>', correct:1,
+    explain:'1 בכל חזקה שהיא שווה 1. 1·1·1·...·1 = 1.' },
+  { id:'mc', title:'מה שווה 0⁵?',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">0⁵</bdi>?',
+    options:['0','1','5','לא מוגדר'],
+    correct:'0',
+    explain:'0⁵ = 0·0·0·0·0 = 0. אפס בכל חזקה חיובית שווה אפס.' },
+  { id:'mc', title:'נכון או לא נכון?',
+    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">1¹⁰⁰⁰ = 1000</bdi>',
+    options:['נכון','לא נכון — זה שווה 1','לא נכון — זה שווה 0','תלוי ב-1000'],
+    correct:'לא נכון — זה שווה 1',
+    explain:'1 בכל חזקה תמיד שווה 1. 1¹⁰⁰⁰ = 1.' },
+  { id:'mc', title:'אתגר — מי הכי גדול?',
+    question:'מי הכי גדול?',
+    options:['100⁰','0¹⁰⁰','1¹⁰⁰','10⁰'],
+    correct:'100⁰',
+    explain:'100⁰ = 1, 0¹⁰⁰ = 0, 1¹⁰⁰ = 1, 10⁰ = 1. כולם שווים 1 — לפי הכלל, 100⁰ = 1 בדיוק כמו שאר הביטויים.' },
+];
+
+const gameLevels4 = [
   { id:'mc', title:'השוואה',
     question:'מה גדול יותר: <bdi style="direction:ltr;unicode-bidi:isolate;">2<sup>3</sup></bdi> או <bdi style="direction:ltr;unicode-bidi:isolate;">3<sup>2</sup></bdi>?',
     options:['2³ גדול יותר','3² גדול יותר','הם שווים'],
@@ -326,7 +353,7 @@ const gameLevels3 = [
     explain:'סוגריים: 3+5=8. 8²=64. 2⁴=16. 64−16=48.' },
 ];
 
-const gameLevels4 = [
+const gameLevels5 = [
   { id:'mc', title:'הגדרת שורש ריבועי',
     question:'מה פירוש <bdi style="direction:ltr;unicode-bidi:isolate;">√16</bdi>?',
     options:['המספר הלא-שלילי שריבועו שווה 16','16 ÷ 2','16 · 2','4 או −4'],
@@ -371,7 +398,7 @@ const gameLevels4 = [
     explain:'0² = 0, לכן √0 = 0. אפס הוא הריבוע המושלם הקטן ביותר.' },
 ];
 
-const gameLevels5 = [
+const gameLevels6 = [
   { id:'mc', title:'הערכת שורש',
     question:'<bdi style="direction:ltr;unicode-bidi:isolate;">√20</bdi> נמצא בין אילו מספרים שלמים רצופים?',
     options:['בין 3 ל-4','בין 4 ל-5','בין 5 ל-6','בין 2 ל-3'],
@@ -410,54 +437,6 @@ const gameLevels5 = [
     options:['נכון','לא נכון'],
     correct:'נכון',
     explain:'√(4·25) = √100 = 10. וגם: √4·√25 = 2·5 = 10. כלל הכפל נכון!' },
-];
-
-const gameLevels6 = [
-  { id:'mc', title:'חזקה עם בסיס שלילי',
-    question:'מה שווה (−3)²?',
-    options:['9','−9','6','−6'],
-    correct:'9',
-    explain:'הבסיס הוא −3. (−3)·(−3) = 9. מינוס כפול מינוס = פלוס.' },
-  { id:'mc', title:'חזקה עם בסיס שלילי',
-    question:'מה שווה (−2)³?',
-    options:['8','−8','6','−6'],
-    correct:'−8',
-    explain:'(−2)·(−2)·(−2) = 4·(−2) = −8. מעריך אי-זוגי → תוצאה שלילית.' },
-  { id:'mc', title:'סוגריים משנים הכל',
-    question:'מה שווה −3²?',
-    options:['9','−9','6','−6'],
-    correct:'−9',
-    explain:'ללא סוגריים הבסיס הוא 3 בלבד. −3² = −(3²) = −9.' },
-  { id:'mc', title:'כלל הזוגי/האי-זוגי',
-    question:'מה שווה (−1)⁷?',
-    options:['1','−1','7','−7'],
-    correct:'−1',
-    explain:'(−1) בחזקה אי-זוגית = −1. בחזקה זוגית = 1.' },
-  { id:'mc', title:'השוואה',
-    question:'האם (−5)² = 5²?',
-    options:['כן, שניהם 25','לא, (−5)² שלילי','לא, ערכים שונים','תלוי ב-5'],
-    correct:'כן, שניהם 25',
-    explain:'(−5)² = 25 וגם 5² = 25. חזקה זוגית תמיד נותנת תוצאה חיובית.' },
-  { id:'typedSum', title:'פתרו: (−2)⁴ = ?', answer:16 },
-  { id:'typedSum', title:'פתרו: (−3)² + (−2)³ = ?', answer:1 },
-  { id:'mc', title:'אתגר — סדר פעולות',
-    question:'מה שווה −2² + (−2)²?',
-    options:['0','8','−8','4'],
-    correct:'0',
-    explain:'−2² = −4 ו-(−2)² = 4. הסכום: −4 + 4 = 0.' },
-];
-
-const gameLevels7 = [
-  { id:'mc', title:'ניסיון נוסף — שאלה 1',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">2<sup>3</sup></bdi>?',
-    options:['6','8','9','12'],
-    correct:'8',
-    explain:'2³ = 2·2·2 = 8.' },
-  { id:'mc', title:'ניסיון נוסף — שאלה 2',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√25</bdi>?',
-    options:['3','4','5','6'],
-    correct:'5',
-    explain:'√25 = 5 כי 5² = 25.' },
 ];
 
 /* ============ NAVIGATION ============ */
@@ -521,7 +500,6 @@ function currentGameLevels(){
   if(state.sequence===4) return gameLevels4;
   if(state.sequence===5) return gameLevels5;
   if(state.sequence===6) return gameLevels6;
-  if(state.sequence===7) return gameLevels7;
   return gameLevels1;
 }
 
@@ -593,17 +571,16 @@ function renderHome(){
       ${seqRow(1, '1. הגדרת חזקה וחישוב בסיסי', {worksheetUrl:'../worksheets/powers_exam_part_a.html', answersUrl:'../worksheets/powers_exam_part_a_answers.html', checkUrl:'../worksheets/powers_exam_part_a_check.html'})}
 
       <div style="${subHeaderStyle}">מקרים מיוחדים</div>
-      ${seqRow(2, '2. חזקות מיוחדות — 0, 1 ושברים', {worksheetUrl:'../worksheets/powers_exam_part_b.html', answersUrl:'../worksheets/powers_exam_part_b_answers.html', checkUrl:'../worksheets/powers_exam_part_b_check.html'})}
+      ${seqRow(2, '2. בסיס שלילי — עם סוגריים ובלי', {worksheetUrl:'../worksheets/negative_base_exam.html', answersUrl:'../worksheets/negative_base_exam_answers.html', checkUrl:'../worksheets/negative_base_exam_check.html'})}
+      ${seqRow(3, '3. חזקות מיוחדות — 0 ו-1', {worksheetUrl:'../worksheets/powers_exam_part_b.html', answersUrl:'../worksheets/powers_exam_part_b_answers.html', checkUrl:'../worksheets/powers_exam_part_b_check.html'})}
 
       <div style="${subHeaderStyle}">השוואה וסדר פעולות</div>
-      ${seqRow(3, '3. השוואה וסדר פעולות עם חזקות', {worksheetUrl:'../worksheets/powers_exam_part_c.html', answersUrl:'../worksheets/powers_exam_part_c_answers.html', checkUrl:'../worksheets/powers_exam_part_c_check.html'})}
+      ${seqRow(4, '4. השוואה וסדר פעולות עם חזקות', {worksheetUrl:'../worksheets/powers_exam_part_c.html', answersUrl:'../worksheets/powers_exam_part_c_answers.html', checkUrl:'../worksheets/powers_exam_part_c_check.html'})}
 
       <div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(234,244,241,0.12);">
         <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">שורש ריבועי</div>
-        ${seqRow(4, '4. הגדרת שורש ריבועי', {worksheetUrl:'../worksheets/sqrt_definition_exam.html', answersUrl:'../worksheets/sqrt_definition_exam_answers.html', checkUrl:'../worksheets/sqrt_definition_exam_check.html'})}
-        ${seqRow(5, '5. חישובים עם שורשים', {worksheetUrl:'../worksheets/sqrt_exam.html', answersUrl:'../worksheets/sqrt_exam_answers.html', checkUrl:'../worksheets/sqrt_exam_check.html'})}
-        ${seqRow(6, '6. רצף בדיקה — האם אתה רואה אותי?', {})}
-        ${seqRow(7, '7. ניסיון נוסף', {})}
+        ${seqRow(5, '5. הגדרת שורש ריבועי', {worksheetUrl:'../worksheets/sqrt_definition_exam.html', answersUrl:'../worksheets/sqrt_definition_exam_answers.html', checkUrl:'../worksheets/sqrt_definition_exam_check.html'})}
+        ${seqRow(6, '6. חישובים עם שורשים', {worksheetUrl:'../worksheets/sqrt_exam.html', answersUrl:'../worksheets/sqrt_exam_answers.html', checkUrl:'../worksheets/sqrt_exam_check.html'})}
       </div>
     </div>
   `;
@@ -617,7 +594,6 @@ function renderLearn(){
   if(state.sequence===4) return renderLearn4();
   if(state.sequence===5) return renderLearn5();
   if(state.sequence===6) return renderLearn6();
-  if(state.sequence===7) return renderLearn7();
   return renderLearn1();
 }
 
@@ -638,20 +614,6 @@ function renderLearn1(){
       <div class="example-box">3<sup>4</sup> = 3 · 3 · 3 · 3 = 81</div>
       <div class="learn-note">שגיאה נפוצה: 2⁴ ≠ 8. זה לא כפל! 2⁴ = 2·2·2·2 = 16</div>
 
-      <div style="background:rgba(58,160,196,0.08);border:1.5px solid rgba(58,160,196,0.3);border-radius:10px;padding:16px;margin:18px 0;">
-        <div style="font-size:14px;font-weight:700;color:var(--light-teal);text-align:center;margin-bottom:14px;">חזקות עם בסיס שלילי</div>
-        <div class="examples-row">
-          <div class="example-box"><bdi style="direction:ltr;unicode-bidi:isolate;">(−3)² = (−3)·(−3) = 9</bdi><br><span style="font-size:13px;font-weight:400;">מעריך <strong>זוגי</strong> → תוצאה חיובית</span></div>
-          <div class="example-box"><bdi style="direction:ltr;unicode-bidi:isolate;">(−3)³ = (−3)·(−3)·(−3) = −27</bdi><br><span style="font-size:13px;font-weight:400;">מעריך <strong>אי-זוגי</strong> → תוצאה שלילית</span></div>
-        </div>
-        <ul class="bullets" style="margin-top:10px;">
-          <li>מעריך <strong>זוגי</strong>: (−a)ⁿ = חיובי (מינוס·מינוס = פלוס)</li>
-          <li>מעריך <strong>אי-זוגי</strong>: (−a)ⁿ = שלילי</li>
-          <li style="color:#F6A35A;font-weight:600;">שימו לב: (−3)² ≠ −3² — הסוגריים משנים הכל!</li>
-          <li><bdi style="direction:ltr;unicode-bidi:isolate;">−3² = −(3²) = −9</bdi> אך <bdi style="direction:ltr;unicode-bidi:isolate;">(−3)² = 9</bdi></li>
-        </ul>
-      </div>
-
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -663,18 +625,32 @@ function renderLearn1(){
 function renderLearn2(){
   return `
     <div class="panel">
-      <h2 class="qtitle">חזקות מיוחדות</h2>
+      <h2 class="qtitle">בסיס שלילי — עם סוגריים ובלי</h2>
       <div class="video-placeholder">📹 סרטון הסבר יתווסף כאן</div>
+
+      <div class="gold-box" dir="rtl">הכלל: בסיס שלילי + מעריך <strong>זוגי</strong> = חיובי &nbsp;·&nbsp; בסיס שלילי + מעריך <strong>אי-זוגי</strong> = שלילי</div>
+
       <div class="examples-row">
-        <div class="example-box">a⁰ = 1<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">(לכל a ≠ 0)</span></div>
-        <div class="example-box">a¹ = a</div>
-        <div class="example-box">(½)² = ¼<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">חזקה של שבר קטנה יותר</span></div>
+        <div class="example-box"><bdi style="direction:ltr;unicode-bidi:isolate;">(−3)² = (−3)·(−3) = 9</bdi><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעריך זוגי → חיובי</span></div>
+        <div class="example-box"><bdi style="direction:ltr;unicode-bidi:isolate;">(−3)³ = (−3)·(−3)·(−3) = −27</bdi><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעריך אי-זוגי → שלילי</span></div>
       </div>
+
+      <div style="background:rgba(226,96,79,0.1);border:1.5px solid rgba(226,96,79,0.4);border-radius:10px;padding:14px 16px;margin:14px 0;">
+        <div style="font-size:14px;font-weight:700;color:var(--coral);margin-bottom:10px;">⚠ הסוגריים משנים הכל!</div>
+        <div class="examples-row" style="margin:0;">
+          <div class="example-box"><bdi style="direction:ltr;unicode-bidi:isolate;">(−3)² = 9</bdi><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">הבסיס הוא −3</span></div>
+          <div class="example-box"><bdi style="direction:ltr;unicode-bidi:isolate;">−3² = −9</bdi><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">הבסיס הוא 3, המינוס בחוץ</span></div>
+        </div>
+      </div>
+
       <ul class="bullets">
-        <li>כל מספר (חוץ מ-0) בחזקת 0 שווה 1</li>
-        <li>כל מספר בחזקת 1 שווה לעצמו</li>
-        <li>שבר בין 0 ל-1 בחזקה שלמה → תוצאה קטנה יותר מהשבר</li>
+        <li><strong>סוגריים חשובים!</strong> ב-<bdi style="direction:ltr;unicode-bidi:isolate;">(−3)²</bdi> הבסיס הוא −3</li>
+        <li>ב-<bdi style="direction:ltr;unicode-bidi:isolate;">−3²</bdi> הבסיס הוא 3, המינוס נשאר בחוץ: −(3²) = −9</li>
+        <li>מעריך זוגי → תוצאה תמיד חיובית (מינוס·מינוס = פלוס)</li>
+        <li>מעריך אי-זוגי → תוצאה שלילית</li>
       </ul>
+      <div class="learn-note">שגיאה נפוצה: (−3)² ≠ −9. הסוגריים הופכים את הבסיס לשלילי — התוצאה חיובית!</div>
+
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
@@ -686,7 +662,38 @@ function renderLearn2(){
 function renderLearn3(){
   return `
     <div class="panel">
+      <h2 class="qtitle">חזקות מיוחדות — 0 ו-1</h2>
+      <div class="video-placeholder">📹 סרטון הסבר יתווסף כאן</div>
+
+      <div class="examples-row">
+        <div class="example-box">a⁰ = 1<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">(לכל a ≠ 0)</span></div>
+        <div class="example-box">a¹ = a</div>
+        <div class="example-box">0ⁿ = 0<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">(לכל n חיובי)</span></div>
+        <div class="example-box">1ⁿ = 1<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">(לכל n)</span></div>
+      </div>
+
+      <ul class="bullets">
+        <li>כל מספר שאינו אפס בחזקת 0 שווה 1: 7⁰ = 1, (−5)⁰ = 1</li>
+        <li>כל מספר בחזקת 1 שווה לעצמו: 99¹ = 99</li>
+        <li>אפס בכל חזקה חיובית שווה אפס: 0⁸ = 0</li>
+        <li>1 בכל חזקה שהיא שווה 1: 1¹⁰⁰⁰ = 1</li>
+      </ul>
+
+      <div class="learn-note">שגיאה נפוצה: 5⁰ ≠ 0. כל מספר בחזקת 0 שווה 1, לא 0!</div>
+
+      <div class="btnrow">
+        <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearn4(){
+  return `
+    <div class="panel">
       <h2 class="qtitle">השוואה וסדר פעולות עם חזקות</h2>
+      <div class="video-placeholder">📹 סרטון הסבר יתווסף כאן</div>
       <div class="gold-box" dir="rtl">סדר פעולות: סוגריים → חזקות → כפל/חילוק → חיבור/חיסור</div>
       <div class="examples-row">
         <div class="example-box">2+3² = 2+9 = 11<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">חזקה לפני חיבור</span></div>
@@ -698,14 +705,14 @@ function renderLearn3(){
         <li>2+3² ≠ (2+3)² — חשוב להבחין!</li>
       </ul>
       <div class="btnrow">
-        <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
+        <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
       </div>
     </div>
   `;
 }
 
-function renderLearn4(){
+function renderLearn5(){
   const perfectSquares = [[1,1],[4,2],[9,3],[16,4],[25,5],[36,6],[49,7],[64,8],[81,9],[100,10],[121,11],[144,12]];
 
   const makeGrid = (side) => {
@@ -764,7 +771,7 @@ function renderLearn4(){
       <div class="learn-note">שגיאה נפוצה: √16 ≠ 8. √16 = 4, כי 4² = 16 (לא 8² = 64).</div>
 
       <div class="btnrow">
-        <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
+        <button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
       </div>
     </div>
@@ -772,42 +779,6 @@ function renderLearn4(){
 }
 
 function renderLearn6(){
-  return `
-    <div class="panel">
-      <h2 class="qtitle">חזקות עם בסיס שלילי</h2>
-      <div class="examples-row">
-        <div class="example-box">(−3)² = (−3)·(−3) = 9<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעריך זוגי → חיובי</span></div>
-        <div class="example-box">(−3)³ = (−3)·(−3)·(−3) = −27<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעריך אי-זוגי → שלילי</span></div>
-      </div>
-      <div class="gold-box" dir="rtl">הכלל: בסיס שלילי + מעריך זוגי = חיובי · בסיס שלילי + מעריך אי-זוגי = שלילי</div>
-      <ul class="bullets">
-        <li><strong>סוגריים חשובים!</strong> (−3)² = 9, אבל −3² = −9</li>
-        <li>ב-(−3)² הבסיס הוא −3</li>
-        <li>ב-−3² הבסיס הוא 3, והמינוס הוא בחוץ</li>
-      </ul>
-      <div class="learn-note">שגיאה נפוצה: (−3)² ≠ −9. הסוגריים הופכים את הבסיס לשלילי — התוצאה חיובית!</div>
-      <div class="btnrow">
-        <button class="btn" onclick="state.sequence=6;startGame()">לתרגול ←</button>
-        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
-      </div>
-    </div>
-  `;
-}
-
-function renderLearn7(){
-  return `
-    <div class="panel">
-      <h2 class="qtitle">ניסיון נוסף</h2>
-      <div class="learn-note">זהו רצף ניסיון לבדיקת המערכת.</div>
-      <div class="btnrow">
-        <button class="btn" onclick="state.sequence=7;startGame()">לתרגול ←</button>
-        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
-      </div>
-    </div>
-  `;
-}
-
-function renderLearn5(){
   return sqrtify(`
     <div class="panel">
       <h2 class="qtitle">חישובים עם שורשים</h2>
@@ -845,7 +816,7 @@ function renderLearn5(){
       <div class="learn-note">שגיאה נפוצה: √(9+16) ≠ √9 + √16. נכון: √25 = 5, לא 3+4 = 7!</div>
 
       <div class="btnrow">
-        <button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button>
+        <button class="btn" onclick="state.sequence=6;startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
       </div>
     </div>
