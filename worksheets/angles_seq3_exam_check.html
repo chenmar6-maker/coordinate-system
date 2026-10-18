@@ -48,8 +48,10 @@
   .q-title { font-weight: 700; font-size: 14px; margin-bottom: 10px; display: flex; align-items: baseline; gap: 6px; }
   .q-num { color: #10B981; font-size: 16px; }
 
+  .diagram-thumb { width: 100%; max-width: 380px; display: block; margin: 0 auto 12px; border-radius: 6px; border: 1px solid #e5e7eb; }
+
   .sub-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; }
-  .sub-lbl { font-weight: 700; color: #555; min-width: 120px; flex-shrink: 0; }
+  .sub-lbl { font-weight: 700; color: #555; min-width: 80px; flex-shrink: 0; }
 
   .ans-input {
     border: none; border-bottom: 2px solid #aaa; background: transparent;
@@ -111,7 +113,7 @@
 
 <div id="score-card">
   <div class="score-big" id="score-num">—</div>
-  <div class="score-out-of" id="score-denom">מתוך 6 תשובות</div>
+  <div class="score-out-of" id="score-denom">מתוך 9 תשובות</div>
   <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
   <div class="score-msg" id="score-msg"></div>
   <div id="wrong-list-container"></div>
@@ -124,46 +126,52 @@
 </div>
 
 <!-- שאלה 1 -->
-<div class="q-card" id="q9-card">
-  <div class="q-title"><span class="q-num">9.</span> סכום זוויות</div>
+<div class="q-card">
+  <div class="q-title"><span class="q-num">1.</span> סכום והפרש זוויות — סרטוט א׳</div>
+  <img src="seq3_exam_q1.png" class="diagram-thumb" />
   <div class="sub-row">
-    <span class="sub-lbl" style="min-width:200px;">א. ∡ABC=40°, ∡CBD=50° → ∡ABD =</span>
-    <input class="ans-input" id="q9a" type="text" placeholder="°">°
+    <span class="sub-lbl">א. ∡ABC =</span>
+    <input class="ans-input" id="q1a" type="text" placeholder="°">°
   </div>
   <div class="sub-row">
-    <span class="sub-lbl" style="min-width:200px;">ב. ∡DEF=65°, ∡FEG=25° → ∡DEG =</span>
-    <input class="ans-input" id="q9b" type="text" placeholder="°">°
+    <span class="sub-lbl">ב. ∡KBR =</span>
+    <input class="ans-input" id="q1b" type="text" placeholder="°">°
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ג. ∡KBC =</span>
+    <input class="ans-input" id="q1c" type="text" placeholder="°">°
   </div>
 </div>
 
 <!-- שאלה 2 -->
-<div class="q-card" id="q10-card">
-  <div class="q-title"><span class="q-num">10.</span> הפרש זוויות</div>
+<div class="q-card">
+  <div class="q-title"><span class="q-num">2.</span> סכום והפרש זוויות — סרטוט ב׳</div>
+  <img src="seq3_exam_q2.png" class="diagram-thumb" />
   <div class="sub-row">
-    <span class="sub-lbl" style="min-width:220px;">א. ∡AOB=130°, ∡AOC=80° → ∡COB =</span>
-    <input class="ans-input" id="q10a" type="text" placeholder="°">°
+    <span class="sub-lbl">א. ∡CED =</span>
+    <input class="ans-input" id="q2a" type="text" placeholder="°">°
   </div>
   <div class="sub-row">
-    <span class="sub-lbl" style="min-width:220px;">ב. ∡XYZ=95°, ∡XYW=55° → ∡WYZ =</span>
-    <input class="ans-input" id="q10b" type="text" placeholder="°">°
+    <span class="sub-lbl">ב. ∡BEC =</span>
+    <input class="ans-input" id="q2b" type="text" placeholder="°">°
   </div>
 </div>
 
 <!-- שאלה 3 -->
-<div class="q-card" id="q11-card">
-  <div class="q-title"><span class="q-num">11.</span> ∡AOB=180°, ∡AOC=75°. חשבו ∡COB:</div>
+<div class="q-card">
+  <div class="q-title"><span class="q-num">3.</span> סכום זוויות — סרטוט ג׳</div>
+  <img src="seq3_exam_q3.png" class="diagram-thumb" />
   <div class="sub-row">
-    <span class="sub-lbl">∡COB =</span>
-    <input class="ans-input" id="q11" type="text" placeholder="°">°
+    <span class="sub-lbl">א. ∡B₃ =</span>
+    <input class="ans-input" id="q3a1" type="text" placeholder="°">°
+    <span style="margin-right:12px;font-weight:700;color:#555;">∡B₄ =</span>
+    <input class="ans-input" id="q3a2" type="text" placeholder="°">°
   </div>
-</div>
-
-<!-- שאלה 4 -->
-<div class="q-card" id="q12-card">
-  <div class="q-title"><span class="q-num">12.</span> ∡AOB ישרה, ∡AOC=32°. חשבו ∡COB:</div>
-  <div class="sub-row">
-    <span class="sub-lbl">∡COB =</span>
-    <input class="ans-input" id="q12" type="text" placeholder="°">°
+  <div class="sub-row" style="flex-wrap:wrap;gap:8px;">
+    <span class="sub-lbl" style="min-width:100px;">ב. ∡ABF =</span>
+    <input class="ans-input" id="q3b1" type="text" placeholder="°">°
+    <span style="margin-right:12px;font-weight:700;color:#555;">∡ABC =</span>
+    <input class="ans-input" id="q3b2" type="text" placeholder="°">°
   </div>
 </div>
 
@@ -180,16 +188,20 @@ function normNum(s) {
 }
 
 const KEY = {
-  q9a: 90, q9b: 90,
-  q10a: 50, q10b: 40,
-  q11: 105, q12: 58,
+  q1a: 102, q1b: 40, q1c: 72,
+  q2a: 32,  q2b: 46,
+  q3a1: 34, q3a2: 44,
+  q3b1: 112, q3b2: 156,
 };
 
 const LABELS = {
-  q9a:'9א', q9b:'9ב', q10a:'10א', q10b:'10ב', q11:'11', q12:'12',
+  q1a:'1א', q1b:'1ב', q1c:'1ג',
+  q2a:'2א', q2b:'2ב',
+  q3a1:'3א (B₃)', q3a2:'3א (B₄)',
+  q3b1:'3ב (∡ABF)', q3b2:'3ב (∡ABC)',
 };
 
-const TOTAL = 6;
+const TOTAL = 9;
 
 function checkAnswers() {
   let correct = 0;

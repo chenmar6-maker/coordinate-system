@@ -7,66 +7,25 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl;
-    background: #F0F2F8; min-height: 100vh; padding: 24px 16px 100px;
-  }
-
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 100px; }
   .page-wrap { max-width: 780px; margin: 0 auto; }
-
-  .header {
-    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
-    color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px;
-    display: flex; justify-content: space-between; align-items: flex-end;
-  }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
   .header-title { font-size: 20px; font-weight: 700; }
   .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
   .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
-
-  .intro-box {
-    background: #fff; border-radius: 10px; padding: 13px 16px; margin-bottom: 18px;
-    border-right: 4px solid #10B981; font-size: 13.5px; line-height: 1.7;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
-  }
+  .intro-box { background: #fff; border-radius: 10px; padding: 13px 16px; margin-bottom: 18px; border-right: 4px solid #10B981; font-size: 13.5px; line-height: 1.7; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
   .intro-box strong { color: #065F46; }
-
-  .q-card {
-    background: #fff; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.07); border-right: 4px solid #10B981;
-  }
+  .q-card { background: #fff; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border-right: 4px solid #10B981; }
   .q-title { font-weight: 700; font-size: 14px; margin-bottom: 10px; display: flex; align-items: baseline; gap: 6px; }
   .q-num { color: #10B981; font-size: 16px; }
-  .sub-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; }
-  .sub-lbl { font-weight: 700; color: #555; min-width: 120px; flex-shrink: 0; }
-
-  .ans-input {
-    border: none; border-bottom: 2px solid #aaa; background: transparent;
-    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
-    direction: ltr; unicode-bidi: isolate; text-align: center; width: 70px;
-    padding: 2px 4px; outline: none; color: #1a1a2e; transition: border-color .15s;
-  }
+  .diagram-thumb { width: 100%; max-width: 380px; display: block; margin: 0 auto 12px; border-radius: 6px; border: 1px solid #e5e7eb; }
+  .sub-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; flex-wrap: wrap; }
+  .sub-lbl { font-weight: 700; color: #555; min-width: 80px; flex-shrink: 0; }
+  .ans-input { border: none; border-bottom: 2px solid #aaa; background: transparent; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; direction: ltr; unicode-bidi: isolate; text-align: center; width: 70px; padding: 2px 4px; outline: none; color: #1a1a2e; transition: border-color .15s; }
   .ans-input:focus { border-color: #10B981; }
-
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-  .chip {
-    border: 1.5px solid #ccc; border-radius: 20px; padding: 5px 14px; font-size: 13px;
-    cursor: pointer; user-select: none; transition: all .15s; background: #fafafa; direction: rtl;
-  }
-  .chip:hover { border-color: #10B981; background: #ECFDF5; }
-  .chip.selected { border-color: #10B981; background: #ECFDF5; color: #065F46; font-weight: 700; }
-
-  .check-btn {
-    width: 100%; padding: 16px; background: linear-gradient(135deg, #10B981, #059669);
-    color: #fff; border: none; border-radius: 12px; font-family: 'Rubik', sans-serif;
-    font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(16,185,129,0.35); margin-top: 6px;
-  }
+  .check-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #10B981, #059669); color: #fff; border: none; border-radius: 12px; font-family: 'Rubik', sans-serif; font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(16,185,129,0.35); margin-top: 6px; }
   .check-btn:hover { transform: translateY(-1px); }
-
-  #score-card {
-    display: none; background: #fff; border-radius: 16px; padding: 28px 24px 22px;
-    margin-bottom: 22px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center;
-  }
+  #score-card { display: none; background: #fff; border-radius: 16px; padding: 28px 24px 22px; margin-bottom: 22px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; }
   #score-card.show { display: block; }
   .score-big { font-size: 64px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
   .score-out-of { font-size: 16px; color: #888; margin-bottom: 18px; }
@@ -78,21 +37,16 @@
   .score-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
   .retry-btn { margin-top: 16px; background: transparent; border: 1.5px solid #ccc; border-radius: 20px; padding: 8px 22px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; color: #555; }
   .retry-btn:hover { border-color: #10B981; color: #065F46; }
-
   .ans-input.wrong { border-bottom-color: #DC2626; background: #FEF2F2; color: #991B1B; }
   .ans-input.correct { border-bottom-color: #065F46; background: #ECFDF5; color: #065F46; }
-  .chip.chip-wrong { border-color: #DC2626 !important; background: #FEF2F2 !important; color: #991B1B !important; font-weight: 700; }
-  .chip.chip-correct { border-color: #065F46 !important; background: #ECFDF5 !important; color: #065F46 !important; font-weight: 700; }
   .wrong-list-wrap { margin-top: 18px; text-align: right; }
   .wrong-list-title { font-size: 13px; font-weight: 700; color: #991B1B; margin-bottom: 8px; }
   .wrong-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .wrong-tag { background: #FEF2F2; border: 1.5px solid #FCA5A5; border-radius: 16px; padding: 4px 12px; font-size: 13px; font-weight: 600; color: #991B1B; }
   .all-correct-note { margin-top: 14px; font-size: 14px; color: #065F46; font-weight: 600; }
-
   .nav-btn { position: fixed; border: none; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; padding: 9px 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
   .nav-back { bottom: 62px; right: 18px; background: #374151; color: #fff; }
   .nav-exam { bottom: 18px; right: 18px; background: #065F46; color: #fff; }
-
   @media print { .no-print { display: none; } }
 </style>
 </head>
@@ -109,7 +63,7 @@
 
 <div id="score-card">
   <div class="score-big" id="score-num">—</div>
-  <div class="score-out-of" id="score-denom">מתוך 12 תשובות</div>
+  <div class="score-out-of" id="score-denom">מתוך 8 תשובות</div>
   <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
   <div class="score-msg" id="score-msg"></div>
   <div id="wrong-list-container"></div>
@@ -122,55 +76,44 @@
 </div>
 
 <!-- שאלה 1 -->
-<div class="q-card" id="q17-card">
-  <div class="q-title"><span class="q-num">17.</span> זוויות צמודות על קו ישר</div>
-  <div class="sub-row"><span class="sub-lbl">א. לזווית 50°:</span><input class="ans-input" id="q17a" type="text" placeholder="°">°</div>
-  <div class="sub-row"><span class="sub-lbl">ב. לזווית 130°:</span><input class="ans-input" id="q17b" type="text" placeholder="°">°</div>
-  <div class="sub-row"><span class="sub-lbl">ג. לזווית 90°:</span><input class="ans-input" id="q17c" type="text" placeholder="°">°</div>
-  <div class="sub-row"><span class="sub-lbl">ד. לזווית 45°:</span><input class="ans-input" id="q17d" type="text" placeholder="°">°</div>
+<div class="q-card">
+  <div class="q-title"><span class="q-num">1.</span> זוויות צמודות — סרטוט א׳</div>
+  <img src="seq5_exam_q1.png" class="diagram-thumb" />
+  <div class="sub-row">
+    <span class="sub-lbl">א. ∡DBG =</span>
+    <input class="ans-input" id="q1a" type="text" placeholder="°">°
+  </div>
+  <div style="font-size:12px;color:#555;margin-bottom:8px;font-style:italic;">ב. הכניסו את ארבע הזוויות מהסעיף ב׳:</div>
+  <div class="sub-row">
+    <span class="sub-lbl">∡CBA =</span>
+    <input class="ans-input" id="q1b_cba" type="text" placeholder="°">°
+    <span style="margin-right:12px;font-weight:700;color:#555;">∡DBA =</span>
+    <input class="ans-input" id="q1b_dba" type="text" placeholder="°">°
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">∡DBE =</span>
+    <input class="ans-input" id="q1b_dbe" type="text" placeholder="°">°
+    <span style="margin-right:12px;font-weight:700;color:#555;">∡CBE =</span>
+    <input class="ans-input" id="q1b_cbe" type="text" placeholder="°">°
+  </div>
 </div>
 
 <!-- שאלה 2 -->
-<div class="q-card" id="q18-card">
-  <div class="q-title"><span class="q-num">18.</span> שתי זוויות צמודות שוות — מה גודל כל אחת?</div>
-  <div class="sub-row"><span class="sub-lbl">גודל כל אחת:</span><input class="ans-input" id="q18" type="text" placeholder="°">°</div>
-</div>
-
-<!-- שאלה 3 -->
-<div class="q-card" id="q19-card">
-  <div class="q-title"><span class="q-num">19.</span> האחת גדולה פי 4 מהשנייה</div>
-  <div class="sub-row"><span class="sub-lbl">קטנה:</span><input class="ans-input" id="q19small" type="text" placeholder="°">°</div>
-  <div class="sub-row"><span class="sub-lbl">גדולה:</span><input class="ans-input" id="q19big" type="text" placeholder="°">°</div>
-</div>
-
-<!-- שאלה 4 -->
-<div class="q-card" id="q20-card">
-  <div class="q-title"><span class="q-num">20.</span> גדולה = 3 × קטנה</div>
-  <div class="sub-row"><span class="sub-lbl">קטנה:</span><input class="ans-input" id="q20small" type="text" placeholder="°">°</div>
-  <div class="sub-row"><span class="sub-lbl">גדולה:</span><input class="ans-input" id="q20big" type="text" placeholder="°">°</div>
-</div>
-
-<!-- שאלה 5 -->
-<div class="q-card" id="q21-card">
-  <div class="q-title"><span class="q-num">21.</span> נכון / לא נכון</div>
-  <div style="margin-bottom:10px;font-size:13px;">א. שתי זוויות צמודות סכומן תמיד 180°.</div>
-  <div class="chips" id="q21a-chips">
-    <div class="chip" data-val="לא נכון" onclick="selectChip(this,'q21a')">לא נכון</div>
-    <div class="chip" data-val="נכון" onclick="selectChip(this,'q21a')">נכון</div>
+<div class="q-card">
+  <div class="q-title"><span class="q-num">2.</span> זוויות צמודות — סרטוט ב׳</div>
+  <img src="seq5_exam_q2.png" class="diagram-thumb" />
+  <div class="sub-row">
+    <span class="sub-lbl">א. ∡ABC =</span>
+    <input class="ans-input" id="q2a" type="text" placeholder="°">°
   </div>
-  <input type="hidden" id="q21a" value="">
-  <div style="margin-top:12px;margin-bottom:10px;font-size:13px;">ב. שתי זוויות צמודות יכולות להיות שתיהן חדות.</div>
-  <div class="chips" id="q21b-chips">
-    <div class="chip" data-val="לא נכון" onclick="selectChip(this,'q21b')">לא נכון</div>
-    <div class="chip" data-val="נכון" onclick="selectChip(this,'q21b')">נכון</div>
+  <div class="sub-row">
+    <span class="sub-lbl">ב. ∡ACD =</span>
+    <input class="ans-input" id="q2b" type="text" placeholder="°">°
   </div>
-  <input type="hidden" id="q21b" value="">
-  <div style="margin-top:12px;margin-bottom:10px;font-size:13px;">ג. שתי זוויות צמודות יכולות להיות שתיהן קהות.</div>
-  <div class="chips" id="q21c-chips">
-    <div class="chip" data-val="לא נכון" onclick="selectChip(this,'q21c')">לא נכון</div>
-    <div class="chip" data-val="נכון" onclick="selectChip(this,'q21c')">נכון</div>
+  <div class="sub-row">
+    <span class="sub-lbl">ג. ∡EAC =</span>
+    <input class="ans-input" id="q2c" type="text" placeholder="°">°
   </div>
-  <input type="hidden" id="q21c" value="">
 </div>
 
 <button class="check-btn no-print" onclick="checkAnswers()">בדוק ←</button>
@@ -181,58 +124,35 @@
 <button class="nav-btn nav-exam no-print" onclick="window.open('angles_seq5_exam.html')">חזרה למבדק</button>
 
 <script>
-function selectChip(el, fieldId) {
-  const container = document.getElementById(fieldId + '-chips');
-  container.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  document.getElementById(fieldId).value = el.getAttribute('data-val');
+function normNum(s) {
+  return parseFloat(s.trim().replace(/°/g,'').replace(/\s+/g,''));
 }
 
-function normNum(s) { return parseFloat(s.trim().replace(/°/g,'').replace(/\s+/g,'')); }
-
-const NUM_KEY = {
-  q17a: 130, q17b: 50, q17c: 90, q17d: 135,
-  q18: 90,
-  q19small: 36, q19big: 144,
-  q20small: 45, q20big: 135,
-};
-
-const CHIP_KEY = {
-  q21a: 'נכון',
-  q21b: 'לא נכון',
-  q21c: 'לא נכון',
+const KEY = {
+  q1a: 72,
+  q1b_cba: 54, q1b_dba: 108, q1b_dbe: 36, q1b_cbe: 90,
+  q2a: 42, q2b: 118, q2c: 104,
 };
 
 const LABELS = {
-  q17a:'17א', q17b:'17ב', q17c:'17ג', q17d:'17ד',
-  q18:'18', q19small:'19-קטנה', q19big:'19-גדולה',
-  q20small:'20-קטנה', q20big:'20-גדולה',
-  q21a:'21א', q21b:'21ב', q21c:'21ג',
+  q1a:'1א', q1b_cba:'1ב (∡CBA)', q1b_dba:'1ב (∡DBA)',
+  q1b_dbe:'1ב (∡DBE)', q1b_cbe:'1ב (∡CBE)',
+  q2a:'2א', q2b:'2ב', q2c:'2ג',
 };
 
-const TOTAL = 12;
+const TOTAL = 8;
 
 function checkAnswers() {
   let correct = 0;
   const wrong = [];
-
-  Object.keys(NUM_KEY).forEach(id => {
+  Object.keys(KEY).forEach(id => {
     const el = document.getElementById(id);
     const v = normNum(el.value);
-    const ok = !isNaN(v) && Math.abs(v - NUM_KEY[id]) < 0.01;
+    const ok = !isNaN(v) && Math.abs(v - KEY[id]) < 0.01;
     el.classList.toggle('correct', ok);
     el.classList.toggle('wrong', !ok);
     if (ok) correct++; else wrong.push(id);
   });
-
-  Object.keys(CHIP_KEY).forEach(id => {
-    const val = document.getElementById(id).value;
-    const ok = val === CHIP_KEY[id];
-    const selChip = document.querySelector('#' + id + '-chips .chip.selected');
-    if (selChip) { selChip.classList.toggle('chip-correct', ok); selChip.classList.toggle('chip-wrong', !ok); }
-    if (ok) correct++; else wrong.push(id);
-  });
-
   showScore(correct, TOTAL, wrong);
 }
 
@@ -264,12 +184,10 @@ function showScore(correct, total, wrong) {
 }
 
 function resetForm() {
-  Object.keys(NUM_KEY).forEach(id => {
+  Object.keys(KEY).forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.value = ''; el.classList.remove('wrong','correct'); }
   });
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected','chip-wrong','chip-correct'));
-  Object.keys(CHIP_KEY).forEach(id => { document.getElementById(id).value = ''; });
   document.getElementById('wrong-list-container').innerHTML = '';
   document.getElementById('score-card').classList.remove('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });

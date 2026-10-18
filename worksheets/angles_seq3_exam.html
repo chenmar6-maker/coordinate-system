@@ -6,23 +6,27 @@
 <title>מבדק שליטה — רצף 3: סכום והפרש זוויות</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Rubik',sans-serif;font-size:14px;color:#1a1a2e;direction:rtl;background:#F0F2F8;min-height:100vh;padding:24px 16px 80px;}
+
   .page-wrap{max-width:780px;margin:0 auto;}
+
   .header{background:linear-gradient(135deg,#1E1B2E 0%,#2D2A45 100%);color:#fff;border-radius:14px;padding:18px 22px 14px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-end;}
   .header-title{font-size:20px;font-weight:700;color:#fff;}
   .header-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:4px;}
   .brand{font-size:12px;font-weight:600;color:rgba(255,255,255,0.45);}
+
   .part-label{font-size:13px;font-weight:700;color:#fff;padding:5px 14px;border-radius:6px;display:inline-block;margin-bottom:10px;background:#10B981;}
+
   .q{margin-bottom:12px;padding:14px 16px;background:#fff;border-radius:8px;font-size:13.5px;line-height:1.75;box-shadow:0 1px 3px rgba(0,0,0,0.07);border-right:4px solid #10B981;}
   .qn{font-weight:700;margin-left:4px;}
   .b{border-bottom:1px solid #555;display:inline-block;min-width:80px;}
   .wl{border-bottom:1px solid #ccc;margin-top:14px;height:1px;}
-  .ang{font-size:1.15em;font-weight:700;direction:ltr;unicode-bidi:isolate;}
-  .given{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:6px;padding:8px 12px;font-size:13px;direction:ltr;unicode-bidi:isolate;margin:8px 0;line-height:1.9;}
-  .sub-q{margin-top:10px;}
+  .ang{font-size:1.25em;font-weight:700;direction:ltr;unicode-bidi:isolate;}
   .sbar{font-size:12px;color:#444;background:#fff;border-radius:8px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.07);display:flex;justify-content:flex-end;}
   .sf{border-bottom:1px solid #555;min-width:40px;display:inline-block;}
+
   .print-btn{position:fixed;bottom:18px;left:18px;background:#1a1a2e;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);}
   @media print{.no-print{display:none;}@page{size:A4;margin:12mm;}body{background:#fff;padding:10px;}.q{box-shadow:none;border:1px solid #ddd;}}
 </style>
@@ -45,49 +49,37 @@
 
 <span class="part-label">רצף 3 — סכום והפרש זוויות</span>
 
-<!-- Q1 -->
 <div class="q">
-  <span class="qn">1.</span> סכום זוויות — חשבו:
-  <div class="sub-q">
-    <div class="given">נתון: ∡ABC = 40°, ∡CBD = 50°</div>
-    <div>א. חשבו את <span class="ang">∡ABD</span> = <span class="b">&nbsp;</span><div class="wl"></div></div>
-  </div>
-  <div class="sub-q" style="margin-top:14px;">
-    <div class="given">נתון: ∡DEF = 65°, ∡FEG = 25°</div>
-    <div>ב. חשבו את <span class="ang">∡DEG</span> = <span class="b">&nbsp;</span><div class="wl"></div></div>
+  <div style="margin-bottom:10px;"><span class="qn">1.</span> התבוננו בסרטוט.</div>
+  <img src="seq3_exam_q1.png" style="width:100%;max-width:560px;display:block;margin:0 auto 14px;border-radius:6px;" />
+  <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
+    <div>א. חשבו את <span class="ang">∡ABC</span> = <span class="b">&nbsp;</span><div class="wl"></div></div>
+    <div>ב. חשבו את <span class="ang">∡KBR</span> = <span class="b">&nbsp;</span><div class="wl"></div></div>
+    <div>ג. חשבו את <span class="ang">∡KBC</span> = <span class="b">&nbsp;</span><div class="wl"></div></div>
   </div>
 </div>
 
-<!-- Q2 -->
 <div class="q">
-  <span class="qn">2.</span> הפרש זוויות — חשבו:
-  <div class="sub-q">
-    <div class="given">נתון: ∡AOB = 130°, ∡AOC = 80°</div>
-    <div>א. חשבו את <span class="ang">∡COB</span> = <span class="b">&nbsp;</span><div class="wl"></div></div>
-  </div>
-  <div class="sub-q" style="margin-top:14px;">
-    <div class="given">נתון: ∡XYZ = 95°, ∡XYW = 55°</div>
-    <div>ב. חשבו את <span class="ang">∡WYZ</span> = <span class="b">&nbsp;</span><div class="wl"></div></div>
+  <div style="margin-bottom:10px;"><span class="qn">2.</span> התבוננו בסרטוט.</div>
+  <img src="seq3_exam_q2.png" style="width:100%;max-width:500px;display:block;margin:0 auto 14px;border-radius:6px;" />
+  <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
+    <div>א. חשבו את <span class="ang">∡CED</span> = <span class="b">&nbsp;</span><div class="wl"></div></div>
+    <div>ב. חשבו את <span class="ang">∡BEC</span> = <span class="b">&nbsp;</span><div class="wl"></div><div class="wl" style="margin-top:14px;"></div></div>
   </div>
 </div>
 
-<!-- Q3 -->
 <div class="q">
-  <span class="qn">3.</span>
-  <div class="given">נתון: ∡AOB = 180°, ∡AOC = 75°</div>
-  חשבו את <span class="ang">∡COB</span> = <span class="b">&nbsp;</span>
-  <div class="wl"></div>
-</div>
-
-<!-- Q4 -->
-<div class="q">
-  <span class="qn">4.</span>
-  <div class="given">∡AOB ישרה (= 90°), ∡AOC = 32°</div>
-  חשבו את <span class="ang">∡COB</span> = <span class="b">&nbsp;</span>
-  <div class="wl"></div>
+  <div style="margin-bottom:10px;"><span class="qn">3.</span> התבוננו בסרטוט.</div>
+  <img src="seq3_exam_q3.png" style="width:100%;max-width:560px;display:block;margin:0 auto 14px;border-radius:6px;" />
+  <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
+    <div>א. חשבו את גודל <span class="ang">∡B₃</span> ו-<span class="ang">∡B₄</span>: <span class="b">&nbsp;</span><div class="wl"></div></div>
+    <div>ב. חשבו את <span class="ang">∡ABF</span> ואת <span class="ang">∡ABC</span>: <span class="b" style="min-width:120px;">&nbsp;</span><div class="wl"></div><div class="wl" style="margin-top:14px;"></div></div>
+    <div>ג. מצאו בסרטוט זוג זוויות שוות (לא אלו הנתונות). הסבירו:<div class="wl"></div><div class="wl" style="margin-top:14px;"></div></div>
+  </div>
 </div>
 
 <div class="sbar">ניקוד: <span class="sf">&nbsp;</span></div>
+
 
 <!-- שאלת היכרות -->
 <div style="margin-top:22px;padding:16px 18px;background:#FFFBEB;border:1.5px solid #FCD34D;border-right:4px solid #F59E0B;border-radius:10px;font-size:13.5px;line-height:1.8;">
