@@ -289,35 +289,38 @@ const gameLevels2 = [
 ];
 
 const gameLevels3 = [
-  { id:'mc', title:'חזקת אפס',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">7⁰</bdi>?',
-    options:['0','1','7','לא מוגדר'],
-    correct:'1',
-    explain:'כל מספר שאינו אפס בחזקת 0 שווה 1. 7⁰ = 1.' },
-  { id:'typedSum', title:'חשבו', expr:'5<sup>0</sup>', correct:1,
-    explain:'5⁰ = 1. כל מספר שאינו אפס בחזקת 0 שווה 1.' },
-  { id:'mc', title:'חזקת 1',
+  { id:'mc', title:'מעריך 1',
     question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">a¹</bdi> לכל מספר a?',
     options:['1','0','a','a²'],
     correct:'a',
     explain:'כל מספר בחזקת 1 שווה לעצמו. a¹ = a.' },
   { id:'typedSum', title:'חשבו', expr:'1<sup>99</sup>', correct:1,
     explain:'1 בכל חזקה שהיא שווה 1. 1·1·1·...·1 = 1.' },
-  { id:'mc', title:'מה שווה 0⁵?',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">0⁵</bdi>?',
-    options:['0','1','5','לא מוגדר'],
-    correct:'0',
-    explain:'0⁵ = 0·0·0·0·0 = 0. אפס בכל חזקה חיובית שווה אפס.' },
+  { id:'mc', title:'שבר בריבוע',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(½)²</bdi>?',
+    options:['½','¼','1','2'],
+    correct:'¼',
+    explain:'(½)² = ½·½ = ¼. מכפילים מונה במונה ומכנה במכנה: 1/2 · 1/2 = 1/4.' },
+  { id:'mc', title:'שבר בריבוע',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(⅓)²</bdi>?',
+    options:['⅓','1/6','1/9','⅔'],
+    correct:'1/9',
+    explain:'(⅓)² = ⅓·⅓ = 1/9. מעלים מונה ומכנה בנפרד: 1²/3² = 1/9.' },
+  { id:'mc', title:'שבר בריבוע',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(¼)²</bdi>?',
+    options:['¼','1/8','1/16','½'],
+    correct:'1/16',
+    explain:'(¼)² = ¼·¼ = 1/16. 1²/4² = 1/16.' },
   { id:'mc', title:'נכון או לא נכון?',
-    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">1¹⁰⁰⁰ = 1000</bdi>',
-    options:['נכון','לא נכון — זה שווה 1','לא נכון — זה שווה 0','תלוי ב-1000'],
-    correct:'לא נכון — זה שווה 1',
-    explain:'1 בכל חזקה תמיד שווה 1. 1¹⁰⁰⁰ = 1.' },
-  { id:'mc', title:'אתגר — מי הכי גדול?',
-    question:'מי הכי גדול?',
-    options:['100⁰','0¹⁰⁰','1¹⁰⁰','10⁰'],
-    correct:'100⁰',
-    explain:'100⁰ = 1, 0¹⁰⁰ = 0, 1¹⁰⁰ = 1, 10⁰ = 1. כולם שווים 1 — לפי הכלל, 100⁰ = 1 בדיוק כמו שאר הביטויים.' },
+    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">(½)² = ½</bdi>',
+    options:['נכון','לא נכון — זה שווה ¼','לא נכון — זה שווה 1','לא נכון — זה שווה 2'],
+    correct:'לא נכון — זה שווה ¼',
+    explain:'(½)² = ½·½ = ¼. שבר בריבוע קטן מהשבר המקורי!' },
+  { id:'mc', title:'אתגר — מי גדול יותר?',
+    question:'מי גדול יותר: <bdi style="direction:ltr;unicode-bidi:isolate;">(½)¹</bdi> או <bdi style="direction:ltr;unicode-bidi:isolate;">(½)²</bdi>?',
+    options:['(½)¹ גדול יותר','(½)² גדול יותר','הם שווים'],
+    correct:'(½)¹ גדול יותר',
+    explain:'(½)¹ = ½ = 0.5 ו-(½)² = ¼ = 0.25. כשמעלים שבר הקטן מ-1 בחזקה — הוא מתקטן!' },
 ];
 
 const gameLevels4 = [
@@ -572,7 +575,7 @@ function renderHome(){
 
       <div style="${subHeaderStyle}">מקרים מיוחדים</div>
       ${seqRow(2, '2. בסיס שלילי — עם סוגריים ובלי', {worksheetUrl:'../worksheets/negative_base_exam.html', answersUrl:'../worksheets/negative_base_exam_answers.html', checkUrl:'../worksheets/negative_base_exam_check.html'})}
-      ${seqRow(3, '3. חזקות מיוחדות — 0 ו-1', {worksheetUrl:'../worksheets/powers_exam_part_b.html', answersUrl:'../worksheets/powers_exam_part_b_answers.html', checkUrl:'../worksheets/powers_exam_part_b_check.html'})}
+      ${seqRow(3, '3. חזקות מיוחדות — מעריך 1, בסיס 1 ושברים', {worksheetUrl:'../worksheets/powers_exam_part_b.html', answersUrl:'../worksheets/powers_exam_part_b_answers.html', checkUrl:'../worksheets/powers_exam_part_b_check.html'})}
 
       <div style="${subHeaderStyle}">השוואה וסדר פעולות</div>
       ${seqRow(4, '4. השוואה וסדר פעולות עם חזקות', {worksheetUrl:'../worksheets/powers_exam_part_c.html', answersUrl:'../worksheets/powers_exam_part_c_answers.html', checkUrl:'../worksheets/powers_exam_part_c_check.html'})}
@@ -662,24 +665,32 @@ function renderLearn2(){
 function renderLearn3(){
   return `
     <div class="panel">
-      <h2 class="qtitle">חזקות מיוחדות — 0 ו-1</h2>
+      <h2 class="qtitle">חזקות מיוחדות — מעריך 1, בסיס 1 ושברים</h2>
       <div class="video-placeholder">📹 סרטון הסבר יתווסף כאן</div>
 
+      <div class="gold-box" dir="rtl">מעריך 1: כל מספר בחזקת 1 שווה לעצמו &nbsp;·&nbsp; בסיס 1: 1 בכל חזקה שווה 1</div>
+
       <div class="examples-row">
-        <div class="example-box">a⁰ = 1<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">(לכל a ≠ 0)</span></div>
-        <div class="example-box">a¹ = a</div>
-        <div class="example-box">0ⁿ = 0<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">(לכל n חיובי)</span></div>
+        <div class="example-box">a¹ = a<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">(לכל מספר a)</span></div>
         <div class="example-box">1ⁿ = 1<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">(לכל n)</span></div>
+        <div class="example-box">(½)² = ¼<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">½ · ½ = ¼</span></div>
+        <div class="example-box">(⅓)² = 1/9<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">⅓ · ⅓ = 1/9</span></div>
+      </div>
+
+      <div style="background:rgba(29,78,216,0.08);border:1.5px solid rgba(29,78,216,0.3);border-radius:10px;padding:14px 16px;margin:14px 0;">
+        <div style="font-size:14px;font-weight:700;color:var(--light-teal);margin-bottom:8px;">כלל השברים בחזקה</div>
+        <div class="example-box" style="margin:0;">(a/b)ⁿ = aⁿ / bⁿ<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעלים מונה ומכנה בנפרד</span></div>
+        <div style="font-size:13.5px;margin-top:10px;direction:rtl;">דוגמה: <bdi style="direction:ltr;unicode-bidi:isolate;">(⅔)² = 2²/3² = 4/9</bdi></div>
       </div>
 
       <ul class="bullets">
-        <li>כל מספר שאינו אפס בחזקת 0 שווה 1: <bdi style="direction:ltr;unicode-bidi:isolate;">7⁰ = 1, (−5)⁰ = 1</bdi></li>
-        <li>כל מספר בחזקת 1 שווה לעצמו: <bdi style="direction:ltr;unicode-bidi:isolate;">99¹ = 99</bdi></li>
-        <li>אפס בכל חזקה חיובית שווה אפס: <bdi style="direction:ltr;unicode-bidi:isolate;">0⁸ = 0</bdi></li>
+        <li>כל מספר בחזקת 1 שווה לעצמו: <bdi style="direction:ltr;unicode-bidi:isolate;">99¹ = 99, (½)¹ = ½</bdi></li>
         <li>1 בכל חזקה שהיא שווה 1: <bdi style="direction:ltr;unicode-bidi:isolate;">1¹⁰⁰⁰ = 1</bdi></li>
+        <li>שבר בחזקה — מעלים מונה ומכנה בנפרד: <bdi style="direction:ltr;unicode-bidi:isolate;">(¾)² = 9/16</bdi></li>
+        <li>שבר בין 0 ל-1 בחזקה גדולה מ-1 — <strong>מתקטן!</strong> <bdi style="direction:ltr;unicode-bidi:isolate;">(½)² = ¼ &lt; ½</bdi></li>
       </ul>
 
-      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">5⁰ ≠ 0</bdi>. כל מספר בחזקת 0 שווה 1, לא 0!</div>
+      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">(½)² ≠ ½</bdi>. צריך להכפיל: <bdi style="direction:ltr;unicode-bidi:isolate;">½ · ½ = ¼</bdi>!</div>
 
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
