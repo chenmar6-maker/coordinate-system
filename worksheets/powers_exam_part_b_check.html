@@ -39,12 +39,12 @@
     border-radius: 10px;
     padding: 13px 16px;
     margin-bottom: 18px;
-    border-right: 4px solid #F6A35A;
+    border-right: 4px solid #1D4ED8;
     font-size: 13.5px;
     line-height: 1.7;
     box-shadow: 0 1px 3px rgba(0,0,0,0.07);
   }
-  .intro-box strong { color: #C05621; }
+  .intro-box strong { color: #1D4ED8; }
 
   .q-card {
     background: #fff;
@@ -52,7 +52,7 @@
     padding: 14px 16px;
     margin-bottom: 10px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.07);
-    border-right: 4px solid #F6A35A;
+    border-right: 4px solid #93C5FD;
   }
   .q-title {
     font-weight: 700;
@@ -62,7 +62,7 @@
     align-items: baseline;
     gap: 6px;
   }
-  .q-num { color: #C05621; font-size: 16px; }
+  .q-num { color: #1D4ED8; font-size: 16px; }
 
   .sub-row {
     display: flex;
@@ -101,7 +101,7 @@
     color: #1a1a2e;
     transition: border-color .15s;
   }
-  .ans-input:focus { border-color: #C05621; }
+  .ans-input:focus { border-color: #1D4ED8; }
   .ans-input.wide { width: 100px; }
   .ans-input.narrow { width: 50px; }
 
@@ -117,18 +117,28 @@
     background: #fafafa;
     direction: rtl;
   }
-  .chip:hover { border-color: #C05621; background: #FFF7ED; }
+  .chip:hover { border-color: #1D4ED8; background: #EFF6FF; }
   .chip.selected {
-    border-color: #C05621;
-    background: #FFF7ED;
-    color: #C05621;
+    border-color: #1D4ED8;
+    background: #EFF6FF;
+    color: #1D4ED8;
     font-weight: 700;
+  }
+
+  .open-note {
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #065F46;
+    margin-top: 6px;
   }
 
   .check-btn {
     width: 100%;
     padding: 16px;
-    background: linear-gradient(135deg, #C05621, #e07a3a);
+    background: linear-gradient(135deg, #1D4ED8, #3B82F6);
     color: #fff;
     border: none;
     border-radius: 12px;
@@ -136,11 +146,11 @@
     font-size: 18px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(192,86,33,0.35);
+    box-shadow: 0 4px 14px rgba(29,78,216,0.35);
     transition: transform .12s, box-shadow .12s;
     margin-top: 6px;
   }
-  .check-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(192,86,33,0.4); }
+  .check-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(29,78,216,0.4); }
   .check-btn:active { transform: translateY(0); }
 
   #score-card {
@@ -203,14 +213,13 @@
     color: #555;
     transition: border-color .15s, color .15s;
   }
-  .retry-btn:hover { border-color: #C05621; color: #C05621; }
+  .retry-btn:hover { border-color: #1D4ED8; color: #1D4ED8; }
 
-  /* ─── per-item feedback ─── */
   .ans-input.wrong   { border-bottom-color: #DC2626; background: #FEF2F2; color: #991B1B; }
   .ans-input.correct { border-bottom-color: #047857; background: #ECFDF5; color: #065F46; }
   .chip.chip-wrong   { border-color: #DC2626 !important; background: #FEF2F2 !important; color: #991B1B !important; font-weight: 700; }
   .chip.chip-correct { border-color: #047857 !important; background: #ECFDF5 !important; color: #065F46 !important; font-weight: 700; }
-  /* ─── wrong list inside score card ─── */
+
   .wrong-list-wrap { margin-top: 18px; text-align: right; }
   .wrong-list-title { font-size: 13px; font-weight: 700; color: #991B1B; margin-bottom: 8px; }
   .wrong-tags { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -249,7 +258,7 @@
 
 <div id="score-card">
   <div class="score-big" id="score-num">—</div>
-  <div class="score-out-of" id="score-denom">מתוך 14 תשובות</div>
+  <div class="score-out-of" id="score-denom">מתוך 15 תשובות</div>
   <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
   <div class="score-msg" id="score-msg"></div>
   <div id="wrong-list-container"></div>
@@ -277,28 +286,28 @@
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ג.</span>
-    <span class="expr">13<sup>1</sup> =</span>
+    <span class="expr">(−5)<sup>0</sup> =</span>
     <input class="ans-input narrow" id="q1c" type="text" placeholder="?">
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ד.</span>
-    <span class="expr">1<sup>99</sup> =</span>
+    <span class="expr">13<sup>1</sup> =</span>
     <input class="ans-input narrow" id="q1d" type="text" placeholder="?">
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ה.</span>
-    <span class="expr">(½)<sup>2</sup> =</span>
-    <input class="ans-input" id="q1e" type="text" placeholder="?">
+    <span class="expr">1<sup>99</sup> =</span>
+    <input class="ans-input narrow" id="q1e" type="text" placeholder="?">
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ו.</span>
-    <span class="expr">(⅓)<sup>2</sup> =</span>
-    <input class="ans-input" id="q1f" type="text" placeholder="?">
+    <span class="expr">0<sup>5</sup> =</span>
+    <input class="ans-input narrow" id="q1f" type="text" placeholder="?">
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ז.</span>
-    <span class="expr">(¼)<sup>2</sup> =</span>
-    <input class="ans-input" id="q1g" type="text" placeholder="?">
+    <span class="expr">0<sup>8</sup> =</span>
+    <input class="ans-input narrow" id="q1g" type="text" placeholder="?">
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ח.</span>
@@ -309,10 +318,10 @@
 
 <!-- ══ שאלה 2 ══ -->
 <div class="q-card">
-  <div class="q-title"><span class="q-num">2.</span> נכון / לא נכון — מה הקפתם?</div>
+  <div class="q-title"><span class="q-num">2.</span> נכון / לא נכון — מה קבעתם?</div>
 
   <div style="margin-bottom:12px;">
-    <div style="font-size:13px;font-weight:600;margin-bottom:6px;">א. &nbsp; 5<sup>0</sup> = 0</div>
+    <div style="font-size:13px;font-weight:600;margin-bottom:6px;">א. &nbsp; <span style="direction:ltr;unicode-bidi:isolate;">5<sup>0</sup> = 0</span></div>
     <div class="chips" id="q2a-chips">
       <div class="chip" data-val="נכון" onclick="selectChip(this,'q2a')">נכון</div>
       <div class="chip" data-val="לא נכון" onclick="selectChip(this,'q2a')">לא נכון</div>
@@ -321,7 +330,7 @@
   </div>
 
   <div style="margin-bottom:12px;">
-    <div style="font-size:13px;font-weight:600;margin-bottom:6px;">ב. &nbsp; a<sup>1</sup> = a לכל מספר a</div>
+    <div style="font-size:13px;font-weight:600;margin-bottom:6px;">ב. &nbsp; <span style="direction:ltr;unicode-bidi:isolate;">a<sup>1</sup> = a</span> לכל מספר a</div>
     <div class="chips" id="q2b-chips">
       <div class="chip" data-val="נכון" onclick="selectChip(this,'q2b')">נכון</div>
       <div class="chip" data-val="לא נכון" onclick="selectChip(this,'q2b')">לא נכון</div>
@@ -330,7 +339,7 @@
   </div>
 
   <div style="margin-bottom:12px;">
-    <div style="font-size:13px;font-weight:600;margin-bottom:6px;">ג. &nbsp; (¼)<sup>2</sup> &gt; ¼</div>
+    <div style="font-size:13px;font-weight:600;margin-bottom:6px;">ג. &nbsp; <span style="direction:ltr;unicode-bidi:isolate;">0<sup>7</sup> = 7</span></div>
     <div class="chips" id="q2c-chips">
       <div class="chip" data-val="נכון" onclick="selectChip(this,'q2c')">נכון</div>
       <div class="chip" data-val="לא נכון" onclick="selectChip(this,'q2c')">לא נכון</div>
@@ -339,7 +348,7 @@
   </div>
 
   <div style="margin-bottom:12px;">
-    <div style="font-size:13px;font-weight:600;margin-bottom:6px;">ד. &nbsp; (½)<sup>2</sup> = ¼</div>
+    <div style="font-size:13px;font-weight:600;margin-bottom:6px;">ד. &nbsp; <span style="direction:ltr;unicode-bidi:isolate;">1<sup>1000</sup> = 1</span></div>
     <div class="chips" id="q2d-chips">
       <div class="chip" data-val="נכון" onclick="selectChip(this,'q2d')">נכון</div>
       <div class="chip" data-val="לא נכון" onclick="selectChip(this,'q2d')">לא נכון</div>
@@ -357,12 +366,56 @@
   </div>
 
   <div style="margin-bottom:4px;">
-    <div style="font-size:13px;font-weight:600;margin-bottom:6px;">ו. &nbsp; 0<sup>7</sup> = 7</div>
+    <div style="font-size:13px;font-weight:600;margin-bottom:6px;">ו. &nbsp; <span style="direction:ltr;unicode-bidi:isolate;">0<sup>0</sup> = 0</span></div>
     <div class="chips" id="q2f-chips">
       <div class="chip" data-val="נכון" onclick="selectChip(this,'q2f')">נכון</div>
       <div class="chip" data-val="לא נכון" onclick="selectChip(this,'q2f')">לא נכון</div>
     </div>
     <input type="hidden" id="q2f" value="">
+  </div>
+</div>
+
+<!-- ══ שאלה 3 — פתוחה ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">3.</span> הסבירו מדוע <span style="direction:ltr;unicode-bidi:isolate;">a<sup>0</sup> = 1</span></div>
+  <div class="open-note">שאלה פתוחה — אין בדיקה אוטומטית. בדקו מול דף התשובות.</div>
+</div>
+
+<!-- ══ שאלה 4 ══ -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">4.</span> מצאו את x</div>
+
+  <div class="sub-row">
+    <span class="sub-lbl">א.</span>
+    <span style="font-size:13px;font-weight:600;direction:ltr;unicode-bidi:isolate;">x<sup>0</sup> = 1</span>
+    <span style="font-size:12px;color:#888;margin-right:6px;">(כל דוגמה)</span>
+  </div>
+  <div style="margin-bottom:10px;padding-right:26px;">
+    <div class="open-note" style="font-size:12px;">כל מספר שאינו אפס כשר — בדקו מול דף התשובות.</div>
+  </div>
+
+  <div class="sub-row">
+    <span class="sub-lbl">ב.</span>
+    <span style="font-size:13px;font-weight:600;direction:ltr;unicode-bidi:isolate;">1<sup>x</sup> = 1</span>
+    <span style="font-size:12px;color:#888;margin-right:6px;"></span>
+  </div>
+  <div style="margin-bottom:10px;padding-right:26px;">
+    <div class="open-note" style="font-size:12px;">כל מספר x כשר — בדקו מול דף התשובות.</div>
+  </div>
+
+  <div class="sub-row">
+    <span class="sub-lbl">ג.</span>
+    <span style="font-size:13px;font-weight:600;direction:ltr;unicode-bidi:isolate;">0<sup>x</sup> = 0</span>
+    <span style="font-size:12px;color:#888;margin-right:6px;">(כל דוגמה)</span>
+  </div>
+  <div style="margin-bottom:10px;padding-right:26px;">
+    <div class="open-note" style="font-size:12px;">כל מספר חיובי x כשר — בדקו מול דף התשובות.</div>
+  </div>
+
+  <div class="sub-row">
+    <span class="sub-lbl">ד.</span>
+    <span class="expr">x<sup>1</sup> = 17,&nbsp; x =</span>
+    <input class="ans-input narrow" id="q4d" type="text" placeholder="?">
   </div>
 </div>
 
@@ -385,10 +438,6 @@ function selectChip(el, fieldId) {
 function norm(s) {
   return s.trim()
     .replace(/\u2212/g, '-')
-    .replace(/½/g, '0.5')
-    .replace(/¼/g, '0.25')
-    .replace(/¾/g, '0.75')
-    .replace(/⅓/g, '0.3333')
     .replace(/\s+/g, '')
     .toLowerCase();
 }
@@ -405,20 +454,21 @@ function match(input, accepted) {
 }
 
 const LABELS = {
-  q1a: 'שאלה 1א', q1b: 'שאלה 1ב', q1c: 'שאלה 1ג', q1d: 'שאלה 1ד',
-  q1e: 'שאלה 1ה', q1f: 'שאלה 1ו', q1g: 'שאלה 1ז', q1h: 'שאלה 1ח',
-  q2a: 'שאלה 2א', q2b: 'שאלה 2ב', q2c: 'שאלה 2ג', q2d: 'שאלה 2ד',
-  q2e: 'שאלה 2ה', q2f: 'שאלה 2ו',
+  q1a:'שאלה 1א', q1b:'שאלה 1ב', q1c:'שאלה 1ג', q1d:'שאלה 1ד',
+  q1e:'שאלה 1ה', q1f:'שאלה 1ו', q1g:'שאלה 1ז', q1h:'שאלה 1ח',
+  q2a:'שאלה 2א', q2b:'שאלה 2ב', q2c:'שאלה 2ג', q2d:'שאלה 2ד',
+  q2e:'שאלה 2ה', q2f:'שאלה 2ו',
+  q4d:'שאלה 4ד',
 };
 
 const KEY = {
   q1a: ['1'],
   q1b: ['1'],
-  q1c: ['13'],
-  q1d: ['1'],
-  q1e: ['1/4', '0.25', '¼'],
-  q1f: ['1/9', '0.1111'],
-  q1g: ['1/16', '0.0625'],
+  q1c: ['1'],
+  q1d: ['13'],
+  q1e: ['1'],
+  q1f: ['0'],
+  q1g: ['0'],
   q1h: ['6'],
   q2a: ['לא נכון'],
   q2b: ['נכון'],
@@ -426,15 +476,16 @@ const KEY = {
   q2d: ['נכון'],
   q2e: ['נכון'],
   q2f: ['לא נכון'],
+  q4d: ['17'],
 };
 
-const TOTAL = 14;
+const TOTAL = 15;
 
 function checkAnswers() {
   let correct = 0;
   const wrong = [];
 
-  ['q1a','q1b','q1c','q1d','q1e','q1f','q1g','q1h'].forEach(id => {
+  ['q1a','q1b','q1c','q1d','q1e','q1f','q1g','q1h','q4d'].forEach(id => {
     const el = document.getElementById(id);
     if (match(el.value, KEY[id])) {
       correct++;
@@ -504,7 +555,7 @@ function showScore(correct, total, wrong) {
 }
 
 function resetForm() {
-  ['q1a','q1b','q1c','q1d','q1e','q1f','q1g','q1h'].forEach(id => {
+  ['q1a','q1b','q1c','q1d','q1e','q1f','q1g','q1h','q4d'].forEach(id => {
     const el = document.getElementById(id); el.value = ''; el.classList.remove('correct','wrong');
   });
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected','chip-correct','chip-wrong'));
