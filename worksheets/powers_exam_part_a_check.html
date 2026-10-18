@@ -216,7 +216,7 @@
 
 <div id="score-card">
   <div class="score-big" id="score-num">—</div>
-  <div class="score-out-of" id="score-denom">מתוך 28 תשובות</div>
+  <div class="score-out-of" id="score-denom">מתוך 18 תשובות</div>
   <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
   <div class="score-msg" id="score-msg"></div>
   <div id="wrong-list-container"></div>
@@ -225,7 +225,7 @@
 </div>
 
 <div class="intro-box">
-  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". תראו כמה נכון ואילו תרגילים יש לתקן. שאלה 6 נבדקת על ידי המורה.
+  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". תראו כמה נכון ואילו תרגילים יש לתקן. שאלה 5 נבדקת על ידי המורה.
 </div>
 
 <!-- ══ שאלה 1 — חישוב ══ -->
@@ -371,16 +371,13 @@ function match(input, accepted) {
   return false;
 }
 
-/* Q3: accept either power notation or numeric value */
 const LABELS = {
   q1a: 'שאלה 1א', q1b: 'שאלה 1ב', q1c: 'שאלה 1ג', q1d: 'שאלה 1ד',
-  q1e: 'שאלה 1ה', q1f: 'שאלה 1ו', q1g: 'שאלה 1ז', q1h: 'שאלה 1ח',
+  q1e: 'שאלה 1ה', q1f: 'שאלה 1ו',
   q2a: 'שאלה 2א', q2b: 'שאלה 2ב', q2c: 'שאלה 2ג', q2d: 'שאלה 2ד',
-  q2e: 'שאלה 2ה', q2f: 'שאלה 2ו',
   q3a: 'שאלה 3א', q3b: 'שאלה 3ב',
-  q4a: 'שאלה 4א', q4b: 'שאלה 4ב', q4c: 'שאלה 4ג', q4d: 'שאלה 4ד',
-  q5a: 'שאלה 5א', q5b: 'שאלה 5ב', q5c: 'שאלה 5ג', q5d: 'שאלה 5ד',
-  q5e: 'שאלה 5ה', q5f: 'שאלה 5ו', q5g: 'שאלה 5ז', q5h: 'שאלה 5ח',
+  q4a: 'שאלה 4א', q4b: 'שאלה 4ב', q4c: 'שאלה 4ג',
+  q4d: 'שאלה 4ד', q4e: 'שאלה 4ה', q4f: 'שאלה 4ו',
 };
 
 const TEXTKEYS = {
@@ -388,39 +385,29 @@ const TEXTKEYS = {
   q1b: ['27'],
   q1c: ['25'],
   q1d: ['1000'],
-  q1e: ['4'],
-  q1f: ['9'],
-  q1g: ['-8','−8'],
-  q1h: ['-1','−1'],
+  q1e: ['64'],
+  q1f: ['64'],
   q2a: ['5^5','5⁵','5**5'],
   q2b: ['7^2','7²','7**2'],
   q2c: ['a^3','a³','a**3'],
   q2d: ['10^4','10⁴','10**4'],
-  q2e: ['(-3)^3','(−3)^3','(-3)³','(−3)³','(-3)**3'],
-  q2f: ['(-5)^2','(−5)^2','(-5)²','(−5)²','(-5)**2'],
   q3a: ['5^2','5²','25'],
   q3b: ['6^3','6³','216'],
-  q4a: ['a^4','a⁴'],
-  q4b: ['3x^3','3x³'],
-  q4c: ['n^4','n⁴'],
-  q4d: ['6b^3','6b³'],
 };
 
 const CHIPKEYS = {
-  q5a: 'false',
-  q5b: 'true',
-  q5c: 'true',
-  q5d: 'true',
-  q5e: 'false',
-  q5f: 'false',
-  q5g: 'false',
-  q5h: 'true',
+  q4a: 'false',  // 2³ = 2·3 — לא נכון
+  q4b: 'true',   // 3² = 9 — נכון
+  q4c: 'true',   // 2⁵ = 32 — נכון
+  q4d: 'false',  // הבסיס של 7⁴ הוא 4 — לא נכון
+  q4e: 'false',  // 5³ = 15 — לא נכון
+  q4f: 'true',   // 10² = 100 — נכון
 };
 
 function checkAnswers() {
   let correct = 0;
   const wrong = [];
-  const total = 28; // 8+6+2+4+8
+  const total = 18; // 6+4+2+6
 
   Object.entries(TEXTKEYS).forEach(([id, accepted]) => {
     const el = document.getElementById(id);
@@ -452,7 +439,7 @@ function showScore(correct, total, wrong) {
   const pct = correct / total;
 
   document.getElementById('score-num').textContent = correct;
-  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות (שאלה 6 נבדקת על ידי המורה)';
+  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות (שאלה 5 נבדקת על ידי המורה)';
 
   const bar = document.getElementById('score-bar');
   bar.style.width = (pct * 100) + '%';
