@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תשובות — מבחן מאוחד רגיל: מספרים מכוונים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 80px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .pin-overlay { position: fixed; inset: 0; background: rgba(15,13,26,0.85); display: flex; align-items: center; justify-content: center; z-index: 999; }
+  .pin-box { background: #fff; border-radius: 16px; padding: 32px 36px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); max-width: 320px; width: 90%; }
+  .pin-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .pin-sub { font-size: 13px; color: #666; margin-bottom: 20px; }
+  .pin-input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 22px; text-align: center; letter-spacing: 8px; font-family: 'Rubik', sans-serif; margin-bottom: 14px; outline: none; }
+  .pin-input:focus { border-color: #10B981; }
+  .pin-btn { width: 100%; padding: 12px; background: #10B981; color: #fff; border: none; border-radius: 8px; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .pin-err { color: #DC2626; font-size: 13px; margin-top: 8px; display: none; }
+  #answers-content { display: none; }
+  .part-label { font-size: 13px; font-weight: 800; color: #fff; padding: 5px 16px; border-radius: 6px; display: inline-block; margin-bottom: 12px; }
+  .ans-card { background: #fff; border-radius: 8px; padding: 14px 16px; margin-bottom: 9px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); line-height: 1.9; border-right: 4px solid #3B82F6; }
+  .ans-card-b { border-right-color: #F59E0B; }
+  .qnum { font-weight: 700; font-size: 15px; margin-left: 6px; color: #3B82F6; }
+  .qnum-b { color: #D97706; }
+  .ans { color: #065F46; font-weight: 700; }
+  .ans-box { background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 6px; padding: 8px 13px; margin-top: 6px; font-size: 13px; line-height: 1.9; }
+  .sol-steps { direction: ltr; unicode-bidi: isolate; margin: 4px 0; font-size: 13.5px; }
+  .sol-ans { color: #065F46; font-weight: 700; font-size: 15px; }
+  .sol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; margin: 8px 0; }
+  .sol-item { border: 1px solid #e8edf5; border-radius: 7px; padding: 9px 12px; background: #FAFBFD; font-size: 13px; }
+  .sol-lbl { font-weight: 700; color: #888; font-size: 11.5px; margin-bottom: 3px; }
+  .mc-row { display: flex; gap: 10px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+  .mc-opt { border: 1.5px solid #e5e7eb; border-radius: 8px; padding: 6px 14px; font-size: 13px; direction: ltr; unicode-bidi: isolate; }
+  .mc-opt.correct { border-color: #10B981; background: #ECFDF5; color: #065F46; font-weight: 700; }
+  .mc-opt.wrong { color: #9CA3AF; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 14px; }
+  .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  @media print { .no-print { display: none; } @page { size: A4; margin: 12mm; } body { background: #fff; padding: 10px; } .ans-card { page-break-inside: avoid; } }
+</style>
+</head>
+<body>
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <div class="pin-title">🔒 תשובות — מורה בלבד</div>
+    <div class="pin-sub">הכניסו את קוד הגישה</div>
+    <input class="pin-input" type="password" id="pinInput" maxlength="4" placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()"/>
+    <button class="pin-btn" onclick="checkPin()">כניסה</button>
+    <div class="pin-err" id="pinErr">קוד שגוי, נסו שוב</div>
+  </div>
+</div>
+<script>
+function checkPin(){
+  if(document.getElementById('pinInput').value==='2357'){
+    document.getElementById('pinOverlay').style.display='none';
+    document.getElementById('answers-content').style.display='block';
+  } else { document.getElementById('pinErr').style.display='block'; document.getElementById('pinInput').value=''; }
+}
+</script>
+
+<div id="answers-content">
+<div class="page-wrap">
+<div class="header">
+  <div>
+    <div class="header-title">תשובות — מבחן מאוחד רגיל: מספרים מכוונים</div>
+    <div class="header-sub">כיתה ז׳ · רמה רגילה &nbsp;|&nbsp; מורה בלבד</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<span class="part-label" style="background:#3B82F6;">חלק א׳ — שאלות פתוחות</span>
+
+<div class="ans-card">
+  <span class="qnum">1.</span> זיהוי מספר גדול על ציר המספרים
+  <div class="ans-box">
+    המספר הגדול יותר נמצא <span class="ans">ימינה</span> על ציר המספרים.<br>
+    דוגמה: 3 > −2 כי 3 נמצא ימינה מ−2 על הציר.
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">2.</span> השוואת מרחקים על ציר המספרים
+  <div class="ans-box">
+    <div class="sol-steps">
+      מרחק בין +9 לנגדי שלו (−9): |9 − (−9)| = |18| = <span class="sol-ans">18</span><br>
+      מרחק בין +14 ל−4: |14 − (−4)| = |18| = <span class="sol-ans">18</span><br>
+    </div>
+    שני המרחקים <span class="ans">שווים</span> — שניהם 18 יחידות.
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">3.</span> ערך מוחלט
+  <div class="sol-steps" style="margin-top:6px;font-size:15px;">
+    |−9| = <span class="sol-ans">9</span>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">4.</span> מספרים שלמים שהערך המוחלט שלהם בין 6 ל-8
+  <div class="ans-box">
+    <div class="sol-steps">
+      |x| &gt; 6 וגם |x| &lt; 8 → |x| = 7<br>
+      x = <span class="sol-ans">7</span> &nbsp; או &nbsp; x = <span class="sol-ans">−7</span>
+    </div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">5.</span> הפרש גבהים — הר ואגם
+  <div class="ans-box">
+    <div class="sol-steps">
+      גובה הר: +1204 מ׳ &nbsp;|&nbsp; גובה האגם: −312 מ׳<br>
+      הפרש: 1204 − (−312) = 1204 + 312 = <span class="sol-ans">1516 מטר</span>
+    </div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">6.</span> חנות — כסף בקופה
+  <div class="ans-box">
+    <div class="sol-steps">
+      לפני 4 ימים: 3000 ש׳<br>
+      היום: 3000 − 4×250 = 3000 − 1000 = 2000 ש׳<br>
+      בעוד 6 ימים: 2000 − 6×250 = 2000 − 1500 = <span class="sol-ans">500 ש׳</span>
+    </div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">7.</span> סדר פעולות החשבון
+  <div class="ans-box">
+    1. <span class="ans">סוגריים</span> (מבפנים החוצה)<br>
+    2. <span class="ans">חזקות ושורשים</span><br>
+    3. <span class="ans">כפל וחילוק</span> (משמאל לימין)<br>
+    4. <span class="ans">חיבור וחיסור</span> (משמאל לימין)
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">8.</span> השלמת מספר: (□ + 3·4)·5 = 40
+  <div class="ans-box">
+    <div class="sol-steps">
+      (□ + 12) · 5 = 40<br>
+      □ + 12 = 40 ÷ 5 = 8<br>
+      □ = 8 − 12 = <span class="sol-ans">−4</span>
+    </div>
+    בדיקה: (−4 + 12) · 5 = 8 · 5 = 40 ✓
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">9.</span> בסיס ומעריך בחזקה 2⁵ = 32
+  <div style="margin-top:6px;font-size:13px;line-height:2;">
+    בסיס: <span class="ans">2</span> &nbsp;|&nbsp; מעריך: <span class="ans">5</span>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">10.</span> (−1)¹⁰ + (−1)⁷
+  <div class="ans-box">
+    <div class="sol-steps">
+      (−1)¹⁰ = <span class="ans">1</span> (מעריך זוגי → חיובי)<br>
+      (−1)⁷ = <span class="ans">−1</span> (מעריך אי-זוגי → שלילי)<br>
+      סה"כ: 1 + (−1) = <span class="sol-ans">0</span>
+    </div>
+  </div>
+</div>
+
+<span class="part-label" style="background:#F59E0B;margin-top:16px;display:inline-block;">חלק ב׳ — שאלות אמריקאיות</span>
+
+<div class="ans-card ans-card-b">
+  <span class="qnum qnum-b">11.</span> לאיזה תרגיל שקול (−2) − 7?
+  <div style="margin-top:8px;font-size:13px;color:#374151;">
+    (−2) − 7 = חיסור = חיבור של הנגדי: (−2) + (−7)
+  </div>
+  <div class="mc-row">
+    <span class="mc-opt wrong">א. 2 + 7</span>
+    <span class="mc-opt wrong">ב. 2 − 7</span>
+    <span class="mc-opt correct">ג. (−2) + (−7) ✓</span>
+    <span class="mc-opt wrong">ד. 2 − (−7)</span>
+  </div>
+  <div style="margin-top:6px;font-size:12px;color:#6B7280;">תשובה נכונה: <strong>ג</strong></div>
+</div>
+
+<div class="ans-card ans-card-b">
+  <span class="qnum qnum-b">12.</span> באיזה מהתרגילים התוצאה חיובית?
+  <div class="mc-row">
+    <span class="mc-opt wrong">א. 2 ÷ (−6) = שלילי</span>
+    <span class="mc-opt correct">ב. (−3)·(−2) = +6 ✓</span>
+    <span class="mc-opt wrong">ג. (−3)·2 = שלילי</span>
+    <span class="mc-opt wrong">ד. 3·(−2) = שלילי</span>
+  </div>
+  <div style="margin-top:6px;font-size:12px;color:#6B7280;">תשובה נכונה: <strong>ב</strong> — שלילי × שלילי = חיובי</div>
+</div>
+
+<div class="ans-card ans-card-b">
+  <span class="qnum qnum-b">13.</span> לאיזה תרגיל שקול 4 · 3 + 2?
+  <div style="margin-top:4px;font-size:13px;">
+    <span style="direction:ltr;unicode-bidi:isolate;display:inline-block;">4 · 3 + 2 = 12 + 2 = 14</span>
+  </div>
+  <div class="mc-row">
+    <span class="mc-opt wrong">א. 4 + 3·2 = 10</span>
+    <span class="mc-opt wrong">ב. 4·6 = 24</span>
+    <span class="mc-opt correct">ג. 12 + 2 = 14 ✓</span>
+    <span class="mc-opt wrong">ד. 4·5 = 20</span>
+  </div>
+  <div style="margin-top:6px;font-size:12px;color:#6B7280;">תשובה נכונה: <strong>ג</strong></div>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+</div>
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>

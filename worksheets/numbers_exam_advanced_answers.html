@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תשובות — מבחן מתקדם: מספרים מכוונים ומערכת צירים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 80px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .pin-overlay { position: fixed; inset: 0; background: rgba(15,13,26,0.85); display: flex; align-items: center; justify-content: center; z-index: 999; }
+  .pin-box { background: #fff; border-radius: 16px; padding: 32px 36px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); max-width: 320px; width: 90%; }
+  .pin-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .pin-sub { font-size: 13px; color: #666; margin-bottom: 20px; }
+  .pin-input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 22px; text-align: center; letter-spacing: 8px; font-family: 'Rubik', sans-serif; margin-bottom: 14px; outline: none; }
+  .pin-input:focus { border-color: #10B981; }
+  .pin-btn { width: 100%; padding: 12px; background: #10B981; color: #fff; border: none; border-radius: 8px; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .pin-err { color: #DC2626; font-size: 13px; margin-top: 8px; display: none; }
+  #answers-content { display: none; }
+  .part-label { font-size: 13px; font-weight: 800; color: #fff; padding: 5px 16px; border-radius: 6px; display: inline-block; margin-bottom: 12px; }
+  .ans-card { background: #fff; border-radius: 8px; padding: 14px 16px; margin-bottom: 9px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); line-height: 1.9; border-right: 4px solid #7C3AED; }
+  .ans-card-b { border-right-color: #F59E0B; }
+  .qnum { font-weight: 700; font-size: 15px; margin-left: 6px; color: #7C3AED; }
+  .qnum-b { color: #D97706; }
+  .ans { color: #065F46; font-weight: 700; }
+  .ans-box { background: #F5F3FF; border: 1px solid #DDD6FE; border-radius: 6px; padding: 8px 13px; margin-top: 6px; font-size: 13px; line-height: 1.9; }
+  .sol-steps { direction: ltr; unicode-bidi: isolate; margin: 4px 0; font-size: 13.5px; }
+  .sol-ans { color: #065F46; font-weight: 700; font-size: 15px; }
+  .mc-row { display: flex; gap: 10px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+  .mc-opt { border: 1.5px solid #e5e7eb; border-radius: 8px; padding: 6px 14px; font-size: 13px; direction: ltr; unicode-bidi: isolate; }
+  .mc-opt.correct { border-color: #10B981; background: #ECFDF5; color: #065F46; font-weight: 700; }
+  .mc-opt.wrong { color: #9CA3AF; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 14px; }
+  .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  @media print { .no-print { display: none; } @page { size: A4; margin: 12mm; } body { background: #fff; padding: 10px; } .ans-card { page-break-inside: avoid; } }
+</style>
+</head>
+<body>
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <div class="pin-title">🔒 תשובות — מורה בלבד</div>
+    <div class="pin-sub">הכניסו את קוד הגישה</div>
+    <input class="pin-input" type="password" id="pinInput" maxlength="4" placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()"/>
+    <button class="pin-btn" onclick="checkPin()">כניסה</button>
+    <div class="pin-err" id="pinErr">קוד שגוי, נסו שוב</div>
+  </div>
+</div>
+<script>
+function checkPin(){
+  if(document.getElementById('pinInput').value==='2357'){
+    document.getElementById('pinOverlay').style.display='none';
+    document.getElementById('answers-content').style.display='block';
+  } else { document.getElementById('pinErr').style.display='block'; document.getElementById('pinInput').value=''; }
+}
+</script>
+
+<div id="answers-content">
+<div class="page-wrap">
+<div class="header">
+  <div>
+    <div class="header-title">תשובות — מבחן מתקדם: מספרים מכוונים ומערכת צירים</div>
+    <div class="header-sub">כיתה ז׳ · רמה מתקדמת &nbsp;|&nbsp; מורה בלבד</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<span class="part-label" style="background:#7C3AED;">חלק א׳ — שאלות פתוחות</span>
+
+<div class="ans-card">
+  <span class="qnum">1.</span> חישוב — סדר פעולות מורכב
+  <div class="ans-box">
+    <div class="sol-steps">
+      2 · {−6 − [4 − (−3)·2] : (−2)} + (−5)<br>
+      = 2 · {−6 − [4 − (−6)] : (−2)} + (−5)<br>
+      = 2 · {−6 − [10] : (−2)} + (−5)<br>
+      = 2 · {−6 − (−5)} + (−5)<br>
+      = 2 · {−6 + 5} + (−5)<br>
+      = 2 · {−1} + (−5)<br>
+      = −2 + (−5)<br>
+      = <span class="sol-ans">−7</span>
+    </div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">2.</span> מציאת הריבוע: (□ − 6) ÷ (−2) + 3·(−4) = −8
+  <div class="ans-box">
+    <div class="sol-steps">
+      (□ − 6) ÷ (−2) + (−12) = −8<br>
+      (□ − 6) ÷ (−2) = −8 + 12 = 4<br>
+      □ − 6 = 4 · (−2) = −8<br>
+      □ = −8 + 6 = <span class="sol-ans">−2</span>
+    </div>
+    בדיקה: (−2 − 6) ÷ (−2) + 3·(−4) = (−8)÷(−2) − 12 = 4 − 12 = −8 ✓
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">3.</span> |a|=7, |b|=3, a+b&lt;0, a·b&lt;0 — מציאת a−b
+  <div class="ans-box">
+    <strong>נימוק:</strong><br>
+    • a·b &lt; 0 → אחד חיובי ואחד שלילי<br>
+    • a+b &lt; 0 → המספר השלילי גדול יותר בערכו המוחלט<br>
+    • |a|=7 &gt; |b|=3, לכן <span class="ans">a שלילי</span> (a = −7) ו<span class="ans">b חיובי</span> (b = 3)<br>
+    בדיקה: a+b = −7+3 = −4 &lt; 0 ✓ &nbsp;|&nbsp; a·b = −7·3 = −21 &lt; 0 ✓<br>
+    <div class="sol-steps" style="margin-top:6px;">
+      a − b = −7 − 3 = <span class="sol-ans">−10</span>
+    </div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">4.</span> a מספר שלילי — סדר: a, a/2, 2a, −a מקטן לגדול
+  <div class="ans-box">
+    דוגמה עם a = −4:<br>
+    2a = −8 &nbsp;|&nbsp; a = −4 &nbsp;|&nbsp; a/2 = −2 &nbsp;|&nbsp; −a = 4<br>
+    סדר מקטן לגדול: <span class="ans">2a &lt; a &lt; a/2 &lt; −a</span><br>
+    <span style="font-size:12px;color:#6B7280;">כלל: כפל מספר שלילי ב-2 מגדיל את הערך המוחלט → מקטין עוד יותר. חלוקה ב-2 מקרבת לאפס.</span>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">5.</span> מפלס בריכה — ירידה 12 ס"מ/שעה; 14:00 מראה −30 ס"מ
+  <div class="ans-box">
+    <div class="sol-steps">
+      מ-9:00 ל-14:00 = 5 שעות<br>
+      הבריכה <strong>ירדה</strong> 5×12 = 60 ס"מ בין 9:00 ל-14:00<br>
+      לכן ב-9:00 המד הראה: −30 + 60 = <span class="sol-ans">+30 ס"מ</span>
+    </div>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">6.</span> המספר הקטן ביותר שיש להוסיף ל-50 כדי לקבל ריבוע שלם
+  <div class="ans-box">
+    ריבועים שלמים סמוכים ל-50: 7²=49, 8²=64<br>
+    להוסיף +14 מקבלים 64 ✓ &nbsp;|&nbsp; להוסיף <strong>−1</strong> מקבלים 49 = 7² ✓<br>
+    <span class="ans">−1</span> קטן יותר מ+14.<br>
+    המספר הקטן ביותר להוסיף: <span class="ans">−1</span>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">7.</span> כמה מספרים טבעיים n מקיימים 3ⁿ &lt; 100?
+  <div class="ans-box">
+    <div class="sol-steps">
+      3¹ = 3 ✓ &nbsp;|&nbsp; 3² = 9 ✓ &nbsp;|&nbsp; 3³ = 27 ✓ &nbsp;|&nbsp; 3⁴ = 81 ✓ &nbsp;|&nbsp; 3⁵ = 243 ✗
+    </div>
+    <span class="ans">4 מספרים</span>: n = 1, 2, 3, 4
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">8.</span> ספרת האחדות של 7¹⁰
+  <div class="ans-box">
+    מחזוריות ספרות האחדות של חזקות 7:<br>
+    <span style="direction:ltr;unicode-bidi:isolate;display:inline-block;">
+      7¹→7, 7²→9, 7³→3, 7⁴→1, 7⁵→7... (מחזור של 4)
+    </span><br>
+    10 = 4×2 + 2 → ספרת האחדות של 7¹⁰ = ספרת האחדות של 7² = <span class="ans">9</span>
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">9.</span> שיקוף (−5, 3): ראשון ביחס לציר x, אחר כך ביחס לציר y
+  <div class="ans-box">
+    <div class="sol-steps">
+      (−5, 3) —[ציר x]→ (−5, −3) —[ציר y]→ <span class="sol-ans">(5, −3)</span>
+    </div>
+    שיקוף ביחס לציר x: הופכים את סימן y<br>
+    שיקוף ביחס לציר y: הופכים את סימן x
+  </div>
+</div>
+
+<div class="ans-card">
+  <span class="qnum">10.</span> O(0,0), A(0,6), B(8,0) — מציאת G על ציר x כך ש-שטח AOG = שטח AOB
+  <div class="ans-box">
+    <strong>שטח AOB:</strong><br>
+    <span style="direction:ltr;unicode-bidi:isolate;display:inline-block;">
+      בסיס OA = 6 (ציר y), גובה = מרחק B מציר y = 8<br>
+      שטח = ½ × 6 × 8 = 24
+    </span><br>
+    <strong>שטח AOG (G על ציר x, G=(g,0)):</strong><br>
+    <span style="direction:ltr;unicode-bidi:isolate;display:inline-block;">
+      גובה = מרחק A מציר x = 6, בסיס OG = |g|<br>
+      ½ × |g| × 6 = 24 → |g| = 8
+    </span><br>
+    G = (8, 0) = B (אסור) &nbsp; → &nbsp; G = <span class="ans">(−8, 0)</span>
+  </div>
+</div>
+
+<span class="part-label" style="background:#F59E0B;margin-top:16px;display:inline-block;">חלק ב׳ — שאלות אמריקאיות</span>
+
+<div class="ans-card ans-card-b">
+  <span class="qnum qnum-b">11.</span> P≈0.4, Q≈0.8, R≈1.0, S≈1.6 — איזה קטן מהריבוע של עצמו?
+  <div style="margin-top:6px;font-size:13px;line-height:1.8;">
+    x &lt; x² כאשר x &gt; 1 (לכן: 1.6 &lt; 1.6² = 2.56 ✓)<br>
+    כאשר 0 &lt; x &lt; 1: x² &lt; x (השלמות קטנות מעצמן בריבוע)
+  </div>
+  <div class="mc-row">
+    <span class="mc-opt correct">א. S ✓</span>
+    <span class="mc-opt wrong">ב. P</span>
+    <span class="mc-opt wrong">ג. R</span>
+    <span class="mc-opt wrong">ד. Q</span>
+  </div>
+  <div style="margin-top:6px;font-size:12px;color:#6B7280;">תשובה נכונה: <strong>א</strong></div>
+</div>
+
+<div class="ans-card ans-card-b">
+  <span class="qnum qnum-b">12.</span> c&lt;0&lt;b&lt;a, |a|&lt;|c|&lt;|b| — איזה ביטוי מקבל את הערך הגדול ביותר?
+  <div style="margin-top:6px;font-size:13px;line-height:1.8;">
+    דוגמה: a=1, c=−2, b=3 (מקיים: c&lt;0&lt;b&lt;a? לא... נסה: a=2, c=−3, b=4)<br>
+    בדיקה עם a=2, b=4, c=−3:<br>
+    <span style="direction:ltr;unicode-bidi:isolate;display:inline-block;">
+      א. b−a = 4−2 = 2 &nbsp;|&nbsp; ב. a+c = 2+(−3) = −1<br>
+      ג. a−b = 2−4 = −2 &nbsp;|&nbsp; ד. b+c = 4+(−3) = 1
+    </span>
+  </div>
+  <div class="mc-row">
+    <span class="mc-opt correct">א. b − a ✓</span>
+    <span class="mc-opt wrong">ב. a + c</span>
+    <span class="mc-opt wrong">ג. a − b</span>
+    <span class="mc-opt wrong">ד. b + c</span>
+  </div>
+  <div style="margin-top:6px;font-size:12px;color:#6B7280;">תשובה נכונה: <strong>א</strong></div>
+</div>
+
+<div class="ans-card ans-card-b">
+  <span class="qnum qnum-b">13.</span> 5 □ 7 □ 4 □ (−9) = −7 — איזה ביטוי מתאים?
+  <div style="margin-top:6px;font-size:13px;">
+    בדיקת <strong>ב</strong>: 5 − 7 + 4 + (−9) = 5 − 7 + 4 − 9 = −7 ✓
+  </div>
+  <div class="mc-row">
+    <span class="mc-opt wrong">א. 5+7+4−(−9) = 25</span>
+    <span class="mc-opt correct">ב. 5−7+4+(−9) = −7 ✓</span>
+    <span class="mc-opt wrong">ג. 5+7−4+(−9) = −1</span>
+    <span class="mc-opt wrong">ד. 5−7+4−(−9) = 11</span>
+  </div>
+  <div style="margin-top:6px;font-size:12px;color:#6B7280;">תשובה נכונה: <strong>ב</strong></div>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+</div>
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>

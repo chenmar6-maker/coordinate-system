@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תשובות — מבחן מסכם תחום המספרי</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 80px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .pin-overlay { position: fixed; inset: 0; background: rgba(15,13,26,0.85); display: flex; align-items: center; justify-content: center; z-index: 999; }
+  .pin-box { background: #fff; border-radius: 16px; padding: 32px 36px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); max-width: 320px; width: 90%; }
+  .pin-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .pin-sub { font-size: 13px; color: #666; margin-bottom: 20px; }
+  .pin-input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 22px; text-align: center; letter-spacing: 8px; font-family: 'Rubik', sans-serif; margin-bottom: 14px; outline: none; }
+  .pin-input:focus { border-color: #10B981; }
+  .pin-btn { width: 100%; padding: 12px; background: #10B981; color: #fff; border: none; border-radius: 8px; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .pin-err { color: #DC2626; font-size: 13px; margin-top: 8px; display: none; }
+  #answers-content { display: none; }
+
+  .part-header { margin: 20px 0 10px; display: flex; align-items: center; gap: 10px; }
+  .part-label { font-size: 13px; font-weight: 800; color: #fff; padding: 5px 16px; border-radius: 6px; display: inline-block; }
+  .part-pts { font-size: 12px; font-weight: 600; color: #6B7280; }
+
+  .ans-card { background: #fff; border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); line-height: 1.9; }
+  .ans-card-a { border-right: 4px solid #3B82F6; }
+  .ans-card-b { border-right: 4px solid #10B981; }
+  .ans-card-c { border-right: 4px solid #7C3AED; }
+  .ans-card-star { border-right: 4px solid #F59E0B; background: #FFFBEB; }
+
+  .qnum { font-weight: 700; font-size: 15px; margin-left: 6px; }
+  .qtitle { font-weight: 700; color: #374151; }
+  .ans { color: #065F46; font-weight: 700; }
+  .ans-red { color: #DC2626; font-weight: 700; }
+
+  .sol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; margin: 10px 0; }
+  .sol-item { border: 1px solid #e8edf5; border-radius: 7px; padding: 9px 12px; background: #FAFBFD; font-size: 13px; }
+  .sol-lbl { font-weight: 700; color: #888; font-size: 11.5px; margin-bottom: 4px; }
+  .sol-steps { direction: ltr; unicode-bidi: isolate; line-height: 1.9; }
+  .sol-ans { color: #065F46; font-weight: 700; }
+  .sol-ans-red { color: #DC2626; font-weight: 700; }
+
+  .think-box { margin-top: 8px; background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 6px; padding: 10px 14px; font-size: 13px; line-height: 1.9; }
+  .think-box-blue { margin-top: 8px; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 6px; padding: 10px 14px; font-size: 13px; line-height: 1.9; }
+  .think-box-purple { margin-top: 8px; background: #F5F3FF; border: 1px solid #DDD6FE; border-radius: 6px; padding: 10px 14px; font-size: 13px; line-height: 1.9; }
+  .think-box-yellow { margin-top: 8px; background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 6px; padding: 10px 14px; font-size: 13px; line-height: 1.9; }
+
+  .step-row { direction: ltr; unicode-bidi: isolate; font-size: 14px; margin: 4px 0; }
+  .step-eq { color: #374151; }
+  .step-final { color: #065F46; font-weight: 700; font-size: 15px; }
+
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 12px; }
+  .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  @media print { .no-print { display: none; } @page { size: A4; margin: 12mm; } body { background: #fff; padding: 10px; } .ans-card { page-break-inside: avoid; } }
+</style>
+</head>
+<body>
+
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <div class="pin-title">🔒 תשובות — מורה בלבד</div>
+    <div class="pin-sub">הכניסו את קוד הגישה</div>
+    <input class="pin-input" type="password" id="pinInput" maxlength="4" placeholder="••••" onkeydown="if(event.key==='Enter')checkPin()"/>
+    <button class="pin-btn" onclick="checkPin()">כניסה</button>
+    <div class="pin-err" id="pinErr">קוד שגוי, נסו שוב</div>
+  </div>
+</div>
+<script>
+function checkPin(){
+  if(document.getElementById('pinInput').value==='2357'){
+    document.getElementById('pinOverlay').style.display='none';
+    document.getElementById('answers-content').style.display='block';
+  } else { document.getElementById('pinErr').style.display='block'; document.getElementById('pinInput').value=''; }
+}
+</script>
+
+<div id="answers-content">
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">תשובות — מבחן מסכם תחום המספרי</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; מורה בלבד</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- ═══════ חלק א׳ — מספרים מכוונים ═══════ -->
+<div class="part-header">
+  <span class="part-label" style="background:#3B82F6;">חלק א׳ — מספרים מכוונים</span>
+  <span class="part-pts">35 נקודות</span>
+</div>
+
+<!-- שאלה 1 -->
+<div class="ans-card ans-card-a">
+  <span class="qnum">1.</span><span class="qtitle"> חישובים (3 נק׳ לכל סעיף)</span>
+  <div class="sol-grid">
+    <div class="sol-item">
+      <div class="sol-lbl">א. (−3)×(−4) − (−18)÷6</div>
+      <div class="sol-steps">
+        = 12 − (−3)<br>
+        = 12 + 3<br>
+        = <span class="sol-ans">15</span>
+      </div>
+    </div>
+    <div class="sol-item">
+      <div class="sol-lbl">ב. |2−9| − |−4+1|</div>
+      <div class="sol-steps">
+        = |−7| − |−3|<br>
+        = 7 − 3<br>
+        = <span class="sol-ans">4</span>
+      </div>
+    </div>
+    <div class="sol-item">
+      <div class="sol-lbl">ג. (−5+3) × (−2)²</div>
+      <div class="sol-steps">
+        = (−2) × 4<br>
+        = <span class="sol-ans">−8</span>
+      </div>
+    </div>
+    <div class="sol-item">
+      <div class="sol-lbl">ד. 3 − 2×(−3) + (−1)</div>
+      <div class="sol-steps">
+        = 3 + 6 − 1<br>
+        = <span class="sol-ans">8</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 2 -->
+<div class="ans-card ans-card-a">
+  <span class="qnum">2.</span><span class="qtitle"> טמפרטורות בחרמון</span>
+  <div class="think-box-blue" style="margin-top:10px;">
+    <strong>נתיב הטמפרטורות:</strong><br>
+    בוקר: −11°C → +8 → <strong>−3°C</strong> (צהריים) → −3 → <strong>−6°C</strong> (אח"צ) → −12 → <strong>−18°C</strong> (לילה)
+  </div>
+  <div style="margin-top:10px;font-size:13px;line-height:2;">
+    <strong>א. (3 נק׳)</strong> ביטוי מספרי: <span class="ans" style="direction:ltr;unicode-bidi:isolate;display:inline-block;">−11 + 8 − 3 − 12 = <strong>−18°C</strong></span><br>
+    <strong>ב. (5 נק׳)</strong> הגבוהה ביותר: <span class="ans">−3°C</span> (בצהריים) &nbsp;|&nbsp; הנמוכה ביותר: <span class="ans">−18°C</span> (בלילה)<br>
+    הפרש: −3 − (−18) = −3 + 18 = <span class="ans">15°C</span>
+  </div>
+</div>
+
+<!-- שאלה 3 -->
+<div class="ans-card ans-card-a">
+  <span class="qnum">3.</span><span class="qtitle"> סדר פעולות וערך מוחלט</span>
+  <div style="margin-top:10px;">
+    <strong>א. (7 נק׳)</strong>
+    <div class="think-box" style="direction:ltr;unicode-bidi:isolate;margin-top:6px;">
+      [(−2)³ + 4×3] ÷ (−2) + (−3)²<br>
+      = [−8 + 12] ÷ (−2) + 9<br>
+      = 4 ÷ (−2) + 9<br>
+      = −2 + 9<br>
+      = <span class="sol-ans">7</span>
+    </div>
+  </div>
+  <div style="margin-top:12px;">
+    <strong>ב. (8 נק׳)</strong> &nbsp; |x| = x + 6 — כל מספרי השלמים המקיימים:
+    <div class="think-box" style="margin-top:6px;">
+      <strong>מקרה 1 — x ≥ 0:</strong><br>
+      x = x + 6 &nbsp;→&nbsp; 0 = 6 &nbsp;→&nbsp; <span class="sol-ans-red">אין פתרון</span><br><br>
+      <strong>מקרה 2 — x &lt; 0:</strong><br>
+      −x = x + 6 &nbsp;→&nbsp; −2x = 6 &nbsp;→&nbsp; x = −3<br>
+      בדיקה: |−3| = 3, ו−3+6 = 3 ✓<br><br>
+      <strong>פתרון יחיד: </strong><span class="sol-ans">x = −3</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ חלק ב׳ — מערכת הצירים ═══════ -->
+<div class="part-header">
+  <span class="part-label" style="background:#10B981;">חלק ב׳ — מערכת הצירים</span>
+  <span class="part-pts">25 נקודות</span>
+</div>
+
+<!-- שאלה 4 -->
+<div class="ans-card ans-card-b">
+  <span class="qnum">4.</span><span class="qtitle"> מלבן במערכת הצירים — A(−4,3), B(2,3), C(2,−2)</span>
+  <div style="margin-top:10px;font-size:13px;line-height:2.1;">
+    <strong>א. (3 נק׳)</strong> סרטוט — ראו ציר הצירים.<br>
+    <strong>ב. (6 נק׳)</strong> קואורדינטות D:<br>
+    <div class="think-box" style="margin-top:4px;margin-bottom:8px;">
+      ABCD מלבן: A ו-B חולקות y=3, לכן AB אופקי.<br>
+      B ו-C חולקות x=2, לכן BC אנכי.<br>
+      D חייבת לחלוק x עם A (x=−4) ו-y עם C (y=−2).<br>
+      <strong>D = <span class="ans">(−4, −2)</span></strong>
+    </div>
+    <strong>ג. (4 נק׳)</strong> אורכי צלעות:<br>
+    <span style="direction:ltr;unicode-bidi:isolate;display:inline-block;">
+      AB: |−4 − 2| = <span class="ans">6 יחידות</span><br>
+      BC: |3 − (−2)| = <span class="ans">5 יחידות</span>
+    </span><br>
+    <strong>ד. (6 נק׳)</strong> היקף ושטח:<br>
+    <span style="direction:ltr;unicode-bidi:isolate;display:inline-block;">
+      היקף: 2×(6+5) = 2×11 = <span class="ans">22 יחידות</span><br>
+      שטח: 6×5 = <span class="ans">30 יחידות²</span>
+    </span><br>
+    <strong>ה. (6 נק׳) ⭐</strong> נקודת חיתוך אלכסונות = נקודת אמצע האלכסון AC:<br>
+    <div class="think-box" style="margin-top:4px;">
+      <span style="direction:ltr;unicode-bidi:isolate;display:inline-block;">
+        x: (−4 + 2) ÷ 2 = −2 ÷ 2 = −1<br>
+        y: (3 + (−2)) ÷ 2 = 1 ÷ 2 = 0.5<br>
+      </span>
+      נקודת חיתוך: <span class="ans">(−1, ½)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ חלק ג׳ — חזקות ושורשים ═══════ -->
+<div class="part-header">
+  <span class="part-label" style="background:#7C3AED;">חלק ג׳ — חזקות ושורשים</span>
+  <span class="part-pts">40 נקודות</span>
+</div>
+
+<!-- שאלה 5 -->
+<div class="ans-card ans-card-c">
+  <span class="qnum">5.</span><span class="qtitle"> חישובים (3 נק׳ לכל סעיף)</span>
+  <div class="sol-grid">
+    <div class="sol-item">
+      <div class="sol-lbl">א. 3³ − √81 + (−1)¹⁰</div>
+      <div class="sol-steps">
+        = 27 − 9 + 1<br>
+        = <span class="sol-ans">19</span>
+      </div>
+    </div>
+    <div class="sol-item">
+      <div class="sol-lbl">ב. 2⁴ + (−3)² − √25 × 2</div>
+      <div class="sol-steps">
+        = 16 + 9 − 5×2<br>
+        = 25 − 10<br>
+        = <span class="sol-ans">15</span>
+      </div>
+    </div>
+    <div class="sol-item">
+      <div class="sol-lbl">ג. √(4² + 3²)</div>
+      <div class="sol-steps">
+        = √(16 + 9)<br>
+        = √25<br>
+        = <span class="sol-ans">5</span>
+      </div>
+    </div>
+    <div class="sol-item">
+      <div class="sol-lbl">ד. (−2)⁵ ÷ (−2)² + 5⁰</div>
+      <div class="sol-steps">
+        = −32 ÷ 4 + 1<br>
+        = −8 + 1<br>
+        = <span class="sol-ans">−7</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 6 -->
+<div class="ans-card ans-card-c">
+  <span class="qnum">6.</span><span class="qtitle"> חברת הזנק — רווח מוכפל פי 3 בכל שנה</span>
+  <div style="margin-top:10px;font-size:13px;line-height:2.1;">
+    <strong>א. (3 נק׳)</strong> נוסחה לרווח בשנה n:
+    <div class="think-box-purple" style="margin-top:4px;margin-bottom:8px;">
+      שנה 1: 3¹, שנה 2: 3², שנה 3: 3³ ...<br>
+      <strong>P(n) = <span class="ans">3ⁿ</span> מיליון ₪</strong>
+    </div>
+    <strong>ב. (3 נק׳)</strong> רווח בשנה הרביעית:<br>
+    <span style="direction:ltr;unicode-bidi:isolate;display:inline-block;">
+      P(4) = 3⁴ = <span class="ans">81 מיליון ₪</span>
+    </span><br>
+    <strong>ג. (4 נק׳)</strong> האם בשנה 6 הרווח עולה על מיליארד?
+    <div class="think-box-purple" style="margin-top:4px;">
+      <span style="direction:ltr;unicode-bidi:isolate;display:inline-block;">
+        P(6) = 3⁶ = 729 מיליון ₪ = 729,000,000 ₪<br>
+        1 מיליארד = 1,000,000,000 ₪<br>
+        729,000,000 &lt; 1,000,000,000
+      </span><br>
+      נעמי <span class="ans-red">טועה</span> — הרווח בשנה 6 הוא 729 מיליון, פחות ממיליארד.<br>
+      רק בשנה 7: 3⁷ = 2,187 מיליון &gt; מיליארד.
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 7 — אתגר -->
+<div class="ans-card ans-card-star">
+  <span class="qnum">7.</span><span class="qtitle" style="color:#D97706;"> ⭐ שאלת אתגר — 1 &lt; √x &lt; 4</span>
+  <div style="margin-top:10px;font-size:13px;line-height:2.1;">
+    <div class="think-box-yellow" style="margin-top:6px;margin-bottom:10px;">
+      <strong>רעיון:</strong> אם 1 &lt; √x &lt; 4 אז נריבע את כל האגפים (כולם חיוביים):<br>
+      <span style="direction:ltr;unicode-bidi:isolate;display:inline-block;">1² &lt; x &lt; 4² &nbsp;→&nbsp; <strong>1 &lt; x &lt; 16</strong></span>
+    </div>
+    <strong>א. (6 נק׳)</strong><br>
+    ערך מינימלי של x (שלם): <span class="ans">2</span> (המספר השלם הראשון גדול מ-1)<br>
+    ערך מקסימלי של x (שלם): <span class="ans">15</span> (המספר השלם האחרון קטן מ-16)<br><br>
+    <strong>ב. (6 נק׳)</strong> כל הערכים השלמים:<br>
+    <div style="direction:ltr;unicode-bidi:isolate;background:#FFFBEB;border:1px solid #FDE68A;border-radius:6px;padding:8px 12px;margin:6px 0;font-size:13px;">
+      2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15<br>
+      <span class="ans">סך הכל: 14 ערכים</span>
+    </div>
+    <strong>ג. (6 נק׳)</strong><br>
+    x = 0: √0 = 0. האם 1 &lt; 0? <span class="ans-red">לא</span> — לא מקיים.<br>
+    x = 16: √16 = 4. האם 4 &lt; 4? <span class="ans-red">לא</span> (אי-שוויון חד) — לא מקיים.
+  </div>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+</div><!-- end page-wrap -->
+</div><!-- end answers-content -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="window.open('final_exam_numbers.html')" style="position:fixed;bottom:18px;right:18px;background:#065F46;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">חזרה למבחן</button>
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
