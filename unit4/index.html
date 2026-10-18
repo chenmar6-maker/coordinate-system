@@ -321,6 +321,21 @@ const gameLevels3 = [
     options:['(½)¹ גדול יותר','(½)² גדול יותר','הם שווים'],
     correct:'(½)¹ גדול יותר',
     explain:'(½)¹ = ½ = 0.5 ו-(½)² = ¼ = 0.25. כשמעלים שבר הקטן מ-1 בחזקה — הוא מתקטן!' },
+  { id:'mc', title:'שבר מעורב בריבוע',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(1½)²</bdi>?',
+    options:['1¼','2¼','9/4','4/9'],
+    correct:'2¼',
+    explain:'קודם הופכים לשבר: 1½ = 3/2. אחר כך: (3/2)² = 9/4 = 2¼.' },
+  { id:'mc', title:'בסיס שלילי — מעריך זוגי',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(−½)²</bdi>?',
+    options:['−¼','¼','−½','½'],
+    correct:'¼',
+    explain:'(−½)² = (−½)·(−½) = ¼. מעריך זוגי → תוצאה חיובית!' },
+  { id:'mc', title:'בסיס שלילי — מעריך אי-זוגי',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(−½)³</bdi>?',
+    options:['⅛','−⅛','−½','½'],
+    correct:'−⅛',
+    explain:'(−½)³ = (−½)·(−½)·(−½) = −⅛. מעריך אי-זוגי → תוצאה שלילית!' },
 ];
 
 const gameLevels4 = [
@@ -683,14 +698,33 @@ function renderLearn3(){
         <div style="font-size:13.5px;margin-top:10px;direction:rtl;">דוגמה: <bdi style="direction:ltr;unicode-bidi:isolate;">(⅔)² = 2²/3² = 4/9</bdi></div>
       </div>
 
+      <div style="background:rgba(239,169,74,0.08);border:1.5px solid rgba(239,169,74,0.35);border-radius:10px;padding:14px 16px;margin:14px 0;">
+        <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:8px;">שברים מעורבים בחזקה</div>
+        <div style="font-size:13.5px;direction:rtl;margin-bottom:10px;">שלב 1: הופכים לשבר רגיל &nbsp;·&nbsp; שלב 2: מעלים מונה ומכנה בנפרד</div>
+        <div class="examples-row" style="margin:0;">
+          <div class="example-box" style="font-size:15px;">1½ = 3/2<br>(1½)² = (3/2)² = 9/4<br><span style="font-size:12px;font-weight:400;direction:rtl;unicode-bidi:isolate;">= 2¼</span></div>
+          <div class="example-box" style="font-size:15px;">2⅓ = 7/3<br>(2⅓)² = (7/3)² = 49/9<br><span style="font-size:12px;font-weight:400;direction:rtl;unicode-bidi:isolate;">= 5 4/9</span></div>
+        </div>
+      </div>
+
+      <div style="background:rgba(226,96,79,0.1);border:1.5px solid rgba(226,96,79,0.4);border-radius:10px;padding:14px 16px;margin:14px 0;">
+        <div style="font-size:14px;font-weight:700;color:var(--coral);margin-bottom:8px;">בסיס שלילי עם שברים</div>
+        <div style="font-size:13.5px;direction:rtl;margin-bottom:10px;">אותם חוקים של בסיס שלילי — מעריך זוגי חיובי, מעריך אי-זוגי שלילי</div>
+        <div class="examples-row" style="margin:0;">
+          <div class="example-box">(−½)² = ¼<br><span style="font-size:12px;font-weight:400;direction:rtl;unicode-bidi:isolate;">זוגי → חיובי</span></div>
+          <div class="example-box">(−½)³ = −⅛<br><span style="font-size:12px;font-weight:400;direction:rtl;unicode-bidi:isolate;">אי-זוגי → שלילי</span></div>
+        </div>
+      </div>
+
       <ul class="bullets">
         <li>כל מספר בחזקת 1 שווה לעצמו: <bdi style="direction:ltr;unicode-bidi:isolate;">99¹ = 99, (½)¹ = ½</bdi></li>
         <li>1 בכל חזקה שהיא שווה 1: <bdi style="direction:ltr;unicode-bidi:isolate;">1¹⁰⁰⁰ = 1</bdi></li>
         <li>שבר בחזקה — מעלים מונה ומכנה בנפרד: <bdi style="direction:ltr;unicode-bidi:isolate;">(¾)² = 9/16</bdi></li>
-        <li>שבר בין 0 ל-1 בחזקה גדולה מ-1 — <strong>מתקטן!</strong> <bdi style="direction:ltr;unicode-bidi:isolate;">(½)² = ¼ &lt; ½</bdi></li>
+        <li>שבר מעורב — קודם הופכים לשבר רגיל: <bdi style="direction:ltr;unicode-bidi:isolate;">1½ → 3/2, אז (1½)² = 9/4</bdi></li>
+        <li>שבר עם בסיס שלילי — מעריך זוגי חיובי, מעריך אי-זוגי שלילי: <bdi style="direction:ltr;unicode-bidi:isolate;">(−½)² = ¼, (−½)³ = −⅛</bdi></li>
       </ul>
 
-      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">(½)² ≠ ½</bdi>. צריך להכפיל: <bdi style="direction:ltr;unicode-bidi:isolate;">½ · ½ = ¼</bdi>!</div>
+      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">(½)² ≠ ½</bdi>. צריך להכפיל: <bdi style="direction:ltr;unicode-bidi:isolate;">½ · ½ = ¼</bdi>! &nbsp;·&nbsp; שבר מעורב — תמיד הופכים קודם!</div>
 
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>

@@ -258,7 +258,7 @@
 
 <div id="score-card">
   <div class="score-big" id="score-num">—</div>
-  <div class="score-out-of" id="score-denom">מתוך 14 תשובות</div>
+  <div class="score-out-of" id="score-denom">מתוך 20 תשובות</div>
   <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
   <div class="score-msg" id="score-msg"></div>
   <div id="wrong-list-container"></div>
@@ -314,6 +314,26 @@
     <span class="expr">(⅔)<sup>2</sup> =</span>
     <input class="ans-input" id="q1h" type="text" placeholder="?">
   </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ט.</span>
+    <span class="expr">(1½)<sup>2</sup> =</span>
+    <input class="ans-input wide" id="q1i" type="text" placeholder="?">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">י.</span>
+    <span class="expr">(2½)<sup>2</sup> =</span>
+    <input class="ans-input wide" id="q1j" type="text" placeholder="?">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">יא.</span>
+    <span class="expr">(−½)<sup>2</sup> =</span>
+    <input class="ans-input" id="q1k" type="text" placeholder="?">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">יב.</span>
+    <span class="expr">(−½)<sup>3</sup> =</span>
+    <input class="ans-input" id="q1l" type="text" placeholder="?">
+  </div>
 </div>
 
 <!-- ══ שאלה 2 ══ -->
@@ -365,13 +385,31 @@
     <input type="hidden" id="q2e" value="">
   </div>
 
-  <div style="margin-bottom:4px;">
+  <div style="margin-bottom:12px;">
     <div style="font-size:13px;font-weight:600;margin-bottom:6px;">ו. &nbsp; <span style="direction:ltr;unicode-bidi:isolate;">(⅔)<sup>2</sup> = 4/9</span></div>
     <div class="chips" id="q2f-chips">
       <div class="chip" data-val="נכון" onclick="selectChip(this,'q2f')">נכון</div>
       <div class="chip" data-val="לא נכון" onclick="selectChip(this,'q2f')">לא נכון</div>
     </div>
     <input type="hidden" id="q2f" value="">
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:600;margin-bottom:6px;">ז. &nbsp; <span style="direction:ltr;unicode-bidi:isolate;">(−½)<sup>2</sup> = ¼</span></div>
+    <div class="chips" id="q2g-chips">
+      <div class="chip" data-val="נכון" onclick="selectChip(this,'q2g')">נכון</div>
+      <div class="chip" data-val="לא נכון" onclick="selectChip(this,'q2g')">לא נכון</div>
+    </div>
+    <input type="hidden" id="q2g" value="">
+  </div>
+
+  <div style="margin-bottom:4px;">
+    <div style="font-size:13px;font-weight:600;margin-bottom:6px;">ח. &nbsp; <span style="direction:ltr;unicode-bidi:isolate;">(1½)<sup>2</sup> = 1¼</span></div>
+    <div class="chips" id="q2h-chips">
+      <div class="chip" data-val="נכון" onclick="selectChip(this,'q2h')">נכון</div>
+      <div class="chip" data-val="לא נכון" onclick="selectChip(this,'q2h')">לא נכון</div>
+    </div>
+    <input type="hidden" id="q2h" value="">
   </div>
 </div>
 
@@ -398,15 +436,36 @@ function selectChip(el, fieldId) {
 }
 
 function norm(s) {
-  return s.trim()
+  let t = s.trim()
     .replace(/\u2212/g, '-')
-    .replace(/½/g, '0.5')
-    .replace(/¼/g, '0.25')
-    .replace(/¾/g, '0.75')
-    .replace(/⅓/g, '0.3333')
-    .replace(/⅔/g, '0.6667')
-    .replace(/\s+/g, '')
-    .toLowerCase();
+    .replace(/\s+/g, '');
+
+  // Mixed numbers: digit immediately followed by fraction char → convert to decimal
+  t = t.replace(/(\d)(½)/g,  (_, d) => String(parseInt(d) + 0.5));
+  t = t.replace(/(\d)(¼)/g,  (_, d) => String(parseInt(d) + 0.25));
+  t = t.replace(/(\d)(¾)/g,  (_, d) => String(parseInt(d) + 0.75));
+  t = t.replace(/(\d)(⅓)/g,  (_, d) => String(parseInt(d) + 1/3));
+  t = t.replace(/(\d)(⅔)/g,  (_, d) => String(parseInt(d) + 2/3));
+  t = t.replace(/(\d)(⅛)/g,  (_, d) => String(parseInt(d) + 0.125));
+
+  // Standalone fraction chars
+  t = t.replace(/½/g, '0.5')
+       .replace(/¼/g, '0.25')
+       .replace(/¾/g, '0.75')
+       .replace(/⅓/g, '0.33333')
+       .replace(/⅔/g, '0.66667')
+       .replace(/⅛/g, '0.125');
+
+  t = t.toLowerCase();
+
+  // Convert fraction string a/b to decimal
+  const frac = t.match(/^(-?)(\d+)\/(\d+)$/);
+  if (frac) {
+    const val = parseInt(frac[2]) / parseInt(frac[3]);
+    t = String(frac[1] ? -val : val);
+  }
+
+  return t;
 }
 
 function match(input, accepted) {
@@ -415,7 +474,7 @@ function match(input, accepted) {
   for (const a of accepted) {
     if (n === norm(a)) return true;
     const nv = parseFloat(n), av = parseFloat(norm(a));
-    if (!isNaN(nv) && !isNaN(av) && Math.abs(nv - av) < 0.0001) return true;
+    if (!isNaN(nv) && !isNaN(av) && Math.abs(nv - av) < 0.001) return true;
   }
   return false;
 }
@@ -423,34 +482,44 @@ function match(input, accepted) {
 const LABELS = {
   q1a:'שאלה 1א', q1b:'שאלה 1ב', q1c:'שאלה 1ג', q1d:'שאלה 1ד',
   q1e:'שאלה 1ה', q1f:'שאלה 1ו', q1g:'שאלה 1ז', q1h:'שאלה 1ח',
+  q1i:'שאלה 1ט', q1j:'שאלה 1י', q1k:'שאלה 1יא', q1l:'שאלה 1יב',
   q2a:'שאלה 2א', q2b:'שאלה 2ב', q2c:'שאלה 2ג', q2d:'שאלה 2ד',
-  q2e:'שאלה 2ה', q2f:'שאלה 2ו',
+  q2e:'שאלה 2ה', q2f:'שאלה 2ו', q2g:'שאלה 2ז', q2h:'שאלה 2ח',
 };
 
 const KEY = {
   q1a: ['5'],
   q1b: ['1'],
   q1c: ['1/4','0.25','¼'],
-  q1d: ['13'],
+  q1d: ['1/9','0.1111'],
   q1e: ['1/16','0.0625'],
   q1f: ['1/2','0.5','½'],
   q1g: ['1'],
   q1h: ['4/9'],
-  q2a: ['נכון'],
-  q2b: ['לא נכון'],
-  q2c: ['לא נכון'],
-  q2d: ['לא נכון'],
-  q2e: ['נכון'],
-  q2f: ['נכון'],
+  q1i: ['9/4','2.25','2¼'],
+  q1j: ['25/4','6.25','6¼'],
+  q1k: ['1/4','0.25','¼'],
+  q1l: ['-1/8','-0.125','-⅛','−⅛'],
 };
 
-const TOTAL = 14;
+const CHIPKEYS = {
+  q2a: 'נכון',
+  q2b: 'לא נכון',
+  q2c: 'לא נכון',
+  q2d: 'לא נכון',
+  q2e: 'נכון',
+  q2f: 'נכון',
+  q2g: 'נכון',
+  q2h: 'לא נכון',
+};
+
+const TOTAL = 20;
 
 function checkAnswers() {
   let correct = 0;
   const wrong = [];
 
-  ['q1a','q1b','q1c','q1d','q1e','q1f','q1g','q1h'].forEach(id => {
+  ['q1a','q1b','q1c','q1d','q1e','q1f','q1g','q1h','q1i','q1j','q1k','q1l'].forEach(id => {
     const el = document.getElementById(id);
     if (match(el.value, KEY[id])) {
       correct++;
@@ -461,9 +530,9 @@ function checkAnswers() {
     }
   });
 
-  ['q2a','q2b','q2c','q2d','q2e','q2f'].forEach(id => {
+  ['q2a','q2b','q2c','q2d','q2e','q2f','q2g','q2h'].forEach(id => {
     const container = document.getElementById(id + '-chips');
-    const ok = document.getElementById(id).value === KEY[id][0];
+    const ok = document.getElementById(id).value === CHIPKEYS[id];
     if (ok) {
       correct++;
       if (container) container.querySelectorAll('.chip.selected').forEach(c => { c.classList.add('chip-correct'); c.classList.remove('chip-wrong'); });
@@ -520,11 +589,11 @@ function showScore(correct, total, wrong) {
 }
 
 function resetForm() {
-  ['q1a','q1b','q1c','q1d','q1e','q1f','q1g','q1h'].forEach(id => {
+  ['q1a','q1b','q1c','q1d','q1e','q1f','q1g','q1h','q1i','q1j','q1k','q1l'].forEach(id => {
     const el = document.getElementById(id); el.value = ''; el.classList.remove('correct','wrong');
   });
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected','chip-correct','chip-wrong'));
-  ['q2a','q2b','q2c','q2d','q2e','q2f'].forEach(id => {
+  ['q2a','q2b','q2c','q2d','q2e','q2f','q2g','q2h'].forEach(id => {
     document.getElementById(id).value = '';
   });
   document.getElementById('wrong-list-container').innerHTML = '';
