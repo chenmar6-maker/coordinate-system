@@ -258,7 +258,7 @@
 
 <div id="score-card">
   <div class="score-big" id="score-num">—</div>
-  <div class="score-out-of" id="score-denom">מתוך 17 תשובות</div>
+  <div class="score-out-of" id="score-denom">מתוך 14 תשובות</div>
   <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
   <div class="score-msg" id="score-msg"></div>
   <div id="wrong-list-container"></div>
@@ -381,39 +381,6 @@
   <div class="open-note">שאלה פתוחה — אין בדיקה אוטומטית. בדקו מול דף התשובות.</div>
 </div>
 
-<!-- ══ שאלה 4 ══ -->
-<div class="q-card">
-  <div class="q-title"><span class="q-num">4.</span> מצאו את x</div>
-
-  <div class="sub-row">
-    <span class="sub-lbl">א.</span>
-    <span class="expr">x<sup>1</sup> = 7,&nbsp; x =</span>
-    <input class="ans-input narrow" id="q4a" type="text" placeholder="?">
-  </div>
-  <div style="margin-bottom:10px;"></div>
-
-  <div style="margin-bottom:6px;">
-    <div class="sub-row">
-      <span class="sub-lbl">ב.</span>
-      <span style="font-size:13px;font-weight:600;direction:ltr;unicode-bidi:isolate;">1<sup>x</sup> = 1</span>
-    </div>
-    <div style="padding-right:26px;"><div class="open-note" style="font-size:12px;">כל מספר x כשר — בדקו מול דף התשובות.</div></div>
-  </div>
-
-  <div class="sub-row">
-    <span class="sub-lbl">ג.</span>
-    <span class="expr">x<sup>1</sup> = ½,&nbsp; x =</span>
-    <input class="ans-input" id="q4c" type="text" placeholder="?">
-  </div>
-  <div style="margin-bottom:10px;"></div>
-
-  <div class="sub-row">
-    <span class="sub-lbl">ד.</span>
-    <span class="expr">(½)<sup>x</sup> = ¼,&nbsp; x =</span>
-    <input class="ans-input narrow" id="q4d" type="text" placeholder="?">
-  </div>
-</div>
-
 <!-- ══ check button ══ -->
 <button class="check-btn no-print" onclick="checkAnswers()">בדוק ←</button>
 
@@ -458,7 +425,6 @@ const LABELS = {
   q1e:'שאלה 1ה', q1f:'שאלה 1ו', q1g:'שאלה 1ז', q1h:'שאלה 1ח',
   q2a:'שאלה 2א', q2b:'שאלה 2ב', q2c:'שאלה 2ג', q2d:'שאלה 2ד',
   q2e:'שאלה 2ה', q2f:'שאלה 2ו',
-  q4a:'שאלה 4א', q4c:'שאלה 4ג', q4d:'שאלה 4ד',
 };
 
 const KEY = {
@@ -476,18 +442,15 @@ const KEY = {
   q2d: ['לא נכון'],
   q2e: ['נכון'],
   q2f: ['נכון'],
-  q4a: ['7'],
-  q4c: ['1/2','0.5','½'],
-  q4d: ['2'],
 };
 
-const TOTAL = 17;
+const TOTAL = 14;
 
 function checkAnswers() {
   let correct = 0;
   const wrong = [];
 
-  ['q1a','q1b','q1c','q1d','q1e','q1f','q1g','q1h','q4a','q4c','q4d'].forEach(id => {
+  ['q1a','q1b','q1c','q1d','q1e','q1f','q1g','q1h'].forEach(id => {
     const el = document.getElementById(id);
     if (match(el.value, KEY[id])) {
       correct++;
@@ -557,8 +520,8 @@ function showScore(correct, total, wrong) {
 }
 
 function resetForm() {
-  ['q1a','q1b','q1c','q1d','q1e','q1f','q1g','q1h','q4a','q4c','q4d'].forEach(id => {
-    const el = document.getElementById(id); if(el){el.value = ''; el.classList.remove('correct','wrong');}
+  ['q1a','q1b','q1c','q1d','q1e','q1f','q1g','q1h'].forEach(id => {
+    const el = document.getElementById(id); el.value = ''; el.classList.remove('correct','wrong');
   });
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected','chip-correct','chip-wrong'));
   ['q2a','q2b','q2c','q2d','q2e','q2f'].forEach(id => {
