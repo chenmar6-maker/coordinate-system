@@ -163,6 +163,9 @@
     background:rgba(239,169,74,0.1);border-right:4px solid var(--gold);
     border-radius:6px;padding:12px 16px;margin-top:16px;font-size:15px;text-align:right;
   }
+  .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-size:0.82em;line-height:1.2;margin:0 2px;}
+  .frac .num{border-bottom:1.5px solid currentColor;padding:0 3px;text-align:center;min-width:0.7em;}
+  .frac .den{padding:0 3px;text-align:center;min-width:0.7em;}
 
   .example-box{
     background:rgba(239,169,74,0.08);border:1.5px solid rgba(239,169,74,0.35);
@@ -691,22 +694,22 @@ function renderLearn3(){
       <div class="examples-row">
         <div class="example-box">a¹ = a<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">(לכל מספר a)</span></div>
         <div class="example-box">1ⁿ = 1<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">(לכל n)</span></div>
-        <div class="example-box">(½)² = ¼<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">½ · ½ = ¼</span></div>
-        <div class="example-box">(⅓)² = 1/9<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">⅓ · ⅓ = 1/9</span></div>
+        <div class="example-box">(<span class="frac"><span class="num">1</span><span class="den">2</span></span>)² = <span class="frac"><span class="num">1</span><span class="den">4</span></span><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;"><span class="frac"><span class="num">1</span><span class="den">2</span></span> · <span class="frac"><span class="num">1</span><span class="den">2</span></span> = <span class="frac"><span class="num">1</span><span class="den">4</span></span></span></div>
+        <div class="example-box">(<span class="frac"><span class="num">1</span><span class="den">3</span></span>)² = <span class="frac"><span class="num">1</span><span class="den">9</span></span><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;"><span class="frac"><span class="num">1</span><span class="den">3</span></span> · <span class="frac"><span class="num">1</span><span class="den">3</span></span> = <span class="frac"><span class="num">1</span><span class="den">9</span></span></span></div>
       </div>
 
       <div style="background:rgba(29,78,216,0.08);border:1.5px solid rgba(29,78,216,0.3);border-radius:10px;padding:14px 16px;margin:14px 0;">
         <div style="font-size:14px;font-weight:700;color:var(--light-teal);margin-bottom:8px;">כלל השברים בחזקה</div>
-        <div class="example-box" style="margin:0;">(a/b)ⁿ = aⁿ / bⁿ<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעלים מונה ומכנה בנפרד</span></div>
-        <div style="font-size:13.5px;margin-top:10px;direction:rtl;">דוגמה: <bdi style="direction:ltr;unicode-bidi:isolate;">(⅔)² = 2²/3² = 4/9</bdi></div>
+        <div class="example-box" style="margin:0;">(<span class="frac"><span class="num">a</span><span class="den">b</span></span>)ⁿ = <span class="frac"><span class="num">aⁿ</span><span class="den">bⁿ</span></span><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעלים מונה ומכנה בנפרד</span></div>
+        <div style="font-size:13.5px;margin-top:10px;direction:rtl;">דוגמה: <bdi style="direction:ltr;unicode-bidi:isolate;">(<span class="frac"><span class="num">2</span><span class="den">3</span></span>)² = <span class="frac"><span class="num">2²</span><span class="den">3²</span></span> = <span class="frac"><span class="num">4</span><span class="den">9</span></span></bdi></div>
       </div>
 
       <div style="background:rgba(239,169,74,0.08);border:1.5px solid rgba(239,169,74,0.35);border-radius:10px;padding:14px 16px;margin:14px 0;">
         <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:8px;">שברים מעורבים בחזקה</div>
         <div style="font-size:13.5px;direction:rtl;margin-bottom:10px;">שלב 1: הופכים לשבר רגיל &nbsp;·&nbsp; שלב 2: מעלים מונה ומכנה בנפרד</div>
         <div class="examples-row" style="margin:0;">
-          <div class="example-box" style="font-size:15px;">1½ = 3/2<br>(1½)² = (3/2)² = 9/4<br><span style="font-size:12px;font-weight:400;direction:rtl;unicode-bidi:isolate;">= 2¼</span></div>
-          <div class="example-box" style="font-size:15px;">2⅓ = 7/3<br>(2⅓)² = (7/3)² = 49/9<br><span style="font-size:12px;font-weight:400;direction:rtl;unicode-bidi:isolate;">= 5 4/9</span></div>
+          <div class="example-box" style="font-size:15px;">1<span class="frac"><span class="num">1</span><span class="den">2</span></span> = <span class="frac"><span class="num">3</span><span class="den">2</span></span><br>(1<span class="frac"><span class="num">1</span><span class="den">2</span></span>)² = (<span class="frac"><span class="num">3</span><span class="den">2</span></span>)² = <span class="frac"><span class="num">9</span><span class="den">4</span></span><br><span style="font-size:12px;font-weight:400;direction:rtl;unicode-bidi:isolate;">= 2<span class="frac"><span class="num">1</span><span class="den">4</span></span></span></div>
+          <div class="example-box" style="font-size:15px;">2<span class="frac"><span class="num">1</span><span class="den">3</span></span> = <span class="frac"><span class="num">7</span><span class="den">3</span></span><br>(2<span class="frac"><span class="num">1</span><span class="den">3</span></span>)² = (<span class="frac"><span class="num">7</span><span class="den">3</span></span>)² = <span class="frac"><span class="num">49</span><span class="den">9</span></span><br><span style="font-size:12px;font-weight:400;direction:rtl;unicode-bidi:isolate;">= 5<span class="frac"><span class="num">4</span><span class="den">9</span></span></span></div>
         </div>
       </div>
 
@@ -714,20 +717,20 @@ function renderLearn3(){
         <div style="font-size:14px;font-weight:700;color:var(--coral);margin-bottom:8px;">בסיס שלילי עם שברים</div>
         <div style="font-size:13.5px;direction:rtl;margin-bottom:10px;">אותם חוקים של בסיס שלילי — מעריך זוגי חיובי, מעריך אי-זוגי שלילי</div>
         <div class="examples-row" style="margin:0;">
-          <div class="example-box">(−½)² = ¼<br><span style="font-size:12px;font-weight:400;direction:rtl;unicode-bidi:isolate;">זוגי → חיובי</span></div>
-          <div class="example-box">(−½)³ = −⅛<br><span style="font-size:12px;font-weight:400;direction:rtl;unicode-bidi:isolate;">אי-זוגי → שלילי</span></div>
+          <div class="example-box">(−<span class="frac"><span class="num">1</span><span class="den">2</span></span>)² = <span class="frac"><span class="num">1</span><span class="den">4</span></span><br><span style="font-size:12px;font-weight:400;direction:rtl;unicode-bidi:isolate;">זוגי → חיובי</span></div>
+          <div class="example-box">(−<span class="frac"><span class="num">1</span><span class="den">2</span></span>)³ = −<span class="frac"><span class="num">1</span><span class="den">8</span></span><br><span style="font-size:12px;font-weight:400;direction:rtl;unicode-bidi:isolate;">אי-זוגי → שלילי</span></div>
         </div>
       </div>
 
       <ul class="bullets">
-        <li>כל מספר בחזקת 1 שווה לעצמו: <bdi style="direction:ltr;unicode-bidi:isolate;">99¹ = 99, (½)¹ = ½</bdi></li>
+        <li>כל מספר בחזקת 1 שווה לעצמו: <bdi style="direction:ltr;unicode-bidi:isolate;">99¹ = 99, (<span class="frac"><span class="num">1</span><span class="den">2</span></span>)¹ = <span class="frac"><span class="num">1</span><span class="den">2</span></span></bdi></li>
         <li>1 בכל חזקה שהיא שווה 1: <bdi style="direction:ltr;unicode-bidi:isolate;">1¹⁰⁰⁰ = 1</bdi></li>
-        <li>שבר בחזקה — מעלים מונה ומכנה בנפרד: <bdi style="direction:ltr;unicode-bidi:isolate;">(¾)² = 9/16</bdi></li>
-        <li>שבר מעורב — קודם הופכים לשבר רגיל: <bdi style="direction:ltr;unicode-bidi:isolate;">1½ → 3/2, אז (1½)² = 9/4</bdi></li>
-        <li>שבר עם בסיס שלילי — מעריך זוגי חיובי, מעריך אי-זוגי שלילי: <bdi style="direction:ltr;unicode-bidi:isolate;">(−½)² = ¼, (−½)³ = −⅛</bdi></li>
+        <li>שבר בחזקה — מעלים מונה ומכנה בנפרד: <bdi style="direction:ltr;unicode-bidi:isolate;">(<span class="frac"><span class="num">3</span><span class="den">4</span></span>)² = <span class="frac"><span class="num">9</span><span class="den">16</span></span></bdi></li>
+        <li>שבר מעורב — קודם הופכים לשבר רגיל: <bdi style="direction:ltr;unicode-bidi:isolate;">1<span class="frac"><span class="num">1</span><span class="den">2</span></span> → <span class="frac"><span class="num">3</span><span class="den">2</span></span>, אז (1<span class="frac"><span class="num">1</span><span class="den">2</span></span>)² = <span class="frac"><span class="num">9</span><span class="den">4</span></span></bdi></li>
+        <li>שבר עם בסיס שלילי — מעריך זוגי חיובי, מעריך אי-זוגי שלילי: <bdi style="direction:ltr;unicode-bidi:isolate;">(−<span class="frac"><span class="num">1</span><span class="den">2</span></span>)² = <span class="frac"><span class="num">1</span><span class="den">4</span></span>, (−<span class="frac"><span class="num">1</span><span class="den">2</span></span>)³ = −<span class="frac"><span class="num">1</span><span class="den">8</span></span></bdi></li>
       </ul>
 
-      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">(½)² ≠ ½</bdi>. צריך להכפיל: <bdi style="direction:ltr;unicode-bidi:isolate;">½ · ½ = ¼</bdi>! &nbsp;·&nbsp; שבר מעורב — תמיד הופכים קודם!</div>
+      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">(<span class="frac"><span class="num">1</span><span class="den">2</span></span>)² ≠ <span class="frac"><span class="num">1</span><span class="den">2</span></span></bdi>. צריך להכפיל: <bdi style="direction:ltr;unicode-bidi:isolate;"><span class="frac"><span class="num">1</span><span class="den">2</span></span> · <span class="frac"><span class="num">1</span><span class="den">2</span></span> = <span class="frac"><span class="num">1</span><span class="den">4</span></span></bdi>! &nbsp;·&nbsp; שבר מעורב — תמיד הופכים קודם!</div>
 
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
@@ -744,7 +747,7 @@ function renderLearn4(){
       <div class="video-wrap" style="position:relative;padding-bottom:56.25%;border-radius:12px;overflow:hidden;margin-bottom:16px;">
         <iframe src="https://www.youtube.com/embed/2ovCr3Ay098" title="סדר פעולות עם חזקות" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;right:0;width:100%;height:100%;border-radius:12px;"></iframe>
       </div>
-      <div class="gold-box" dir="rtl">סדר פעולות: סוגריים → חזקות → כפל/חילוק → חיבור/חיסור</div>
+      <div class="gold-box" dir="rtl">סדר פעולות: חיבור/חיסור ← כפל/חילוק ← חזקות ← סוגריים</div>
       <div class="examples-row">
         <div class="example-box">2+3² = 2+9 = 11<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">חזקה לפני חיבור</span></div>
         <div class="example-box">(2+3)² = 5² = 25<br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">סוגריים קודמים</span></div>
