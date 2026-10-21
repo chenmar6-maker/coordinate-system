@@ -128,26 +128,17 @@
   <!-- מפגש 3 -->
   <div class="session-block">
     <div class="session-label">מפגש 3</div>
-    <div id="session3-locked" class="locked-card">
-      <div class="lock-icon">🔒</div>
-      <div class="lock-msg">מפגש זה נעול — הכנסו את הקוד כדי לפתוח</div>
-      <div class="code-row">
-        <input id="code-input3" class="code-input" type="text" maxlength="4" placeholder="קוד" oninput="tryCode3()" />
-      </div>
-    </div>
-    <div id="session3-games" style="display:none;">
-      <div class="games">
-        <a class="game-card" href="./race100/">
-          <div class="card-left">
-            <div class="card-icon">🏁</div>
-            <div>
-              <div class="card-name">מירוץ ל-50</div>
-              <div class="card-sub">הוסיפו 1–10 בכל תור — מי שמגיע ל-50 מנצח</div>
-            </div>
+    <div class="games">
+      <a class="game-card" href="./race100/">
+        <div class="card-left">
+          <div class="card-icon">🏁</div>
+          <div>
+            <div class="card-name">מירוץ ל-50</div>
+            <div class="card-sub">הוסיפו 1–10 בכל תור — מי שמגיע ל-50 מנצח</div>
           </div>
-          <div class="card-arrow">←</div>
-        </a>
-      </div>
+        </div>
+        <div class="card-arrow">←</div>
+      </a>
     </div>
   </div>
 
@@ -156,34 +147,6 @@
   </div>
 </div>
 
-<script>
-const CODE3 = '2357';
-
-if (sessionStorage.getItem('session3') === 'unlocked') unlock3(false);
-
-function tryCode3() {
-  const val = document.getElementById('code-input3').value;
-  if (val === CODE3) {
-    sessionStorage.setItem('session3', 'unlocked');
-    unlock3(true);
-  } else if (val.length === 4) {
-    const inp = document.getElementById('code-input3');
-    inp.classList.add('error');
-    setTimeout(() => { inp.classList.remove('error'); inp.value = ''; }, 400);
-  }
-}
-
-function unlock3(animate) {
-  document.getElementById('session3-locked').style.display = 'none';
-  const games = document.getElementById('session3-games');
-  games.style.display = 'block';
-  if (animate) {
-    games.style.opacity = '0';
-    games.style.transition = 'opacity .4s';
-    requestAnimationFrame(() => { games.style.opacity = '1'; });
-  }
-}
-</script>
 <footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
 </body>
 </html>
