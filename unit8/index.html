@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ביטויים אלגבריים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --navy:#1E1B2E;
+    --deep-navy:#0F0D1A;
+    --teal:#4A4080;
+    --light-teal:#3AA0C4;
+    --foam:#EAF4F1;
+    --gold:#EFA94A;
+    --coral:#E2604F;
+    --seafoam:#48B08C;
+    --ink:#0A2A43;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Rubik',sans-serif;
+    background:radial-gradient(ellipse at 50% -10%,#3D3568 0%,#1E1B2E 50%,#0F0D1A 100%);
+    color:var(--foam);
+    direction:rtl;
+    min-height:100vh;
+    line-height:1.6;
+  }
+
+  .wrap{max-width:900px;margin:0 auto;padding:20px 18px 70px;}
+
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;max-width:900px;margin:0 auto;}
+  .brand{font-family:'Rubik',sans-serif;font-size:19px;color:var(--gold);}
+  .homebtn{background:transparent;border:1.5px solid var(--foam);color:var(--foam);padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;cursor:pointer;opacity:.85;text-decoration:none;display:inline-block;}
+  .homebtn:hover{opacity:1;border-color:var(--gold);color:var(--gold);}
+
+  .hero{text-align:center;padding:18px 10px 10px;}
+  h1.title{font-family:'Rubik',sans-serif;font-weight:800;font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:#FFFFFF;text-align:center;letter-spacing:-0.5px;}
+
+  .cards{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+  .sequence-section{margin-bottom:28px;background:rgba(234,244,241,0.04);border-radius:14px;padding:18px 20px;}
+  .sequence-title{font-family:'Rubik',sans-serif;font-weight:700;font-size:17px;color:var(--foam);text-align:center;margin:0 0 14px;opacity:.9;}
+
+  .flow-arrow{display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(239,169,74,0.5);flex-shrink:0;}
+
+  .card{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:50px;cursor:pointer;font-family:'Rubik',sans-serif;font-weight:600;font-size:15px;transition:transform .15s ease,box-shadow .15s ease;border:none;}
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.25);}
+  .card h3{font-family:'Rubik',sans-serif;font-size:15px;font-weight:600;margin:0;}
+  .card p{display:none;}
+  .card.learn{background:rgba(28,110,140,0.25);border:1.5px solid var(--teal);color:var(--foam);}
+  .card.game{background:rgba(239,169,74,0.18);border:1.5px solid var(--gold);color:var(--gold);}
+  .card.quiz{background:rgba(226,96,79,0.18);border:1.5px solid var(--coral);color:var(--coral);}
+
+  .panel{background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.15);border-radius:10px;padding:22px;margin:18px 0;}
+
+  .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+  .btn{background:var(--gold);color:var(--deep-navy);border:none;font-weight:700;font-family:'Rubik',sans-serif;font-size:15px;padding:11px 26px;border-radius:24px;cursor:pointer;transition:transform .12s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn.secondary{background:transparent;border:1.5px solid var(--foam);color:var(--foam);}
+  .btn.secondary:hover{border-color:var(--gold);color:var(--gold);}
+  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+  .feedback{text-align:center;font-size:16px;font-weight:700;margin:14px 0;min-height:24px;}
+  .feedback.ok{color:var(--seafoam);}
+  .feedback.bad{color:var(--coral);}
+
+  .progressdots{display:flex;gap:8px;justify-content:center;margin-bottom:6px;}
+  .dot{width:11px;height:11px;border-radius:50%;background:rgba(234,244,241,0.25);border:none;padding:0;}
+  .dot.done{background:var(--seafoam);}
+  .dot.active{background:var(--gold);}
+  .dot:hover{opacity:.75;}
+
+  .mc-options{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:16px auto 0;}
+  .mc-btn{background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;cursor:pointer;font-family:'Rubik',sans-serif;text-align:center;direction:ltr;unicode-bidi:isolate;}
+  .mc-btn:hover{border-color:var(--gold);}
+  .mc-btn.correct{background:rgba(72,176,140,0.3);border-color:var(--seafoam);}
+  .mc-btn.wrong{background:rgba(226,96,79,0.3);border-color:var(--coral);}
+  .mc-btn:disabled{cursor:default;}
+
+  .explain-box{background:rgba(72,176,140,0.1);border-right:4px solid var(--seafoam);border-radius:6px;padding:12px 16px;margin-top:14px;text-align:right;font-size:15px;}
+
+  .qmeta{text-align:center;font-size:14px;opacity:.75;margin-bottom:6px;}
+  .qtitle{font-size:18px;font-weight:700;text-align:center;margin:6px 0 4px;}
+  .qtext{font-size:16px;text-align:center;margin:0 0 6px;max-width:560px;margin-left:auto;margin-right:auto;}
+
+  .scorebig{font-family:'Rubik',sans-serif;font-size:52px;color:var(--gold);text-align:center;margin:10px 0;}
+
+  .abs-input-row{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px 0;direction:rtl;}
+  .abs-input-row input{width:80px;padding:8px 10px;font-size:18px;border-radius:6px;border:1.5px solid var(--teal);text-align:center;font-family:'Rubik',sans-serif;background:var(--foam);color:var(--ink);}
+  .abs-input-row input:focus{outline:2px solid var(--gold);}
+
+  .instr{text-align:center;font-size:15px;color:var(--foam);opacity:.85;margin:8px 0 4px;}
+
+  ul.bullets{list-style:none;margin:18px 0 6px;padding:0;text-align:right;}
+  ul.bullets li{position:relative;padding-right:22px;margin-bottom:10px;font-size:16px;line-height:1.55;}
+  ul.bullets li::before{content:"•";color:var(--gold);position:absolute;right:0;top:0;font-size:18px;}
+
+  .learn-note{background:rgba(239,169,74,0.1);border-right:4px solid var(--gold);border-radius:6px;padding:12px 16px;margin-top:16px;font-size:15px;text-align:right;}
+
+  .example-box{background:rgba(239,169,74,0.08);border:1.5px solid rgba(239,169,74,0.35);border-radius:8px;padding:14px 18px;margin:10px 0;text-align:center;font-size:17px;font-weight:700;color:var(--foam);}
+  .gold-box{background:rgba(239,169,74,0.12);border-right:4px solid var(--gold);border-radius:6px;padding:14px 18px;margin:14px 0;text-align:center;font-size:18px;font-weight:700;color:var(--gold);}
+  .examples-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:14px 0;}
+  .examples-row .example-box{flex:1;min-width:160px;max-width:260px;}
+
+  .m{direction:ltr;unicode-bidi:isolate;}
+
+  .def-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px;}
+  .def-table td,.def-table th{padding:9px 14px;border:1px solid rgba(234,244,241,0.15);text-align:right;}
+  .def-table th{background:rgba(239,169,74,0.12);color:var(--gold);font-weight:700;}
+  .def-table td:last-child{direction:ltr;unicode-bidi:isolate;text-align:center;}
+
+  sup{font-size:0.68em;font-weight:700;vertical-align:super;line-height:1;}
+
+  @keyframes popIn{0%{transform:scale(.55);opacity:0;}65%{transform:scale(1.18);opacity:1;}100%{transform:scale(1);}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* ============ STATE ============ */
+const state = {
+  screen:'home',
+  sequence:1,
+  levelIndex:0,
+  gameScore:0,
+  gameTotal:0,
+  levelSub:{},
+  shuffledOptions:[]
+};
+
+/* ============ GAME LEVELS ============ */
+
+const gameLevels1 = [
+  { id:'mc', title:'מה זה משתנה?',
+    question:'למה בביטוי <span class="m">3x + 5</span> האות x נקראת "משתנה"?',
+    options:['כי היא תמיד שווה ל-3','כי היא יכולה לקבל ערכים שונים','כי היא מיוצגת על ידי אות','כי היא קבועה'],
+    correct:'כי היא יכולה לקבל ערכים שונים',
+    explain:'משתנה הוא סמל (אות) שמייצג כמות לא ידועה — יכול לקבל ערכים שונים בהתאם לבעיה.' },
+  { id:'mc', title:'כתיבת ביטוי',
+    question:'איזה ביטוי מייצג "פי 4 מ-<span class="m">a</span>"?',
+    options:['a + 4','4 + a','4a','a ÷ 4'],
+    correct:'4a',
+    explain:'פי 4 = כפל ב-4. 4a = 4 · a.' },
+  { id:'mc', title:'כתיבת ביטוי',
+    question:'איזה ביטוי מייצג "<span class="m">n</span> גדול ב-7 מ-<span class="m">k</span>"?',
+    options:['n · 7','k + 7','k − 7','n + 7'],
+    correct:'k + 7',
+    explain:'גדול ב-7 = מוסיפים 7. אם k הוא הבסיס, הביטוי הוא k + 7.' },
+  { id:'mc', title:'כתיבת ביטוי',
+    question:'מה הביטוי לתיאור: "חצי מ-<span class="m">x</span>, פחות שלוש"?',
+    options:['½ − 3x','x/2 + 3','x/2 − 3','3 − x/2'],
+    correct:'x/2 − 3',
+    explain:'חצי מ-x = x/2. פחות שלוש = מחסירים 3. לכן: x/2 − 3.' },
+  { id:'mc', title:'קריאת ביטוי',
+    question:'איזה תיאור מילולי מתאים לביטוי <span class="m">5 − 2x</span>?',
+    options:['פי 2 מ-x, פחות 5','5 פחות פי שניים מ-x','פי 5 ועוד 2x','5 חלקי 2x'],
+    correct:'5 פחות פי שניים מ-x',
+    explain:'5 פחות פי שניים מ-x = 5 − 2·x = 5 − 2x.' },
+  { id:'mc', title:'כתיבת ביטוי — שני משתנים',
+    question:'מחיר נסיעה: 5 שקלים לכל קילומטר ועוד 2 שקלים לכל דקה. מה ביטוי העלות עבור <span class="m">k</span> ק"מ ו-<span class="m">m</span> דקות?',
+    options:['5 + k + 2 + m','5k · 2m','5k + 2m','7km'],
+    correct:'5k + 2m',
+    explain:'5 שקלים לכל k ק"מ = 5k. 2 שקלים לכל m דקות = 2m. יחד: 5k + 2m.' },
+  { id:'mc', title:'ביטוי גיאומטרי',
+    question:'מלבן: צלע קצרה <span class="m">x</span>, הצלע הארוכה גדולה ב-4. מה ביטוי ההיקף?',
+    options:['x + x + 4','4x + 4','4x + 8','2x + 8'],
+    correct:'4x + 8',
+    explain:'צלע ארוכה = x+4. היקף = 2·x + 2·(x+4) = 2x + 2x + 8 = 4x + 8.' },
+  { id:'mc', title:'ביטוי מילולי יצירתי',
+    question:'מי מהתיאורים הבאים מתאים לביטוי <span class="m">3n − 5</span>?',
+    options:['שלוש פחות פי 5 מ-n','פי 3 מ-n, פחות 5','n חלקי 3, פחות 5','5 פחות פי 3 מ-n'],
+    correct:'פי 3 מ-n, פחות 5',
+    explain:'3n = פי 3 מ-n. מינוס 5 = פחות 5. לכן: פי 3 מ-n, פחות 5.' },
+];
+
+const frac = (n,d) => `<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.2;margin:0 3px;"><span style="border-bottom:1.5px solid currentColor;padding:0 5px;">${n}</span><span style="padding:0 5px;">${d}</span></span>`;
+
+const gameLevels2 = [
+  { id:'typedSum', title:'מינוס לפני חזקה', expr:'−x²', sub:'<b>x = 5</b>', correct:-25,
+    explain:'−x² פירושו −(x²) = −(5²) = −25. המינוס לא בסוגריים — לא מרובע.' },
+  { id:'typedSum', title:'הציבו וחשבו', expr:'x² − 3x', sub:'<b>x = −2</b>', correct:10,
+    explain:'מציבים x=−2: (−2)² − 3·(−2) = 4 + 6 = 10.' },
+  { id:'mc', title:'שימו לב — מינוס לפני חזקה',
+    question:'מה ערך הביטוי <span class="m">−x²</span> כש-<span class="m">x = 4</span>?',
+    options:['−16','16','−8','8'],
+    correct:'−16',
+    explain:'−x² פירושו −(x²) = −(4²) = −16. המינוס לא בסוגריים — לא מרובע.' },
+  { id:'mc', title:'הבדל חשוב',
+    question:'מה ערך <span class="m">(−x)²</span> כש-<span class="m">x = 3</span>?',
+    options:['9','−9','6','−6'],
+    correct:'9',
+    explain:'(−x)² = (−3)² = 9. הסוגריים גוררים את המינוס לתוך הריבוע — התוצאה חיובית.' },
+  { id:'typedSum', title:'קו שבר', expr:frac('2x + 6','4'), sub:'<b>x = 5</b>', correct:4,
+    explain:'מציבים x=5: (2·5+6)/4 = 16/4 = 4.' },
+  { id:'typedSum', title:'קו שבר עם חזקה', expr:frac('x² − 1','x + 1'), sub:'<b>x = 3</b>', correct:2,
+    explain:'מציבים x=3: (9−1)/(3+1) = 8/4 = 2.' },
+  { id:'typedSum', title:'שני משתנים', expr:'a² − b', sub:'<b>a = 2, b = −5</b>', correct:9,
+    explain:'מציבים a=2, b=−5: 2² − (−5) = 4 + 5 = 9. פחות מינוס = חיבור!' },
+  { id:'typedSum', title:'מינוס לפני חזקה', expr:'−x<sup>3</sup> + 3x', sub:'<b>x = −2</b>', correct:2,
+    explain:'מציבים x=−2: −(−2)³ + 3·(−2) = −(−8) + (−6) = 8 − 6 = 2.' },
+  { id:'mc', title:'קו שבר — שני משתנים',
+    question:`מה ערך <span class="m">${frac('a² + b','3')}</span> כש-<span class="m">a = 1, b = 5</span>?`,
+    options:['2','6','3','−2'],
+    correct:'2',
+    explain:'מציבים a=1, b=5: (1²+5)/3 = 6/3 = 2.' },
+];
+
+
+/* ============ NAVIGATION ============ */
+
+let openSections = new Set();
+
+function toggleSection(key){
+  if(openSections.has(key)) openSections.delete(key);
+  else openSections.add(key);
+  render();
+}
+
+function goHome(){ state.screen='home'; openSections=new Set(); render(); }
+function goTo(s){ state.screen=s; render(); }
+
+function startGame(){
+  state.screen='game'; state.levelIndex=0; state.gameScore=0; state.gameTotal=0;
+  state.levelSub=freshLevelSub(0);
+  const first=currentGameLevels()[0];
+  if(first&&first.id==='mc') state.shuffledOptions=shuffleArr(first.options.slice());
+  render();
+}
+
+function freshLevelSub(){ return {answered:false,correct:false}; }
+
+function nextLevel(){
+  state.levelIndex++;
+  if(state.levelIndex>=currentGameLevels().length){ finishGame(); return; }
+  state.levelSub=freshLevelSub();
+  const next=currentGameLevels()[state.levelIndex];
+  if(next&&next.id==='mc') state.shuffledOptions=shuffleArr(next.options.slice());
+  render();
+}
+
+function finishGame(){ state.screen='gameResults'; render(); }
+
+function jumpToLevel(i){
+  state.levelIndex=i; state.levelSub=freshLevelSub();
+  const lvl=currentGameLevels()[i];
+  if(lvl&&lvl.id==='mc') state.shuffledOptions=shuffleArr(lvl.options.slice());
+  render();
+}
+
+function skipLevel(){
+  const levels=currentGameLevels();
+  if(state.levelIndex>=levels.length-1) return;
+  state.levelIndex++; state.levelSub=freshLevelSub();
+  const next=levels[state.levelIndex];
+  if(next&&next.options) state.shuffledOptions=shuffleArr(next.options.slice());
+  render();
+}
+
+function currentGameLevels(){
+  if(state.sequence===1) return gameLevels1;
+  if(state.sequence===2) return gameLevels2;
+  return gameLevels1;
+}
+
+/* ============ HELPERS ============ */
+
+function shuffleArr(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function escOpt(s){ return s.replace(/'/g,"\\'"); }
+function wrapOpt(s){ return s; }
+function wrapMath(s){ return s; }
+
+/* ============ RENDER ============ */
+
+function render(){
+  const app=document.getElementById('app');
+  if(state.screen==='home') app.innerHTML=renderTopbar()+'<div class="wrap">'+renderHome()+'</div>';
+  else if(state.screen==='learn') app.innerHTML=renderTopbar()+'<div class="wrap">'+renderLearn()+'</div>';
+  else if(state.screen==='game') app.innerHTML=renderTopbar()+'<div class="wrap">'+renderGame()+'</div>';
+  else if(state.screen==='gameResults') app.innerHTML=renderTopbar()+'<div class="wrap">'+renderGameResults()+'</div>';
+}
+
+function renderTopbar(){
+  return `<div class="topbar">
+    <div class="brand">חן מרגלית למידה אקטיבית</div>
+    <button class="homebtn" onclick="window.location.href='../index.html'">תפריט ראשי</button>
+  </div>`;
+}
+
+/* ============ seqRow ============ */
+
+function seqRow(seqNum, label, opts={}){
+  const isOpen = openSections.has(seqNum);
+  const chevron = isOpen ? '▲' : '▼';
+  let cards = '';
+  if(isOpen){
+    const quizCard = opts.worksheetUrl
+      ? `<div class="card quiz" onclick="showWorksheet('${opts.worksheetUrl}')"><h3>מבדק שליטה</h3></div>`
+      : '';
+    const answersCard = opts.answersUrl ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.answersUrl}')" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>תשובות</h3></div>` : '';
+    const checkCard = opts.checkUrl ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.checkUrl}')" style="background:rgba(99,102,241,0.12);border:1.5px solid rgba(99,102,241,0.45);color:#a5b4fc;"><h3>בדיקה עצמית</h3></div>` : '';
+    const nextUrl = opts.nextUrl || '../index.html';
+    const nextCard = (opts.hasNext || opts.nextUrl)
+      ? `<div class="flow-arrow">←</div><div class="card" onclick="window.location.href='${nextUrl}'" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>ליחידה הבאה</h3></div>`
+      : '';
+    cards = `<div class="cards" style="margin-bottom:6px;">
+      <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
+      <div class="flow-arrow">←</div>
+      <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
+      ${quizCard ? '<div class="flow-arrow">←</div>'+quizCard : ''}
+      ${checkCard}
+      ${answersCard}
+      ${nextCard}
+    </div>`;
+  }
+  return `
+    <div onclick="toggleSection(${seqNum})" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:10px 4px 10px;border-bottom:1px solid rgba(234,244,241,0.08);user-select:none;">
+      <span class="sequence-title" style="margin:0;">${label}</span>
+      <span style="font-size:20px;color:rgba(234,244,241,0.4);transition:transform .15s;">${chevron}</span>
+    </div>
+    ${cards}`;
+}
+
+/* ============ HOME ============ */
+
+function renderHome(){
+  return `
+    <div class="hero">
+      <h1 class="title">ביטויים אלגבריים</h1>
+    </div>
+    <div class="sequence-section" style="margin-bottom:32px;">
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">מבוא לאלגברה</div>
+      ${seqRow(1,'1. כתיבת ביטויים אלגבריים',{worksheetUrl:'../worksheets/algebra_writing_exam.html',answersUrl:'../worksheets/algebra_writing_answers.html',checkUrl:'../worksheets/algebra_writing_exam_check.html'})}
+      ${seqRow(2,'2. הצבה וחישוב ערך הביטוי',{worksheetUrl:'../worksheets/algebra_substitution_exam.html',answersUrl:'../worksheets/algebra_substitution_answers.html',checkUrl:'../worksheets/algebra_substitution_exam_check.html',nextUrl:'../unit9/'})}
+    </div>`;
+}
+
+/* ============ LEARN ============ */
+
+function renderLearn(){
+  if(state.sequence===1) return renderLearn1();
+  if(state.sequence===2) return renderLearn2();
+  return renderLearn1();
+}
+
+function renderLearn1(){
+  return `<div class="panel">
+    <h2 class="qtitle">כתיבת ביטויים אלגבריים</h2>
+    <div class="gold-box">ביטוי אלגברי = שילוב של מספרים, משתנים ופעולות חשבון</div>
+    <table class="def-table">
+      <tr><th>תיאור מילולי</th><th>ביטוי</th></tr>
+      <tr><td>פי 4 מ-a</td><td><span class="m">4a</span></td></tr>
+      <tr><td>n גדול ב-7</td><td><span class="m">n + 7</span></td></tr>
+      <tr><td>חצי מ-x, פחות 3</td><td><span class="m">x/2 − 3</span></td></tr>
+      <tr><td>שלוש פעמים a ועוד פעמיים b</td><td><span class="m">3a + 2b</span></td></tr>
+    </table>
+    <ul class="bullets">
+      <li><strong>משתנה</strong> — אות שמייצגת כמות לא ידועה (יכולה לקבל ערכים שונים)</li>
+      <li><strong>מקדם</strong> — המספר שלפני המשתנה: ב-3x המקדם הוא 3</li>
+      <li><strong>איבר חופשי</strong> — מספר ללא משתנה: ב-2x+5, האיבר החופשי הוא 5</li>
+      <li>"פי n" = כפל ב-n | "גדול ב-n" = חיבור n | "קטן ב-n" = חיסור n</li>
+    </ul>
+    <div class="learn-note">שימו לב: 2x ≠ x2 בכתיב — כותבים את המקדם לפני המשתנה</div>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn2(){
+  const G = s => `<span style="color:var(--gold);font-weight:800;">${s}</span>`;
+  const ex = (header, steps) => `
+    <div class="example-box" style="text-align:right;margin:10px 0;padding:14px 18px;">
+      <div style="font-size:14px;font-weight:600;color:rgba(234,244,241,0.65);margin-bottom:10px;">${header}</div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2.1;text-align:left;">${steps}</div>
+    </div>`;
+
+  return `<div class="panel">
+    <h2 class="qtitle">הצבה וחישוב ערך הביטוי</h2>
+    <div class="gold-box">הצבה = להחליף את המשתנה בערך מספרי ולחשב</div>
+
+    ${ex(
+      `הביטוי <span class="m">2x + 3</span>, מציבים <span class="m">x = 4</span>`,
+      `2·${G(4)} + 3<br>= 8 + 3<br>= 11`
+    )}
+
+    <ul class="bullets" style="margin:4px 0 14px;">
+      <li>מחליפים <strong>כל</strong> הופעה של המשתנה בערך הנתון</li>
+      <li>סדר פעולות: סוגריים ← כפל/חילוק ← חיבור/חיסור</li>
+      <li>אפשר להציב מספרים שלמים, שברים ומספרים שליליים</li>
+      <li>ביטוי עם שני משתנים — מציבים ערך לכל אחד</li>
+    </ul>
+
+    ${ex(
+      `הביטוי <span class="m">9x − 3</span>, מציבים <span class="m">x = ⅓</span>`,
+      `9·${G('⅓')} − 3<br>= 3 − 3<br>= 0`
+    )}
+
+    ${ex(
+      `הביטוי <span class="m">3a − 1</span>, מציבים <span class="m">a = −2</span>`,
+      `3·${G('(−2)')} − 1<br>= −6 − 1<br>= −7`
+    )}
+
+    ${ex(
+      `הביטוי <span class="m">x² − 5</span>, מציבים <span class="m">x = −3</span>`,
+      `${G('(−3)')}<sup>2</sup> − 5<br>= 9 − 5<br>= 4`
+    )}
+
+    ${ex(
+      `הביטוי <span class="m">2a² + b</span>, מציבים <span class="m">a = −1, b = 4</span>`,
+      `2·${G('(−1)')}<sup>2</sup> + ${G(4)}<br>= 2·1 + 4<br>= 2 + 4<br>= 6`
+    )}
+
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+/* ============ GAME ============ */
+
+function renderGame(){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const levels=currentGameLevels();
+  const dots=levels.map((_,i)=>{
+    let cls='dot';
+    if(i<state.levelIndex) cls+=' done';
+    else if(i===state.levelIndex) cls+=' active';
+    return `<div class="${cls}" onclick="jumpToLevel(${i})" style="cursor:pointer;"></div>`;
+  }).join('');
+  let content='';
+  if(!lvl) content='<p>שגיאה</p>';
+  else if(lvl.id==='mc') content=renderMC(lvl);
+  else if(lvl.id==='typedSum') content=renderTypedSum(lvl);
+  const sub=state.levelSub||{};
+  const isAnswered=!!sub.answered;
+  const isLastLvl=state.levelIndex>=levels.length-1;
+  const skipBtn=(!isAnswered&&!isLastLvl)
+    ?`<div style="text-align:center;margin-top:10px;"><button class="btn secondary" onclick="skipLevel()" style="font-size:13px;padding:6px 18px;">דלג לתרגיל הבא ←</button></div>`:'';
+  return `<div class="progressdots">${dots}</div><div class="panel">${content}${skipBtn}</div>`;
+}
+
+function renderMC(lvl){
+  const sub=state.levelSub;
+  const opts=state.shuffledOptions&&state.shuffledOptions.length?state.shuffledOptions:lvl.options;
+  const btns=opts.map(opt=>{
+    let cls='mc-btn';
+    if(sub.answered){
+      if(opt===lvl.correct) cls+=' correct';
+      else if(opt===sub.picked&&opt!==lvl.correct) cls+=' wrong';
+    }
+    return `<button class="${cls}" onclick="answerMC('${escOpt(opt)}')" ${sub.answered?'disabled':''}>${wrapOpt(opt)}</button>`;
+  }).join('');
+  let feedback='';
+  if(sub.answered){
+    feedback=`
+      <div class="feedback ${sub.correct?'ok':'bad'}">${sub.correct?'נכון!':'לא מדויק.'}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <p class="qtext">${lvl.question}</p>
+    <div class="mc-options">${btns}</div>
+    ${feedback}`;
+}
+
+function answerMC(picked){
+  const lvl=currentGameLevels()[state.levelIndex];
+  const correct=picked===lvl.correct;
+  state.levelSub={answered:true,correct,picked};
+  if(correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+function renderTypedSum(lvl){
+  const sub=state.levelSub||{};
+  const isAnswered=!!sub.answered;
+  let feedback='';
+  if(isAnswered){
+    feedback=`
+      <div class="feedback ${sub.correct?'ok':'bad'}">${sub.correct?'נכון!':'לא מדויק. התשובה: '+lvl.correct}</div>
+      <div class="explain-box">${wrapMath(lvl.explain)}</div>
+      <div class="btnrow"><button class="btn" onclick="nextLevel()">הבא ←</button></div>`;
+  }
+  const inputArea=isAnswered?'':`
+    <div class="abs-input-row">
+      <input type="number" id="tsInput" placeholder="?" onkeydown="if(event.key==='Enter')checkTypedSum()"/>
+    </div>
+    <div class="btnrow"><button class="btn" onclick="checkTypedSum()">בדיקה</button></div>`;
+  const exprBlock = lvl.sub
+    ? `<div style="font-size:12px;color:rgba(234,244,241,0.5);margin-bottom:6px;text-align:center;">נתון הביטוי:</div>
+       <div style="text-align:center;font-size:26px;font-weight:700;direction:ltr;unicode-bidi:isolate;margin-bottom:12px;">${lvl.expr}</div>
+       <div style="text-align:center;font-size:16px;color:var(--gold);margin-bottom:4px;">הציבו: ${lvl.sub}</div>`
+    : `<div style="text-align:center;font-size:22px;font-weight:700;direction:ltr;unicode-bidi:isolate;">${lvl.expr} = ?</div>`;
+  return `
+    <h2 class="qtitle">${lvl.title}</h2>
+    <div style="margin:14px 0;">${exprBlock}</div>
+    ${inputArea}
+    ${feedback}`;
+}
+
+function checkTypedSum(){
+  const inp=document.getElementById('tsInput');
+  if(!inp) return;
+  const val=parseFloat(inp.value);
+  if(isNaN(val)) return;
+  const lvl=currentGameLevels()[state.levelIndex];
+  const correct=Math.abs(val-lvl.correct)<0.001;
+  state.levelSub={answered:true,correct,given:val};
+  if(correct) state.gameScore++;
+  state.gameTotal++;
+  render();
+}
+
+function renderGameResults(){
+  const pct=state.gameTotal>0?Math.round(state.gameScore/state.gameTotal*100):0;
+  const msg=pct>=85?'מעולה! שליטה מלאה':'כמעט! כדאי לתרגל שוב';
+  return `<div class="panel" style="text-align:center;">
+    <h2 class="qtitle">תוצאות</h2>
+    <div class="scorebig">${state.gameScore}/${state.gameTotal}</div>
+    <div style="font-size:22px;font-weight:700;margin:8px 0;">${pct}%</div>
+    <div style="font-size:16px;opacity:.8;margin-bottom:20px;">${msg}</div>
+    <div class="btnrow">
+      <button class="btn" onclick="startGame()">שוב ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+/* ============ WORKSHEET OVERLAY ============ */
+
+function showWorksheet(url){
+  const overlay=document.getElementById('ws-overlay');
+  document.getElementById('ws-frame').src=url;
+  overlay.style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function hideWorksheet(){
+  document.getElementById('ws-overlay').style.display='none';
+  document.getElementById('ws-frame').src='';
+  document.body.style.overflow='';
+}
+
+/* ============ INIT ============ */
+render();
+</script>
+
+<div id="ws-overlay" style="display:none;position:fixed;inset:0;z-index:9999;flex-direction:column;">
+  <div style="background:#1E1B2E;padding:12px 20px;display:flex;align-items:center;gap:14px;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,0.1);">
+    <button onclick="hideWorksheet()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">← חזור</button>
+    <span style="color:rgba(255,255,255,0.5);font-size:13px;font-family:'Rubik',sans-serif;">מבדק שליטה</span>
+  </div>
+  <iframe id="ws-frame" src="" style="flex:1;border:0;width:100%;"></iframe>
+</div>
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
