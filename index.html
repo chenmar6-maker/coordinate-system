@@ -158,8 +158,9 @@
 
     <!-- תחום מספרי -->
     <div class="domain-block" style="background:rgba(59,130,246,0.07);border-color:rgba(59,130,246,0.3);">
-      <div class="domain-label" style="color:#3B82F6;border-color:#3B82F6;">תחום מספרי</div>
+      <div class="domain-label" style="color:#3B82F6;border-color:#3B82F6;cursor:pointer;display:flex;align-items:center;justify-content:space-between;" onclick="toggleDomain('dc-numbers')">תחום מספרי<span id="chev-dc-numbers" style="font-size:11px;transition:transform .25s;">▼</span></div>
       <div class="domain-deco" style="color:#3B82F6;">√16 = (−2)·(−2) = |−4| = −8−(−12) ≠ −2²</div>
+      <div id="dc-numbers">
       <div class="units">
         <div class="unit-card" style="opacity:0.45;pointer-events:none;cursor:default;border-right:3px solid #3B82F6;">
           <div class="unit-left">
@@ -299,11 +300,12 @@
 
         </div>
       </div>
+      </div>
     </div>
 
     <!-- תחום גיאומטרי -->
     <div class="domain-block" style="background:rgba(16,185,129,0.07);border-color:rgba(16,185,129,0.3);">
-      <div class="domain-label" style="color:#10B981;border-color:#10B981;">תחום גיאומטרי חלק א׳</div>
+      <div class="domain-label" style="color:#10B981;border-color:#10B981;cursor:pointer;display:flex;align-items:center;justify-content:space-between;" onclick="toggleDomain('dc-geo-a')">תחום גיאומטרי חלק א׳<span id="chev-dc-geo-a" style="font-size:11px;transition:transform .25s;">▼</span></div>
       <div class="domain-deco" style="color:#10B981;padding-right:14px;">
         <svg width="80" height="58" viewBox="0 0 88 64" style="display:block;opacity:0.85;">
           <line x1="4" y1="20" x2="84" y2="20" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
@@ -313,6 +315,7 @@
           <path d="M 40 48 A 12 12 0 0 1 44 36" stroke="#10B981" stroke-width="2" fill="none" stroke-linecap="round"/>
         </svg>
       </div>
+      <div id="dc-geo-a">
       <div class="units">
         <a class="unit-card" href="./unit6/" style="border-right:3px solid #10B981;">
           <div class="unit-left">
@@ -381,12 +384,14 @@
           <span style="font-size:12px;color:rgba(16,185,129,0.4);">בבנייה</span>
         </div>
       </div>
+      </div>
     </div>
 
     <!-- תחום אלגברי -->
     <div class="domain-block" style="background:rgba(139,92,246,0.07);border-color:rgba(139,92,246,0.3);">
-      <div class="domain-label" style="color:#8B5CF6;border-color:#8B5CF6;">תחום אלגברי</div>
+      <div class="domain-label" style="color:#8B5CF6;border-color:#8B5CF6;cursor:pointer;display:flex;align-items:center;justify-content:space-between;" onclick="toggleDomain('dc-algebra')">תחום אלגברי<span id="chev-dc-algebra" style="font-size:11px;transition:transform .25s;">▼</span></div>
       <div class="domain-deco" style="color:#8B5CF6;">2(x−5) − 3x = −13 ⟹ x = 3</div>
+      <div id="dc-algebra">
       <div class="units">
         <a class="unit-card" href="./unit8/" style="border-right:3px solid #8B5CF6;">
           <div class="unit-left">
@@ -433,11 +438,13 @@
           <span style="font-size:11px;font-weight:600;background:rgba(139,92,246,0.18);border:1px solid rgba(139,92,246,0.35);border-radius:20px;padding:2px 9px;color:#C4B5FD;white-space:nowrap;">עד 11.5.2027</span>
         </div>
       </div>
+      </div>
     </div>
 
     <!-- תחום אי-ודאות -->
     <div class="domain-block" style="background:rgba(245,158,11,0.07);border-color:rgba(245,158,11,0.3);grid-column:2;">
-      <div class="domain-label" style="color:#F59E0B;border-color:#F59E0B;">תחום אי-ודאות</div>
+      <div class="domain-label" style="color:#F59E0B;border-color:#F59E0B;cursor:pointer;display:flex;align-items:center;justify-content:space-between;" onclick="toggleDomain('dc-uncertainty')">תחום אי-ודאות<span id="chev-dc-uncertainty" style="font-size:11px;transition:transform .25s;">▼</span></div>
+      <div id="dc-uncertainty">
       <div class="units">
         <div class="unit-card" style="border-right:3px solid #F59E0B;opacity:0.45;pointer-events:none;cursor:default;">
           <div class="unit-left">
@@ -479,11 +486,13 @@
           <span style="font-size:12px;color:rgba(245,158,11,0.4);">בבנייה</span>
         </div>
       </div>
+      </div>
     </div>
 
     <!-- גיאומטריה ב׳ -->
     <div class="domain-block" style="background:rgba(16,185,129,0.07);border-color:rgba(16,185,129,0.3);grid-column:2;">
-      <div class="domain-label" style="color:#10B981;border-color:#10B981;">תחום גיאומטרי</div>
+      <div class="domain-label" style="color:#10B981;border-color:#10B981;cursor:pointer;display:flex;align-items:center;justify-content:space-between;" onclick="toggleDomain('dc-geo-b')">תחום גיאומטרי<span id="chev-dc-geo-b" style="font-size:11px;transition:transform .25s;">▼</span></div>
+      <div id="dc-geo-b">
       <div class="units">
         <div class="unit-card" style="border-right:3px solid #10B981;opacity:0.45;pointer-events:none;cursor:default;">
           <div class="unit-left">
@@ -524,6 +533,7 @@
           </div>
           <span style="font-size:12px;color:rgba(16,185,129,0.4);">בבנייה</span>
         </div>
+      </div>
       </div>
     </div>
 
@@ -596,6 +606,26 @@ function toggleNumExams() {
     setTimeout(() => { panel.style.display = 'none'; }, 250);
   }
 }
+
+function toggleDomain(id) {
+  const el = document.getElementById(id);
+  const chev = document.getElementById('chev-' + id);
+  const isOpen = el.style.display !== 'none';
+  el.style.display = isOpen ? 'none' : '';
+  chev.style.transform = isOpen ? 'rotate(-90deg)' : '';
+  localStorage.setItem('domain-open-' + id, isOpen ? '0' : '1');
+}
+
+(function restoreDomains(){
+  ['dc-numbers','dc-geo-a','dc-algebra','dc-uncertainty','dc-geo-b'].forEach(function(id){
+    if(localStorage.getItem('domain-open-' + id) === '0'){
+      var el = document.getElementById(id);
+      var chev = document.getElementById('chev-' + id);
+      if(el) el.style.display = 'none';
+      if(chev) chev.style.transform = 'rotate(-90deg)';
+    }
+  });
+})();
 
 function openExamModal(type) {
   _examTarget = type;
