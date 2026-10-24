@@ -618,7 +618,7 @@ function toggleDomain(id) {
 
 (function restoreDomains(){
   ['dc-numbers','dc-geo-a','dc-algebra','dc-uncertainty','dc-geo-b'].forEach(function(id){
-    if(localStorage.getItem('domain-open-' + id) === '0'){
+    if(localStorage.getItem('domain-open-' + id) !== '1'){
       var el = document.getElementById(id);
       var chev = document.getElementById('chev-' + id);
       if(el) el.style.display = 'none';
