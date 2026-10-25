@@ -977,7 +977,16 @@ function submitTypedSum(){
 function renderGameResults(){
   const pct = state.gameTotal > 0 ? Math.round(state.gameScore/state.gameTotal*100) : 0;
   const msg = pct===100 ? 'מושלם! כל הכבוד!' : pct>=80 ? 'עבודה מצוינת!' : pct>=60 ? 'כמעט שם, המשיכו להתאמן' : 'כדאי לחזור על ההקנייה';
-  const worksheetBtn = `<button class="btn" onclick="window.open('../worksheets/powers_exam.html','_blank')">למבדק שליטה ←</button>`;
+  const seqUrls = {
+    1: '../worksheets/powers_exam_part_a.html',
+    2: '../worksheets/negative_base_exam.html',
+    3: '../worksheets/powers_exam_part_b.html',
+    4: '../worksheets/powers_exam_part_c.html',
+    5: '../worksheets/sqrt_definition_exam.html',
+    6: '../worksheets/sqrt_exam.html',
+  };
+  const wsUrl = seqUrls[state.sequence];
+  const worksheetBtn = wsUrl ? `<button class="btn" onclick="window.open('${wsUrl}','_blank')">למבדק שליטה ←</button>` : '';
   return `
     <div class="panel" style="text-align:center;">
       <h2 class="qtitle">סיום התרגול!</h2>
