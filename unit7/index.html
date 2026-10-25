@@ -171,6 +171,65 @@ const gameLevels7 = [
   {q:IMG7V+'<div style="font-size:17px;font-weight:700;text-align:center;">שלושה משולשים שווי-צלעות חולקים קודקוד H, AH ⊥ JH. מה גודל ∠FHI + ∠BHE?</div>',opts:['60°','90°','120°','150°'],ans:1,exp:'סביב נקודה H כל הזוויות = 360°. שלוש זוויות של משולשים שווי-צלעות = 3 × 60° = 180°. זווית ישרה ∠AHJ = 90°. לכן ∠FHI + ∠BHE = 360° − 180° − 90° = 90°.'},
 ];
 
+const IMG8KMP  = '<img src="seq8_kmp.png" style="width:100%;max-width:540px;border-radius:8px;display:block;margin:0 auto 10px;" />';
+const IMG8FOUR = '<img src="seq8_four_triangles.png" style="width:100%;max-width:620px;border-radius:8px;display:block;margin:0 auto 10px;" />';
+const IMG8BIS1 = '<img src="seq8_abc_bisect.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 10px;" />';
+const IMG8BIS2 = '<img src="seq8_kml_bisect.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 10px;" />';
+const IMG8EXT1 = '<img src="seq8_fkr_exterior.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 10px;" />';
+const IMG8EXT2 = '<img src="seq8_abc_exterior.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 10px;" />';
+const IMG8THK  = '<img src="seq8_thinking.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 10px;" />';
+
+const gameLevels8 = [
+  // 1א — זיהוי שוקיים ובסיס
+  {q:IMG8KMP+'<div style="font-size:17px;font-weight:700;text-align:center;">ב-△KMP שווה-שוקיים (KP=KM) — מה הן שוקי המשולש?</div>',
+   opts:['KP ו-KM','KP ו-MP','KM ו-MP','כולן שוות'],ans:0,
+   exp:'השוקיים הם הצלעות השוות: KP ו-KM. הבסיס הוא הצלע השלישית: MP.'},
+  // 1ב — איזה שוויון נכון
+  {q:IMG8KMP+'<div style="font-size:17px;font-weight:700;text-align:center;">ב-△KMP (KP=KM) — המשולש אינו שווה-צלעות. איזה שוויון נכון?</div>',
+   opts:['∠M = ∠P','∠K = ∠P','∠K = ∠M','אין שוויון'],ans:0,
+   exp:'הזוויות השוות הן זוויות הבסיס: ∠M ו-∠P (נגד השוקיים השווים KP ו-KM).'},
+  // 2א — זיהוי זוויות שוות (א)
+  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (א) — אילו זוויות שוות ב-△DAN?</div>',
+   opts:['∠D = ∠N','∠D = ∠A','∠A = ∠N','∠D = ∠A = ∠N'],ans:0,
+   exp:'הצלעות השוות יוצאות מ-A (הקדקוד/ראש המשולש). זוויות הבסיס — ∠D ו-∠N — שוות.'},
+  // 2ב — זיהוי זוויות שוות (ב)
+  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (ב) — אילו זוויות שוות ב-△ELI?</div>',
+   opts:['∠L = ∠I','∠E = ∠L','∠E = ∠I','∠E = ∠L = ∠I'],ans:2,
+   exp:'הצלעות השוות יוצאות מ-E. זוויות הבסיס — ∠L ו-∠I — שוות.'},
+  // 2ג — זיהוי זוויות שוות (ג)
+  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (ג) — אילו זוויות שוות ב-△TOM?</div>',
+   opts:['∠T = ∠O','∠T = ∠M','∠O = ∠M','∠T = ∠O = ∠M'],ans:2,
+   exp:'הצלעות השוות יוצאות מ-T (ראש המשולש). זוויות הבסיס — ∠O ו-∠M — שוות.'},
+  // 2ד — זיהוי זוויות שוות (ד)
+  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (ד) — אילו זוויות שוות ב-△ONS?</div>',
+   opts:['∠N = ∠O','∠O = ∠S','∠N = ∠S','∠N = ∠O = ∠S'],ans:1,
+   exp:'הצלעות השוות יוצאות מ-N (ראש המשולש). זוויות הבסיס — ∠O ו-∠S — שוות.'},
+  // 3 — △ABC, ∠C=50°, BD חוצה ∠B
+  {q:IMG8BIS1+'<div style="font-size:17px;font-weight:700;text-align:center;">△ABC שווה-שוקיים (AB=AC), ∠C=50°, BD חוצה את ∠B. מה גודל ∠ABD?</div>',
+   opts:['25°','40°','50°','65°'],ans:0,
+   exp:'AB=AC → ∠B=∠C=50°. BD חוצה ∠B → ∠ABD = 50°÷2 = 25°.'},
+  // 4 — △KML, MP חוצה, ∠KMP=17°
+  {q:IMG8BIS2+'<div style="font-size:17px;font-weight:700;text-align:center;">△KML שווה-שוקיים (KL=KM), MP חוצה את ∠KML, ∠KMP=17°. מה גודל ∠L?</div>',
+   opts:['17°','34°','51°','68°'],ans:1,
+   exp:'MP חוצה → ∠KML = 2×17° = 34°. KL=KM → זוויות הבסיס שוות: ∠L = ∠KML = 34°.'},
+  // 5 — △FKR, ∠F=36°, חישוב α
+  {q:IMG8EXT1+'<div style="font-size:17px;font-weight:700;text-align:center;">△FKR שווה-שוקיים (KF=KR), ∠F=36°. S על המשך KR. מה גודל α?</div>',
+   opts:['36°','72°','108°','144°'],ans:3,
+   exp:'KF=KR → ∠F=∠R=36°. α היא הזווית החיצונית ב-R: α = 180°−36° = 144°.'},
+  // 6α — △ABC, ∠B=52°
+  {q:IMG8EXT2+'<div style="font-size:17px;font-weight:700;text-align:center;">△ABC שווה-שוקיים (AB=AC), ∠B=52°. מה גודל α?</div>',
+   opts:['52°','64°','76°','128°'],ans:0,
+   exp:'AB=AC → ∠B=∠C. לכן α = ∠ACB = ∠B = 52°.'},
+  // 6β
+  {q:IMG8EXT2+'<div style="font-size:17px;font-weight:700;text-align:center;">△ABC שווה-שוקיים (AB=AC), ∠B=52°. מה גודל β?</div>',
+   opts:['52°','76°','104°','128°'],ans:3,
+   exp:'β היא הזווית החיצונית ב-C: β = 180°−α = 180°−52° = 128°.'},
+  // שאלת חשיבה — △ABC+△CDB
+  {q:IMG8THK+'<div style="font-size:17px;font-weight:700;text-align:center;">△ABC שווה-שוקיים (AB=AC), △CDB שווה-צלעות, ∠ACD=15°. מה גודל ∠ABC?</div>',
+   opts:['60°','70°','75°','80°'],ans:2,
+   exp:'△CDB שווה-צלעות → ∠DCB=60°. ∠ACB = ∠ACD+∠DCB = 15°+60° = 75°. AB=AC → ∠ABC=∠ACB = 75°.'},
+];
+
 const gameLevelsPlaceholder = [
   {q:'שאלה לדוגמה — תוכן יתווסף בקרוב',opts:['א','ב','ג','ד'],ans:0,exp:'תוכן תרגול לרצף זה יתווסף בקרוב.'},
 ];
@@ -183,6 +242,7 @@ function currentLevels(){
   if(state.sequence===5) return gameLevels5;
   if(state.sequence===6) return gameLevels6;
   if(state.sequence===7) return gameLevels7;
+  if(state.sequence===8) return gameLevels8;
   return gameLevelsPlaceholder;
 }
 
@@ -318,7 +378,7 @@ function renderHome(){
 
       <div style="${SH}">משולשים ומרובעים</div>
       ${seqRow(7,  '7. משולש שווה-צלעות',   {worksheetUrl:'../worksheets/angles_seq7_exam.html'})}
-      ${seqRow(8,  '8. משולש שווה-שוקיים',  {noLearn:true, noGame:true, noQuiz:true})}
+      ${seqRow(8,  '8. משולש שווה-שוקיים',  {worksheetUrl:'../worksheets/angles_seq8_exam.html'})}
       ${seqRow(9,  '9. סכום זוויות במשולש', {noLearn:true, noGame:true, noQuiz:true})}
       ${seqRow(10, '10. סכום זוויות במרובע',{noLearn:true, noGame:true, noQuiz:true})}
     </div>`;
@@ -336,6 +396,7 @@ function renderLearn(){
   if(state.sequence===5) return renderLearn5();
   if(state.sequence===6) return renderLearn6();
   if(state.sequence===7) return renderLearn7();
+  if(state.sequence===8) return renderLearn8();
   return renderLearnPlaceholder();
 }
 
@@ -443,6 +504,23 @@ function renderLearn7(){
   </div>`;
 }
 
+function renderLearn8(){
+  return `<div class="panel">
+    <h2 class="qtitle">משולש שווה-שוקיים</h2>
+    <div class="gold-box">משולש שווה-שוקיים = משולש שיש לו שתי צלעות שוות (שוקיים). <strong>זוויות הבסיס שוות זו לזו</strong></div>
+    <ul class="bullets">
+      <li>השוקיים = שתי הצלעות השוות</li>
+      <li>הבסיס = הצלע השלישית (השונה)</li>
+      <li>זווית הראש = הזווית בין שני השוקיים</li>
+      <li>זוויות הבסיס = שתי הזוויות מול השוקיים — הן תמיד שוות</li>
+    </ul>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=8;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
 const LEARN_TITLES = {
   2:  'כתיב מתמטי של זוויות',
   3:  'סכום והפרש זוויות',
@@ -511,7 +589,7 @@ function skipQ(){ state.qi++; state.answered=false; state.lastAnswer=-1; render(
 function renderGameResults(){
   const total = currentLevels().length;
   const pct = Math.round(state.score/total*100);
-  const seqUrls = {1:'../worksheets/angles_seq1_exam.html',2:'../worksheets/angles_seq2_exam.html',3:'../worksheets/angles_seq3_exam.html',4:'../worksheets/angles_seq4_exam.html',5:'../worksheets/angles_seq5_exam.html',6:'../worksheets/angles_seq6_exam.html',7:'../worksheets/angles_seq7_exam.html'};
+  const seqUrls = {1:'../worksheets/angles_seq1_exam.html',2:'../worksheets/angles_seq2_exam.html',3:'../worksheets/angles_seq3_exam.html',4:'../worksheets/angles_seq4_exam.html',5:'../worksheets/angles_seq5_exam.html',6:'../worksheets/angles_seq6_exam.html',7:'../worksheets/angles_seq7_exam.html',8:'../worksheets/angles_seq8_exam.html'};
   const examUrl = seqUrls[state.sequence] || '';
   const examBtn = examUrl
     ? `<button class="btn" onclick="window.open('${examUrl}','_blank')">למבדק שליטה ←</button>`
