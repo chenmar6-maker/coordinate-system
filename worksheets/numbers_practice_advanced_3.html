@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תרגול נוסף (ב) — מבדק מסכם מתקדם: מספרים מכוונים ומערכת צירים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 80px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .part-label { font-size: 13px; font-weight: 700; color: #fff; padding: 5px 14px; border-radius: 6px; display: inline-block; margin-bottom: 10px; }
+  .q { margin-bottom: 12px; padding: 14px 16px; background: #fff; border-radius: 8px; font-size: 13.5px; line-height: 1.8; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border-right: 4px solid #7C3AED; }
+  .q-b { border-right-color: #F59E0B; }
+  .qn { font-weight: 700; margin-left: 4px; color: #7C3AED; }
+  .qn-b { color: #D97706; }
+  .b { border-bottom: 1px solid #555; display: inline-block; min-width: 80px; }
+  .wl { border-bottom: 1px solid #ccc; margin-top: 14px; height: 1px; }
+  .math { direction: ltr; unicode-bidi: isolate; font-size: 15px; display: inline-block; }
+  .mc-opts { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+  .mc-opt { background: #F8F9FB; border: 1.5px solid #e5e7eb; border-radius: 7px; padding: 8px 14px; font-size: 13px; cursor: default; }
+  .info-box { background: #F5F3FF; border: 1.5px solid #C4B5FD; border-radius: 8px; padding: 10px 14px; margin: 8px 0; font-size: 13px; line-height: 1.9; }
+  .score-bar { background: #fff; border-radius: 8px; padding: 12px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); display: flex; justify-content: flex-end; font-size: 13px; margin-bottom: 12px; align-items: center; gap: 6px; }
+  .sf { border-bottom: 1px solid #555; min-width: 40px; display: inline-block; }
+  .ans-table-wrap { background: #fff; border-radius: 10px; padding: 16px 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); margin-top: 20px; }
+  .ans-table-title { font-size: 15px; font-weight: 700; color: #7C3AED; margin-bottom: 12px; border-bottom: 2px solid #EDE9FE; padding-bottom: 8px; }
+  .ans-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .ans-table th { background: #7C3AED; color: #fff; padding: 8px 10px; text-align: center; font-weight: 700; }
+  .ans-table th:first-child { border-radius: 0 8px 0 0; }
+  .ans-table th:last-child { border-radius: 8px 0 0 0; }
+  .ans-table td { padding: 8px 10px; text-align: center; border-bottom: 1px solid #F3F4F6; }
+  .ans-table tr:last-child td { border-bottom: none; }
+  .ans-table tr:nth-child(even) td { background: #FAFAFF; }
+  .ans-val { direction: ltr; unicode-bidi: isolate; font-weight: 700; color: #065F46; }
+  .mc-ans { background: #F59E0B; color: #fff; border-radius: 4px; padding: 1px 7px; font-weight: 700; }
+  .note { font-size: 12px; color: #6B7280; margin-top: 10px; }
+  .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  @media print { .no-print { display: none; } @page { size: A4; margin: 12mm; } body { background: #fff; padding: 10px; } .q { page-break-inside: avoid; box-shadow: none; border: 1px solid #ddd; } .ans-table-wrap { page-break-inside: avoid; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">תרגול נוסף (ב) — מבדק מסכם מתקדם: מספרים ומערכת צירים</div>
+    <div class="header-sub">כיתה ז׳ · רמה מתקדמת &nbsp;|&nbsp; הכנה למבחן · ללא מגבלת זמן</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div style="background:#EDE9FE;border:2px solid #7C3AED;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#4C1D95;display:flex;align-items:center;gap:10px;">
+  <span style="font-size:20px;">📝</span>
+  <span>פתרו על דף נפרד — כתבו את מספרי השאלות. בסיום השוו לטבלת התשובות בסוף הדף.</span>
+</div>
+
+<!-- Part A -->
+<span class="part-label" style="background:#7C3AED;">חלק א׳ — שאלות פתוחות (10 שאלות)</span>
+
+<div class="q">
+  <span class="qn">1.</span> חשבו (שימו לב לסדר הפעולות):
+  <div style="margin:10px 0 6px;text-align:center;">
+    <span class="math">5 · {−4 − [3 − (−2)·(−3)] : (−3)} + 8</span>
+  </div>
+  <div class="wl"></div><div class="wl" style="margin-top:10px;"></div>
+</div>
+
+<div class="q">
+  <span class="qn">2.</span> מצאו את <span class="math">□</span>:
+  <div style="margin:10px 0 6px;text-align:center;">
+    <span class="math">(□ + 3) ÷ (−2) + 4·(−3) = −4</span>
+  </div>
+  <div class="wl"></div><div class="wl" style="margin-top:10px;"></div>
+</div>
+
+<div class="q">
+  <span class="qn">3.</span> נתון: <span class="math">|a| = 5, &nbsp; |b| = 9, &nbsp; a·b &lt; 0, &nbsp; a + b &gt; 0</span>
+  <div style="margin:8px 0;">מהו הערך של <span class="math">a − b</span> ? &nbsp; הסבירו כיצד מצאתם את <span class="math">a</span> ואת <span class="math">b</span>.</div>
+  <div class="wl"></div><div class="wl" style="margin-top:10px;"></div>
+</div>
+
+<div class="q">
+  <span class="qn">4.</span> נתון ש‑<span class="math">a</span> הוא מספר שלילי.
+  <div style="margin:8px 0;">סדרו מהקטן לגדול: <span class="math">3a, &nbsp; a, &nbsp; a/3, &nbsp; −a</span></div>
+  <div class="info-box" style="font-size:12.5px;">רמז: בחרו ערך ספציפי ל‑a (למשל <span class="math">a = −6</span>) כדי לקבל אינטואיציה, אך הסבירו את ההיגיון הכללי.</div>
+  <div class="wl"></div>
+</div>
+
+<div class="q">
+  <span class="qn">5.</span> כטייסת בלון יורדת בקצב קבוע של 8 מטר לדקה. בשעה 11:20 גובהה הוא −48 מטר (מתחת לפני הים).
+  <div style="margin:8px 0 4px;">א. מה היה גובהה בשעה 11:15?</div>
+  <div class="wl"></div>
+  <div style="margin:10px 0 4px;">ב. מה יהיה גובהה בשעה 11:25?</div>
+  <div class="wl"></div>
+</div>
+
+<div class="q">
+  <span class="qn">6.</span> מהו המספר השלם הקטן ביותר שניתן להוסיף ל‑47 כדי לקבל מספר שהוא ריבוע שלם?
+  <div style="margin:8px 0;font-size:12.5px;color:#555;">הסבירו: אילו ריבועים שלמים בדקתם?</div>
+  <div class="wl"></div><div class="wl" style="margin-top:10px;"></div>
+</div>
+
+<div class="q">
+  <span class="qn">7.</span> כמה מספרים טבעיים <span class="math">n</span> מקיימים: &nbsp;<span class="math">5ⁿ &lt; 200</span> ?
+  <div style="margin-top:6px;font-size:12.5px;color:#555;">כתבו את כל הערכים.</div>
+  <div class="wl"></div><div class="wl" style="margin-top:10px;"></div>
+</div>
+
+<div class="q">
+  <span class="qn">8.</span> מהי ספרת האחדות של <span class="math">8³⁰</span> ?
+  <div style="margin:8px 0;font-size:12.5px;color:#555;">רמז: בדקו את הדפוס של ספרות האחדות של חזקות 8.</div>
+  <div class="wl"></div><div class="wl" style="margin-top:10px;"></div>
+</div>
+
+<div class="q">
+  <span class="qn">9.</span> הנקודה <span class="math">M(−3, 5)</span> מוצגת במערכת צירים.
+  <div style="margin:6px 0 4px;">א. שקפו את M ביחס לציר x. מהן קואורדינטות הנקודה החדשה M'?</div>
+  <div class="wl"></div>
+  <div style="margin:10px 0 4px;">ב. שקפו את M' שקיבלתם ביחס לציר y. מהן קואורדינטות הנקודה הסופית M''?</div>
+  <div class="wl"></div>
+</div>
+
+<div class="q">
+  <span class="qn">10.</span> הנקודה <span class="math">M(2, −1)</span> היא אמצע קטע <span class="math">AB</span>. נתון ש‑<span class="math">A = (−2, 5)</span>. מצאו את קואורדינטות <span class="math">B</span>.
+  <div class="info-box" style="font-size:12.5px;">רמז: אם M הוא אמצע AB, אז x<sub>M</sub> = (x<sub>A</sub>+x<sub>B</sub>)/2 ו‑y<sub>M</sub> = (y<sub>A</sub>+y<sub>B</sub>)/2</div>
+  <div class="wl"></div><div class="wl" style="margin-top:10px;"></div>
+</div>
+
+<!-- Part B -->
+<span class="part-label" style="background:#F59E0B;margin-top:18px;display:inline-block;">חלק ב׳ — שאלות אמריקאיות (3 שאלות)</span>
+
+<div class="q q-b">
+  <span class="qn qn-b">11.</span> הנקודה R נמצאת על ציר המספרים בין −2 ל‑−1. איזו טענה <strong>נכונה</strong>?
+  <div class="mc-opts">
+    <div class="mc-opt"><bdi>א.</bdi> &nbsp;<span class="math">R² &lt; 1</span></div>
+    <div class="mc-opt"><bdi>ב.</bdi> &nbsp;<span class="math">R &gt; R³</span></div>
+    <div class="mc-opt"><bdi>ג.</bdi> &nbsp;<span class="math">−R &lt; 1</span></div>
+    <div class="mc-opt"><bdi>ד.</bdi> &nbsp;<span class="math">R² &lt; R</span></div>
+  </div>
+</div>
+
+<div class="q q-b">
+  <span class="qn qn-b">12.</span> נתון: <span class="math">m &lt; 0 &lt; n</span> וכן <span class="math">|m| &lt; |n|</span>. איזה מהביטויים הבאים הוא <strong>הגדול ביותר</strong>?
+  <div class="mc-opts">
+    <div class="mc-opt"><bdi>א.</bdi> &nbsp;<span class="math">m + n</span></div>
+    <div class="mc-opt"><bdi>ב.</bdi> &nbsp;<span class="math">n − m</span></div>
+    <div class="mc-opt"><bdi>ג.</bdi> &nbsp;<span class="math">m − n</span></div>
+    <div class="mc-opt"><bdi>ד.</bdi> &nbsp;<span class="math">n · m</span></div>
+  </div>
+</div>
+
+<div class="q q-b">
+  <span class="qn qn-b">13.</span> הוסיפו סימני + או − בין המספרים כך שתקבלו: &nbsp;<span class="math">6 □ 4 □ 9 □ 3 □ 2 = −8</span>
+  <div class="mc-opts">
+    <div class="mc-opt"><bdi>א.</bdi> &nbsp;<span class="math">+ , + , − , −</span></div>
+    <div class="mc-opt"><bdi>ב.</bdi> &nbsp;<span class="math">− , − , + , +</span></div>
+    <div class="mc-opt"><bdi>ג.</bdi> &nbsp;<span class="math">− , − , − , +</span></div>
+    <div class="mc-opt"><bdi>ד.</bdi> &nbsp;<span class="math">+ , − , − , −</span></div>
+  </div>
+</div>
+
+<!-- Score Bar -->
+<div class="score-bar no-print">
+  ציון: <span class="sf">&nbsp;&nbsp;&nbsp;&nbsp;</span> / 100
+</div>
+
+<!-- Answer Table -->
+<div class="ans-table-wrap">
+  <div class="ans-table-title">📋 טבלת תשובות — לבדיקה עצמית</div>
+  <table class="ans-table">
+    <thead>
+      <tr>
+        <th>שאלה</th>
+        <th>תשובה</th>
+        <th>שאלה</th>
+        <th>תשובה</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><span class="ans-val">−17</span></td>
+        <td>8</td>
+        <td><span class="ans-val">4</span></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><span class="ans-val">□ = −19</span></td>
+        <td>9א</td>
+        <td><span class="ans-val">M′(−3, −5)</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><span class="ans-val">a − b = −14</span></td>
+        <td>9ב</td>
+        <td><span class="ans-val">M″(3, −5)</span></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><span class="ans-val">3a &lt; a &lt; a/3 &lt; −a</span></td>
+        <td>10</td>
+        <td><span class="ans-val">B(6, −7)</span></td>
+      </tr>
+      <tr>
+        <td>5א</td>
+        <td><span class="ans-val">−8 מטר</span></td>
+        <td>11</td>
+        <td><span class="mc-ans">ב</span></td>
+      </tr>
+      <tr>
+        <td>5ב</td>
+        <td><span class="ans-val">−88 מטר</span></td>
+        <td>12</td>
+        <td><span class="mc-ans">ב</span></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><span class="ans-val">−11</span></td>
+        <td>13</td>
+        <td><span class="mc-ans">ג</span></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><span class="ans-val">3 מספרים</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="note">* שאלה 4: כל סדר נכון מקבל ניקוד. שאלות 5, 9 — כל חלק נפרד.</div>
+</div>
+
+<div class="brand-line" style="font-size:11px;font-weight:600;color:#888;margin-top:14px;text-align:center;">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
