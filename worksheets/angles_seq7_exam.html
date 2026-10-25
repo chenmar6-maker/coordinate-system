@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — משולש שווה-צלעות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Rubik',sans-serif;background:#fff;color:#1a1a2e;direction:rtl;line-height:1.7;}
+  .page{max-width:720px;margin:0 auto;padding:32px 24px 60px;}
+  .header{border-bottom:3px solid #10B981;padding-bottom:16px;margin-bottom:28px;}
+  .header h1{font-size:22px;font-weight:800;margin:0 0 4px;color:#10B981;}
+  .header p{font-size:13px;color:#6b7280;margin:0;}
+  .q-block{margin-bottom:32px;padding:20px 22px;border:1.5px solid #e5e7eb;border-radius:12px;}
+  .q-num{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#10B981;margin-bottom:6px;text-transform:uppercase;}
+  .q-text{font-size:16px;font-weight:600;margin-bottom:14px;line-height:1.6;}
+  .q-img{width:100%;max-width:560px;border-radius:8px;display:block;margin:0 auto 14px;border:1px solid #e5e7eb;}
+  .answer-lines{margin-top:10px;}
+  .answer-line{border:none;border-bottom:1.5px solid #d1d5db;width:100%;height:32px;display:block;margin-bottom:10px;background:transparent;}
+  .explain-label{font-size:13px;font-weight:600;color:#6b7280;margin:10px 0 4px;}
+  .explain-box{border:1.5px solid #d1d5db;border-radius:6px;width:100%;min-height:60px;display:block;background:transparent;padding:6px 10px;font-family:'Rubik',sans-serif;font-size:14px;resize:none;}
+  .sub-label{font-size:13px;font-weight:700;color:#374151;margin:12px 0 4px;}
+  footer{text-align:center;font-size:11px;color:#9ca3af;padding:20px 0;border-top:1px solid #f3f4f6;}
+  @media print{
+    .q-block{break-inside:avoid;}
+    body{background:#fff;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>מבדק שליטה — משולש שווה-צלעות</h1>
+    <p>שם: _________________________ &nbsp;&nbsp; תאריך: _____________</p>
+  </div>
+
+  <!-- שאלה 1 -->
+  <div class="q-block">
+    <div class="q-num">שאלה 1</div>
+    <img class="q-img" src="../unit7/seq7_exam_playground.png" alt="מתקן שעשועים" />
+    <div class="q-text">הגג במתקן השעשועים המתואר באיור הוא בצורת משולש שווה-צלעות.<br>מהו גודל הזווית המסומנת בתמונה?</div>
+    <div class="answer-lines">
+      <input class="answer-line" type="text" placeholder="תשובה:" />
+    </div>
+  </div>
+
+  <!-- שאלה 2 -->
+  <div class="q-block">
+    <div class="q-num">שאלה 2 — מגן דוד</div>
+    <img class="q-img" src="../unit7/seq7_exam_star.png" alt="מגן דוד ממגפרורים" />
+    <div class="q-text">עופר הכין מגן דוד מגפרורים השווים באורכם (ראו סרטוט).</div>
+
+    <div class="sub-label">(א) מצאו בסרטוט שני משולשים שווי-צלעות שונים והסבירו מדוע כל אחד מהם הוא שווה-צלעות:</div>
+    <textarea class="explain-box" rows="3" placeholder="המשולשים הם... כי..."></textarea>
+
+    <div class="sub-label">(ב) מצאו את גודלן של:</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:6px;">
+      <div style="flex:1;min-width:120px;">∠B = <input class="answer-line" type="text" /></div>
+      <div style="flex:1;min-width:120px;">∠BAC = <input class="answer-line" type="text" /></div>
+      <div style="flex:1;min-width:120px;">∠CAM = <input class="answer-line" type="text" /></div>
+    </div>
+  </div>
+
+  <!-- שאלה 3 -->
+  <div class="q-block">
+    <div class="q-num">שאלה 3 — מעמד כביסה</div>
+    <img class="q-img" src="../unit7/seq7_exam_basket.png" alt="מעמד סל כביסה" />
+    <div class="q-text">מעמד סל הכביסה בתמונה מורכב מפסי אלומיניום ישרים. האורכים נתונים בסרטוט (ס"מ).</div>
+
+    <div class="sub-label">(א) כתבו שמות של זוויות שגודלן הוא בהכרח 60° ב-△CED וב-△ACB, והסבירו:</div>
+    <textarea class="explain-box" rows="3" placeholder="ב-△CED: ... ב-△ACB: ... כי..."></textarea>
+
+    <div class="sub-label">(ב) מצאו את גודלה של ∠BCE:</div>
+    <input class="answer-line" type="text" placeholder="∠BCE = " style="max-width:200px;" />
+  </div>
+
+  <!-- שאלה 4 -->
+  <div class="q-block">
+    <div class="q-num">שאלה 4 — שרשרת דגלים</div>
+    <img class="q-img" src="../unit7/seq7_exam_flags.png" alt="שרשרת דגלים" />
+    <div class="q-text">דרור תלה שרשרת דגלים על חוט. כל הדגלים הם משולשים שווי-צלעות (ראו סרטוט).</div>
+
+    <div class="sub-label">(א) מהו גודל ∠ABD?</div>
+    <input class="answer-line" type="text" placeholder="∠ABD = " style="max-width:200px;" />
+
+    <div class="sub-label">(ב) דרור הצמיד את הדגלים כך שנקודות A ו-B התלכדו. מהו גודל ∠DAC?</div>
+    <input class="answer-line" type="text" placeholder="∠DAC = " style="max-width:200px;" />
+  </div>
+
+</div>
+<footer>© כל הזכויות שמורות לחן מרגלית &nbsp;|&nbsp; מבדק שליטה — משולש שווה-צלעות</footer>
+</body>
+</html>

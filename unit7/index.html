@@ -154,6 +154,23 @@ const gameLevels6 = [
   {q:IMG6XP+'<div style="margin-top:4px;">'+A6('A, P, B הם על קו ישר. <span dir="ltr">∡APD=50°</span>, <span dir="ltr">∡CPE=10°</span>. מה ערכו של x?')+'</div>',opts:['50°','40°','30°','60°'],ans:1,exp:A6('הזווית הקודקודית ל-<span dir="ltr">∡APD</span> היא <span dir="ltr">∡BPC = 50°</span>. <span dir="ltr">x = ∡BPE = ∡BPC − ∡CPE = 50° − 10° = 40°</span>.')},
 ];
 
+const IMG7A = '<img src="seq7_identify.png" style="width:100%;max-width:520px;border-radius:8px;display:block;margin:0 auto 10px;" />';
+const IMG7N = '<img src="seq7_nofar.png" style="width:100%;max-width:520px;border-radius:8px;display:block;margin:0 auto 10px;" />';
+const IMG7C = '<img src="seq7_calc_alpha.png" style="width:100%;max-width:580px;border-radius:8px;display:block;margin:0 auto 10px;" />';
+const IMG7E = '<img src="seq7_ecb_edf.png" style="width:100%;max-width:520px;border-radius:8px;display:block;margin:0 auto 10px;" />';
+const IMG7V = '<img src="seq7_vertex_h.png" style="width:100%;max-width:520px;border-radius:8px;display:block;margin:0 auto 10px;" />';
+
+const gameLevels7 = [
+  {q:'כמה מעלות יש בכל זווית של משולש שווה-צלעות?',opts:['45°','60°','90°','120°'],ans:1,exp:'משולש שווה-צלעות הוא גם שווה-זוויות. סכום הזוויות = 180°, ולכן כל זווית = 180° ÷ 3 = 60°.'},
+  {q:IMG7A+'<div style="font-size:17px;font-weight:700;text-align:center;">באילו מהמשולשים כל הזוויות הן בנות 60°?</div>',opts:['1 ו-3','1 ו-2','2 ו-3','2 ו-4'],ans:0,exp:'משולש 1 (כל הצלעות = 1) ומשולש 3 (כל הצלעות = 5) הם שווה-צלעות — לכן כל זוויותיהם 60°. משולשים 2 ו-4 הם שווה-שוקיים אך לא שווה-צלעות.'},
+  {q:IMG7N+'<div style="font-size:17px;font-weight:700;text-align:center;">נופר ציירה עץ משלושה משולשים שווי-צלעות בגדלים שונים. מה ניתן לומר על ∠A, ∠B ו-∠C?</div>',opts:['∠A הקטנה ביותר','∠C הגדולה ביותר','∠B הגדולה ביותר','∠A = ∠B = ∠C'],ans:3,exp:'בכל משולש שווה-צלעות — גדול או קטן — כל זווית = 60°. גודל הצלעות לא משפיע על גודל הזוויות. לכן ∠A = ∠B = ∠C = 60°.'},
+  {q:IMG7C+'<div style="font-size:17px;font-weight:700;text-align:center;">הסתכלו בסרטוט <strong>(ג)</strong> — מה גודל α?</div>',opts:['28°','32°','88°','92°'],ans:0,exp:'הישר עובר דרך קדקוד המשולש. הזווית הפנימית של המשולש השווה-צלעות = 60°. α = 60° − 32° = 28°.'},
+  {q:IMG7E+'<div style="font-size:17px;font-weight:700;text-align:center;">△ECB ו-△EDF שווי-צלעות, D נמצא על EB. מה גודל ∠CEF?</div>',opts:['60°','90°','120°','150°'],ans:2,exp:'∠CEB = 60° (△ECB שווה-צלעות). D נמצא על EB, לכן קרן ED = קרן EB ו-∠DEF = 60° (△EDF שווה-צלעות). ∠CEF = ∠CEB + ∠DEF = 60° + 60° = 120°.'},
+  {q:IMG7E+'<div style="font-size:17px;font-weight:700;text-align:center;">△ECB ו-△EDF שווי-צלעות, D נמצא על EB. מה גודל ∠FDB?</div>',opts:['60°','90°','120°','150°'],ans:2,exp:'∠EDF = 60° (△EDF שווה-צלעות). D נמצא על EB — לכן ∠EDF ו-∠FDB הן זוויות על קו ישר: ∠FDB = 180° − 60° = 120°.'},
+  {q:IMG7E+'<div style="font-size:17px;font-weight:700;text-align:center;">G נמצאת על המשך הצלע FE מעבר ל-E. מה גודל ∠CEG?</div>',opts:['60°','90°','120°','150°'],ans:0,exp:'∠CEF = 120° (מהשאלה הקודמת). G על המשך FE — לכן ∠CEG ו-∠CEF הן זוויות צמודות: ∠CEG = 180° − 120° = 60°.'},
+  {q:IMG7V+'<div style="font-size:17px;font-weight:700;text-align:center;">שלושה משולשים שווי-צלעות חולקים קודקוד H, AH ⊥ JH. מה גודל ∠FHI + ∠BHE?</div>',opts:['60°','90°','120°','150°'],ans:1,exp:'סביב נקודה H כל הזוויות = 360°. שלוש זוויות של משולשים שווי-צלעות = 3 × 60° = 180°. זווית ישרה ∠AHJ = 90°. לכן ∠FHI + ∠BHE = 360° − 180° − 90° = 90°.'},
+];
+
 const gameLevelsPlaceholder = [
   {q:'שאלה לדוגמה — תוכן יתווסף בקרוב',opts:['א','ב','ג','ד'],ans:0,exp:'תוכן תרגול לרצף זה יתווסף בקרוב.'},
 ];
@@ -165,6 +182,7 @@ function currentLevels(){
   if(state.sequence===4) return gameLevels4;
   if(state.sequence===5) return gameLevels5;
   if(state.sequence===6) return gameLevels6;
+  if(state.sequence===7) return gameLevels7;
   return gameLevelsPlaceholder;
 }
 
@@ -299,7 +317,7 @@ function renderHome(){
       ${seqRow(6,  '6. זוויות קודקודיות',     {worksheetUrl:'../worksheets/angles_seq6_exam.html', checkUrl:'../worksheets/angles_seq6_exam_check.html', answersUrl:'../worksheets/angles_seq6_exam_answers.html'})}
 
       <div style="${SH}">משולשים ומרובעים</div>
-      ${seqRow(7,  '7. משולש שווה-צלעות',   {noLearn:true, noGame:true, noQuiz:true})}
+      ${seqRow(7,  '7. משולש שווה-צלעות',   {worksheetUrl:'../worksheets/angles_seq7_exam.html'})}
       ${seqRow(8,  '8. משולש שווה-שוקיים',  {noLearn:true, noGame:true, noQuiz:true})}
       ${seqRow(9,  '9. סכום זוויות במשולש', {noLearn:true, noGame:true, noQuiz:true})}
       ${seqRow(10, '10. סכום זוויות במרובע',{noLearn:true, noGame:true, noQuiz:true})}
@@ -317,6 +335,7 @@ function renderLearn(){
   if(state.sequence===4) return renderLearn4();
   if(state.sequence===5) return renderLearn5();
   if(state.sequence===6) return renderLearn6();
+  if(state.sequence===7) return renderLearn7();
   return renderLearnPlaceholder();
 }
 
@@ -408,6 +427,22 @@ function renderLearn6(){
   </div>`;
 }
 
+function renderLearn7(){
+  return `<div class="panel">
+    <h2 class="qtitle">משולש שווה-צלעות</h2>
+    <div class="gold-box">משולש שווה-צלעות = משולש שכל שלוש צלעותיו שוות — ולכן גם כל שלוש זוויותיו שוות: <strong>כל זווית = 60°</strong></div>
+    <ul class="bullets">
+      <li>סכום הזוויות במשולש = 180° ← כל זווית = 180° ÷ 3 = 60°</li>
+      <li>גודל הצלעות לא משנה — כל משולש שווה-צלעות, גדול או קטן, כל זוויותיו 60°</li>
+      <li>אם רואים בסרטוט שלוש צלעות שוות — מיד אפשר להסיק שכל זווית = 60°</li>
+    </ul>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=7;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
 const LEARN_TITLES = {
   2:  'כתיב מתמטי של זוויות',
   3:  'סכום והפרש זוויות',
@@ -476,7 +511,7 @@ function skipQ(){ state.qi++; state.answered=false; state.lastAnswer=-1; render(
 function renderGameResults(){
   const total = currentLevels().length;
   const pct = Math.round(state.score/total*100);
-  const seqUrls = {1:'../worksheets/angles_seq1_exam.html',2:'../worksheets/angles_seq2_exam.html',3:'../worksheets/angles_seq3_exam.html',4:'../worksheets/angles_seq4_exam.html',5:'../worksheets/angles_seq5_exam.html',6:'../worksheets/angles_seq6_exam.html'};
+  const seqUrls = {1:'../worksheets/angles_seq1_exam.html',2:'../worksheets/angles_seq2_exam.html',3:'../worksheets/angles_seq3_exam.html',4:'../worksheets/angles_seq4_exam.html',5:'../worksheets/angles_seq5_exam.html',6:'../worksheets/angles_seq6_exam.html',7:'../worksheets/angles_seq7_exam.html'};
   const examUrl = seqUrls[state.sequence] || '';
   const examBtn = examUrl
     ? `<button class="btn" onclick="window.open('${examUrl}','_blank')">למבדק שליטה ←</button>`
