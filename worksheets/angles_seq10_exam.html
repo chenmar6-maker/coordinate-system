@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — סכום זוויות במרובע</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Rubik',sans-serif;background:#fff;color:#1a1a2e;direction:rtl;line-height:1.7;}
+  .page{max-width:720px;margin:0 auto;padding:32px 24px 60px;}
+  .header{border-bottom:3px solid #10B981;padding-bottom:16px;margin-bottom:28px;}
+  .header h1{font-size:22px;font-weight:800;margin:0 0 4px;color:#10B981;}
+  .header p{font-size:13px;color:#6b7280;margin:0;}
+  .q-block{margin-bottom:32px;padding:20px 22px;border:1.5px solid #e5e7eb;border-radius:12px;}
+  .q-num{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#10B981;margin-bottom:6px;text-transform:uppercase;}
+  .q-text{font-size:15px;font-weight:600;margin-bottom:14px;line-height:1.7;}
+  .q-text p{margin:0 0 5px;}
+  .q-svg-wrap{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:8px;display:block;margin:10px auto 16px;max-width:360px;width:100%;}
+  .q-svg-wrap svg{display:block;width:100%;height:auto;}
+  .q-svg-wrap .lbl{font:600 17px 'Times New Roman',serif;fill:#000;}
+  .q-svg-wrap .ang{font:15px 'Times New Roman',serif;fill:#000;}
+  .figs-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0 16px;}
+  .figs-row .fig-cell{display:flex;flex-direction:column;align-items:center;}
+  .figs-row .fig-cell span{font-size:13px;font-weight:700;color:#374151;margin-bottom:4px;}
+  .figs-row .q-svg-wrap{margin:0;max-width:100%;}
+  .explain-box{border:1.5px solid #d1d5db;border-radius:6px;width:100%;min-height:56px;display:block;background:transparent;padding:6px 10px;font-family:'Rubik',sans-serif;font-size:14px;resize:none;}
+  .sub-label{font-size:13px;font-weight:700;color:#374151;margin:14px 0 4px;}
+  .ltr{direction:ltr;unicode-bidi:isolate;display:inline;}
+  .ans-row{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-top:4px;}
+  .ans-row .ans-cell{display:flex;flex-direction:column;gap:4px;min-width:140px;}
+  .ans-row .ans-cell label{font-size:13px;font-weight:700;color:#374151;}
+  .ans-short{border:1.5px solid #d1d5db;border-radius:6px;width:100%;padding:6px 10px;font-family:'Rubik',sans-serif;font-size:14px;}
+  footer{text-align:center;font-size:11px;color:#9ca3af;padding:20px 0;border-top:1px solid #f3f4f6;margin-top:20px;}
+  @media print{.q-block{break-inside:avoid;}body{background:#fff;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>מבדק שליטה — סכום זוויות במרובע</h1>
+    <p>שם: _________________________ &nbsp;&nbsp; תאריך: _____________</p>
+  </div>
+
+  <!-- שאלה 1 — ex4: אילו מרובעים אפשריים? -->
+  <div class="q-block">
+    <div class="q-num">שאלה 1</div>
+    <div class="q-text">
+      <p>בכל אחד מהסעיפים מצוינות ארבע זוויות של מרובע. קבעו לכל סעיף: האם המרובע <strong>אפשרי</strong> או <strong>לא אפשרי</strong>? נמקו.</p>
+    </div>
+    <div class="figs-row">
+      <div class="fig-cell">
+        <span>(א)</span>
+        <div class="q-svg-wrap">
+          <svg viewBox="-78 -253 273 279" role="img" aria-label="מרובע" xmlns="http://www.w3.org/2000/svg"><rect x="-78" y="-253" width="273" height="279" fill="#fff"/><line x1="0.0" y1="-0.0" x2="168.3" y2="-23.7" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="168.3" y1="-23.7" x2="134.6" y2="-169.8" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="134.6" y1="-169.8" x2="-52.4" y2="-227.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="-52.4" y1="-227.0" x2="0.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><path d="M-6.3,-27.3 A28,28 0 0 1 27.7,-3.9" fill="none" stroke="#000" stroke-width="1"/><text x="24.9" y="-36.3" class="ang" text-anchor="middle" dominant-baseline="central">95°</text><path d="M140.6,-19.8 A28,28 0 0 1 162.0,-50.9" fill="none" stroke="#000" stroke-width="1"/><text x="132.1" y="-48.6" class="ang" text-anchor="middle" dominant-baseline="central">85°</text><path d="M139.6,-148.4 A22,22 0 0 1 113.6,-176.2" fill="none" stroke="#000" stroke-width="1"/><text x="102.4" y="-139.8" class="ang" text-anchor="middle" dominant-baseline="central">120°</text><path d="M-25.6,-218.8 A28,28 0 0 1 -46.1,-199.7" fill="none" stroke="#000" stroke-width="1"/><text x="-22.4" y="-194.8" class="ang" text-anchor="middle" dominant-baseline="central">60°</text></svg>
+        </div>
+      </div>
+      <div class="fig-cell">
+        <span>(ב)</span>
+        <div class="q-svg-wrap">
+          <svg viewBox="-26 -233 306 279" role="img" aria-label="מרובע" xmlns="http://www.w3.org/2000/svg"><rect x="-26" y="-233" width="306" height="279" fill="#fff"/><line x1="0.0" y1="-0.0" x2="189.0" y2="19.9" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="189.0" y1="19.9" x2="254.1" y2="-92.7" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="254.1" y1="-92.7" x2="103.6" y2="-207.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="103.6" y1="-207.0" x2="0.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><path d="M12.5,-25.0 A28,28 0 0 1 27.8,2.9" fill="none" stroke="#000" stroke-width="1"/><text x="38.6" y="-21.1" class="ang" text-anchor="middle" dominant-baseline="central">70°</text><path d="M167.1,17.6 A22,22 0 0 1 200.0,0.8" fill="none" stroke="#000" stroke-width="1"/><text x="169.0" y="-19.4" class="ang" text-anchor="middle" dominant-baseline="central">115°</text><path d="M240.0,-68.4 A28,28 0 0 1 231.8,-109.6" fill="none" stroke="#000" stroke-width="1"/><text x="210.9" y="-84.0" class="ang" text-anchor="middle" dominant-baseline="central">98°</text><path d="M125.9,-190.1 A28,28 0 0 1 91.1,-182.0" fill="none" stroke="#000" stroke-width="1"/><text x="113.5" y="-164.2" class="ang" text-anchor="middle" dominant-baseline="central">80°</text></svg>
+        </div>
+      </div>
+      <div class="fig-cell">
+        <span>(ג)</span>
+        <div class="q-svg-wrap">
+          <svg viewBox="-90 -160 286 186" role="img" aria-label="מרובע" xmlns="http://www.w3.org/2000/svg"><rect x="-90" y="-160" width="286" height="186" fill="#fff"/><line x1="0.0" y1="-0.0" x2="170.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="170.0" y1="-0.0" x2="65.3" y2="-134.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="65.3" y1="-134.0" x2="-64.1" y2="-76.3" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="-64.1" y1="-76.3" x2="0.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><path d="M-14.1,-16.9 A22,22 0 0 1 22.0,0.0" fill="none" stroke="#000" stroke-width="1"/><text x="18.6" y="-39.9" class="ang" text-anchor="middle" dominant-baseline="central">130°</text><path d="M142.0,0.0 A28,28 0 0 1 152.8,-22.1" fill="none" stroke="#000" stroke-width="1"/><text x="130.5" y="-19.3" class="ang" text-anchor="middle" dominant-baseline="central">52°</text><path d="M78.9,-116.6 A22,22 0 0 1 45.2,-125.0" fill="none" stroke="#000" stroke-width="1"/><text x="54.7" y="-91.3" class="ang" text-anchor="middle" dominant-baseline="central">104°</text><path d="M-38.5,-87.7 A28,28 0 0 1 -46.1,-54.9" fill="none" stroke="#000" stroke-width="1"/><text x="-21.2" y="-66.5" class="ang" text-anchor="middle" dominant-baseline="central">74°</text></svg>
+        </div>
+      </div>
+      <div class="fig-cell">
+        <span>(ד)</span>
+        <div class="q-svg-wrap">
+          <svg viewBox="-57 -208 239 234" role="img" aria-label="מרובע" xmlns="http://www.w3.org/2000/svg"><rect x="-57" y="-208" width="239" height="234" fill="#fff"/><line x1="0.0" y1="-0.0" x2="156.5" y2="-33.3" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="156.5" y1="-33.3" x2="135.1" y2="-181.7" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="135.1" y1="-181.7" x2="-30.9" y2="-163.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="-30.9" y1="-163.0" x2="0.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><path d="M-5.2,-27.5 A28,28 0 0 1 27.4,-5.8" fill="none" stroke="#000" stroke-width="1"/><text x="24.4" y="-36.6" class="ang" text-anchor="middle" dominant-baseline="central">88°</text><path d="M129.1,-27.4 A28,28 0 0 1 152.5,-61.0" fill="none" stroke="#000" stroke-width="1"/><text x="120.4" y="-58.4" class="ang" text-anchor="middle" dominant-baseline="central">93°</text><path d="M139.1,-154.0 A28,28 0 0 1 107.2,-178.6" fill="none" stroke="#000" stroke-width="1"/><text x="108.2" y="-146.9" class="ang" text-anchor="middle" dominant-baseline="central">91°</text><path d="M-3.1,-166.1 A28,28 0 0 1 -25.7,-135.4" fill="none" stroke="#000" stroke-width="1"/><text x="4.5" y="-136.8" class="ang" text-anchor="middle" dominant-baseline="central">85°</text></svg>
+        </div>
+      </div>
+    </div>
+    <div class="sub-label">(א) הסבר:</div>
+    <textarea class="explain-box" rows="2" placeholder="כתבו את הסכום ומסקנה..."></textarea>
+    <div class="sub-label">(ב) הסבר:</div>
+    <textarea class="explain-box" rows="2" placeholder="כתבו את הסכום ומסקנה..."></textarea>
+    <div class="sub-label">(ג) הסבר:</div>
+    <textarea class="explain-box" rows="2" placeholder="כתבו את הסכום ומסקנה..."></textarea>
+    <div class="sub-label">(ד) הסבר:</div>
+    <textarea class="explain-box" rows="2" placeholder="כתבו את הסכום ומסקנה..."></textarea>
+  </div>
+
+  <!-- שאלה 2 — ex6: זוויות קדקודיות וצמודות במרובע -->
+  <div class="q-block">
+    <div class="q-num">שאלה 2</div>
+    <div class="q-text">
+      <p>חשבו את גודלה של <span class="ltr">α</span> ואת גודלה של <span class="ltr">β</span> בכל אחד מהסעיפים.</p>
+      <p>השתמשו בזוויות קדקודיות, זוויות צמודות וסכום זוויות מרובע.</p>
+    </div>
+    <div class="figs-row">
+      <div class="fig-cell">
+        <span>(א)</span>
+        <div class="q-svg-wrap">
+          <svg viewBox="-48 -247 310 295" role="img" aria-label="מרובע ABCD" xmlns="http://www.w3.org/2000/svg"><rect x="-48" y="-247" width="310" height="295" fill="#fff"/><line x1="0.0" y1="-0.0" x2="180.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="180.0" y1="-0.0" x2="169.5" y2="-149.6" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="169.5" y1="-149.6" x2="20.8" y2="-198.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="20.8" y1="-198.0" x2="0.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><path d="M2.9,-27.8 A28,28 0 0 1 28.0,0.0" fill="none" stroke="#000" stroke-width="1"/><text x="32.7" y="-29.4" class="ang" text-anchor="middle" dominant-baseline="central">84°</text><path d="M152.0,0.0 A28,28 0 0 1 178.0,-27.9" fill="none" stroke="#000" stroke-width="1"/><text x="147.8" y="-30.0" class="ang" text-anchor="middle" dominant-baseline="central">β</text><path d="M171.1,-127.7 A22,22 0 0 1 148.6,-156.4" fill="none" stroke="#000" stroke-width="1"/><text x="139.6" y="-126.2" class="ang" text-anchor="middle" dominant-baseline="central">α</text><path d="M47.4,-189.3 A28,28 0 0 1 17.9,-170.1" fill="none" stroke="#000" stroke-width="1"/><text x="44.8" y="-161.1" class="ang" text-anchor="middle" dominant-baseline="central">78°</text><line x1="169.5" y1="-149.6" x2="236.1" y2="-128.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="169.5" y1="-149.6" x2="164.7" y2="-219.5" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><path d="M190.5,-142.8 A22,22 0 0 0 168.0,-171.6" fill="none" stroke="#000" stroke-width="1"/><text x="204.2" y="-176.7" class="ang" text-anchor="middle" dominant-baseline="central">112°</text><text x="-11.7" y="10.9" class="lbl" text-anchor="middle" dominant-baseline="central">B</text><text x="191.3" y="11.3" class="lbl" text-anchor="middle" dominant-baseline="central">C</text><text x="12.1" y="-211.4" class="lbl" text-anchor="middle" dominant-baseline="central">A</text><text x="158.0" y="-163.5" class="lbl" text-anchor="middle" dominant-baseline="central">D</text></svg>
+        </div>
+      </div>
+      <div class="fig-cell">
+        <span>(ב)</span>
+        <div class="q-svg-wrap">
+          <svg viewBox="-106 -239 354 320" role="img" aria-label="מרובע ABCD" xmlns="http://www.w3.org/2000/svg"><rect x="-106" y="-239" width="354" height="320" fill="#fff"/><line x1="0.0" y1="-0.0" x2="200.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="200.0" y1="-0.0" x2="200.0" y2="-190.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="200.0" y1="-190.0" x2="51.3" y2="-126.9" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="51.3" y1="-126.9" x2="0.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><path d="M10.5,-26.0 A28,28 0 0 1 28.0,0.0" fill="none" stroke="#000" stroke-width="1"/><text x="36.5" y="-24.6" class="ang" text-anchor="middle" dominant-baseline="central">β</text><path d="M188.0,0.0 L188.0,-12.0 L200.0,-12.0" fill="none" stroke="#000" stroke-width="1"/><path d="M200.0,-162.0 A28,28 0 0 1 174.2,-179.1" fill="none" stroke="#000" stroke-width="1"/><text x="175.7" y="-153.3" class="ang" text-anchor="middle" dominant-baseline="central">α</text><path d="M71.5,-135.5 A22,22 0 0 1 43.0,-106.5" fill="none" stroke="#000" stroke-width="1"/><text x="82.6" y="-96.0" class="ang" text-anchor="middle" dominant-baseline="central">135°</text><line x1="0.0" y1="-0.0" x2="-80.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="0.0" y1="-0.0" x2="-22.5" y2="55.6" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><path d="M-24.0,0.0 A24,24 0 0 1 9.0,-22.3" fill="none" stroke="#000" stroke-width="1"/><text x="-25.7" y="-38.1" class="ang" text-anchor="middle" dominant-baseline="central">112°</text><text x="-13.1" y="9.2" class="lbl" text-anchor="middle" dominant-baseline="central">D</text><text x="211.8" y="10.8" class="lbl" text-anchor="middle" dominant-baseline="central">C</text><text x="209.9" y="-202.6" class="lbl" text-anchor="middle" dominant-baseline="central">B</text><text x="38.6" y="-136.7" class="lbl" text-anchor="middle" dominant-baseline="central">A</text></svg>
+        </div>
+      </div>
+      <div class="fig-cell">
+        <span>(ג)</span>
+        <div class="q-svg-wrap">
+          <svg viewBox="-106 -240 452 285" role="img" aria-label="מרובע ABCD" xmlns="http://www.w3.org/2000/svg"><rect x="-106" y="-240" width="452" height="285" fill="#fff"/><line x1="0.0" y1="-0.0" x2="240.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="240.0" y1="-0.0" x2="160.5" y2="-127.2" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="160.5" y1="-127.2" x2="68.8" y2="-189.1" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="68.8" y1="-189.1" x2="0.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><path d="M9.6,-26.3 A28,28 0 0 1 28.0,0.0" fill="none" stroke="#000" stroke-width="1"/><text x="36.0" y="-25.2" class="ang" text-anchor="middle" dominant-baseline="central">α</text><path d="M172.2,-108.6 A22,22 0 0 1 142.3,-139.5" fill="none" stroke="#000" stroke-width="1"/><text x="133.2" y="-100.8" class="ang" text-anchor="middle" dominant-baseline="central">β</text><path d="M92.0,-173.4 A28,28 0 0 1 59.2,-162.7" fill="none" stroke="#000" stroke-width="1"/><text x="82.4" y="-147.2" class="ang" text-anchor="middle" dominant-baseline="central">76°</text><line x1="0.0" y1="-0.0" x2="-80.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="240.0" y1="-0.0" x2="320.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><path d="M-24.0,0.0 A24,24 0 0 1 8.2,-22.6" fill="none" stroke="#000" stroke-width="1"/><text x="-26.4" y="-37.7" class="ang" text-anchor="middle" dominant-baseline="central">110°</text><path d="M264.0,0.0 A24,24 0 0 0 227.3,-20.4" fill="none" stroke="#000" stroke-width="1"/><text x="262.3" y="-40.2" class="ang" text-anchor="middle" dominant-baseline="central">122°</text><text x="-13.3" y="8.9" class="lbl" text-anchor="middle" dominant-baseline="central">D</text><text x="253.4" y="8.7" class="lbl" text-anchor="middle" dominant-baseline="central">C</text><text x="171.2" y="-139.1" class="lbl" text-anchor="middle" dominant-baseline="central">B</text><text x="62.4" y="-203.7" class="lbl" text-anchor="middle" dominant-baseline="central">A</text></svg>
+        </div>
+      </div>
+    </div>
+    <div class="sub-label">(א) <span class="ltr">α = </span> _____ &nbsp;&nbsp; <span class="ltr">β = </span> _____ &nbsp; פירוט:</div>
+    <textarea class="explain-box" rows="2" placeholder="רשמו את שלבי החישוב..."></textarea>
+    <div class="sub-label">(ב) <span class="ltr">α = </span> _____ &nbsp;&nbsp; <span class="ltr">β = </span> _____ &nbsp; פירוט:</div>
+    <textarea class="explain-box" rows="2" placeholder="רשמו את שלבי החישוב..."></textarea>
+    <div class="sub-label">(ג) <span class="ltr">α = </span> _____ &nbsp;&nbsp; <span class="ltr">β = </span> _____ &nbsp; פירוט:</div>
+    <textarea class="explain-box" rows="2" placeholder="רשמו את שלבי החישוב..."></textarea>
+  </div>
+
+  <!-- שאלה 3 — ex8: שני משולשים יוצרים מרובע PQRS -->
+  <div class="q-block">
+    <div class="q-num">שאלה 3</div>
+    <div class="q-text">
+      <p>נתון מרובע <span class="ltr">PQRS</span>.</p>
+      <p>המשולש <span class="ltr">QRS</span> הוא משולש שווה-צלעות.</p>
+      <p>המשולש <span class="ltr">PQS</span> הוא משולש שווה-שוקיים (<span class="ltr">PQ = QS</span>), ו-<span class="ltr">∠PQS = 100°</span>.</p>
+      <p>חשבו את כל ארבע זוויות המרובע <span class="ltr">PQRS</span>.</p>
+    </div>
+    <div class="q-svg-wrap" style="max-width:300px;">
+      <svg viewBox="-185 -127 404 305" role="img" aria-label="מרובע PQRS" xmlns="http://www.w3.org/2000/svg"><rect x="-185" y="-127" width="404" height="305" fill="#fff"/><line x1="-134.4" y1="134.4" x2="0.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="0.0" y1="-0.0" x2="172.2" y2="-80.3" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="172.2" y1="-80.3" x2="155.6" y2="109.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="155.6" y1="109.0" x2="-134.4" y2="134.4" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="0.0" y1="-0.0" x2="155.6" y2="109.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="89.1" y1="-33.8" x2="83.1" y2="-46.5" stroke="#000" stroke-width="1.4"/><line x1="156.9" y1="13.7" x2="170.9" y2="15.0" stroke="#000" stroke-width="1.4"/><line x1="73.8" y1="60.2" x2="81.8" y2="48.8" stroke="#000" stroke-width="1.4"/><line x1="-72.1" y1="62.2" x2="-62.2" y2="72.1" stroke="#000" stroke-width="1.4"/><path d="M-17.0,17.0 A24,24 0 0 0 19.7,13.8" fill="none" stroke="#000" stroke-width="1"/><text x="3.8" y="43.8" class="ang" text-anchor="middle" dominant-baseline="central">100°</text><text x="-148.6" y="141.6" class="lbl" text-anchor="middle" dominant-baseline="central">P</text><text x="-12.2" y="-10.3" class="lbl" text-anchor="middle" dominant-baseline="central">Q</text><text x="183.6" y="-91.5" class="lbl" text-anchor="middle" dominant-baseline="central">R</text><text x="169.1" y="117.6" class="lbl" text-anchor="middle" dominant-baseline="central">S</text></svg>
+    </div>
+    <div class="sub-label">פתרון:</div>
+    <textarea class="explain-box" rows="5" placeholder="רשמו את כל שלבי החישוב — זוויות כל משולש וזוויות המרובע..."></textarea>
+    <div class="sub-label">זוויות המרובע:</div>
+    <div class="ans-row">
+      <div class="ans-cell"><label><span class="ltr">∠P = </span></label><input class="ans-short" type="text" placeholder="°"/></div>
+      <div class="ans-cell"><label><span class="ltr">∠Q = </span></label><input class="ans-short" type="text" placeholder="°"/></div>
+      <div class="ans-cell"><label><span class="ltr">∠R = </span></label><input class="ans-short" type="text" placeholder="°"/></div>
+      <div class="ans-cell"><label><span class="ltr">∠S = </span></label><input class="ans-short" type="text" placeholder="°"/></div>
+    </div>
+  </div>
+
+  <!-- שאלה 4 — ex9: מלבן ומשולש שווה-שוקיים KPQ -->
+  <div class="q-block">
+    <div class="q-num">שאלה 4</div>
+    <div class="q-text">
+      <p>נתון מלבן <span class="ltr">KLMN</span> ומשולש <span class="ltr">KPQ</span>. הקודקוד <span class="ltr">P</span> נמצא על הצלע <span class="ltr">LM</span>, והקודקוד <span class="ltr">Q</span> נמצא על הצלע <span class="ltr">MN</span>.</p>
+      <p>נתון: <span class="ltr">∠LKP = 27°</span>, <span class="ltr">∠NKQ = 21°</span>.</p>
+    </div>
+    <div class="q-svg-wrap" style="max-width:300px;">
+      <svg viewBox="-47 -48 327 339" role="img" aria-label="מלבן KLMN" xmlns="http://www.w3.org/2000/svg"><rect x="-47" y="-48" width="327" height="339" fill="#fff"/><line x1="0.0" y1="-0.0" x2="230.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="230.0" y1="-0.0" x2="230.0" y2="241.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="230.0" y1="241.0" x2="0.0" y2="241.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="0.0" y1="241.0" x2="0.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="0.0" y1="-0.0" x2="230.0" y2="117.2" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="230.0" y1="117.2" x2="92.5" y2="241.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="92.5" y1="241.0" x2="0.0" y2="-0.0" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><path d="M46.0,0.0 A46,46 0 0 1 41.0,20.9" fill="none" stroke="#000" stroke-width="1"/><text x="64.2" y="15.4" class="ang" text-anchor="middle" dominant-baseline="central">27°</text><path d="M16.5,42.9 A46,46 0 0 1 0.0,46.0" fill="none" stroke="#000" stroke-width="1"/><text x="12.0" y="64.9" class="ang" text-anchor="middle" dominant-baseline="central">21°</text><text x="-11.0" y="-11.6" class="lbl" text-anchor="middle" dominant-baseline="central">K</text><text x="241.0" y="-11.6" class="lbl" text-anchor="middle" dominant-baseline="central">L</text><text x="241.0" y="252.6" class="lbl" text-anchor="middle" dominant-baseline="central">M</text><text x="-11.0" y="252.6" class="lbl" text-anchor="middle" dominant-baseline="central">N</text><text x="244.0" y="117.2" class="lbl" text-anchor="middle" dominant-baseline="central">P</text><text x="92.5" y="255.0" class="lbl" text-anchor="middle" dominant-baseline="central">Q</text></svg>
+    </div>
+    <div class="sub-label">(א) חשבו את <span class="ltr">∠PKQ</span>:</div>
+    <textarea class="explain-box" rows="2" placeholder="רשמו חישוב..."></textarea>
+    <p style="margin:4px 0 12px;font-size:14px;">נתון נוסף: <span class="ltr">KP = KQ</span>.</p>
+    <div class="sub-label">(ב) מצאו את:</div>
+    <div style="margin-bottom:8px;font-size:14px;">1. <span class="ltr">∠KQP</span></div>
+    <textarea class="explain-box" rows="2" placeholder="רשמו חישוב..."></textarea>
+    <div style="margin:8px 0;font-size:14px;">2. <span class="ltr">∠PQM</span></div>
+    <textarea class="explain-box" rows="2" placeholder="רשמו חישוב..."></textarea>
+  </div>
+
+  <footer>סכום זוויות במרובע · מבדק שליטה</footer>
+</div>
+</body>
+</html>
