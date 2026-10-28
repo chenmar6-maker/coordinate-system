@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה מסכם — זוויות — רמה בסיסית ב׳</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Rubik',sans-serif;background:#fff;color:#1a1a2e;direction:rtl;line-height:1.7;}
+  .page{max-width:720px;margin:0 auto;padding:32px 24px 60px;}
+  .header{border-bottom:3px solid #10B981;padding-bottom:16px;margin-bottom:28px;}
+  .header h1{font-size:22px;font-weight:800;margin:0 0 4px;color:#10B981;}
+  .header p{font-size:13px;color:#6b7280;margin:0;}
+  .q-block{margin-bottom:32px;padding:20px 22px;border:1.5px solid #e5e7eb;border-radius:12px;}
+  .q-num{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#10B981;margin-bottom:6px;text-transform:uppercase;}
+  .q-text{font-size:15px;font-weight:600;margin-bottom:14px;line-height:1.7;}
+  .q-text p{margin:0 0 5px;}
+  .q-svg-wrap{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:8px;display:block;margin:10px auto 16px;max-width:360px;width:100%;}
+  .q-svg-wrap svg{display:block;width:100%;height:auto;}
+  .q-svg-wrap .lbl{font:600 17px 'Times New Roman',serif;fill:#000;}
+  .q-svg-wrap .ang{font:15px 'Times New Roman',serif;fill:#000;}
+  .explain-box{border:1.5px solid #d1d5db;border-radius:6px;width:100%;min-height:56px;display:block;background:transparent;padding:6px 10px;font-family:'Rubik',sans-serif;font-size:14px;resize:none;}
+  .sub-label{font-size:13px;font-weight:700;color:#374151;margin:14px 0 4px;}
+  .ltr{direction:ltr;unicode-bidi:isolate;display:inline;}
+  .mc-opts{list-style:none;padding:0;margin:10px 0;}
+  .mc-opts li{padding:6px 10px;border:1.5px solid #e5e7eb;border-radius:8px;margin-bottom:6px;font-size:14px;}
+  .ans-line{border:none;border-bottom:1.5px solid #6b7280;width:120px;font-size:14px;font-family:'Rubik',sans-serif;outline:none;background:transparent;display:inline-block;}
+  footer{text-align:center;font-size:11px;color:#9ca3af;padding:20px 0;border-top:1px solid #f3f4f6;margin-top:20px;}
+  @media print{.q-block{break-inside:avoid;}body{background:#fff;}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <h1>מבדק שליטה מסכם — זוויות — רמה בסיסית ב׳</h1>
+    <p>שם: _________________________ &nbsp;&nbsp; תאריך: _____________</p>
+  </div>
+
+  <!-- Q1 — סוגי זוויות -->
+  <div class="q-block">
+    <div class="q-num">שאלה 1 — סוגי זוויות</div>
+    <div class="q-text"><p>איזו הגדרה נכונה לזווית ישרה?</p></div>
+    <ul class="mc-opts">
+      <li><span class="ltr">(1)</span> זווית הקטנה מ-<span class="ltr">90°</span></li>
+      <li><span class="ltr">(2)</span> זווית השווה בדיוק ל-<span class="ltr">90°</span></li>
+      <li><span class="ltr">(3)</span> זווית הגדולה מ-<span class="ltr">90°</span></li>
+      <li><span class="ltr">(4)</span> זווית השווה ל-<span class="ltr">180°</span></li>
+    </ul>
+    <div class="sub-label">הסבירו מה ההבדל בין זווית קהה לזווית ישרה:</div>
+    <textarea class="explain-box" rows="3"></textarea>
+  </div>
+
+  <!-- Q2 — כתיב מתמטי -->
+  <div class="q-block">
+    <div class="q-num">שאלה 2 — כתיב מתמטי</div>
+    <div class="q-svg-wrap">
+      <!--
+        M at (130,120). Ray MA toward upper-right (40° from horizontal): endpoint ~ (130+80*cos40, 120-80*sin40) = (191.3, 68.6)
+        Ray MB toward upper-left: endpoint ~ (130-80*cos40, 120-80*sin40) = (68.7, 68.6)
+      -->
+      <svg viewBox="30 30 200 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- green sector between the two rays, 80° total -->
+        <!-- from MB direction to MA direction — sweep goes right/CW -->
+        <!-- MB at r=28: (130-28*cos40, 120-28*sin40) = (108.5, 102.0) -->
+        <!-- MA at r=28: (130+28*cos40, 120-28*sin40) = (151.5, 102.0) -->
+        <path d="M 130,120 L 108.5,102.0 A 28,28 0 0,1 151.5,102.0 Z" fill="#b8e8b8" stroke="none"/>
+        <!-- rays -->
+        <line x1="130" y1="120" x2="191" y2="69" stroke="#1a1a2e" stroke-width="1.6"/>
+        <line x1="130" y1="120" x2="69" y2="69" stroke="#1a1a2e" stroke-width="1.6"/>
+        <!-- labels -->
+        <text x="196" y="63" text-anchor="middle" dominant-baseline="central" class="lbl">A</text>
+        <text x="62" y="63" text-anchor="middle" dominant-baseline="central" class="lbl">B</text>
+        <text x="130" y="137" text-anchor="middle" dominant-baseline="central" class="lbl">M</text>
+      </svg>
+    </div>
+    <div class="q-text"><p>מה נכון לגבי הסימון <span class="ltr">∠AMB</span>?</p></div>
+    <ul class="mc-opts">
+      <li><span class="ltr">(1) M</span> הוא קדקוד הזווית</li>
+      <li><span class="ltr">(2) A</span> הוא קדקוד הזווית</li>
+      <li><span class="ltr">(3) B</span> הוא קדקוד הזווית</li>
+      <li><span class="ltr">(4)</span> אין קדקוד בזווית</li>
+    </ul>
+  </div>
+
+  <!-- Q3 — סכום זוויות -->
+  <div class="q-block">
+    <div class="q-num">שאלה 3 — סכום זוויות</div>
+    <div class="q-text">
+      <p>שתי הזוויות הצמודות יחד שוות לזווית ישרה.</p>
+      <p>נתון: זווית אחת = <span class="ltr">4x−8°</span>, השנייה = <span class="ltr">x+2°</span>.</p>
+    </div>
+    <div class="q-svg-wrap">
+      <!--
+        O at (100,130). Right ray to (220,130). Up ray to (100,10).
+        Right-angle box at O.
+        Gold sector for 4x-8° (larger, closer to horizontal): from right to somewhere
+        Let's place: gold sector from right ray upward spans 4x-8°. When solved: 4x-8+x+2=90 → 5x=96 → x=19.2 → angles=68.8° and 21.2°.
+        Green sector for x+2° (smaller, near vertical).
+        Gold sector from right ray (220,130) sweeping up 68.8°: endpoint at r=30 from O along 68.8° from horizontal:
+          (100+30*cos68.8°, 130-30*sin68.8°) = (100+10.8, 130-28.0) = (110.8, 102.0)
+        Midpoint of the green sector is near 90°-21.2°/2 = ~79.4° from horizontal → at (100+30*cos79.4, 130-30*sin79.4) = (105.5,100.5)
+        Right point at r=30: (130, 130)
+        The green sector goes from 68.8° to 90°:
+          start: (110.8, 102.0), end: (100, 100) = straight up at r=30
+        We draw: gold from right to split-ray, green from split-ray to up-ray.
+        Split-ray direction at ~68.8° from horizontal: endpoint (100+110*cos68.8°, 130-110*sin68.8°) = (139.8, 27.3)
+      -->
+      <svg viewBox="60 -20 200 180" xmlns="http://www.w3.org/2000/svg">
+        <!-- gold sector 4x-8° from right ray sweeping up to split ray -->
+        <!-- r=30, from (130,130) arc to (110.8,102.0), sweep=1 (CCW) -->
+        <path d="M 100,130 L 130,130 A 30,30 0 0,0 110.8,102.0 Z" fill="#ffe89a" stroke="none"/>
+        <!-- green sector x+2° from split ray up to vertical ray -->
+        <!-- from (110.8,102.0) to (100,100) sweep=0... need large-arc=0 small angle -->
+        <path d="M 100,130 L 110.8,102.0 A 30,30 0 0,0 100,100 Z" fill="#b8e8b8" stroke="none"/>
+        <!-- right-angle box -->
+        <polyline points="112,130 112,118 100,118" fill="none" stroke="#1a1a2e" stroke-width="1.4"/>
+        <!-- right ray -->
+        <line x1="100" y1="130" x2="220" y2="130" stroke="#1a1a2e" stroke-width="1.6"/>
+        <!-- up ray -->
+        <line x1="100" y1="130" x2="100" y2="10" stroke="#1a1a2e" stroke-width="1.6"/>
+        <!-- split ray -->
+        <line x1="100" y1="130" x2="140" y2="27" stroke="#1a1a2e" stroke-width="1.6"/>
+        <!-- O label -->
+        <text x="90" y="143" text-anchor="middle" dominant-baseline="central" class="lbl">O</text>
+        <!-- angle labels -->
+        <text x="128" y="113" text-anchor="middle" class="ang">4x−8°</text>
+        <text x="96" y="97" text-anchor="middle" class="ang" text-anchor="end">x+2°</text>
+      </svg>
+    </div>
+    <div class="sub-label">(א) הקימו משוואה ופתרו את <span class="ltr">x</span>:</div>
+    <textarea class="explain-box" rows="4"></textarea>
+    <div class="sub-label">(ב) חשבו את גודל כל אחת מהזוויות:</div>
+    <textarea class="explain-box" rows="3"></textarea>
+  </div>
+
+  <!-- Q4 — חוצה זווית -->
+  <div class="q-block">
+    <div class="q-num">שאלה 4 — חוצה-זווית</div>
+    <div class="q-text">
+      <p>חוצה הזווית <span class="ltr">OC</span> מחלק את <span class="ltr">∠AOB</span> לשני חלקים שווים.</p>
+      <p>נתון: <span class="ltr">∠AOB = 110°</span>. מהו <span class="ltr">α</span>?</p>
+    </div>
+    <div class="q-svg-wrap">
+      <!--
+        O at (120,150). OB going right to (220,150).
+        OA at 110° from OB (measuring CCW on screen = up-left): screen angle from horizontal = 180°-110° = 70° from horizontal going left-up.
+        OA direction: angle 110° from positive-x-axis CCW → (cos110°, -sin110°) = (-0.342, -0.940) * 80
+        OA endpoint: (120-27.3, 150-75.2) = (92.7, 74.8) ≈ (93, 75)
+        OC bisects at 55° from OB: direction (cos55°, -sin55°) = (0.574, -0.819) * 80
+        OC endpoint: (120+45.9, 150-65.5) = (165.9, 84.5) ≈ (166, 85)
+        Sectors (both labeled α):
+          Left sector (between OA and OC): from OC to OA
+            r=28, OC at r=28: (120+28*cos55°, 150-28*sin55°) = (136.1, 127.1)
+            OA at r=28: (120-28*cos70°, 150-28*sin70°) = (110.4, 123.7)
+          Right sector (between OB and OC): from OB to OC
+            OB at r=28: (148, 150)
+            OC at r=28: (136.1, 127.1)
+        viewBox="60 50 200 130"
+      -->
+      <svg viewBox="60 50 200 130" xmlns="http://www.w3.org/2000/svg">
+        <!-- right sector (OB to OC), sweep CCW = 0 in SVG y-down -->
+        <path d="M 120,150 L 148,150 A 28,28 0 0,0 136.1,127.1 Z" fill="#b8d8f8" stroke="none"/>
+        <!-- left sector (OC to OA) -->
+        <path d="M 120,150 L 136.1,127.1 A 28,28 0 0,0 110.4,123.7 Z" fill="#b8d8f8" stroke="none"/>
+        <!-- rays -->
+        <line x1="120" y1="150" x2="220" y2="150" stroke="#1a1a2e" stroke-width="1.6"/>
+        <line x1="120" y1="150" x2="93" y2="75" stroke="#1a1a2e" stroke-width="1.6"/>
+        <!-- bisector dashed -->
+        <line x1="120" y1="150" x2="166" y2="85" stroke="#1a1a2e" stroke-width="1.6" stroke-dasharray="6 5"/>
+        <!-- labels -->
+        <text x="226" y="150" text-anchor="middle" dominant-baseline="central" class="lbl">B</text>
+        <text x="87" y="70" text-anchor="middle" dominant-baseline="central" class="lbl">A</text>
+        <text x="170" y="80" text-anchor="middle" dominant-baseline="central" class="lbl">C</text>
+        <text x="112" y="160" text-anchor="middle" dominant-baseline="central" class="lbl">O</text>
+        <!-- α labels -->
+        <text x="144" y="136" text-anchor="middle" class="ang">α</text>
+        <text x="120" y="127" text-anchor="middle" class="ang">α</text>
+      </svg>
+    </div>
+    <div class="sub-label">תשובה: <span class="ltr">α =</span> <input class="ans-line" type="text" /></div>
+  </div>
+
+  <!-- Q5 — זוויות צמודות -->
+  <div class="q-block">
+    <div class="q-num">שאלה 5 — זוויות צמודות</div>
+    <div class="q-text">
+      <p>שלושה קרניים יוצאים מנקודה <span class="ltr">O</span>. הזווית השמאלית = <span class="ltr">3x°</span>, הזווית הימנית = <span class="ltr">(x+20)°</span>.</p>
+    </div>
+    <div class="q-svg-wrap">
+      <!--
+        Straight line: L(20,130) → O(140,130) → R(260,130)
+        Middle ray M from O upward at some angle. Together 3x + x+20 = 180 → 4x=160 → x=40 → left=120°, right=60°.
+        Middle ray at 60° from right side: direction at 60° from pos-x = (cos60°, -sin60°) = (0.5, -0.866)
+        M endpoint: (140+0.5*110, 130-0.866*110) = (195, 25.7) ≈ (195,26) — but that's shifted right
+        Actually the ray is at 60° from the right horizontal, so left angle = 180-60=120°. That seems big.
+        Better: middle ray goes straight up-ish so it visually looks like it splits the line.
+        Let's place the ray at angle 60° from horizontal going right, so endpoint near top-right area.
+        viewBox="0 50 280 110"
+        Green sector left (3x°=120°): from left horizontal to ray — large angle
+          L at r=30: (110,130), ray at r=30: (140+30*cos60°,130-30*sin60°)=(155,104.0)
+          Large arc from (110,130) to (155,104.0) — 120° sweep CCW (sweep=1 in SVG)
+        Gold sector right (x+20°=60°): from ray to right horizontal — small angle
+          R at r=30: (170,130)
+          From (155,104.0) to (170,130) — 60° sweep CCW
+      -->
+      <svg viewBox="0 50 280 110" xmlns="http://www.w3.org/2000/svg">
+        <!-- green left sector 3x° — 120° large -->
+        <path d="M 140,130 L 110,130 A 30,30 0 1,1 155,104.0 Z" fill="#b8e8b8" stroke="none"/>
+        <!-- gold right sector (x+20)° — 60° small -->
+        <path d="M 140,130 L 155,104.0 A 30,30 0 0,1 170,130 Z" fill="#ffe89a" stroke="none"/>
+        <!-- horizontal line -->
+        <line x1="20" y1="130" x2="260" y2="130" stroke="#1a1a2e" stroke-width="1.6"/>
+        <!-- middle ray -->
+        <line x1="140" y1="130" x2="195" y2="26" stroke="#1a1a2e" stroke-width="1.6"/>
+        <!-- labels -->
+        <text x="14" y="130" text-anchor="middle" dominant-baseline="central" class="lbl">L</text>
+        <text x="266" y="130" text-anchor="middle" dominant-baseline="central" class="lbl">R</text>
+        <text x="140" y="148" text-anchor="middle" dominant-baseline="central" class="lbl">O</text>
+        <!-- angle labels -->
+        <text x="107" y="120" text-anchor="middle" class="ang">3x°</text>
+        <text x="173" y="115" text-anchor="middle" class="ang">(x+20)°</text>
+      </svg>
+    </div>
+    <div class="sub-label">(א) הקימו משוואה ופתרו את <span class="ltr">x</span>:</div>
+    <textarea class="explain-box" rows="4"></textarea>
+    <div class="sub-label">(ב) חשבו את כל אחת מהזוויות:</div>
+    <textarea class="explain-box" rows="3"></textarea>
+  </div>
+
+  <!-- Q6 — זוויות קודקודיות -->
+  <div class="q-block">
+    <div class="q-num">שאלה 6 — זוויות קודקודיות</div>
+    <div class="q-text">
+      <p>נתון שזווית אחת בין שני קווים חותכים שווה <span class="ltr">55°</span>.</p>
+    </div>
+    <div class="q-svg-wrap">
+      <!--
+        Two lines crossing at O(140,100).
+        Line 1: horizontal (20,100)→(260,100).
+        Line 2: at 55° from line 1. Direction: (cos55°,-sin55°)=(0.574,-0.819) and opposite.
+        Upper-right endpoint: (140+110*0.574, 100-110*0.819) = (203.1, 9.9) ≈ (203,10)
+        Lower-left endpoint: (140-110*0.574, 100+110*0.819) = (76.9, 190.1) ≈ (77,190)
+        Green sector α=55° upper-right: from horizontal-right to line2-upper-right
+          r=28, right point: (168,100), upper-right at r=28: (140+28*0.574,100-28*0.819)=(156.1,77.1)
+        Green sector α=55° lower-left (vertical to above): from horizontal-left to line2-lower-left
+          left r=28: (112,100), lower-left at r=28: (140-28*0.574,100+28*0.819)=(123.9,122.9)
+        Gold sector β upper-left: from line2-upper-right to horizontal-left (125°)
+          from (156.1,77.1) to (112,100), large arc
+        viewBox="0 0 280 200"
+      -->
+      <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- green sectors (55°) -->
+        <path d="M 140,100 L 168,100 A 28,28 0 0,0 156.1,77.1 Z" fill="#b8e8b8" stroke="none"/>
+        <path d="M 140,100 L 112,100 A 28,28 0 0,0 123.9,122.9 Z" fill="#b8e8b8" stroke="none"/>
+        <!-- gold sectors β (125°) -->
+        <path d="M 140,100 L 156.1,77.1 A 28,28 0 1,0 112,100 Z" fill="#ffe89a" stroke="none"/>
+        <!-- draw lines -->
+        <line x1="20" y1="100" x2="260" y2="100" stroke="#1a1a2e" stroke-width="1.6"/>
+        <line x1="203" y1="10" x2="77" y2="190" stroke="#1a1a2e" stroke-width="1.6"/>
+        <!-- O label -->
+        <text x="148" y="112" text-anchor="start" dominant-baseline="hanging" class="lbl">O</text>
+        <!-- angle labels -->
+        <text x="161" y="92" text-anchor="middle" class="ang">55°</text>
+        <text x="119" y="122" text-anchor="middle" class="ang">55°</text>
+        <text x="114" y="84" text-anchor="middle" class="ang">β</text>
+        <text x="165" y="118" text-anchor="middle" class="ang">β</text>
+      </svg>
+    </div>
+    <div class="sub-label">(א) מהי הזווית הקודקודית לה? ציינו את ההגדרה של זוויות קודקודיות:</div>
+    <textarea class="explain-box" rows="3"></textarea>
+    <div class="sub-label">(ב) חשבו את הזווית הצמודה לה: <span class="ltr">β =</span> <input class="ans-line" type="text" /></div>
+  </div>
+
+  <!-- Q7 — משולש שווה-צלעות -->
+  <div class="q-block">
+    <div class="q-num">שאלה 7 — משולש שווה-צלעות</div>
+    <div class="q-text">
+      <p>בשרטוט מתואר משולש שווה-צלעות <span class="ltr">ABC</span>.</p>
+    </div>
+    <div class="q-svg-wrap">
+      <!--
+        A=(150,15), B=(30,195), C=(270,195).
+        Side AB: midpoint (90,105), direction AB normalized: (30-150,195-15)/|..| = (-120,180)/sqrt(14400+32400) = (-120,180)/216.3 = (-0.555,0.832)
+        Perpendicular: (0.832,0.555)
+        Tick mark at (90,105): (90-5*0.832, 105-5*0.555) to (90+5*0.832,105+5*0.555) = (85.8,102.2)→(94.2,107.8)
+        Side AC: midpoint (210,105), direction (270-150,195-15)/216.3=(120,180)/216.3=(0.555,0.832)
+        Perp: (0.832,-0.555)
+        Tick at (210,105): (210-5*0.832,105+5*0.555)→(210+5*0.832,105-5*0.555) = (205.8,107.8)→(214.2,102.2)
+        Side BC: midpoint (150,195), horizontal, perp=(0,1)
+        Tick at (150,195): (150-5,195-5)→(145,190) to (155,190) — but that's below; use (145,190)→(155,190)
+        Green sectors at all 3 vertices labeled 60°:
+          Sector at A(150,15):
+            dir AB: (-0.555,0.832), dir AC: (0.555,0.832)
+            r=20: on AB: (150-0.555*20,15+0.832*20)=(138.9,31.6), on AC: (150+0.555*20,15+0.832*20)=(161.1,31.6)
+          Sector at B(30,195):
+            dir BA: (0.555,-0.832), dir BC: (1,0)
+            r=20: on BA: (30+0.555*20,195-0.832*20)=(41.1,178.4), on BC: (50,195)
+          Sector at C(270,195):
+            dir CB: (-1,0), dir CA: (-0.555,-0.832)
+            r=20: on CB: (250,195), on CA: (270-0.555*20,195-0.832*20)=(258.9,178.4)
+        viewBox="-10 0 320 220"
+      -->
+      <svg viewBox="-10 0 320 220" xmlns="http://www.w3.org/2000/svg">
+        <!-- green sectors at each vertex -->
+        <path d="M 150,15 L 138.9,31.6 A 20,20 0 0,1 161.1,31.6 Z" fill="#b8e8b8" stroke="none"/>
+        <path d="M 30,195 L 41.1,178.4 A 20,20 0 0,1 50,195 Z" fill="#b8e8b8" stroke="none"/>
+        <path d="M 270,195 L 250,195 A 20,20 0 0,1 258.9,178.4 Z" fill="#b8e8b8" stroke="none"/>
+        <!-- sides -->
+        <line x1="150" y1="15" x2="30" y2="195" stroke="#1a1a2e" stroke-width="1.6"/>
+        <line x1="150" y1="15" x2="270" y2="195" stroke="#1a1a2e" stroke-width="1.6"/>
+        <line x1="30" y1="195" x2="270" y2="195" stroke="#1a1a2e" stroke-width="1.6"/>
+        <!-- tick marks: single tick on each side -->
+        <!-- AB midpoint (90,105) -->
+        <line x1="85.8" y1="102.2" x2="94.2" y2="107.8" stroke="#1a1a2e" stroke-width="2"/>
+        <!-- AC midpoint (210,105) -->
+        <line x1="205.8" y1="107.8" x2="214.2" y2="102.2" stroke="#1a1a2e" stroke-width="2"/>
+        <!-- BC midpoint (150,195) -->
+        <line x1="145" y1="190" x2="155" y2="190" stroke="#1a1a2e" stroke-width="2"/>
+        <!-- labels -->
+        <text x="150" y="7" text-anchor="middle" dominant-baseline="central" class="lbl">A</text>
+        <text x="18" y="200" text-anchor="middle" dominant-baseline="central" class="lbl">B</text>
+        <text x="282" y="200" text-anchor="middle" dominant-baseline="central" class="lbl">C</text>
+        <!-- 60° labels -->
+        <text x="150" y="47" text-anchor="middle" class="ang">60°</text>
+        <text x="55" y="183" text-anchor="middle" class="ang">60°</text>
+        <text x="245" y="183" text-anchor="middle" class="ang">60°</text>
+      </svg>
+    </div>
+    <div class="sub-label">(א) מהו גודל כל זווית? <span class="ltr">∠A = ∠B = ∠C =</span> <input class="ans-line" type="text" /></div>
+    <div class="sub-label">(ב) האם ייתכן שמשולש שווה-צלעות יהיה גם ישר-זווית? הסבירו:</div>
+    <textarea class="explain-box" rows="3"></textarea>
+  </div>
+
+  <!-- Q8 — משולש שווה-שוקיים -->
+  <div class="q-block">
+    <div class="q-num">שאלה 8 — משולש שווה-שוקיים</div>
+    <div class="q-text">
+      <p>במשולש שווה-שוקיים <span class="ltr">MNP</span> נתון: <span class="ltr">MN = MP</span>, <span class="ltr">∠M = 68°</span>.</p>
+    </div>
+    <div class="q-svg-wrap">
+      <!--
+        M=(140,15), N=(20,190), P=(260,190).
+        dir MN: (20-140,190-15)=(-120,175), |...|=sqrt(14400+30625)=sqrt(45025)=212.2, normalized=(-0.565,0.824)
+        dir MP: (260-140,190-15)=(120,175)/212.2=(0.565,0.824)
+        Sector at M, r=22: on MN=(140-0.565*22,15+0.824*22)=(127.6,33.1), on MP=(140+0.565*22,15+0.824*22)=(152.4,33.1)
+        dir NM: (0.565,-0.824), dir NP: (1,0)
+        Sector at N, r=20: on NM=(20+0.565*20,190-0.824*20)=(31.3,173.5), on NP=(40,190)
+        dir PM: (-0.565,-0.824), dir PN: (-1,0)
+        Sector at P, r=20: on PN=(240,190), on PM=(260-0.565*20,190-0.824*20)=(248.7,173.5)
+        Double tick marks on MN and MP:
+          MN midpoint: (80,102.5), perp direction: (0.824,0.565)
+          tick1 at midpoint: (80-0.824*5,102.5-0.565*5)→(80+0.824*5,102.5+0.565*5) = (75.9,99.7)→(84.1,105.3)
+          tick2 offset by perp*3: (75.9+0.565*3,99.7-0.824*3)→(84.1+0.565*3,105.3-0.824*3) = (77.6,97.2)→(85.8,102.8)
+          MP midpoint: (200,102.5), perp (0.824,-0.565) or (−0.824,0.565)
+          tick1: (200-0.824*5,102.5+0.565*5)→(200+0.824*5,102.5-0.565*5) = (195.9,105.3)→(204.1,99.7)
+          tick2: (195.9-0.565*3,105.3-0.824*3)→(204.1-0.565*3,99.7-0.824*3) = (194.2,102.8)→(202.4,97.2)
+      -->
+      <svg viewBox="-10 0 310 215" xmlns="http://www.w3.org/2000/svg">
+        <!-- coral sector at M -->
+        <path d="M 140,15 L 127.6,33.1 A 22,22 0 0,1 152.4,33.1 Z" fill="#f8c0c0" stroke="none"/>
+        <!-- green sectors at N and P -->
+        <path d="M 20,190 L 31.3,173.5 A 20,20 0 0,1 40,190 Z" fill="#b8e8b8" stroke="none"/>
+        <path d="M 260,190 L 240,190 A 20,20 0 0,1 248.7,173.5 Z" fill="#b8e8b8" stroke="none"/>
+        <!-- sides -->
+        <line x1="140" y1="15" x2="20" y2="190" stroke="#1a1a2e" stroke-width="1.6"/>
+        <line x1="140" y1="15" x2="260" y2="190" stroke="#1a1a2e" stroke-width="1.6"/>
+        <line x1="20" y1="190" x2="260" y2="190" stroke="#1a1a2e" stroke-width="1.6"/>
+        <!-- double tick marks on MN -->
+        <line x1="75.9" y1="99.7" x2="84.1" y2="105.3" stroke="#1a1a2e" stroke-width="2"/>
+        <line x1="77.6" y1="97.2" x2="85.8" y2="102.8" stroke="#1a1a2e" stroke-width="2"/>
+        <!-- double tick marks on MP -->
+        <line x1="195.9" y1="105.3" x2="204.1" y2="99.7" stroke="#1a1a2e" stroke-width="2"/>
+        <line x1="194.2" y1="102.8" x2="202.4" y2="97.2" stroke="#1a1a2e" stroke-width="2"/>
+        <!-- labels -->
+        <text x="140" y="7" text-anchor="middle" dominant-baseline="central" class="lbl">M</text>
+        <text x="8" y="197" text-anchor="middle" dominant-baseline="central" class="lbl">N</text>
+        <text x="272" y="197" text-anchor="middle" dominant-baseline="central" class="lbl">P</text>
+        <!-- angle labels -->
+        <text x="140" y="48" text-anchor="middle" class="ang">68°</text>
+        <text x="44" y="178" text-anchor="middle" class="ang">α</text>
+        <text x="236" y="178" text-anchor="middle" class="ang">α</text>
+      </svg>
+    </div>
+    <div class="sub-label">(א) חשבו את <span class="ltr">∠N</span> ו-<span class="ltr">∠P</span>:</div>
+    <textarea class="explain-box" rows="4"></textarea>
+    <div class="sub-label">(ב) האם המשולש חד-זווית, ישר-זווית או קהה-זווית? הסבירו:</div>
+    <textarea class="explain-box" rows="3"></textarea>
+  </div>
+
+  <!-- Q9 — סכום זוויות במשולש -->
+  <div class="q-block">
+    <div class="q-num">שאלה 9 — סכום זוויות במשולש</div>
+    <div class="q-text">
+      <p>במשולש <span class="ltr">RST</span> נתון: <span class="ltr">∠R = 35°</span>, <span class="ltr">∠S = 2·∠T</span>.</p>
+    </div>
+    <div class="q-svg-wrap">
+      <!--
+        R=(20,185), S=(290,185), T=(130,20).
+        dir RS: (1,0), dir RT: (130-20,20-185)=(110,-165)/|...|=(110,-165)/198.4=(0.555,-0.832)
+        Green sector at R, r=24: on RS=(44,185), on RT=(20+0.555*24,185-0.832*24)=(33.3,165.0)
+        dir SR: (-1,0), dir ST: (130-290,20-185)=(-160,-165)/229.4=(-0.698,-0.720)
+        Gold sector at S, r=24: on SR=(266,185), on ST=(290-0.698*24,185-0.720*24)=(273.2,167.7)
+        dir TS: (290-130,185-20)=(160,165)/229.4=(0.698,0.720), dir TR: (20-130,185-20)=(-110,165)/198.4=(-0.555,0.832)
+        Coral sector at T, r=20: on TS=(130+0.698*20,20+0.720*20)=(144.0,34.4), on TR=(130-0.555*20,20+0.832*20)=(118.9,36.6)
+        viewBox="-20 -20 330 230"
+      -->
+      <svg viewBox="-20 -20 330 230" xmlns="http://www.w3.org/2000/svg">
+        <!-- green sector at R (35°) -->
+        <path d="M 20,185 L 44,185 A 24,24 0 0,0 33.3,165.0 Z" fill="#b8e8b8" stroke="none"/>
+        <!-- gold sector at S (2α) -->
+        <path d="M 290,185 L 273.2,167.7 A 24,24 0 0,0 266,185 Z" fill="#ffe89a" stroke="none"/>
+        <!-- coral sector at T (α) -->
+        <path d="M 130,20 L 144.0,34.4 A 20,20 0 0,0 118.9,36.6 Z" fill="#f8c0c0" stroke="none"/>
+        <!-- sides -->
+        <line x1="20" y1="185" x2="290" y2="185" stroke="#1a1a2e" stroke-width="1.6"/>
+        <line x1="20" y1="185" x2="130" y2="20" stroke="#1a1a2e" stroke-width="1.6"/>
+        <line x1="290" y1="185" x2="130" y2="20" stroke="#1a1a2e" stroke-width="1.6"/>
+        <!-- labels -->
+        <text x="8" y="192" text-anchor="middle" dominant-baseline="central" class="lbl">R</text>
+        <text x="302" y="192" text-anchor="middle" dominant-baseline="central" class="lbl">S</text>
+        <text x="130" y="10" text-anchor="middle" dominant-baseline="central" class="lbl">T</text>
+        <!-- angle labels -->
+        <text x="50" y="172" text-anchor="middle" class="ang">35°</text>
+        <text x="263" y="170" text-anchor="middle" class="ang">2α</text>
+        <text x="130" y="52" text-anchor="middle" class="ang">α</text>
+      </svg>
+    </div>
+    <div class="sub-label">(א) הקימו משוואה ופתרו את <span class="ltr">∠T</span> ו-<span class="ltr">∠S</span>:</div>
+    <textarea class="explain-box" rows="4"></textarea>
+    <div class="sub-label">(ב) מהו סוג המשולש (חד/ישר/קהה-זווית)? הסבירו:</div>
+    <textarea class="explain-box" rows="3"></textarea>
+  </div>
+
+  <!-- Q10 — סכום זוויות במרובע -->
+  <div class="q-block">
+    <div class="q-num">שאלה 10 — סכום זוויות במרובע</div>
+    <div class="q-text">
+      <p>ברומב (מעוין) <span class="ltr">ABCD</span> ידוע ש-<span class="ltr">∠A = 3x+15°</span> ו-<span class="ltr">∠B = x+5°</span>.</p>
+      <p>במעוין, זוויות <span class="ltr">A</span> ו-<span class="ltr">B</span> צמודות (סכומן <span class="ltr">180°</span>).</p>
+    </div>
+    <div class="sub-label">(א) הקימו משוואה ופתרו את <span class="ltr">x</span>:</div>
+    <textarea class="explain-box" rows="4"></textarea>
+    <div class="sub-label">(ב) חשבו את כל 4 הזוויות של המעוין:</div>
+    <textarea class="explain-box" rows="4"></textarea>
+  </div>
+
+</div>
+<footer>© כל הזכויות שמורות לחן מרגלית &nbsp;|&nbsp; מבדק שליטה מסכם — זוויות — רמה בסיסית ב׳</footer>
+</body>
+</html>
