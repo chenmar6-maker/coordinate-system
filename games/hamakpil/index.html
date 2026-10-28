@@ -100,7 +100,7 @@
 /* ─── state ─── */
 const G = {
   screen: 'start',
-  target: 10,
+  target: 20,
   mode: '2p',        // '2p' | 'cpu'
   diff: 'hard',      // 'easy' | 'hard'
   humanFirst: true,
@@ -247,11 +247,10 @@ function mapGrid(target, positions, current) {
 
 /* ── START ── */
 function renderStart() {
-  const prs = [8, 10, 15, 20, 30];
+  const prs = [20, 50, 100];
   const presHtml = prs.map(t =>
     `<button class="pre ${G.target === t ? 'on' : ''}" onclick="setTarget(${t})">${t}</button>`
   ).join('');
-  const customVal = prs.includes(G.target) ? '' : G.target;
 
   return `
 <div style="padding-top:16px;">
@@ -262,13 +261,7 @@ function renderStart() {
 
   <div class="card">
     <div class="sec-label">מה היעד?</div>
-    <div class="presets" style="margin-bottom:12px;">${presHtml}</div>
-    <div style="display:flex;align-items:center;gap:8px;">
-      <span style="font-size:13px;color:rgba(234,244,241,0.38);">אחר (3–100):</span>
-      <input class="custom-inp" type="number" min="3" max="100" placeholder="---"
-        value="${customVal}"
-        oninput="customTarget(this.value)" onchange="customTarget(this.value)">
-    </div>
+    <div class="presets">${presHtml}</div>
   </div>
 
   <div class="card">
