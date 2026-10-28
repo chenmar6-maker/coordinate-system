@@ -171,65 +171,58 @@ const gameLevels7 = [
   {q:IMG7V+'<div style="font-size:17px;font-weight:700;text-align:center;">שלושה משולשים שווי-צלעות חולקים קודקוד H, AH ⊥ JH. מה גודל ∠FHI + ∠BHE?</div>',opts:['60°','90°','120°','150°'],ans:1,exp:'סביב נקודה H כל הזוויות = 360°. שלוש זוויות של משולשים שווי-צלעות = 3 × 60° = 180°. זווית ישרה ∠AHJ = 90°. לכן ∠FHI + ∠BHE = 360° − 180° − 90° = 90°.'},
 ];
 
-const IMG8KMP  = '<img src="seq8_kmp.png" style="width:100%;max-width:540px;border-radius:8px;display:block;margin:0 auto 10px;" />';
-const IMG8FOUR = '<img src="seq8_four_triangles.png" style="width:100%;max-width:620px;border-radius:8px;display:block;margin:0 auto 10px;" />';
-const IMG8BIS1 = '<img src="seq8_abc_bisect.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 10px;" />';
-const IMG8BIS2 = '<img src="seq8_kml_bisect.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 10px;" />';
-const IMG8EXT1 = '<img src="seq8_fkr_exterior.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 10px;" />';
-const IMG8EXT2 = '<img src="seq8_abc_exterior.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 10px;" />';
-const IMG8THK  = '<img src="seq8_thinking.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 10px;" />';
+// seq8 SVGs from isosceles worksheet
+const _S8vxw = _wsvg('<svg viewBox="-48 -258 246 305" role="img" xmlns="http://www.w3.org/2000/svg"><rect x="-48" y="-258" width="246" height="305" fill="#fff"/><line x1="0.0" y1="-0.0" x2="150.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="150.0" y1="-0.0" x2="75.0" y2="-206.1" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="75.0" y1="-206.1" x2="0.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="30.9" y1="-105.4" x2="44.1" y2="-100.6" stroke="#000" stroke-width="1.4"/><line x1="105.9" y1="-100.6" x2="119.1" y2="-105.4" stroke="#000" stroke-width="1.4"/><text x="-11.8" y="10.8" class="lbl" text-anchor="middle" dominant-baseline="central">V</text><text x="161.8" y="10.8" class="lbl" text-anchor="middle" dominant-baseline="central">X</text><text x="75.0" y="-222.1" class="lbl" text-anchor="middle" dominant-baseline="central">W</text></svg>');
+const _S8deh = _wsvg('<svg viewBox="-202 -49 247 282" role="img" xmlns="http://www.w3.org/2000/svg"><rect x="-202" y="-49" width="247" height="282" fill="#fff"/><line x1="0.0" y1="0.0" x2="-150.4" y2="54.7" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="-150.4" y1="54.7" x2="-19.1" y2="181.5" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="-19.1" y1="181.5" x2="0.0" y2="0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="-2.8" y1="94.0" x2="-16.8" y2="92.5" stroke="#000" stroke-width="1.4"/><line x1="-2.3" y1="89.0" x2="-16.2" y2="87.5" stroke="#000" stroke-width="1.4"/><line x1="-78.1" y1="114.8" x2="-87.8" y2="124.9" stroke="#000" stroke-width="1.4"/><line x1="-81.6" y1="111.3" x2="-91.4" y2="121.4" stroke="#000" stroke-width="1.4"/><text x="9.3" y="-13.0" class="lbl" text-anchor="middle" dominant-baseline="central">E</text><text x="-165.9" y="50.8" class="lbl" text-anchor="middle" dominant-baseline="central">H</text><text x="-13.6" y="196.5" class="lbl" text-anchor="middle" dominant-baseline="central">D</text></svg>');
+const _S8dhy = _wsvg('<svg viewBox="-126 -212 376 264" role="img" xmlns="http://www.w3.org/2000/svg"><rect x="-126" y="-212" width="376" height="264" fill="#fff"/><path d="M0.0,-0.0 L13.8,-22.0 A26,26 0 0 0 -26.0,-0.0 Z" fill="#FFE0B8" stroke="none"/><path d="M100.0,-160.0 L85.2,-136.3 A28,28 0 0 0 114.8,-136.3 Z" fill="#D6E6F8" stroke="none"/><line x1="-90.0" y1="-0.0" x2="200.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="100.0" y1="-160.0" x2="0.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="100.0" y1="-160.0" x2="200.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="44.1" y1="-83.7" x2="55.9" y2="-76.3" stroke="#000" stroke-width="1.4"/><line x1="144.1" y1="-76.3" x2="155.9" y2="-83.7" stroke="#000" stroke-width="1.4"/><circle cx="-90.0" cy="-0.0" r="3" fill="#000"/><path d="M85.2,-136.3 A28,28 0 0 0 114.8,-136.3" fill="none" stroke="#2C6CB0" stroke-width="1.6"/><text x="100.0" y="-114.0" class="ang" text-anchor="middle" dominant-baseline="central">64°</text><path d="M13.8,-22.0 A26,26 0 0 0 -26.0,-0.0" fill="none" stroke="#C2630A" stroke-width="1.6"/><text x="-20.4" y="-36.7" class="ang" text-anchor="middle" dominant-baseline="central">α</text><text x="100.0" y="-176.0" class="lbl" text-anchor="middle" dominant-baseline="central">D</text><text x="214.1" y="7.5" class="lbl" text-anchor="middle" dominant-baseline="central">Y</text><text x="0.0" y="16.0" class="lbl" text-anchor="middle" dominant-baseline="central">H</text><text x="-90.0" y="16.0" class="lbl" text-anchor="middle" dominant-baseline="central">Z</text></svg>');
+const _S8pqr = _wsvg('<svg viewBox="-116 -195 366 286" role="img" xmlns="http://www.w3.org/2000/svg"><rect x="-116" y="-195" width="366" height="286" fill="#fff"/><path d="M0.0,-0.0 L-12.6,18.0 A22,22 0 0 0 22.0,0.0 Z" fill="#FFE0B8" stroke="none"/><path d="M0.0,-0.0 L-26.0,0.0 A26,26 0 0 0 -14.9,21.3 Z" fill="#FFE0B8" stroke="none"/><path d="M100.0,-142.8 L83.9,-119.9 A28,28 0 0 0 116.1,-119.9 Z" fill="#D6E6F8" stroke="none"/><line x1="-90.0" y1="-0.0" x2="200.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="100.0" y1="-142.8" x2="-45.9" y2="65.5" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="100.0" y1="-142.8" x2="200.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="39.3" y1="-68.3" x2="50.7" y2="-60.3" stroke="#000" stroke-width="1.4"/><line x1="139.3" y1="-74.5" x2="150.7" y2="-82.6" stroke="#000" stroke-width="1.4"/><path d="M83.9,-119.9 A28,28 0 0 0 116.1,-119.9" fill="none" stroke="#2C6CB0" stroke-width="1.6"/><text x="100.0" y="-96.8" class="ang" text-anchor="middle" dominant-baseline="central">70°</text><path d="M-26.0,0.0 A26,26 0 0 0 -14.9,21.3" fill="none" stroke="#C2630A" stroke-width="1.6"/><text x="-39.0" y="20.3" class="ang" text-anchor="middle" dominant-baseline="central">α</text><path d="M-12.6,18.0 A22,22 0 0 0 22.0,0.0" fill="none" stroke="#C2630A" stroke-width="1.6"/><text x="18.5" y="35.5" class="ang" text-anchor="middle" dominant-baseline="central">β</text><text x="100.0" y="-158.8" class="lbl" text-anchor="middle" dominant-baseline="central">P</text><text x="214.4" y="6.9" class="lbl" text-anchor="middle" dominant-baseline="central">R</text><text x="-16.4" y="-11.5" class="lbl" text-anchor="middle" dominant-baseline="central">Q</text></svg>');
+const _S8tuv = _wsvg('<svg viewBox="-44 -301 295 351" role="img" xmlns="http://www.w3.org/2000/svg"><rect x="-44" y="-301" width="295" height="351" fill="#fff"/><path d="M0.0,-0.0 L21.8,-33.5 A40,40 0 0 0 0.7,-40.0 Z" fill="#FFE0B8" stroke="none"/><path d="M4.4,-250.9 L3.9,-222.9 A28,28 0 0 0 26.1,-233.3 Z" fill="#D6E6F8" stroke="none"/><line x1="0.0" y1="-0.0" x2="199.4" y2="-93.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="199.4" y1="-93.0" x2="4.4" y2="-250.9" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="4.4" y1="-250.9" x2="0.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="0.0" y1="-0.0" x2="108.3" y2="-166.7" stroke="#000" stroke-width="2.0" stroke-dasharray="6 5" stroke-linecap="round"/><line x1="-4.8" y1="-125.6" x2="9.2" y2="-125.3" stroke="#000" stroke-width="1.4"/><line x1="97.5" y1="-166.5" x2="106.3" y2="-177.4" stroke="#000" stroke-width="1.4"/><path d="M3.9,-222.9 A28,28 0 0 0 26.1,-233.3" fill="none" stroke="#2C6CB0" stroke-width="1.6"/><text x="23.8" y="-209.2" class="ang" text-anchor="middle" dominant-baseline="central">52°</text><path d="M21.8,-33.5 A40,40 0 0 0 0.7,-40.0" fill="none" stroke="#C2630A" stroke-width="1.6"/><text x="16.4" y="-53.6" class="ang" text-anchor="middle" dominant-baseline="central">β</text><text x="-8.2" y="13.8" class="lbl" text-anchor="middle" dominant-baseline="central">U</text><text x="215.2" y="-90.4" class="lbl" text-anchor="middle" dominant-baseline="central">V</text><text x="-2.4" y="-265.4" class="lbl" text-anchor="middle" dominant-baseline="central">T</text><text x="116.5" y="-179.3" class="lbl" text-anchor="middle" dominant-baseline="central">W</text></svg>');
+const _S8ghn = _wsvg('<svg viewBox="-52 -209 332 314" role="img" xmlns="http://www.w3.org/2000/svg"><rect x="-52" y="-209" width="332" height="314" fill="#fff"/><path d="M162.9,-157.3 L144.2,-139.2 A26,26 0 0 0 170.9,-132.6 Z" fill="#FFE0B8" stroke="none"/><path d="M232.9,58.1 L200.7,28.1 A44,44 0 0 0 190.2,47.4 Z" fill="#D6E6F8" stroke="none"/><line x1="0.0" y1="-0.0" x2="232.9" y2="58.1" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="232.9" y1="58.1" x2="162.9" y2="-157.3" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="162.9" y1="-157.3" x2="0.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="232.9" y1="58.1" x2="83.8" y2="-80.9" stroke="#000" stroke-width="2.0" stroke-dasharray="6 5" stroke-linecap="round"/><line x1="76.6" y1="-83.7" x2="86.3" y2="-73.6" stroke="#000" stroke-width="1.4"/><line x1="191.2" y1="-47.5" x2="204.5" y2="-51.8" stroke="#000" stroke-width="1.4"/><path d="M200.7,28.1 A44,44 0 0 0 190.2,47.4" fill="none" stroke="#2C6CB0" stroke-width="1.6"/><text x="176.6" y="27.5" class="ang" text-anchor="middle" dominant-baseline="central">29°</text><path d="M144.2,-139.2 A26,26 0 0 0 170.9,-132.6" fill="none" stroke="#C2630A" stroke-width="1.6"/><text x="152.7" y="-116.6" class="ang" text-anchor="middle" dominant-baseline="central">α</text><text x="-15.5" y="3.9" class="lbl" text-anchor="middle" dominant-baseline="central">H</text><text x="244.7" y="68.8" class="lbl" text-anchor="middle" dominant-baseline="central">N</text><text x="166.8" y="-172.8" class="lbl" text-anchor="middle" dominant-baseline="central">G</text><text x="72.8" y="-91.2" class="lbl" text-anchor="middle" dominant-baseline="central">X</text></svg>');
+const _S8rst = _wsvg('<svg viewBox="-45 -522 289 572" role="img" xmlns="http://www.w3.org/2000/svg"><rect x="-45" y="-522" width="289" height="572" fill="#fff"/><path d="M100.0,-470.5 L93.8,-441.1 A30,30 0 0 0 106.2,-441.1 Z" fill="#FFE0B8" stroke="none"/><path d="M0.0,-0.0 L26.0,-45.0 A52,52 0 0 0 10.8,-50.9 Z" fill="#D6E6F8" stroke="none"/><line x1="100.0" y1="-470.5" x2="0.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="0.0" y1="-0.0" x2="200.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="200.0" y1="-0.0" x2="100.0" y2="-470.5" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="0.0" y1="-0.0" x2="100.0" y2="-173.2" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="100.0" y1="-173.2" x2="200.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/><line x1="53.7" y1="-286.2" x2="67.4" y2="-283.3" stroke="#000" stroke-width="1.4"/><line x1="52.6" y1="-281.3" x2="66.3" y2="-278.4" stroke="#000" stroke-width="1.4"/><line x1="132.6" y1="-283.3" x2="146.3" y2="-286.2" stroke="#000" stroke-width="1.4"/><line x1="133.7" y1="-278.4" x2="147.4" y2="-281.3" stroke="#000" stroke-width="1.4"/><line x1="51.1" y1="-74.4" x2="38.9" y2="-81.4" stroke="#000" stroke-width="1.4"/><line x1="148.9" y1="-74.4" x2="161.1" y2="-81.4" stroke="#000" stroke-width="1.4"/><line x1="100.0" y1="7.0" x2="100.0" y2="-7.0" stroke="#000" stroke-width="1.4"/><path d="M26.0,-45.0 A52,52 0 0 0 10.8,-50.9" fill="none" stroke="#2C6CB0" stroke-width="1.6"/><text x="25.8" y="-67.2" class="ang" text-anchor="middle" dominant-baseline="central">18°</text><path d="M93.8,-441.1 A30,30 0 0 0 106.2,-441.1" fill="none" stroke="#C2630A" stroke-width="1.6"/><text x="100.0" y="-424.5" class="ang" text-anchor="middle" dominant-baseline="central">α</text><text x="100.0" y="-486.5" class="lbl" text-anchor="middle" dominant-baseline="central">R</text><text x="-8.6" y="13.5" class="lbl" text-anchor="middle" dominant-baseline="central">S</text><text x="208.6" y="13.5" class="lbl" text-anchor="middle" dominant-baseline="central">T</text><text x="100.0" y="-189.2" class="lbl" text-anchor="middle" dominant-baseline="central">U</text></svg>');
 
 const _n = s => '<span dir="ltr">'+s+'</span>';
 
 const gameLevels8 = [
-  // 1א — זיהוי שוקיים ובסיס
-  {q:IMG8KMP+'<div style="font-size:17px;font-weight:700;text-align:center;">ב-'+_n('△KMP')+' שווה-שוקיים (KP=KM) — מה הן שוקי המשולש?</div>',
-   opts:['KP ו-KM','KP ו-MP','KM ו-MP','כולן שוות'],ans:0,
-   exp:'השוקיים הם הצלעות השוות: KP ו-KM. הבסיס הוא הצלע השלישית: MP.'},
-  // 1ב — איזה שוויון נכון
-  {q:IMG8KMP+'<div style="font-size:17px;font-weight:700;text-align:center;">ב-'+_n('△KMP')+' (KP=KM) — המשולש אינו שווה-צלעות. איזה שוויון נכון?</div>',
-   opts:[_n('∠M = ∠P'),_n('∠K = ∠P'),_n('∠K = ∠M'),'אין שוויון'],ans:0,
-   exp:'הזוויות השוות הן זוויות הבסיס: '+_n('∠M')+' ו-'+_n('∠P')+' (נגד השוקיים השווים KP ו-KM).'},
-  // 2א — זיהוי זוויות שוות (א)
-  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (א) — אילו זוויות שוות ב-'+_n('△DAN')+'?</div>',
-   opts:[_n('∠D = ∠N'),_n('∠D = ∠A'),_n('∠A = ∠N'),_n('∠D = ∠A = ∠N')],ans:0,
-   exp:'הצלעות השוות יוצאות מ-A (הקדקוד/ראש המשולש). זוויות הבסיס — '+_n('∠D')+' ו-'+_n('∠N')+' — שוות.'},
-  // 2ב — זיהוי זוויות שוות (ב)
-  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (ב) — אילו זוויות שוות ב-'+_n('△ELI')+'?</div>',
-   opts:[_n('∠L = ∠I'),_n('∠E = ∠L'),_n('∠E = ∠I'),_n('∠E = ∠L = ∠I')],ans:2,
-   exp:'הצלעות השוות יוצאות מ-E. זוויות הבסיס — '+_n('∠L')+' ו-'+_n('∠I')+' — שוות.'},
-  // 2ג — זיהוי זוויות שוות (ג)
-  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (ג) — אילו זוויות שוות ב-'+_n('△TOM')+'?</div>',
-   opts:[_n('∠T = ∠O'),_n('∠T = ∠M'),_n('∠O = ∠M'),_n('∠T = ∠O = ∠M')],ans:2,
-   exp:'הצלעות השוות יוצאות מ-T (ראש המשולש). זוויות הבסיס — '+_n('∠O')+' ו-'+_n('∠M')+' — שוות.'},
-  // 2ד — זיהוי זוויות שוות (ד)
-  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (ד) — אילו זוויות שוות ב-'+_n('△ONS')+'?</div>',
-   opts:[_n('∠N = ∠O'),_n('∠O = ∠S'),_n('∠N = ∠S'),_n('∠N = ∠O = ∠S')],ans:1,
-   exp:'הצלעות השוות יוצאות מ-N (ראש המשולש). זוויות הבסיס — '+_n('∠O')+' ו-'+_n('∠S')+' — שוות.'},
-  // 3 — △ABC, ∠C=50°, BD חוצה ∠B
-  {q:IMG8BIS1+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△ABC')+' שווה-שוקיים (AB=AC), '+_n('∠C=50°')+', BD חוצה את '+_n('∠B')+'. מה גודל '+_n('∠ABD')+'?</div>',
-   opts:['25°','40°','50°','65°'],ans:0,
-   exp:'AB=AC → '+_n('∠B=∠C=50°')+'. BD חוצה '+_n('∠B')+' → '+_n('∠ABD')+' = 50°÷2 = 25°.'},
-  // 4 — △KML, MP חוצה, ∠KMP=17°
-  {q:IMG8BIS2+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△KML')+' שווה-שוקיים (KL=KM), MP חוצה את '+_n('∠KML')+', '+_n('∠KMP=17°')+'. מה גודל '+_n('∠L')+'?</div>',
-   opts:['17°','34°','51°','68°'],ans:1,
-   exp:'MP חוצה → '+_n('∠KML')+' = 2×17° = 34°. KL=KM → זוויות הבסיס שוות: '+_n('∠L')+' = '+_n('∠KML')+' = 34°.'},
-  // 5 — △FKR, ∠F=36°, חישוב α
-  {q:IMG8EXT1+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△FKR')+' שווה-שוקיים (KF=KR), '+_n('∠F=36°')+'. S על המשך KR. מה גודל α?</div>',
-   opts:['36°','72°','108°','144°'],ans:3,
-   exp:'KF=KR → '+_n('∠F=∠R=36°')+'. α היא הזווית החיצונית ב-R: α = 180°−36° = 144°.'},
-  // 6α — △ABC, ∠B=52°
-  {q:IMG8EXT2+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△ABC')+' שווה-שוקיים (AB=AC), '+_n('∠B=52°')+'. מה גודל α?</div>',
-   opts:['52°','64°','76°','128°'],ans:0,
-   exp:'AB=AC → '+_n('∠B=∠C')+'. לכן α = '+_n('∠ACB')+' = '+_n('∠B')+' = 52°.'},
-  // 6β
-  {q:IMG8EXT2+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△ABC')+' שווה-שוקיים (AB=AC), '+_n('∠B=52°')+'. מה גודל β?</div>',
-   opts:['52°','76°','104°','128°'],ans:3,
-   exp:'β היא הזווית החיצונית ב-C: β = 180°−α = 180°−52° = 128°.'},
-  // שאלת חשיבה — △ABC+△CDB
-  {q:IMG8THK+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△ABC')+' שווה-שוקיים (AB=AC), '+_n('△CDB')+' שווה-צלעות, '+_n('∠ACD=15°')+'. מה גודל '+_n('∠ABC')+'?</div>',
-   opts:['60°','70°','75°','80°'],ans:2,
-   exp:_n('△CDB')+' שווה-צלעות → '+_n('∠DCB=60°')+'. '+_n('∠ACB')+' = '+_n('∠ACD')+'+'+_n('∠DCB')+' = 15°+60° = 75°. AB=AC → '+_n('∠ABC=∠ACB')+' = 75°.'},
+  // 1 — VXW: זיהוי זוויות שוות
+  {q:_S8vxw+'<div style="font-size:17px;font-weight:700;text-align:center;">ב-'+_n('△VXW')+' שווה-שוקיים — הצלעות השוות מסומנות בקו קטן. אילו זוויות שוות?</div>',
+   opts:[_n('∠V = ∠X'),_n('∠V = ∠W'),_n('∠W = ∠X'),'כל הזוויות שוות'],ans:0,
+   exp:'הצלעות השוות יוצאות מ-W (ראש המשולש). לכן זוויות הבסיס — '+_n('∠V')+' ו-'+_n('∠X')+' — שוות.'},
+  // 2 — DEH: זיהוי שוקיים ובסיס (DE=DH)
+  {q:_S8deh+'<div style="font-size:17px;font-weight:700;text-align:center;">ב-'+_n('△DEH')+' שווה-שוקיים ('+_n('DE=DH')+') — מה הן זוויות הבסיס?</div>',
+   opts:[_n('∠E ו-∠H'),_n('∠D ו-∠E'),_n('∠D ו-∠H'),'כל הזוויות שוות'],ans:0,
+   exp:'D הוא ראש המשולש (ממנו יוצאות הצלעות השוות). זוויות הבסיס הן '+_n('∠E')+' ו-'+_n('∠H')+' — הן שוות.'},
+  // 3 — DEH: מה שוויון נכון
+  {q:_S8deh+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△DEH')+' שווה-שוקיים ('+_n('DE=DH')+'), המשולש אינו שווה-צלעות. איזה שוויון נכון?</div>',
+   opts:[_n('∠E = ∠H'),_n('∠D = ∠E'),_n('∠D = ∠H'),'אין שוויון'],ans:0,
+   exp:'הצלעות השוות יוצאות מ-D. זוויות הבסיס שמולן שוות: '+_n('∠E = ∠H')+'.'},
+  // 4 — DHY: חישוב זווית חיצונית α (∠D=64°)
+  {q:_S8dhy+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△DHY')+' שווה-שוקיים ('+_n('DH=DY')+'), '+_n('∠D=64°')+'. Z על המשך הבסיס. מה גודל α?</div>',
+   opts:['58°','116°','122°','128°'],ans:2,
+   exp:'זוויות הבסיס: '+_n('(180°−64°)÷2=58°')+'. α צמודה לזווית הבסיס ב-H: '+_n('α=180°−58°=122°')+'.'},
+  // 5 — PQR: חישוב α (∠P=70°)
+  {q:_S8pqr+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△PQR')+' שווה-שוקיים ('+_n('PQ=PR')+'), '+_n('∠P=70°')+'. הוארכו הבסיס והשוק מעבר ל-Q. מה גודל α?</div>',
+   opts:['55°','70°','110°','125°'],ans:0,
+   exp:'זוויות הבסיס: '+_n('(180°−70°)÷2=55°')+'. α קודקודית לזווית הבסיס ב-Q: '+_n('α=55°')+'.'},
+  // 6 — PQR: חישוב β (∠P=70°)
+  {q:_S8pqr+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△PQR')+' שווה-שוקיים ('+_n('PQ=PR')+'), '+_n('∠P=70°')+'. מה גודל β?</div>',
+   opts:['55°','70°','110°','125°'],ans:3,
+   exp:'זווית הבסיס ב-Q = 55°. β צמודה לה: '+_n('β=180°−55°=125°')+'.'},
+  // 7 — TUV: חוצה זווית בסיס (∠T=52°)
+  {q:_S8tuv+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△TUV')+' שווה-שוקיים ('+_n('TU=TV')+'), '+_n('∠T=52°')+'. UW חוצה את '+_n('∠U')+'. מה גודל β = '+_n('∠TUW')+'?</div>',
+   opts:['26°','32°','52°','64°'],ans:1,
+   exp:'זוויות הבסיס: '+_n('(180°−52°)÷2=64°')+'. UW חוצה '+_n('∠U')+': '+_n('β=64°÷2=32°')+'.'},
+  // 8 — GHN: מחוצה לזווית הראש (∠XNH=29°)
+  {q:_S8ghn+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△GHN')+' שווה-שוקיים ('+_n('GH=GN')+'), NX חוצה את '+_n('∠GNH')+', '+_n('∠XNH=29°')+'. מה גודל α = '+_n('∠G')+'?</div>',
+   opts:['29°','58°','64°','122°'],ans:2,
+   exp:_n('∠GNH=2×29°=58°')+'. זוויות הבסיס שוות: '+_n('∠H=58°')+'. '+_n('α=180°−2×58°=64°')+'.'},
+  // 9 — GHN: כמה מעלות ∠GNH
+  {q:_S8ghn+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△GHN')+' שווה-שוקיים ('+_n('GH=GN')+'), NX חוצה את '+_n('∠GNH')+', '+_n('∠XNH=29°')+'. מה גודל '+_n('∠GNH')+'?</div>',
+   opts:['29°','58°','64°','90°'],ans:1,
+   exp:'NX חוצה את '+_n('∠GNH')+' לשני חלקים שווים. לכן '+_n('∠GNH=2×29°=58°')+'.'},
+  // 10 — RST+STU: שווה-צלעות בתוך שווה-שוקיים (∠RSU=18°)
+  {q:_S8rst+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△RST')+' שווה-שוקיים ('+_n('RS=RT')+'), '+_n('△STU')+' שווה-צלעות, '+_n('∠RSU=18°')+'. מה גודל α = '+_n('∠R')+'?</div>',
+   opts:['18°','24°','42°','60°'],ans:1,
+   exp:_n('△STU')+' שווה-צלעות → '+_n('∠UST=60°')+'. '+_n('∠RST=60°+18°=78°')+'. '+_n('RS=RT')+' → '+_n('∠RTS=78°')+'. '+_n('α=180°−2×78°=24°')+'.'},
 ];
 
 // ── seq9 worksheet SVG helper ──
@@ -576,6 +569,42 @@ function renderLearn4(){
       <iframe src="https://www.youtube.com/embed/Zma4u4HQYhk" title="חוצה-זווית" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="gold-box">חוצה-זווית = קרן היוצאת מקודקוד הזווית ומחלקת אותה לשני חלקים שווים בדיוק</div>
+    <div style="background:#fff;border-radius:10px;padding:10px 8px;margin:16px 0 4px;display:block;text-align:center;">
+      <svg viewBox="28 30 204 143" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:280px;display:inline-block;">
+        <style>.bl9{font:700 14px 'Times New Roman',serif;fill:#222}.ba9{font:bold 13px 'Times New Roman',serif}</style>
+        <!-- filled sectors (same color = equal halves) -->
+        <path d="M130,150 L130,106 A44,44 0 0,0 96.3,121.7 Z" fill="#b8d8f8" stroke="none"/>
+        <path d="M130,150 L163.7,121.7 A44,44 0 0,0 130,106 Z" fill="#b8d8f8" stroke="none"/>
+        <!-- ray lines -->
+        <line x1="130" y1="150" x2="50" y2="83" stroke="#333" stroke-width="1.8"/>
+        <line x1="130" y1="150" x2="210" y2="83" stroke="#333" stroke-width="1.8"/>
+        <!-- bisector dashed -->
+        <line x1="130" y1="150" x2="130" y2="38" stroke="#2060b0" stroke-width="1.6" stroke-dasharray="6 4"/>
+        <!-- sector arc borders -->
+        <path d="M130,106 A44,44 0 0,0 96.3,121.7" fill="none" stroke="#2060b0" stroke-width="1.8"/>
+        <path d="M163.7,121.7 A44,44 0 0,0 130,106" fill="none" stroke="#2060b0" stroke-width="1.8"/>
+        <!-- tick marks on the two equal arcs (= sign on each arc) -->
+        <line x1="112" y1="107" x2="116" y2="112" stroke="#2060b0" stroke-width="1.5"/>
+        <line x1="144" y1="107" x2="148" y2="112" stroke="#2060b0" stroke-width="1.5"/>
+        <!-- labels -->
+        <text x="104" y="96" class="ba9" fill="#1a50a0" text-anchor="middle">50°</text>
+        <text x="156" y="96" class="ba9" fill="#1a50a0" text-anchor="middle">50°</text>
+        <!-- vertex labels -->
+        <text x="36" y="82" class="bl9">A</text>
+        <text x="211" y="82" class="bl9">B</text>
+        <text x="122" y="36" class="bl9">C</text>
+        <text x="121" y="163" class="bl9">O</text>
+      </svg>
+    </div>
+    <div style="background:#1e2d3d;border:1.5px solid rgba(245,200,66,0.35);border-radius:10px;padding:14px 16px;margin:12px 0;">
+      <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px;text-transform:uppercase;">דוגמה</div>
+      <div style="font-size:14px;line-height:1.9;color:var(--foam);">
+        <div><strong>נתון:</strong> <span dir="ltr">∠AOB = 100°</span>. <span dir="ltr">OC</span> חוצה את <span dir="ltr">∠AOB</span>.</div>
+        <div style="margin-top:8px;padding:8px 10px;background:rgba(255,255,255,0.07);border-radius:6px;font-size:13px;">
+          <div dir="ltr">∠AOC = ∠COB = 100° ÷ 2 = <strong style="color:var(--gold);">50°</strong></div>
+        </div>
+      </div>
+    </div>
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
