@@ -179,55 +179,57 @@ const IMG8EXT1 = '<img src="seq8_fkr_exterior.png" style="width:100%;max-width:4
 const IMG8EXT2 = '<img src="seq8_abc_exterior.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 10px;" />';
 const IMG8THK  = '<img src="seq8_thinking.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 10px;" />';
 
+const _n = s => '<span dir="ltr">'+s+'</span>';
+
 const gameLevels8 = [
   // 1א — זיהוי שוקיים ובסיס
-  {q:IMG8KMP+'<div style="font-size:17px;font-weight:700;text-align:center;">ב-△KMP שווה-שוקיים (KP=KM) — מה הן שוקי המשולש?</div>',
+  {q:IMG8KMP+'<div style="font-size:17px;font-weight:700;text-align:center;">ב-'+_n('△KMP')+' שווה-שוקיים (KP=KM) — מה הן שוקי המשולש?</div>',
    opts:['KP ו-KM','KP ו-MP','KM ו-MP','כולן שוות'],ans:0,
    exp:'השוקיים הם הצלעות השוות: KP ו-KM. הבסיס הוא הצלע השלישית: MP.'},
   // 1ב — איזה שוויון נכון
-  {q:IMG8KMP+'<div style="font-size:17px;font-weight:700;text-align:center;">ב-△KMP (KP=KM) — המשולש אינו שווה-צלעות. איזה שוויון נכון?</div>',
-   opts:['∠M = ∠P','∠K = ∠P','∠K = ∠M','אין שוויון'],ans:0,
-   exp:'הזוויות השוות הן זוויות הבסיס: ∠M ו-∠P (נגד השוקיים השווים KP ו-KM).'},
+  {q:IMG8KMP+'<div style="font-size:17px;font-weight:700;text-align:center;">ב-'+_n('△KMP')+' (KP=KM) — המשולש אינו שווה-צלעות. איזה שוויון נכון?</div>',
+   opts:[_n('∠M = ∠P'),_n('∠K = ∠P'),_n('∠K = ∠M'),'אין שוויון'],ans:0,
+   exp:'הזוויות השוות הן זוויות הבסיס: '+_n('∠M')+' ו-'+_n('∠P')+' (נגד השוקיים השווים KP ו-KM).'},
   // 2א — זיהוי זוויות שוות (א)
-  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (א) — אילו זוויות שוות ב-△DAN?</div>',
-   opts:['∠D = ∠N','∠D = ∠A','∠A = ∠N','∠D = ∠A = ∠N'],ans:0,
-   exp:'הצלעות השוות יוצאות מ-A (הקדקוד/ראש המשולש). זוויות הבסיס — ∠D ו-∠N — שוות.'},
+  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (א) — אילו זוויות שוות ב-'+_n('△DAN')+'?</div>',
+   opts:[_n('∠D = ∠N'),_n('∠D = ∠A'),_n('∠A = ∠N'),_n('∠D = ∠A = ∠N')],ans:0,
+   exp:'הצלעות השוות יוצאות מ-A (הקדקוד/ראש המשולש). זוויות הבסיס — '+_n('∠D')+' ו-'+_n('∠N')+' — שוות.'},
   // 2ב — זיהוי זוויות שוות (ב)
-  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (ב) — אילו זוויות שוות ב-△ELI?</div>',
-   opts:['∠L = ∠I','∠E = ∠L','∠E = ∠I','∠E = ∠L = ∠I'],ans:2,
-   exp:'הצלעות השוות יוצאות מ-E. זוויות הבסיס — ∠L ו-∠I — שוות.'},
+  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (ב) — אילו זוויות שוות ב-'+_n('△ELI')+'?</div>',
+   opts:[_n('∠L = ∠I'),_n('∠E = ∠L'),_n('∠E = ∠I'),_n('∠E = ∠L = ∠I')],ans:2,
+   exp:'הצלעות השוות יוצאות מ-E. זוויות הבסיס — '+_n('∠L')+' ו-'+_n('∠I')+' — שוות.'},
   // 2ג — זיהוי זוויות שוות (ג)
-  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (ג) — אילו זוויות שוות ב-△TOM?</div>',
-   opts:['∠T = ∠O','∠T = ∠M','∠O = ∠M','∠T = ∠O = ∠M'],ans:2,
-   exp:'הצלעות השוות יוצאות מ-T (ראש המשולש). זוויות הבסיס — ∠O ו-∠M — שוות.'},
+  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (ג) — אילו זוויות שוות ב-'+_n('△TOM')+'?</div>',
+   opts:[_n('∠T = ∠O'),_n('∠T = ∠M'),_n('∠O = ∠M'),_n('∠T = ∠O = ∠M')],ans:2,
+   exp:'הצלעות השוות יוצאות מ-T (ראש המשולש). זוויות הבסיס — '+_n('∠O')+' ו-'+_n('∠M')+' — שוות.'},
   // 2ד — זיהוי זוויות שוות (ד)
-  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (ד) — אילו זוויות שוות ב-△ONS?</div>',
-   opts:['∠N = ∠O','∠O = ∠S','∠N = ∠S','∠N = ∠O = ∠S'],ans:1,
-   exp:'הצלעות השוות יוצאות מ-N (ראש המשולש). זוויות הבסיס — ∠O ו-∠S — שוות.'},
+  {q:IMG8FOUR+'<div style="font-size:17px;font-weight:700;text-align:center;">סרטוט (ד) — אילו זוויות שוות ב-'+_n('△ONS')+'?</div>',
+   opts:[_n('∠N = ∠O'),_n('∠O = ∠S'),_n('∠N = ∠S'),_n('∠N = ∠O = ∠S')],ans:1,
+   exp:'הצלעות השוות יוצאות מ-N (ראש המשולש). זוויות הבסיס — '+_n('∠O')+' ו-'+_n('∠S')+' — שוות.'},
   // 3 — △ABC, ∠C=50°, BD חוצה ∠B
-  {q:IMG8BIS1+'<div style="font-size:17px;font-weight:700;text-align:center;">△ABC שווה-שוקיים (AB=AC), ∠C=50°, BD חוצה את ∠B. מה גודל ∠ABD?</div>',
+  {q:IMG8BIS1+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△ABC')+' שווה-שוקיים (AB=AC), '+_n('∠C=50°')+', BD חוצה את '+_n('∠B')+'. מה גודל '+_n('∠ABD')+'?</div>',
    opts:['25°','40°','50°','65°'],ans:0,
-   exp:'AB=AC → ∠B=∠C=50°. BD חוצה ∠B → ∠ABD = 50°÷2 = 25°.'},
+   exp:'AB=AC → '+_n('∠B=∠C=50°')+'. BD חוצה '+_n('∠B')+' → '+_n('∠ABD')+' = 50°÷2 = 25°.'},
   // 4 — △KML, MP חוצה, ∠KMP=17°
-  {q:IMG8BIS2+'<div style="font-size:17px;font-weight:700;text-align:center;">△KML שווה-שוקיים (KL=KM), MP חוצה את ∠KML, ∠KMP=17°. מה גודל ∠L?</div>',
+  {q:IMG8BIS2+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△KML')+' שווה-שוקיים (KL=KM), MP חוצה את '+_n('∠KML')+', '+_n('∠KMP=17°')+'. מה גודל '+_n('∠L')+'?</div>',
    opts:['17°','34°','51°','68°'],ans:1,
-   exp:'MP חוצה → ∠KML = 2×17° = 34°. KL=KM → זוויות הבסיס שוות: ∠L = ∠KML = 34°.'},
+   exp:'MP חוצה → '+_n('∠KML')+' = 2×17° = 34°. KL=KM → זוויות הבסיס שוות: '+_n('∠L')+' = '+_n('∠KML')+' = 34°.'},
   // 5 — △FKR, ∠F=36°, חישוב α
-  {q:IMG8EXT1+'<div style="font-size:17px;font-weight:700;text-align:center;">△FKR שווה-שוקיים (KF=KR), ∠F=36°. S על המשך KR. מה גודל α?</div>',
+  {q:IMG8EXT1+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△FKR')+' שווה-שוקיים (KF=KR), '+_n('∠F=36°')+'. S על המשך KR. מה גודל α?</div>',
    opts:['36°','72°','108°','144°'],ans:3,
-   exp:'KF=KR → ∠F=∠R=36°. α היא הזווית החיצונית ב-R: α = 180°−36° = 144°.'},
+   exp:'KF=KR → '+_n('∠F=∠R=36°')+'. α היא הזווית החיצונית ב-R: α = 180°−36° = 144°.'},
   // 6α — △ABC, ∠B=52°
-  {q:IMG8EXT2+'<div style="font-size:17px;font-weight:700;text-align:center;">△ABC שווה-שוקיים (AB=AC), ∠B=52°. מה גודל α?</div>',
+  {q:IMG8EXT2+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△ABC')+' שווה-שוקיים (AB=AC), '+_n('∠B=52°')+'. מה גודל α?</div>',
    opts:['52°','64°','76°','128°'],ans:0,
-   exp:'AB=AC → ∠B=∠C. לכן α = ∠ACB = ∠B = 52°.'},
+   exp:'AB=AC → '+_n('∠B=∠C')+'. לכן α = '+_n('∠ACB')+' = '+_n('∠B')+' = 52°.'},
   // 6β
-  {q:IMG8EXT2+'<div style="font-size:17px;font-weight:700;text-align:center;">△ABC שווה-שוקיים (AB=AC), ∠B=52°. מה גודל β?</div>',
+  {q:IMG8EXT2+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△ABC')+' שווה-שוקיים (AB=AC), '+_n('∠B=52°')+'. מה גודל β?</div>',
    opts:['52°','76°','104°','128°'],ans:3,
    exp:'β היא הזווית החיצונית ב-C: β = 180°−α = 180°−52° = 128°.'},
   // שאלת חשיבה — △ABC+△CDB
-  {q:IMG8THK+'<div style="font-size:17px;font-weight:700;text-align:center;">△ABC שווה-שוקיים (AB=AC), △CDB שווה-צלעות, ∠ACD=15°. מה גודל ∠ABC?</div>',
+  {q:IMG8THK+'<div style="font-size:17px;font-weight:700;text-align:center;">'+_n('△ABC')+' שווה-שוקיים (AB=AC), '+_n('△CDB')+' שווה-צלעות, '+_n('∠ACD=15°')+'. מה גודל '+_n('∠ABC')+'?</div>',
    opts:['60°','70°','75°','80°'],ans:2,
-   exp:'△CDB שווה-צלעות → ∠DCB=60°. ∠ACB = ∠ACD+∠DCB = 15°+60° = 75°. AB=AC → ∠ABC=∠ACB = 75°.'},
+   exp:_n('△CDB')+' שווה-צלעות → '+_n('∠DCB=60°')+'. '+_n('∠ACB')+' = '+_n('∠ACD')+'+'+_n('∠DCB')+' = 15°+60° = 75°. AB=AC → '+_n('∠ABC=∠ACB')+' = 75°.'},
 ];
 
 const gameLevelsPlaceholder = [
