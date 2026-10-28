@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>המכפיל</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{
+    font-family:'Rubik',sans-serif;
+    background:radial-gradient(ellipse at 50% -10%,#1C2B3A 0%,#0E1820 50%,#070C12 100%);
+    color:#EAF4F1;direction:rtl;min-height:100vh;line-height:1.6;
+  }
+  #app{max-width:520px;margin:0 auto;padding:36px 20px 80px;}
+
+  /* buttons */
+  .btn{
+    display:inline-block;padding:13px 28px;border-radius:12px;
+    font-family:'Rubik',sans-serif;font-size:16px;font-weight:700;
+    cursor:pointer;border:none;transition:all .15s;
+  }
+  .btn-primary{background:#50C896;color:#061a0f;}
+  .btn-primary:hover{background:#3eb87e;}
+  .btn-secondary{background:rgba(234,244,241,0.08);color:#EAF4F1;border:1.5px solid rgba(234,244,241,0.15);}
+  .btn-secondary:hover{background:rgba(234,244,241,0.14);}
+  .btn:disabled{opacity:0.25;cursor:default;}
+
+  /* cards */
+  .card{
+    background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.1);
+    border-radius:16px;padding:22px;margin-bottom:14px;
+  }
+  .sec-label{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+    color:rgba(234,244,241,0.4);margin-bottom:10px;}
+
+  /* toggle row */
+  .toggle-row{display:flex;gap:8px;}
+  .tog{
+    flex:1;padding:11px 6px;border-radius:10px;font-family:'Rubik',sans-serif;
+    font-size:14px;font-weight:700;cursor:pointer;text-align:center;
+    border:1.5px solid rgba(234,244,241,0.13);background:rgba(234,244,241,0.05);
+    color:rgba(234,244,241,0.5);transition:all .15s;
+  }
+  .tog.on{background:rgba(80,200,150,0.14);border-color:#50C896;color:#50C896;}
+  .tog:hover:not(.on){background:rgba(234,244,241,0.09);}
+
+  /* preset buttons */
+  .presets{display:flex;gap:8px;flex-wrap:wrap;}
+  .pre{
+    padding:8px 16px;border-radius:8px;font-family:'Rubik',sans-serif;font-size:15px;font-weight:700;
+    cursor:pointer;border:1.5px solid rgba(234,244,241,0.13);background:rgba(234,244,241,0.05);
+    color:#EAF4F1;transition:all .15s;
+  }
+  .pre.on{background:rgba(80,200,150,0.15);border-color:#50C896;color:#50C896;}
+  .pre:hover:not(.on){background:rgba(234,244,241,0.1);}
+  .custom-inp{
+    padding:9px 12px;border-radius:8px;font-family:'Rubik',sans-serif;font-size:15px;font-weight:700;
+    background:rgba(234,244,241,0.06);border:1.5px solid rgba(234,244,241,0.15);
+    color:#EAF4F1;width:84px;text-align:center;outline:none;direction:ltr;
+  }
+  .custom-inp:focus{border-color:#50C896;}
+
+  /* move buttons */
+  .move-row{display:flex;gap:14px;justify-content:center;margin:22px 0;}
+  .mvbtn{
+    flex:1;max-width:210px;padding:18px 10px;border-radius:14px;
+    font-family:'Rubik',sans-serif;font-size:19px;font-weight:800;
+    cursor:pointer;border:2px solid;transition:all .18s;text-align:center;
+  }
+  .mvbtn-p{background:rgba(80,200,150,0.12);border-color:#50C896;color:#50C896;}
+  .mvbtn-p:hover:not(:disabled){background:rgba(80,200,150,0.28);}
+  .mvbtn-x{background:rgba(245,200,66,0.1);border-color:#F5C842;color:#F5C842;}
+  .mvbtn-x:hover:not(:disabled){background:rgba(245,200,66,0.24);}
+  .mvbtn:disabled{opacity:0.18;cursor:default;}
+
+  /* map toggle */
+  .map-tog{
+    display:block;width:100%;padding:10px;border-radius:10px;font-family:'Rubik',sans-serif;
+    font-size:13px;font-weight:700;cursor:pointer;
+    border:1.5px solid rgba(234,244,241,0.13);background:rgba(234,244,241,0.04);
+    color:rgba(234,244,241,0.45);transition:all .15s;text-align:center;margin-top:16px;
+  }
+  .map-tog:hover{background:rgba(234,244,241,0.08);color:rgba(234,244,241,0.75);}
+
+  /* progress bar */
+  .prog-track{height:14px;border-radius:7px;background:rgba(234,244,241,0.08);overflow:hidden;margin:16px 0 4px;}
+  .prog-fill{height:100%;background:linear-gradient(to left,#3eb87e,#50C896);border-radius:7px;transition:width .4s ease;}
+  .prog-labels{display:flex;justify-content:space-between;font-size:12px;color:rgba(234,244,241,0.4);}
+
+  /* back link */
+  .back{display:block;text-align:center;margin-top:40px;font-size:13px;
+    color:rgba(234,244,241,0.3);text-decoration:none;transition:color .15s;}
+  .back:hover{color:rgba(234,244,241,0.65);}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ─── state ─── */
+const G = {
+  screen: 'start',
+  target: 10,
+  mode: '2p',        // '2p' | 'cpu'
+  diff: 'hard',      // 'easy' | 'hard'
+  humanFirst: true,
+  current: 1,
+  turnIdx: 0,        // 0 or 1
+  history: [],       // {from, type, val, player}
+  winner: null,
+  showMap: false,
+  positions: null,   // win[] computed by backward induction
+  thinking: false,
+};
+
+/* ─── game logic ─── */
+function validMoves(n, target) {
+  const moves = [];
+  if (n + 1 <= target) moves.push({ type: '+1', val: n + 1 });
+  if (n * 2 <= target && n * 2 !== n + 1) moves.push({ type: '×2', val: n * 2 });
+  return moves;
+}
+
+// win[n] = true  →  the player whose turn it is, facing value n, can force a win
+function computePositions(target) {
+  const win = new Array(target + 1).fill(false);
+  for (let n = target - 1; n >= 1; n--) {
+    for (const m of validMoves(n, target)) {
+      if (m.val === target || !win[m.val]) { win[n] = true; break; }
+    }
+  }
+  return win;
+}
+
+function isHumanTurn() {
+  if (G.mode === '2p') return true;
+  return G.humanFirst ? G.turnIdx === 0 : G.turnIdx === 1;
+}
+
+function playerName(idx) {
+  if (G.mode === '2p') return idx === 0 ? 'שחקן 1' : 'שחקן 2';
+  return (G.humanFirst ? idx === 0 : idx === 1) ? 'אתה' : 'מחשב';
+}
+
+function cpuMove() {
+  const moves = validMoves(G.current, G.target);
+  if (G.diff === 'easy') {
+    if (Math.random() < 0.38) {
+      const good = moves.find(m => m.val === G.target || !G.positions[m.val]);
+      if (good) return good.type;
+    }
+    return moves[Math.floor(Math.random() * moves.length)].type;
+  }
+  const winning = moves.find(m => m.val === G.target || !G.positions[m.val]);
+  if (winning) return winning.type;
+  return moves[Math.floor(Math.random() * moves.length)].type;
+}
+
+function applyMove(type) {
+  const from = G.current;
+  const newVal = type === '+1' ? G.current + 1 : G.current * 2;
+  G.history.push({ from, type, val: newVal, player: G.turnIdx });
+  G.current = newVal;
+
+  if (G.current === G.target) {
+    G.winner = G.turnIdx;
+    G.screen = 'end';
+    render();
+    return;
+  }
+
+  G.turnIdx = 1 - G.turnIdx;
+
+  if (G.mode === 'cpu' && !isHumanTurn()) {
+    G.thinking = true;
+    render();
+    setTimeout(() => {
+      G.thinking = false;
+      applyMove(cpuMove());
+    }, 700 + Math.random() * 600);
+  } else {
+    render();
+  }
+}
+
+function startGame() {
+  G.screen = 'game';
+  G.current = 1;
+  G.turnIdx = 0;
+  G.history = [];
+  G.winner = null;
+  G.thinking = false;
+  G.showMap = false;
+  G.positions = computePositions(G.target);
+  render();
+  if (G.mode === 'cpu' && !isHumanTurn()) {
+    G.thinking = true;
+    render();
+    setTimeout(() => { G.thinking = false; applyMove(cpuMove()); }, 900);
+  }
+}
+
+/* ─── global handlers (called from onclick) ─── */
+window.applyMove = applyMove;
+window.startGame = startGame;
+window.toggleMap = () => { G.showMap = !G.showMap; render(); };
+window.newGame   = () => { G.screen = 'start'; render(); };
+window.playAgain = () => startGame();
+window.setTarget = t  => { G.target = t; render(); };
+window.setMode   = m  => { G.mode = m; render(); };
+window.setDiff   = d  => { G.diff = d; render(); };
+window.setFirst  = v  => { G.humanFirst = v; render(); };
+window.customTarget = val => {
+  const n = parseInt(val);
+  if (!isNaN(n) && n >= 3 && n <= 100) G.target = n;
+  render();
+};
+
+/* ─── render ─── */
+function render() {
+  document.getElementById('app').innerHTML =
+    G.screen === 'start' ? renderStart() :
+    G.screen === 'game'  ? renderGame()  : renderEnd();
+}
+
+/* ── map grid ── */
+function mapGrid(target, positions, current) {
+  let cells = '';
+  for (let i = 1; i <= target; i++) {
+    const isWin = positions[i];
+    const isCur = i === current;
+    let bg  = isWin ? 'rgba(80,200,150,0.18)' : 'rgba(255,100,100,0.14)';
+    let col = isWin ? '#50C896' : '#f87171';
+    let brd = `1px solid ${col}44`;
+    let extra = '';
+    if (isCur) {
+      bg = 'rgba(255,255,255,0.18)'; col = '#fff'; brd = '2px solid #fff';
+      extra = 'transform:scale(1.15);box-shadow:0 0 10px rgba(255,255,255,0.25);z-index:2;position:relative;';
+    }
+    cells += `<div style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:6px;background:${bg};color:${col};border:${brd};font-size:12px;font-weight:700;margin:2px;${extra}">${i}</div>`;
+  }
+  return `<div style="padding:14px;background:rgba(234,244,241,0.04);border-radius:12px;border:1.5px solid rgba(234,244,241,0.1);margin-top:12px;">
+    <div style="font-size:12px;font-weight:700;color:rgba(234,244,241,0.4);text-align:center;margin-bottom:8px;">מפת מיקומים — <span style="color:#50C896;">ירוק = ניצחון</span> · <span style="color:#f87171;">אדום = הפסד</span> (עבור השחקן שנמצא שם)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:2px;justify-content:center;">${cells}</div>
+  </div>`;
+}
+
+/* ── START ── */
+function renderStart() {
+  const prs = [8, 10, 15, 20, 30];
+  const presHtml = prs.map(t =>
+    `<button class="pre ${G.target === t ? 'on' : ''}" onclick="setTarget(${t})">${t}</button>`
+  ).join('');
+  const customVal = prs.includes(G.target) ? '' : G.target;
+
+  return `
+<div style="padding-top:16px;">
+  <div style="text-align:center;margin-bottom:30px;">
+    <div style="font-size:clamp(38px,9vw,62px);font-weight:800;color:#fff;letter-spacing:-2px;line-height:1;">המכפיל</div>
+    <div style="font-size:13px;color:rgba(234,244,241,0.42);margin-top:8px;">הוסיפו 1 או הכפילו ב-2 — מי שמגיע ליעד מנצח</div>
+  </div>
+
+  <div class="card">
+    <div class="sec-label">מה היעד?</div>
+    <div class="presets" style="margin-bottom:12px;">${presHtml}</div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="font-size:13px;color:rgba(234,244,241,0.38);">אחר (3–100):</span>
+      <input class="custom-inp" type="number" min="3" max="100" placeholder="---"
+        value="${customVal}"
+        oninput="customTarget(this.value)" onchange="customTarget(this.value)">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-label">שחקנים</div>
+    <div class="toggle-row">
+      <button class="tog ${G.mode==='2p'?'on':''}" onclick="setMode('2p')">שני שחקנים</button>
+      <button class="tog ${G.mode==='cpu'?'on':''}" onclick="setMode('cpu')">מול המחשב</button>
+    </div>
+    ${G.mode==='cpu' ? `
+    <div style="margin-top:14px;">
+      <div class="sec-label">רמת קושי</div>
+      <div class="toggle-row">
+        <button class="tog ${G.diff==='easy'?'on':''}" onclick="setDiff('easy')">קל</button>
+        <button class="tog ${G.diff==='hard'?'on':''}" onclick="setDiff('hard')">קשה</button>
+      </div>
+    </div>
+    <div style="margin-top:14px;">
+      <div class="sec-label">מי מתחיל?</div>
+      <div class="toggle-row">
+        <button class="tog ${G.humanFirst?'on':''}" onclick="setFirst(true)">אתה קודם</button>
+        <button class="tog ${!G.humanFirst?'on':''}" onclick="setFirst(false)">מחשב קודם</button>
+      </div>
+    </div>` : ''}
+  </div>
+
+  <div style="text-align:center;margin-top:6px;">
+    <button class="btn btn-primary" onclick="startGame()" style="min-width:160px;font-size:18px;padding:16px 36px;">התחילו ▶</button>
+  </div>
+
+  <div class="card" style="margin-top:22px;">
+    <div style="font-size:12px;font-weight:700;color:rgba(234,244,241,0.45);margin-bottom:8px;">כיצד משחקים?</div>
+    <div style="font-size:13px;color:rgba(234,244,241,0.48);line-height:2;">
+      ● מתחילים ב-<strong style="color:#EAF4F1;">1</strong><br>
+      ● בכל תור בוחרים: <strong style="color:#50C896;">הוסיפו 1</strong> או <strong style="color:#F5C842;">הכפילו ב-2</strong><br>
+      ● לא ניתן לחצות את היעד<br>
+      ● מי שמגיע ליעד בדיוק — <strong style="color:#EAF4F1;">מנצח!</strong>
+    </div>
+  </div>
+
+  <a class="back" href="../">← חזרה לרשימת המשחקים</a>
+</div>`;
+}
+
+/* ── GAME ── */
+function renderGame() {
+  const moves   = validMoves(G.current, G.target);
+  const plusOk  = moves.some(m => m.type === '+1');
+  const timesOk = moves.some(m => m.type === '×2');
+  const canAct  = !G.thinking && isHumanTurn();
+
+  const c0 = '#50C896', c1 = '#F5C842';
+
+  /* turn banner */
+  let turnHtml;
+  if (G.thinking) {
+    turnHtml = `<div style="text-align:center;font-size:15px;color:rgba(234,244,241,0.5);margin-bottom:12px;min-height:26px;">המחשב חושב<span id="dots">…</span></div>`;
+  } else {
+    const n = playerName(G.turnIdx);
+    const c = G.turnIdx === 0 ? c0 : c1;
+    turnHtml = `<div style="text-align:center;font-size:15px;font-weight:600;color:rgba(234,244,241,0.55);margin-bottom:12px;">תורו של <strong style="color:${c};font-size:17px;">${n}</strong></div>`;
+  }
+
+  /* visual — number line or progress bar */
+  let visual;
+  if (G.target <= 32) {
+    let cells = '';
+    for (let i = 1; i <= G.target; i++) {
+      let bg, col, brd, extra = '';
+      if (G.showMap && G.positions) {
+        if (G.positions[i]) { bg='rgba(80,200,150,0.16)'; col='#50C896'; brd='2px solid rgba(80,200,150,0.28)'; }
+        else                { bg='rgba(255,100,100,0.12)'; col='#f87171'; brd='2px solid rgba(255,100,100,0.22)'; }
+      } else {
+        bg='rgba(234,244,241,0.05)'; col='rgba(234,244,241,0.3)'; brd='2px solid rgba(234,244,241,0.08)';
+      }
+      if (i === G.target) { col='#F5C842'; brd='2px solid #F5C842'; if(!G.showMap) bg='rgba(245,200,66,0.1)'; }
+      if (i === G.current) { bg='rgba(255,255,255,0.18)'; col='#fff'; brd='2px solid #fff'; extra='transform:scale(1.2);box-shadow:0 0 10px rgba(255,255,255,0.28);z-index:2;position:relative;'; }
+      cells += `<div style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:7px;background:${bg};color:${col};border:${brd};font-size:12px;font-weight:700;${extra}">${i}</div>`;
+    }
+    visual = `<div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:14px 0;">${cells}</div>`;
+  } else {
+    const pct = ((G.current - 1) / (G.target - 1) * 100).toFixed(1);
+    visual = `<div style="margin:16px 0;">
+      <div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div>
+      <div class="prog-labels">
+        <span>1</span>
+        <span style="color:#50C896;font-weight:700;">${G.current} (כאן)</span>
+        <span style="color:#F5C842;">יעד: ${G.target}</span>
+      </div>
+    </div>`;
+  }
+
+  /* history chips */
+  let histHtml = '';
+  if (G.history.length > 0) {
+    const chips = [`<span style="font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(234,244,241,0.07);color:rgba(234,244,241,0.38);">1</span>`];
+    G.history.forEach(h => {
+      const col = h.player === 0 ? c0 : c1;
+      chips.push(`<span style="color:rgba(234,244,241,0.22);font-size:12px;">→</span>`);
+      chips.push(`<span style="font-size:11px;padding:3px 9px;border-radius:20px;background:rgba(234,244,241,0.06);color:${col};border:1px solid ${col}44;">${h.val}</span>`);
+    });
+    histHtml = `<div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;justify-content:center;margin-top:10px;">${chips.join('')}</div>`;
+  }
+
+  /* player legend */
+  const p0name = playerName(0), p1name = playerName(1);
+  const legend = `<div style="display:flex;justify-content:center;gap:20px;margin-top:14px;font-size:12px;">
+    <span style="color:${c0};">● ${p0name}</span>
+    <span style="color:${c1};">● ${p1name}</span>
+  </div>`;
+
+  /* map */
+  const mapHtml = G.showMap && G.positions ? mapGrid(G.target, G.positions, G.current) : '';
+
+  return `
+<div>
+  ${turnHtml}
+
+  <div style="text-align:center;margin:16px 0 10px;">
+    <div style="font-size:clamp(68px,15vw,108px);font-weight:800;color:#50C896;line-height:1;">${G.current}</div>
+    <div style="font-size:13px;color:rgba(234,244,241,0.38);margin-top:4px;">יעד: <strong style="color:#F5C842;">${G.target}</strong></div>
+  </div>
+
+  ${visual}
+
+  <div class="move-row">
+    <button class="mvbtn mvbtn-p" ${!canAct || !plusOk ? 'disabled' : ''} onclick="applyMove('+1')">
+      +1<br><span style="font-size:13px;font-weight:500;">${G.current} + 1 = ${G.current + 1}</span>
+    </button>
+    <button class="mvbtn mvbtn-x" ${!canAct || !timesOk ? 'disabled' : ''} onclick="applyMove('×2')">
+      ×2<br><span style="font-size:13px;font-weight:500;">${G.current} × 2 = ${G.current * 2}</span>
+    </button>
+  </div>
+
+  ${histHtml}
+  ${legend}
+
+  <button class="map-tog" onclick="toggleMap()">${G.showMap ? '▲ הסתר מפת מיקומים' : '▼ מפת מיקומים (למורה)'}</button>
+  ${mapHtml}
+
+  <a class="back" href="../">← חזרה לרשימת המשחקים</a>
+</div>`;
+}
+
+/* ── END ── */
+function renderEnd() {
+  const wName = playerName(G.winner);
+  const wCol  = G.winner === 0 ? '#50C896' : '#F5C842';
+  const fact  = G.positions[1]
+    ? `מיקום 1 הוא מיקום ניצחון — השחקן שמתחיל יכול תמיד לנצח עם משחק מושלם ביעד ${G.target}.`
+    : `מיקום 1 הוא מיקום הפסד — השחקן שמגיב מנצח תמיד עם משחק מושלם ביעד ${G.target}.`;
+
+  const mapHtml = G.showMap && G.positions ? mapGrid(G.target, G.positions, -1) : '';
+
+  return `
+<div style="text-align:center;padding:30px 0 10px;">
+  <div style="font-size:52px;margin-bottom:14px;">🏆</div>
+  <div style="font-size:clamp(24px,5vw,34px);font-weight:800;color:${wCol};margin-bottom:12px;">${wName} ניצח!</div>
+  <div style="font-size:14px;color:rgba(234,244,241,0.55);max-width:360px;margin:0 auto 30px;line-height:1.8;">${fact}</div>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <button class="btn btn-primary" onclick="playAgain()">שחק שוב</button>
+    <button class="btn btn-secondary" onclick="newGame()">הגדרות חדשות</button>
+  </div>
+
+  <button class="map-tog" style="max-width:340px;margin:22px auto 0;" onclick="toggleMap()">${G.showMap ? '▲ הסתר מפת מיקומים' : '▼ מפת מיקומים (למורה)'}</button>
+  ${mapHtml}
+
+  <a class="back" href="../">← חזרה לרשימת המשחקים</a>
+</div>`;
+}
+
+render();
+</script>
+</body>
+</html>
