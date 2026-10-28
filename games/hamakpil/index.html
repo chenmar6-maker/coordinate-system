@@ -412,9 +412,6 @@ function renderGame() {
 function renderEnd() {
   const wName = playerName(G.winner);
   const wCol  = G.winner === 0 ? '#50C896' : '#F5C842';
-  const fact  = G.positions[1]
-    ? `מיקום 1 הוא מיקום ניצחון — השחקן שמתחיל יכול תמיד לנצח עם משחק מושלם ביעד ${G.target}.`
-    : `מיקום 1 הוא מיקום הפסד — השחקן שמגיב מנצח תמיד עם משחק מושלם ביעד ${G.target}.`;
 
   const mapHtml = G.showMap && G.positions ? mapGrid(G.target, G.positions, -1) : '';
 
@@ -422,7 +419,6 @@ function renderEnd() {
 <div style="text-align:center;padding:30px 0 10px;">
   <div style="font-size:52px;margin-bottom:14px;">🏆</div>
   <div style="font-size:clamp(24px,5vw,34px);font-weight:800;color:${wCol};margin-bottom:12px;">${wName} ניצח!</div>
-  <div style="font-size:14px;color:rgba(234,244,241,0.55);max-width:360px;margin:0 auto 30px;line-height:1.8;">${fact}</div>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
     <button class="btn btn-primary" onclick="playAgain()">שחק שוב</button>
     <button class="btn btn-secondary" onclick="newGame()">הגדרות חדשות</button>
