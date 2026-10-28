@@ -741,6 +741,47 @@ function renderLearn9(){
       <li>כל משולש — חד-זווית, ישר-זווית או קהה-זווית — סכום זוויותיו תמיד 180°</li>
       <li>אם שתי זוויות ידועות, השלישית = <span dir="ltr">180° − (α + β)</span></li>
     </ul>
+
+    <div style="background:#1e2d3d;border:1.5px solid rgba(245,200,66,0.35);border-radius:10px;padding:14px 16px;margin:14px 0;">
+      <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px;text-transform:uppercase;">דוגמה</div>
+      <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
+        <div style="flex:0 0 auto;">
+          <svg viewBox="10 2 200 172" xmlns="http://www.w3.org/2000/svg" style="width:170px;height:auto;display:block;">
+            <rect x="10" y="2" width="200" height="172" fill="#fff" rx="6"/>
+            <style>.ex9l{font:700 14px 'Times New Roman',serif;fill:#222}.ex9a{font:bold 13px 'Times New Roman',serif}</style>
+            <!-- filled sectors -->
+            <path d="M30,150 L52,150 A22,22 0 0,0 44.2,133.2 Z" fill="#b8e8b8" stroke="none"/>
+            <path d="M190,150 L168,150 A22,22 0 0,1 182.5,129.3 Z" fill="#ffe89a" stroke="none"/>
+            <path d="M142,17 L127.8,33.8 A22,22 0 0,0 149.5,37.7 Z" fill="#f8c0c0" stroke="none"/>
+            <!-- triangle edges -->
+            <line x1="30" y1="150" x2="190" y2="150" stroke="#333" stroke-width="2"/>
+            <line x1="30" y1="150" x2="142" y2="17" stroke="#333" stroke-width="2"/>
+            <line x1="190" y1="150" x2="142" y2="17" stroke="#333" stroke-width="2"/>
+            <!-- sector borders -->
+            <path d="M52,150 A22,22 0 0,0 44.2,133.2" fill="none" stroke="#3a9c3a" stroke-width="1.6"/>
+            <path d="M168,150 A22,22 0 0,1 182.5,129.3" fill="none" stroke="#b88a00" stroke-width="1.6"/>
+            <path d="M127.8,33.8 A22,22 0 0,0 149.5,37.7" fill="none" stroke="#c94040" stroke-width="1.6"/>
+            <!-- angle labels with numbers -->
+            <text x="63" y="136" class="ex9a" fill="#2a7a2a" text-anchor="middle">50°</text>
+            <text x="161" y="130" class="ex9a" fill="#8a6600" text-anchor="middle">70°</text>
+            <text x="137" y="54" class="ex9a" fill="#b03030" text-anchor="middle">?</text>
+            <!-- vertex labels -->
+            <text x="18" y="164" class="ex9l">A</text>
+            <text x="185" y="164" class="ex9l">B</text>
+            <text x="137" y="11" class="ex9l">C</text>
+          </svg>
+        </div>
+        <div style="flex:1;min-width:140px;font-size:14px;line-height:1.9;color:var(--foam);">
+          <div><strong>נתון:</strong> <span dir="ltr">∠A = 50°, ∠B = 70°</span></div>
+          <div><strong>מצאו:</strong> <span dir="ltr">∠C = ?</span></div>
+          <div style="margin-top:8px;padding:8px 10px;background:rgba(255,255,255,0.07);border-radius:6px;font-size:13px;">
+            <div dir="ltr">∠C = 180° − 50° − 70°</div>
+            <div dir="ltr">∠C = <strong style="color:var(--gold);">60°</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=9;startGame()">לתרגול ←</button>
       <button class="btn" onclick="window.open('../worksheets/angles_seq9_exam.html','_blank')">למבדק שליטה ←</button>
