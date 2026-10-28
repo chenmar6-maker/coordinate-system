@@ -14,15 +14,18 @@
   .header h1{font-size:22px;font-weight:800;margin:0 0 4px;color:#10B981;}
   .header p{font-size:13px;color:#6b7280;margin:0;}
   .q-block{margin-bottom:32px;padding:20px 22px;border:1.5px solid #e5e7eb;border-radius:12px;}
-  .q-num{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#10B981;margin-bottom:6px;text-transform:uppercase;}
-  .q-text{font-size:16px;font-weight:600;margin-bottom:14px;line-height:1.6;}
-  .q-img{width:100%;max-width:580px;border-radius:8px;display:block;margin:0 auto 14px;border:1px solid #e5e7eb;}
-  .answer-line{border:none;border-bottom:1.5px solid #d1d5db;width:100%;height:32px;display:block;margin-bottom:10px;background:transparent;}
-  .explain-label{font-size:13px;font-weight:600;color:#6b7280;margin:10px 0 4px;}
+  .q-num{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#10B981;margin-bottom:6px;}
+  .q-text{font-size:15px;font-weight:600;margin-bottom:14px;line-height:1.7;}
+  .q-text p{margin:0 0 5px;}
+  .q-svg-wrap{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:8px;display:block;margin:10px auto 16px;max-width:340px;width:100%;}
+  .q-svg-wrap svg{display:block;width:100%;height:auto;}
+  .q-svg-wrap .lbl{font:600 17px 'Times New Roman',serif;fill:#000;}
+  .q-svg-wrap .ang{font:15px 'Times New Roman',serif;fill:#000;}
   .explain-box{border:1.5px solid #d1d5db;border-radius:6px;width:100%;min-height:56px;display:block;background:transparent;padding:6px 10px;font-family:'Rubik',sans-serif;font-size:14px;resize:none;}
   .sub-label{font-size:13px;font-weight:700;color:#374151;margin:12px 0 4px;}
-  footer{text-align:center;font-size:11px;color:#9ca3af;padding:20px 0;border-top:1px solid #f3f4f6;}
-  @media print{.q-block{break-inside:avoid;}}
+  .ltr{direction:ltr;unicode-bidi:isolate;display:inline;}
+  footer{text-align:center;font-size:11px;color:#9ca3af;padding:20px 0;border-top:1px solid #f3f4f6;margin-top:20px;}
+  @media print{.q-block{break-inside:avoid;}body{background:#fff;}}
 </style>
 </head>
 <body>
@@ -33,33 +36,156 @@
     <p>שם: _________________________ &nbsp;&nbsp; תאריך: _____________</p>
   </div>
 
-  <!-- שאלה 1 -->
+  <!-- שאלה 1 — זווית חיצונית ליד הבסיס -->
   <div class="q-block">
-    <div class="q-num">שאלה 1 — גינה ציבורית</div>
-    <img class="q-img" src="../unit7/seq8_exam_park.png" alt="גינה ציבורית" />
-    <div class="q-text">לפניכם איור של כביש המקיף גינה ציבורית. צורת הגינה היא משולש שווה-שוקיים עם 3 צמתים בנקודות N, B ו-E.<br>מכונית נסעה מנקודה B לאורך הקטעים: BE, EN, NB. כשהגיעה לנקודה B, שוב נסעה לאורך BE (לאורך הקטע BE).<br>המרחק שעברה המכונית מ-B ל-E שווה למרחק שעברה מ-E ל-N.<br><strong>באילו צמתים הזוויות שבהן המכונית פונה שוות זו לזו?</strong></div>
-    <input class="answer-line" type="text" placeholder="תשובה:" />
+    <div class="q-num">שאלה 1</div>
+    <div class="q-svg-wrap">
+      <!-- DHY: apex D=56°, base angles=(180-56)/2=62°, exterior α=180-62=118° -->
+      <svg viewBox="-126 -212 376 264" role="img" xmlns="http://www.w3.org/2000/svg">
+        <rect x="-126" y="-212" width="376" height="264" fill="#fff"/>
+        <path d="M0.0,-0.0 L13.8,-22.0 A26,26 0 0 0 -26.0,-0.0 Z" fill="#FFE0B8" stroke="none"/>
+        <path d="M100.0,-160.0 L85.2,-136.3 A28,28 0 0 0 114.8,-136.3 Z" fill="#D6E6F8" stroke="none"/>
+        <line x1="-90.0" y1="-0.0" x2="200.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="100.0" y1="-160.0" x2="0.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="100.0" y1="-160.0" x2="200.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="44.1" y1="-83.7" x2="55.9" y2="-76.3" stroke="#000" stroke-width="1.4"/>
+        <line x1="144.1" y1="-76.3" x2="155.9" y2="-83.7" stroke="#000" stroke-width="1.4"/>
+        <circle cx="-90.0" cy="-0.0" r="3" fill="#000"/>
+        <path d="M85.2,-136.3 A28,28 0 0 0 114.8,-136.3" fill="none" stroke="#2C6CB0" stroke-width="1.6"/>
+        <text x="100.0" y="-114.0" class="ang" text-anchor="middle" dominant-baseline="central">56°</text>
+        <path d="M13.8,-22.0 A26,26 0 0 0 -26.0,-0.0" fill="none" stroke="#C2630A" stroke-width="1.6"/>
+        <text x="-20.4" y="-36.7" class="ang" text-anchor="middle" dominant-baseline="central">α</text>
+        <text x="100.0" y="-176.0" class="lbl" text-anchor="middle" dominant-baseline="central">D</text>
+        <text x="214.1" y="7.5" class="lbl" text-anchor="middle" dominant-baseline="central">Y</text>
+        <text x="0.0" y="16.0" class="lbl" text-anchor="middle" dominant-baseline="central">H</text>
+        <text x="-90.0" y="16.0" class="lbl" text-anchor="middle" dominant-baseline="central">Z</text>
+      </svg>
+    </div>
+    <div class="q-text">
+      <p><span class="ltr">△DHY</span> הוא משולש שווה-שוקיים (<span class="ltr">DH = DY</span>).</p>
+      <p>נתון: <span class="ltr">∠D = 56°</span>. הנקודה <span class="ltr">Z</span> נמצאת על המשך הבסיס <span class="ltr">YH</span>.</p>
+    </div>
+    <div class="sub-label">(א) חשבו את זוויות הבסיס <span class="ltr">∠DHY</span> ו-<span class="ltr">∠DYH</span>.</div>
+    <textarea class="explain-box" rows="2" placeholder="∠DHY = ∠DYH = ... כי..."></textarea>
+    <div class="sub-label">(ב) חשבו את <span class="ltr">α = ∠DHZ</span>.</div>
+    <textarea class="explain-box" rows="2" placeholder="α = ..."></textarea>
   </div>
 
-  <!-- שאלה 2 -->
+  <!-- שאלה 2 — חוצה זווית הבסיס -->
   <div class="q-block">
-    <div class="q-num">שאלה 2 — מסגרת אופניים</div>
-    <img class="q-img" src="../unit7/seq8_exam_bike.png" alt="מסגרת אופניים" />
-    <div class="q-text">התבוננו בסרטוט ובאורכים הנתונים בו (ס"מ).<br><strong>על סמך הנתונים — אילו שתי זוויות שוות זו לזו?</strong></div>
-    <input class="answer-line" type="text" placeholder="תשובה:" />
+    <div class="q-num">שאלה 2</div>
+    <div class="q-svg-wrap">
+      <!-- TUV: apex T=48°, base angles=(180-48)/2=66°, bisector β=33° -->
+      <svg viewBox="-44 -301 295 351" role="img" xmlns="http://www.w3.org/2000/svg">
+        <rect x="-44" y="-301" width="295" height="351" fill="#fff"/>
+        <path d="M0.0,-0.0 L21.8,-33.5 A40,40 0 0 0 0.7,-40.0 Z" fill="#FFE0B8" stroke="none"/>
+        <path d="M4.4,-250.9 L3.9,-222.9 A28,28 0 0 0 26.1,-233.3 Z" fill="#D6E6F8" stroke="none"/>
+        <line x1="0.0" y1="-0.0" x2="199.4" y2="-93.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="199.4" y1="-93.0" x2="4.4" y2="-250.9" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="4.4" y1="-250.9" x2="0.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="0.0" y1="-0.0" x2="108.3" y2="-166.7" stroke="#000" stroke-width="2.0" stroke-dasharray="6 5" stroke-linecap="round"/>
+        <line x1="-4.8" y1="-125.6" x2="9.2" y2="-125.3" stroke="#000" stroke-width="1.4"/>
+        <line x1="97.5" y1="-166.5" x2="106.3" y2="-177.4" stroke="#000" stroke-width="1.4"/>
+        <path d="M3.9,-222.9 A28,28 0 0 0 26.1,-233.3" fill="none" stroke="#2C6CB0" stroke-width="1.6"/>
+        <text x="23.8" y="-209.2" class="ang" text-anchor="middle" dominant-baseline="central">48°</text>
+        <path d="M30.8,-14.4 A34,34 0 0 0 18.5,-28.5" fill="none" stroke="#000" stroke-width="1"/>
+        <path d="M21.8,-33.5 A40,40 0 0 0 0.7,-40.0" fill="none" stroke="#C2630A" stroke-width="1.6"/>
+        <text x="16.4" y="-53.6" class="ang" text-anchor="middle" dominant-baseline="central">β</text>
+        <text x="-8.2" y="13.8" class="lbl" text-anchor="middle" dominant-baseline="central">U</text>
+        <text x="215.2" y="-90.4" class="lbl" text-anchor="middle" dominant-baseline="central">V</text>
+        <text x="-2.4" y="-265.4" class="lbl" text-anchor="middle" dominant-baseline="central">T</text>
+        <text x="116.5" y="-179.3" class="lbl" text-anchor="middle" dominant-baseline="central">W</text>
+      </svg>
+    </div>
+    <div class="q-text">
+      <p><span class="ltr">△TUV</span> הוא משולש שווה-שוקיים (<span class="ltr">TU = TV</span>).</p>
+      <p>נתון: <span class="ltr">∠T = 48°</span>. הקטע המקווקו <span class="ltr">UW</span> חוצה את <span class="ltr">∠U</span>.</p>
+    </div>
+    <div class="sub-label">(א) חשבו את <span class="ltr">∠U</span>.</div>
+    <textarea class="explain-box" rows="2" placeholder="∠U = ... כי..."></textarea>
+    <div class="sub-label">(ב) חשבו את <span class="ltr">β = ∠TUW</span>.</div>
+    <textarea class="explain-box" rows="2" placeholder="β = ..."></textarea>
   </div>
 
-  <!-- שאלה 3 -->
+  <!-- שאלה 3 — מחוצה הזווית אל זווית הראש -->
   <div class="q-block">
-    <div class="q-num">שאלה 3 — נדנדות בגן שעשועים</div>
-    <img class="q-img" src="../unit7/seq8_exam_swing.png" alt="נדנדות בגן שעשועים" />
-    <div class="q-text">בגן השעשועים יש מתקן לנדנדה. שני המוטות המרכיבים אותו נוגעים בקרקע בנקודות B ו-C, ומחוברים ביניהם בנקודה A.<br>נתון: AB = AC. הזווית החדה הנוצרת בין המוט AB לבין הקרקע (∠ABC) היא בת 48°.</div>
+    <div class="q-num">שאלה 3</div>
+    <div class="q-svg-wrap">
+      <!-- GHN: ∠XNH=34°, ∠GNH=68°, ∠H=68°, α=∠G=180-2×68=44° -->
+      <svg viewBox="-52 -209 332 314" role="img" xmlns="http://www.w3.org/2000/svg">
+        <rect x="-52" y="-209" width="332" height="314" fill="#fff"/>
+        <path d="M162.9,-157.3 L144.2,-139.2 A26,26 0 0 0 170.9,-132.6 Z" fill="#FFE0B8" stroke="none"/>
+        <path d="M232.9,58.1 L200.7,28.1 A44,44 0 0 0 190.2,47.4 Z" fill="#D6E6F8" stroke="none"/>
+        <line x1="0.0" y1="-0.0" x2="232.9" y2="58.1" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="232.9" y1="58.1" x2="162.9" y2="-157.3" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="162.9" y1="-157.3" x2="0.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="232.9" y1="58.1" x2="83.8" y2="-80.9" stroke="#000" stroke-width="2.0" stroke-dasharray="6 5" stroke-linecap="round"/>
+        <line x1="76.6" y1="-83.7" x2="86.3" y2="-73.6" stroke="#000" stroke-width="1.4"/>
+        <line x1="191.2" y1="-47.5" x2="204.5" y2="-51.8" stroke="#000" stroke-width="1.4"/>
+        <path d="M200.7,28.1 A44,44 0 0 0 190.2,47.4" fill="none" stroke="#2C6CB0" stroke-width="1.6"/>
+        <text x="176.6" y="27.5" class="ang" text-anchor="middle" dominant-baseline="central">34°</text>
+        <path d="M221.7,23.8 A36,36 0 0 0 206.5,33.5" fill="none" stroke="#000" stroke-width="1"/>
+        <path d="M144.2,-139.2 A26,26 0 0 0 170.9,-132.6" fill="none" stroke="#C2630A" stroke-width="1.6"/>
+        <text x="152.7" y="-116.6" class="ang" text-anchor="middle" dominant-baseline="central">α</text>
+        <text x="-15.5" y="3.9" class="lbl" text-anchor="middle" dominant-baseline="central">H</text>
+        <text x="244.7" y="68.8" class="lbl" text-anchor="middle" dominant-baseline="central">N</text>
+        <text x="166.8" y="-172.8" class="lbl" text-anchor="middle" dominant-baseline="central">G</text>
+        <text x="72.8" y="-91.2" class="lbl" text-anchor="middle" dominant-baseline="central">X</text>
+      </svg>
+    </div>
+    <div class="q-text">
+      <p><span class="ltr">△GHN</span> הוא משולש שווה-שוקיים (<span class="ltr">GH = GN</span>).</p>
+      <p>הקטע המקווקו <span class="ltr">NX</span> חוצה את <span class="ltr">∠GNH</span>. נתון: <span class="ltr">∠XNH = 34°</span>.</p>
+    </div>
+    <div class="sub-label">(א) חשבו את <span class="ltr">∠GNH</span>.</div>
+    <textarea class="explain-box" rows="2" placeholder="∠GNH = ... כי..."></textarea>
+    <div class="sub-label">(ב) חשבו את <span class="ltr">α = ∠G</span>.</div>
+    <textarea class="explain-box" rows="3" placeholder="שלבי הפתרון: ..."></textarea>
+  </div>
 
-    <div class="sub-label">(א) מהו גודל הזווית <strong>החדה</strong> הנוצרת בין המוט AC לבין הקרקע (∠ACB)?</div>
-    <input class="answer-line" type="text" placeholder="∠ACB = " style="max-width:200px;" />
-
-    <div class="sub-label">(ב) נקודה D נמצאת על הקרקע על המשך הישר העובר דרך BC. מהו גודל הזווית <strong>הקהה</strong> הנוצרת בין המוט AC לבין הקרקע (∠ACD)?</div>
-    <input class="answer-line" type="text" placeholder="∠ACD = " style="max-width:200px;" />
+  <!-- שאלה 4 — משולש שווה-צלעות בתוך משולש שווה-שוקיים -->
+  <div class="q-block">
+    <div class="q-num">שאלה 4</div>
+    <div class="q-svg-wrap">
+      <!-- RST isosceles (RS=RT) + STU equilateral, ∠RSU=22°
+           ∠UST=60°, ∠RST=82°, ∠RTS=82°, ∠R=180-2×82=16° -->
+      <svg viewBox="-45 -522 289 572" role="img" xmlns="http://www.w3.org/2000/svg">
+        <rect x="-45" y="-522" width="289" height="572" fill="#fff"/>
+        <path d="M100.0,-470.5 L93.8,-441.1 A30,30 0 0 0 106.2,-441.1 Z" fill="#FFE0B8" stroke="none"/>
+        <path d="M0.0,-0.0 L26.0,-45.0 A52,52 0 0 0 10.8,-50.9 Z" fill="#D6E6F8" stroke="none"/>
+        <line x1="100.0" y1="-470.5" x2="0.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="0.0" y1="-0.0" x2="200.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="200.0" y1="-0.0" x2="100.0" y2="-470.5" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="0.0" y1="-0.0" x2="100.0" y2="-173.2" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="100.0" y1="-173.2" x2="200.0" y2="-0.0" stroke="#000" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="53.7" y1="-286.2" x2="67.4" y2="-283.3" stroke="#000" stroke-width="1.4"/>
+        <line x1="52.6" y1="-281.3" x2="66.3" y2="-278.4" stroke="#000" stroke-width="1.4"/>
+        <line x1="132.6" y1="-283.3" x2="146.3" y2="-286.2" stroke="#000" stroke-width="1.4"/>
+        <line x1="133.7" y1="-278.4" x2="147.4" y2="-281.3" stroke="#000" stroke-width="1.4"/>
+        <line x1="51.1" y1="-74.4" x2="38.9" y2="-81.4" stroke="#000" stroke-width="1.4"/>
+        <line x1="148.9" y1="-74.4" x2="161.1" y2="-81.4" stroke="#000" stroke-width="1.4"/>
+        <line x1="100.0" y1="7.0" x2="100.0" y2="-7.0" stroke="#000" stroke-width="1.4"/>
+        <path d="M26.0,-45.0 A52,52 0 0 0 10.8,-50.9" fill="none" stroke="#2C6CB0" stroke-width="1.6"/>
+        <text x="25.8" y="-67.2" class="ang" text-anchor="middle" dominant-baseline="central">22°</text>
+        <path d="M93.8,-441.1 A30,30 0 0 0 106.2,-441.1" fill="none" stroke="#C2630A" stroke-width="1.6"/>
+        <text x="100.0" y="-424.5" class="ang" text-anchor="middle" dominant-baseline="central">α</text>
+        <text x="100.0" y="-486.5" class="lbl" text-anchor="middle" dominant-baseline="central">R</text>
+        <text x="-8.6" y="13.5" class="lbl" text-anchor="middle" dominant-baseline="central">S</text>
+        <text x="208.6" y="13.5" class="lbl" text-anchor="middle" dominant-baseline="central">T</text>
+        <text x="100.0" y="-189.2" class="lbl" text-anchor="middle" dominant-baseline="central">U</text>
+      </svg>
+    </div>
+    <div class="q-text">
+      <p><span class="ltr">△RST</span> הוא משולש שווה-שוקיים (<span class="ltr">RS = RT</span>).</p>
+      <p><span class="ltr">△STU</span> הוא משולש שווה-צלעות.</p>
+      <p>נתון: <span class="ltr">∠RSU = 22°</span>.</p>
+    </div>
+    <div class="sub-label">(א) מהי כל זווית במשולש השווה-צלעות <span class="ltr">△STU</span>?</div>
+    <textarea class="explain-box" rows="2" placeholder="כל זווית = ...°, כי..."></textarea>
+    <div class="sub-label">(ב) חשבו את <span class="ltr">∠RST</span>.</div>
+    <textarea class="explain-box" rows="2" placeholder="∠RST = ..."></textarea>
+    <div class="sub-label">(ג) חשבו את <span class="ltr">α = ∠R</span>.</div>
+    <textarea class="explain-box" rows="3" placeholder="שלבי הפתרון: ..."></textarea>
   </div>
 
 </div>
