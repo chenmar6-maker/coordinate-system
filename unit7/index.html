@@ -651,47 +651,74 @@ function renderLearn8(){
 }
 
 function renderLearn9(){
-  /* Triangle SVG: scalene triangle A(25,150) B(270,150) C(155,28)
-     α≈52° at A (green #4caf50), β≈62° at B (gold #f5c842), γ≈66° at C (coral #e06060)
-     Assembled semicircle: the three angles laid out along a straight line = 180° */
-  const triSvg = `<svg viewBox="0 0 295 175" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto;">
-    <rect width="295" height="175" fill="#fff" rx="8"/>
-    <style>.tl{font:600 15px 'Times New Roman',serif;fill:#000}.ta{font:13px 'Times New Roman',serif}</style>
-    <!-- triangle -->
-    <polygon points="25,150 270,150 155,28" fill="none" stroke="#333" stroke-width="2"/>
-    <!-- α arc at A (green) -->
-    <path d="M53,150 A28,28 0 0 0 46.5,131" fill="none" stroke="#4caf50" stroke-width="2.2"/>
-    <text x="66" y="143" class="ta" fill="#4caf50">α</text>
-    <!-- β arc at B (gold) -->
-    <path d="M242,150 A28,28 0 0 1 253,130" fill="none" stroke="#c9a800" stroke-width="2.2"/>
-    <text x="228" y="143" class="ta" fill="#c9a800">β</text>
-    <!-- γ arc at C (coral) -->
-    <path d="M144,47 A28,28 0 0 0 176,47" fill="none" stroke="#e06060" stroke-width="2.2"/>
-    <text x="151" y="68" class="ta" fill="#e06060">γ</text>
+  /* Triangle: A=(25,150), B=(270,150), C=(155,28)
+     Computed angles: α@A=43.2°, β@B=46.7°, γ@C≈90.1°
+     Sector endpoints at r=28, exactly on the sides:
+       A→B dir=(1,0):         P_AB=(53,150)
+       A→C dir=(0.729,-0.685): P_AC=(45.4,130.8)
+       B→A dir=(-1,0):        P_BA=(242,150)
+       B→C dir=(-0.686,-0.728): P_BC=(250.8,129.6)
+       C→A dir=(-0.729,0.685): P_CA=(134.6,47.2)
+       C→B dir=(0.686,0.728):  P_CB=(174.2,48.4)
+     Sweep logic (all interior, small arc):
+       α: from P_AB to P_AC, sweep=0 (CCW on screen, going upward)
+       β: from P_BA to P_BC, sweep=1 (CW on screen going upward)
+       γ: from P_CA to P_CB, sweep=0 (CCW on screen through bottom)
+  */
+  const triSvg = `<svg viewBox="0 0 295 178" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto;">
+    <rect width="295" height="178" fill="#fff" rx="8"/>
+    <style>.tl9{font:700 15px 'Times New Roman',serif;fill:#222}.ta9{font:bold 14px 'Times New Roman',serif}</style>
+    <!-- angle sectors (filled, drawn before edges so edges sit on top) -->
+    <path d="M25,150 L53,150 A28,28 0 0,0 45.4,130.8 Z" fill="#b8e8b8" stroke="none"/>
+    <path d="M270,150 L242,150 A28,28 0 0,1 250.8,129.6 Z" fill="#ffe89a" stroke="none"/>
+    <path d="M155,28 L134.6,47.2 A28,28 0 0,0 174.2,48.4 Z" fill="#f8c0c0" stroke="none"/>
+    <!-- triangle edges on top of sectors -->
+    <line x1="25" y1="150" x2="270" y2="150" stroke="#333" stroke-width="2.2"/>
+    <line x1="25" y1="150" x2="155" y2="28" stroke="#333" stroke-width="2.2"/>
+    <line x1="270" y1="150" x2="155" y2="28" stroke="#333" stroke-width="2.2"/>
+    <!-- sector borders (colored, on top of edges for visibility) -->
+    <path d="M53,150 A28,28 0 0,0 45.4,130.8" fill="none" stroke="#3a9c3a" stroke-width="1.8"/>
+    <path d="M242,150 A28,28 0 0,1 250.8,129.6" fill="none" stroke="#b88a00" stroke-width="1.8"/>
+    <path d="M134.6,47.2 A28,28 0 0,0 174.2,48.4" fill="none" stroke="#c94040" stroke-width="1.8"/>
+    <!-- labels at mid-arc, pulled slightly outward -->
+    <text x="67" y="137" class="ta9" fill="#2a7a2a" text-anchor="middle">α</text>
+    <text x="233" y="137" class="ta9" fill="#8a6600" text-anchor="middle">β</text>
+    <text x="155" y="71" class="ta9" fill="#b03030" text-anchor="middle">γ</text>
     <!-- vertex labels -->
-    <text x="14" y="165" class="tl">A</text>
-    <text x="271" y="165" class="tl">B</text>
-    <text x="150" y="20" class="tl">C</text>
+    <text x="13" y="168" class="tl9">A</text>
+    <text x="272" y="168" class="tl9">B</text>
+    <text x="149" y="17" class="tl9">C</text>
   </svg>`;
 
-  /* Assembled-angles SVG: the three angle sectors "stitched" along a straight baseline
-     showing they together form a straight angle = 180° */
-  const proofSvg = `<svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto;">
-    <rect width="300" height="140" fill="#fff" rx="8"/>
-    <style>.pa{font:13px 'Times New Roman',serif}</style>
+  /* Proof SVG: exact same α=43.2°, β=46.7°, γ=90.1° assembled on a semicircle.
+     Center O=(150,115), r=70. Math angles (CCW from right, SVG: y=cy-r*sin):
+       γ: 0°→90.1°,  arc endpoints: (220,115) → (149.8,45.1)≈(150,45)
+       β: 90.1°→136.8°, endpoints: (150,45) → (98.9,67.1)≈(99,67)
+       α: 136.8°→180°,  endpoints: (99,67) → (80,115)
+     All sweep CCW on screen = sweep-flag=0 in SVG.
+     Label midpoints at r=48:
+       γ mid=45.05°: (150+48*cos45°, 115-48*sin45°)=(184,81)
+       β mid=113.45°: (150+48*cos113.5°, 115-48*sin113.5°)=(131,71)
+       α mid=158.4°: (150+48*cos158.4°, 115-48*sin158.4°)=(105,97)
+  */
+  const proofSvg = `<svg viewBox="0 0 300 145" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto;">
+    <rect width="300" height="145" fill="#fff" rx="8"/>
+    <style>.pp{font:bold 14px 'Times New Roman',serif}</style>
+    <!-- filled sectors -->
+    <path d="M150,115 L220,115 A70,70 0 0,0 150,45 Z" fill="#f8c0c0" stroke="none"/>
+    <path d="M150,115 L150,45 A70,70 0 0,0 99,67 Z" fill="#ffe89a" stroke="none"/>
+    <path d="M150,115 L99,67 A70,70 0 0,0 80,115 Z" fill="#b8e8b8" stroke="none"/>
+    <!-- sector borders -->
+    <path d="M150,115 L220,115 A70,70 0 0,0 150,45 Z" fill="none" stroke="#c94040" stroke-width="1.5"/>
+    <path d="M150,115 L150,45 A70,70 0 0,0 99,67 Z" fill="none" stroke="#b88a00" stroke-width="1.5"/>
+    <path d="M150,115 L99,67 A70,70 0 0,0 80,115 Z" fill="none" stroke="#3a9c3a" stroke-width="1.5"/>
     <!-- baseline -->
-    <line x1="20" y1="115" x2="280" y2="115" stroke="#333" stroke-width="2"/>
-    <!-- α sector (green) ~52° from 180° to 128° in SVG coords -->
-    <path d="M150,115 L90,115 A70,70 0 0 1 106,68" fill="#c8f0c8" stroke="#4caf50" stroke-width="1.5"/>
-    <text x="88" y="108" class="pa" fill="#4caf50">α</text>
-    <!-- β sector (gold) ~62° from 128° to 66° -->
-    <path d="M150,115 L106,68 A70,70 0 0 1 178,50" fill="#fff3cc" stroke="#c9a800" stroke-width="1.5"/>
-    <text x="144" y="72" class="pa" fill="#c9a800">β</text>
-    <!-- γ sector (coral) ~66° from 66° to 0° -->
-    <path d="M150,115 L178,50 A70,70 0 0 1 220,115" fill="#fde0e0" stroke="#e06060" stroke-width="1.5"/>
-    <text x="197" y="92" class="pa" fill="#e06060">γ</text>
-    <!-- straight angle label -->
-    <text x="115" y="132" style="font:700 13px sans-serif;fill:#333">α + β + γ = 180°</text>
+    <line x1="72" y1="115" x2="228" y2="115" stroke="#333" stroke-width="2"/>
+    <!-- labels -->
+    <text x="184" y="83" class="pp" fill="#b03030" text-anchor="middle">γ</text>
+    <text x="131" y="72" class="pp" fill="#8a6600" text-anchor="middle">β</text>
+    <text x="105" y="99" class="pp" fill="#2a7a2a" text-anchor="middle">α</text>
+    <text x="150" y="136" style="font:700 12px sans-serif;fill:#333;text-anchor:middle" text-anchor="middle">α + β + γ = 180°</text>
   </svg>`;
 
   return `<div class="panel">
@@ -711,11 +738,8 @@ function renderLearn9(){
       </div>
     </div>
     <ul class="bullets">
-      <li>כל משולש — חד-זווי, ישר-זווי או קהה-זווי — סכום זוויותיו תמיד 180°</li>
+      <li>כל משולש — חד-זווית, ישר-זווית או קהה-זווית — סכום זוויותיו תמיד 180°</li>
       <li>אם שתי זוויות ידועות, השלישית = <span dir="ltr">180° − (α + β)</span></li>
-      <li>במשולש שווה-שוקיים: זוויות הבסיס שוות, לכן <span dir="ltr">זווית ראש + 2 × זווית בסיס = 180°</span></li>
-      <li>במשולש שווה-צלעות: כל זווית = 60°</li>
-      <li>במשולש ישר-זווי: שתי הזוויות החדות מסתכמות ל-90°</li>
     </ul>
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=9;startGame()">לתרגול ←</button>
