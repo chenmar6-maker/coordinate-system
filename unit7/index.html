@@ -232,6 +232,87 @@ const gameLevels8 = [
    exp:_n('△CDB')+' שווה-צלעות → '+_n('∠DCB=60°')+'. '+_n('∠ACB')+' = '+_n('∠ACD')+'+'+_n('∠DCB')+' = 15°+60° = 75°. AB=AC → '+_n('∠ABC=∠ACB')+' = 75°.'},
 ];
 
+// ── seq9 SVG diagram helpers ──
+const _sv = b => '<svg viewBox="0 0 220 148" width="100%" style="max-width:260px;display:block;margin:4px auto 10px;overflow:visible;">'+b+'</svg>';
+const _pg = p => '<polygon points="'+p+'" fill="rgba(80,200,150,0.07)" stroke="#50C896" stroke-width="2.5" stroke-linejoin="round"/>';
+const _sg = (x1,y1,x2,y2,c,d) => '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+(c||'#50C896')+'" stroke-width="2" stroke-linecap="round"'+(d?' stroke-dasharray="'+d+'"':'')+'/>';
+const _tg = (x,y,t,c,sz) => '<text x="'+x+'" y="'+y+'" text-anchor="middle" fill="'+(c||'#EAF4F1')+'" style="font-size:'+(sz||13)+'px;font-family:Rubik,sans-serif;font-weight:600;">'+t+'</text>';
+const _rg = (x,y) => '<polyline points="'+(x+9)+','+y+' '+(x+9)+','+(y-9)+' '+x+','+(y-9)+'" fill="none" stroke="#ccc" stroke-width="1.5"/>';
+
+const gameLevels9 = [
+  // 1 — basic: two angles given, find third (α=33°)
+  {q: _sv(_pg('30,122 190,122 110,22')+_tg(30,138,'65°')+_tg(190,138,'82°')+_tg(110,13,'α','#F5C842',16))+
+      '<div style="font-size:16px;font-weight:700;text-align:center;">מה גודל α?</div>',
+   opts:['23°','33°','43°','53°'], ans:1,
+   exp:'סכום זוויות במשולש = 180°. α = 180° − 65° − 82° = 33°.'},
+
+  // 2 — exterior angle 148°, find top angle β (β=88°)
+  {q: _sv(_pg('30,122 164,122 97,22')+_sg(164,122,212,122,'#888','')+
+         _tg(30,138,'60°')+_tg(193,107,'148°','#EAF4F1',11)+_tg(97,13,'β','#F5C842',16)+
+         _tg(215,133,'ישר','#555',10))+
+      '<div style="font-size:16px;font-weight:700;text-align:center;">מה גודל β?</div>',
+   opts:['78°','88°','92°','98°'], ans:1,
+   exp:'הזווית הפנימית ב-C = 180° − 148° = 32°. β = 180° − 60° − 32° = 88°.'},
+
+  // 3 — exterior angle = sum of two remote (83°)
+  {q: _sv(_pg('25,120 100,22 158,120')+_sg(158,120,208,120,'#888','')+
+         _tg(100,13,'36°','#EAF4F1',11)+_tg(25,136,'47°')+_tg(192,105,'?','#F5C842',16))+
+      '<div style="font-size:16px;font-weight:700;text-align:center;">'+_n('∠A=36°')+' ו-'+_n('∠B=47°')+'. מה גודל הזווית החיצונית ב-C?</div>',
+   opts:['73°','83°','93°','97°'], ans:1,
+   exp:'זווית חיצונית = סכום שתי הזוויות הפנימיות הרחוקות: 36° + 47° = 83°.'},
+
+  // 4 — conceptual: which can't be a base angle of isosceles
+  {q:'<div style="font-size:16px;font-weight:700;text-align:center;padding:14px 0;">איזה גודל <strong>אינו יכול</strong> לשמש כזווית בסיס במשולש שווה-שוקיים?</div>',
+   opts:['10°','60°','88°','95°'], ans:3,
+   exp:'זוויות הבסיס שוות, לכן סכומן = 2×95° = 190° > 180°. בלתי אפשרי! 60°, 10° ו-88° — תקינים.'},
+
+  // 5 — isosceles apex 98°, find base angle (41°)
+  {q: _sv(_pg('22,122 198,122 110,22')+
+         _sg(22,122,110,22,'#F5C842','')+_sg(110,22,198,122,'#F5C842','')+
+         '<line x1="78" y1="84" x2="88" y2="90" stroke="#F5C842" stroke-width="1.5"/>'+
+         '<line x1="88" y1="90" x2="98" y2="84" stroke="#F5C842" stroke-width="1.5"/>'+
+         '<line x1="122" y1="84" x2="132" y2="90" stroke="#F5C842" stroke-width="1.5"/>'+
+         '<line x1="132" y1="90" x2="142" y2="84" stroke="#F5C842" stroke-width="1.5"/>'+
+         _tg(110,15,'98°','#EAF4F1',12)+_tg(22,138,'?','#F5C842',15)+_tg(198,138,'?','#F5C842',15))+
+      '<div style="font-size:16px;font-weight:700;text-align:center;">משולש שווה-שוקיים, זווית ראש = 98°. מה גודל זווית הבסיס?</div>',
+   opts:['39°','41°','43°','49°'], ans:1,
+   exp:'שתי זוויות הבסיס שוות: 98° + 2α = 180° → 2α = 82° → α = 41°.'},
+
+  // 6 — two crossing lines + vertical angles + triangle sum (∠T=80°)
+  {q: _sv(_sg(18,22,200,130,'')+_sg(18,130,200,22,'')+
+         '<circle cx="109" cy="76" r="2.5" fill="#F5C842"/>'+
+         _tg(14,16,'T')+_tg(205,16,'M')+_tg(14,136,'L')+_tg(205,136,'F')+
+         _tg(130,70,'45°','#EAF4F1',11)+_tg(34,118,'55°','#EAF4F1',11)+
+         _tg(22,30,'?','#F5C842',15))+
+      '<div style="font-size:16px;font-weight:700;text-align:center;">קטעי TF ו-LM נחתכים ב-P. '+_n('∠MPF=45°')+', '+_n('∠L=55°')+'. מה גודל '+_n('∠T')+'?</div>',
+   opts:['70°','75°','80°','85°'], ans:2,
+   exp:_n('∠TPL')+' = '+_n('∠MPF')+' = 45° (זוויות קודקודיות). ב-'+_n('△TPL')+': '+_n('∠T')+' + 55° + 45° = 180° → '+_n('∠T')+' = 80°.'},
+
+  // 7 — angle bisector from A, ∠B=60°, ∠APB=70° → find ∠BAP=50°
+  {q: _sv(_pg('20,122 190,122 110,22')+_sg(110,22,152,122,'#F5C842','5 3')+
+         _tg(20,138,'60°')+_tg(148,107,'70°','#EAF4F1',11)+_tg(110,13,'α','#F5C842',16))+
+      '<div style="font-size:16px;font-weight:700;text-align:center;">AP חוצה את '+_n('∠BAC')+' ב-'+_n('△ABC')+'. '+_n('∠B=60°')+', '+_n('∠APB=70°')+'. מה גודל '+_n('∠BAP')+'?</div>',
+   opts:['40°','45°','50°','55°'], ans:2,
+   exp:'ב-'+_n('△ABP')+': '+_n('∠BAP')+' + 60° + 70° = 180° → '+_n('∠BAP')+' = 50°.'},
+
+  // 8 — bisector AD, ∠BAD=22°, ∠C=45° → find ∠B=91°
+  {q: _sv(_pg('20,122 190,122 80,22')+_sg(80,22,100,122,'#F5C842','5 3')+
+         _tg(70,42,'22°','#EAF4F1',11)+_tg(190,138,'45°')+_tg(20,138,'?','#F5C842',15))+
+      '<div style="font-size:16px;font-weight:700;text-align:center;">AD חוצה את '+_n('∠BAC')+' ב-'+_n('△ABC')+'. '+_n('∠BAD=22°')+', '+_n('∠C=45°')+'. מה גודל '+_n('∠B')+'?</div>',
+   opts:['87°','89°','91°','95°'], ans:2,
+   exp:_n('∠BAC')+' = 2×22° = 44°. '+_n('∠B')+' = 180° − 44° − 45° = 91°. המשולש קהה-זווית.'},
+
+  // 9 — right △ABC, isosceles △BDC (BD=BC), ∠BDC=63° → find ∠A=27°
+  {q: _sv(_pg('20,122 190,122 110,22')+_sg(20,122,155,78,'#F5C842','4 3')+
+         _rg(20,122)+
+         _tg(155,68,'63°','#EAF4F1',11)+_tg(110,13,'α','#F5C842',16)+
+         _tg(36,138,'90°','#EAF4F1',11)+
+         _tg(128,108,'BD=BC','#888',10))+
+      '<div style="font-size:16px;font-weight:700;text-align:center;">'+_n('△ABC')+' ישר-זווית ב-B. D על '+_n('AC')+'. '+_n('△BDC')+' שווה-שוקיים (BD=BC), '+_n('∠BDC=63°')+'. מה גודל '+_n('∠A')+'?</div>',
+   opts:['22°','27°','32°','37°'], ans:1,
+   exp:'BD=BC → '+_n('∠BCD')+' = '+_n('∠BDC')+' = 63°. '+_n('∠A')+' = 180° − 90° − 63° = 27°.'},
+];
+
 const gameLevelsPlaceholder = [
   {q:'שאלה לדוגמה — תוכן יתווסף בקרוב',opts:['א','ב','ג','ד'],ans:0,exp:'תוכן תרגול לרצף זה יתווסף בקרוב.'},
 ];
@@ -245,6 +326,7 @@ function currentLevels(){
   if(state.sequence===6) return gameLevels6;
   if(state.sequence===7) return gameLevels7;
   if(state.sequence===8) return gameLevels8;
+  if(state.sequence===9) return gameLevels9;
   return gameLevelsPlaceholder;
 }
 
@@ -381,7 +463,7 @@ function renderHome(){
       <div style="${SH}">משולשים ומרובעים</div>
       ${seqRow(7,  '7. משולש שווה-צלעות',   {worksheetUrl:'../worksheets/angles_seq7_exam.html'})}
       ${seqRow(8,  '8. משולש שווה-שוקיים',  {worksheetUrl:'../worksheets/angles_seq8_exam.html'})}
-      ${seqRow(9,  '9. סכום זוויות במשולש', {noLearn:true, noGame:true, noQuiz:true})}
+      ${seqRow(9,  '9. סכום זוויות במשולש', {noLearn:true, worksheetUrl:'../worksheets/angles_seq9_exam.html'})}
       ${seqRow(10, '10. סכום זוויות במרובע',{noLearn:true, noGame:true, noQuiz:true})}
     </div>`;
 }
@@ -597,7 +679,7 @@ function skipQ(){ state.qi++; state.answered=false; state.lastAnswer=-1; render(
 function renderGameResults(){
   const total = currentLevels().length;
   const pct = Math.round(state.score/total*100);
-  const seqUrls = {1:'../worksheets/angles_seq1_exam.html',2:'../worksheets/angles_seq2_exam.html',3:'../worksheets/angles_seq3_exam.html',4:'../worksheets/angles_seq4_exam.html',5:'../worksheets/angles_seq5_exam.html',6:'../worksheets/angles_seq6_exam.html',7:'../worksheets/angles_seq7_exam.html',8:'../worksheets/angles_seq8_exam.html'};
+  const seqUrls = {1:'../worksheets/angles_seq1_exam.html',2:'../worksheets/angles_seq2_exam.html',3:'../worksheets/angles_seq3_exam.html',4:'../worksheets/angles_seq4_exam.html',5:'../worksheets/angles_seq5_exam.html',6:'../worksheets/angles_seq6_exam.html',7:'../worksheets/angles_seq7_exam.html',8:'../worksheets/angles_seq8_exam.html',9:'../worksheets/angles_seq9_exam.html'};
   const examUrl = seqUrls[state.sequence] || '';
   const examBtn = examUrl
     ? `<button class="btn" onclick="window.open('${examUrl}','_blank')">למבדק שליטה ←</button>`

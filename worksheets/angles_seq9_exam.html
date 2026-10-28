@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — סכום זוויות במשולש</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Rubik',sans-serif;background:#fff;color:#1a1a2e;direction:rtl;line-height:1.7;}
+  .page{max-width:720px;margin:0 auto;padding:32px 24px 60px;}
+  .header{border-bottom:3px solid #10B981;padding-bottom:16px;margin-bottom:28px;}
+  .header h1{font-size:22px;font-weight:800;margin:0 0 4px;color:#10B981;}
+  .header p{font-size:13px;color:#6b7280;margin:0;}
+  .q-block{margin-bottom:32px;padding:20px 22px;border:1.5px solid #e5e7eb;border-radius:12px;}
+  .q-num{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#10B981;margin-bottom:6px;text-transform:uppercase;}
+  .q-text{font-size:15px;font-weight:600;margin-bottom:14px;line-height:1.7;}
+  .q-svg{display:block;margin:10px auto 16px;max-width:340px;width:100%;}
+  .answer-lines{margin-top:10px;}
+  .answer-line{border:none;border-bottom:1.5px solid #d1d5db;width:100%;height:32px;display:block;margin-bottom:10px;background:transparent;}
+  .explain-label{font-size:13px;font-weight:600;color:#6b7280;margin:10px 0 4px;}
+  .explain-box{border:1.5px solid #d1d5db;border-radius:6px;width:100%;min-height:56px;display:block;background:transparent;padding:6px 10px;font-family:'Rubik',sans-serif;font-size:14px;resize:none;}
+  .sub-label{font-size:13px;font-weight:700;color:#374151;margin:14px 0 4px;}
+  .ltr{direction:ltr;unicode-bidi:isolate;display:inline;}
+  footer{text-align:center;font-size:11px;color:#9ca3af;padding:20px 0;border-top:1px solid #f3f4f6;margin-top:20px;}
+  @media print{.q-block{break-inside:avoid;}body{background:#fff;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>מבדק שליטה — סכום זוויות במשולש</h1>
+    <p>שם: _________________________ &nbsp;&nbsp; תאריך: _____________</p>
+  </div>
+
+  <!-- שאלה 1 -->
+  <div class="q-block">
+    <div class="q-num">שאלה 1</div>
+    <svg class="q-svg" viewBox="0 0 300 180" role="img">
+      <polygon points="40,155 260,155 150,28" fill="#f0fdf4" stroke="#10B981" stroke-width="2.5" stroke-linejoin="round"/>
+      <text x="40" y="174" text-anchor="middle" style="font-size:14px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">60°</text>
+      <text x="260" y="174" text-anchor="middle" style="font-size:14px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">82°</text>
+      <text x="150" y="18" text-anchor="middle" style="font-size:16px;font-family:Rubik;font-weight:800;fill:#d97706;">α</text>
+    </svg>
+    <div class="q-text">התבוננו בסרטוט. חשבו את גודל <span class="ltr">α</span>.</div>
+    <div class="answer-lines">
+      <input class="answer-line" type="text" placeholder="α = " />
+    </div>
+    <div class="explain-label">הסבר:</div>
+    <textarea class="explain-box" rows="2" placeholder="כי..."></textarea>
+  </div>
+
+  <!-- שאלה 2 -->
+  <div class="q-block">
+    <div class="q-num">שאלה 2</div>
+    <svg class="q-svg" viewBox="0 0 340 185" role="img">
+      <!-- Triangle ABC -->
+      <polygon points="40,155 220,155 130,28" fill="#f0fdf4" stroke="#10B981" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- Extension line from C to D -->
+      <line x1="220" y1="155" x2="300" y2="155" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
+      <!-- Labels -->
+      <text x="130" y="18" text-anchor="middle" style="font-size:13px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">A</text>
+      <text x="30" y="155" text-anchor="middle" style="font-size:13px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">B</text>
+      <text x="220" y="175" text-anchor="middle" style="font-size:13px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">C</text>
+      <text x="300" y="175" text-anchor="middle" style="font-size:13px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">D</text>
+      <text x="40" y="174" text-anchor="middle" style="font-size:13px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">36°</text>
+      <text x="125" y="48" text-anchor="middle" style="font-size:13px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">47°</text>
+    </svg>
+    <div class="q-text">במשולש <span class="ltr">△ABC</span> נתון: <span class="ltr">∠A=36°</span>, <span class="ltr">∠B=47°</span>. הנקודה D נמצאת על המשך הצלע <span class="ltr">AC</span>.</div>
+
+    <div class="sub-label">(א) מצאו את <span class="ltr">∠BCA</span>.</div>
+    <textarea class="explain-box" rows="2" placeholder="∠BCA = ... כי..."></textarea>
+
+    <div class="sub-label">(ב) מהו סוג המשולש?</div>
+    <div class="answer-lines"><input class="answer-line" type="text" placeholder="סוג המשולש:" /></div>
+
+    <div class="sub-label">(ג) מצאו את <span class="ltr">∠BCD</span>.</div>
+    <textarea class="explain-box" rows="2" placeholder="∠BCD = ... כי..."></textarea>
+  </div>
+
+  <!-- שאלה 3 -->
+  <div class="q-block">
+    <div class="q-num">שאלה 3 — אוהל</div>
+    <svg class="q-svg" viewBox="0 0 300 200" role="img">
+      <!-- Ground line -->
+      <line x1="20" y1="165" x2="280" y2="165" stroke="#9ca3af" stroke-width="2"/>
+      <!-- Isosceles triangle (tent shape) -->
+      <polygon points="40,165 260,165 150,35" fill="#f0fdf4" stroke="#10B981" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- Equal side marks -->
+      <line x1="88" y1="112" x2="98" y2="108" stroke="#10B981" stroke-width="2"/>
+      <line x1="98" y1="108" x2="108" y2="112" stroke="#10B981" stroke-width="2"/>
+      <line x1="192" y1="112" x2="202" y2="108" stroke="#10B981" stroke-width="2"/>
+      <line x1="202" y1="108" x2="212" y2="112" stroke="#10B981" stroke-width="2"/>
+      <!-- Angle at top -->
+      <text x="150" y="54" text-anchor="middle" style="font-size:13px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">98°</text>
+      <!-- Base angle markers -->
+      <text x="40" y="183" text-anchor="middle" style="font-size:15px;font-family:Rubik;font-weight:800;fill:#d97706;">?</text>
+      <text x="260" y="183" text-anchor="middle" style="font-size:15px;font-family:Rubik;font-weight:800;fill:#d97706;">?</text>
+      <!-- Vertex labels -->
+      <text x="150" y="26" text-anchor="middle" style="font-size:12px;font-family:Rubik;fill:#6b7280;">C</text>
+      <text x="28" y="162" text-anchor="middle" style="font-size:12px;font-family:Rubik;fill:#6b7280;">A</text>
+      <text x="272" y="162" text-anchor="middle" style="font-size:12px;font-family:Rubik;fill:#6b7280;">B</text>
+      <text x="300" y="170" text-anchor="start" style="font-size:11px;font-family:Rubik;fill:#9ca3af;">ישר</text>
+    </svg>
+    <div class="q-text">לתמיכה באוהל נעזרים בשני חוטים שאורכם שווה (<span class="ltr">AC=BC</span>). גודל הזווית שבין שני החוטים הוא 98°. הנקודות A ו-B נמצאות על הקרקע (ראו סרטוט). חשבו את גודל הזווית שבין כל חוט לקרקע.</div>
+    <div class="answer-lines">
+      <input class="answer-line" type="text" placeholder="גודל הזווית = " />
+    </div>
+    <div class="explain-label">הסבר:</div>
+    <textarea class="explain-box" rows="2" placeholder="כי..."></textarea>
+  </div>
+
+  <!-- שאלה 4 -->
+  <div class="q-block">
+    <div class="q-num">שאלה 4</div>
+    <svg class="q-svg" viewBox="0 0 320 195" role="img">
+      <!-- Two intersecting lines -->
+      <line x1="20" y1="28" x2="298" y2="168" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="20" y1="168" x2="298" y2="28" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Intersection point -->
+      <circle cx="159" cy="98" r="3" fill="#d97706"/>
+      <!-- Vertex labels -->
+      <text x="14" y="24" text-anchor="middle" style="font-size:13px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">T</text>
+      <text x="304" y="24" text-anchor="middle" style="font-size:13px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">M</text>
+      <text x="14" y="177" text-anchor="middle" style="font-size:13px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">L</text>
+      <text x="304" y="177" text-anchor="middle" style="font-size:13px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">F</text>
+      <text x="158" y="90" text-anchor="middle" style="font-size:12px;font-family:Rubik;fill:#6b7280;">P</text>
+      <!-- Angle labels -->
+      <text x="184" y="92" text-anchor="start" style="font-size:12px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">45°</text>
+      <text x="34" y="152" text-anchor="start" style="font-size:12px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">55°</text>
+      <text x="24" y="44" text-anchor="start" style="font-size:15px;font-family:Rubik;font-weight:800;fill:#d97706;">?</text>
+    </svg>
+    <div class="q-text">בסרטוט שלפניכם נתונים הקטעים <span class="ltr">TF</span> ו-<span class="ltr">LM</span> הנחתכים בנקודה <span class="ltr">P</span>.<br>נתון: <span class="ltr">∠MPF=45°</span>, <span class="ltr">∠L=55°</span>. חשבו את <span class="ltr">∠T</span>.</div>
+    <div class="answer-lines">
+      <input class="answer-line" type="text" placeholder="∠T = " />
+    </div>
+    <div class="explain-label">הסבר (שלבי הפתרון):</div>
+    <textarea class="explain-box" rows="3" placeholder="שלב א׳: ... שלב ב׳: ..."></textarea>
+  </div>
+
+  <!-- שאלה 5 -->
+  <div class="q-block">
+    <div class="q-num">שאלה 5 — שאלת חשיבה</div>
+    <svg class="q-svg" viewBox="0 0 320 210" role="img">
+      <!-- Main triangle ABC, right angle at B -->
+      <polygon points="30,178 280,178 155,32" fill="#f0fdf4" stroke="#10B981" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- Point D on AC -->
+      <!-- D is on AC: A=(155,32), C=(280,178). D at t=0.45: x=155+0.45*125=211, y=32+0.45*146=98 -->
+      <!-- Segment BD -->
+      <line x1="30" y1="178" x2="211" y2="98" stroke="#d97706" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round"/>
+      <!-- Right angle mark at B -->
+      <polyline points="44,178 44,164 30,164" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+      <!-- Labels -->
+      <text x="155" y="22" text-anchor="middle" style="font-size:12px;font-family:Rubik;fill:#6b7280;">A</text>
+      <text x="18" y="178" text-anchor="middle" style="font-size:12px;font-family:Rubik;fill:#6b7280;">B</text>
+      <text x="290" y="182" text-anchor="middle" style="font-size:12px;font-family:Rubik;fill:#6b7280;">C</text>
+      <text x="218" y="90" text-anchor="middle" style="font-size:12px;font-family:Rubik;fill:#6b7280;">D</text>
+      <!-- 63° at D -->
+      <text x="198" y="112" text-anchor="middle" style="font-size:13px;font-family:Rubik;font-weight:700;fill:#1a1a2e;">63°</text>
+      <!-- 90° label -->
+      <text x="52" y="196" text-anchor="start" style="font-size:12px;font-family:Rubik;font-weight:700;fill:#6b7280;">90°</text>
+      <!-- α at A -->
+      <text x="155" y="52" text-anchor="middle" style="font-size:15px;font-family:Rubik;font-weight:800;fill:#d97706;">α</text>
+      <!-- BD=BC label -->
+      <text x="115" y="130" text-anchor="middle" style="font-size:10px;font-family:Rubik;fill:#9ca3af;">BD=BC</text>
+    </svg>
+    <div class="q-text">משולש <span class="ltr">△ABC</span> הוא משולש ישר-זווית (<span class="ltr">∠ABC=90°</span>). הנקודה D נמצאת על הצלע <span class="ltr">AC</span>. משולש <span class="ltr">△BDC</span> הוא משולש שווה-שוקיים (<span class="ltr">BD=BC</span>). נתון: <span class="ltr">∠BDC=63°</span> (ראו סרטוט).</div>
+
+    <div class="sub-label">(א) מהו גודל <span class="ltr">∠BCD</span>? נמקו.</div>
+    <textarea class="explain-box" rows="2" placeholder="∠BCD = ... כי..."></textarea>
+
+    <div class="sub-label">(ב) חשבו את גודל <span class="ltr">∠DBC</span>.</div>
+    <textarea class="explain-box" rows="2" placeholder="∠DBC = ..."></textarea>
+
+    <div class="sub-label">(ג) חשבו את גודל <span class="ltr">∠ABD</span>.</div>
+    <textarea class="explain-box" rows="2" placeholder="∠ABD = ..."></textarea>
+
+    <div class="sub-label">(ד) חשבו את גודל <span class="ltr">α</span> (= <span class="ltr">∠A</span>).</div>
+    <textarea class="explain-box" rows="2" placeholder="α = ..."></textarea>
+  </div>
+
+</div>
+<footer>© כל הזכויות שמורות לחן מרגלית &nbsp;|&nbsp; מבדק שליטה — סכום זוויות במשולש</footer>
+</body>
+</html>
