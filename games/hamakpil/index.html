@@ -394,12 +394,8 @@ function renderGame() {
   ${visual}
 
   <div class="move-row">
-    <button class="mvbtn mvbtn-p" ${!canAct || !plusOk ? 'disabled' : ''} onclick="applyMove('+1')">
-      +1<br><span style="font-size:13px;font-weight:500;">${G.current} + 1 = ${G.current + 1}</span>
-    </button>
-    <button class="mvbtn mvbtn-x" ${!canAct || !timesOk ? 'disabled' : ''} onclick="applyMove('×2')">
-      ×2<br><span style="font-size:13px;font-weight:500;">${G.current} × 2 = ${G.current * 2}</span>
-    </button>
+    <button class="mvbtn mvbtn-p" ${!canAct || !plusOk ? 'disabled' : ''} onclick="applyMove('+1')">+1</button>
+    <button class="mvbtn mvbtn-x" ${!canAct || !timesOk ? 'disabled' : ''} onclick="applyMove('×2')">×2</button>
   </div>
 
   ${histHtml}
