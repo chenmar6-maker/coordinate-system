@@ -442,7 +442,7 @@ function renderHome(){
       <div style="${SH}">משולשים ומרובעים</div>
       ${seqRow(7,  '7. משולש שווה-צלעות',   {worksheetUrl:'../worksheets/angles_seq7_exam.html'})}
       ${seqRow(8,  '8. משולש שווה-שוקיים',  {worksheetUrl:'../worksheets/angles_seq8_exam.html'})}
-      ${seqRow(9,  '9. סכום זוויות במשולש', {noLearn:true, worksheetUrl:'../worksheets/angles_seq9_exam.html'})}
+      ${seqRow(9,  '9. סכום זוויות במשולש', {worksheetUrl:'../worksheets/angles_seq9_exam.html'})}
       ${seqRow(10, '10. סכום זוויות במרובע',{noLearn:true, noGame:true, noQuiz:true})}
     </div>`;
 }
@@ -460,6 +460,7 @@ function renderLearn(){
   if(state.sequence===6) return renderLearn6();
   if(state.sequence===7) return renderLearn7();
   if(state.sequence===8) return renderLearn8();
+  if(state.sequence===9) return renderLearn9();
   return renderLearnPlaceholder();
 }
 
@@ -585,6 +586,81 @@ function renderLearn8(){
     </ul>
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=8;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn9(){
+  /* Triangle SVG: scalene triangle A(25,150) B(270,150) C(155,28)
+     α≈52° at A (green #4caf50), β≈62° at B (gold #f5c842), γ≈66° at C (coral #e06060)
+     Assembled semicircle: the three angles laid out along a straight line = 180° */
+  const triSvg = `<svg viewBox="0 0 295 175" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto;">
+    <rect width="295" height="175" fill="#fff" rx="8"/>
+    <style>.tl{font:600 15px 'Times New Roman',serif;fill:#000}.ta{font:13px 'Times New Roman',serif}</style>
+    <!-- triangle -->
+    <polygon points="25,150 270,150 155,28" fill="none" stroke="#333" stroke-width="2"/>
+    <!-- α arc at A (green) -->
+    <path d="M53,150 A28,28 0 0 0 46.5,131" fill="none" stroke="#4caf50" stroke-width="2.2"/>
+    <text x="66" y="143" class="ta" fill="#4caf50">α</text>
+    <!-- β arc at B (gold) -->
+    <path d="M242,150 A28,28 0 0 1 253,130" fill="none" stroke="#c9a800" stroke-width="2.2"/>
+    <text x="228" y="143" class="ta" fill="#c9a800">β</text>
+    <!-- γ arc at C (coral) -->
+    <path d="M144,47 A28,28 0 0 0 176,47" fill="none" stroke="#e06060" stroke-width="2.2"/>
+    <text x="151" y="68" class="ta" fill="#e06060">γ</text>
+    <!-- vertex labels -->
+    <text x="14" y="165" class="tl">A</text>
+    <text x="271" y="165" class="tl">B</text>
+    <text x="150" y="20" class="tl">C</text>
+  </svg>`;
+
+  /* Assembled-angles SVG: the three angle sectors "stitched" along a straight baseline
+     showing they together form a straight angle = 180° */
+  const proofSvg = `<svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto;">
+    <rect width="300" height="140" fill="#fff" rx="8"/>
+    <style>.pa{font:13px 'Times New Roman',serif}</style>
+    <!-- baseline -->
+    <line x1="20" y1="115" x2="280" y2="115" stroke="#333" stroke-width="2"/>
+    <!-- α sector (green) ~52° from 180° to 128° in SVG coords -->
+    <path d="M150,115 L90,115 A70,70 0 0 1 106,68" fill="#c8f0c8" stroke="#4caf50" stroke-width="1.5"/>
+    <text x="88" y="108" class="pa" fill="#4caf50">α</text>
+    <!-- β sector (gold) ~62° from 128° to 66° -->
+    <path d="M150,115 L106,68 A70,70 0 0 1 178,50" fill="#fff3cc" stroke="#c9a800" stroke-width="1.5"/>
+    <text x="144" y="72" class="pa" fill="#c9a800">β</text>
+    <!-- γ sector (coral) ~66° from 66° to 0° -->
+    <path d="M150,115 L178,50 A70,70 0 0 1 220,115" fill="#fde0e0" stroke="#e06060" stroke-width="1.5"/>
+    <text x="197" y="92" class="pa" fill="#e06060">γ</text>
+    <!-- straight angle label -->
+    <text x="115" y="132" style="font:700 13px sans-serif;fill:#333">α + β + γ = 180°</text>
+  </svg>`;
+
+  return `<div class="panel">
+    <h2 class="qtitle">סכום זוויות במשולש</h2>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/D5aFj-hMBFI" title="סכום זוויות במשולש" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="gold-box" style="text-align:center;">סכום שלוש הזוויות בכל משולש הוא תמיד <strong>180°</strong><br><span dir="ltr" style="font-size:1.1em;">α + β + γ = 180°</span></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:16px 0;background:#fff;border-radius:10px;padding:12px;">
+      <div style="flex:1;min-width:130px;">
+        <div style="text-align:center;font-size:12px;color:#555;margin-bottom:6px;">המשולש</div>
+        ${triSvg}
+      </div>
+      <div style="flex:1;min-width:130px;">
+        <div style="text-align:center;font-size:12px;color:#555;margin-bottom:6px;">שלוש הזוויות יחד = קו ישר</div>
+        ${proofSvg}
+      </div>
+    </div>
+    <ul class="bullets">
+      <li>כל משולש — חד-זווי, ישר-זווי או קהה-זווי — סכום זוויותיו תמיד 180°</li>
+      <li>אם שתי זוויות ידועות, השלישית = <span dir="ltr">180° − (α + β)</span></li>
+      <li>במשולש שווה-שוקיים: זוויות הבסיס שוות, לכן <span dir="ltr">זווית ראש + 2 × זווית בסיס = 180°</span></li>
+      <li>במשולש שווה-צלעות: כל זווית = 60°</li>
+      <li>במשולש ישר-זווי: שתי הזוויות החדות מסתכמות ל-90°</li>
+    </ul>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=9;startGame()">לתרגול ←</button>
+      <button class="btn" onclick="window.open('../worksheets/angles_seq9_exam.html','_blank')">למבדק שליטה ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
