@@ -386,7 +386,7 @@ function renderGame() {
 
   ${visual}
 
-  <div class="move-row">
+  <div class="move-row" style="justify-content:flex-end;">
     <button class="mvbtn mvbtn-p" ${!canAct || !plusOk ? 'disabled' : ''} onclick="applyMove('+1')">+1</button>
     <button class="mvbtn mvbtn-x" ${!canAct || !timesOk ? 'disabled' : ''} onclick="applyMove('×2')">×2</button>
   </div>
