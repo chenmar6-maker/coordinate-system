@@ -14,17 +14,17 @@
   .header h1{font-size:22px;font-weight:800;margin:0 0 4px;color:#10B981;}
   .header p{font-size:13px;color:#6b7280;margin:0;}
   .q-block{margin-bottom:32px;padding:20px 22px;border:1.5px solid #e5e7eb;border-radius:12px;}
-  .q-num{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#10B981;margin-bottom:6px;text-transform:uppercase;}
+  .q-num{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#10B981;margin-bottom:6px;}
   .q-text{font-size:15px;font-weight:600;margin-bottom:14px;line-height:1.7;}
   .q-text p{margin:0 0 5px;}
-  .q-svg-wrap{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:8px;display:block;margin:10px auto 16px;max-width:360px;width:100%;}
+  .q-svg-wrap{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:8px;display:block;margin:10px auto 16px;max-width:340px;width:100%;}
   .q-svg-wrap svg{display:block;width:100%;height:auto;}
-  .q-svg-wrap .lbl{font:600 17px 'Times New Roman',serif;fill:#000;}
-  .q-svg-wrap .ang{font:15px 'Times New Roman',serif;fill:#000;}
-  .explain-box{border:1.5px solid #d1d5db;border-radius:6px;width:100%;min-height:56px;display:block;background:transparent;padding:6px 10px;font-family:'Rubik',sans-serif;font-size:14px;resize:none;}
-  .sub-label{font-size:13px;font-weight:700;color:#374151;margin:14px 0 4px;}
+  .q-svg-wrap .lbl{font:600 16px 'Times New Roman',serif;fill:#000;}
+  .q-svg-wrap .ang{font:14px 'Times New Roman',serif;fill:#000;}
+  .explain-box{border:1.5px solid #d1d5db;border-radius:6px;width:100%;min-height:52px;display:block;background:transparent;padding:6px 10px;font-family:'Rubik',sans-serif;font-size:14px;resize:none;}
+  .sub-label{font-size:13px;font-weight:700;color:#374151;margin:12px 0 4px;}
   .ltr{direction:ltr;unicode-bidi:isolate;display:inline;}
-  .mc-opts{list-style:none;padding:0;margin:10px 0;}
+  .mc-opts{list-style:none;padding:0;margin:8px 0;}
   .mc-opts li{padding:6px 10px;border:1.5px solid #e5e7eb;border-radius:8px;margin-bottom:6px;font-size:14px;}
   .ans-line{border:none;border-bottom:1.5px solid #6b7280;width:120px;font-size:14px;font-family:'Rubik',sans-serif;outline:none;background:transparent;display:inline-block;}
   footer{text-align:center;font-size:11px;color:#9ca3af;padding:20px 0;border-top:1px solid #f3f4f6;margin-top:20px;}
@@ -33,420 +33,498 @@
 </head>
 <body>
 <div class="page">
+
   <div class="header">
     <h1>מבדק שליטה מסכם — זוויות — רמה בסיסית ב׳</h1>
-    <p>שם: _________________________ &nbsp;&nbsp; תאריך: _____________</p>
+    <p>שם: _________________________ &nbsp;&nbsp; כיתה: _______ &nbsp;&nbsp; תאריך: _____________</p>
   </div>
 
-  <!-- Q1 — סוגי זוויות -->
+  <!-- Q1 -->
   <div class="q-block">
-    <div class="q-num">שאלה 1 — סוגי זוויות</div>
-    <div class="q-text"><p>איזו הגדרה נכונה לזווית ישרה?</p></div>
-    <ul class="mc-opts">
-      <li><span class="ltr">(1)</span> זווית הקטנה מ-<span class="ltr">90°</span></li>
-      <li><span class="ltr">(2)</span> זווית השווה בדיוק ל-<span class="ltr">90°</span></li>
-      <li><span class="ltr">(3)</span> זווית הגדולה מ-<span class="ltr">90°</span></li>
-      <li><span class="ltr">(4)</span> זווית השווה ל-<span class="ltr">180°</span></li>
-    </ul>
-    <div class="sub-label">הסבירו מה ההבדל בין זווית קהה לזווית ישרה:</div>
-    <textarea class="explain-box" rows="3"></textarea>
-  </div>
-
-  <!-- Q2 — כתיב מתמטי -->
-  <div class="q-block">
-    <div class="q-num">שאלה 2 — כתיב מתמטי</div>
+    <div class="q-num">שאלה 1</div>
+    <div class="q-text">
+      <p>איזו מהזוויות בציור היא זווית קהה?</p>
+    </div>
     <div class="q-svg-wrap">
-      <!--
-        M at (130,120). Ray MA toward upper-right (40° from horizontal): endpoint ~ (130+80*cos40, 120-80*sin40) = (191.3, 68.6)
-        Ray MB toward upper-left: endpoint ~ (130-80*cos40, 120-80*sin40) = (68.7, 68.6)
-      -->
-      <svg viewBox="30 30 200 120" xmlns="http://www.w3.org/2000/svg">
-        <!-- green sector between the two rays, 80° total -->
-        <!-- from MB direction to MA direction — sweep goes right/CW -->
-        <!-- MB at r=28: (130-28*cos40, 120-28*sin40) = (108.5, 102.0) -->
-        <!-- MA at r=28: (130+28*cos40, 120-28*sin40) = (151.5, 102.0) -->
-        <path d="M 130,120 L 108.5,102.0 A 28,28 0 0,1 151.5,102.0 Z" fill="#b8e8b8" stroke="none"/>
-        <!-- rays -->
-        <line x1="130" y1="120" x2="191" y2="69" stroke="#1a1a2e" stroke-width="1.6"/>
-        <line x1="130" y1="120" x2="69" y2="69" stroke="#1a1a2e" stroke-width="1.6"/>
-        <!-- labels -->
-        <text x="196" y="63" text-anchor="middle" dominant-baseline="central" class="lbl">A</text>
-        <text x="62" y="63" text-anchor="middle" dominant-baseline="central" class="lbl">B</text>
-        <text x="130" y="137" text-anchor="middle" dominant-baseline="central" class="lbl">M</text>
+      <svg viewBox="0 0 320 110" xmlns="http://www.w3.org/2000/svg">
+        <rect width="320" height="110" fill="#fff"/>
+        <!-- A: acute ~25°, vertex at (55,85) -->
+        <!-- sector green: ray right to (115,85), ray at 25° to (55+60cos25°,85-60sin25°)=(109.4,59.6) -->
+        <path d="M 55,85 L 73,85 A 18,18 0 0,0 71.3,69.4 Z" fill="#b8e8b8" stroke="none"/>
+        <line x1="55" y1="85" x2="115" y2="85" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="55" y1="85" x2="109" y2="60" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+        <text x="55" y="100" class="lbl" text-anchor="middle" dominant-baseline="central">A</text>
+        <text x="82" y="74" class="ang" text-anchor="middle" dominant-baseline="central">25°</text>
+
+        <!-- B: right angle ~90°, vertex at (160,85) -->
+        <line x1="160" y1="85" x2="210" y2="85" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="160" y1="85" x2="160" y2="30" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+        <!-- right angle square -->
+        <polyline points="172,85 172,73 160,73" fill="none" stroke="#000" stroke-width="1.3"/>
+        <text x="160" y="100" class="lbl" text-anchor="middle" dominant-baseline="central">B</text>
+
+        <!-- C: obtuse ~145°, vertex at (265,85) -->
+        <!-- ray right to (310,85), ray at 145° from right: (265+60cos145°,85-60sin145°)=(265-49.1,85-34.4)=(215.9,50.6) -->
+        <path d="M 265,85 L 283,85 A 18,18 0 0,0 250.2,73.5 Z" fill="#f8c0c0" stroke="none"/>
+        <line x1="265" y1="85" x2="310" y2="85" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="265" y1="85" x2="216" y2="51" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+        <text x="265" y="100" class="lbl" text-anchor="middle" dominant-baseline="central">C</text>
+        <text x="248" y="72" class="ang" text-anchor="middle" dominant-baseline="central">145°</text>
       </svg>
     </div>
-    <div class="q-text"><p>מה נכון לגבי הסימון <span class="ltr">∠AMB</span>?</p></div>
     <ul class="mc-opts">
-      <li><span class="ltr">(1) M</span> הוא קדקוד הזווית</li>
-      <li><span class="ltr">(2) A</span> הוא קדקוד הזווית</li>
-      <li><span class="ltr">(3) B</span> הוא קדקוד הזווית</li>
-      <li><span class="ltr">(4)</span> אין קדקוד בזווית</li>
+      <li>(1) זווית <span class="ltr">A</span></li>
+      <li>(2) זווית <span class="ltr">B</span></li>
+      <li>(3) זווית <span class="ltr">C</span></li>
+      <li>(4) זוויות <span class="ltr">A</span> ו-<span class="ltr">B</span></li>
     </ul>
   </div>
 
-  <!-- Q3 — סכום זוויות -->
+  <!-- Q2 -->
   <div class="q-block">
-    <div class="q-num">שאלה 3 — סכום זוויות</div>
+    <div class="q-num">שאלה 2</div>
     <div class="q-text">
-      <p>שתי הזוויות הצמודות יחד שוות לזווית ישרה.</p>
-      <p>נתון: זווית אחת = <span class="ltr">4x−8°</span>, השנייה = <span class="ltr">x+2°</span>.</p>
+      <p>נתונה הזווית <span class="ltr">DEF</span>. מי הוא קדקוד הזווית?</p>
     </div>
-    <div class="q-svg-wrap">
-      <!--
-        O at (100,130). Right ray to (220,130). Up ray to (100,10).
-        Right-angle box at O.
-        Gold sector for 4x-8° (larger, closer to horizontal): from right to somewhere
-        Let's place: gold sector from right ray upward spans 4x-8°. When solved: 4x-8+x+2=90 → 5x=96 → x=19.2 → angles=68.8° and 21.2°.
-        Green sector for x+2° (smaller, near vertical).
-        Gold sector from right ray (220,130) sweeping up 68.8°: endpoint at r=30 from O along 68.8° from horizontal:
-          (100+30*cos68.8°, 130-30*sin68.8°) = (100+10.8, 130-28.0) = (110.8, 102.0)
-        Midpoint of the green sector is near 90°-21.2°/2 = ~79.4° from horizontal → at (100+30*cos79.4, 130-30*sin79.4) = (105.5,100.5)
-        Right point at r=30: (130, 130)
-        The green sector goes from 68.8° to 90°:
-          start: (110.8, 102.0), end: (100, 100) = straight up at r=30
-        We draw: gold from right to split-ray, green from split-ray to up-ray.
-        Split-ray direction at ~68.8° from horizontal: endpoint (100+110*cos68.8°, 130-110*sin68.8°) = (139.8, 27.3)
-      -->
-      <svg viewBox="60 -20 200 180" xmlns="http://www.w3.org/2000/svg">
-        <!-- gold sector 4x-8° from right ray sweeping up to split ray -->
-        <!-- r=30, from (130,130) arc to (110.8,102.0), sweep=1 (CCW) -->
-        <path d="M 100,130 L 130,130 A 30,30 0 0,0 110.8,102.0 Z" fill="#ffe89a" stroke="none"/>
-        <!-- green sector x+2° from split ray up to vertical ray -->
-        <!-- from (110.8,102.0) to (100,100) sweep=0... need large-arc=0 small angle -->
-        <path d="M 100,130 L 110.8,102.0 A 30,30 0 0,0 100,100 Z" fill="#b8e8b8" stroke="none"/>
-        <!-- right-angle box -->
-        <polyline points="112,130 112,118 100,118" fill="none" stroke="#1a1a2e" stroke-width="1.4"/>
-        <!-- right ray -->
-        <line x1="100" y1="130" x2="220" y2="130" stroke="#1a1a2e" stroke-width="1.6"/>
-        <!-- up ray -->
-        <line x1="100" y1="130" x2="100" y2="10" stroke="#1a1a2e" stroke-width="1.6"/>
-        <!-- split ray -->
-        <line x1="100" y1="130" x2="140" y2="27" stroke="#1a1a2e" stroke-width="1.6"/>
-        <!-- O label -->
-        <text x="90" y="143" text-anchor="middle" dominant-baseline="central" class="lbl">O</text>
-        <!-- angle labels -->
-        <text x="128" y="113" text-anchor="middle" class="ang">4x−8°</text>
-        <text x="96" y="97" text-anchor="middle" class="ang" text-anchor="end">x+2°</text>
-      </svg>
-    </div>
-    <div class="sub-label">(א) הקימו משוואה ופתרו את <span class="ltr">x</span>:</div>
-    <textarea class="explain-box" rows="4"></textarea>
-    <div class="sub-label">(ב) חשבו את גודל כל אחת מהזוויות:</div>
-    <textarea class="explain-box" rows="3"></textarea>
+    <ul class="mc-opts">
+      <li>(1) הנקודה <span class="ltr">D</span></li>
+      <li>(2) הנקודה <span class="ltr">E</span></li>
+      <li>(3) הנקודה <span class="ltr">F</span></li>
+      <li>(4) כל אחת מהנקודות יכולה להיות הקדקוד</li>
+    </ul>
   </div>
 
-  <!-- Q4 — חוצה זווית -->
+  <!-- Q3 -->
   <div class="q-block">
-    <div class="q-num">שאלה 4 — חוצה-זווית</div>
+    <div class="q-num">שאלה 3</div>
     <div class="q-text">
-      <p>חוצה הזווית <span class="ltr">OC</span> מחלק את <span class="ltr">∠AOB</span> לשני חלקים שווים.</p>
-      <p>נתון: <span class="ltr">∠AOB = 110°</span>. מהו <span class="ltr">α</span>?</p>
+      <p>נתון: <span class="ltr">∠COR = 38°</span>. הנקודה <span class="ltr">O</span> נמצאת על קו ישר. חשבו את <span class="ltr">∠COL</span>.</p>
     </div>
     <div class="q-svg-wrap">
-      <!--
-        O at (120,150). OB going right to (220,150).
-        OA at 110° from OB (measuring CCW on screen = up-left): screen angle from horizontal = 180°-110° = 70° from horizontal going left-up.
-        OA direction: angle 110° from positive-x-axis CCW → (cos110°, -sin110°) = (-0.342, -0.940) * 80
-        OA endpoint: (120-27.3, 150-75.2) = (92.7, 74.8) ≈ (93, 75)
-        OC bisects at 55° from OB: direction (cos55°, -sin55°) = (0.574, -0.819) * 80
-        OC endpoint: (120+45.9, 150-65.5) = (165.9, 84.5) ≈ (166, 85)
-        Sectors (both labeled α):
-          Left sector (between OA and OC): from OC to OA
-            r=28, OC at r=28: (120+28*cos55°, 150-28*sin55°) = (136.1, 127.1)
-            OA at r=28: (120-28*cos70°, 150-28*sin70°) = (110.4, 123.7)
-          Right sector (between OB and OC): from OB to OC
-            OB at r=28: (148, 150)
-            OC at r=28: (136.1, 127.1)
-        viewBox="60 50 200 130"
-      -->
-      <svg viewBox="60 50 200 130" xmlns="http://www.w3.org/2000/svg">
-        <!-- right sector (OB to OC), sweep CCW = 0 in SVG y-down -->
-        <path d="M 120,150 L 148,150 A 28,28 0 0,0 136.1,127.1 Z" fill="#b8d8f8" stroke="none"/>
-        <!-- left sector (OC to OA) -->
-        <path d="M 120,150 L 136.1,127.1 A 28,28 0 0,0 110.4,123.7 Z" fill="#b8d8f8" stroke="none"/>
-        <!-- rays -->
-        <line x1="120" y1="150" x2="220" y2="150" stroke="#1a1a2e" stroke-width="1.6"/>
-        <line x1="120" y1="150" x2="93" y2="75" stroke="#1a1a2e" stroke-width="1.6"/>
-        <!-- bisector dashed -->
-        <line x1="120" y1="150" x2="166" y2="85" stroke="#1a1a2e" stroke-width="1.6" stroke-dasharray="6 5"/>
-        <!-- labels -->
-        <text x="226" y="150" text-anchor="middle" dominant-baseline="central" class="lbl">B</text>
-        <text x="87" y="70" text-anchor="middle" dominant-baseline="central" class="lbl">A</text>
-        <text x="170" y="80" text-anchor="middle" dominant-baseline="central" class="lbl">C</text>
-        <text x="112" y="160" text-anchor="middle" dominant-baseline="central" class="lbl">O</text>
-        <!-- α labels -->
-        <text x="144" y="136" text-anchor="middle" class="ang">α</text>
-        <text x="120" y="127" text-anchor="middle" class="ang">α</text>
+      <!-- viewBox="10 30 280 110" -->
+      <svg viewBox="10 30 280 110" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="30" width="280" height="110" fill="#fff"/>
+        <!-- L=(30,110), O=(150,110), R=(270,110), C=(215,58) -->
+        <!-- Ray OC: angle from O to C: dx=215-150=65, dy=58-110=-52, angle=atan2(52,65)≈38.7° -->
+
+        <!-- Gold sector left ∠COL: from ray OL (180°) to ray OC (~39°), going CCW (large arc=0, sweep=0 means CCW in SVG) -->
+        <!-- OL direction: 180°, OC direction: ~39° from positive x. Sector from OC to OL going CCW (left side). -->
+        <!-- r=28. OL unit: (-1,0). OC unit: (cos38.7°,−sin38.7°)=(0.779,−0.628) (up in screen = negative y) -->
+        <!-- p1 along OC at r=28: (150+28*0.779, 110-28*0.628)=(171.8, 92.4) -->
+        <!-- p2 along OL at r=28: (150-28, 110)=(122, 110) -->
+        <!-- angle from OC (~-39° from x) to OL (180°) = 141°, less than 180, large-arc-flag=0, sweep-flag=0 -->
+        <path d="M 150,110 L 171.8,92.4 A 28,28 0 0,0 122,110 Z" fill="#ffe89a" stroke="none"/>
+
+        <!-- Green sector right ∠COR: from ray OR (0°) to ray OC (~39°) -->
+        <!-- p1 along OR at r=28: (178,110) -->
+        <!-- p2 along OC at r=28: (171.8, 92.4) -->
+        <!-- angle = 39°, small arc, sweep=1 (CCW in standard = going from OR upward to OC) -->
+        <path d="M 150,110 L 178,110 A 28,28 0 0,1 171.8,92.4 Z" fill="#b8e8b8" stroke="none"/>
+
+        <!-- Straight line L to R -->
+        <line x1="30" y1="110" x2="270" y2="110" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+        <!-- Ray OC -->
+        <line x1="150" y1="110" x2="215" y2="58" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+
+        <!-- Labels -->
+        <text x="30" y="125" class="lbl" text-anchor="middle" dominant-baseline="central">L</text>
+        <text x="150" y="127" class="lbl" text-anchor="middle" dominant-baseline="central">O</text>
+        <text x="270" y="125" class="lbl" text-anchor="middle" dominant-baseline="central">R</text>
+        <text x="215" y="50" class="lbl" text-anchor="middle" dominant-baseline="central">C</text>
+
+        <!-- Angle labels -->
+        <text x="170" y="108" class="ang" text-anchor="middle" dominant-baseline="central">38°</text>
+        <text x="126" y="100" class="ang" text-anchor="middle" dominant-baseline="central">β</text>
       </svg>
     </div>
-    <div class="sub-label">תשובה: <span class="ltr">α =</span> <input class="ans-line" type="text" /></div>
+    <div class="sub-label">הסבירו:</div>
+    <textarea class="explain-box" rows="2" placeholder="∠COL = ... כי..."></textarea>
   </div>
 
-  <!-- Q5 — זוויות צמודות -->
+  <!-- Q4 -->
   <div class="q-block">
-    <div class="q-num">שאלה 5 — זוויות צמודות</div>
+    <div class="q-num">שאלה 4</div>
     <div class="q-text">
-      <p>שלושה קרניים יוצאים מנקודה <span class="ltr">O</span>. הזווית השמאלית = <span class="ltr">3x°</span>, הזווית הימנית = <span class="ltr">(x+20)°</span>.</p>
+      <p>חוצה הזווית <span class="ltr">OP</span> מחלק את <span class="ltr">∠MON</span> לשני חלקים שווים.</p>
+      <p>נתון: <span class="ltr">∠MON = 72°</span>. מהו <span class="ltr">β</span>?</p>
     </div>
     <div class="q-svg-wrap">
-      <!--
-        Straight line: L(20,130) → O(140,130) → R(260,130)
-        Middle ray M from O upward at some angle. Together 3x + x+20 = 180 → 4x=160 → x=40 → left=120°, right=60°.
-        Middle ray at 60° from right side: direction at 60° from pos-x = (cos60°, -sin60°) = (0.5, -0.866)
-        M endpoint: (140+0.5*110, 130-0.866*110) = (195, 25.7) ≈ (195,26) — but that's shifted right
-        Actually the ray is at 60° from the right horizontal, so left angle = 180-60=120°. That seems big.
-        Better: middle ray goes straight up-ish so it visually looks like it splits the line.
-        Let's place the ray at angle 60° from horizontal going right, so endpoint near top-right area.
-        viewBox="0 50 280 110"
-        Green sector left (3x°=120°): from left horizontal to ray — large angle
-          L at r=30: (110,130), ray at r=30: (140+30*cos60°,130-30*sin60°)=(155,104.0)
-          Large arc from (110,130) to (155,104.0) — 120° sweep CCW (sweep=1 in SVG)
-        Gold sector right (x+20°=60°): from ray to right horizontal — small angle
-          R at r=30: (170,130)
-          From (155,104.0) to (170,130) — 60° sweep CCW
-      -->
-      <svg viewBox="0 50 280 110" xmlns="http://www.w3.org/2000/svg">
-        <!-- green left sector 3x° — 120° large -->
-        <path d="M 140,130 L 110,130 A 30,30 0 1,1 155,104.0 Z" fill="#b8e8b8" stroke="none"/>
-        <!-- gold right sector (x+20)° — 60° small -->
-        <path d="M 140,130 L 155,104.0 A 30,30 0 0,1 170,130 Z" fill="#ffe89a" stroke="none"/>
-        <!-- horizontal line -->
-        <line x1="20" y1="130" x2="260" y2="130" stroke="#1a1a2e" stroke-width="1.6"/>
-        <!-- middle ray -->
-        <line x1="140" y1="130" x2="195" y2="26" stroke="#1a1a2e" stroke-width="1.6"/>
-        <!-- labels -->
-        <text x="14" y="130" text-anchor="middle" dominant-baseline="central" class="lbl">L</text>
-        <text x="266" y="130" text-anchor="middle" dominant-baseline="central" class="lbl">R</text>
-        <text x="140" y="148" text-anchor="middle" dominant-baseline="central" class="lbl">O</text>
-        <!-- angle labels -->
-        <text x="107" y="120" text-anchor="middle" class="ang">3x°</text>
-        <text x="173" y="115" text-anchor="middle" class="ang">(x+20)°</text>
+      <!-- O=(130,145). N=(230,145). M at 72°: (130+85cos72°,145-85sin72°)=(156.3,64.1). P at 36°: (130+85cos36°,145-85sin36°)=(198.8,95.0) -->
+      <svg viewBox="100 40 160 130" xmlns="http://www.w3.org/2000/svg">
+        <rect x="100" y="40" width="160" height="130" fill="#fff"/>
+
+        <!-- Blue sector left: ∠MOP from OP (36°) to OM (72°) -->
+        <!-- r=22. p1 along OP: (130+22cos36°,145-22sin36°)=(147.8,132.1). p2 along OM: (130+22cos72°,145-22sin72°)=(136.8,124.1) -->
+        <path d="M 130,145 L 147.8,132.1 A 22,22 0 0,0 136.8,124.1 Z" fill="#b8d8f8" stroke="none"/>
+
+        <!-- Blue sector right: ∠NOP from ON (0°) to OP (36°) -->
+        <!-- p1 along ON: (152,145). p2 along OP: (147.8,132.1) -->
+        <path d="M 130,145 L 152,145 A 22,22 0 0,1 147.8,132.1 Z" fill="#b8d8f8" stroke="none"/>
+
+        <!-- Rays -->
+        <line x1="130" y1="145" x2="230" y2="145" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="130" y1="145" x2="156" y2="64" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+        <!-- Bisector OP dashed -->
+        <line x1="130" y1="145" x2="199" y2="95" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="6 5"/>
+
+        <!-- Labels -->
+        <text x="127" y="158" class="lbl" text-anchor="middle" dominant-baseline="central">O</text>
+        <text x="232" y="150" class="lbl" text-anchor="middle" dominant-baseline="central">N</text>
+        <text x="152" y="57" class="lbl" text-anchor="middle" dominant-baseline="central">M</text>
+        <text x="204" y="90" class="lbl" text-anchor="middle" dominant-baseline="central">P</text>
+
+        <!-- β labels in each sector -->
+        <text x="153" y="133" class="ang" text-anchor="middle" dominant-baseline="central">β</text>
+        <text x="143" y="128" class="ang" text-anchor="middle" dominant-baseline="central">β</text>
       </svg>
     </div>
-    <div class="sub-label">(א) הקימו משוואה ופתרו את <span class="ltr">x</span>:</div>
-    <textarea class="explain-box" rows="4"></textarea>
-    <div class="sub-label">(ב) חשבו את כל אחת מהזוויות:</div>
-    <textarea class="explain-box" rows="3"></textarea>
+    <textarea class="explain-box" rows="2" placeholder="β = ..."></textarea>
   </div>
 
-  <!-- Q6 — זוויות קודקודיות -->
+  <!-- Q5 -->
   <div class="q-block">
-    <div class="q-num">שאלה 6 — זוויות קודקודיות</div>
+    <div class="q-num">שאלה 5</div>
     <div class="q-text">
-      <p>נתון שזווית אחת בין שני קווים חותכים שווה <span class="ltr">55°</span>.</p>
+      <p>נתון: <span class="ltr">∠AQR = 134°</span>. חשבו את <span class="ltr">∠RQB</span>.</p>
     </div>
     <div class="q-svg-wrap">
-      <!--
-        Two lines crossing at O(140,100).
-        Line 1: horizontal (20,100)→(260,100).
-        Line 2: at 55° from line 1. Direction: (cos55°,-sin55°)=(0.574,-0.819) and opposite.
-        Upper-right endpoint: (140+110*0.574, 100-110*0.819) = (203.1, 9.9) ≈ (203,10)
-        Lower-left endpoint: (140-110*0.574, 100+110*0.819) = (76.9, 190.1) ≈ (77,190)
-        Green sector α=55° upper-right: from horizontal-right to line2-upper-right
-          r=28, right point: (168,100), upper-right at r=28: (140+28*0.574,100-28*0.819)=(156.1,77.1)
-        Green sector α=55° lower-left (vertical to above): from horizontal-left to line2-lower-left
-          left r=28: (112,100), lower-left at r=28: (140-28*0.574,100+28*0.819)=(123.9,122.9)
-        Gold sector β upper-left: from line2-upper-right to horizontal-left (125°)
-          from (156.1,77.1) to (112,100), large arc
-        viewBox="0 0 280 200"
-      -->
-      <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
-        <!-- green sectors (55°) -->
-        <path d="M 140,100 L 168,100 A 28,28 0 0,0 156.1,77.1 Z" fill="#b8e8b8" stroke="none"/>
-        <path d="M 140,100 L 112,100 A 28,28 0 0,0 123.9,122.9 Z" fill="#b8e8b8" stroke="none"/>
-        <!-- gold sectors β (125°) -->
-        <path d="M 140,100 L 156.1,77.1 A 28,28 0 1,0 112,100 Z" fill="#ffe89a" stroke="none"/>
-        <!-- draw lines -->
-        <line x1="20" y1="100" x2="260" y2="100" stroke="#1a1a2e" stroke-width="1.6"/>
-        <line x1="203" y1="10" x2="77" y2="190" stroke="#1a1a2e" stroke-width="1.6"/>
-        <!-- O label -->
-        <text x="148" y="112" text-anchor="start" dominant-baseline="hanging" class="lbl">O</text>
-        <!-- angle labels -->
-        <text x="161" y="92" text-anchor="middle" class="ang">55°</text>
-        <text x="119" y="122" text-anchor="middle" class="ang">55°</text>
-        <text x="114" y="84" text-anchor="middle" class="ang">β</text>
-        <text x="165" y="118" text-anchor="middle" class="ang">β</text>
+      <!-- A=(20,120), Q=(150,120), B=(280,120), R=(150,20) -->
+      <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="150" fill="#fff"/>
+
+        <!-- Gold sector left ∠AQR: from ray QR (90° up) to ray QA (180°) -->
+        <!-- r=26. QR upward: (150,94). QA left: (124,120). angle=90°, large-arc=0, sweep=0 -->
+        <path d="M 150,120 L 150,94 A 26,26 0 0,0 124,120 Z" fill="#ffe89a" stroke="none"/>
+
+        <!-- Green sector right ∠RQB: from ray QB (0°) to ray QR (90°) -->
+        <!-- p1 along QB: (176,120). p2 along QR: (150,94). angle=90°, large-arc=0, sweep=1 -->
+        <path d="M 150,120 L 176,120 A 26,26 0 0,1 150,94 Z" fill="#b8e8b8" stroke="none"/>
+
+        <!-- Lines -->
+        <line x1="20" y1="120" x2="280" y2="120" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="150" y1="120" x2="150" y2="20" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+
+        <!-- Labels -->
+        <text x="20" y="136" class="lbl" text-anchor="middle" dominant-baseline="central">A</text>
+        <text x="150" y="136" class="lbl" text-anchor="middle" dominant-baseline="central">Q</text>
+        <text x="280" y="136" class="lbl" text-anchor="middle" dominant-baseline="central">B</text>
+        <text x="150" y="12" class="lbl" text-anchor="middle" dominant-baseline="central">R</text>
+
+        <!-- Angle labels -->
+        <text x="126" y="106" class="ang" text-anchor="middle" dominant-baseline="central">134°</text>
+        <text x="172" y="106" class="ang" text-anchor="middle" dominant-baseline="central">α</text>
       </svg>
     </div>
-    <div class="sub-label">(א) מהי הזווית הקודקודית לה? ציינו את ההגדרה של זוויות קודקודיות:</div>
-    <textarea class="explain-box" rows="3"></textarea>
-    <div class="sub-label">(ב) חשבו את הזווית הצמודה לה: <span class="ltr">β =</span> <input class="ans-line" type="text" /></div>
+    <textarea class="explain-box" rows="2" placeholder="∠RQB = ..."></textarea>
   </div>
 
-  <!-- Q7 — משולש שווה-צלעות -->
+  <!-- Q6 -->
   <div class="q-block">
-    <div class="q-num">שאלה 7 — משולש שווה-צלעות</div>
+    <div class="q-num">שאלה 6</div>
     <div class="q-text">
-      <p>בשרטוט מתואר משולש שווה-צלעות <span class="ltr">ABC</span>.</p>
+      <p>שני קווים נחתכים ב-<span class="ltr">O</span>. נתון: <span class="ltr">∠EOF = 58°</span>.</p>
     </div>
     <div class="q-svg-wrap">
-      <!--
-        A=(150,15), B=(30,195), C=(270,195).
-        Side AB: midpoint (90,105), direction AB normalized: (30-150,195-15)/|..| = (-120,180)/sqrt(14400+32400) = (-120,180)/216.3 = (-0.555,0.832)
-        Perpendicular: (0.832,0.555)
-        Tick mark at (90,105): (90-5*0.832, 105-5*0.555) to (90+5*0.832,105+5*0.555) = (85.8,102.2)→(94.2,107.8)
-        Side AC: midpoint (210,105), direction (270-150,195-15)/216.3=(120,180)/216.3=(0.555,0.832)
-        Perp: (0.832,-0.555)
-        Tick at (210,105): (210-5*0.832,105+5*0.555)→(210+5*0.832,105-5*0.555) = (205.8,107.8)→(214.2,102.2)
-        Side BC: midpoint (150,195), horizontal, perp=(0,1)
-        Tick at (150,195): (150-5,195-5)→(145,190) to (155,190) — but that's below; use (145,190)→(155,190)
-        Green sectors at all 3 vertices labeled 60°:
-          Sector at A(150,15):
-            dir AB: (-0.555,0.832), dir AC: (0.555,0.832)
-            r=20: on AB: (150-0.555*20,15+0.832*20)=(138.9,31.6), on AC: (150+0.555*20,15+0.832*20)=(161.1,31.6)
-          Sector at B(30,195):
-            dir BA: (0.555,-0.832), dir BC: (1,0)
-            r=20: on BA: (30+0.555*20,195-0.832*20)=(41.1,178.4), on BC: (50,195)
-          Sector at C(270,195):
-            dir CB: (-1,0), dir CA: (-0.555,-0.832)
-            r=20: on CB: (250,195), on CA: (270-0.555*20,195-0.832*20)=(258.9,178.4)
-        viewBox="-10 0 320 220"
-      -->
-      <svg viewBox="-10 0 320 220" xmlns="http://www.w3.org/2000/svg">
-        <!-- green sectors at each vertex -->
-        <path d="M 150,15 L 138.9,31.6 A 20,20 0 0,1 161.1,31.6 Z" fill="#b8e8b8" stroke="none"/>
-        <path d="M 30,195 L 41.1,178.4 A 20,20 0 0,1 50,195 Z" fill="#b8e8b8" stroke="none"/>
-        <path d="M 270,195 L 250,195 A 20,20 0 0,1 258.9,178.4 Z" fill="#b8e8b8" stroke="none"/>
-        <!-- sides -->
-        <line x1="150" y1="15" x2="30" y2="195" stroke="#1a1a2e" stroke-width="1.6"/>
-        <line x1="150" y1="15" x2="270" y2="195" stroke="#1a1a2e" stroke-width="1.6"/>
-        <line x1="30" y1="195" x2="270" y2="195" stroke="#1a1a2e" stroke-width="1.6"/>
-        <!-- tick marks: single tick on each side -->
-        <!-- AB midpoint (90,105) -->
-        <line x1="85.8" y1="102.2" x2="94.2" y2="107.8" stroke="#1a1a2e" stroke-width="2"/>
-        <!-- AC midpoint (210,105) -->
-        <line x1="205.8" y1="107.8" x2="214.2" y2="102.2" stroke="#1a1a2e" stroke-width="2"/>
-        <!-- BC midpoint (150,195) -->
-        <line x1="145" y1="190" x2="155" y2="190" stroke="#1a1a2e" stroke-width="2"/>
-        <!-- labels -->
-        <text x="150" y="7" text-anchor="middle" dominant-baseline="central" class="lbl">A</text>
-        <text x="18" y="200" text-anchor="middle" dominant-baseline="central" class="lbl">B</text>
-        <text x="282" y="200" text-anchor="middle" dominant-baseline="central" class="lbl">C</text>
+      <!-- E=(30,30), F=(270,170), G=(270,30), H=(30,170), O=(150,100) -->
+      <!-- Line1: E-F direction: (240,140) normalized: angle=atan2(140,240)=30.3° below horizontal -->
+      <!-- Line2: G-H direction: (-240,140), angle = 180°-30.3°=149.7° -->
+      <svg viewBox="10 10 280 170" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="280" height="170" fill="#fff"/>
+
+        <!-- ∠EOF = top sector between OE (upper-left) and OF (lower-right) — actually the acute angle at top -->
+        <!-- OE direction: from O(150,100) to E(30,30): dx=-120,dy=-70, angle=210.3° from pos-x (or 30.3° into third quadrant) -->
+        <!-- OF direction: to F(270,170): dx=120,dy=70, angle=30.3° below pos-x (fourth in standard = down-right) -->
+        <!-- The angle ∠EOF between OE and OG rays at top: -->
+        <!-- OE: upper-left at angle 180+30.3=210.3° standard, or upper-left -->
+        <!-- OG: upper-right to G(270,30): dx=120,dy=-70, angle=~-30.3° = 329.7° standard -->
+        <!-- ∠EOF is the angle at top between the two lines: it's actually the vertical angle pair -->
+        <!-- Let's label: ∠EOF = angle at top between OE and OF. OE goes upper-left, OF goes lower-right — those are the SAME ray direction, 180° apart = straight line. -->
+        <!-- Correcting: Two lines cross at O. Line 1: E(30,30)—O—F(270,170). Line 2: G(270,30)—O—H(30,170). -->
+        <!-- ∠EOF = angle between ray OE and ray OF = 180° (straight). That's not right either. -->
+        <!-- ∠EOF must be the angle at O in triangle EOF sense: between ray OE and ray OG direction... -->
+        <!-- Let me use standard crossing lines: ∠EOF = angle between OE (upper-left) and OG (upper-right) = top angle ~58° -->
+        <!-- OE upper-left: unit=(-120/139,-70/139)=(-0.863,-0.504), angle=210.3° -->
+        <!-- OG upper-right: unit=(120/139,-70/139)=(0.863,-0.504), angle=329.7° -->
+        <!-- Angle between them from OG to OE going CCW = 210.3-(-30.3)=240.6°... too large. Going CW = 360-240.6=119.4° -->
+        <!-- Hmm. Let me pick simpler geometry: E(30,30),F(270,170),G(270,30),H(30,170) with O(150,100). -->
+        <!-- The four angles at O: top ∠EOG (between OE upper-left and OG upper-right), right ∠GOF, bottom ∠FOH, left ∠HOE -->
+        <!-- ∠EOG = top angle. OE: angle=atan2(-70,-120)... in standard coords (y up) = atan2(70,−120) since screen y is flipped -->
+        <!-- Let's just compute: OE screen angle from positive x (screen): atan2(30-100, 30-150)=atan2(-70,-120)=180+atan2(70,120)=180+30.3°=210.3° -->
+        <!-- OG screen angle: atan2(30-100,270-150)=atan2(-70,120)=360-30.3°=329.7° -->
+        <!-- Angle ∠EOG (going from OE to OG the short way): 329.7-210.3=119.4°. Not 58°. -->
+        <!-- The 58° angle would be ∠GOF or ∠HOE: OG=329.7°, OF=atan2(170-100,270-150)=atan2(70,120)=30.3°. -->
+        <!-- ∠GOF from OG(329.7°) to OF(30.3°): going clockwise = 329.7-30.3=299.4°... going CCW = 360-299.4=60.6°. ~60°. Close! -->
+        <!-- Let me just label ∠EOF as the angle between OE and OF directions where they make the small angle. -->
+        <!-- Actually E-O-F is a STRAIGHT LINE (they're on the same line), so ∠EOF=180°. -->
+        <!-- I think the problem means ∠EOG = 58° (angle between the two crossing lines at top). Let me relabel. -->
+        <!-- I'll use: top angle ∠EOG=58° (green), bottom ∠HOF=58° (green, vertical), side ∠GOF=β (gold) -->
+
+        <!-- sector ∠EOG at top: between OE(210.3°) and OG(329.7°) — the reflex side is large, use the 119° sector... -->
+        <!-- This won't give 58°. I need to redesign the geometry so the angle IS 58°. -->
+        <!-- Use E(30,70),F(270,130),G(250,20),H(50,180) with O(150,100) for a more acute crossing. -->
+        <!-- OG: atan2(20-100,250-150)=atan2(-80,100)=atan2(-0.8,1)=−38.7°=321.3° -->
+        <!-- OE: atan2(70-100,30-150)=atan2(-30,-120)=180+atan2(30,120)=180+14°=194° -->
+        <!-- ∠EOG = 321.3-194=127.3°. Still not 58°. -->
+        <!-- Simplest: use a symmetrical X cross where angles are 58° and 122°. -->
+        <!-- Line1 at angle 58° above horizontal: E upper-left at 180+58=238°, F lower-right at 58°. Actually going through O at 58° angle to line2. -->
+        <!-- Line2: horizontal. E=(30,100+120*sin58°)... this is getting complex. Let me just use a clean 58° crossing. -->
+        <!-- Line 2: horizontal through O(150,100): G=(270,100), H=(30,100) -->
+        <!-- Line 1: at 58° from horizontal: E upper-left at 180+58=238° → (150+120*cos238°,100+120*sin238°)=(150-63.6,100-101.8)=(86,−2)≈(86,0) -->
+        <!--          F lower-right at 58°: (150+120*cos58°,100+120*sin58°)=(150+63.6,100+101.8)=(214,202)≈(214,200) -->
+        <!-- ∠GOF (between OG right and OF lower-right at 58° below horizontal) = 58°. ✓ -->
+        <!-- I'll use this layout. -->
+
+        <!-- O=(150,100). Line1: E(86,0)—O—F(214,200). Line2: H(30,100)—O—G(270,100). -->
+        <!-- ∠GOF=58° (between OG east and OF at 58° below east). Label as ∠EOF with E=upper ray. -->
+        <!-- ∠EOH=58° (vertical angle). ∠EOG=122° (supplementary). -->
+        <!-- Renaming: call the top-right ray as one end. Let me just use the labels from the question: E,F,G,H,O. -->
+        <!-- ∠EOF: ray OE and ray OF. Put E upper and F lower-left so ∠EOF at top = 58°. -->
+        <!-- OE upper: at 122° from east = (150+cos122°*80,100-sin122°*80)=(150-42.4,100-67.9)=(108,32) -->
+        <!-- OF lower-right: at 122°+180°=302°=(150+cos(-58°)*80,100+sin(-58°)*80)... -->
+        <!-- I'll just draw a clean diagram with the angles labeled correctly without worrying about exact vertex positions. -->
+
+        <!-- FINAL CLEAN APPROACH: two lines cross at O(150,100). -->
+        <!-- Line1: slope so it makes 58° with Line2. Line2: horizontal. -->
+        <!-- E=(90,0), F=(210,200) on Line1 (through O at 59° from east going up-left and down-right) -->
+        <!-- G=(270,100), H=(30,100) on Line2 horizontal -->
+        <!-- Angles: ∠EOG (between OE upper-left and OG right) = 180°-59°=121°. ∠GOF=59°. -->
+        <!-- For 58°: E=(150-80cos58°,100-80sin58°)=(150-42.4,100-67.9)=(108,32). F=(192,168). -->
+
+        <!-- Green sector ∠EOF (top, 58°): between OE upper-left(108,32) and ... wait I want ∠EOF=58° between OE and OF. -->
+        <!-- If ∠EOF = top angle = 58°, then OE and OF must have 58° between them, both going upward. -->
+        <!-- Let OE go upper-left at 148° from east: (150+80cos148°,100-80sin148°)=(150-67.9,100-42.4)=(82,58) -->
+        <!-- Let OF go upper-right at 148°-58°=90° from east: (150+0,100-80)=(150,20) -->
+        <!-- ∠GOF (right side): angle between OG(0°) and OF(90°)=90°. ∠GOE = 180°-148°=32°. ∠EOF=148°-90°=58°. ✓ *)
+        <!-- Then ∠HOF(left, vertical to ∠GOF... no. ∠HOG=180°. Verticals: ∠EOG=148°, ∠HOF=148°? No. -->
+        <!-- Vertical angles: ∠EOF and ∠HOG are vertical (both=58°). ∠EOH and ∠FOG are vertical (=122°). -->
+        <!-- Let me go with: OE upper-left, OF upper-right — NO, E and F should be OPPOSITE rays (on the same line through O). -->
+        <!-- Line EF: through O. Line GH: through O. The four angles are ∠EOG, ∠GOF, ∠FOH, ∠HOE. -->
+        <!-- Vertical pairs: ∠EOG=∠FOH, ∠GOF=∠HOE. -->
+        <!-- If ∠EOF is labeled in the problem, it means the angle at O in the triangle E-O-F sense (between ray OE and ray OF). Since E-O-F is a straight line, ∠EOF=180°. That can't be right. -->
+        <!-- The question says ∠EOF = 58° so O must NOT be on segment EF. Let me just treat E,F,G,H as four separate rays from O (not forming two full lines, but four rays like compass directions roughly). -->
+        <!-- OR: the problem uses ∠EOF to mean the angle of one of the four sectors at the intersection. This is standard — two lines create 4 angles, and ∠EOF names the sector between ray OE and ray OF. -->
+        <!-- So E and F are NOT on the same line; they're just labels for four rays. -->
+        <!-- Let me place: E=upper-left, O=center, F=lower-right, G=upper-right, H=lower-left. The two lines are EF-direction and GH-direction. ∠EOF = angle between ray OE and ray OF = the obtuse/reflex? No—since E is upper-left and F is lower-right, they're OPPOSITE, making ∠EOF=180°. -->
+        <!-- I think the problem means: two lines cross: one line has endpoints labeled E and H (E upper, H lower on same line), another has G and F (G left, F right). The angle between OE and OF is 58°. Let me just place it sensibly. -->
+
+        <!-- FINAL: O=(150,100). Line1: endpoints A1=(50,20) and A2=(250,180) — going upper-left to lower-right at ~37° below from upper-left. Label upper-left end as E, lower-right as F. Line2: endpoints B1=(30,160) and B2=(270,40) going lower-left to upper-right. Label upper-right as G, lower-left as H. -->
+        <!-- The angle ∠EOF... still 180°. -->
+        <!-- I give up trying to make ∠EOF literal and will just draw two lines, label the four quadrant-regions, put 58° on one of the acute angles and β on adjacent. The SVG will be clear visually. -->
+
+        <!-- TWO LINES crossing at O(150,100): -->
+        <!-- Line1 (call it EF): from E(40,30) to F(260,170). Angle of line: atan2(140,220)=32.5° -->
+        <!-- Line2 (call it GH): from G(260,30) to H(40,170). Angle of line: atan2(140,-220)=147.5° -->
+        <!-- Angle between them: 147.5-32.5=115°. The other pair: 180-115=65°. -->
+        <!-- For 58°: need lines to be 58° apart. -->
+        <!-- Line1: horizontal: E(30,100) to F(270,100). Line2 at 58° to horizontal: from upper-left to lower-right. -->
+        <!-- Upper-left end: G=(150-100*cos58°,100-100*sin58°)=(97,15). Lower-right: H=(203,185). -->
+        <!-- ∠EOG (between OE left and OG upper-left) = 180°-58°=122°. ∠GOF (between OG upper-left and OF right) = 58°. ✓ *)
+        <!-- Label: ∠EOF with E=top-left quadrant ray... I'll just draw it and put clear angle labels. -->
+
+        <!-- I'll go with: Line1 horizontal E(30,100)—O—F(270,100). Line2: G(97,15)—O—H(203,185) at 58° to horizontal. -->
+        <!-- ∠GOF (top-right sector, between OG and OF) = 58° — this is the "∠EOF" in the problem if we rename G→E. Let me just rename for the SVG: put E at upper position (97,15), F at (270,100) right, G at (203,185) lower, H at (30,100) left. -->
+        <!-- Then ∠EOF between OE(upper,97,15) and OF(right,270,100) = 58°. ✓ Vertical ∠HOG = 58°. ∠EOH=122°. β=∠EOH=122°. -->
+
+        <!-- Sectors first -->
+        <!-- ∠EOF green sector: r=24. OE unit: ((97-150)/110,(15-100)/110)=(-53/110,-85/110)=(-0.482,-0.773). p1=OE*24+O=(138.4,81.5) -->
+        <!-- OF unit: (270-150)/120=1,0. p2=OF*24+O=(174,100) -->
+        <!-- arc from p1 to p2, angle=58°, sweep=1 (CW in screen) -->
+        <path d="M 150,100 L 138.4,81.5 A 24,24 0 0,1 174,100 Z" fill="#b8e8b8" stroke="none"/>
+
+        <!-- ∠HOG green sector (vertical, bottom-left): OH unit: (30-150)/120=-1,0. OG unit: (203-150)/110=0.482, (185-100)/110=0.773. -->
+        <!-- p1=OH*24+O=(121,100). p2=OG*24+O=(161.6,118.5) -->
+        <path d="M 150,100 L 121,100 A 24,24 0 0,1 161.6,118.5 Z" fill="#b8e8b8" stroke="none"/>
+
+        <!-- ∠EOH gold sector (left side, β): from OE(-0.482,-0.773) going to OH(-1,0) -->
+        <!-- p1=OE*24+O=(138.4,81.5). p2=OH*24+O=(121,100). angle=122°, large-arc=1, sweep=0 -->
+        <!-- Actually 122°<180° so large-arc=0 -->
+        <path d="M 150,100 L 138.4,81.5 A 24,24 0 0,0 121,100 Z" fill="#ffe89a" stroke="none"/>
+
+        <!-- Lines -->
+        <line x1="30" y1="100" x2="270" y2="100" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="97" y1="15" x2="203" y2="185" stroke="#000" stroke-width="1.6" stroke-linecap="round"/>
+
+        <!-- Labels -->
+        <text x="97" y="8" class="lbl" text-anchor="middle" dominant-baseline="central">E</text>
+        <text x="272" y="96" class="lbl" text-anchor="middle" dominant-baseline="central">F</text>
+        <text x="203" y="192" class="lbl" text-anchor="middle" dominant-baseline="central">G</text>
+        <text x="28" y="96" class="lbl" text-anchor="middle" dominant-baseline="central">H</text>
+        <text x="150" y="113" class="lbl" text-anchor="middle" dominant-baseline="central">O</text>
+
+        <!-- Angle values -->
+        <text x="164" y="87" class="ang" text-anchor="middle" dominant-baseline="central">58°</text>
+        <text x="136" y="114" class="ang" text-anchor="middle" dominant-baseline="central">58°</text>
+        <text x="131" y="87" class="ang" text-anchor="middle" dominant-baseline="central">β</text>
+      </svg>
+    </div>
+    <div class="sub-label">(א) כתבו את שם הזווית הקודקודית ל-<span class="ltr">∠EOF</span> ואת גודלה:</div>
+    <textarea class="explain-box" rows="2"></textarea>
+    <div class="sub-label">(ב) חשבו את <span class="ltr">∠EOH</span>:</div>
+    <textarea class="explain-box" rows="2"></textarea>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-block">
+    <div class="q-num">שאלה 7</div>
+    <div class="q-text">
+      <p>במשולש שווה-צלעות <span class="ltr">KLM</span>.</p>
+    </div>
+    <div class="q-svg-wrap">
+      <!-- K=(150,15), L=(30,195), M=(270,195) -->
+      <svg viewBox="-10 -10 310 225" xmlns="http://www.w3.org/2000/svg">
+        <rect x="-10" y="-10" width="310" height="225" fill="#fff"/>
+
+        <!-- Green sectors at all three vertices, r=20 -->
+        <!-- At K(150,15): rays to L and M. KL unit: (30-150)/208=-0.577, (195-15)/208=0.866. KM unit: (270-150)/208=0.577, (195-15)/208=0.866 -->
+        <!-- p1=KL*20+K=(138.5,32.3). p2=KM*20+K=(161.5,32.3). angle=60°, sweep=1 -->
+        <path d="M 150,15 L 138.5,32.3 A 20,20 0 0,1 161.5,32.3 Z" fill="#b8e8b8" stroke="none"/>
+
+        <!-- At L(30,195): rays to K and M. LK unit: (150-30)/208=0.577,(15-195)/208=-0.866. LM unit: (270-30)/240=1,0. -->
+        <!-- p1=LK*20+L=(41.5,177.7). p2=LM*20+L=(50,195). angle=60°, sweep=0 -->
+        <path d="M 30,195 L 41.5,177.7 A 20,20 0 0,0 50,195 Z" fill="#b8e8b8" stroke="none"/>
+
+        <!-- At M(270,195): rays to K and L. MK unit: (150-270)/208=-0.577,(15-195)/208=-0.866. ML unit: (30-270)/240=-1,0. -->
+        <!-- p1=MK*20+M=(258.5,177.7). p2=ML*20+M=(250,195). angle=60°, sweep=1 -->
+        <path d="M 270,195 L 258.5,177.7 A 20,20 0 0,1 250,195 Z" fill="#b8e8b8" stroke="none"/>
+
+        <!-- Triangle sides -->
+        <line x1="150" y1="15" x2="30" y2="195" stroke="#000" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="150" y1="15" x2="270" y2="195" stroke="#000" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="30" y1="195" x2="270" y2="195" stroke="#000" stroke-width="1.8" stroke-linecap="round"/>
+
+        <!-- Tick marks on all three sides (single tick at midpoint, perpendicular) -->
+        <!-- KL midpoint: (90,105), direction: (-120,180), perp: (180,120)/216.3*6=(5,3.3) -->
+        <line x1="85" y1="107" x2="95" y2="103" stroke="#000" stroke-width="1.5"/>
+        <!-- KM midpoint: (210,105), direction: (120,180), perp: (-180,120)/216.3*6=(-5,3.3) -->
+        <line x1="205" y1="103" x2="215" y2="107" stroke="#000" stroke-width="1.5"/>
+        <!-- LM midpoint: (150,195), direction: (240,0), perp: (0,6) -->
+        <line x1="150" y1="189" x2="150" y2="201" stroke="#000" stroke-width="1.5"/>
+
+        <!-- Labels -->
+        <text x="150" y="5" class="lbl" text-anchor="middle" dominant-baseline="central">K</text>
+        <text x="18" y="200" class="lbl" text-anchor="middle" dominant-baseline="central">L</text>
+        <text x="282" y="200" class="lbl" text-anchor="middle" dominant-baseline="central">M</text>
+
         <!-- 60° labels -->
-        <text x="150" y="47" text-anchor="middle" class="ang">60°</text>
-        <text x="55" y="183" text-anchor="middle" class="ang">60°</text>
-        <text x="245" y="183" text-anchor="middle" class="ang">60°</text>
+        <text x="150" y="42" class="ang" text-anchor="middle" dominant-baseline="central">60°</text>
+        <text x="56" y="186" class="ang" text-anchor="middle" dominant-baseline="central">60°</text>
+        <text x="244" y="186" class="ang" text-anchor="middle" dominant-baseline="central">60°</text>
       </svg>
     </div>
-    <div class="sub-label">(א) מהו גודל כל זווית? <span class="ltr">∠A = ∠B = ∠C =</span> <input class="ans-line" type="text" /></div>
-    <div class="sub-label">(ב) האם ייתכן שמשולש שווה-צלעות יהיה גם ישר-זווית? הסבירו:</div>
+    <div class="sub-label">(א) מהו גודל כל זווית? כתבו ונמקו.</div>
+    <textarea class="explain-box" rows="3"></textarea>
+    <div class="sub-label">(ב) האם ייתכן משולש שווה-צלעות עם זווית של <span class="ltr">70°</span>? הסבירו.</div>
     <textarea class="explain-box" rows="3"></textarea>
   </div>
 
-  <!-- Q8 — משולש שווה-שוקיים -->
+  <!-- Q8 -->
   <div class="q-block">
-    <div class="q-num">שאלה 8 — משולש שווה-שוקיים</div>
+    <div class="q-num">שאלה 8</div>
     <div class="q-text">
-      <p>במשולש שווה-שוקיים <span class="ltr">MNP</span> נתון: <span class="ltr">MN = MP</span>, <span class="ltr">∠M = 68°</span>.</p>
+      <p>במשולש שווה-שוקיים <span class="ltr">RST</span> נתון: <span class="ltr">RS = RT</span>,  <span class="ltr">∠R = 106°</span>. חשבו את <span class="ltr">∠S</span> ו-<span class="ltr">∠T</span>.</p>
     </div>
     <div class="q-svg-wrap">
-      <!--
-        M=(140,15), N=(20,190), P=(260,190).
-        dir MN: (20-140,190-15)=(-120,175), |...|=sqrt(14400+30625)=sqrt(45025)=212.2, normalized=(-0.565,0.824)
-        dir MP: (260-140,190-15)=(120,175)/212.2=(0.565,0.824)
-        Sector at M, r=22: on MN=(140-0.565*22,15+0.824*22)=(127.6,33.1), on MP=(140+0.565*22,15+0.824*22)=(152.4,33.1)
-        dir NM: (0.565,-0.824), dir NP: (1,0)
-        Sector at N, r=20: on NM=(20+0.565*20,190-0.824*20)=(31.3,173.5), on NP=(40,190)
-        dir PM: (-0.565,-0.824), dir PN: (-1,0)
-        Sector at P, r=20: on PN=(240,190), on PM=(260-0.565*20,190-0.824*20)=(248.7,173.5)
-        Double tick marks on MN and MP:
-          MN midpoint: (80,102.5), perp direction: (0.824,0.565)
-          tick1 at midpoint: (80-0.824*5,102.5-0.565*5)→(80+0.824*5,102.5+0.565*5) = (75.9,99.7)→(84.1,105.3)
-          tick2 offset by perp*3: (75.9+0.565*3,99.7-0.824*3)→(84.1+0.565*3,105.3-0.824*3) = (77.6,97.2)→(85.8,102.8)
-          MP midpoint: (200,102.5), perp (0.824,-0.565) or (−0.824,0.565)
-          tick1: (200-0.824*5,102.5+0.565*5)→(200+0.824*5,102.5-0.565*5) = (195.9,105.3)→(204.1,99.7)
-          tick2: (195.9-0.565*3,105.3-0.824*3)→(204.1-0.565*3,99.7-0.824*3) = (194.2,102.8)→(202.4,97.2)
-      -->
-      <svg viewBox="-10 0 310 215" xmlns="http://www.w3.org/2000/svg">
-        <!-- coral sector at M -->
-        <path d="M 140,15 L 127.6,33.1 A 22,22 0 0,1 152.4,33.1 Z" fill="#f8c0c0" stroke="none"/>
-        <!-- green sectors at N and P -->
-        <path d="M 20,190 L 31.3,173.5 A 20,20 0 0,1 40,190 Z" fill="#b8e8b8" stroke="none"/>
-        <path d="M 260,190 L 240,190 A 20,20 0 0,1 248.7,173.5 Z" fill="#b8e8b8" stroke="none"/>
-        <!-- sides -->
-        <line x1="140" y1="15" x2="20" y2="190" stroke="#1a1a2e" stroke-width="1.6"/>
-        <line x1="140" y1="15" x2="260" y2="190" stroke="#1a1a2e" stroke-width="1.6"/>
-        <line x1="20" y1="190" x2="260" y2="190" stroke="#1a1a2e" stroke-width="1.6"/>
-        <!-- double tick marks on MN -->
-        <line x1="75.9" y1="99.7" x2="84.1" y2="105.3" stroke="#1a1a2e" stroke-width="2"/>
-        <line x1="77.6" y1="97.2" x2="85.8" y2="102.8" stroke="#1a1a2e" stroke-width="2"/>
-        <!-- double tick marks on MP -->
-        <line x1="195.9" y1="105.3" x2="204.1" y2="99.7" stroke="#1a1a2e" stroke-width="2"/>
-        <line x1="194.2" y1="102.8" x2="202.4" y2="97.2" stroke="#1a1a2e" stroke-width="2"/>
-        <!-- labels -->
-        <text x="140" y="7" text-anchor="middle" dominant-baseline="central" class="lbl">M</text>
-        <text x="8" y="197" text-anchor="middle" dominant-baseline="central" class="lbl">N</text>
-        <text x="272" y="197" text-anchor="middle" dominant-baseline="central" class="lbl">P</text>
-        <!-- angle labels -->
-        <text x="140" y="48" text-anchor="middle" class="ang">68°</text>
-        <text x="44" y="178" text-anchor="middle" class="ang">α</text>
-        <text x="236" y="178" text-anchor="middle" class="ang">α</text>
+      <!-- R=(140,20), S=(20,190), T=(260,190) -->
+      <svg viewBox="-10 -10 310 220" xmlns="http://www.w3.org/2000/svg">
+        <rect x="-10" y="-10" width="310" height="220" fill="#fff"/>
+
+        <!-- Coral sector at R(140,20): angle 106°. RS unit: (20-140)/243=-0.494,(190-20)/243=0.700. RT unit: (260-140)/243=0.494,0.700 -->
+        <!-- r=24. p1=RS*24+R=(128.1,36.8). p2=RT*24+R=(151.9,36.8). angle=106°, large-arc=1 since >90? No, 106>90 so large-arc=1 — wait, large-arc-flag is 1 when arc > 180°. 106°<180° so large-arc=0. sweep=1 (CW on screen = going from p1 to p2 through bottom). -->
+        <!-- Actually the sector opening is downward (both rays go downward from R). sweep=1 goes CW. -->
+        <path d="M 140,20 L 128.1,36.8 A 24,24 0 0,1 151.9,36.8 Z" fill="#f8c0c0" stroke="none"/>
+
+        <!-- Green sectors at S and T, r=18 -->
+        <!-- At S(20,190): RS direction from S = (140-20,20-190)=(120,-170), len=208. SR unit=(0.577,-0.817). ST unit=(1,0). -->
+        <!-- p1=SR*18+S=(30.4,175.3). p2=ST*18+S=(38,190). angle=∠RST. sweep=0 (going from p1 CCW to p2). -->
+        <path d="M 20,190 L 30.4,175.3 A 18,18 0 0,0 38,190 Z" fill="#b8e8b8" stroke="none"/>
+
+        <!-- At T(260,190): TS unit=(-1,0). TR unit=(140-260,20-190)/208=(-0.577,-0.817). -->
+        <!-- p1=TS*18+T=(242,190). p2=TR*18+T=(249.6,175.3). sweep=1 -->
+        <path d="M 260,190 L 242,190 A 18,18 0 0,1 249.6,175.3 Z" fill="#b8e8b8" stroke="none"/>
+
+        <!-- Triangle sides -->
+        <line x1="140" y1="20" x2="20" y2="190" stroke="#000" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="140" y1="20" x2="260" y2="190" stroke="#000" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="20" y1="190" x2="260" y2="190" stroke="#000" stroke-width="1.8" stroke-linecap="round"/>
+
+        <!-- Double tick marks on RS and RT (equal legs) -->
+        <!-- RS midpoint: (80,105). RS direction: (-120,170), len=208. perp: (170,120)/208 * 5 = (4.1,2.9) -->
+        <line x1="76" y1="103" x2="84" y2="108" stroke="#000" stroke-width="1.4"/>
+        <line x1="72" y1="99" x2="80" y2="104" stroke="#000" stroke-width="1.4"/>
+        <!-- RT midpoint: (200,105). RT direction: (120,170), perp: (-170,120)/208*5=(-4.1,2.9) -->
+        <line x1="196" y1="108" x2="204" y2="103" stroke="#000" stroke-width="1.4"/>
+        <line x1="200" y1="104" x2="208" y2="99" stroke="#000" stroke-width="1.4"/>
+
+        <!-- Labels -->
+        <text x="140" y="10" class="lbl" text-anchor="middle" dominant-baseline="central">R</text>
+        <text x="8" y="196" class="lbl" text-anchor="middle" dominant-baseline="central">S</text>
+        <text x="272" y="196" class="lbl" text-anchor="middle" dominant-baseline="central">T</text>
+
+        <!-- Angle labels -->
+        <text x="140" y="50" class="ang" text-anchor="middle" dominant-baseline="central">106°</text>
+        <text x="42" y="180" class="ang" text-anchor="middle" dominant-baseline="central">α</text>
+        <text x="238" y="180" class="ang" text-anchor="middle" dominant-baseline="central">α</text>
       </svg>
     </div>
-    <div class="sub-label">(א) חשבו את <span class="ltr">∠N</span> ו-<span class="ltr">∠P</span>:</div>
-    <textarea class="explain-box" rows="4"></textarea>
-    <div class="sub-label">(ב) האם המשולש חד-זווית, ישר-זווית או קהה-זווית? הסבירו:</div>
-    <textarea class="explain-box" rows="3"></textarea>
+    <textarea class="explain-box" rows="3" placeholder="∠S = ∠T = ... כי..."></textarea>
   </div>
 
-  <!-- Q9 — סכום זוויות במשולש -->
+  <!-- Q9 -->
   <div class="q-block">
-    <div class="q-num">שאלה 9 — סכום זוויות במשולש</div>
+    <div class="q-num">שאלה 9</div>
     <div class="q-text">
-      <p>במשולש <span class="ltr">RST</span> נתון: <span class="ltr">∠R = 35°</span>, <span class="ltr">∠S = 2·∠T</span>.</p>
+      <p>במשולש <span class="ltr">ABC</span> נתון: <span class="ltr">∠A = 48°</span>,  <span class="ltr">∠B = 77°</span>. חשבו את <span class="ltr">∠C</span>.</p>
     </div>
     <div class="q-svg-wrap">
-      <!--
-        R=(20,185), S=(290,185), T=(130,20).
-        dir RS: (1,0), dir RT: (130-20,20-185)=(110,-165)/|...|=(110,-165)/198.4=(0.555,-0.832)
-        Green sector at R, r=24: on RS=(44,185), on RT=(20+0.555*24,185-0.832*24)=(33.3,165.0)
-        dir SR: (-1,0), dir ST: (130-290,20-185)=(-160,-165)/229.4=(-0.698,-0.720)
-        Gold sector at S, r=24: on SR=(266,185), on ST=(290-0.698*24,185-0.720*24)=(273.2,167.7)
-        dir TS: (290-130,185-20)=(160,165)/229.4=(0.698,0.720), dir TR: (20-130,185-20)=(-110,165)/198.4=(-0.555,0.832)
-        Coral sector at T, r=20: on TS=(130+0.698*20,20+0.720*20)=(144.0,34.4), on TR=(130-0.555*20,20+0.832*20)=(118.9,36.6)
-        viewBox="-20 -20 330 230"
-      -->
-      <svg viewBox="-20 -20 330 230" xmlns="http://www.w3.org/2000/svg">
-        <!-- green sector at R (35°) -->
-        <path d="M 20,185 L 44,185 A 24,24 0 0,0 33.3,165.0 Z" fill="#b8e8b8" stroke="none"/>
-        <!-- gold sector at S (2α) -->
-        <path d="M 290,185 L 273.2,167.7 A 24,24 0 0,0 266,185 Z" fill="#ffe89a" stroke="none"/>
-        <!-- coral sector at T (α) -->
-        <path d="M 130,20 L 144.0,34.4 A 20,20 0 0,0 118.9,36.6 Z" fill="#f8c0c0" stroke="none"/>
-        <!-- sides -->
-        <line x1="20" y1="185" x2="290" y2="185" stroke="#1a1a2e" stroke-width="1.6"/>
-        <line x1="20" y1="185" x2="130" y2="20" stroke="#1a1a2e" stroke-width="1.6"/>
-        <line x1="290" y1="185" x2="130" y2="20" stroke="#1a1a2e" stroke-width="1.6"/>
-        <!-- labels -->
-        <text x="8" y="192" text-anchor="middle" dominant-baseline="central" class="lbl">R</text>
-        <text x="302" y="192" text-anchor="middle" dominant-baseline="central" class="lbl">S</text>
-        <text x="130" y="10" text-anchor="middle" dominant-baseline="central" class="lbl">T</text>
-        <!-- angle labels -->
-        <text x="50" y="172" text-anchor="middle" class="ang">35°</text>
-        <text x="263" y="170" text-anchor="middle" class="ang">2α</text>
-        <text x="130" y="52" text-anchor="middle" class="ang">α</text>
+      <!-- A=(20,190), B=(280,190), C=(150,20) -->
+      <svg viewBox="-10 -10 320 220" xmlns="http://www.w3.org/2000/svg">
+        <rect x="-10" y="-10" width="320" height="220" fill="#fff"/>
+
+        <!-- Green sector at A(20,190): rays to B(280,190) and C(150,20). AB unit=(1,0). AC unit=(130/208,-170/208)=(0.625,-0.817). -->
+        <!-- r=22. p1=AB*22+A=(42,190). p2=AC*22+A=(33.8,172). sweep=0 (CCW: going from AB ray upward to AC). Actually from AB(0°) to AC(−52.6°=307.4°) CCW = 307.4° arc — that's too large. Going CW from AB to AC = 52.6°. sweep=1 for CW. -->
+        <path d="M 20,190 L 42,190 A 22,22 0 0,0 33.8,172 Z" fill="#b8e8b8" stroke="none"/>
+
+        <!-- Gold sector at B(280,190): rays to A(20,190) and C(150,20). BA unit=(-1,0). BC unit=(-130/208,-170/208)=(-0.625,-0.817). -->
+        <!-- p1=BA*22+B=(258,190). p2=BC*22+B=(266.3,172). angle from BA to BC going... BA is 180°, BC is 180°+52.6°=232.6°. Going CCW from BA(180°) to BC(232.6°) = 52.6°. sweep=0 (CCW in screen=CW standard). Actually in SVG, sweep=1 is CW in screen coords. Let me just use sweep=1 to go clockwise from p1 to p2. -->
+        <path d="M 280,190 L 258,190 A 22,22 0 0,1 266.3,172 Z" fill="#ffe89a" stroke="none"/>
+
+        <!-- Coral sector at C(150,20): rays to A and B. CA unit=(-130/208,170/208)=(-0.625,0.817). CB unit=(130/208,0.817). -->
+        <!-- r=22. p1=CA*22+C=(136.3,38). p2=CB*22+C=(163.8,38). angle=180-48-77=55°. sweep=1. -->
+        <path d="M 150,20 L 136.3,38 A 22,22 0 0,1 163.8,38 Z" fill="#f8c0c0" stroke="none"/>
+
+        <!-- Triangle sides -->
+        <line x1="20" y1="190" x2="280" y2="190" stroke="#000" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="20" y1="190" x2="150" y2="20" stroke="#000" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="280" y1="190" x2="150" y2="20" stroke="#000" stroke-width="1.8" stroke-linecap="round"/>
+
+        <!-- Labels -->
+        <text x="8" y="196" class="lbl" text-anchor="middle" dominant-baseline="central">A</text>
+        <text x="292" y="196" class="lbl" text-anchor="middle" dominant-baseline="central">B</text>
+        <text x="150" y="10" class="lbl" text-anchor="middle" dominant-baseline="central">C</text>
+
+        <!-- Angle labels -->
+        <text x="50" y="178" class="ang" text-anchor="middle" dominant-baseline="central">48°</text>
+        <text x="250" y="178" class="ang" text-anchor="middle" dominant-baseline="central">77°</text>
+        <text x="150" y="48" class="ang" text-anchor="middle" dominant-baseline="central">?</text>
       </svg>
     </div>
-    <div class="sub-label">(א) הקימו משוואה ופתרו את <span class="ltr">∠T</span> ו-<span class="ltr">∠S</span>:</div>
-    <textarea class="explain-box" rows="4"></textarea>
-    <div class="sub-label">(ב) מהו סוג המשולש (חד/ישר/קהה-זווית)? הסבירו:</div>
-    <textarea class="explain-box" rows="3"></textarea>
+    <textarea class="explain-box" rows="2" placeholder="∠C = ..."></textarea>
   </div>
 
-  <!-- Q10 — סכום זוויות במרובע -->
+  <!-- Q10 -->
   <div class="q-block">
-    <div class="q-num">שאלה 10 — סכום זוויות במרובע</div>
+    <div class="q-num">שאלה 10</div>
     <div class="q-text">
-      <p>ברומב (מעוין) <span class="ltr">ABCD</span> ידוע ש-<span class="ltr">∠A = 3x+15°</span> ו-<span class="ltr">∠B = x+5°</span>.</p>
-      <p>במעוין, זוויות <span class="ltr">A</span> ו-<span class="ltr">B</span> צמודות (סכומן <span class="ltr">180°</span>).</p>
+      <p>(א) מה סכום הזוויות בכל מרובע? &nbsp; <input class="ans-line" type="text" placeholder="___________"/></p>
+      <p>(ב) במרובע <span class="ltr">PQRS</span> נתון: <span class="ltr">∠P = 92°</span>, <span class="ltr">∠Q = 88°</span>, <span class="ltr">∠R = 115°</span>. חשבו את <span class="ltr">∠S</span>.</p>
     </div>
-    <div class="sub-label">(א) הקימו משוואה ופתרו את <span class="ltr">x</span>:</div>
-    <textarea class="explain-box" rows="4"></textarea>
-    <div class="sub-label">(ב) חשבו את כל 4 הזוויות של המעוין:</div>
-    <textarea class="explain-box" rows="4"></textarea>
+    <textarea class="explain-box" rows="3" placeholder="∠S = ..."></textarea>
   </div>
+
+  <footer>
+    © כל הזכויות שמורות לחן מרגלית &nbsp;|&nbsp; מבדק שליטה מסכם — זוויות — רמה בסיסית ב׳
+  </footer>
 
 </div>
-<footer>© כל הזכויות שמורות לחן מרגלית &nbsp;|&nbsp; מבדק שליטה מסכם — זוויות — רמה בסיסית ב׳</footer>
 </body>
 </html>
