@@ -130,6 +130,7 @@ const gameLevels4 = [
 
 const IMG5A = '<img src="seq5_adj_a.png" style="width:100%;max-width:340px;border-radius:8px;display:block;margin:0 auto 8px;" />';
 const IMG5B = '<img src="seq5_adj_b.png" style="width:100%;max-width:340px;border-radius:8px;display:block;margin:0 auto 8px;" />';
+const _IMG5B_SVG = _wsvg('<svg viewBox="-5 0 350 105" xmlns="http://www.w3.org/2000/svg"><rect x="-5" y="0" width="350" height="105" fill="#fff"/><line x1="5" y1="85" x2="335" y2="85" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><line x1="120" y1="85" x2="34" y2="57" stroke="#000" stroke-width="1.6" stroke-linecap="round"/><path d="M95,85 A25,25 0 0 0 96.2,77.3" fill="none" stroke="#d35400" stroke-width="1.5"/><text x="78" y="72" font-family="Times New Roman" font-size="15" font-weight="bold" fill="#d35400" text-anchor="middle" dominant-baseline="central">α</text><path d="M170,85 A50,50 0 0 0 72.5,69.6" fill="none" stroke="#2471a3" stroke-width="1.5"/><text x="205" y="53" font-family="Times New Roman" font-size="15" fill="#2471a3" text-anchor="middle" dominant-baseline="central">162°</text></svg>');
 const IMG5C = '<img src="seq5_adj_c.png" style="width:100%;max-width:340px;border-radius:8px;display:block;margin:0 auto 8px;" />';
 const IMG5BI = '<img src="seq5_bisect.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 8px;" />';
 const IMG5T1 = '<img src="seq5_tf1.png" style="width:100%;max-width:480px;border-radius:8px;display:block;margin:0 auto 8px;" />';
@@ -137,7 +138,7 @@ const IMG5T2 = '<img src="seq5_tf2.png" style="width:100%;max-width:380px;border
 const A5 = s => s.replace(/∡/g,'<span data-angsized="1" style="font-size:1.8em;font-weight:700;line-height:1;">∡</span>');
 const gameLevels5 = [
   {q:IMG5A+'<div style="margin-top:4px;">'+A5('מה גודל <span dir="ltr">α</span>?')+'</div>',opts:['22°','158°','68°','148°'],ans:1,exp:A5('זוויות צמודות — סכומן 180°. לכן α = 180° − 22° = 158°.')},
-  {q:IMG5B+'<div style="margin-top:4px;">'+A5('מה גודל <span dir="ltr">α</span>?')+'</div>',opts:['62°','162°','28°','18°'],ans:3,exp:A5('α + 162° = 180° → α = 180° − 162° = 18°.')},
+  {q:_IMG5B_SVG+'<div style="margin-top:4px;">'+A5('מה גודל <span dir="ltr" style="color:#d35400;font-weight:bold;">α</span>?')+'</div>',opts:['62°','162°','28°','18°'],ans:3,exp:A5('α + 162° = 180° → α = 180° − 162° = 18°.')},
   {q:IMG5C+'<div style="margin-top:4px;">'+A5('מה גודל <span dir="ltr">α</span>?')+'</div>',opts:['67°','123°','103°','113°'],ans:3,exp:A5('67° + α = 180° → α = 180° − 67° = 113°.')},
   {q:IMG5BI+'<div style="margin-top:4px;">'+A5('מה גודל הזווית הצמודה ל-<span dir="ltr">∡ABC</span>?')+'</div>',opts:['70°','35°','110°','140°'],ans:2,exp:A5('זוויות צמודות — סכומן 180°. <span dir="ltr">∡ABC = 70°</span>, לכן הצמודה = 180° − 70° = 110°.')},
   {q:IMG5T1+'<div style="margin-top:4px;">נכון או לא נכון? לכל אחת מהזוויות המסומנות בסרטוט יש זווית צמודה.</div>',opts:['נכון — לכל שלוש יש צמודה','לא נכון — '+A5('ל-∡2 אין זווית צמודה'),'לא נכון — אף זווית אינה צמודה','נכון — כי הן על קו ישר'],ans:1,exp:A5('∡1 ו-∡3 כל אחת בין קרן לבין חלק קו ישר — כן יש להן צמודה. ∡2 בין שתי קרניים בלבד — אין לה זווית צמודה.')},
