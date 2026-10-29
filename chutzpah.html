@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שיעור בחוצפה חיובית</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Rubik',sans-serif;
+    background: radial-gradient(ellipse at 50% -10%, #3D3568 0%, #1E1B2E 50%, #0F0D1A 100%);
+    color:#EAF4F1;
+    direction:rtl;
+    min-height:100vh;
+    line-height:1.6;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:40px 24px 80px;}
+
+  .back-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 18px;border-radius:20px;
+    border:1.5px solid rgba(234,244,241,0.15);
+    color:rgba(234,244,241,0.5);font-size:13px;font-weight:600;
+    text-decoration:none;transition:all .15s;margin-bottom:36px;
+  }
+  .back-btn:hover{border-color:rgba(234,244,241,0.4);color:rgba(234,244,241,0.8);}
+
+  .hero{text-align:center;margin-bottom:48px;}
+  .hero-icon{font-size:48px;margin-bottom:12px;}
+  h1{font-size:clamp(24px,4vw,36px);font-weight:800;color:#fff;margin:0 0 10px;letter-spacing:-0.5px;}
+  .subtitle{font-size:15px;color:rgba(234,244,241,0.55);margin:0;}
+
+  .videos{display:flex;flex-direction:column;gap:36px;}
+
+  .video-block{
+    background:rgba(234,244,241,0.04);
+    border:1.5px solid rgba(245,158,11,0.25);
+    border-radius:18px;
+    overflow:hidden;
+  }
+  .video-num{
+    padding:14px 20px 10px;
+    font-size:12px;font-weight:700;letter-spacing:1.5px;
+    color:#F59E0B;border-bottom:1px solid rgba(245,158,11,0.15);
+  }
+  .video-wrap{
+    position:relative;width:100%;padding-top:56.25%;
+  }
+  .video-wrap iframe{
+    position:absolute;top:0;right:0;width:100%;height:100%;
+    border:none;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-btn" href="./">→ חזרה לדף הראשי</a>
+
+  <div class="hero">
+    <div class="hero-icon">✨</div>
+    <h1>שיעור בחוצפה חיובית</h1>
+    <p class="subtitle">שלושה סרטונים לשיעור</p>
+  </div>
+
+  <div class="videos">
+
+    <div class="video-block">
+      <div class="video-num">סרטון 1</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/8ULPUVtLI98" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="video-block">
+      <div class="video-num">סרטון 2</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/SekGZ1M1T3k" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="video-block">
+      <div class="video-num">סרטון 3</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/scbX6eT1eGA" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
