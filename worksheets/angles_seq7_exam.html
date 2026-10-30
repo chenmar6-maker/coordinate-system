@@ -94,15 +94,42 @@
 
   <!-- שאלה 3 -->
   <div class="q-block">
-    <div class="q-num">שאלה 3 — שרשרת דגלים</div>
-    <img class="q-img" src="../unit7/seq7_exam_flags.png" alt="שרשרת דגלים" />
-    <div class="q-text">דרור תלה שרשרת דגלים על חוט. כל הדגלים הם משולשים שווי-צלעות (ראו סרטוט).</div>
+    <div class="q-num">שאלה 3 — שולחן גינה משושה</div>
+    <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:14px;">
+      <svg viewBox="10 28 270 255" style="width:220px;min-width:180px;flex-shrink:0;border:1px solid #e5e7eb;border-radius:8px;background:#fff;" xmlns="http://www.w3.org/2000/svg">
+        <!-- 6 equilateral triangles, center O at (145,155), r=95 -->
+        <!-- A=120°, B=60°, C=0°, D=-60°, E=-120°/240°, F=180° -->
+        <!-- SVG coords: x=145+95cos(θ), y=155-95sin(θ) -->
+        <!-- A:(145-47.5, 155-82.3)=(97.5,72.7) B:(192.5,72.7) C:(240,155) D:(192.5,237.3) E:(97.5,237.3) F:(50,155) -->
+        <polygon points="145,155 97,73 193,73"   fill="#F5A623" stroke="#C47D0E" stroke-width="1.6"/>
+        <polygon points="145,155 193,73 240,155"  fill="#E8952A" stroke="#C47D0E" stroke-width="1.6"/>
+        <polygon points="145,155 240,155 193,237" fill="#F5A623" stroke="#C47D0E" stroke-width="1.6"/>
+        <polygon points="145,155 193,237 97,237"  fill="#E8952A" stroke="#C47D0E" stroke-width="1.6"/>
+        <polygon points="145,155 97,237 50,155"   fill="#F5A623" stroke="#C47D0E" stroke-width="1.6"/>
+        <polygon points="145,155 50,155 97,73"    fill="#E8952A" stroke="#C47D0E" stroke-width="1.6"/>
+        <!-- Outer border -->
+        <polygon points="97,73 193,73 240,155 193,237 97,237 50,155" fill="none" stroke="#C47D0E" stroke-width="2.2"/>
+        <!-- Center point -->
+        <circle cx="145" cy="155" r="3" fill="#1a1a2e"/>
+        <!-- Labels -->
+        <text x="145" y="155" dx="10" dy="5"  font-family="'Times New Roman',serif" font-size="16" font-weight="bold" fill="#1a1a2e">O</text>
+        <text x="97"  y="73"  dy="-9"          font-family="'Times New Roman',serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a2e">A</text>
+        <text x="193" y="73"  dy="-9"          font-family="'Times New Roman',serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a2e">B</text>
+        <text x="240" y="155" dx="12"          font-family="'Times New Roman',serif" font-size="16" font-weight="bold" dominant-baseline="central" fill="#1a1a2e">C</text>
+        <text x="193" y="237" dy="16"          font-family="'Times New Roman',serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a2e">D</text>
+        <text x="97"  y="237" dy="16"          font-family="'Times New Roman',serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a2e">E</text>
+        <text x="50"  y="155" dx="-12"         font-family="'Times New Roman',serif" font-size="16" font-weight="bold" dominant-baseline="central" fill="#1a1a2e">F</text>
+      </svg>
+      <div style="flex:1;min-width:200px;">
+        <div class="q-text" style="margin-bottom:0;">נגר בנה שולחן גינה בצורת משושה. משטח השולחן מורכב משישה לוחות עץ, וכל לוח הוא משולש שווה-צלעות. כל הלוחות נפגשים בנקודה O שבמרכז השולחן.</div>
+      </div>
+    </div>
 
-    <div class="sub-label">(א) מהו גודל ∠ABD?</div>
-    <input class="answer-line" type="text" placeholder="∠ABD = " style="max-width:200px;" />
+    <div class="sub-label">(א) מהו גודל זווית <span dir="ltr">∠ABC</span>? נמקו:</div>
+    <textarea class="explain-box" rows="2" placeholder="∠ABC = ... כי..."></textarea>
 
-    <div class="sub-label">(ב) דרור הצמיד את הדגלים כך שנקודות A ו-B התלכדו. מהו גודל ∠DAC?</div>
-    <input class="answer-line" type="text" placeholder="∠DAC = " style="max-width:200px;" />
+    <div class="sub-label">(ב) מהו גודל זווית <span dir="ltr">∠AOD</span>? נמקו:</div>
+    <textarea class="explain-box" rows="2" placeholder="∠AOD = ... כי..."></textarea>
   </div>
 
 </div>
