@@ -69,10 +69,19 @@
   .def-table td{padding:8px 12px;border-bottom:1px solid rgba(234,244,241,0.1);}
   .def-table td:first-child{font-weight:700;color:var(--gold);width:120px;}
   .m{direction:ltr;unicode-bidi:isolate;}
+  /* worksheet overlay */
+  .ws-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;justify-content:center;align-items:flex-start;padding-top:30px;}
+  .ws-overlay.open{display:flex;}
+  .ws-frame{width:min(780px,96vw);height:88vh;border-radius:12px;overflow:hidden;border:none;background:#fff;}
+  .ws-close{position:fixed;top:12px;left:50%;transform:translateX(-50%);background:var(--coral);color:#fff;border:none;padding:8px 24px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:15px;font-weight:700;cursor:pointer;z-index:1001;}
 </style>
 </head>
 <body>
 <div id="app"></div>
+<div class="ws-overlay" id="wsOverlay">
+  <button class="ws-close" onclick="hideWorksheet()">✕ סגור</button>
+  <iframe class="ws-frame" id="wsFrame" src=""></iframe>
+</div>
 <script>
 const state = { screen:'home', sequence:1, qi:0, score:0, answered:false };
 const openSections = new Set();
@@ -81,6 +90,8 @@ function goTo(s){ state.screen=s; render(); window.scrollTo(0,0); }
 function goHome(){ state.screen='home'; render(); window.scrollTo(0,0); }
 function toggleSection(n){ openSections.has(n)?openSections.delete(n):openSections.add(n); render(); }
 function startGame(){ state.qi=0; state.score=0; state.answered=false; goTo('game'); }
+function showWorksheet(url){ document.getElementById('wsFrame').src=url; document.getElementById('wsOverlay').classList.add('open'); }
+function hideWorksheet(){ document.getElementById('wsOverlay').classList.remove('open'); document.getElementById('wsFrame').src=''; }
 
 /* ========== GAME LEVELS ========== */
 
@@ -183,6 +194,13 @@ function renderHome(){
     ${seqRow(3,'3. שטח פנים של תיבה',{})}
     ${seqRow(4,'4. קובייה — מקרה מיוחד',{})}
     ${seqRow(5,'5. פריסות',{worksheetUrl:'../worksheets/geometry_solids_exam.html'})}
+  </div>
+  <div onclick="showWorksheet('../worksheets/geometry_solids_exam.html')" style="cursor:pointer;margin-top:14px;display:flex;align-items:center;justify-content:space-between;background:rgba(16,185,129,0.1);border:1.5px solid rgba(16,185,129,0.35);border-radius:10px;padding:13px 18px;">
+    <div>
+      <div style="font-weight:700;font-size:15px;color:var(--green);">מבדק שליטה — גופים במרחב</div>
+      <div style="font-size:12px;color:rgba(234,244,241,0.5);margin-top:3px;">פאה · נפח · שטח פנים · קובייה · פריסות</div>
+    </div>
+    <div style="font-size:22px;color:var(--green);">←</div>
   </div>`;
 }
 
@@ -200,6 +218,27 @@ function renderLearn(){
 function renderLearn1(){
   return `<div class="panel">
     <h2 class="qtitle">מושגים — פאה, מקצוע, קודקוד</h2>
+    <svg viewBox="0 0 300 200" style="display:block;margin:14px auto;max-width:300px;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="200" fill="rgba(234,244,241,0.03)" rx="8"/>
+      <!-- isometric box - front face -->
+      <polygon points="60,60 200,60 200,160 60,160" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-width="2"/>
+      <!-- top face -->
+      <polygon points="60,60 200,60 240,25 100,25" fill="rgba(16,185,129,0.08)" stroke="#10B981" stroke-width="2"/>
+      <!-- right face -->
+      <polygon points="200,60 240,25 240,125 200,160" fill="rgba(16,185,129,0.06)" stroke="#10B981" stroke-width="1.5"/>
+      <!-- label: פאה (face) -->
+      <text x="120" y="115" font-size="12" fill="#EFA94A" font-family="Rubik" font-weight="700">פאה</text>
+      <!-- label: מקצוע (edge) with arrow to bottom edge -->
+      <line x1="60" y1="160" x2="200" y2="160" stroke="#10B981" stroke-width="3"/>
+      <text x="95" y="182" font-size="12" fill="#10B981" font-family="Rubik">מקצוע</text>
+      <!-- label: קודקוד (vertex) with dot at corner -->
+      <circle cx="60" cy="60" r="5" fill="#E2604F"/>
+      <text x="20" y="56" font-size="12" fill="#E2604F" font-family="Rubik">קודקוד</text>
+      <!-- counts -->
+      <text x="215" y="170" font-size="10" fill="rgba(234,244,241,0.5)" font-family="Rubik">6 פאות</text>
+      <text x="215" y="183" font-size="10" fill="rgba(234,244,241,0.5)" font-family="Rubik">12 מקצועות</text>
+      <text x="215" y="196" font-size="10" fill="rgba(234,244,241,0.5)" font-family="Rubik">8 קודקודים</text>
+    </svg>
     <table class="def-table">
       <tr><td>פאה (Face)</td><td>משטח שטוח של הגוף. לתיבה יש <strong>6 פאות</strong> — כולן מלבנים.</td></tr>
       <tr><td>מקצוע (Edge)</td><td>הקו בין שתי פאות. לתיבה יש <strong>12 מקצועות</strong>.</td></tr>
@@ -218,6 +257,24 @@ function renderLearn1(){
 function renderLearn2(){
   return `<div class="panel">
     <h2 class="qtitle">נפח תיבה</h2>
+    <svg viewBox="0 0 300 180" style="display:block;margin:14px auto;max-width:300px;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="180" fill="rgba(234,244,241,0.03)" rx="8"/>
+      <!-- box -->
+      <polygon points="50,55 190,55 190,145 50,145" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-width="2"/>
+      <polygon points="50,55 190,55 225,22 85,22" fill="rgba(16,185,129,0.08)" stroke="#10B981" stroke-width="2"/>
+      <polygon points="190,55 225,22 225,112 190,145" fill="rgba(16,185,129,0.06)" stroke="#10B981" stroke-width="1.5"/>
+      <!-- dimension a (width, bottom) -->
+      <line x1="50" y1="155" x2="190" y2="155" stroke="#EFA94A" stroke-width="1.5"/>
+      <text x="120" y="170" font-size="12" fill="#EFA94A" font-family="Rubik" text-anchor="middle">a</text>
+      <!-- dimension b (depth, diagonal) -->
+      <line x1="190" y1="155" x2="225" y2="122" stroke="rgba(239,169,74,0.6)" stroke-width="1.5"/>
+      <text x="224" y="148" font-size="12" fill="rgba(239,169,74,0.8)" font-family="Rubik">b</text>
+      <!-- dimension c (height, right side) -->
+      <line x1="228" y1="22" x2="228" y2="112" stroke="rgba(234,244,241,0.4)" stroke-width="1.5"/>
+      <text x="235" y="70" font-size="12" fill="rgba(234,244,241,0.7)" font-family="Rubik">c</text>
+      <!-- formula -->
+      <text x="150" y="100" font-size="14" fill="rgba(234,244,241,0.9)" font-family="Rubik" text-anchor="middle" font-weight="700">V = a &#xD7; b &#xD7; c</text>
+    </svg>
     <div class="gold-box" style="text-align:center;font-size:22px;">נפח = אורך × רוחב × גובה = a × b × c</div>
     <ul class="bullets">
       <li>נפח מודד כמה מקום יש בתוך הגוף.</li>
@@ -274,6 +331,31 @@ function renderLearn4(){
 function renderLearn5(){
   return `<div class="panel">
     <h2 class="qtitle">פריסות</h2>
+    <svg viewBox="0 0 300 200" style="display:block;margin:14px auto;max-width:300px;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="200" fill="rgba(234,244,241,0.03)" rx="8"/>
+      <!-- net of a cube (cross shape): top, left, front, right, back, bottom -->
+      <!-- cell size 50px, cross centered at (150,100) -->
+      <!-- top -->
+      <rect x="100" y="10" width="50" height="50" fill="rgba(16,185,129,0.2)" stroke="#10B981" stroke-width="2"/>
+      <text x="125" y="40" font-size="10" fill="rgba(234,244,241,0.6)" font-family="Rubik" text-anchor="middle">עליון</text>
+      <!-- left -->
+      <rect x="50" y="60" width="50" height="50" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-width="2"/>
+      <text x="75" y="90" font-size="10" fill="rgba(234,244,241,0.6)" font-family="Rubik" text-anchor="middle">שמאל</text>
+      <!-- front (center) -->
+      <rect x="100" y="60" width="50" height="50" fill="rgba(16,185,129,0.25)" stroke="#10B981" stroke-width="2"/>
+      <text x="125" y="90" font-size="10" fill="rgba(234,244,241,0.8)" font-family="Rubik" text-anchor="middle">קדמי</text>
+      <!-- right -->
+      <rect x="150" y="60" width="50" height="50" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-width="2"/>
+      <text x="175" y="90" font-size="10" fill="rgba(234,244,241,0.6)" font-family="Rubik" text-anchor="middle">ימין</text>
+      <!-- back -->
+      <rect x="200" y="60" width="50" height="50" fill="rgba(16,185,129,0.08)" stroke="#10B981" stroke-width="2"/>
+      <text x="225" y="90" font-size="10" fill="rgba(234,244,241,0.6)" font-family="Rubik" text-anchor="middle">אחורי</text>
+      <!-- bottom -->
+      <rect x="100" y="110" width="50" height="50" fill="rgba(16,185,129,0.2)" stroke="#10B981" stroke-width="2"/>
+      <text x="125" y="140" font-size="10" fill="rgba(234,244,241,0.6)" font-family="Rubik" text-anchor="middle">תחתון</text>
+      <!-- fold arrows -->
+      <text x="150" y="175" font-size="11" fill="#EFA94A" font-family="Rubik" text-anchor="middle">&#x2191; מקפלים &#x2190; מקבלים קובייה</text>
+    </svg>
     <ul class="bullets">
       <li><strong>פריסה</strong> = הצורה הדו-ממדית שמתקבלת כשפורקים את כל פאות הגוף ומשטחים אותן.</li>
       <li>פריסת תיבה = 6 מלבנים מחוברים בסדר שאפשר לקפל לתיבה.</li>

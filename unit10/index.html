@@ -194,6 +194,13 @@ function renderHome(){
     ${seqRow(3,'3. סיבוב',{})}
     ${seqRow(4,'4. שיקוף',{})}
     ${seqRow(5,'5. סימטריה',{worksheetUrl:'../worksheets/geometry_transformations_exam.html'})}
+  </div>
+  <div onclick="showWorksheet('../worksheets/geometry_transformations_exam.html')" style="cursor:pointer;margin-top:14px;display:flex;align-items:center;justify-content:space-between;background:rgba(16,185,129,0.1);border:1.5px solid rgba(16,185,129,0.35);border-radius:10px;padding:13px 18px;">
+    <div>
+      <div style="font-weight:700;font-size:15px;color:var(--green);">מבדק שליטה — טרנספורמציות</div>
+      <div style="font-size:12px;color:rgba(234,244,241,0.5);margin-top:3px;">חפיפה · הזזה · סיבוב · שיקוף · סימטריה</div>
+    </div>
+    <div style="font-size:22px;color:var(--green);">←</div>
   </div>`;
 }
 
@@ -227,6 +234,28 @@ function renderLearn1(){
 function renderLearn2(){
   return `<div class="panel">
     <h2 class="qtitle">הזזה (Translation)</h2>
+    <svg viewBox="0 0 300 200" style="display:block;margin:14px auto;max-width:300px;" xmlns="http://www.w3.org/2000/svg">
+      <!-- grid lines -->
+      <defs><pattern id="g2" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0L0 0 0 30" fill="none" stroke="rgba(234,244,241,0.1)" stroke-width="0.5"/></pattern></defs>
+      <rect width="300" height="200" fill="rgba(234,244,241,0.03)" rx="8"/>
+      <rect width="300" height="200" fill="url(#g2)"/>
+      <!-- axes -->
+      <line x1="30" y1="170" x2="280" y2="170" stroke="rgba(234,244,241,0.3)" stroke-width="1.5"/>
+      <line x1="30" y1="20" x2="30" y2="170" stroke="rgba(234,244,241,0.3)" stroke-width="1.5"/>
+      <!-- original triangle (teal) -->
+      <polygon points="60,140 90,140 75,110" fill="rgba(16,185,129,0.3)" stroke="#10B981" stroke-width="2"/>
+      <text x="63" y="158" font-size="10" fill="#10B981" font-family="Rubik">A</text>
+      <!-- arrow -->
+      <line x1="115" y1="125" x2="155" y2="115" stroke="#EFA94A" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr)"/>
+      <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#EFA94A"/></marker></defs>
+      <text x="120" y="112" font-size="9" fill="#EFA94A" font-family="Rubik">(+4,+2)</text>
+      <!-- translated triangle (gold) -->
+      <polygon points="180,110 210,110 195,80" fill="rgba(239,169,74,0.3)" stroke="#EFA94A" stroke-width="2"/>
+      <text x="183" y="128" font-size="10" fill="#EFA94A" font-family="Rubik">A&#x2032;</text>
+      <!-- labels -->
+      <text x="55" y="192" font-size="10" fill="rgba(234,244,241,0.5)" font-family="Rubik">צורה מקורית</text>
+      <text x="170" y="192" font-size="10" fill="rgba(234,244,241,0.5)" font-family="Rubik">אחרי הזזה</text>
+    </svg>
     <ul class="bullets">
       <li>בהזזה — כל נקודה בצורה זזה <strong>באותו כיוון ובאותו מרחק</strong>.</li>
       <li>מגדירים הזזה ע"י וקטור: "3 ימינה, 2 למעלה" = <span class="m">(+3, +2)</span></li>
@@ -242,6 +271,22 @@ function renderLearn2(){
 function renderLearn3(){
   return `<div class="panel">
     <h2 class="qtitle">סיבוב (Rotation)</h2>
+    <svg viewBox="0 0 300 200" style="display:block;margin:14px auto;max-width:300px;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="200" fill="rgba(234,244,241,0.03)" rx="8"/>
+      <!-- center point -->
+      <circle cx="150" cy="100" r="4" fill="#EFA94A"/>
+      <text x="155" y="95" font-size="10" fill="#EFA94A" font-family="Rubik">O</text>
+      <!-- arc showing rotation -->
+      <path d="M 195,100 A 45,45 0 0,1 150,55" fill="none" stroke="#EFA94A" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr2)"/>
+      <defs><marker id="arr2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#EFA94A"/></marker></defs>
+      <text x="185" y="75" font-size="9" fill="#EFA94A" font-family="Rubik">90&#xB0;</text>
+      <!-- original shape (right of center) -->
+      <rect x="165" y="80" width="40" height="35" fill="rgba(16,185,129,0.3)" stroke="#10B981" stroke-width="2" rx="2"/>
+      <text x="170" y="148" font-size="10" fill="#10B981" font-family="Rubik">צורה מקורית</text>
+      <!-- rotated shape (above center) -->
+      <rect x="130" y="20" width="35" height="40" fill="rgba(239,169,74,0.3)" stroke="#EFA94A" stroke-width="2" rx="2"/>
+      <text x="118" y="16" font-size="10" fill="#EFA94A" font-family="Rubik">אחרי סיבוב 90&#xB0;</text>
+    </svg>
     <ul class="bullets">
       <li>בסיבוב — כל נקודה נסובבת <strong>סביב מרכז קבוע</strong> (נקודת הסיבוב) בזווית נתונה.</li>
       <li>מרחק כל נקודה מהמרכז <strong>נשמר</strong> — הנקודה נעה על קשת עיגול.</li>
@@ -257,6 +302,23 @@ function renderLearn3(){
 function renderLearn4(){
   return `<div class="panel">
     <h2 class="qtitle">שיקוף (Reflection)</h2>
+    <svg viewBox="0 0 300 200" style="display:block;margin:14px auto;max-width:300px;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="200" fill="rgba(234,244,241,0.03)" rx="8"/>
+      <!-- x-axis -->
+      <line x1="20" y1="100" x2="280" y2="100" stroke="rgba(234,244,241,0.5)" stroke-width="2"/>
+      <text x="260" y="95" font-size="11" fill="rgba(234,244,241,0.6)" font-family="Rubik">ציר x</text>
+      <!-- original triangle (above x-axis) -->
+      <polygon points="80,80 130,80 105,40" fill="rgba(16,185,129,0.3)" stroke="#10B981" stroke-width="2"/>
+      <text x="80" y="35" font-size="10" fill="#10B981" font-family="Rubik">(x, y)</text>
+      <!-- reflected triangle (below x-axis) -->
+      <polygon points="80,120 130,120 105,160" fill="rgba(239,169,74,0.25)" stroke="#EFA94A" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="75" y="178" font-size="10" fill="#EFA94A" font-family="Rubik">(x, &#x2212;y)</text>
+      <!-- double-headed arrow -->
+      <line x1="105" y1="68" x2="105" y2="132" stroke="rgba(234,244,241,0.3)" stroke-width="1" stroke-dasharray="3,3"/>
+      <!-- note -->
+      <text x="155" y="75" font-size="10" fill="#10B981" font-family="Rubik">y חיובי</text>
+      <text x="155" y="130" font-size="10" fill="#EFA94A" font-family="Rubik">y שלילי</text>
+    </svg>
     <ul class="bullets">
       <li>בשיקוף — כל נקודה עוברת ל<strong>צד ההפוך של ציר השיקוף</strong>, באותו מרחק מהציר.</li>
       <li>ציר השיקוף הוא קו (לרוב ציר x, ציר y, או קו אחר).</li>
@@ -272,6 +334,23 @@ function renderLearn4(){
 function renderLearn5(){
   return `<div class="panel">
     <h2 class="qtitle">סימטריה וצירי סימטריה</h2>
+    <svg viewBox="0 0 300 180" style="display:block;margin:14px auto;max-width:300px;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="180" fill="rgba(234,244,241,0.03)" rx="8"/>
+      <!-- square -->
+      <rect x="30" y="40" width="90" height="90" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="2"/>
+      <!-- 4 symmetry axes of square -->
+      <line x1="75" y1="25" x2="75" y2="145" stroke="#EFA94A" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <line x1="15" y1="85" x2="135" y2="85" stroke="#EFA94A" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <line x1="30" y1="40" x2="120" y2="130" stroke="rgba(239,169,74,0.5)" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <line x1="120" y1="40" x2="30" y2="130" stroke="rgba(239,169,74,0.5)" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <text x="48" y="162" font-size="11" fill="#EFA94A" font-family="Rubik">ריבוע: 4 צירים</text>
+      <!-- rectangle -->
+      <rect x="170" y="55" width="110" height="65" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="2"/>
+      <!-- 2 symmetry axes of rectangle -->
+      <line x1="225" y1="40" x2="225" y2="135" stroke="#EFA94A" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <line x1="155" y1="87" x2="295" y2="87" stroke="#EFA94A" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <text x="172" y="162" font-size="11" fill="#EFA94A" font-family="Rubik">מלבן: 2 צירים</text>
+    </svg>
     <ul class="bullets">
       <li><strong>ציר סימטריה</strong> = קו שמחלק צורה לשני חלקים חופפים. אפשר לקפל לאורכו ושניהם מתכסים.</li>
       <li><strong>ריבוע</strong> — 4 צירי סימטריה (2 אלכסונות + 2 דרך אמצע הצלעות)</li>

@@ -66,10 +66,19 @@
   .formula-card .fname{font-size:13px;opacity:.7;margin-bottom:4px;}
   .formula-card .fval{font-size:18px;font-weight:700;color:var(--gold);}
   .m{direction:ltr;unicode-bidi:isolate;}
+  /* worksheet overlay */
+  .ws-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;justify-content:center;align-items:flex-start;padding-top:30px;}
+  .ws-overlay.open{display:flex;}
+  .ws-frame{width:min(780px,96vw);height:88vh;border-radius:12px;overflow:hidden;border:none;background:#fff;}
+  .ws-close{position:fixed;top:12px;left:50%;transform:translateX(-50%);background:var(--coral);color:#fff;border:none;padding:8px 24px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:15px;font-weight:700;cursor:pointer;z-index:1001;}
 </style>
 </head>
 <body>
 <div id="app"></div>
+<div class="ws-overlay" id="wsOverlay">
+  <button class="ws-close" onclick="hideWorksheet()">✕ סגור</button>
+  <iframe class="ws-frame" id="wsFrame" src=""></iframe>
+</div>
 <script>
 const state = { screen:'home', sequence:1, qi:0, score:0, answered:false };
 const openSections = new Set();
@@ -78,6 +87,8 @@ function goTo(s){ state.screen=s; render(); window.scrollTo(0,0); }
 function goHome(){ state.screen='home'; render(); window.scrollTo(0,0); }
 function toggleSection(n){ openSections.has(n)?openSections.delete(n):openSections.add(n); render(); }
 function startGame(){ state.qi=0; state.score=0; state.answered=false; goTo('game'); }
+function showWorksheet(url){ document.getElementById('wsFrame').src=url; document.getElementById('wsOverlay').classList.add('open'); }
+function hideWorksheet(){ document.getElementById('wsOverlay').classList.remove('open'); document.getElementById('wsFrame').src=''; }
 
 /* ========== GAME LEVELS ========== */
 
@@ -171,6 +182,13 @@ function renderHome(){
     ${seqRow(2,'2. שטח משולש',{})}
     ${seqRow(3,'3. צורות מורכבות',{})}
     ${seqRow(4,'4. מעוין ודלתון — אלכסונות מאונכים',{worksheetUrl:'../worksheets/geometry_areas_exam.html'})}
+  </div>
+  <div onclick="showWorksheet('../worksheets/geometry_areas_exam.html')" style="cursor:pointer;margin-top:14px;display:flex;align-items:center;justify-content:space-between;background:rgba(16,185,129,0.1);border:1.5px solid rgba(16,185,129,0.35);border-radius:10px;padding:13px 18px;">
+    <div>
+      <div style="font-weight:700;font-size:15px;color:var(--green);">מבדק שליטה — היקפים ושטחים</div>
+      <div style="font-size:12px;color:rgba(234,244,241,0.5);margin-top:3px;">מלבן · משולש · צורות מורכבות · מעוין</div>
+    </div>
+    <div style="font-size:22px;color:var(--green);">←</div>
   </div>`;
 }
 
@@ -187,6 +205,23 @@ function renderLearn(){
 function renderLearn1(){
   return `<div class="panel">
     <h2 class="qtitle">היקף ושטח של מלבן וריבוע</h2>
+    <svg viewBox="0 0 300 150" style="display:block;margin:14px auto;max-width:300px;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="150" fill="rgba(234,244,241,0.03)" rx="8"/>
+      <!-- rectangle -->
+      <rect x="40" y="30" width="180" height="90" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="2.5"/>
+      <!-- dimension labels -->
+      <text x="115" y="20" font-size="13" fill="#EFA94A" font-family="Rubik" text-anchor="middle">a (אורך)</text>
+      <line x1="40" y1="22" x2="220" y2="22" stroke="#EFA94A" stroke-width="1" marker-start="url(#ms)" marker-end="url(#me)"/>
+      <defs>
+        <marker id="ms" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#EFA94A"/></marker>
+        <marker id="me" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#EFA94A"/></marker>
+      </defs>
+      <text x="265" y="78" font-size="13" fill="#10B981" font-family="Rubik" text-anchor="middle">b</text>
+      <text x="262" y="66" font-size="10" fill="rgba(234,244,241,0.5)" font-family="Rubik">(רוחב)</text>
+      <!-- formula inside -->
+      <text x="130" y="75" font-size="13" fill="rgba(234,244,241,0.9)" font-family="Rubik" text-anchor="middle" font-weight="700">שטח = a &#xD7; b</text>
+      <text x="130" y="95" font-size="11" fill="rgba(234,244,241,0.6)" font-family="Rubik" text-anchor="middle">היקף = 2(a+b)</text>
+    </svg>
     <div class="formula-grid">
       <div class="formula-card"><div class="fname">היקף מלבן</div><div class="fval">2×(a+b)</div></div>
       <div class="formula-card"><div class="fname">שטח מלבן</div><div class="fval">a × b</div></div>
@@ -207,6 +242,21 @@ function renderLearn1(){
 function renderLearn2(){
   return `<div class="panel">
     <h2 class="qtitle">שטח משולש</h2>
+    <svg viewBox="0 0 300 170" style="display:block;margin:14px auto;max-width:300px;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="170" fill="rgba(234,244,241,0.03)" rx="8"/>
+      <!-- triangle -->
+      <polygon points="60,140 240,140 150,40" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="2.5"/>
+      <!-- base label -->
+      <line x1="60" y1="152" x2="240" y2="152" stroke="#EFA94A" stroke-width="1.5"/>
+      <text x="150" y="166" font-size="12" fill="#EFA94A" font-family="Rubik" text-anchor="middle">בסיס (b)</text>
+      <!-- height (dotted vertical) -->
+      <line x1="150" y1="40" x2="150" y2="140" stroke="rgba(234,244,241,0.4)" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <!-- right angle marker -->
+      <rect x="150" y="128" width="10" height="10" fill="none" stroke="rgba(234,244,241,0.4)" stroke-width="1.5"/>
+      <text x="155" y="95" font-size="12" fill="rgba(234,244,241,0.7)" font-family="Rubik">גובה (h)</text>
+      <!-- formula -->
+      <text x="40" y="25" font-size="13" fill="rgba(234,244,241,0.9)" font-family="Rubik" font-weight="700">שטח = &#xBD; &#xD7; b &#xD7; h</text>
+    </svg>
     <div class="gold-box" style="text-align:center;font-size:22px;">שטח = ½ × בסיס × גובה</div>
     <ul class="bullets">
       <li>הגובה הוא הניצב מהקודקוד אל הבסיס (לא תמיד צלע!).</li>
@@ -222,6 +272,20 @@ function renderLearn2(){
 function renderLearn3(){
   return `<div class="panel">
     <h2 class="qtitle">צורות מורכבות</h2>
+    <svg viewBox="0 0 300 200" style="display:block;margin:14px auto;max-width:300px;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="200" fill="rgba(234,244,241,0.03)" rx="8"/>
+      <!-- L-shape (big rect minus top-right) -->
+      <polygon points="40,40 200,40 200,100 130,100 130,160 40,160" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="2.5"/>
+      <!-- dashed cut line -->
+      <line x1="130" y1="40" x2="130" y2="100" stroke="#EFA94A" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="130" y1="100" x2="200" y2="100" stroke="#EFA94A" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <!-- labels -->
+      <text x="115" y="35" font-size="11" fill="#EFA94A" font-family="Rubik">חלק 1</text>
+      <text x="52" y="135" font-size="11" fill="#EFA94A" font-family="Rubik">חלק 2</text>
+      <!-- dimensions -->
+      <text x="95" y="180" font-size="11" fill="rgba(234,244,241,0.6)" font-family="Rubik" text-anchor="middle">שיטה: פרק לשניים &#x2190; חבר</text>
+      <text x="165" y="180" font-size="11" fill="rgba(234,244,241,0.4)" font-family="Rubik">או: השלם &#x2190; הפחת</text>
+    </svg>
     <ul class="bullets">
       <li><strong>שיטת הפירוק:</strong> מחלקים לצורות פשוטות → מחשבים כל אחת → מחברים.</li>
       <li><strong>שיטת ההשלמה:</strong> "מגדילים" לצורה פשוטה → מחשבים → מחסירים את המוסף.</li>
@@ -237,6 +301,20 @@ function renderLearn3(){
 function renderLearn4(){
   return `<div class="panel">
     <h2 class="qtitle">מעוין ודלתון — אלכסונות מאונכים</h2>
+    <svg viewBox="0 0 300 180" style="display:block;margin:14px auto;max-width:300px;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="180" fill="rgba(234,244,241,0.03)" rx="8"/>
+      <!-- rhombus -->
+      <polygon points="150,20 260,90 150,160 40,90" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="2.5"/>
+      <!-- diagonals -->
+      <line x1="40" y1="90" x2="260" y2="90" stroke="#EFA94A" stroke-width="2" stroke-dasharray="6,3"/>
+      <line x1="150" y1="20" x2="150" y2="160" stroke="rgba(239,169,74,0.6)" stroke-width="2" stroke-dasharray="6,3"/>
+      <!-- right angle at center -->
+      <rect x="150" y="90" width="9" height="9" fill="none" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
+      <!-- labels -->
+      <text x="150" y="110" font-size="11" fill="#EFA94A" font-family="Rubik" text-anchor="middle" dx="20">d&#x2081;</text>
+      <text x="165" y="55" font-size="11" fill="rgba(234,244,241,0.7)" font-family="Rubik">d&#x2082;</text>
+      <text x="150" y="175" font-size="12" fill="rgba(234,244,241,0.9)" font-family="Rubik" text-anchor="middle" font-weight="700">שטח = &#xBD; &#xD7; d&#x2081; &#xD7; d&#x2082;</text>
+    </svg>
     <div class="gold-box" style="text-align:center;font-size:22px;">שטח = ½ × d₁ × d₂</div>
     <ul class="bullets">
       <li><strong>מעוין</strong> = מרובע עם 4 צלעות שוות. האלכסונות <strong>מאונכים</strong> וחוצים זה את זה.</li>
