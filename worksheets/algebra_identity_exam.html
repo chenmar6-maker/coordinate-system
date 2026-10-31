@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — זהות בין ביטויים אלגבריים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+    background: #6D28D9;
+  }
+  .quiz-q {
+    margin-bottom: 10px;
+    padding: 12px 14px 12px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #A78BFA;
+  }
+  .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; font-family: 'Times New Roman', serif; font-size: 15px; font-weight: 600; }
+  .ans-line { display: inline-block; border-bottom: 1.5px solid #555; min-width: 80px; margin-right: 4px; vertical-align: bottom; }
+  .think-line { display: block; border-bottom: 1px solid #bbb; margin-top: 14px; height: 1px; }
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 8px; }
+  .mc-opt { display: flex; align-items: center; gap: 5px; font-size: 13.5px; }
+  .mc-opt .sq { width: 14px; height: 14px; border: 1.5px solid #777; border-radius: 2px; flex-shrink: 0; }
+  .ali { display: inline-block; border-bottom: 1.5px solid #888; min-width: 50px; vertical-align: bottom; }
+  .al { display: block; border-bottom: 1.5px solid #bbb; margin-top: 10px; height: 16px; }
+  .note-box {
+    background: #F5F3FF;
+    border: 1px solid #DDD6FE;
+    border-right: 3px solid #7C3AED;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 13px;
+    margin-bottom: 12px;
+    line-height: 1.7;
+  }
+  .score-bar {
+    display: flex; gap: 14px; justify-content: flex-end; flex-wrap: wrap;
+    font-size: 13px; margin-top: 12px;
+    background: #fff; border-radius: 8px;
+    padding: 10px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .score-field { border-bottom: 1.5px solid #888; min-width: 36px; display: inline-block; }
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; border: 1px solid #ddd; border-right: 4px solid #A78BFA; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — זהות בין ביטויים אלגבריים</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; אלגברה</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div style="background:#FFF3CD;border:2px solid #F59E0B;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#92400E;display:flex;align-items:center;gap:10px;">
+  <span style="font-size:20px;">📝</span>
+  <span>כתבו את התשובות על דף נפרד — <u>ממספרים לפי מספר השאלה</u>! תזדקקו לזה בבדיקה העצמית.</span>
+</div>
+
+<span class="part-label">זהות בין ביטויים אלגבריים</span>
+
+<div class="note-box">
+  <strong>זהות</strong> = שני ביטויים שווים <em>לכל</em> ערך של המשתנה. שימו לב: זהות שונה ממשוואה — משוואה נכונה רק לערכים ספציפיים.
+</div>
+
+<!-- Q1 — מי שווה למי -->
+<div class="quiz-q">
+  <span class="qnum">1.</span> <strong>הקיפו את כל</strong> הביטויים השווים ל-<span class="m">²⁄₃x</span>:
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="sq"></div> <span class="m">2x ÷ 3</span></div>
+    <div class="mc-opt"><div class="sq"></div> <span class="m">2 ÷ (3x)</span></div>
+    <div class="mc-opt"><div class="sq"></div> <span class="m">2x / 3</span></div>
+    <div class="mc-opt"><div class="sq"></div> <span class="m">2 / (3x)</span></div>
+  </div>
+  <div style="font-size:12.5px;color:#555;margin-top:8px;">נמקו: <span class="al"></span></div>
+</div>
+
+<!-- Q2 — מינוס ליד שבר -->
+<div class="quiz-q">
+  <span class="qnum">2.</span> <strong>מינוס ליד קו שבר.</strong> בדקו אם הביטויים שבכל שורה שווים — כתבו ✓ או ✗ ונמקו:
+  <div style="margin-top:10px;display:flex;flex-direction:column;gap:10px;padding-right:6px;">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="min-width:20px;font-weight:700;">א.</span>
+        <span class="m">−2x/3</span> &nbsp;=&nbsp; <span class="m">(−2x)/3</span>
+        <span class="ali"></span>
+      </div>
+      <div class="think-line"></div>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="min-width:20px;font-weight:700;">ב.</span>
+        <span class="m">−2x/3</span> &nbsp;=&nbsp; <span class="m">−(2x/3)</span>
+        <span class="ali"></span>
+      </div>
+      <div class="think-line"></div>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="min-width:20px;font-weight:700;">ג.</span>
+        <span class="m">−2x/3</span> &nbsp;=&nbsp; <span class="m">2/(−3x)</span>
+        <span class="ali"></span>
+      </div>
+      <div style="font-size:12.5px;color:#555;margin-top:5px;">הסבירו: <span class="al"></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Q3 — נכון/לא נכון -->
+<div class="quiz-q">
+  <span class="qnum">3.</span> לגבי כל טענה — רשמו <strong>זהות נכונה</strong> / <strong>לא זהות</strong> ונמקו:
+  <div style="margin-top:8px;display:flex;flex-direction:column;gap:10px;padding-right:6px;">
+    <div>
+      <div style="display:flex;align-items:baseline;gap:6px;">
+        <span style="font-weight:700;min-width:20px;">א.</span>
+        <span><span class="m">2(x + 3) = 2x + 6</span></span>
+      </div>
+      <div class="think-line"></div>
+    </div>
+    <div>
+      <div style="display:flex;align-items:baseline;gap:6px;">
+        <span style="font-weight:700;min-width:20px;">ב.</span>
+        <span><span class="m">3(x + 2) = 3x + 5</span></span>
+      </div>
+      <div class="think-line"></div>
+    </div>
+    <div>
+      <div style="display:flex;align-items:baseline;gap:6px;">
+        <span style="font-weight:700;min-width:20px;">ג.</span>
+        <span><span class="m">x + x = 2x</span></span>
+      </div>
+      <div class="think-line"></div>
+    </div>
+    <div>
+      <div style="display:flex;align-items:baseline;gap:6px;">
+        <span style="font-weight:700;min-width:20px;">ד.</span>
+        <span><span class="m">x² = x · x</span></span>
+      </div>
+      <div class="think-line"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Q4 — בדיקה בהצבה -->
+<div class="quiz-q">
+  <span class="qnum">4.</span> בדקו אם <span class="m">4(x − 1) = 4x − 4</span> היא זהות — הציבו <span class="m">x = 3</span> בשני האגפים:
+  <div style="margin-top:8px;padding-right:6px;display:flex;flex-direction:column;gap:5px;">
+    <div>אגף שמאל: <span class="m">4(</span><span class="ali" style="min-width:24px;"></span><span class="m"> − 1) = 4 · </span><span class="ali" style="min-width:24px;"></span><span class="m"> = </span><span class="ali"></span></div>
+    <div>אגף ימין: <span class="m">4 · </span><span class="ali" style="min-width:24px;"></span><span class="m"> − 4 = </span><span class="ali" style="min-width:24px;"></span><span class="m"> − 4 = </span><span class="ali"></span></div>
+  </div>
+  <div style="margin-top:8px;font-size:13px;">מסקנה: <span class="al"></span></div>
+</div>
+
+<!-- Q5 — ממעוף הציפור -->
+<div class="quiz-q">
+  <span class="qnum">5.</span> <strong>ממעוף הציפור:</strong> חבר טוען ש-<span class="m">2(a + 3)</span> שווה ל-<span class="m">2a + 3</span>. האם הוא צודק? הוכיחו בשתי דרכים: הצבת ערך, ופישוט.
+  <div style="font-size:12.5px;color:#555;margin-top:4px;">דרך 1 — הצבה:</div>
+  <span class="al"></span>
+  <div style="font-size:12.5px;color:#555;margin-top:8px;">דרך 2 — פישוט:</div>
+  <span class="al"></span>
+  <span class="al" style="margin-top:8px;"></span>
+</div>
+
+<!-- Q6 — מציאת זהות -->
+<div class="quiz-q">
+  <span class="qnum">6.</span> <strong>מצאו את הביטוי החסר</strong> כך שתיווצר זהות נכונה:
+  <div style="margin-top:8px;padding-right:6px;display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;align-items:center;gap:6px;">
+      <span style="font-weight:700;min-width:20px;">א.</span>
+      <span class="m">3x + 6 = 3(</span><span class="ali"></span><span class="m">)</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <span style="font-weight:700;min-width:20px;">ב.</span>
+      <span class="m">2(x + 5) = </span><span class="ali"></span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <span style="font-weight:700;min-width:20px;">ג.</span>
+      <span class="m">−(x − 4) = </span><span class="ali"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCORE BAR ===== -->
+<div class="score-bar">
+  <div style="display:flex;align-items:center;gap:6px;">
+    <div style="width:10px;height:10px;border-radius:50%;background:#7C3AED;flex-shrink:0;"></div>
+    זהות בין ביטויים: <span class="score-field">&nbsp;</span> / 6
+  </div>
+</div>
+
+<div style="font-size:11px;font-weight:600;color:#888;margin-top:8px;text-align:left;">חן מרגלית למידה אקטיבית</div>
+
+<!-- שאלת היכרות -->
+<div style="margin-top:22px;padding:16px 18px;background:#FFFBEB;border:1.5px solid #FCD34D;border-right:4px solid #F59E0B;border-radius:10px;font-size:13.5px;line-height:1.8;">
+  <div style="font-size:11px;font-weight:800;color:#D97706;letter-spacing:1px;margin-bottom:10px;">💬 שאלת היכרות</div>
+  <div style="background:#FEF3C7;border-radius:8px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#92400E;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span>✏️</span><span>לפני שאתם עונים — כתבו את השאלה במלואה בדף!</span></div>
+  <div style="font-size:14px;font-weight:700;color:#1a1a2e;">אם היית יכול להמציא כלל חדש במתמטיקה, מה הוא היה?</div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:16px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+</div>
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#6D28D9;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
