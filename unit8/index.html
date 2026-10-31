@@ -198,6 +198,7 @@ const gameLevels3 = [
     explain:'(4x + 8) ÷ 2 = 4x/2 + 8/2 = 2x + 4. מחלקים כל איבר ב-2.' },
 ];
 
+/* — seq 4: חוק הפילוג — */
 const gameLevels4 = [
   { id:'mc', title:'חוק הפילוג — פתיחת סוגריים',
     question:'מה שווה <span class="m">3(x + 2)</span>?',
@@ -214,17 +215,7 @@ const gameLevels4 = [
     options:['5x + 8','5x + 4','5x + 3','8x + 3'],
     correct:'5x + 8',
     explain:'פותחים סוגריים: 5x + 5 + 3. מכנסים מספרים: 5 + 3 = 8. תוצאה: 5x + 8.' },
-  { id:'mc', title:'זהות בין ביטויים',
-    question:'האם הביטויים <span class="m">2(x + 3)</span> ו-<span class="m">2x + 6</span> זהים?',
-    options:['כן, תמיד שווים לכל ערך של x','לא, שווים רק כש-x = 0','לא, שווים רק כש-x = 3','תלוי בערך x'],
-    correct:'כן, תמיד שווים לכל ערך של x',
-    explain:'2(x+3) = 2x+6 לכל ערך של x. זו זהות אלגברית — שני ביטויים שונים שמייצגים את אותה כמות תמיד.' },
-  { id:'mc', title:'זהות — נכון או לא?',
-    question:'האם <span class="m">3(x + 2) = 3x + 5</span>?',
-    options:['כן, זהות נכונה','לא — יש לכתוב 3x + 6','נכון רק כש-x = 1','נכון רק כש-x = 0'],
-    correct:'לא — יש לכתוב 3x + 6',
-    explain:'3(x+2) = 3x+6, לא 3x+5. 3·2 = 6, לא 5. זו טעות נפוצה — חייבים להכפיל גם את ה-2!' },
-  { id:'mc', title:'פירוק — חוק הפילוג הפוך',
+  { id:'mc', title:'פירוק — גורם משותף',
     question:'מה שווה לביטוי <span class="m">4x + 8</span>?',
     options:['4(x + 2)','4(x + 8)','2(2x + 8)','4x(1 + 2)'],
     correct:'4(x + 2)',
@@ -234,6 +225,50 @@ const gameLevels4 = [
     options:['5x + 3','5x + 9','5x − 3','5x + 6'],
     correct:'5x + 3',
     explain:'פותחים: 2x+6 + 3x−3. מכנסים x: 2x+3x = 5x. מכנסים מספרים: 6−3 = 3. תוצאה: 5x+3.' },
+  { id:'mc', title:'חוק הפילוג — מינוס לפני הסוגריים',
+    question:'מה שווה <span class="m">−(x + 4)</span>?',
+    options:['−x + 4','x − 4','−x − 4','−x + 4'],
+    correct:'−x − 4',
+    explain:'−(x+4) = −1·(x+4) = −x − 4. המינוס מחוץ לסוגריים הופך את סימן כל איבר.' },
+];
+
+/* — seq 5: זהות בין ביטויים — */
+const gameLevels5 = [
+  { id:'mc', title:'מה זה זהות?',
+    question:'מה ההבדל בין <strong>זהות</strong> לבין <strong>משוואה</strong>?',
+    options:['זהות נכונה לכל ערך של x; משוואה נכונה לערך ספציפי','זהות יש לה פתרון; משוואה אין','זהות ומשוואה — אותו דבר','זהות נכונה רק כש-x = 0'],
+    correct:'זהות נכונה לכל ערך של x; משוואה נכונה לערך ספציפי',
+    explain:'זהות: x + x = 2x — נכון לכל x. משוואה: x + 3 = 5 — נכון רק כש-x = 2.' },
+  { id:'mc', title:'זהות — לבדוק',
+    question:'האם <span class="m">2(x + 3) = 2x + 6</span> היא זהות?',
+    options:['כן — שווה לכל ערך x','לא — שווה רק כש-x = 3','לא — יש לכתוב 2x + 3','כן — אבל רק לערכים חיוביים'],
+    correct:'כן — שווה לכל ערך x',
+    explain:'2(x+3) = 2x+6 לכל x. נבדוק: x=1 → 2·4=8 ✓, x=5 → 2·8=16 ✓. תמיד עובד — זהות!' },
+  { id:'mc', title:'זהות — נכון או לא?',
+    question:'האם <span class="m">3(x + 2) = 3x + 5</span> זהות נכונה?',
+    options:['לא — 3·2 = 6, לא 5','כן, זהות נכונה','נכון רק כש-x = 1','נכון רק כש-x = −1'],
+    correct:'לא — 3·2 = 6, לא 5',
+    explain:'3(x+2) = 3x+6, לא 3x+5. נבדוק x=0: שמאל = 3·2 = 6, ימין = 5. 6 ≠ 5. לא זהות!' },
+  { id:'mc', title:'זהות ידועה',
+    question:'האם <span class="m">x + x = 2x</span> היא זהות?',
+    options:['כן — תמיד נכון','לא — רק כש-x > 0','לא — רק כש-x שלם','כן — אבל רק כש-x ≠ 0'],
+    correct:'כן — תמיד נכון',
+    explain:'x + x = 2x לכל ערך של x. זו זהות בסיסית — מכנסים שני איברים זהים.' },
+  { id:'mc', title:'בדיקה על ידי הצבה',
+    question:'רוצים לבדוק אם <span class="m">4(x − 1) = 4x − 4</span>. מציבים <span class="m">x = 3</span>. מה מקבלים?',
+    options:['שמאל = 8, ימין = 8 — ייתכן זהות','שמאל = 8, ימין = 11 — לא זהות','שמאל = 12, ימין = 8 — לא זהות','שמאל = 4, ימין = 4 — ייתכן זהות'],
+    correct:'שמאל = 8, ימין = 8 — ייתכן זהות',
+    explain:'x=3: שמאל = 4·(3−1) = 4·2 = 8. ימין = 4·3−4 = 12−4 = 8. שווה! (ואכן זהות: 4(x−1) = 4x−4)' },
+  { id:'mc', title:'מציאת זהות נכונה',
+    question:'איזה מהביטויים הבאים זהה ל-<span class="m">3x − 6</span>?',
+    options:['3(x − 6)','3(x − 2)','3(x + 2)','6(x − 3)'],
+    correct:'3(x − 2)',
+    explain:'3(x−2) = 3x−6. בודקים: 3·x = 3x ✓, 3·(−2) = −6 ✓. גורם משותף 3.' },
+  { id:'mc', title:'זהות — שאלת מחשבה',
+    question:'האם <span class="m">x² = x · x</span> זהות?',
+    options:['כן — תמיד x² = x·x','לא — רק כש-x > 0','לא — x² פירושו x+x','כן — רק למספרים שלמים'],
+    correct:'כן — תמיד x² = x·x',
+    explain:'הגדרת חזקה: x² = x·x לכל ערך x. זו זהות בסיסית — הגדרת הריבוע.' },
 ];
 
 /* — seq 1: כתיבת ביטויים — */
@@ -368,6 +403,7 @@ function currentGameLevels(){
   if(state.sequence===2) return gameLevels2;
   if(state.sequence===3) return gameLevels3;
   if(state.sequence===4) return gameLevels4;
+  if(state.sequence===5) return gameLevels5;
   return gameLevels1;
 }
 
@@ -451,7 +487,8 @@ function renderHome(){
     <div class="sequence-section" style="margin-bottom:32px;">
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">כינוס וחוק הפילוג</div>
       ${seqRow(3,'3. כינוס איברים דומים',{worksheetUrl:'../worksheets/algebra_combining_exam.html',answersUrl:'../worksheets/algebra_combining_answers.html',checkUrl:'../worksheets/algebra_combining_exam_check.html'})}
-      ${seqRow(4,'4. כינוס, חוק הפילוג וזהות בין ביטויים',{worksheetUrl:'../worksheets/algebra_distributing_exam.html'})}
+      ${seqRow(4,'4. חוק הפילוג',{worksheetUrl:'../worksheets/algebra_distributing_exam.html'})}
+      ${seqRow(5,'5. זהות בין ביטויים אלגבריים',{})}
     </div>`;
 }
 
@@ -462,6 +499,7 @@ function renderLearn(){
   if(state.sequence===2) return renderLearn2();
   if(state.sequence===3) return renderLearn3();
   if(state.sequence===4) return renderLearn4();
+  if(state.sequence===5) return renderLearn5();
   return renderLearn1();
 }
 
@@ -587,7 +625,7 @@ function renderLearn4(){
       <div style="direction:ltr;unicode-bidi:isolate;font-size:17px;line-height:2;text-align:left;">${body}</div>
     </div>`;
   return `<div class="panel">
-    <h2 class="qtitle">חוק הפילוג וזהות בין ביטויים</h2>
+    <h2 class="qtitle">חוק הפילוג</h2>
     <div class="gold-box">חוק הפילוג: <span class="m">a(b + c) = ab + ac</span></div>
     <div class="examples-row">
       ${ex('פתיחת סוגריים','3(x + 2)<br>= 3·x + 3·2<br>= 3x + 6')}
@@ -597,26 +635,60 @@ function renderLearn4(){
     <ul class="bullets">
       <li>מכפילים את הגורם מחוץ לסוגריים <strong>בכל</strong> איבר בתוך הסוגריים</li>
       <li>שומרים על הסימן — <span class="m">3(x − 2) = 3x − 6</span>, לא <span class="m">3x + 6</span></li>
+      <li>מינוס לפני סוגריים: <span class="m">−(x + 4) = −x − 4</span> — הסימן מתהפך לכל האיברים</li>
       <li>אחרי פתיחה — מכנסים איברים דומים</li>
     </ul>
-    <div class="learn-note" style="margin-top:14px;">
-      <div style="font-weight:700;margin-bottom:8px;">זהות בין ביטויים</div>
+    <div class="learn-note" style="margin-top:14px;border-right-color:var(--light-teal);">
+      <div style="font-weight:700;margin-bottom:8px;">פירוק — גורם משותף</div>
       <div style="font-size:15px;line-height:1.8;">
-        שני ביטויים הם <strong>זהים</strong> אם הם שווים לכל ערך של המשתנה.<br>
-        <span class="m">2(x + 3)</span> ו-<span class="m">2x + 6</span> — זהים תמיד ✓<br>
-        <span class="m">3(x + 2)</span> ו-<span class="m">3x + 5</span> — <strong>לא</strong> זהים (5 ≠ 6) ✗
-      </div>
-    </div>
-    <div class="learn-note" style="margin-top:10px;border-right-color:var(--light-teal);">
-      <div style="font-weight:700;margin-bottom:8px;">פירוק — חוק הפילוג הפוך</div>
-      <div style="font-size:15px;line-height:1.8;">
-        מוציאים גורם משותף:<br>
-        <span class="m">4x + 8 = 4(x + 2)</span> — כי 4 נכנס לשניהם<br>
-        <span class="m">6x − 9 = 3(2x − 3)</span> — כי 3 נכנס לשניהם
+        <span class="m">4x + 8 = 4(x + 2)</span> — כי 4 מחלק את שניהם<br>
+        <span class="m">6x − 9 = 3(2x − 3)</span> — כי 3 מחלק את שניהם
       </div>
     </div>
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn5(){
+  return `<div class="panel">
+    <h2 class="qtitle">זהות בין ביטויים אלגבריים</h2>
+    <div class="gold-box">זהות = שני ביטויים שתמיד שווים, לכל ערך של המשתנה</div>
+    <ul class="bullets">
+      <li><strong>זהות</strong>: <span class="m">2(x + 3) = 2x + 6</span> — נכון לכל x ✓</li>
+      <li><strong>לא זהות</strong>: <span class="m">3(x + 2) = 3x + 5</span> — שגוי, כי 3·2 = 6 ≠ 5 ✗</li>
+      <li><strong>משוואה</strong>: <span class="m">x + 3 = 5</span> — נכון רק כש-x = 2</li>
+    </ul>
+    <div class="learn-note" style="margin-top:4px;">
+      <div style="font-weight:700;margin-bottom:10px;">כיצד בודקים זהות?</div>
+      <div style="font-size:15px;line-height:1.9;">
+        <span style="color:var(--gold);font-weight:700;">שלב 1 —</span> פשטו אלגברית את שני האגפים<br>
+        <span style="color:var(--gold);font-weight:700;">שלב 2 —</span> בדקו בהצבה: הציבו ערך ספציפי ל-x בשניהם<br>
+        <span style="color:var(--gold);font-weight:700;">שלב 3 —</span> אם שוים — ייתכן זהות. אם שונים — בטוח לא זהות
+      </div>
+    </div>
+    <div class="examples-row" style="margin-top:14px;">
+      <div class="example-box" style="text-align:right;padding:12px 16px;">
+        <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">זהות ידועה — בדיקה</div>
+        <div style="font-size:15px;line-height:1.8;">
+          <span class="m">x + x = 2x</span><br>
+          הציבו x = 7: <span class="m">7 + 7 = 14 ✓</span><br>
+          הציבו x = −3: <span class="m">−3 + (−3) = −6 ✓</span>
+        </div>
+      </div>
+      <div class="example-box" style="text-align:right;padding:12px 16px;">
+        <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">פירוק = הוכחת זהות</div>
+        <div style="font-size:15px;line-height:1.8;">
+          <span class="m">3x − 6 = 3(x − 2)</span><br>
+          הציבו x = 4: <span class="m">6 = 3·2 = 6 ✓</span><br>
+          הציבו x = 0: <span class="m">−6 = 3·(−2) = −6 ✓</span>
+        </div>
+      </div>
+    </div>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
