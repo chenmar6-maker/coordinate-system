@@ -171,6 +171,31 @@ const gameLevels3 = [
     options:['3x + 5y','3x + 5x²','3x + 5x','3x + 5'],
     correct:'3x + 5x',
     explain:'רק 3x + 5x ניתן לכינוס (שניהם x). שאר הביטויים — המשתנים שונים ואי אפשר לכנס.' },
+  { id:'mc', title:'כינוס — שני משתנים',
+    question:'מה שווה <span class="m">3x + 2y + x − y</span>?',
+    options:['4x + y','4x + 3y','4xy','4x − y'],
+    correct:'4x + y',
+    explain:'מכנסים x: 3x + x = 4x. מכנסים y: 2y − y = y. תוצאה: 4x + y. מכנסים כל משתנה בנפרד!' },
+  { id:'mc', title:'חוק החילוף',
+    question:'מדוע <span class="m">3x + 5x = 5x + 3x</span>?',
+    options:['כי חיבור ניתן להחלפה (חוק חילוף)','כי x מבטל את עצמו','כי שניהם x²','זה לא נכון'],
+    correct:'כי חיבור ניתן להחלפה (חוק חילוף)',
+    explain:'חוק החילוף: a + b = b + a. מותר להחליף סדר איברים בחיבור. לכן גם בביטויים: 3x + 5x = 5x + 3x.' },
+  { id:'mc', title:'חוק הקיבוץ',
+    question:'מה שווה <span class="m">(2x + 3x) + 4x</span>?',
+    options:['9x','9x²','24x','שגיאה — אסור לקבץ'],
+    correct:'9x',
+    explain:'חוק הקיבוץ: (a+b)+c = a+(b+c). (2x+3x)+4x = 5x+4x = 9x. הסדר לא משנה!' },
+  { id:'mc', title:'חילוק כשבר',
+    question:'מה שווה <span class="m">6x ÷ 3</span>?',
+    options:['2x','6x³','2','3x'],
+    correct:'2x',
+    explain:'חילוק = שבר: 6x ÷ 3 = 6x/3 = 2x. מחלקים את המקדם בלבד: 6 ÷ 3 = 2. המשתנה x נשאר.' },
+  { id:'mc', title:'חילוק — ביטוי שלם',
+    question:'מה שווה <span class="m">(4x + 8) ÷ 2</span>?',
+    options:['2x + 4','4x + 4','2x + 8','4x + 8'],
+    correct:'2x + 4',
+    explain:'(4x + 8) ÷ 2 = 4x/2 + 8/2 = 2x + 4. מחלקים כל איבר ב-2.' },
 ];
 
 const gameLevels4 = [];
@@ -492,10 +517,24 @@ function renderLearn3(){
       <li>מסכמים <strong>רק</strong> איברים עם אותו משתנה: <span class="m">3x + 5x = 8x</span></li>
       <li>מספרים מסכמים עם מספרים: <span class="m">7 + 3 = 10</span></li>
       <li>אי אפשר לכנס: <span class="m">3x + 5y</span> (משתנים שונים) | <span class="m">3x + 5x²</span> (חזקות שונות)</li>
-      <li>סדר הפעולות חשוב — שמים לב לסימן לפני כל איבר</li>
+      <li><strong>שני משתנים:</strong> מכנסים כל משתנה בנפרד — <span class="m">3x + 2y + x − y = 4x + y</span></li>
     </ul>
     <div style="background:rgba(226,96,79,0.1);border-right:4px solid var(--coral);border-radius:6px;padding:12px 16px;margin-top:14px;font-size:15px;">
       <strong>שגיאה נפוצה:</strong> <span class="m">3x + 5 ≠ 8x</span>. המספר 5 אינו "דומה" ל-3x!
+    </div>
+    <div class="learn-note" style="margin-top:14px;">
+      <strong>חוקי חילוף וקיבוץ</strong><br>
+      <span style="font-size:14px;line-height:2;">
+        חוק חילוף: <span class="m">3x + 5x = 5x + 3x</span> — הסדר לא משנה בחיבור<br>
+        חוק קיבוץ: <span class="m">(2x + 3x) + 4x = 2x + (3x + 4x)</span> — אפשר לשנות את הסוגריים
+      </span>
+    </div>
+    <div class="learn-note" style="margin-top:10px;border-right-color:var(--light-teal);">
+      <strong>חילוק כשבר</strong><br>
+      <span style="font-size:14px;line-height:2;">
+        <span class="m">6x ÷ 3 = 6x/3 = 2x</span> — מחלקים את המקדם, המשתנה נשאר<br>
+        <span class="m">(4x + 8) ÷ 2 = 2x + 4</span> — מחלקים כל איבר
+      </span>
     </div>
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
