@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — מושגי יסוד בגופים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 60px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .part-label { font-size: 13px; font-weight: 700; color: #fff; padding: 5px 14px; border-radius: 6px; display: inline-block; margin-bottom: 10px; }
+  .pc { background: #059669; }
+  .quiz-q { margin-bottom: 8px; padding: 10px 12px 10px 10px; background: #fff; border-radius: 8px; font-size: 13.5px; line-height: 1.65; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border-right: 4px solid #10B981; }
+  .quiz-q .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; }
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 16px; font-weight: 700; flex-shrink: 0; color: #555; }
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 6px; }
+  .mc-opt { display: flex; align-items: center; gap: 5px; font-size: 13.5px; }
+  .mc-opt .sq { width: 14px; height: 14px; border: 1.5px solid #777; border-radius: 2px; flex-shrink: 0; }
+  .mc-opt .ci { width: 14px; height: 14px; border: 1.5px solid #777; border-radius: 50%; flex-shrink: 0; }
+  .al { display: block; border-bottom: 1.5px solid #bbb; margin-top: 8px; height: 16px; }
+  .ali { display: inline-block; border-bottom: 1.5px solid #888; min-width: 60px; vertical-align: bottom; }
+  .note-box { background: #ECFDF5; border: 1px solid #6EE7B7; border-right: 3px solid #059669; border-radius: 6px; padding: 7px 12px; font-size: 13px; margin-bottom: 10px; line-height: 1.7; }
+  .score-bar { display: flex; gap: 14px; justify-content: flex-end; font-size: 13px; margin-top: 12px; background: #fff; border-radius: 8px; padding: 10px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+  .score-field { border-bottom: 1.5px solid #888; min-width: 36px; display: inline-block; }
+  .score-total { font-weight: 700; color: #1a1a2e; }
+  .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .done-btn { position: fixed; bottom: 18px; right: 18px; background: #10B981; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; }
+  table.fill-table { border-collapse: collapse; margin-top: 8px; font-size: 13px; width: 100%; }
+  table.fill-table th, table.fill-table td { border: 1.5px solid #bbb; padding: 6px 10px; text-align: center; }
+  table.fill-table th { background: #E8F5F0; font-weight: 700; }
+  table.fill-table td { min-width: 60px; }
+  @media print { body { background: #fff; padding: 10px; } .no-print { display: none; } @page { margin: 12mm; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — מושגי יסוד בגופים</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; גיאומטריה &nbsp;|&nbsp; גופים במרחב</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div style="background:#FFF3CD;border:2px solid #F59E0B;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#92400E;display:flex;align-items:center;gap:10px;">
+  <span>📝</span><span>כתבו את התשובות על דף נפרד!</span>
+</div>
+
+<span class="part-label pc">מושגי יסוד בגופים</span>
+
+<div class="note-box">
+  <strong>זכרו:</strong> תיבה: <span class="m">6</span> פאות, <span class="m">12</span> מקצועות, <span class="m">8</span> קודקודים.
+  קובייה = תיבה עם כל הצלעות שוות.
+</div>
+
+<!-- שאלה 1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span>
+  מלאו את הטבלה:
+  <table class="fill-table">
+    <thead>
+      <tr>
+        <th>גוף</th>
+        <th>מספר פאות</th>
+        <th>מספר מקצועות</th>
+        <th>מספר קודקודים</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>תיבה</strong></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><strong>קובייה</strong></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- שאלה 2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span>
+  תיבה עם אורך <span class="m">5</span> ס"מ, רוחב <span class="m">3</span> ס"מ, גובה <span class="m">2</span> ס"מ.
+  כמה <strong>מקצועות</strong> יש לה?
+  <br>הקיפו את התשובה הנכונה:
+  <div class="mc-opts">
+    <div class="mc-opt"><span class="ci"></span> 6</div>
+    <div class="mc-opt"><span class="ci"></span> 8</div>
+    <div class="mc-opt"><span class="ci"></span> 12</div>
+    <div class="mc-opt"><span class="ci"></span> 24</div>
+  </div>
+</div>
+
+<!-- שאלה 3 -->
+<div class="quiz-q">
+  <span class="qnum">3.</span>
+  <strong>הקיפו את כל הנכונות</strong> — קובייה היא מקרה מיוחד של:
+  <div class="mc-opts">
+    <div class="mc-opt"><span class="sq"></span> תיבה</div>
+    <div class="mc-opt"><span class="sq"></span> מנסרה</div>
+    <div class="mc-opt"><span class="sq"></span> פירמידה</div>
+    <div class="mc-opt"><span class="sq"></span> מקבילון</div>
+  </div>
+  <div style="font-size:12px;color:#666;margin-top:5px;">(ייתכן יותר מתשובה אחת נכונה)</div>
+</div>
+
+<!-- שאלה 4 -->
+<div class="quiz-q">
+  <span class="qnum">4.</span>
+  תארו גוף שיש לו בדיוק <span class="m">5</span> פאות.
+  <div class="sub-row">
+    <span class="sub-lbl">א.</span>
+    <span>איזה גוף זה?</span>
+  </div>
+  <span class="al"></span>
+  <div class="sub-row" style="margin-top:8px;">
+    <span class="sub-lbl">ב.</span>
+    <span>כמה מקצועות יש לגוף זה?</span>
+  </div>
+  <span class="al"></span>
+  <div class="sub-row" style="margin-top:8px;">
+    <span class="sub-lbl">ג.</span>
+    <span>כמה קודקודים יש לו?</span>
+  </div>
+  <span class="al"></span>
+</div>
+
+<div class="score-bar">
+  <span class="score-total">ניקוד: <span class="score-field"></span> / 20</span>
+</div>
+
+</div>
+<button class="print-btn no-print" onclick="window.print()">🖨 הדפסה</button>
+<button class="done-btn no-print" onclick="window.history.back()">✓ סיימתי</button>
+</body>
+</html>

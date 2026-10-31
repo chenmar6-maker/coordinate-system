@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — קובייה: מקרה מיוחד</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 60px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .part-label { font-size: 13px; font-weight: 700; color: #fff; padding: 5px 14px; border-radius: 6px; display: inline-block; margin-bottom: 10px; }
+  .pc { background: #059669; }
+  .quiz-q { margin-bottom: 8px; padding: 10px 12px 10px 10px; background: #fff; border-radius: 8px; font-size: 13.5px; line-height: 1.65; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border-right: 4px solid #10B981; }
+  .quiz-q .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; }
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 16px; font-weight: 700; flex-shrink: 0; color: #555; }
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 6px; }
+  .mc-opt { display: flex; align-items: center; gap: 5px; font-size: 13.5px; }
+  .mc-opt .sq { width: 14px; height: 14px; border: 1.5px solid #777; border-radius: 2px; flex-shrink: 0; }
+  .mc-opt .ci { width: 14px; height: 14px; border: 1.5px solid #777; border-radius: 50%; flex-shrink: 0; }
+  .al { display: block; border-bottom: 1.5px solid #bbb; margin-top: 8px; height: 16px; }
+  .ali { display: inline-block; border-bottom: 1.5px solid #888; min-width: 60px; vertical-align: bottom; }
+  .note-box { background: #ECFDF5; border: 1px solid #6EE7B7; border-right: 3px solid #059669; border-radius: 6px; padding: 7px 12px; font-size: 13px; margin-bottom: 10px; line-height: 1.7; }
+  .score-bar { display: flex; gap: 14px; justify-content: flex-end; font-size: 13px; margin-top: 12px; background: #fff; border-radius: 8px; padding: 10px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+  .score-field { border-bottom: 1.5px solid #888; min-width: 36px; display: inline-block; }
+  .score-total { font-weight: 700; color: #1a1a2e; }
+  .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .done-btn { position: fixed; bottom: 18px; right: 18px; background: #10B981; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; }
+  @media print { body { background: #fff; padding: 10px; } .no-print { display: none; } @page { margin: 12mm; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — קובייה: מקרה מיוחד</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; גיאומטריה &nbsp;|&nbsp; גופים במרחב</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div style="background:#FFF3CD;border:2px solid #F59E0B;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#92400E;display:flex;align-items:center;gap:10px;">
+  <span>📝</span><span>כתבו את התשובות על דף נפרד!</span>
+</div>
+
+<span class="part-label pc">קובייה — מקרה מיוחד</span>
+
+<div class="note-box">
+  <strong>זכרו:</strong>
+  קובייה עם צלע <span class="m">a</span>:
+  נפח <span class="m">= a³</span> &nbsp;|&nbsp; שטח פנים <span class="m">= 6a²</span>.
+  &nbsp; שתי קוביות זו על זו: הפאה המשותפת נחסמת <strong>פעמיים</strong> (אחת מכל קובייה).
+</div>
+
+<!-- שאלה 1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span>
+  קובייה עם צלע <span class="m">4</span> ס"מ.
+  <div class="sub-row" style="margin-top:6px;">
+    נפח = <span class="ali" style="min-width:100px;"></span> סמ"ק
+    &nbsp;&nbsp;&nbsp;
+    שטח פנים = <span class="ali" style="min-width:100px;"></span> סמ"ר
+  </div>
+</div>
+
+<!-- שאלה 2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span>
+  שתי קוביות זהות עם צלע <span class="m">3</span> ס"מ מונחות זו על גבי זו (מגדל).
+  <div class="sub-row">
+    <span class="sub-lbl">א.</span>
+    <span>מה שטח פני <strong>כל קובייה</strong> לחוד?</span>
+  </div>
+  <span class="al"></span>
+  <div class="sub-row" style="margin-top:8px;">
+    <span class="sub-lbl">ב.</span>
+    <span>כמה פאות נחסמות בסך הכל (אינן נראות מבחוץ)?</span>
+  </div>
+  <span class="al"></span>
+  <div class="sub-row" style="margin-top:8px;">
+    <span class="sub-lbl">ג.</span>
+    <span>מה שטח פני <strong>המגדל</strong> כולו?</span>
+  </div>
+  <span class="al"></span>
+</div>
+
+<!-- שאלה 3 -->
+<div class="quiz-q">
+  <span class="qnum">3.</span>
+  לקובייה מסוימת הגדלנו כל צלע פי <span class="m">2</span>.
+  <br>הנפח גדל פי:
+  <div class="mc-opts">
+    <div class="mc-opt"><span class="ci"></span> 2</div>
+    <div class="mc-opt"><span class="ci"></span> 4</div>
+    <div class="mc-opt"><span class="ci"></span> 6</div>
+    <div class="mc-opt"><span class="ci"></span> 8</div>
+  </div>
+  <div style="margin-top:6px;font-size:12.5px;color:#555;">הסבירו / חשבו:</div>
+  <span class="al"></span>
+</div>
+
+<!-- שאלה 4 -->
+<div class="quiz-q">
+  <span class="qnum">4.</span>
+  יש לנו <span class="m">8</span> קוביות קטנות עם צלע <span class="m">1</span> ס"מ. סידרנו אותן לקובייה גדולה אחת.
+  <div class="sub-row">
+    <span class="sub-lbl">א.</span>
+    <span>מה צלע הקובייה הגדולה?</span>
+  </div>
+  <span class="al"></span>
+  <div class="sub-row" style="margin-top:8px;">
+    <span class="sub-lbl">ב.</span>
+    <span>חשבו את שטח הפנים הכולל של <strong>8 הקוביות הקטנות</strong> בנפרד.</span>
+  </div>
+  <span class="al"></span>
+  <div class="sub-row" style="margin-top:8px;">
+    <span class="sub-lbl">ג.</span>
+    <span>חשבו את שטח הפנים של <strong>הקובייה הגדולה</strong>.</span>
+  </div>
+  <span class="al"></span>
+  <div class="sub-row" style="margin-top:8px;">
+    <span class="sub-lbl">ד.</span>
+    <span>מה ההבדל בין שני השטחים? הסבירו מדוע.</span>
+  </div>
+  <span class="al"></span>
+  <span class="al"></span>
+</div>
+
+<div class="score-bar">
+  <span class="score-total">ניקוד: <span class="score-field"></span> / 20</span>
+</div>
+
+</div>
+<button class="print-btn no-print" onclick="window.print()">🖨 הדפסה</button>
+<button class="done-btn no-print" onclick="window.history.back()">✓ סיימתי</button>
+</body>
+</html>
