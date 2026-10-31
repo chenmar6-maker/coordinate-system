@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — גופים במרחב</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+
+  .page-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  /* ── Part label strip ── */
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+    letter-spacing: 0.3px;
+  }
+  .pc { background: #059669; }
+
+  /* ── Section wrappers ── */
+  .sec { margin-bottom: 6px; }
+
+  /* ── Question cards ── */
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 10px 12px 10px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid transparent;
+  }
+  .sec-c .quiz-q { border-right-color: #10B981; }
+
+  .quiz-q .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; }
+
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 16px; font-weight: 700; flex-shrink: 0; color: #555; }
+
+  .math-row { direction: ltr; display: inline-flex; align-items: baseline; gap: 5px; }
+
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 6px; }
+  .mc-opt { display: flex; align-items: center; gap: 5px; font-size: 13.5px; }
+  .mc-opt .ci   { width: 14px; height: 14px; border: 1.5px solid #777; border-radius: 50%; flex-shrink: 0; }
+
+  .al  { display: block; border-bottom: 1.5px solid #bbb; margin-top: 8px; height: 16px; }
+  .al2 { display: block; border-bottom: 1px solid #ccc; margin-top: 14px; height: 16px; }
+  .ali    { display: inline-block; border-bottom: 1.5px solid #888; min-width: 60px; vertical-align: bottom; }
+
+  .note-box {
+    background: #ECFDF5;
+    border: 1px solid #6EE7B7;
+    border-right: 3px solid #059669;
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-size: 13px;
+    margin-bottom: 10px;
+    line-height: 1.7;
+  }
+
+  /* ── Score bar ── */
+  .score-bar {
+    display: flex; gap: 14px; justify-content: flex-end; flex-wrap: wrap;
+    font-size: 13px; margin-top: 12px;
+    background: #fff; border-radius: 8px;
+    padding: 10px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .score-part { display: flex; align-items: center; gap: 6px; }
+  .score-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .sd-c { background: #059669; }
+  .score-field {
+    border-bottom: 1.5px solid #888;
+    min-width: 36px; display: inline-block;
+  }
+  .score-total { font-weight: 700; color: #1a1a2e; }
+
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    body { background: #fff; padding: 10px; }
+    .no-print { display: none; }
+    .quiz-q { box-shadow: none; border: 1px solid #ddd; }
+    .header { background: #222 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    @page { margin: 12mm; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — גופים במרחב</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; גיאומטריה</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div style="background:#FFF3CD;border:2px solid #F59E0B;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#92400E;display:flex;align-items:center;gap:10px;">
+  <span style="font-size:20px;">📝</span>
+  <span>כתבו את התשובות על דף נפרד — <u>ממספרים לפי מספר השאלה</u>! תזדקקו לזה בבדיקה העצמית.</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     גופים במרחב
+══════════════════════════════════════════════════════ -->
+<span class="part-label pc">גופים במרחב</span>
+
+<div class="sec sec-c">
+
+<div class="note-box">
+  <strong>זכרו:</strong> נפח תיבה = אורך × רוחב × גובה. שטח פנים תיבה = <span class="m">2(ab + bc + ac)</span>. תיבה עם כל הצלעות שוות = קובייה.
+</div>
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span> השלימו את המשפטים:
+  <div class="sub-row"><span class="sub-lbl">א.</span><span>לתיבה יש</span> <span class="ali" style="min-width:30px;"></span> <span>פאות,</span> <span class="ali" style="min-width:30px;"></span> <span>מקצועות,</span> <span class="ali" style="min-width:30px;"></span> <span>קודקודים.</span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span><span>לתיבה עם מידות שונות יש</span> <span class="ali" style="min-width:30px;"></span> <span>זוגות של פאות שוות.</span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span><span>שם אחר לתיבה (כשכל הצלעות שוות):</span> <span class="ali" style="min-width:80px;"></span></div>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span> לתיבה נפח <span class="m">200</span> סמ"ק. שני ממדיה הם <span class="m">5</span> ס"מ ו-<span class="m">8</span> ס"מ. מה הממד השלישי?
+  <span class="al"></span>
+  <div class="sub-row" style="margin-top:6px;"><span>הממד השלישי =</span> <span class="ali" style="min-width:80px;"></span></div>
+  <div style="margin-top:12px;border-top:1px dashed #ddd;padding-top:10px;">
+    אדנית (תיבה) ברוחב <span class="m">30</span> ס"מ, אורך <span class="m">30</span> ס"מ וגובה <span class="m">20</span> ס"מ. מייצרים אדנית שנייה עם אותם רוחב וגובה, אבל אורך <span class="m">20</span> ס"מ בלבד. בכמה קטן הנפח? <strong>הקיפו תשובה:</strong>
+    <div class="mc-opts" style="margin-top:8px;">
+      <div class="mc-opt"><div class="ci"></div> <span class="m">1500</span> <span>סמ"ק</span></div>
+      <div class="mc-opt"><div class="ci"></div> <span class="m">3000</span> <span>סמ"ק</span></div>
+      <div class="mc-opt"><div class="ci"></div> <span class="m">7500</span> <span>סמ"ק</span></div>
+      <div class="mc-opt"><div class="ci"></div> <span class="m">10000</span> <span>סמ"ק</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <span class="qnum">3.</span> חשבו שטח פנים לתיבה בממדים <span class="m">6 × 4 × 3</span> ס"מ:
+  <span class="al"></span>
+  <span class="al2"></span>
+  <div class="sub-row" style="margin-top:6px;"><span>שטח פנים =</span> <span class="ali" style="min-width:80px;"></span></div>
+  <div style="margin-top:12px;border-top:1px dashed #ddd;padding-top:10px;">
+    קובייה עם מקצוע <span class="m">5</span> ס"מ — מה שטח הפנים?
+    <div class="sub-row" style="margin-top:4px;"><span>שטח פנים =</span> <span class="ali" style="min-width:80px;"></span></div>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <span class="qnum">4.</span> גוף מורכב משתי תיבות מרובעות (בסיס ריבוע) המונחות זו על זו. לתיבה התחתונה בסיס <span class="m">6 × 6</span> ס"מ וגובה <span class="m">10</span> ס"מ. לתיבה העליונה בסיס שהוא <em>שליש</em> מהתחתונה וגובה <span class="m">10</span> ס"מ.
+  <div class="sub-row"><span class="sub-lbl">א.</span><span>חשבו את נפח כל אחת מהתיבות:</span></div>
+  <span class="al" style="margin-top:14px;"></span>
+  <div class="sub-row"><span class="sub-lbl">ב.</span><span>כמה פעמים גדול נפח התחתונה מהעליונה?</span> <span class="ali" style="min-width:60px;"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span><span>מה הנפח הכולל של הגוף?</span> <span class="ali" style="min-width:80px;"></span></div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <span class="qnum">5.</span> נתונה פריסת תיבה עם מידות צלעות: <span class="m">2</span> ס"מ, <span class="m">3</span> ס"מ, <span class="m">5</span> ס"מ.
+  <div class="sub-row"><span class="sub-lbl">א.</span><span>מה נפח התיבה?</span> <span class="ali" style="min-width:80px;"></span></div>
+  <div class="sub-row"><span class="sub-lbl">ב.</span><span>מה שטח פנים התיבה?</span> <span class="ali" style="min-width:80px;"></span></div>
+  <div class="sub-row" style="align-items:flex-start;"><span class="sub-lbl">ג.</span><span>האם ניתן לייצר פריסה תקינה של קובייה מ-6 ריבועים מסודרים בשורה אחת? (כן/לא + הסבר קצר)</span></div>
+  <span class="al" style="margin-top:14px;"></span>
+</div>
+
+<!-- Q6 -->
+<div class="quiz-q">
+  <span class="qnum">6.</span> <strong>ממעוף הציפור:</strong> יש לנו שתי קוביות — אחת עם מקצוע <span class="m">2</span> ס"מ ואחת עם מקצוע <span class="m">3</span> ס"מ. מניחים את הקטנה על גבי הגדולה.
+  <div class="sub-row"><span class="sub-lbl">א.</span><span>מה הנפח הכולל?</span> <span class="ali" style="min-width:80px;"></span></div>
+  <div class="sub-row" style="margin-top:6px;"><span class="sub-lbl">ב.</span><span>מה שטח פנים הגוף שנוצר? <em>(שימו לב — היכן הפאות נחסמות!)</em></span></div>
+  <span class="al" style="margin-top:14px;"></span>
+  <span class="al2"></span>
+  <span class="al2"></span>
+</div>
+
+</div><!-- end sec-c -->
+
+<!-- ===== SCORE BAR ===== -->
+<div class="score-bar">
+  <div class="score-part"><div class="score-dot sd-c"></div>ציון: <span class="score-field">&nbsp;</span> / 6</div>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+
+<!-- שאלת היכרות -->
+<div style="margin-top:22px;padding:16px 18px;background:#FFFBEB;border:1.5px solid #FCD34D;border-right:4px solid #F59E0B;border-radius:10px;font-size:13.5px;line-height:1.8;">
+  <div style="font-size:11px;font-weight:800;color:#D97706;letter-spacing:1px;margin-bottom:10px;">💬 שאלת היכרות</div>
+  <div style="background:#FEF3C7;border-radius:8px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#92400E;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span>✏️</span><span>לפני שאתם עונים — כתבו את השאלה במלואה בדף!</span></div>
+  <div style="font-size:14px;font-weight:700;color:#1a1a2e;">אם הייתם בונים בית בחלל — איזה צורה הייתם בוחרים לו, ולמה?</div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:16px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+</div>
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#059669;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
