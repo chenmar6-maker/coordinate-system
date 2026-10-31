@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ביטויים אלגבריים</title>
+<title>ביטויים, כינוס וחוק הפילוג</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
 
@@ -134,6 +134,48 @@ const state = {
 
 /* ============ GAME LEVELS ============ */
 
+/* — seq 3: כינוס איברים דומים — */
+const gameLevels3 = [
+  { id:'mc', title:'איברים דומים',
+    question:'אילו מהאיברים הבאים הם "דומים" ויכולים להיכנס?',
+    options:['3x &nbsp;ו-&nbsp; 5x²','3x &nbsp;ו-&nbsp; 5x','3x &nbsp;ו-&nbsp; 3y','3x &nbsp;ו-&nbsp; 5'],
+    correct:'3x &nbsp;ו-&nbsp; 5x',
+    explain:'איברים דומים = אותו משתנה באותה חזקה. 3x ו-5x — שניהם x בחזקה 1.' },
+  { id:'mc', title:'כינוס',
+    question:'מה שווה <span class="m">3x + 5x</span>?',
+    options:['8x²','15x','8x','8'],
+    correct:'8x',
+    explain:'3x + 5x = (3+5)x = 8x. מסכמים את המקדמים, המשתנה נשאר.' },
+  { id:'mc', title:'כינוס',
+    question:'מה שווה <span class="m">7b − 2b + b</span>?',
+    options:['4b','5b','6b','10b'],
+    correct:'6b',
+    explain:'7b − 2b + b = (7−2+1)b = 6b.' },
+  { id:'mc', title:'פישוט ביטוי',
+    question:'מה שווה <span class="m">4a + 7 − a + 3</span>?',
+    options:['3a + 10','5a + 10','3a + 4','5a + 4'],
+    correct:'3a + 10',
+    explain:'איברים עם a: 4a − a = 3a. מספרים: 7 + 3 = 10. תוצאה: 3a + 10.' },
+  { id:'mc', title:'פישוט ביטוי',
+    question:'מה שווה <span class="m">2.5x + 3 + 1.3x − 1</span>?',
+    options:['3.8x + 4','3.8x + 2','3.8x − 2','1.2x + 2'],
+    correct:'3.8x + 2',
+    explain:'x: 2.5x + 1.3x = 3.8x. מספרים: 3 − 1 = 2. תוצאה: 3.8x + 2.' },
+  { id:'mc', title:'מי שווה ל-5x + 3?',
+    question:'אילו מהביטויים הבאים שווים ל-<span class="m">5x + 3</span>? (יתכן יותר מתשובה אחת — בחרו הנכון ביותר)',
+    options:['3x + 2 + 2x + 1','4x + 5 + x − 2','6x − x + 4 − 1','כל האפשרויות נכונות'],
+    correct:'כל האפשרויות נכונות',
+    explain:'א: 3x+2x=5x, 2+1=3 ✓. ב: 4x+x=5x, 5−2=3 ✓. ג: 6x−x=5x, 4−1=3 ✓. כולם נכונים!' },
+  { id:'mc', title:'מה אפשר לכנס?',
+    question:'מי מהביטויים ניתן לפישוט על ידי כינוס?',
+    options:['3x + 5y','3x + 5x²','3x + 5x','3x + 5'],
+    correct:'3x + 5x',
+    explain:'רק 3x + 5x ניתן לכינוס (שניהם x). שאר הביטויים — המשתנים שונים ואי אפשר לכנס.' },
+];
+
+const gameLevels4 = [];
+
+/* — seq 1: כתיבת ביטויים — */
 const gameLevels1 = [
   { id:'mc', title:'מה זה משתנה?',
     question:'למה בביטוי <span class="m">3x + 5</span> האות x נקראת "משתנה"?',
@@ -263,6 +305,8 @@ function skipLevel(){
 function currentGameLevels(){
   if(state.sequence===1) return gameLevels1;
   if(state.sequence===2) return gameLevels2;
+  if(state.sequence===3) return gameLevels3;
+  if(state.sequence===4) return gameLevels4;
   return gameLevels1;
 }
 
@@ -336,12 +380,17 @@ function seqRow(seqNum, label, opts={}){
 function renderHome(){
   return `
     <div class="hero">
-      <h1 class="title">ביטויים אלגבריים</h1>
+      <h1 class="title">ביטויים, כינוס וחוק הפילוג</h1>
+    </div>
+    <div class="sequence-section" style="margin-bottom:20px;">
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">ביטויים אלגבריים</div>
+      ${seqRow(1,'1. כתיבת ביטויים אלגבריים',{worksheetUrl:'../worksheets/algebra_writing_exam.html',answersUrl:'../worksheets/algebra_writing_answers.html',checkUrl:'../worksheets/algebra_writing_exam_check.html'})}
+      ${seqRow(2,'2. הצבה וחישוב ערך הביטוי',{worksheetUrl:'../worksheets/algebra_substitution_exam.html',answersUrl:'../worksheets/algebra_substitution_answers.html',checkUrl:'../worksheets/algebra_substitution_exam_check.html'})}
     </div>
     <div class="sequence-section" style="margin-bottom:32px;">
-      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">מבוא לאלגברה</div>
-      ${seqRow(1,'1. כתיבת ביטויים אלגבריים',{worksheetUrl:'../worksheets/algebra_writing_exam.html',answersUrl:'../worksheets/algebra_writing_answers.html',checkUrl:'../worksheets/algebra_writing_exam_check.html'})}
-      ${seqRow(2,'2. הצבה וחישוב ערך הביטוי',{worksheetUrl:'../worksheets/algebra_substitution_exam.html',answersUrl:'../worksheets/algebra_substitution_answers.html',checkUrl:'../worksheets/algebra_substitution_exam_check.html',nextUrl:'../unit9/'})}
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">כינוס וחוק הפילוג</div>
+      ${seqRow(3,'3. כינוס איברים דומים',{worksheetUrl:'../worksheets/algebra_combining_exam.html',answersUrl:'../worksheets/algebra_combining_answers.html',checkUrl:'../worksheets/algebra_combining_exam_check.html'})}
+      ${seqRow(4,'4. כינוס איברים וחוק הפילוג',{worksheetUrl:'../worksheets/algebra_distributing_exam.html'})}
     </div>`;
 }
 
@@ -350,6 +399,7 @@ function renderHome(){
 function renderLearn(){
   if(state.sequence===1) return renderLearn1();
   if(state.sequence===2) return renderLearn2();
+  if(state.sequence===3) return renderLearn3();
   return renderLearn1();
 }
 
@@ -424,6 +474,31 @@ function renderLearn2(){
 
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn3(){
+  return `<div class="panel">
+    <h2 class="qtitle">כינוס איברים דומים</h2>
+    <div class="gold-box">איברים דומים = אותו משתנה, אותה חזקה — אפשר לסכם את המקדמים</div>
+    <div class="examples-row">
+      <div class="example-box">3x + 5x = 8x</div>
+      <div class="example-box">7b − 2b + b = 6b</div>
+      <div class="example-box">4a + 7 − a + 3<br>= 3a + 10</div>
+    </div>
+    <ul class="bullets">
+      <li>מסכמים <strong>רק</strong> איברים עם אותו משתנה: <span class="m">3x + 5x = 8x</span></li>
+      <li>מספרים מסכמים עם מספרים: <span class="m">7 + 3 = 10</span></li>
+      <li>אי אפשר לכנס: <span class="m">3x + 5y</span> (משתנים שונים) | <span class="m">3x + 5x²</span> (חזקות שונות)</li>
+      <li>סדר הפעולות חשוב — שמים לב לסימן לפני כל איבר</li>
+    </ul>
+    <div style="background:rgba(226,96,79,0.1);border-right:4px solid var(--coral);border-radius:6px;padding:12px 16px;margin-top:14px;font-size:15px;">
+      <strong>שגיאה נפוצה:</strong> <span class="m">3x + 5 ≠ 8x</span>. המספר 5 אינו "דומה" ל-3x!
+    </div>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
