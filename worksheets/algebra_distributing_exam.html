@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — כינוס איברים וחוק הפילוג</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+    background: #7C3AED;
+  }
+  .quiz-q {
+    margin-bottom: 10px;
+    padding: 12px 14px 12px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #A78BFA;
+  }
+  .quiz-q .qrow { display: flex; align-items: baseline; gap: 5px; margin-bottom: 4px; }
+  .quiz-q .qnum { font-weight: 700; min-width: 18px; flex-shrink: 0; }
+  .math { direction: ltr; unicode-bidi: isolate; font-weight: 600; font-family: 'Times New Roman', serif; font-size: 15px; }
+  .ans-line {
+    display: inline-block;
+    border-bottom: 1.5px solid #555;
+    min-width: 80px;
+    margin-right: 4px;
+    vertical-align: bottom;
+  }
+  .think-line { display: block; border-bottom: 1px solid #bbb; margin-top: 14px; height: 1px; }
+  .pill {
+    border: 1px solid #aaa; border-radius: 12px;
+    padding: 2px 10px; margin-left: 6px; display: inline-block;
+    font-size: 12.5px;
+  }
+  .expr-box {
+    background: #f5f3ff; border: 1.5px solid #ddd6fe; border-radius: 8px;
+    padding: 8px 16px; margin: 8px 0 10px;
+    text-align: center; font-family: 'Times New Roman', serif;
+    font-size: 19px; direction: ltr;
+  }
+  .match-row { display: flex; gap: 24px; flex-wrap: wrap; margin: 10px 0; }
+  .match-col { flex: 1; min-width: 140px; }
+  .match-col h4 { font-size: 12px; font-weight: 800; color: #7C3AED; border-bottom: 1.5px solid #ddd6fe; padding-bottom: 3px; margin-bottom: 8px; }
+  .match-item { font-family: 'Times New Roman', serif; font-size: 16px; padding: 4px 0; direction: ltr; }
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 0; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; border: 1px solid #ddd; border-right: 4px solid #A78BFA; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — כינוס איברים וחוק הפילוג</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; אלגברה</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div style="background:#FFF3CD;border:2px solid #F59E0B;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#92400E;display:flex;align-items:center;gap:10px;">
+  <span style="font-size:20px;">📝</span>
+  <span>כתבו את התשובות על דף נפרד — <u>ממספרים לפי מספר השאלה</u>! תזדקקו לזה בבדיקה העצמית.</span>
+</div>
+
+<span class="part-label">חלק א׳ — כינוס איברים דומים</span>
+
+<!-- שאלה 1 -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span>פשטו את הביטויים:</span></div>
+  <div style="margin-top:6px;padding-right:8px;display:flex;flex-direction:column;gap:5px;">
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">א.</span>
+      <div style="direction:ltr;flex:1;text-align:right;"><span class="math">5a + 3 + 2a − 1 = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ב.</span>
+      <div style="direction:ltr;flex:1;text-align:right;"><span class="math">4x + 3y − x + 2y = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ג.</span>
+      <div style="direction:ltr;flex:1;text-align:right;"><span class="math">6m − 2 + m + 8 − 3m = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ד.</span>
+      <div style="direction:ltr;flex:1;text-align:right;"><span class="math">3a + b − 2a + 4b − a = </span><span class="ans-line" style="min-width:70px;">&nbsp;</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 2 -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span><b>מבלי לחשב</b> — הקיפו את הביטוי הפשוט המקביל:</span></div>
+  <div style="margin-top:6px;padding-right:8px;display:flex;flex-direction:column;gap:8px;">
+    <div>
+      <div style="direction:ltr;font-weight:600;font-family:'Times New Roman',serif;font-size:15px;margin-bottom:4px;">p + p + p</div>
+      <div><span class="pill">p</span><span class="pill">2p</span><span class="pill">3p</span><span class="pill">p³</span></div>
+    </div>
+    <div>
+      <div style="direction:ltr;font-weight:600;font-family:'Times New Roman',serif;font-size:15px;margin-bottom:4px;">a + 7 + 2a − 2</div>
+      <div><span class="pill">3a + 5</span><span class="pill">3a + 9</span><span class="pill">2a + 5</span><span class="pill">a + 9</span></div>
+    </div>
+    <div>
+      <div style="direction:ltr;font-weight:600;font-family:'Times New Roman',serif;font-size:15px;margin-bottom:4px;">5x − 2x + x</div>
+      <div><span class="pill">8x</span><span class="pill">4x</span><span class="pill">2x</span><span class="pill">6x</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 3 -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span>מצאו את האיבר החסר:</span></div>
+  <div style="margin-top:5px;padding-right:8px;display:flex;flex-direction:column;gap:6px;">
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">א.</span>
+      <div style="direction:ltr;flex:1;font-size:13px;text-align:right;">
+        <span class="math">3a + <span style="display:inline-block;border-bottom:1.5px solid #333;min-width:28px;text-align:center;">&nbsp;</span> + 2a = 6a + 1</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ב.</span>
+      <div style="direction:ltr;flex:1;font-size:13px;text-align:right;">
+        <span class="math">7x − <span style="display:inline-block;border-bottom:1.5px solid #333;min-width:28px;text-align:center;">&nbsp;</span> = 4x</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ג.</span>
+      <div style="direction:ltr;flex:1;font-size:13px;text-align:right;">
+        <span class="math"><span style="display:inline-block;border-bottom:1.5px solid #333;min-width:28px;text-align:center;">&nbsp;</span> + 4y − 2y = 3x + 2y</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<span class="part-label" style="margin-top:14px;display:inline-block;">חלק ב׳ — חוק הפילוג</span>
+
+<!-- שאלה 4 -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">4.</span><span>פתחו סוגריים:</span></div>
+  <div style="margin-top:6px;padding-right:8px;display:flex;flex-direction:column;gap:5px;">
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">א.</span>
+      <div style="direction:ltr;flex:1;text-align:right;"><span class="math">3(x + 5) = </span><span class="ans-line">&nbsp;</span></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ב.</span>
+      <div style="direction:ltr;flex:1;text-align:right;"><span class="math">4(2a − 3) = </span><span class="ans-line">&nbsp;</span></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ג.</span>
+      <div style="direction:ltr;flex:1;text-align:right;"><span class="math">2(3x + y − 1) = </span><span class="ans-line">&nbsp;</span></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ד.</span>
+      <div style="direction:ltr;flex:1;text-align:right;"><span class="math">5(a + b) = </span><span class="ans-line">&nbsp;</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 5 — שטח מלבן -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">5.</span><span>שטח מלבן — שתי דרכים</span></div>
+  <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-top:8px;">
+    <svg viewBox="0 0 270 105" style="width:240px;min-width:180px;flex-shrink:0;" dir="ltr" xmlns="http://www.w3.org/2000/svg">
+      <rect x="15" y="18" width="240" height="66" fill="#f5f3ff" stroke="#7C3AED" stroke-width="1.8"/>
+      <line x1="140" y1="18" x2="140" y2="84" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <text x="77" y="57" text-anchor="middle" font-family="Times New Roman" font-size="19" fill="#1a1a2e">a</text>
+      <text x="205" y="57" text-anchor="middle" font-family="Times New Roman" font-size="19" fill="#1a1a2e">4</text>
+      <text x="5" y="57" text-anchor="middle" font-family="Times New Roman" font-size="16" fill="#7C3AED" font-weight="bold">3</text>
+      <text x="77" y="12" text-anchor="middle" font-family="Times New Roman" font-size="13" fill="#6b7280">a</text>
+      <text x="205" y="12" text-anchor="middle" font-family="Times New Roman" font-size="13" fill="#6b7280">4</text>
+    </svg>
+    <div style="flex:1;min-width:180px;font-size:13px;">
+      <div style="margin-bottom:6px;">המלבן חלוק לשני חלקים. גובהו 3.</div>
+      <div style="font-weight:700;margin-bottom:3px;">א. כתבו שטח כסכום שני ביטויים:</div>
+      <div style="direction:ltr;text-align:right;font-size:13px;">שטח = <span class="ans-line" style="min-width:90px;">&nbsp;</span></div>
+      <div style="font-weight:700;margin:8px 0 3px;">ב. השתמשו בחוק הפילוג (כפל בסוגריים):</div>
+      <div style="direction:ltr;text-align:right;font-size:13px;">שטח = <span class="ans-line" style="min-width:90px;">&nbsp;</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 6 -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">6.</span><span>פשטו — שלבו כינוס ופילוג:</span></div>
+  <div style="margin-top:6px;padding-right:8px;display:flex;flex-direction:column;gap:5px;">
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">א.</span>
+      <div style="direction:ltr;flex:1;text-align:right;"><span class="math">2(x + 3) + x = </span><span class="ans-line">&nbsp;</span></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ב.</span>
+      <div style="direction:ltr;flex:1;text-align:right;"><span class="math">3(a + 2) + 2(a − 1) = </span><span class="ans-line">&nbsp;</span></div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:6px;">
+      <span style="font-weight:700;min-width:22px;flex-shrink:0;margin-top:2px;">ג.</span>
+      <div style="direction:ltr;flex:1;text-align:right;"><span class="math">(6a + 4) ÷ 2 = </span><span class="ans-line">&nbsp;</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 7 — לגבי כל טענה -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">7.</span><span>לגבי כל טענה — רשמו <b>נכון</b> / <b>לא נכון</b> ונמקו:</span></div>
+  <div style="margin-top:5px;padding-right:8px;display:flex;flex-direction:column;gap:10px;">
+    <div>
+      <div style="display:flex;align-items:baseline;gap:6px;">
+        <span style="font-weight:700;min-width:22px;flex-shrink:0;">א.</span>
+        <span>הביטויים <span class="math">2a + 3a</span> ו-<span class="math">5a</span> שווים לכל ערך של <span class="math">a</span>.</span>
+      </div>
+      <div class="think-line"></div>
+    </div>
+    <div>
+      <div style="display:flex;align-items:baseline;gap:6px;">
+        <span style="font-weight:700;min-width:22px;flex-shrink:0;">ב.</span>
+        <span>אפשר לפשט את הביטוי <span class="math">3a + 4b</span> לביטוי עם איבר אחד בלבד.</span>
+      </div>
+      <div class="think-line"></div>
+    </div>
+    <div>
+      <div style="display:flex;align-items:baseline;gap:6px;">
+        <span style="font-weight:700;min-width:22px;flex-shrink:0;">ג.</span>
+        <span>חוק הפילוג אומר: <span class="math">a(b + c) = ab + ac</span>.</span>
+      </div>
+      <div class="think-line"></div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 8 — חיבור עמודות -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">8.</span><span>חברו כל ביטוי מעמוד א לביטוי השווה לו בעמוד ב:</span></div>
+  <div class="match-row">
+    <div class="match-col">
+      <h4>עמוד א</h4>
+      <div class="match-item">① 2(a + 3)</div>
+      <div class="match-item">② 3a + 3a</div>
+      <div class="match-item">③ 5x − 2x + 1</div>
+      <div class="match-item">④ a · 5</div>
+    </div>
+    <div class="match-col">
+      <h4>עמוד ב</h4>
+      <div class="match-item">A. 6a</div>
+      <div class="match-item">B. 5a</div>
+      <div class="match-item">C. 2a + 6</div>
+      <div class="match-item">D. 3x + 1</div>
+    </div>
+  </div>
+  <div style="font-size:13px;padding-right:4px;direction:ltr;text-align:right;margin-top:6px;">
+    ① — <span class="ans-line" style="min-width:22px;">&nbsp;</span> &nbsp;&nbsp;
+    ② — <span class="ans-line" style="min-width:22px;">&nbsp;</span> &nbsp;&nbsp;
+    ③ — <span class="ans-line" style="min-width:22px;">&nbsp;</span> &nbsp;&nbsp;
+    ④ — <span class="ans-line" style="min-width:22px;">&nbsp;</span>
+  </div>
+</div>
+
+<!-- שאלה 9 — שאלה מילולית -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">9.</span><span>גינה מלבנית שרוחבה 4 מטר ואורכה <span class="math">(n + 3)</span> מטר.</span></div>
+  <div style="margin-top:5px;padding-right:8px;display:flex;flex-direction:column;gap:8px;">
+    <div>
+      <span style="font-weight:700;">א.</span>
+      <span style="margin-right:4px;">כתבו ביטוי לשטח הגינה (עם סוגריים):</span>
+      <div style="direction:ltr;text-align:right;margin-top:3px;">שטח = <span class="ans-line" style="min-width:80px;">&nbsp;</span></div>
+    </div>
+    <div>
+      <span style="font-weight:700;">ב.</span>
+      <span style="margin-right:4px;">פשטו עם חוק הפילוג:</span>
+      <div style="direction:ltr;text-align:right;margin-top:3px;">שטח = <span class="ans-line" style="min-width:80px;">&nbsp;</span></div>
+    </div>
+    <div>
+      <span style="font-weight:700;">ג.</span>
+      <span style="margin-right:4px;">חשבו את השטח כאשר <span class="math">n = 7</span>:</span>
+      <div style="direction:ltr;text-align:right;margin-top:3px;">שטח = <span class="ans-line" style="min-width:80px;">&nbsp;</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלת היכרות -->
+<div style="margin-top:22px;padding:16px 18px;background:#FFFBEB;border:1.5px solid #FCD34D;border-right:4px solid #F59E0B;border-radius:10px;font-size:13.5px;line-height:1.8;">
+  <div style="font-size:11px;font-weight:800;color:#D97706;letter-spacing:1px;margin-bottom:10px;">💬 שאלת היכרות</div>
+  <div style="background:#FEF3C7;border-radius:8px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#92400E;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span>✏️</span><span>לפני שאתם עונים — כתבו את השאלה במלואה בדף!</span></div>
+  <div style="font-size:14px;font-weight:700;color:#1a1a2e;">אם אפשר היה להוסיף שיעור כיף חדש לאחד מימות השבוע, מה הוא היה?</div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:16px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+</div>
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>

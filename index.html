@@ -96,29 +96,29 @@
 
   .bottom-btns { text-align: center; margin-top: 36px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
   .games-btn {
+    display: inline-block; padding: 10px 28px;
+    background: none;
+    border: 1.5px solid rgba(234,244,241,0.12);
+    border-radius: 24px; color: rgba(234,244,241,0.35);
+    font-family: 'Rubik', sans-serif; font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: all .15s;
+  }
+  .games-btn:hover {
+    border-color: rgba(234,244,241,0.4);
+    color: rgba(234,244,241,0.65);
+  }
+  .teacher-btn {
     display: inline-block; padding: 14px 36px;
     background: linear-gradient(135deg,#50C896,#20A070);
-    border: none;
     border-radius: 28px; color: #0F1E18;
     font-family: 'Rubik', sans-serif; font-size: 17px; font-weight: 800;
     text-decoration: none; transition: all .15s;
     box-shadow: 0 4px 18px rgba(80,200,150,0.35);
     letter-spacing: -0.3px;
   }
-  .games-btn:hover {
+  .teacher-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 7px 24px rgba(80,200,150,0.5);
-  }
-  .teacher-btn {
-    display: inline-block; padding: 10px 28px;
-    border: 1.5px solid rgba(234,244,241,0.12);
-    border-radius: 24px; color: rgba(234,244,241,0.35);
-    font-family: 'Rubik', sans-serif; font-size: 13px; font-weight: 500;
-    text-decoration: none; transition: all .15s;
-  }
-  .teacher-btn:hover {
-    border-color: rgba(234,244,241,0.4);
-    color: rgba(234,244,241,0.65);
   }
   .gate-screen {
     position:fixed;inset:0;z-index:999;
@@ -543,7 +543,6 @@
 
   <div class="bottom-btns">
     <a class="teacher-btn" href="https://script.google.com/macros/s/AKfycbypGYgALZmBe9jtRU_C49lvRPOtK_mC_iS5wYw5lem_EPQaYj7vErZiP64TZbEZvsb-BQ/exec" target="_blank" rel="noopener">מעקב למורה</a>
-    <a href="./chutzpah.html" style="display:inline-block;padding:12px 30px;background:linear-gradient(135deg,#F59E0B,#D97706);border-radius:24px;color:#1C1400;font-family:'Rubik',sans-serif;font-size:15px;font-weight:800;text-decoration:none;box-shadow:0 4px 16px rgba(245,158,11,0.35);transition:all .15s;letter-spacing:-0.2px;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 7px 22px rgba(245,158,11,0.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px rgba(245,158,11,0.35)'">✨ שיעור בחוצפה חיובית</a>
     <div id="games-gate">
       <button class="games-btn" onclick="openGate()">משחקתמטיקה</button>
     </div>
