@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>היקפים ושטחים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  :root{
+    --navy:#1E1B2E; --deep-navy:#0F0D1A; --green:#10B981; --green-dark:#059669;
+    --foam:#EAF4F1; --gold:#EFA94A; --coral:#E2604F; --seafoam:#48B08C;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Rubik',sans-serif;background:radial-gradient(ellipse at 50% -10%,#0D3D2E 0%,#1E1B2E 50%,#0F0D1A 100%);color:var(--foam);direction:rtl;min-height:100vh;line-height:1.6;}
+  .wrap{max-width:900px;margin:0 auto;padding:20px 18px 70px;}
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;max-width:900px;margin:0 auto;}
+  .brand{font-size:19px;color:var(--green);}
+  .homebtn{background:transparent;border:1.5px solid var(--foam);color:var(--foam);padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;cursor:pointer;opacity:.85;text-decoration:none;display:inline-block;}
+  .homebtn:hover{opacity:1;border-color:var(--green);color:var(--green);}
+  .hero{text-align:center;padding:18px 10px 10px;}
+  h1.title{font-weight:800;font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:#FFFFFF;letter-spacing:-0.5px;}
+  p.subtitle{font-size:17px;opacity:.85;margin:0 0 8px;}
+  .cards{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+  .sequence-section{margin-bottom:28px;background:rgba(234,244,241,0.04);border-radius:14px;padding:18px 20px;}
+  .sequence-title{font-weight:700;font-size:17px;color:var(--foam);text-align:center;margin:0 0 14px;opacity:.9;}
+  .flow-arrow{display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(16,185,129,0.5);flex-shrink:0;}
+  .card{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:50px;cursor:pointer;font-family:'Rubik',sans-serif;font-weight:600;font-size:15px;transition:transform .15s ease,box-shadow .15s ease;border:none;}
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.25);}
+  .card h3{font-size:15px;font-weight:600;margin:0;}
+  .card.learn{background:rgba(16,185,129,0.18);border:1.5px solid var(--green);color:var(--green);}
+  .card.game{background:rgba(239,169,74,0.18);border:1.5px solid var(--gold);color:var(--gold);}
+  .card.quiz{background:rgba(226,96,79,0.18);border:1.5px solid var(--coral);color:var(--coral);}
+  .panel{background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.15);border-radius:10px;padding:22px;margin:18px 0;}
+  .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+  .btn{background:var(--green);color:#0F1E18;border:none;font-weight:700;font-family:'Rubik',sans-serif;font-size:15px;padding:11px 26px;border-radius:24px;cursor:pointer;transition:transform .12s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn.secondary{background:transparent;border:1.5px solid var(--foam);color:var(--foam);}
+  .btn.secondary:hover{border-color:var(--green);color:var(--green);}
+  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+  .feedback{text-align:center;font-size:16px;font-weight:700;margin:14px 0;min-height:24px;}
+  .feedback.ok{color:var(--seafoam);}
+  .feedback.bad{color:var(--coral);}
+  .progressdots{display:flex;gap:8px;justify-content:center;margin-bottom:6px;}
+  .dot{width:11px;height:11px;border-radius:50%;background:rgba(234,244,241,0.25);border:none;padding:0;}
+  .dot.done{background:var(--seafoam);}
+  .dot.active{background:var(--gold);}
+  .mc-options{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:16px auto 0;}
+  .mc-btn{background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;cursor:pointer;font-family:'Rubik',sans-serif;text-align:right;}
+  .mc-btn:hover{border-color:var(--green);}
+  .mc-btn.correct{background:rgba(72,176,140,0.3);border-color:var(--seafoam);}
+  .mc-btn.wrong{background:rgba(226,96,79,0.3);border-color:var(--coral);}
+  .mc-btn:disabled{cursor:default;}
+  .explain-box{background:rgba(72,176,140,0.1);border-right:4px solid var(--seafoam);border-radius:6px;padding:12px 16px;margin-top:14px;font-size:15px;}
+  .qmeta{text-align:center;font-size:14px;opacity:.75;margin-bottom:6px;}
+  .qtitle{font-size:18px;font-weight:700;text-align:center;margin:6px 0 4px;}
+  .qtext{font-size:16px;text-align:center;margin:0 0 6px;max-width:560px;margin-left:auto;margin-right:auto;}
+  .scorebig{font-size:52px;color:var(--gold);text-align:center;margin:10px 0;}
+  ul.bullets{list-style:none;margin:18px 0 6px;padding:0;text-align:right;}
+  ul.bullets li{position:relative;padding-right:22px;margin-bottom:10px;font-size:16px;line-height:1.55;}
+  ul.bullets li::before{content:"•";color:var(--green);position:absolute;right:0;top:0;font-size:18px;}
+  .learn-note{background:rgba(16,185,129,0.1);border-right:4px solid var(--green);border-radius:6px;padding:12px 16px;margin-top:16px;font-size:15px;text-align:right;}
+  .gold-box{background:rgba(239,169,74,0.12);border-right:4px solid var(--gold);border-radius:6px;padding:14px 18px;margin:14px 0;font-size:17px;font-weight:700;color:var(--gold);text-align:right;}
+  .formula-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+  .formula-card{background:rgba(234,244,241,0.07);border:1.5px solid rgba(234,244,241,0.15);border-radius:10px;padding:14px;text-align:center;}
+  .formula-card .fname{font-size:13px;opacity:.7;margin-bottom:4px;}
+  .formula-card .fval{font-size:18px;font-weight:700;color:var(--gold);}
+  .m{direction:ltr;unicode-bidi:isolate;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const state = { screen:'home', sequence:1, qi:0, score:0, answered:false };
+const openSections = new Set();
+
+function goTo(s){ state.screen=s; render(); window.scrollTo(0,0); }
+function goHome(){ state.screen='home'; render(); window.scrollTo(0,0); }
+function toggleSection(n){ openSections.has(n)?openSections.delete(n):openSections.add(n); render(); }
+function startGame(){ state.qi=0; state.score=0; state.answered=false; goTo('game'); }
+
+/* ========== GAME LEVELS ========== */
+
+const gameLevels1 = [
+  { q:'מה ההיקף של מלבן עם אורך 8 ס"מ ורוחב 5 ס"מ?', opts:['13 ס"מ','26 ס"מ','40 ס"מ','16 ס"מ'], ans:1, exp:'היקף מלבן = 2×(אורך+רוחב) = 2×(8+5) = 2×13 = 26 ס"מ.' },
+  { q:'מה השטח של מלבן עם אורך 8 ס"מ ורוחב 5 ס"מ?', opts:['26 סמ"ר','40 סמ"ר','13 סמ"ר','80 סמ"ר'], ans:1, exp:'שטח מלבן = אורך × רוחב = 8×5 = 40 סמ"ר.' },
+  { q:'למלבן שטח 36 סמ"ר ואורך 9 ס"מ. מה רוחבו?', opts:['27 ס"מ','4 ס"מ','45 ס"מ','6 ס"מ'], ans:1, exp:'שטח = אורך × רוחב → 36 = 9×רוחב → רוחב = 36÷9 = 4 ס"מ.' },
+  { q:'לריבוע צלע באורך 7 ס"מ. מה היקפו?', opts:['14 ס"מ','28 ס"מ','49 ס"מ','21 ס"מ'], ans:1, exp:'היקף ריבוע = 4×צלע = 4×7 = 28 ס"מ.' },
+  { q:'למלבן היקף 30 ס"מ ואורך 10 ס"מ. מה רוחבו?', opts:['3 ס"מ','5 ס"מ','20 ס"מ','15 ס"מ'], ans:1, exp:'30 = 2×(10+רוחב) → 15 = 10+רוחב → רוחב = 5 ס"מ.' },
+  { q:'מה ההבדל בין היקף לשטח?', opts:['אין הבדל, שניהם מודדים גודל','היקף = אורך הגבול החיצוני; שטח = כמה שטח מכסה הצורה','שטח תמיד גדול יותר מהיקף','היקף מיועד לריבועים, שטח למשולשים'], ans:1, exp:'היקף = סך אורכי הצלעות (מדידה של קו). שטח = כמה שטח הצורה מכסה (מדידה של משטח).' },
+];
+
+const gameLevels2 = [
+  { q:'שטח משולש עם בסיס 10 ס"מ וגובה 6 ס"מ הוא...', opts:['60 סמ"ר','30 סמ"ר','16 סמ"ר','8 סמ"ר'], ans:1, exp:'שטח משולש = ½ × בסיס × גובה = ½ × 10 × 6 = 30 סמ"ר.' },
+  { q:'מדוע שטח משולש הוא מחצית שטח המלבן המתאים?', opts:['כי למשולש פחות צלעות','כי המשולש בדיוק מחצית המלבן החוסם אותו','כי הזוויות קטנות יותר','זה לא נכון'], ans:1, exp:'כל משולש הוא בדיוק חצי מהמלבן שמכיל אותו (אותו בסיס ואותו גובה). לכן שטח = ½×b×h.' },
+  { q:'למשולש שטח 24 סמ"ר ובסיס 8 ס"מ. מה גובהו?', opts:['3 ס"מ','6 ס"מ','48 ס"מ','12 ס"מ'], ans:1, exp:'24 = ½×8×h → 24 = 4h → h = 6 ס"מ.' },
+  { q:'משולש ישר-זווית עם ניצבים 6 ס"מ ו-8 ס"מ. מה שטחו?', opts:['48 סמ"ר','14 סמ"ר','24 סמ"ר','96 סמ"ר'], ans:2, exp:'במשולש ישר-זווית, שני הניצבים הם הבסיס והגובה. שטח = ½×6×8 = 24 סמ"ר.' },
+  { q:'ריבוע ומשולש שווה-שטח. לריבוע צלע 6 ס"מ. לבסיס המשולש 9 ס"מ. מה גובה המשולש?', opts:['4 ס"מ','8 ס"מ','6 ס"מ','12 ס"מ'], ans:1, exp:'שטח ריבוע = 36. שטח משולש = ½×9×h = 36 → 4.5h=36 → h=8 ס"מ.' },
+];
+
+const gameLevels3 = [
+  { q:'כיצד מחשבים שטח של צורה מורכבת?', opts:['מכפילים את כל המידות','מפרקים לצורות פשוטות (מלבנים, משולשים) ומחברים','מוסיפים את כל הצלעות','שוקלים את הצורה'], ans:1, exp:'פירוק לצורות פשוטות הוא האסטרטגיה הבסיסית לשטחי צורות מורכבות.' },
+  { q:'צורה L בנויה ממלבן 10×6 ושממנו חתכנו מלבן 4×3. מה שטחה?', opts:['48 סמ"ר','72 סמ"ר','60 סמ"ר','48 סמ"ר'], ans:0, exp:'שטח המלבן הגדול: 10×6=60. שטח הנחתך: 4×3=12. שטח L: 60−12=48 סמ"ר.' },
+  { q:'חדר בצורת L: חלק ראשון 5×4 מ, חלק שני 3×2 מ. מה שטח הריצוף?', opts:['26 מ"ר','20 מ"ר','22 מ"ר','14 מ"ר'], ans:2, exp:'5×4=20 מ"ר, 3×2=6 מ"ר. סה"כ: 20+6=26 מ"ר.' },
+  { q:'דרך נוספת לשטח צורה מורכבת — "שיטת ההשלמה". מה הרעיון?', opts:['מוסיפים חלקים חסרים','מגדילים לצורה פשוטה ואז מחסירים','חוצים את הצורה לשניים','שוקלים'] , ans:1, exp:'מגדילים לצורה פשוטה (כמו מלבן גדול), מחשבים שטחה, ומחסירים את מה שהוספנו.' },
+  { q:'לצורה מורכבת, בדקנו שני חישובים שונים ועלו תוצאות שונות. מה לעשות?', opts:['לקחת את הגדול','לקחת את הקטן','לבדוק את החישוב — בשתי שיטות תמיד מגיעים לאותה תשובה','לממוצע'], ans:2, exp:'אם שתי שיטות נותנות תוצאות שונות — יש טעות חישוב. שטח הוא קבוע, לא תלוי בשיטה.' },
+];
+
+const gameLevels4 = [
+  { q:'מעוין הוא מרובע שבו...', opts:['כל הזוויות שוות','כל הצלעות שוות','יש זווית ישרה','צלעות נגדיות שוות'], ans:1, exp:'במעוין כל 4 הצלעות שוות (כמו ריבוע אבל ללא זוויות ישרות בהכרח). האלכסונות מאונכים זה לזה.' },
+  { q:'נוסחת שטח מעוין (או דלתון) עם אלכסונות d₁ ו-d₂:',  opts:['d₁ + d₂','d₁ × d₂','½ × d₁ × d₂','2 × (d₁ + d₂)'], ans:2, exp:'שטח מעוין = ½ × d₁ × d₂, כאשר d₁ ו-d₂ הם שני האלכסונות.' },
+  { q:'למעוין אלכסונות 8 ס"מ ו-6 ס"מ. מה שטחו?', opts:['48 סמ"ר','14 סמ"ר','24 סמ"ר','28 סמ"ר'], ans:2, exp:'שטח = ½ × 8 × 6 = ½ × 48 = 24 סמ"ר.' },
+  { q:'מדוע שטח מעוין = ½×d₁×d₂?', opts:['כי הנוסחה ניתנת לזכירה','כי האלכסונות מחלקים אותו ל-4 משולשים שווים','כי הצלעות שוות','מוסכמה בלבד'], ans:1, exp:'האלכסונות מאונכים וחוצים זה את זה → 4 משולשים ישרי-זווית. סכומם = ½×d₁×d₂.' },
+  { q:'לדלתון אלכסונות 10 ס"מ ו-4 ס"מ. מה שטחו?', opts:['40 סמ"ר','14 סמ"ר','20 סמ"ר','28 סמ"ר'], ans:2, exp:'גם לדלתון (kite) נוסחת האלכסונות עובדת: ½ × 10 × 4 = 20 סמ"ר.' },
+];
+
+function currentLevels(){
+  if(state.sequence===1) return gameLevels1;
+  if(state.sequence===2) return gameLevels2;
+  if(state.sequence===3) return gameLevels3;
+  if(state.sequence===4) return gameLevels4;
+  return gameLevels1;
+}
+
+/* ========== RENDER ========== */
+
+function render(){
+  const app = document.getElementById('app');
+  if(state.screen==='home')       app.innerHTML = renderTopbar()+'<div class="wrap">'+renderHome()+'</div>';
+  else if(state.screen==='learn') app.innerHTML = renderTopbar()+'<div class="wrap">'+renderLearn()+'</div>';
+  else if(state.screen==='game')  app.innerHTML = renderTopbar()+'<div class="wrap">'+renderGame()+'</div>';
+  else if(state.screen==='gameResults') app.innerHTML = renderTopbar()+'<div class="wrap">'+renderGameResults()+'</div>';
+}
+
+function renderTopbar(){
+  return `<div class="topbar"><div class="brand">חן מרגלית למידה אקטיבית</div><a class="homebtn" href="../index.html">תפריט ראשי</a></div>`;
+}
+
+function seqRow(seqNum, label, opts={}){
+  const isOpen = openSections.has(seqNum);
+  const chevron = isOpen ? '▾' : '◂';
+  let cards = '';
+  if(isOpen){
+    cards = `<div class="cards" style="margin-bottom:6px;">
+      <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
+      <div class="flow-arrow">←</div>
+      <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
+    </div>`;
+  }
+  return `<div onclick="toggleSection(${seqNum})" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:10px 4px;border-bottom:1px solid rgba(234,244,241,0.08);user-select:none;">
+    <span class="sequence-title" style="margin:0;">${label}</span>
+    <span style="font-size:20px;color:rgba(234,244,241,0.4);">${chevron}</span>
+  </div>${cards}`;
+}
+
+function renderHome(){
+  return `<div class="hero">
+    <h1 class="title">היקפים ושטחים</h1>
+    <p class="subtitle">יחידה 4 — תחום גיאומטרי</p>
+  </div>
+  <div class="sequence-section">
+    <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">שטחים והיקפים</div>
+    ${seqRow(1,'1. היקף ושטח של מלבן וריבוע',{})}
+    ${seqRow(2,'2. שטח משולש',{})}
+    ${seqRow(3,'3. צורות מורכבות',{})}
+    ${seqRow(4,'4. מעוין ודלתון — אלכסונות מאונכים',{})}
+  </div>`;
+}
+
+/* ========== LEARN ========== */
+
+function renderLearn(){
+  if(state.sequence===1) return renderLearn1();
+  if(state.sequence===2) return renderLearn2();
+  if(state.sequence===3) return renderLearn3();
+  if(state.sequence===4) return renderLearn4();
+  return renderLearn1();
+}
+
+function renderLearn1(){
+  return `<div class="panel">
+    <h2 class="qtitle">היקף ושטח של מלבן וריבוע</h2>
+    <div class="formula-grid">
+      <div class="formula-card"><div class="fname">היקף מלבן</div><div class="fval">2×(a+b)</div></div>
+      <div class="formula-card"><div class="fname">שטח מלבן</div><div class="fval">a × b</div></div>
+      <div class="formula-card"><div class="fname">היקף ריבוע</div><div class="fval">4 × a</div></div>
+      <div class="formula-card"><div class="fname">שטח ריבוע</div><div class="fval">a²</div></div>
+    </div>
+    <ul class="bullets">
+      <li><strong>היקף</strong> = סך אורכי כל הצלעות. יחידה: ס"מ, מ' וכו׳.</li>
+      <li><strong>שטח</strong> = כמה שטח מכסה הצורה. יחידה: סמ"ר, מ"ר וכו׳.</li>
+      <li>במלבן: שתי צלעות ארוכות (a) ושתי קצרות (b).</li>
+      <li>ריבוע = מלבן מיוחד שכל צלעותיו שוות.</li>
+    </ul>
+    <div class="learn-note"><strong>שים לב:</strong> יחידת השטח היא בריבוע (סמ"ר = ס"מ²), יחידת ההיקף היא רגילה (ס"מ).</div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+function renderLearn2(){
+  return `<div class="panel">
+    <h2 class="qtitle">שטח משולש</h2>
+    <div class="gold-box" style="text-align:center;font-size:22px;">שטח = ½ × בסיס × גובה</div>
+    <ul class="bullets">
+      <li>הגובה הוא הניצב מהקודקוד אל הבסיס (לא תמיד צלע!).</li>
+      <li>אפשר לבחור כל צלע כ"בסיס" — הגובה משתנה בהתאם, אבל השטח זהה.</li>
+      <li>כל משולש = בדיוק מחצית המלבן החוסם אותו (אותו בסיס + גובה).</li>
+      <li>במשולש ישר-זווית: שני הניצבים הם הבסיס והגובה.</li>
+    </ul>
+    <div class="learn-note"><strong>דוגמה:</strong> בסיס 10 ס"מ, גובה 4 ס"מ → שטח = ½ × 10 × 4 = 20 סמ"ר</div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+function renderLearn3(){
+  return `<div class="panel">
+    <h2 class="qtitle">צורות מורכבות</h2>
+    <ul class="bullets">
+      <li><strong>שיטת הפירוק:</strong> מחלקים לצורות פשוטות → מחשבים כל אחת → מחברים.</li>
+      <li><strong>שיטת ההשלמה:</strong> "מגדילים" לצורה פשוטה → מחשבים → מחסירים את המוסף.</li>
+      <li>שתי השיטות נותנות אותה תשובה — בחרו את הנוחה לכם!</li>
+      <li>כשמפרקים — שימו לב לא לספור אותו חלק פעמיים.</li>
+    </ul>
+    <div class="gold-box">דוגמה: צורה L = מלבן גדול 8×5 פחות מלבן 3×2 = 40−6 = 34 סמ"ר</div>
+    <div class="learn-note"><strong>בעיות מהחיים:</strong> חדרים, מגרשים, מדרכות — לרוב בצורות L, U, T ודומות.</div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+function renderLearn4(){
+  return `<div class="panel">
+    <h2 class="qtitle">מעוין ודלתון — אלכסונות מאונכים</h2>
+    <div class="gold-box" style="text-align:center;font-size:22px;">שטח = ½ × d₁ × d₂</div>
+    <ul class="bullets">
+      <li><strong>מעוין</strong> = מרובע עם 4 צלעות שוות. האלכסונות <strong>מאונכים</strong> וחוצים זה את זה.</li>
+      <li><strong>דלתון (kite)</strong> = מרובע עם 2 זוגות צלעות סמוכות שוות. גם בו האלכסונות מאונכים.</li>
+      <li>האלכסונות מחלקים את הצורה ל-4 משולשים ישרי-זווית שווים.</li>
+      <li>שטח = ½ × (אלכסון 1) × (אלכסון 2)</li>
+    </ul>
+    <div class="learn-note"><strong>דוגמה:</strong> מעוין עם אלכסונות 12 ו-8 → שטח = ½ × 12 × 8 = 48 סמ"ר</div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+/* ========== GAME ========== */
+
+function renderGame(){
+  const levels = currentLevels();
+  if(state.qi >= levels.length){ state.screen='gameResults'; return renderGameResults(); }
+  const lv = levels[state.qi];
+  const dots = levels.map((_,i)=>`<div class="dot${i<state.qi?' done':i===state.qi?' active':''}"></div>`).join('');
+  let optsHtml = lv.opts.map((o,i)=>`<button class="mc-btn" id="opt${i}" onclick="answerMC(${i})">${o}</button>`).join('');
+  return `<div class="panel">
+    <div class="progressdots">${dots}</div>
+    <p class="qmeta">שאלה ${state.qi+1} מתוך ${levels.length}</p>
+    <h2 class="qtitle">${lv.q}</h2>
+    <div class="mc-options">${optsHtml}</div>
+    <div class="feedback" id="fb"></div>
+    <div id="expbox"></div>
+    <div class="btnrow" id="nextrow" style="display:none">
+      <button class="btn" onclick="nextQ()">הבא ←</button>
+    </div>
+  </div>`;
+}
+
+function answerMC(i){
+  if(state.answered) return;
+  state.answered = true;
+  const lv = currentLevels()[state.qi];
+  const fb = document.getElementById('fb');
+  document.querySelectorAll('.mc-btn').forEach((b,idx)=>{
+    b.disabled = true;
+    if(idx===lv.ans) b.classList.add('correct');
+    else if(idx===i) b.classList.add('wrong');
+  });
+  if(i===lv.ans){ fb.className='feedback ok'; fb.textContent='נכון! ✓'; state.score++; }
+  else { fb.className='feedback bad'; fb.textContent='לא נכון ✗'; }
+  if(lv.exp){ document.getElementById('expbox').innerHTML=`<div class="explain-box">${lv.exp}</div>`; }
+  document.getElementById('nextrow').style.display='flex';
+}
+
+function nextQ(){ state.qi++; state.answered=false; render(); }
+
+function renderGameResults(){
+  const levels = currentLevels();
+  const pct = Math.round(state.score/levels.length*100);
+  const msg = pct>=80?'מצוין! 🎉':pct>=60?'כמעט!':' נסה שוב';
+  return `<div class="panel" style="text-align:center">
+    <h2 class="qtitle">סיימת!</h2>
+    <div class="scorebig">${state.score}/${levels.length}</div>
+    <p style="font-size:18px;opacity:.85;">${pct}% — ${msg}</p>
+    <div class="btnrow">
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      <button class="btn" onclick="state.sequence=${state.sequence};startGame()">שוב ←</button>
+    </div>
+  </div>`;
+}
+
+render();
+</script>
+</body>
+</html>

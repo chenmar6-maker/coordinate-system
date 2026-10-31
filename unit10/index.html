@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>צורות חופפות וטרנספורמציות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  :root{
+    --navy:#1E1B2E; --deep-navy:#0F0D1A; --green:#10B981; --green-dark:#059669;
+    --foam:#EAF4F1; --gold:#EFA94A; --coral:#E2604F; --seafoam:#48B08C;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Rubik',sans-serif;background:radial-gradient(ellipse at 50% -10%,#0D3D2E 0%,#1E1B2E 50%,#0F0D1A 100%);color:var(--foam);direction:rtl;min-height:100vh;line-height:1.6;}
+  .wrap{max-width:900px;margin:0 auto;padding:20px 18px 70px;}
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;max-width:900px;margin:0 auto;}
+  .brand{font-size:19px;color:var(--green);}
+  .homebtn{background:transparent;border:1.5px solid var(--foam);color:var(--foam);padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;cursor:pointer;opacity:.85;text-decoration:none;display:inline-block;}
+  .homebtn:hover{opacity:1;border-color:var(--green);color:var(--green);}
+  .hero{text-align:center;padding:18px 10px 10px;}
+  h1.title{font-weight:800;font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:#FFFFFF;letter-spacing:-0.5px;}
+  p.subtitle{font-size:17px;opacity:.85;margin:0 0 8px;}
+  .cards{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+  .sequence-section{margin-bottom:28px;background:rgba(234,244,241,0.04);border-radius:14px;padding:18px 20px;}
+  .sequence-title{font-weight:700;font-size:17px;color:var(--foam);text-align:center;margin:0 0 14px;opacity:.9;}
+  .flow-arrow{display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(16,185,129,0.5);flex-shrink:0;}
+  .card{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:50px;cursor:pointer;font-family:'Rubik',sans-serif;font-weight:600;font-size:15px;transition:transform .15s ease,box-shadow .15s ease;border:none;}
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.25);}
+  .card h3{font-size:15px;font-weight:600;margin:0;}
+  .card.learn{background:rgba(16,185,129,0.18);border:1.5px solid var(--green);color:var(--green);}
+  .card.game{background:rgba(239,169,74,0.18);border:1.5px solid var(--gold);color:var(--gold);}
+  .card.quiz{background:rgba(226,96,79,0.18);border:1.5px solid var(--coral);color:var(--coral);}
+  .panel{background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.15);border-radius:10px;padding:22px;margin:18px 0;}
+  .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+  .btn{background:var(--green);color:#0F1E18;border:none;font-weight:700;font-family:'Rubik',sans-serif;font-size:15px;padding:11px 26px;border-radius:24px;cursor:pointer;transition:transform .12s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn.secondary{background:transparent;border:1.5px solid var(--foam);color:var(--foam);}
+  .btn.secondary:hover{border-color:var(--green);color:var(--green);}
+  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+  .feedback{text-align:center;font-size:16px;font-weight:700;margin:14px 0;min-height:24px;}
+  .feedback.ok{color:var(--seafoam);}
+  .feedback.bad{color:var(--coral);}
+  .progressdots{display:flex;gap:8px;justify-content:center;margin-bottom:6px;}
+  .dot{width:11px;height:11px;border-radius:50%;background:rgba(234,244,241,0.25);border:none;padding:0;}
+  .dot.done{background:var(--seafoam);}
+  .dot.active{background:var(--gold);}
+  .mc-options{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:16px auto 0;}
+  .mc-btn{background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;cursor:pointer;font-family:'Rubik',sans-serif;text-align:right;}
+  .mc-btn:hover{border-color:var(--green);}
+  .mc-btn.correct{background:rgba(72,176,140,0.3);border-color:var(--seafoam);}
+  .mc-btn.wrong{background:rgba(226,96,79,0.3);border-color:var(--coral);}
+  .mc-btn:disabled{cursor:default;}
+  .explain-box{background:rgba(72,176,140,0.1);border-right:4px solid var(--seafoam);border-radius:6px;padding:12px 16px;margin-top:14px;font-size:15px;}
+  .qmeta{text-align:center;font-size:14px;opacity:.75;margin-bottom:6px;}
+  .qtitle{font-size:18px;font-weight:700;text-align:center;margin:6px 0 4px;}
+  .qtext{font-size:16px;text-align:center;margin:0 0 6px;max-width:560px;margin-left:auto;margin-right:auto;}
+  .scorebig{font-size:52px;color:var(--gold);text-align:center;margin:10px 0;}
+  ul.bullets{list-style:none;margin:18px 0 6px;padding:0;text-align:right;}
+  ul.bullets li{position:relative;padding-right:22px;margin-bottom:10px;font-size:16px;line-height:1.55;}
+  ul.bullets li::before{content:"•";color:var(--green);position:absolute;right:0;top:0;font-size:18px;}
+  .learn-note{background:rgba(16,185,129,0.1);border-right:4px solid var(--green);border-radius:6px;padding:12px 16px;margin-top:16px;font-size:15px;text-align:right;}
+  .gold-box{background:rgba(239,169,74,0.12);border-right:4px solid var(--gold);border-radius:6px;padding:14px 18px;margin:14px 0;font-size:17px;font-weight:700;color:var(--gold);text-align:right;}
+  .m{direction:ltr;unicode-bidi:isolate;}
+  /* worksheet overlay */
+  .ws-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;justify-content:center;align-items:flex-start;padding-top:30px;}
+  .ws-overlay.open{display:flex;}
+  .ws-frame{width:min(780px,96vw);height:88vh;border-radius:12px;overflow:hidden;border:none;background:#fff;}
+  .ws-close{position:fixed;top:12px;left:50%;transform:translateX(-50%);background:var(--coral);color:#fff;border:none;padding:8px 24px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:15px;font-weight:700;cursor:pointer;z-index:1001;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="ws-overlay" id="wsOverlay">
+  <button class="ws-close" onclick="hideWorksheet()">✕ סגור</button>
+  <iframe class="ws-frame" id="wsFrame" src=""></iframe>
+</div>
+<script>
+const state = { screen:'home', sequence:1, qi:0, score:0, answered:false };
+const openSections = new Set();
+
+function goTo(s){ state.screen=s; render(); window.scrollTo(0,0); }
+function goHome(){ state.screen='home'; render(); window.scrollTo(0,0); }
+function toggleSection(n){ openSections.has(n)?openSections.delete(n):openSections.add(n); render(); }
+function startGame(){ state.qi=0; state.score=0; state.answered=false; goTo('game'); }
+function showWorksheet(url){ document.getElementById('wsFrame').src=url; document.getElementById('wsOverlay').classList.add('open'); }
+function hideWorksheet(){ document.getElementById('wsOverlay').classList.remove('open'); document.getElementById('wsFrame').src=''; }
+
+/* ========== GAME LEVELS ========== */
+
+const gameLevels1 = [
+  { q:'שתי צורות הן חופפות כאשר...', opts:['יש להן אותו צבע','אפשר להניח אחת על השנייה בדיוק','יש להן אותו מספר צלעות','הן גדולות באותה מידה'], ans:1, exp:'חפיפה = אפשר להניח אחת על גבי השנייה בדיוק. גודל, צורה וזוויות — הכל זהה.' },
+  { q:'צורה חופפת לעצמה לאחר טרנספורמציה. מה בטוח נשמר?', opts:['מיקומה','כיוונה','אורכי הצלעות והזוויות','צבעה'], ans:2, exp:'כל שלוש הטרנספורמציות (הזזה, סיבוב, שיקוף) שומרות על אורכי צלעות וגדלי זוויות.' },
+  { q:'כמה טרנספורמציות גיאומטריות לומדים בכיתה ז׳?', opts:['1','2','3','4'], ans:2, exp:'הזזה, סיבוב ושיקוף — שלוש טרנספורמציות.' },
+  { q:'בכל שלוש הטרנספורמציות, הצורה המתקבלת היא...', opts:['גדולה יותר מהמקורית','חופפת למקורית','קטנה יותר מהמקורית','שונה בזוויות'], ans:1, exp:'כל שלוש הטרנספורמציות שומרות על גודל וצורה — הצורה המתקבלת תמיד חופפת למקורית.' },
+  { q:'מה ההבדל בין חפיפה לדמיון?', opts:['אין הבדל','בחפיפה — גודל ושם זהים; בדמיון — רק הצורה זהה','בדמיון — גודל זהה; בחפיפה — צורה זהה','דמיון = חפיפה בלי שמות'], ans:1, exp:'צורות חופפות = זהות לחלוטין (גודל + צורה). צורות דומות = אותה צורה, אבל יכולות להיות בגדלים שונים.' },
+];
+
+const gameLevels2 = [
+  { q:'בהזזה, כל נקודה בצורה זז...', opts:['בכיוונים שונים','באותו כיוון ובאותו מרחק','סביב מרכז','כאילו במראה'], ans:1, exp:'בהזזה כל נקודה זזה בדיוק אותו וקטור (כיוון + מרחק). זו ה"הזזה" הכי פשוטה.' },
+  { q:'המלבן ABCD הוזז ב-3 יחידות ימינה ו-2 יחידות למעלה. אם A נמצאת ב-(1,1), איפה A′?', opts:['(4,3)','(3,2)','(2,4)','(1,3)'], ans:0, exp:'מוסיפים לx: 1+3=4, לy: 1+2=3. תוצאה: (4,3).' },
+  { q:'בהזזה, הצורה המקורית והצורה החדשה...', opts:['מתחברות','חופפות זו לזו','משתקפות זו בזו','מסתובבות זו סביב זו'], ans:1, exp:'הזזה = טרנספורמציה שומרת חפיפה. הצורה לא השתנתה — רק מיקומה.' },
+  { q:'איזו מהפעולות הבאות היא הזזה?', opts:['הרחקת אנקדה מהמרכז','הזזת רהיט ממקום למקום','סיבוב גלגל','הסתכלות במראה'], ans:1, exp:'הזזת רהיט = כל חלק זזה באותו כיוון ואותו מרחק — זו הזזה מושלמת!' },
+  { q:'נקודה P נמצאת ב-(5, -2). הזזנו אותה ב-(−3, +4). מה הקואורדינטות החדשות?', opts:['(2,2)','(8,-6)','(-2,6)','(2,-6)'], ans:0, exp:'5+(−3)=2, −2+4=2. התשובה: (2,2).' },
+];
+
+const gameLevels3 = [
+  { q:'בסיבוב, כל נקודה נעה...', opts:['בקו ישר','בקשת עיגול סביב מרכז הסיבוב','בכיוון מאונך','במרחקים שונים'], ans:1, exp:'בסיבוב יש מרכז קבוע, וכל נקודה נסובבת סביבו באותו זווית.' },
+  { q:'סיבוב של 180° סביב מרכז M — מה קורה לנקודה P?', opts:['P נשארת במקום','P עוברת לצד הנגדי של M, באותו מרחק','P מתקרבת ל-M','P מסתובבת 90°'], ans:1, exp:'סיבוב של 180° = "הפיכה" — הנקודה עוברת לצד הנגדי של המרכז, באותו מרחק בדיוק.' },
+  { q:'בסיבוב של 90° עם כיוון השעון, לאן עובר הכיוון "ימינה"?', opts:['למטה','למעלה','שמאלה','נשאר ימינה'], ans:0, exp:'עם כיוון השעון: ימינה → למטה → שמאלה → למעלה.' },
+  { q:'אחרי סיבוב, הצורה החדשה היא...', opts:['גדולה יותר','קטנה יותר','חופפת למקורית','דומה אבל לא חופפת'], ans:2, exp:'סיבוב שומר על גודל וצורה — הצורה החדשה תמיד חופפת.' },
+  { q:'מה ההבדל בין סיבוב עם כיוון השעון לנגד כיוון השעון?', opts:['אין הבדל בתוצאה','כיוון הסיבוב הפוך, אורכי הצלעות זהים','הצורה גדלה בכיוון השעון','הזוויות משתנות'], ans:1, exp:'שני הסיבובים שומרים על גודל וצורה, ההבדל הוא רק בכיוון.' },
+];
+
+const gameLevels4 = [
+  { q:'בשיקוף ביחס לציר, כל נקודה עוברת...', opts:['לאותה נקודה','לנקודה שמרחקה מהציר שווה, בצד הנגדי','סביב המרכז','ישר קדימה'], ans:1, exp:'שיקוף = כאילו מניחים מראה על ציר השיקוף. כל נקודה מגיעה לצד ההפוך, באותו מרחק מהציר.' },
+  { q:'אחרי שיקוף ביחס לציר x, מה קורה לנקודה (3, 5)?', opts:['(3,5) לא משתנה','(-3,5)','(3,-5)','(-3,-5)'], ans:2, exp:'שיקוף ביחס לציר x: רכיב ה-x נשאר, רכיב ה-y מקבל סימן הפוך. (3,5) → (3,−5).' },
+  { q:'אחרי שיקוף ביחס לציר y, מה קורה לנקודה (4, -2)?', opts:['(-4,-2)','(4,2)','(-4,2)','(4,-2)'], ans:0, exp:'שיקוף ביחס לציר y: רכיב ה-x מקבל סימן הפוך, ה-y נשאר. (4,−2) → (−4,−2).' },
+  { q:'שיקוף שומר על...', opts:['מיקום הצורה','כיוון הצורה','גודל הצורה וזוויותיה','הצבע'], ans:2, exp:'כל הטרנספורמציות, כולל שיקוף, שומרות על גודל וזוויות. ההבדל הוא שהכיוון הופך.' },
+  { q:'מה ייחודי בשיקוף לעומת הזזה וסיבוב?', opts:['הצורה משתנה','הצורה "מתהפכת" — הופכת לתמונת מראה','הצורה גדלה','הזוויות משתנות'], ans:1, exp:'בשיקוף הצורה "מתהפכת" — כמו תמונת מראה. בהזזה ובסיבוב הכיוון נשמר.' },
+];
+
+const gameLevels5 = [
+  { q:'ציר סימטריה הוא קו שמחלק צורה כך ש...', opts:['שתי הצלעות שוות','שני החלקים חופפים זה לזה','שני החלקים שווי שטח בלבד','הצורה מתחלקת לשלושה'], ans:1, exp:'ציר סימטריה = אפשר לקפל את הצורה לאורכו ושני החלקים יתכסו בדיוק.' },
+  { q:'כמה צירי סימטריה יש לריבוע?', opts:['1','2','3','4'], ans:3, exp:'לריבוע יש 4 צירי סימטריה: 2 אלכסונות + 2 קווים דרך אמצע הצלעות המנוגדות.' },
+  { q:'כמה צירי סימטריה יש למלבן (שאינו ריבוע)?', opts:['0','1','2','4'], ans:2, exp:'למלבן יש 2 צירי סימטריה: קו דרך אמצע הצלעות הארוכות, וקו דרך אמצע הצלעות הקצרות. לא האלכסונות!' },
+  { q:'לאיזו צורה יש אינסוף צירי סימטריה?', opts:['משולש שווה-צלעות','מלבן','עיגול','ריבוע'], ans:2, exp:'עיגול הוא סימטרי לגמרי — כל קטר הוא ציר סימטריה, ויש אינסוף קטרים.' },
+  { q:'למשולש שווה-צלעות יש...', opts:['ציר סימטריה אחד','שני צירי סימטריה','שלושה צירי סימטריה','אין צירי סימטריה'], ans:2, exp:'כל גובה במשולש שווה-צלעות הוא גם חוצה, גם ניצב, וגם ציר סימטריה. שלושה גבהות = שלושה צירים.' },
+];
+
+function currentLevels(){
+  if(state.sequence===1) return gameLevels1;
+  if(state.sequence===2) return gameLevels2;
+  if(state.sequence===3) return gameLevels3;
+  if(state.sequence===4) return gameLevels4;
+  if(state.sequence===5) return gameLevels5;
+  return gameLevels1;
+}
+
+/* ========== RENDER ========== */
+
+function render(){
+  const app = document.getElementById('app');
+  if(state.screen==='home')       app.innerHTML = renderTopbar()+'<div class="wrap">'+renderHome()+'</div>';
+  else if(state.screen==='learn') app.innerHTML = renderTopbar()+'<div class="wrap">'+renderLearn()+'</div>';
+  else if(state.screen==='game')  app.innerHTML = renderTopbar()+'<div class="wrap">'+renderGame()+'</div>';
+  else if(state.screen==='gameResults') app.innerHTML = renderTopbar()+'<div class="wrap">'+renderGameResults()+'</div>';
+}
+
+function renderTopbar(){
+  return `<div class="topbar"><div class="brand">חן מרגלית למידה אקטיבית</div><a class="homebtn" href="../index.html">תפריט ראשי</a></div>`;
+}
+
+function seqRow(seqNum, label, opts={}){
+  const isOpen = openSections.has(seqNum);
+  const chevron = isOpen ? '▾' : '◂';
+  let cards = '';
+  if(isOpen){
+    const nextCard = opts.worksheetUrl
+      ? `<div class="flow-arrow">←</div><div class="card quiz" onclick="showWorksheet('${opts.worksheetUrl}')"><h3>מבדק שליטה</h3></div>`
+      : `<div class="flow-arrow">←</div><div class="card quiz" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול נוסף</h3></div>`;
+    cards = `<div class="cards" style="margin-bottom:6px;">
+      <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
+      <div class="flow-arrow">←</div>
+      <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
+      ${nextCard}
+    </div>`;
+  }
+  return `<div onclick="toggleSection(${seqNum})" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:10px 4px;border-bottom:1px solid rgba(234,244,241,0.08);user-select:none;">
+    <span class="sequence-title" style="margin:0;">${label}</span>
+    <span style="font-size:20px;color:rgba(234,244,241,0.4);">${chevron}</span>
+  </div>${cards}`;
+}
+
+function renderHome(){
+  return `<div class="hero">
+    <h1 class="title">צורות חופפות וטרנספורמציות</h1>
+    <p class="subtitle">יחידה 3 — תחום גיאומטרי</p>
+  </div>
+  <div class="sequence-section">
+    <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">טרנספורמציות גיאומטריות</div>
+    ${seqRow(1,'1. חפיפה — מה זה אומר שצורות חופפות?',{})}
+    ${seqRow(2,'2. הזזה',{})}
+    ${seqRow(3,'3. סיבוב',{})}
+    ${seqRow(4,'4. שיקוף',{})}
+    ${seqRow(5,'5. סימטריה',{})}
+  </div>`;
+}
+
+/* ========== LEARN ========== */
+
+function renderLearn(){
+  if(state.sequence===1) return renderLearn1();
+  if(state.sequence===2) return renderLearn2();
+  if(state.sequence===3) return renderLearn3();
+  if(state.sequence===4) return renderLearn4();
+  if(state.sequence===5) return renderLearn5();
+  return renderLearn1();
+}
+
+function renderLearn1(){
+  return `<div class="panel">
+    <h2 class="qtitle">חפיפה — מה זה אומר שצורות חופפות?</h2>
+    <ul class="bullets">
+      <li>שתי צורות הן <strong>חופפות</strong> אם אפשר להניח אחת על גבי השנייה בדיוק — בלי לשנות גודל.</li>
+      <li>צורות חופפות = <strong>אותה צורה, אותו גודל</strong>. כל הצלעות שוות וכל הזוויות שוות.</li>
+      <li>אפשר להגיע מצורה אחת לחופפת שלה על ידי: <strong>הזזה, סיבוב, שיקוף</strong> — אלה הטרנספורמציות הגיאומטריות.</li>
+      <li>כל הטרנספורמציות שומרות על <strong>אורכי הצלעות ועל הזוויות</strong>.</li>
+    </ul>
+    <div class="learn-note">
+      <strong>שים לב:</strong> חפיפה ≠ דמיון! דמיון = אותה צורה אבל יכול להיות בגדל שונה. חפיפה = גם הגדל זהה.
+    </div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+function renderLearn2(){
+  return `<div class="panel">
+    <h2 class="qtitle">הזזה (Translation)</h2>
+    <ul class="bullets">
+      <li>בהזזה — כל נקודה בצורה זזה <strong>באותו כיוון ובאותו מרחק</strong>.</li>
+      <li>מגדירים הזזה ע"י וקטור: "3 ימינה, 2 למעלה" = <span class="m">(+3, +2)</span></li>
+      <li>אם הנקודה A נמצאת ב-<span class="m">(x, y)</span> והזזנו <span class="m">(a, b)</span>, הנקודה החדשה A′ נמצאת ב-<span class="m">(x+a, y+b)</span></li>
+      <li>הזזה שומרת על גודל, צורה וכיוון — הצורה <strong>לא מסתובבת ולא מתהפכת</strong>.</li>
+    </ul>
+    <div class="gold-box">דוגמה: A=(1,3), הזזה (4,−2) → A′=(5,1)</div>
+    <div class="learn-note"><strong>בדיקה מהירה:</strong> כל קואורדינטת x גדלה ב-4, כל y קטנה ב-2.</div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+function renderLearn3(){
+  return `<div class="panel">
+    <h2 class="qtitle">סיבוב (Rotation)</h2>
+    <ul class="bullets">
+      <li>בסיבוב — כל נקודה נסובבת <strong>סביב מרכז קבוע</strong> (נקודת הסיבוב) בזווית נתונה.</li>
+      <li>מרחק כל נקודה מהמרכז <strong>נשמר</strong> — הנקודה נעה על קשת עיגול.</li>
+      <li>הכיוון: <strong>עם כיוון השעון (CW)</strong> או <strong>נגד כיוון השעון (CCW)</strong>.</li>
+      <li>סיבוב של <strong>180°</strong> = "הפיכה" — הנקודה עוברת לצד ההפוך של המרכז.</li>
+      <li>סיבוב שומר על גודל, צורה וזוויות — הצורה המתקבלת <strong>חופפת</strong> למקורית.</li>
+    </ul>
+    <div class="gold-box">עם כיוון השעון 90°: ימינה ← למטה ← שמאלה ← למעלה ← ימינה</div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+function renderLearn4(){
+  return `<div class="panel">
+    <h2 class="qtitle">שיקוף (Reflection)</h2>
+    <ul class="bullets">
+      <li>בשיקוף — כל נקודה עוברת ל<strong>צד ההפוך של ציר השיקוף</strong>, באותו מרחק מהציר.</li>
+      <li>ציר השיקוף הוא קו (לרוב ציר x, ציר y, או קו אחר).</li>
+      <li>שיקוף ביחס לציר <strong>x</strong>: <span class="m">(x, y) → (x, −y)</span> — ה-y מחליף סימן</li>
+      <li>שיקוף ביחס לציר <strong>y</strong>: <span class="m">(x, y) → (−x, y)</span> — ה-x מחליף סימן</li>
+      <li>שיקוף שומר על גודל וזוויות, אבל <strong>הצורה מתהפכת</strong> — כמו תמונת מראה.</li>
+    </ul>
+    <div class="learn-note"><strong>שים לב:</strong> בשיקוף ביחס לציר x — ה-y משתנה. ביחס לציר y — ה-x משתנה.</div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+function renderLearn5(){
+  return `<div class="panel">
+    <h2 class="qtitle">סימטריה וצירי סימטריה</h2>
+    <ul class="bullets">
+      <li><strong>ציר סימטריה</strong> = קו שמחלק צורה לשני חלקים חופפים. אפשר לקפל לאורכו ושניהם מתכסים.</li>
+      <li><strong>ריבוע</strong> — 4 צירי סימטריה (2 אלכסונות + 2 דרך אמצע הצלעות)</li>
+      <li><strong>מלבן</strong> — 2 צירי סימטריה (דרך אמצע הצלעות בלבד, לא האלכסונות!)</li>
+      <li><strong>משולש שווה-צלעות</strong> — 3 צירי סימטריה (כל גובה)</li>
+      <li><strong>עיגול</strong> — אינסוף צירי סימטריה (כל קטר)</li>
+    </ul>
+    <div class="gold-box">ציר סימטריה = ציר השיקוף שמחזיר את הצורה לעצמה!</div>
+    <div class="learn-note"><strong>בדיקה:</strong> אם מקפלים על ציר הסימטריה — שני הצדדים מכסים אחד את השני בדיוק.</div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+/* ========== GAME ========== */
+
+function renderGame(){
+  const levels = currentLevels();
+  if(state.qi >= levels.length){ state.screen='gameResults'; return renderGameResults(); }
+  const lv = levels[state.qi];
+  const dots = levels.map((_,i)=>`<div class="dot${i<state.qi?' done':i===state.qi?' active':''}"></div>`).join('');
+  let optsHtml = lv.opts.map((o,i)=>`<button class="mc-btn" id="opt${i}" onclick="answerMC(${i})">${o}</button>`).join('');
+  return `<div class="panel">
+    <div class="progressdots">${dots}</div>
+    <p class="qmeta">שאלה ${state.qi+1} מתוך ${levels.length}</p>
+    <h2 class="qtitle">${lv.q}</h2>
+    <div class="mc-options">${optsHtml}</div>
+    <div class="feedback" id="fb"></div>
+    <div id="expbox"></div>
+    <div class="btnrow" id="nextrow" style="display:none">
+      <button class="btn" onclick="nextQ()">הבא ←</button>
+    </div>
+  </div>`;
+}
+
+function answerMC(i){
+  if(state.answered) return;
+  state.answered = true;
+  const lv = currentLevels()[state.qi];
+  const fb = document.getElementById('fb');
+  document.querySelectorAll('.mc-btn').forEach((b,idx)=>{
+    b.disabled = true;
+    if(idx===lv.ans) b.classList.add('correct');
+    else if(idx===i) b.classList.add('wrong');
+  });
+  if(i===lv.ans){ fb.className='feedback ok'; fb.textContent='נכון! ✓'; state.score++; }
+  else { fb.className='feedback bad'; fb.textContent='לא נכון ✗'; }
+  if(lv.exp){ document.getElementById('expbox').innerHTML=`<div class="explain-box">${lv.exp}</div>`; }
+  document.getElementById('nextrow').style.display='flex';
+}
+
+function nextQ(){
+  state.qi++;
+  state.answered=false;
+  render();
+}
+
+function renderGameResults(){
+  const levels = currentLevels();
+  const pct = Math.round(state.score/levels.length*100);
+  const msg = pct>=80?'מצוין! 🎉':pct>=60?'כמעט! עוד קצת':' נסה שוב';
+  return `<div class="panel" style="text-align:center">
+    <h2 class="qtitle">סיימת!</h2>
+    <div class="scorebig">${state.score}/${levels.length}</div>
+    <p style="font-size:18px;opacity:.85;">${pct}% — ${msg}</p>
+    <div class="btnrow">
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      <button class="btn" onclick="state.sequence=${state.sequence};startGame()">שוב ←</button>
+    </div>
+  </div>`;
+}
+
+render();
+</script>
+</body>
+</html>

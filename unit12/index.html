@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>גופים במרחב — תיבה וקובייה</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  :root{
+    --navy:#1E1B2E; --deep-navy:#0F0D1A; --green:#10B981; --green-dark:#059669;
+    --foam:#EAF4F1; --gold:#EFA94A; --coral:#E2604F; --seafoam:#48B08C;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Rubik',sans-serif;background:radial-gradient(ellipse at 50% -10%,#0D3D2E 0%,#1E1B2E 50%,#0F0D1A 100%);color:var(--foam);direction:rtl;min-height:100vh;line-height:1.6;}
+  .wrap{max-width:900px;margin:0 auto;padding:20px 18px 70px;}
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;max-width:900px;margin:0 auto;}
+  .brand{font-size:19px;color:var(--green);}
+  .homebtn{background:transparent;border:1.5px solid var(--foam);color:var(--foam);padding:7px 16px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;cursor:pointer;opacity:.85;text-decoration:none;display:inline-block;}
+  .homebtn:hover{opacity:1;border-color:var(--green);color:var(--green);}
+  .hero{text-align:center;padding:18px 10px 10px;}
+  h1.title{font-weight:800;font-size:clamp(26px,5.2vw,42px);margin:6px 0 10px;color:#FFFFFF;letter-spacing:-0.5px;}
+  p.subtitle{font-size:17px;opacity:.85;margin:0 0 8px;}
+  .cards{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+  .sequence-section{margin-bottom:28px;background:rgba(234,244,241,0.04);border-radius:14px;padding:18px 20px;}
+  .sequence-title{font-weight:700;font-size:17px;color:var(--foam);text-align:center;margin:0 0 14px;opacity:.9;}
+  .flow-arrow{display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(16,185,129,0.5);flex-shrink:0;}
+  .card{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:50px;cursor:pointer;font-family:'Rubik',sans-serif;font-weight:600;font-size:15px;transition:transform .15s ease,box-shadow .15s ease;border:none;}
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.25);}
+  .card h3{font-size:15px;font-weight:600;margin:0;}
+  .card.learn{background:rgba(16,185,129,0.18);border:1.5px solid var(--green);color:var(--green);}
+  .card.game{background:rgba(239,169,74,0.18);border:1.5px solid var(--gold);color:var(--gold);}
+  .card.quiz{background:rgba(226,96,79,0.18);border:1.5px solid var(--coral);color:var(--coral);}
+  .panel{background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.15);border-radius:10px;padding:22px;margin:18px 0;}
+  .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+  .btn{background:var(--green);color:#0F1E18;border:none;font-weight:700;font-family:'Rubik',sans-serif;font-size:15px;padding:11px 26px;border-radius:24px;cursor:pointer;transition:transform .12s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn.secondary{background:transparent;border:1.5px solid var(--foam);color:var(--foam);}
+  .btn.secondary:hover{border-color:var(--green);color:var(--green);}
+  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+  .feedback{text-align:center;font-size:16px;font-weight:700;margin:14px 0;min-height:24px;}
+  .feedback.ok{color:var(--seafoam);}
+  .feedback.bad{color:var(--coral);}
+  .progressdots{display:flex;gap:8px;justify-content:center;margin-bottom:6px;}
+  .dot{width:11px;height:11px;border-radius:50%;background:rgba(234,244,241,0.25);border:none;padding:0;}
+  .dot.done{background:var(--seafoam);}
+  .dot.active{background:var(--gold);}
+  .mc-options{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:16px auto 0;}
+  .mc-btn{background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;cursor:pointer;font-family:'Rubik',sans-serif;text-align:right;}
+  .mc-btn:hover{border-color:var(--green);}
+  .mc-btn.correct{background:rgba(72,176,140,0.3);border-color:var(--seafoam);}
+  .mc-btn.wrong{background:rgba(226,96,79,0.3);border-color:var(--coral);}
+  .mc-btn:disabled{cursor:default;}
+  .explain-box{background:rgba(72,176,140,0.1);border-right:4px solid var(--seafoam);border-radius:6px;padding:12px 16px;margin-top:14px;font-size:15px;}
+  .qmeta{text-align:center;font-size:14px;opacity:.75;margin-bottom:6px;}
+  .qtitle{font-size:18px;font-weight:700;text-align:center;margin:6px 0 4px;}
+  .qtext{font-size:16px;text-align:center;margin:0 0 6px;max-width:560px;margin-left:auto;margin-right:auto;}
+  .scorebig{font-size:52px;color:var(--gold);text-align:center;margin:10px 0;}
+  ul.bullets{list-style:none;margin:18px 0 6px;padding:0;text-align:right;}
+  ul.bullets li{position:relative;padding-right:22px;margin-bottom:10px;font-size:16px;line-height:1.55;}
+  ul.bullets li::before{content:"•";color:var(--green);position:absolute;right:0;top:0;font-size:18px;}
+  .learn-note{background:rgba(16,185,129,0.1);border-right:4px solid var(--green);border-radius:6px;padding:12px 16px;margin-top:16px;font-size:15px;text-align:right;}
+  .gold-box{background:rgba(239,169,74,0.12);border-right:4px solid var(--gold);border-radius:6px;padding:14px 18px;margin:14px 0;font-size:17px;font-weight:700;color:var(--gold);text-align:right;}
+  .formula-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+  .formula-card{background:rgba(234,244,241,0.07);border:1.5px solid rgba(234,244,241,0.15);border-radius:10px;padding:14px;text-align:center;}
+  .formula-card .fname{font-size:13px;opacity:.7;margin-bottom:4px;}
+  .formula-card .fval{font-size:18px;font-weight:700;color:var(--gold);}
+  .def-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px;}
+  .def-table td{padding:8px 12px;border-bottom:1px solid rgba(234,244,241,0.1);}
+  .def-table td:first-child{font-weight:700;color:var(--gold);width:120px;}
+  .m{direction:ltr;unicode-bidi:isolate;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const state = { screen:'home', sequence:1, qi:0, score:0, answered:false };
+const openSections = new Set();
+
+function goTo(s){ state.screen=s; render(); window.scrollTo(0,0); }
+function goHome(){ state.screen='home'; render(); window.scrollTo(0,0); }
+function toggleSection(n){ openSections.has(n)?openSections.delete(n):openSections.add(n); render(); }
+function startGame(){ state.qi=0; state.score=0; state.answered=false; goTo('game'); }
+
+/* ========== GAME LEVELS ========== */
+
+const gameLevels1 = [
+  { q:'כמה פאות (faces) יש לתיבה?', opts:['4','6','8','12'], ans:1, exp:'לתיבה 6 פאות: עליונה, תחתונה, קדמית, אחורית, שמאלית, ימנית.' },
+  { q:'כמה מקצועות (edges) יש לתיבה?', opts:['6','8','10','12'], ans:3, exp:'לתיבה 12 מקצועות: 4 עליונים, 4 תחתונים, 4 אנכיים.' },
+  { q:'כמה קודקודים (vertices) יש לתיבה?', opts:['6','8','10','12'], ans:1, exp:'לתיבה 8 קודקודים — פינות.' },
+  { q:'פאה של תיבה היא...', opts:['קו ישר','נקודת חיבור','פוליגון (ריבוע או מלבן)','גוף תלת-ממדי'], ans:2, exp:'כל פאה של תיבה היא מלבן (ובקובייה — ריבוע). לתיבה 3 זוגות של פאות מנוגדות שוות.' },
+  { q:'בתיבה עם מידות 5×3×2, כמה זוגות של פאות מנוגדות יש?', opts:['1','2','3','6'], ans:2, exp:'3 זוגות: 2 פאות של 5×3, 2 פאות של 5×2, 2 פאות של 3×2.' },
+];
+
+const gameLevels2 = [
+  { q:'נפח תיבה עם מידות 4×3×5 הוא...', opts:['12 סמ"ק','60 סמ"ק','24 סמ"ק','47 סמ"ק'], ans:1, exp:'נפח תיבה = אורך × רוחב × גובה = 4×3×5 = 60 סמ"ק.' },
+  { q:'תיבה עם נפח 120 סמ"ק. בסיסה 6×5. מה גובהה?', opts:['4 ס"מ','20 ס"מ','10 ס"מ','2 ס"מ'], ans:0, exp:'120 = 6×5×גובה = 30×גובה → גובה = 120÷30 = 4 ס"מ.' },
+  { q:'נפח קובייה עם מקצוע 3 ס"מ הוא...', opts:['9 סמ"ק','27 סמ"ק','18 סמ"ק','6 סמ"ק'], ans:1, exp:'נפח קובייה = a³ = 3³ = 27 סמ"ק.' },
+  { q:'לאיזה יחידה מדידה משתמשים לנפח?', opts:['ס"מ','סמ"ר (ס"מ²)','סמ"ק (ס"מ³)','מ׳'], ans:2, exp:'נפח = ממד שלישי → יחידה בחזקה שלוש. ס"מ³ = סמ"ק (סנטימטר מעוקב).' },
+  { q:'תיבה מלאה במים. ממדיה: 10×8×6 ס"מ. כמה מ"ל מים יש בה? (1 סמ"ק = 1 מ"ל)', opts:['480 מ"ל','240 מ"ל','24 מ"ל','960 מ"ל'], ans:0, exp:'נפח = 10×8×6 = 480 סמ"ק = 480 מ"ל.' },
+];
+
+const gameLevels3 = [
+  { q:'שטח פנים של תיבה = ...', opts:['אורך×רוחב×גובה','2×(ab+bc+ac)','6×a²','4×a×b'], ans:1, exp:'יש 3 זוגות פאות מנוגדות: 2 של a×b, 2 של b×c, 2 של a×c. סה"כ: 2(ab+bc+ac).' },
+  { q:'שטח פנים של תיבה 5×4×3:',opts:['60 סמ"ר','94 סמ"ר','47 סמ"ר','120 סמ"ר'],ans:1, exp:'2×(5×4 + 4×3 + 5×3) = 2×(20+12+15) = 2×47 = 94 סמ"ר.' },
+  { q:'שטח פנים של קובייה עם מקצוע 4 ס"מ:', opts:['24 סמ"ר','48 סמ"ר','96 סמ"ר','16 סמ"ר'], ans:2, exp:'קובייה = 6 פאות ריבועיות. שטח = 6×a² = 6×16 = 96 סמ"ר.' },
+  { q:'ההבדל בין נפח לשטח פנים:', opts:['נפח = שטח הפאות; שטח פנים = תוך הגוף','נפח = כמה תופסת בתוכה; שטח פנים = כמה "עוטפת" את הגוף','הם אותו דבר','נפח תמיד גדול יותר'], ans:1, exp:'נפח = כמה ממלאים אותה (מ"ל, ל׳). שטח פנים = כמה ניר צריך לעטוף אותה.' },
+  { q:'תיבה 6×4×2. מה הנפח ומה שטח הפנים?', opts:['נפח=48, שטח=88','נפח=48, שטח=44','נפח=24, שטח=88','נפח=48, שטח=24'], ans:0, exp:'נפח=6×4×2=48 סמ"ק. שטח=2×(24+8+12)=2×44=88 סמ"ר.' },
+];
+
+const gameLevels4 = [
+  { q:'מה מייחד קובייה לעומת תיבה רגילה?', opts:['לקובייה יש יותר פאות','כל מקצועות הקובייה שווים','הקובייה גדולה יותר','הקובייה יש לה צבע'], ans:1, exp:'קובייה = תיבה מיוחדת שכל 12 מקצועותיה שווים. כל הפאות ריבועות שוות.' },
+  { q:'קובייה עם מקצוע a. מה נפחה?', opts:['a²','a³','6a²','4a'], ans:1, exp:'נפח קובייה = a×a×a = a³.' },
+  { q:'נפח קובייה הוא 64 סמ"ק. מה אורך מקצועה?', opts:['8 ס"מ','16 ס"מ','4 ס"מ','32 ס"מ'], ans:2, exp:'a³ = 64 → a = ³√64 = 4 ס"מ.' },
+  { q:'2 קוביות זהות עם מקצוע 3 מונחות זו על זו. מה הנפח הכולל?', opts:['27 סמ"ק','54 סמ"ק','18 סמ"ק','6 סמ"ק'], ans:1, exp:'נפח קובייה = 27 סמ"ק. שתיהן יחד: 27+27 = 54 סמ"ק.' },
+  { q:'קובייה עם מקצוע 5 ס"מ. מה שטח פנים הקובייה?', opts:['25 סמ"ר','75 סמ"ר','150 סמ"ר','30 סמ"ר'], ans:2, exp:'6 פאות × 5² = 6 × 25 = 150 סמ"ר.' },
+];
+
+const gameLevels5 = [
+  { q:'פריסה (net) של תיבה היא...', opts:['תמונה תלת-ממדית של התיבה','הצורה הדו-ממדית שניתן לקפל לתיבה','החתך האמצעי של התיבה','היקף הבסיס'], ans:1, exp:'פריסה = הצורה שתיקבל אם "תפרוס" את הקופסה וכל הפאות שלה על משטח שטוח.' },
+  { q:'כמה פאות יש בפריסה של תיבה?', opts:['4','5','6','8'], ans:2, exp:'לתיבה 6 פאות — הפריסה היא 6 מלבנים (3 זוגות) מחוברים.' },
+  { q:'אם פורסים קובייה עם מקצוע 4 ס"מ, מה שטח הפריסה?', opts:['16 סמ"ר','48 סמ"ר','96 סמ"ר','24 סמ"ר'], ans:2, exp:'שטח הפריסה = שטח פנים הקובייה = 6 × 4² = 6 × 16 = 96 סמ"ר.' },
+  { q:'מה ניתן לחשב בעזרת הפריסה?', opts:['נפח הגוף','שטח פנים הגוף','מרחק בין הפאות','צבע הגוף'], ans:1, exp:'הפריסה מראה את כל הפאות — לכן שטח הפריסה = שטח פנים הגוף.' },
+  { q:'לא כל ה-6 מלבנים מהווים פריסה תקינה. מתי פריסה תקינה?', opts:['כשכל המלבנים שווים','כשניתן לקפל אותה לתיבה ללא חפיפת פאות','כשיש בה בדיוק 4 מלבנים','תמיד תקינה'], ans:1, exp:'פריסה תקינה = אפשר לקפל ולקבל תיבה שבה כל 6 פאות מכסות אותה פעם אחת.' },
+];
+
+function currentLevels(){
+  if(state.sequence===1) return gameLevels1;
+  if(state.sequence===2) return gameLevels2;
+  if(state.sequence===3) return gameLevels3;
+  if(state.sequence===4) return gameLevels4;
+  if(state.sequence===5) return gameLevels5;
+  return gameLevels1;
+}
+
+/* ========== RENDER ========== */
+
+function render(){
+  const app = document.getElementById('app');
+  if(state.screen==='home')       app.innerHTML = renderTopbar()+'<div class="wrap">'+renderHome()+'</div>';
+  else if(state.screen==='learn') app.innerHTML = renderTopbar()+'<div class="wrap">'+renderLearn()+'</div>';
+  else if(state.screen==='game')  app.innerHTML = renderTopbar()+'<div class="wrap">'+renderGame()+'</div>';
+  else if(state.screen==='gameResults') app.innerHTML = renderTopbar()+'<div class="wrap">'+renderGameResults()+'</div>';
+}
+
+function renderTopbar(){
+  return `<div class="topbar"><div class="brand">חן מרגלית למידה אקטיבית</div><a class="homebtn" href="../index.html">תפריט ראשי</a></div>`;
+}
+
+function seqRow(seqNum, label, opts={}){
+  const isOpen = openSections.has(seqNum);
+  const chevron = isOpen ? '▾' : '◂';
+  let cards = '';
+  if(isOpen){
+    cards = `<div class="cards" style="margin-bottom:6px;">
+      <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
+      <div class="flow-arrow">←</div>
+      <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
+    </div>`;
+  }
+  return `<div onclick="toggleSection(${seqNum})" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:10px 4px;border-bottom:1px solid rgba(234,244,241,0.08);user-select:none;">
+    <span class="sequence-title" style="margin:0;">${label}</span>
+    <span style="font-size:20px;color:rgba(234,244,241,0.4);">${chevron}</span>
+  </div>${cards}`;
+}
+
+function renderHome(){
+  return `<div class="hero">
+    <h1 class="title">גופים במרחב</h1>
+    <p class="subtitle">יחידה 5 — תחום גיאומטרי</p>
+  </div>
+  <div class="sequence-section">
+    <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">תיבה וקובייה</div>
+    ${seqRow(1,'1. מושגים — פאה, מקצוע, קודקוד',{})}
+    ${seqRow(2,'2. נפח תיבה',{})}
+    ${seqRow(3,'3. שטח פנים של תיבה',{})}
+    ${seqRow(4,'4. קובייה — מקרה מיוחד',{})}
+    ${seqRow(5,'5. פריסות',{})}
+  </div>`;
+}
+
+/* ========== LEARN ========== */
+
+function renderLearn(){
+  if(state.sequence===1) return renderLearn1();
+  if(state.sequence===2) return renderLearn2();
+  if(state.sequence===3) return renderLearn3();
+  if(state.sequence===4) return renderLearn4();
+  if(state.sequence===5) return renderLearn5();
+  return renderLearn1();
+}
+
+function renderLearn1(){
+  return `<div class="panel">
+    <h2 class="qtitle">מושגים — פאה, מקצוע, קודקוד</h2>
+    <table class="def-table">
+      <tr><td>פאה (Face)</td><td>משטח שטוח של הגוף. לתיבה יש <strong>6 פאות</strong> — כולן מלבנים.</td></tr>
+      <tr><td>מקצוע (Edge)</td><td>הקו בין שתי פאות. לתיבה יש <strong>12 מקצועות</strong>.</td></tr>
+      <tr><td>קודקוד (Vertex)</td><td>פינה — נקודת חיבור של מקצועות. לתיבה <strong>8 קודקודים</strong>.</td></tr>
+    </table>
+    <ul class="bullets">
+      <li>תיבה = קובייד (cuboid) = גוף בעל 6 פאות מלבניות.</li>
+      <li>3 זוגות פאות מנוגדות שוות: עליון/תחתון, קדמי/אחורי, ימין/שמאל.</li>
+      <li>כל פאה מלבן — ולכן לתיבה 3 מידות: אורך (a), רוחב (b), גובה (c).</li>
+    </ul>
+    <div class="learn-note"><strong>טיפ:</strong> קל לזכור — קופסת נעליים היא תיבה מושלמת!</div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+function renderLearn2(){
+  return `<div class="panel">
+    <h2 class="qtitle">נפח תיבה</h2>
+    <div class="gold-box" style="text-align:center;font-size:22px;">נפח = אורך × רוחב × גובה = a × b × c</div>
+    <ul class="bullets">
+      <li>נפח מודד כמה מקום יש בתוך הגוף.</li>
+      <li>יחידת נפח: <strong>סמ"ק</strong> (ס"מ³), מ"ק, ל׳ — תמיד בחזקה שלוש.</li>
+      <li>1 ל׳ = 1000 סמ"ק = 1000 מ"ל</li>
+      <li>דרך ויזואלית: כמה קוביות קטנות של 1×1×1 ממלאות את התיבה?</li>
+    </ul>
+    <div class="formula-grid">
+      <div class="formula-card"><div class="fname">נפח תיבה</div><div class="fval">a × b × c</div></div>
+      <div class="formula-card"><div class="fname">נפח קובייה</div><div class="fval">a³</div></div>
+    </div>
+    <div class="learn-note"><strong>דוגמה:</strong> תיבה 6×4×3 ס"מ → נפח = 6×4×3 = 72 סמ"ק</div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+function renderLearn3(){
+  return `<div class="panel">
+    <h2 class="qtitle">שטח פנים של תיבה</h2>
+    <div class="gold-box" style="text-align:center;font-size:20px;">שטח פנים = 2(ab + bc + ac)</div>
+    <ul class="bullets">
+      <li>שטח פנים = סכום שטחי <strong>כל 6 הפאות</strong>.</li>
+      <li>3 זוגות פאות: a×b (פעמיים), b×c (פעמיים), a×c (פעמיים).</li>
+      <li>יחידה: <strong>סמ"ר</strong> (ס"מ²) — בחזקה שתיים!</li>
+    </ul>
+    <div class="learn-note">
+      <strong>דוגמה:</strong> תיבה 5×4×3:<br>
+      2×(5×4 + 4×3 + 5×3) = 2×(20+12+15) = 2×47 = 94 סמ"ר
+    </div>
+    <div class="learn-note"><strong>שימוש:</strong> כמה קרטון צריך לעטוף מתנה? כמה צבע לצבוע אקווריום?</div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+function renderLearn4(){
+  return `<div class="panel">
+    <h2 class="qtitle">קובייה — מקרה מיוחד</h2>
+    <ul class="bullets">
+      <li><strong>קובייה</strong> = תיבה מיוחדת שכל מקצועותיה שווים (a = b = c).</li>
+      <li>כל 6 הפאות — ריבועות שוות.</li>
+      <li><strong>נפח קובייה</strong> = a³ (a בחזקה שלוש)</li>
+      <li><strong>שטח פנים</strong> = 6a²</li>
+      <li>שורש שלישי: אם a³ = 64, אז a = ³√64 = 4</li>
+    </ul>
+    <div class="formula-grid">
+      <div class="formula-card"><div class="fname">נפח קובייה</div><div class="fval">a³</div></div>
+      <div class="formula-card"><div class="fname">שטח פנים קובייה</div><div class="fval">6a²</div></div>
+    </div>
+    <div class="learn-note"><strong>דוגמה:</strong> קובייה עם מקצוע 5 ס"מ: נפח=125 סמ"ק, שטח פנים=150 סמ"ר</div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+function renderLearn5(){
+  return `<div class="panel">
+    <h2 class="qtitle">פריסות</h2>
+    <ul class="bullets">
+      <li><strong>פריסה</strong> = הצורה הדו-ממדית שמתקבלת כשפורקים את כל פאות הגוף ומשטחים אותן.</li>
+      <li>פריסת תיבה = 6 מלבנים מחוברים בסדר שאפשר לקפל לתיבה.</li>
+      <li>לא כל סידור של 6 מלבנים הוא פריסה תקינה — חייב להיות ניתן לקיפול.</li>
+      <li>שטח הפריסה = שטח פנים הגוף!</li>
+    </ul>
+    <div class="gold-box">יש 11 פריסות שונות לקובייה. כולן תקינות!</div>
+    <div class="learn-note"><strong>שימוש בחיים:</strong> עיצוב אריזות, קרטונים, קופסאות — כולם בנויים מפריסות.</div>
+    <div class="btnrow"><button class="btn secondary" onclick="goHome()">חזרה</button><button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button></div>
+  </div>`;
+}
+
+/* ========== GAME ========== */
+
+function renderGame(){
+  const levels = currentLevels();
+  if(state.qi >= levels.length){ state.screen='gameResults'; return renderGameResults(); }
+  const lv = levels[state.qi];
+  const dots = levels.map((_,i)=>`<div class="dot${i<state.qi?' done':i===state.qi?' active':''}"></div>`).join('');
+  let optsHtml = lv.opts.map((o,i)=>`<button class="mc-btn" id="opt${i}" onclick="answerMC(${i})">${o}</button>`).join('');
+  return `<div class="panel">
+    <div class="progressdots">${dots}</div>
+    <p class="qmeta">שאלה ${state.qi+1} מתוך ${levels.length}</p>
+    <h2 class="qtitle">${lv.q}</h2>
+    <div class="mc-options">${optsHtml}</div>
+    <div class="feedback" id="fb"></div>
+    <div id="expbox"></div>
+    <div class="btnrow" id="nextrow" style="display:none">
+      <button class="btn" onclick="nextQ()">הבא ←</button>
+    </div>
+  </div>`;
+}
+
+function answerMC(i){
+  if(state.answered) return;
+  state.answered = true;
+  const lv = currentLevels()[state.qi];
+  const fb = document.getElementById('fb');
+  document.querySelectorAll('.mc-btn').forEach((b,idx)=>{
+    b.disabled = true;
+    if(idx===lv.ans) b.classList.add('correct');
+    else if(idx===i) b.classList.add('wrong');
+  });
+  if(i===lv.ans){ fb.className='feedback ok'; fb.textContent='נכון! ✓'; state.score++; }
+  else { fb.className='feedback bad'; fb.textContent='לא נכון ✗'; }
+  if(lv.exp){ document.getElementById('expbox').innerHTML=`<div class="explain-box">${lv.exp}</div>`; }
+  document.getElementById('nextrow').style.display='flex';
+}
+
+function nextQ(){ state.qi++; state.answered=false; render(); }
+
+function renderGameResults(){
+  const levels = currentLevels();
+  const pct = Math.round(state.score/levels.length*100);
+  const msg = pct>=80?'מצוין! 🎉':pct>=60?'כמעט!':'נסה שוב';
+  return `<div class="panel" style="text-align:center">
+    <h2 class="qtitle">סיימת!</h2>
+    <div class="scorebig">${state.score}/${levels.length}</div>
+    <p style="font-size:18px;opacity:.85;">${pct}% — ${msg}</p>
+    <div class="btnrow">
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      <button class="btn" onclick="state.sequence=${state.sequence};startGame()">שוב ←</button>
+    </div>
+  </div>`;
+}
+
+render();
+</script>
+</body>
+</html>
