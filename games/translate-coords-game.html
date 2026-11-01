@@ -217,14 +217,11 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
         <div class="coord">
           <span>(</span>
           <label>x<input id="cx" inputmode="numeric" autocomplete="off" aria-label="שיעור x"></label>
-          <button class="pm" id="pmx" aria-label="החלפת סימן x">±</button>
-          <span>,</span>
+                    <span>,</span>
           <label>y<input id="cy" inputmode="numeric" autocomplete="off" aria-label="שיעור y"></label>
-          <button class="pm" id="pmy" aria-label="החלפת סימן y">±</button>
-          <span>)</span>
+                    <span>)</span>
         </div>
-        <p class="hint" style="margin:8px 0 0">למספר שלילי לחצו על ±.</p>
-      </div>
+              </div>
 
       <div class="actions">
         <button class="btn primary" id="goBtn">הזיזו!</button>
@@ -658,7 +655,7 @@ document.querySelectorAll('input[name=axis]').forEach(r=>r.addEventListener('cha
 document.querySelectorAll('input[name=rot]').forEach(r=>r.addEventListener('change',()=>{st().rot=r.value;changed();}));
 ['cx','cy'].forEach(id=>{$(id).addEventListener('input',changed);$(id).addEventListener('keydown',e=>{if(e.key==='Enter')go();});});
 const flip=id=>()=>{const el=$(id);let v=el.value.trim().replace(/[−–]/g,'-');el.value=v.startsWith('-')?v.slice(1):'-'+v;changed();el.focus();};
-$('pmx').onclick=flip('cx');$('pmy').onclick=flip('cy');
+
 $('goBtn').onclick=go;
 $('retryBtn').onclick=()=>{if(!S.busy)clearResult();$('fb').hidden=true;};
 $('nextBtn').onclick=()=>{if(!S.busy)newQ();};
