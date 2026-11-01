@@ -267,8 +267,9 @@ const minXY=ps=>[Math.min(...ps.map(p=>p[0])),Math.min(...ps.map(p=>p[1]))];
 
 function makeShape(){
   if((S.mode==='move'||S.mode==='coords')&&Math.random()<.3){const s=pick([3,4]);return {pts:[[0,0],[s,0],[s,s],[0,s]],name:'הריבוע',asym:true,w:s,h:s,photo:true};}
-  if(Math.random()<.55){const s=pick([2,3,3]);return {pts:[[0,0],[s,0],[s,s],[0,s]],name:'הריבוע',asym:true,w:s,h:s,emoji:pick(EMOJI)};}
-  const k=pick(['rect','sq','rtri','scal','L','para','trap','rect','rtri']);
+  if(S.mode!=='refl'&&Math.random()<.55){const s=pick([2,3,3]);return {pts:[[0,0],[s,0],[s,s],[0,s]],name:'הריבוע',asym:true,w:s,h:s,emoji:pick(EMOJI)};}
+  const pool=S.mode==='refl'?['rect','rtri','scal','L','para','trap','rtri']:['rect','sq','rtri','scal','L','para','trap','rect','rtri'];
+  const k=pick(pool);
   let p,name;
   switch(k){
     case 'rect':{const w=ri(2,4);let h=ri(1,3);if(w===h)h=w-1;p=[[0,0],[w,0],[w,h],[0,h]];name='המלבן';break;}
@@ -322,6 +323,19 @@ function genOne(kinds){
     return {shape:s,orig,kind,target,emoji:s.emoji,O,TO:mul(LM[kind],O)};
   }
 }
+function genRefl(){
+  const kind=S.reflNext;
+  S.reflNext=kind==='reflX'?'reflY':'reflX';
+  for(;;){
+    const s=makeShape(); if(!s.asym) continue;
+    const ox=ri(1,R-1-s.w), oy=ri(1,R-1-s.h), sx=pick([1,-1]), sy=pick([1,-1]);
+    const orig=s.pts.map(([x,y])=>[(x+ox)*sx,(y+oy)*sy]);
+    const target=orig.map(TF[kind]);
+    if(sameSet(orig,target)) continue;
+    const O=pick([[1,0,0,1],[-1,0,0,1]]);
+    return {shape:s,orig,kind,target,O,TO:mul(LM[kind],O)};
+  }
+}
 function genCoords(){
   const q=genTranslate(false);
   q.k=ri(0,q.orig.length-1);
@@ -355,7 +369,7 @@ function genTwo(){
 
 /* ---------- state ---------- */
 const newStep=()=>({type:null,h:0,v:0,axis:'reflX',rot:'cw90'});
-const S={mode:'move',q:null,busy:false,result:null,steps:[newStep(),newStep()],cur:0,mid:null,wrong:0,
+const S={mode:'move',q:null,busy:false,result:null,steps:[newStep(),newStep()],cur:0,mid:null,wrong:0,reflNext:'reflX',
   stats:{move:{s:0,st:0},coords:{s:0,st:0},choose:{s:0,st:0},two:{s:0,st:0},refl:{s:0,st:0},rot:{s:0,st:0}}};
 const st=()=>S.steps[S.cur];
 
@@ -495,7 +509,7 @@ const eqTxt=(a,d)=>`<bdi dir="ltr" class="n">${fmt(a)} ${d>=0?'+':'−'} ${Math.
 const MODES={
   move:{eyebrow:'הזזה · כמה להזיז?',go:'הזיזו!',gen:()=>genTranslate(false)},
   coords:{eyebrow:'הזזה · מה השיעורים?',go:'בדיקה',gen:genCoords},
-  refl:{eyebrow:'שיקוף',go:'שקפו!',gen:()=>genOne(['reflX','reflY'])},
+  refl:{eyebrow:'שיקוף',go:'שקפו!',gen:genRefl},
   rot:{eyebrow:'סיבוב',go:'סובבו!',gen:()=>genOne(['cw90','ccw90','r180','cw90','ccw90'])},
   choose:{eyebrow:'הכל ביחד · טרנספורמציה אחת',go:'בצעו!',gen:genChoose},
   two:{eyebrow:'הכל ביחד · שתי טרנספורמציות ברצף',go:'בצעו את שתיהן!',gen:genTwo}
