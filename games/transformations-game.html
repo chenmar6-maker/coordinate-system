@@ -668,7 +668,7 @@ $('goBtn').onclick=go;
 $('retryBtn').onclick=()=>{if(!S.busy)clearResult();$('fb').hidden=true;};
 $('nextBtn').onclick=()=>{if(!S.busy)newQ();};
 
-const _urlTab = new URLSearchParams(location.search).get("tab"); if(_urlTab && GAMES[_urlTab]) S.mode = GAMES[_urlTab][0]; drawGrid(); newQ();
+const _params = new URLSearchParams(location.search); const _urlTab = _params.get("tab"); const _urlMode = _params.get("mode"); if(_urlMode) S.mode = _urlMode; else if(_urlTab && GAMES[_urlTab]) S.mode = GAMES[_urlTab][0]; drawGrid(); newQ();
 })();
 </script>
 
