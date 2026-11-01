@@ -207,6 +207,8 @@ function seqRow(seqNum, label, opts={}){
     if(opts.gameUrl==='__chained__'){
       const cg = opts.chainedGame;
       practiceCards = `<div class="flow-arrow">←</div><div class="card game" onclick="openChainedGames('${cg.url1}','${cg.url2}','${cg.worksheet}')"><h3>תרגול</h3></div>`;
+    } else if(opts.gameUrls){
+      practiceCards = opts.gameUrls.map(g=>`<div class="flow-arrow">←</div><div class="card game" onclick="openIframeGame('${g.url}')"><h3>${g.label}</h3></div>`).join('');
     } else if(opts.gameUrl){
       practiceCards = `<div class="flow-arrow">←</div><div class="card game" onclick="openIframeGame('${opts.gameUrl}')"><h3>תרגול</h3></div>`;
     } else {
@@ -236,6 +238,7 @@ function renderHome(){
     ${seqRow(3,'3. סיבוב',{worksheetUrl:'../worksheets/geo_rotation_exam.html',gameUrl:'../games/rotate-game.html'})}
     ${seqRow(4,'4. שיקוף',{worksheetUrl:'../worksheets/geo_reflection_exam.html',gameUrl:'../games/reflect-game.html'})}
     ${seqRow(5,'5. סימטריה',{worksheetUrl:'../worksheets/geo_symmetry_exam.html'})}
+    ${seqRow(6,'6. שילוב טרנספורמציות',{gameUrls:[{url:'../games/transformations-game.html?mode=choose',label:'בחירת טרנספורמציה'},{url:'../games/transformations-game.html?mode=two',label:'שתי טרנספורמציות'}]})}
   </div>
   <div onclick="showWorksheet('../worksheets/geometry_transformations_exam.html')" style="cursor:pointer;margin-top:14px;display:flex;align-items:center;justify-content:space-between;background:rgba(16,185,129,0.1);border:1.5px solid rgba(16,185,129,0.35);border-radius:10px;padding:13px 18px;">
     <div>
