@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — משוואות עם פתיחת סוגריים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 80px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .pa { background: #7C3AED; }
+  .pb { background: #1D4ED8; }
+
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 12px 14px 14px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .is-a .quiz-q { border-right: 4px solid #C4B5FD; }
+  .is-b .quiz-q { border-right: 4px solid #93C5FD; }
+
+  .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+
+  /* ── solve grid ── */
+  .solve-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 24px;
+    margin: 10px 0 4px;
+    padding-right: 4px;
+  }
+  .solve-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 10px;
+    border: 1px solid #e8edf5;
+    border-radius: 7px;
+    background: #FAFBFD;
+  }
+  .solve-lbl { font-weight: 700; font-size: 12px; color: #888; }
+  .solve-eq { font-size: 15px; font-weight: 700; direction: ltr; unicode-bidi: isolate; }
+  .work-line { display: block; border-bottom: 1px solid #ccc; margin-top: 20px; height: 1px; }
+  .ans-line-sm { display: block; border-bottom: 1.5px solid #888; margin-top: 24px; height: 1px; }
+
+  /* ── sub-rows ── */
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 7px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 16px; font-weight: 700; flex-shrink: 0; color: #555; }
+  .al   { display: block; border-bottom: 1.5px solid #bbb; margin-top: 10px; height: 18px; }
+  .ali  { display: inline-block; border-bottom: 1.5px solid #888; min-width: 80px; vertical-align: bottom; }
+  .ali-lg { display: inline-block; border-bottom: 1.5px solid #888; min-width: 150px; vertical-align: bottom; }
+
+  /* ── verify box ── */
+  .verify-box {
+    margin-top: 10px;
+    background: #FFF7ED;
+    border: 1px solid #FED7AA;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .verify-box .v-lbl { font-weight: 700; color: #C05621; margin-bottom: 4px; }
+
+  .frac {
+    display: inline-flex; flex-direction: column;
+    align-items: stretch; vertical-align: middle;
+    font-size: 0.95em; line-height: 1.25; margin: 0 3px;
+  }
+  .frac .num { border-bottom: 1.5px solid #1a1a2e; padding: 0 4px; text-align: center; direction: ltr; }
+  .frac .den { padding: 0 4px; text-align: center; direction: ltr; }
+
+  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
+
+  .score-bar {
+    display: flex; gap: 14px; justify-content: flex-end; flex-wrap: wrap;
+    font-size: 13px; margin-top: 12px;
+    background: #fff; border-radius: 8px;
+    padding: 10px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .score-part { display: flex; align-items: center; gap: 6px; }
+  .score-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .sd-a { background: #7C3AED; }
+  .sd-b { background: #1D4ED8; }
+  .score-field { border-bottom: 1.5px solid #888; min-width: 36px; display: inline-block; }
+  .score-total { font-weight: 700; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; page-break-inside: avoid; }
+    .is-a .quiz-q { border-right: 4px solid #C4B5FD !important; }
+    .is-b .quiz-q { border-right: 4px solid #93C5FD !important; }
+    .header { background: #1E1B2E !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pa, .pb { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .verify-box { background: #FFF7ED !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — משוואות עם פתיחת סוגריים</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; אלגברה</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     חלק א׳ — פתיחת סוגריים ופתרון
+══════════════════════════════════════ -->
+<span class="part-label pa">חלק א׳ — פתיחת סוגריים ופתרון</span>
+
+<div class="is-a">
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span> פתחו סוגריים ופתרו. הראו את הצעדים.
+  <div class="solve-grid">
+
+    <div class="solve-item">
+      <span class="solve-lbl">א.</span>
+      <span class="solve-eq">2(x + 3) = 14</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="ans-line-sm"></span>
+    </div>
+
+    <div class="solve-item">
+      <span class="solve-lbl">ב.</span>
+      <span class="solve-eq">3(x − 2) = 9</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="ans-line-sm"></span>
+    </div>
+
+    <div class="solve-item">
+      <span class="solve-lbl">ג.</span>
+      <span class="solve-eq">4(x + 1) = 2x + 10</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="ans-line-sm"></span>
+    </div>
+
+    <div class="solve-item">
+      <span class="solve-lbl">ד.</span>
+      <span class="solve-eq">5(x − 1) = 3x + 7</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="ans-line-sm"></span>
+    </div>
+
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span> פתחו סוגריים ופתרו. הראו <strong>כל</strong> צעד.
+  <div style="margin:10px 0 6px;font-size:15px;font-weight:700;direction:ltr;unicode-bidi:isolate;">3(2x − 1) = 2x + 9</div>
+  <div class="sub-row"><span class="sub-lbl">פתרון:</span></div>
+  <span class="al"></span>
+  <span class="al"></span>
+  <span class="al"></span>
+  <span class="al"></span>
+  <div class="verify-box">
+    <div class="v-lbl">בדיקה — מציבים בחזרה:</div>
+    <span class="al"></span>
+  </div>
+</div>
+
+</div><!-- end is-a -->
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════
+     חלק ב׳ — כמה פתרונות?
+══════════════════════════════════════ -->
+<span class="part-label pb">חלק ב׳ — כמה פתרונות?</span>
+
+<div class="is-b">
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <span class="qnum">3.</span> כמה פתרונות? נמקו.
+  <div class="sub-row">
+    <span class="sub-lbl">א.</span>
+    <span class="m">2(x + 3) = 2x + 6</span>
+  </div>
+  <span class="ali-lg"></span>
+  <div class="sub-row" style="margin-top:14px;">
+    <span class="sub-lbl">ב.</span>
+    <span class="m">3(x + 1) = 3x + 5</span>
+  </div>
+  <span class="ali-lg"></span>
+</div>
+
+</div><!-- end is-b -->
+
+<!-- ===== SCORE BAR ===== -->
+<div class="score-bar">
+  <div class="score-part"><div class="score-dot sd-a"></div> חלק א׳: <span class="score-field">&nbsp;</span> / 6</div>
+  <div class="score-part"><div class="score-dot sd-b"></div> חלק ב׳: <span class="score-field">&nbsp;</span> / 4</div>
+  <div class="score-part score-total">סה"כ: <span class="score-field">&nbsp;</span> / 10</div>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
