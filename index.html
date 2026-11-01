@@ -144,6 +144,22 @@
   <div class="gate-title">מתמטיקה אקטיבית לכיתה ז׳</div>
   <input class="gate-input" id="gate-input" type="password" maxlength="3" placeholder="···" autocomplete="off" oninput="checkGate()">
   <div class="gate-error" id="gate-error"></div>
+  <div style="margin-top:24px;">
+    <div id="yotam-gate">
+      <button onclick="openYotamGate()"
+         style="display:inline-flex;align-items:center;gap:10px;background:rgba(234,244,241,0.06);border:1.5px solid rgba(234,244,241,0.15);border-radius:14px;padding:12px 22px;color:#EAF4F1;font-family:'Rubik',sans-serif;font-size:15px;font-weight:600;cursor:pointer;">
+        <span style="font-size:20px;">🦁</span>
+        <span>קורס חיות בר — יותם</span>
+        <span style="font-size:13px;opacity:.55;">←</span>
+      </button>
+    </div>
+    <div id="yotam-code-row" style="display:none;flex-direction:column;align-items:center;gap:10px;">
+      <input id="yotam-code-input" type="password" maxlength="5" placeholder="קוד" autocomplete="off"
+        style="width:120px;padding:10px 14px;background:rgba(234,244,241,0.06);border:1.5px solid rgba(234,244,241,0.2);border-radius:12px;color:#EAF4F1;font-family:'Rubik',sans-serif;font-size:20px;font-weight:700;text-align:center;letter-spacing:4px;direction:ltr;outline:none;"
+        oninput="checkYotamCode()">
+      <span id="yotam-code-err" style="font-size:12px;color:rgba(255,120,120,0.8);display:none;">קוד שגוי</span>
+    </div>
+  </div>
 </div>
 
 <div class="wrap" id="main-wrap" style="display:none;">
@@ -706,23 +722,6 @@ function checkGateCode() {
   </div>
 </div>
 
-<div style="text-align:center;padding:18px 16px 6px;">
-  <div id="yotam-gate">
-    <button onclick="openYotamGate()"
-       style="display:inline-flex;align-items:center;gap:10px;background:rgba(234,244,241,0.06);border:1.5px solid rgba(234,244,241,0.15);border-radius:14px;padding:12px 22px;color:var(--foam);font-family:'Rubik',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:border-color .15s;"
-       onmouseover="this.style.borderColor='rgba(234,244,241,0.4)'" onmouseout="this.style.borderColor='rgba(234,244,241,0.15)'">
-      <span style="font-size:20px;">🦁</span>
-      <span>קורס חיות בר — יותם</span>
-      <span style="font-size:13px;opacity:.55;">←</span>
-    </button>
-  </div>
-  <div id="yotam-code-row" style="display:none;flex-direction:column;align-items:center;gap:10px;">
-    <input id="yotam-code-input" type="password" maxlength="5" placeholder="קוד" autocomplete="off"
-      style="width:120px;padding:10px 14px;background:rgba(234,244,241,0.06);border:1.5px solid rgba(234,244,241,0.2);border-radius:12px;color:#EAF4F1;font-family:'Rubik',sans-serif;font-size:20px;font-weight:700;text-align:center;letter-spacing:4px;direction:ltr;outline:none;"
-      oninput="checkYotamCode()">
-    <span id="yotam-code-err" style="font-size:12px;color:rgba(255,120,120,0.8);display:none;">קוד שגוי</span>
-  </div>
-</div>
 <footer style="text-align:center;padding:18px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
 </body>
 </html>
