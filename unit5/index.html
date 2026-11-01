@@ -263,6 +263,9 @@ function currentGameLevels(){
   if(state.sequence===2) return gameLevels2;
   if(state.sequence===3) return gameLevels3;
   if(state.sequence===4) return gameLevels4;
+  if(state.sequence===5) return [];
+  if(state.sequence===6) return [];
+  if(state.sequence===7) return [];
   return [];
 }
 
@@ -343,10 +346,11 @@ function renderHome(){
       ${seqRow(2,'2. משוואות פשוטות — פעולה אחת',{worksheetUrl:'../worksheets/equations_simple_exam.html'})}
       ${seqRow(3,'3. משוואות מורכבות — כמה שלבים',{worksheetUrl:'../worksheets/equations_solving_exam.html',answersUrl:'../worksheets/equations_solving_exam_answers.html',checkUrl:'../worksheets/equations_solving_exam_check.html'})}
       ${seqRow(4,'4. משוואות עם פתיחת סוגריים',{worksheetUrl:'../worksheets/equations_brackets_exam.html'})}
-      ${seqRow(5,'5. שאלות מילוליות',{worksheetUrl:'../worksheets/equations_word_problems_exam.html',answersUrl:'../worksheets/equations_word_problems_exam_answers.html',checkUrl:'../worksheets/equations_word_problems_exam_check.html'})}
+      ${seqRow(5,'5. סוגי פתרון — פתרון יחיד, אין פתרון, אינסוף',{worksheetUrl:'../worksheets/equations_solution_types_exam.html'})}
+      ${seqRow(6,'6. שאלות מילוליות',{worksheetUrl:'../worksheets/equations_word_problems_exam.html',answersUrl:'../worksheets/equations_word_problems_exam_answers.html',checkUrl:'../worksheets/equations_word_problems_exam_check.html'})}
 
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin:20px 0 8px;">קריאת תיאור גרפי של נקודות ברביע I</div>
-      ${seqRow(6,'6. קריאת תיאור גרפי של נקודות ברביע I',{worksheetUrl:'../worksheets/graphs_reading_exam.html'})}
+      ${seqRow(7,'7. קריאת תיאור גרפי של נקודות ברביע I',{worksheetUrl:'../worksheets/graphs_reading_exam.html'})}
 
       <div style="font-size:12px;font-weight:700;letter-spacing:1px;color:rgba(234,244,241,0.4);text-transform:uppercase;margin:14px 0 6px;">מבדק מקיף</div>
       <div onclick="showWorksheet('../worksheets/equations_master_exam.html')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-radius:12px;background:rgba(226,96,79,0.1);border:1.5px solid rgba(226,96,79,0.4);margin-bottom:4px;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
@@ -377,6 +381,7 @@ function renderLearn(){
   if(state.sequence===4) return renderLearn4();
   if(state.sequence===5) return renderLearn5();
   if(state.sequence===6) return renderLearn6();
+  if(state.sequence===7) return renderLearn7();
   return renderLearn1();
 }
 
@@ -436,6 +441,49 @@ function renderLearn1(){
 
 function renderLearn5(){
   return `<div class="panel">
+    <h2 class="qtitle">סוגי פתרון למשוואות</h2>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 120" style="display:block;margin:10px auto 14px;max-width:340px;">
+      <!-- Unique solution box -->
+      <rect x="10" y="20" width="90" height="70" rx="8" fill="rgba(45,212,191,0.12)" stroke="#2DD4BF" stroke-width="1.5"/>
+      <text x="55" y="44" text-anchor="middle" font-family="Rubik" font-size="11" font-weight="700" fill="#0D9488">פתרון יחיד</text>
+      <text x="55" y="62" text-anchor="middle" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.6)" direction="ltr">3x=9</text>
+      <text x="55" y="78" text-anchor="middle" font-family="Rubik" font-size="12" font-weight="700" fill="#2DD4BF" direction="ltr">x=3</text>
+      <!-- No solution box -->
+      <rect x="125" y="20" width="90" height="70" rx="8" fill="rgba(248,113,113,0.12)" stroke="#F87171" stroke-width="1.5"/>
+      <text x="170" y="44" text-anchor="middle" font-family="Rubik" font-size="11" font-weight="700" fill="#DC2626">אין פתרון</text>
+      <text x="170" y="62" text-anchor="middle" font-family="Rubik" font-size="10" fill="rgba(234,244,241,0.6)" direction="ltr">2x+3=2x+7</text>
+      <text x="170" y="78" text-anchor="middle" font-family="Rubik" font-size="11" fill="#F87171">3=7 ✗</text>
+      <!-- Infinite solutions box -->
+      <rect x="240" y="20" width="90" height="70" rx="8" fill="rgba(129,140,248,0.12)" stroke="#818CF8" stroke-width="1.5"/>
+      <text x="285" y="44" text-anchor="middle" font-family="Rubik" font-size="11" font-weight="700" fill="#6366F1">אינסוף</text>
+      <text x="285" y="60" text-anchor="middle" font-family="Rubik" font-size="10" fill="rgba(234,244,241,0.6)" direction="ltr">2x+4=2x+4</text>
+      <text x="285" y="78" text-anchor="middle" font-family="Rubik" font-size="11" fill="#818CF8">0=0 ✓</text>
+    </svg>
+
+    <div class="gold-box">לכל משוואה יש בדיוק אחד מאלה: פתרון יחיד · אין פתרון · אינסוף פתרונות</div>
+
+    <ul class="bullets">
+      <li><strong style="color:#2DD4BF;">פתרון יחיד</strong> — אחרי פישוט נשאר <span class="m">x = מספר</span></li>
+      <li><strong style="color:#F87171;">אין פתרון</strong> — נשאר <span class="m">a = b</span> ו-<span class="m">a ≠ b</span>; שקר תמיד (למשל <span class="m">3 = 7</span>)</li>
+      <li><strong style="color:#818CF8;">אינסוף פתרונות</strong> — נשאר <span class="m">0 = 0</span> (אמת תמיד); כל ערך של x מקיים</li>
+    </ul>
+
+    <div class="learn-note" style="margin-top:14px;">
+      <strong>שיטת בדיקה:</strong><br>
+      1. פשטו ובצעו פעולות על שני האגפים כרגיל<br>
+      2. אם x נעלם — בדקו: האם הטענה שנשארה אמת תמיד? שקר תמיד? או ש-x שווה לערך יחיד?
+    </div>
+
+    <div class="btnrow" style="margin-top:20px;">
+      <button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn6(){
+  return `<div class="panel">
     <h2 class="qtitle">שאלות מילוליות</h2>
 
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 140" width="100%" style="max-width:320px;display:block;margin:0 auto 10px;">
@@ -487,13 +535,13 @@ function renderLearn5(){
     <div class="learn-note">טיפ: בדיקה — החזר לשאלה המקורית ובדוק, לא לבדיקה האלגברית בלבד</div>
 
     <div class="btnrow" style="margin-top:20px;">
-      <button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button>
+      <button class="btn" onclick="state.sequence=6;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
 }
 
-function renderLearn6(){
+function renderLearn7(){
   return `<div class="panel">
     <h2 class="qtitle">קריאת תיאור גרפי של נקודות ברביע I</h2>
 
@@ -574,7 +622,7 @@ function renderLearn6(){
     <div class="learn-note">ברביע הראשון: x חיובי ו-y חיובי. שני הערכים תמיד גדולים מ-0.</div>
 
     <div class="btnrow" style="margin-top:20px;">
-      <button class="btn" onclick="state.sequence=6;startGame()">לתרגול ←</button>
+      <button class="btn" onclick="state.sequence=7;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;

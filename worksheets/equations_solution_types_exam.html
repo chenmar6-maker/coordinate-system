@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — סוגי פתרון למשוואות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 80px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .pa { background: #0F766E; }
+  .pb { background: #1D4ED8; }
+  .pc { background: #7C3AED; }
+
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 12px 14px 14px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .is-a .quiz-q { border-right: 4px solid #5EEAD4; }
+  .is-b .quiz-q { border-right: 4px solid #93C5FD; }
+  .is-c .quiz-q { border-right: 4px solid #C4B5FD; }
+
+  .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+
+  /* ── classification grid ── */
+  .classify-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 20px;
+    margin: 10px 0 4px;
+    padding-right: 4px;
+  }
+  .classify-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 12px;
+    border: 1px solid #e8edf5;
+    border-radius: 7px;
+    background: #FAFBFD;
+  }
+  .classify-lbl { font-weight: 700; font-size: 12px; color: #888; }
+  .classify-eq { font-size: 15px; font-weight: 700; direction: ltr; unicode-bidi: isolate; margin-bottom: 4px; }
+
+  /* type choice row */
+  .type-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .type-box {
+    flex: 1; min-width: 80px;
+    border: 1.5px solid #CBD5E1;
+    border-radius: 6px;
+    padding: 5px 8px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748B;
+  }
+  .type-box.unique { border-color: #2DD4BF; color: #0F766E; background: #F0FDFA; }
+  .type-box.none   { border-color: #F87171; color: #B91C1C; background: #FFF1F2; }
+  .type-box.inf    { border-color: #818CF8; color: #4338CA; background: #EEF2FF; }
+
+  .work-line { display: block; border-bottom: 1px solid #ccc; margin-top: 18px; height: 1px; }
+  .ans-line-sm { display: block; border-bottom: 1.5px solid #888; margin-top: 12px; height: 1px; }
+
+  /* ── sub-rows ── */
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 7px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 16px; font-weight: 700; flex-shrink: 0; color: #555; }
+  .al   { display: block; border-bottom: 1.5px solid #bbb; margin-top: 10px; height: 18px; }
+  .ali  { display: inline-block; border-bottom: 1.5px solid #888; min-width: 80px; vertical-align: bottom; }
+  .ali-lg { display: inline-block; border-bottom: 1.5px solid #888; min-width: 200px; vertical-align: bottom; }
+
+  /* ── type tag ── */
+  .tag-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; }
+  .tag.unique { background: #CCFBF1; color: #0F766E; }
+  .tag.none   { background: #FEE2E2; color: #B91C1C; }
+  .tag.inf    { background: #EDE9FE; color: #5B21B6; }
+
+  /* ── verify box ── */
+  .verify-box {
+    margin-top: 10px;
+    background: #FFF7ED;
+    border: 1px solid #FED7AA;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .verify-box .v-lbl { font-weight: 700; color: #C05621; margin-bottom: 4px; }
+
+  .frac {
+    display: inline-flex; flex-direction: column;
+    align-items: stretch; vertical-align: middle;
+    font-size: 0.95em; line-height: 1.25; margin: 0 3px;
+  }
+  .frac .num { border-bottom: 1.5px solid #1a1a2e; padding: 0 4px; text-align: center; direction: ltr; }
+  .frac .den { padding: 0 4px; text-align: center; direction: ltr; }
+
+  .divider { border: none; border-top: 2px dashed #CBD5E1; margin: 14px 0; }
+
+  .hint-box {
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #166534;
+    margin-bottom: 10px;
+  }
+
+  .score-bar {
+    display: flex; gap: 14px; justify-content: flex-end; flex-wrap: wrap;
+    font-size: 13px; margin-top: 12px;
+    background: #fff; border-radius: 8px;
+    padding: 10px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .score-part { display: flex; align-items: center; gap: 6px; }
+  .score-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .sd-a { background: #0F766E; }
+  .sd-b { background: #1D4ED8; }
+  .sd-c { background: #7C3AED; }
+  .score-field { border-bottom: 1.5px solid #888; min-width: 36px; display: inline-block; }
+  .score-total { font-weight: 700; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; page-break-inside: avoid; }
+    .is-a .quiz-q { border-right: 4px solid #5EEAD4 !important; }
+    .is-b .quiz-q { border-right: 4px solid #93C5FD !important; }
+    .is-c .quiz-q { border-right: 4px solid #C4B5FD !important; }
+    .header { background: #1E1B2E !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pa, .pb, .pc { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .type-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — סוגי פתרון למשוואות</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; אלגברה</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     חלק א׳ — זיהוי סוג הפתרון
+══════════════════════════════════════ -->
+<span class="part-label pa">חלק א׳ — זיהוי סוג הפתרון</span>
+
+<div class="is-a">
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span> סמנו את סוג הפתרון של כל משוואה: <strong>פתרון יחיד / אין פתרון / אינסוף פתרונות</strong>. כתבו את הצעדים.
+
+  <div class="hint-box" style="margin-top:10px;">
+    רמז: פשטו את שני האגפים ובידדו את x. אם נשאר <span class="m">a = b</span> ללא x — בדקו אם נכון תמיד, שקר תמיד, או שיש ערך x יחיד.
+  </div>
+
+  <div class="classify-grid">
+
+    <div class="classify-item">
+      <span class="classify-lbl">א.</span>
+      <span class="classify-eq">3x + 4 = 3x + 4</span>
+      <span class="work-line"></span>
+      <div class="type-row">
+        <div class="type-box unique">פתרון יחיד</div>
+        <div class="type-box none">אין פתרון</div>
+        <div class="type-box inf">אינסוף</div>
+      </div>
+    </div>
+
+    <div class="classify-item">
+      <span class="classify-lbl">ב.</span>
+      <span class="classify-eq">2x + 1 = 2x + 5</span>
+      <span class="work-line"></span>
+      <div class="type-row">
+        <div class="type-box unique">פתרון יחיד</div>
+        <div class="type-box none">אין פתרון</div>
+        <div class="type-box inf">אינסוף</div>
+      </div>
+    </div>
+
+    <div class="classify-item">
+      <span class="classify-lbl">ג.</span>
+      <span class="classify-eq">5x − 3 = 2x + 9</span>
+      <span class="work-line"></span>
+      <div class="type-row">
+        <div class="type-box unique">פתרון יחיד</div>
+        <div class="type-box none">אין פתרון</div>
+        <div class="type-box inf">אינסוף</div>
+      </div>
+    </div>
+
+    <div class="classify-item">
+      <span class="classify-lbl">ד.</span>
+      <span class="classify-eq">4(x + 2) = 4x + 8</span>
+      <span class="work-line"></span>
+      <div class="type-row">
+        <div class="type-box unique">פתרון יחיד</div>
+        <div class="type-box none">אין פתרון</div>
+        <div class="type-box inf">אינסוף</div>
+      </div>
+    </div>
+
+    <div class="classify-item">
+      <span class="classify-lbl">ה.</span>
+      <span class="classify-eq">3(x − 1) = 3x + 2</span>
+      <span class="work-line"></span>
+      <div class="type-row">
+        <div class="type-box unique">פתרון יחיד</div>
+        <div class="type-box none">אין פתרון</div>
+        <div class="type-box inf">אינסוף</div>
+      </div>
+    </div>
+
+    <div class="classify-item">
+      <span class="classify-lbl">ו.</span>
+      <span class="classify-eq">2(x + 3) = x + 9</span>
+      <span class="work-line"></span>
+      <div class="type-row">
+        <div class="type-box unique">פתרון יחיד</div>
+        <div class="type-box none">אין פתרון</div>
+        <div class="type-box inf">אינסוף</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end is-a -->
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════
+     חלק ב׳ — הסבר ונימוק
+══════════════════════════════════════ -->
+<span class="part-label pb">חלק ב׳ — הסבר ונימוק</span>
+
+<div class="is-b">
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span> הסבירו <strong>מדוע</strong> לכל משוואה יש את מספר הפתרונות שיש לה.
+  <div class="sub-row" style="margin-top:10px;">
+    <span class="sub-lbl">א.</span>
+    <span>למשוואה <span class="m">x + 5 = x + 8</span> אין פתרון כי…</span>
+  </div>
+  <span class="al"></span>
+  <span class="al"></span>
+  <div class="sub-row" style="margin-top:14px;">
+    <span class="sub-lbl">ב.</span>
+    <span>למשוואה <span class="m">2x + 6 = 2(x + 3)</span> יש אינסוף פתרונות כי…</span>
+  </div>
+  <span class="al"></span>
+  <span class="al"></span>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <span class="qnum">3.</span> בנו משוואה (עם x) שמקיימת את התנאי הנתון. הוכיחו.
+  <div class="sub-row" style="margin-top:8px;">
+    <span class="sub-lbl">א.</span>
+    <span>משוואה ללא פתרון:</span>
+    <span class="ali-lg"></span>
+  </div>
+  <span class="al"></span>
+  <div class="sub-row" style="margin-top:14px;">
+    <span class="sub-lbl">ב.</span>
+    <span>משוואה עם אינסוף פתרונות:</span>
+    <span class="ali-lg"></span>
+  </div>
+  <span class="al"></span>
+</div>
+
+</div><!-- end is-b -->
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════
+     חלק ג׳ — אתגר
+══════════════════════════════════════ -->
+<span class="part-label pc">חלק ג׳ — אתגר</span>
+
+<div class="is-c">
+
+<!-- Q4 -->
+<div class="quiz-q" style="background:#FAFAFF;border-right-color:#7C3AED;">
+  <span class="qnum" style="color:#7C3AED;">4. 🔥 אתגר</span> — עבור איזה ערך של <span class="m">k</span> למשוואה יש <strong>אינסוף פתרונות</strong>?
+  <div style="margin:10px 0 6px;font-size:15px;font-weight:700;direction:ltr;unicode-bidi:isolate;">3(x + 2) = kx + 6</div>
+  <div style="font-size:12px;color:#888;margin-bottom:10px;">רמז: פתחו את הסוגריים ובדקו מה ערך k גורם לשני האגפים להיות זהים.</div>
+  <div class="sub-row"><span class="sub-lbl">פתרון:</span></div>
+  <span class="al"></span>
+  <span class="al"></span>
+  <span class="al"></span>
+  <div class="verify-box">
+    <div class="v-lbl">בדיקה — הציבו k שמצאתם:</div>
+    <span class="al"></span>
+  </div>
+</div>
+
+</div><!-- end is-c -->
+
+<!-- ===== SCORE BAR ===== -->
+<div class="score-bar">
+  <div class="score-part"><div class="score-dot sd-a"></div> חלק א׳: <span class="score-field">&nbsp;</span> / 6</div>
+  <div class="score-part"><div class="score-dot sd-b"></div> חלק ב׳: <span class="score-field">&nbsp;</span> / 6</div>
+  <div class="score-part"><div class="score-dot sd-c"></div> חלק ג׳: <span class="score-field">&nbsp;</span> / 3</div>
+  <div class="score-part score-total">סה"כ: <span class="score-field">&nbsp;</span> / 15</div>
+</div>
+
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
