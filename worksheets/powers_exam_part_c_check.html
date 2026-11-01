@@ -204,7 +204,7 @@
 
 <div id="score-card">
   <div class="score-big" id="score-num">—</div>
-  <div class="score-out-of" id="score-denom">מתוך 18 תשובות</div>
+  <div class="score-out-of" id="score-denom">מתוך 14 תשובות</div>
   <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
   <div class="score-msg" id="score-msg"></div>
   <div id="wrong-list-container"></div>
@@ -243,91 +243,71 @@
 
 <!-- ══ שאלה 2 ══ -->
 <div class="q-card">
-  <div class="q-title"><span class="q-num">2.</span> כתבו ביטוי אלגברי — מה כתבתם?</div>
+  <div class="q-title"><span class="q-num">2.</span> פתרו (סדר פעולות) — מה התוצאה?</div>
   <div class="sub-row">
     <span class="sub-lbl">א.</span>
-    <span style="flex:1;font-size:13px;">x כפול עצמו שלוש פעמים</span>
-    <input class="ans-input" id="q2a" type="text" placeholder="?">
+    <span class="expr">3<sup>2</sup> · 2<sup>3</sup> =</span>
+    <input class="ans-input narrow" id="q2a" type="text" placeholder="?">
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ב.</span>
-    <span style="flex:1;font-size:13px;">n בריבוע, כפול 5</span>
-    <input class="ans-input" id="q2b" type="text" placeholder="?">
+    <span class="expr">2 · (−3)<sup>2</sup> − 1 =</span>
+    <input class="ans-input narrow" id="q2b" type="text" placeholder="?">
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ג.</span>
-    <span style="flex:1;font-size:13px;">הנגדי של y בחזקת 4</span>
-    <input class="ans-input" id="q2c" type="text" placeholder="?">
+    <span class="expr">−3<sup>2</sup> − 2·(−2)<sup>3</sup> + 4<sup>0</sup>·5<sup>2</sup> =</span>
+    <input class="ans-input narrow" id="q2c" type="text" placeholder="?">
   </div>
 </div>
 
 <!-- ══ שאלה 3 ══ -->
 <div class="q-card">
-  <div class="q-title"><span class="q-num">3.</span> פתרו (סדר פעולות) — מה התוצאה?</div>
+  <div class="q-title"><span class="q-num">3.</span> ריבוע עם צלע 7 ס"מ — מה כתבתם?</div>
   <div class="sub-row">
     <span class="sub-lbl">א.</span>
-    <span class="expr">3<sup>2</sup> · 2<sup>3</sup> =</span>
+    <span style="flex:1;font-size:13px;">שטח הריבוע המקורי (ס"מ²)</span>
     <input class="ans-input narrow" id="q3a" type="text" placeholder="?">
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ב.</span>
-    <span class="expr">2 · (−3)<sup>2</sup> − 1 =</span>
+    <span style="flex:1;font-size:13px;">שטח הריבוע החדש (צלע כפולה פי 2, ס"מ²)</span>
     <input class="ans-input narrow" id="q3b" type="text" placeholder="?">
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ג.</span>
-    <span class="expr">−3<sup>2</sup> − 2·(−2)<sup>3</sup> + 4<sup>0</sup>·5<sup>2</sup> =</span>
+    <span style="flex:1;font-size:13px;">פי כמה גדל השטח?</span>
     <input class="ans-input narrow" id="q3c" type="text" placeholder="?">
   </div>
 </div>
 
 <!-- ══ שאלה 4 ══ -->
 <div class="q-card">
-  <div class="q-title"><span class="q-num">4.</span> ריבוע עם צלע 7 ס"מ — מה כתבתם?</div>
+  <div class="q-title"><span class="q-num">4.</span> 4 ריבועים של 3×3 — מה כתבתם?</div>
   <div class="sub-row">
     <span class="sub-lbl">א.</span>
-    <span style="flex:1;font-size:13px;">שטח הריבוע המקורי (ס"מ²)</span>
+    <span style="flex:1;font-size:13px;">כמה תאים קטנים יש בכל ריבוע?</span>
     <input class="ans-input narrow" id="q4a" type="text" placeholder="?">
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ב.</span>
-    <span style="flex:1;font-size:13px;">שטח הריבוע החדש (צלע כפולה פי 2, ס"מ²)</span>
-    <input class="ans-input narrow" id="q4b" type="text" placeholder="?">
+    <span style="flex:1;font-size:13px;">מספר התאים בריבוע אחד בכתיב חזקות</span>
+    <input class="ans-input" id="q4b" type="text" placeholder="?">
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ג.</span>
-    <span style="flex:1;font-size:13px;">פי כמה גדל השטח?</span>
-    <input class="ans-input narrow" id="q4c" type="text" placeholder="?">
+    <span style="flex:1;font-size:13px;">ביטוי לסך כל התאים בארבעת הריבועים</span>
+    <input class="ans-input wide" id="q4c" type="text" placeholder="?">
   </div>
 </div>
 
 <!-- ══ שאלה 5 ══ -->
 <div class="q-card">
-  <div class="q-title"><span class="q-num">5.</span> 4 ריבועים של 3×3 — מה כתבתם?</div>
-  <div class="sub-row">
-    <span class="sub-lbl">א.</span>
-    <span style="flex:1;font-size:13px;">כמה תאים קטנים יש בכל ריבוע?</span>
-    <input class="ans-input narrow" id="q5a" type="text" placeholder="?">
-  </div>
-  <div class="sub-row">
-    <span class="sub-lbl">ב.</span>
-    <span style="flex:1;font-size:13px;">מספר התאים בריבוע אחד בכתיב חזקות</span>
-    <input class="ans-input" id="q5b" type="text" placeholder="?">
-  </div>
-  <div class="sub-row">
-    <span class="sub-lbl">ג.</span>
-    <span style="flex:1;font-size:13px;">ביטוי לסך כל התאים בארבעת הריבועים</span>
-    <input class="ans-input wide" id="q5c" type="text" placeholder="?">
-  </div>
-</div>
-
-<!-- ══ שאלה 6 ══ -->
-<div class="q-card">
-  <div class="q-title"><span class="q-num">6.</span> קוביה 7×7×7 חסרה קובייה אחת — מה כתבתם?</div>
+  <div class="q-title"><span class="q-num">5.</span> קוביה 7×7×7 חסרה קובייה אחת — מה כתבתם?</div>
   <div class="sub-row">
     <span class="sub-lbl"></span>
     <span style="flex:1;font-size:13px;">מספר הקוביות הקטנות</span>
-    <input class="ans-input narrow" id="q6a" type="text" placeholder="?">
+    <input class="ans-input narrow" id="q5a" type="text" placeholder="?">
   </div>
 </div>
 
@@ -363,33 +343,29 @@ const KEY = {
   q1b: ['-16', '−16'],
   q1c: ['-27', '−27'],
   q1d: ['-27', '−27'],
-  q2a: ['x³', 'x^3', 'x3'],
-  q2b: ['5n²', '5n^2', '5n2'],
-  q2c: ['(-y)⁴', '(-y)^4', '(-y)4'],
-  q3a: ['72'],
-  q3b: ['17'],
-  q3c: ['32'],
-  q4a: ['49'],
-  q4b: ['196'],
-  q4c: ['4'],
-  q5a: ['9'],
-  q5b: ['3²', '3^2', '3*3'],
-  q5c: ['4·3²', '4*3^2', '4·3^2', '4*3²', '36'],
-  q6a: ['342'],
+  q2a: ['72'],
+  q2b: ['17'],
+  q2c: ['32'],
+  q3a: ['49'],
+  q3b: ['196'],
+  q3c: ['4'],
+  q4a: ['9'],
+  q4b: ['3²', '3^2', '3*3'],
+  q4c: ['4·3²', '4*3^2', '4·3^2', '4*3²', '36'],
+  q5a: ['342'],
 };
 
-const TOTAL = 17;
+const TOTAL = 14;
 
 const LABELS = {
   q1a:'שאלה 1א', q1b:'שאלה 1ב', q1c:'שאלה 1ג', q1d:'שאלה 1ד',
   q2a:'שאלה 2א', q2b:'שאלה 2ב', q2c:'שאלה 2ג',
   q3a:'שאלה 3א', q3b:'שאלה 3ב', q3c:'שאלה 3ג',
   q4a:'שאלה 4א', q4b:'שאלה 4ב', q4c:'שאלה 4ג',
-  q5a:'שאלה 5א', q5b:'שאלה 5ב', q5c:'שאלה 5ג',
-  q6a:'שאלה 6',
+  q5a:'שאלה 5',
 };
 
-const ALL_IDS = ['q1a','q1b','q1c','q1d','q2a','q2b','q2c','q3a','q3b','q3c','q4a','q4b','q4c','q5a','q5b','q5c','q6a'];
+const ALL_IDS = ['q1a','q1b','q1c','q1d','q2a','q2b','q2c','q3a','q3b','q3c','q4a','q4b','q4c','q5a'];
 
 function checkAnswers() {
   let correct = 0;
