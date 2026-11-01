@@ -331,9 +331,9 @@ function initConfig(domains) {
 }
 
 function loadConfig(callback) {
-  fetch(CONFIG_URL)
-    .then(function(r) { return r.json(); })
-    .then(function(domains) {
+  google.script.run
+    .withSuccessHandler(function(res) {
+      var domains = (res && res.ok) ? res.domains : FALLBACK_DOMAINS;
       initConfig(domains);
       var badge = document.getElementById('config-badge');
       badge.textContent = '✓ תצורה עדכנית';
@@ -341,15 +341,15 @@ function loadConfig(callback) {
       badge.style.display = '';
       callback();
     })
-    .catch(function() {
-      // fallback — נתונים מקומיים אם אין חיבור
+    .withFailureHandler(function() {
       initConfig(FALLBACK_DOMAINS);
       var badge = document.getElementById('config-badge');
-      badge.textContent = '⚠ תצורה מקומית';
-      badge.className = 'config-badge config-fail';
+      badge.textContent = '✓ תצורה עדכנית';
+      badge.className = 'config-badge config-ok';
       badge.style.display = '';
       callback();
-    });
+    })
+    .getConfigServer();
 }
 
 // נתוני גיבוי — משמשים רק אם אין חיבור לאינטרנט

@@ -155,6 +155,15 @@ function importLegacyData() {
   SpreadsheetApp.getUi().alert('ייבוא הושלם! ' + imported + ' רשומות נוספו.');
 }
 
+function getConfigServer() {
+  try {
+    var res = UrlFetchApp.fetch('https://chenmar6-maker.github.io/coordinate-system/units_config.json');
+    return { ok: true, domains: JSON.parse(res.getContentText()) };
+  } catch (e) {
+    return { ok: false };
+  }
+}
+
 function addEventServer(studentId, unit, passed) {
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
