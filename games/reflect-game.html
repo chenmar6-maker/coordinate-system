@@ -617,7 +617,7 @@ function ui(){
   const m=S.mode;
   const pickMode=m==='choose'||m==='two', type=st().type;
   const g=gameOf(m);
-  Object.keys(GAMES).forEach(k=>$('g-'+k).setAttribute('aria-selected',String(k===g)));
+  Object.keys(GAMES).forEach(k=>{const el=$('g-'+k);if(el)el.setAttribute('aria-selected',String(k===g));});
   const subs=GAMES[g]; $('sub').hidden=subs.length<2;
   $('sub').innerHTML=subs.length<2?'':subs.map(k=>`<button data-m="${k}" class="${k===m?'on':''}">${SUBNAME[k]}</button>`).join('');
   $('eyebrow').textContent=MODES[m].eyebrow;
