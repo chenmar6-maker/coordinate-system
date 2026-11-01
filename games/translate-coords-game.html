@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>הזזה — מה השיעורים</title>
+<title>מציאת שיעורי נקודה אחרי הזזה</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Secular+One&display=swap">
@@ -131,7 +131,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
 <div class="wrap" dir="rtl">
   <header>
     <div>
-      <h1><span>הזזה — מה השיעורים</span></h1>
+      <h1><span>מציאת שיעורי נקודה אחרי הזזה</span></h1>
       <p class="sub">הזזה, שיקוף וסיבוב במערכת צירים. אורך הצלע של כל משבצת הוא יחידה אחת.</p>
     </div>
   </header>
@@ -494,7 +494,7 @@ const eqTxt=(a,d)=>`<bdi dir="ltr" class="n">${fmt(a)} ${d>=0?'+':'−'} ${Math.
 /* ---------- questions ---------- */
 const MODES={
   move:{eyebrow:'הזזה · כמה להזיז?',go:'הזיזו!',gen:()=>genTranslate(false)},
-  coords:{eyebrow:'הזזה · מה השיעורים?',go:'בדיקה',gen:genCoords},
+  coords:{eyebrow:'מציאת שיעורי נקודה אחרי הזזה',go:'בדיקה',gen:genCoords},
   refl:{eyebrow:'שיקוף',go:'שקפו!',gen:()=>genOne(['reflX','reflY'])},
   rot:{eyebrow:'סיבוב',go:'סובבו!',gen:()=>genOne(['cw90','ccw90','r180','cw90','ccw90'])},
   choose:{eyebrow:'הכל ביחד · טרנספורמציה אחת',go:'בצעו!',gen:genChoose},
