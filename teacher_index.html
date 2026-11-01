@@ -58,7 +58,7 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.25);
   }
   .app-header-title { font-size: 17px; font-weight: 700; }
-  .app-header-right { display: flex; gap: 8px; }
+  .app-header-right { display: flex; gap: 8px; align-items: center; }
   .hdr-btn {
     padding: 6px 16px; border-radius: 20px;
     border: 1.5px solid rgba(255,255,255,0.25);
@@ -68,11 +68,16 @@
   }
   .hdr-btn:hover { background: rgba(255,255,255,0.12); }
   .hdr-btn:disabled { opacity: 0.45; cursor: default; }
+  .config-badge {
+    font-size: 11px; padding: 3px 10px; border-radius: 12px;
+    font-weight: 600; white-space: nowrap;
+  }
+  .config-ok   { background: rgba(16,185,129,0.25); color: #6EE7B7; }
+  .config-fail { background: rgba(239,68,68,0.25);  color: #FCA5A5; }
 
   /* ── MAIN ── */
   .app-main { max-width: 920px; margin: 0 auto; padding: 24px 20px 60px; }
 
-  /* Stats */
   .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
   .stat-card {
     background: #fff; border-radius: 12px; padding: 16px;
@@ -81,7 +86,6 @@
   .stat-num { font-size: 28px; font-weight: 700; line-height: 1.2; }
   .stat-label { font-size: 12px; color: #6B7280; margin-top: 3px; }
 
-  /* Controls */
   .controls {
     display: flex; gap: 10px; margin-bottom: 14px;
     align-items: center; flex-wrap: wrap;
@@ -94,7 +98,6 @@
   }
   .ctrl-select:focus { border-color: #1E1B2E; }
 
-  /* Table */
   .student-table { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
   .tbl-header {
     display: grid; grid-template-columns: 2.8fr 1.6fr 1.6fr 1.6fr 60px 95px;
@@ -114,23 +117,28 @@
   .student-row.warn   { border-right: 3px solid #F59E0B; }
 
   .s-name { font-weight: 600; font-size: 14.5px; color: #1E1B2E; }
-  .s-class {
-    display: inline-block; background: #EDE9FE; color: #5B21B6;
-    font-size: 11.5px; font-weight: 700; padding: 2px 9px; border-radius: 20px;
-  }
   .s-done { font-size: 13px; color: #444; }
-  .s-last { font-size: 12.5px; color: #6B7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .days-badge {
     font-size: 12px; font-weight: 700; padding: 3px 10px;
     border-radius: 20px; white-space: nowrap; display: inline-block;
   }
-  .days-new     { background: #E0E7FF; color: #3730A3; }
-  .days-today   { background: #D1FAE5; color: #065F46; }
-  .days-ok      { background: #D1FAE5; color: #065F46; }
-  .days-warn    { background: #FEF3C7; color: #92400E; }
-  .days-urgent  { background: #FEE2E2; color: #B91C1C; }
+  .days-new    { background: #E0E7FF; color: #3730A3; }
+  .days-today  { background: #D1FAE5; color: #065F46; }
+  .days-ok     { background: #D1FAE5; color: #065F46; }
+  .days-warn   { background: #FEF3C7; color: #92400E; }
+  .days-urgent { background: #FEE2E2; color: #B91C1C; }
 
   .empty-state { text-align: center; padding: 52px; color: #9CA3AF; font-size: 14px; }
+
+  /* ── Domain tabs ── */
+  .domain-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .domain-tab {
+    padding: 7px 16px; border-radius: 20px; font-family: 'Rubik', sans-serif;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    border: 1.5px solid #D1D5DB; background: #fff; color: #6B7280;
+    transition: all .15s;
+  }
+  .domain-tab.active { color: #fff; border-color: transparent; }
 
   /* ── LOG MODAL ── */
   .overlay {
@@ -208,31 +216,9 @@
     background: #1E1B2E; color: #fff; padding: 11px 24px;
     border-radius: 24px; font-size: 14px; font-weight: 600;
     z-index: 300; box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-    animation: popIn .2s ease; pointer-events: none;
-    white-space: nowrap;
+    animation: popIn .2s ease; pointer-events: none; white-space: nowrap;
   }
 
-  /* Domain tabs */
-  .domain-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-  .domain-tab {
-    padding: 7px 16px; border-radius: 20px; font-family: 'Rubik', sans-serif;
-    font-size: 13px; font-weight: 600; cursor: pointer;
-    border: 1.5px solid #D1D5DB; background: #fff; color: #6B7280;
-    transition: all .15s;
-  }
-  .domain-tab.active { color: #fff; border-color: transparent; }
-
-  /* Domain progress pills in student row */
-  .domain-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 3px; }
-  .dpill {
-    font-size: 11px; font-weight: 700; padding: 2px 8px;
-    border-radius: 10px; white-space: nowrap;
-  }
-
-  /* Modal domain header in select */
-  optgroup.domain-header { font-style: normal; }
-
-  /* Responsive */
   @media (max-width: 700px) {
     .stats { grid-template-columns: repeat(2,1fr); }
     .tbl-header { display: none; }
@@ -240,7 +226,6 @@
       display: flex; flex-direction: column; gap: 4px;
       padding: 14px 16px; align-items: flex-start;
     }
-    .s-last, .s-done { font-size: 12px; }
   }
 </style>
 </head>
@@ -263,13 +248,13 @@
   <div class="app-header">
     <div class="app-header-title">📋 דף מורה — מבדקי שליטה</div>
     <div class="app-header-right">
+      <span id="config-badge" class="config-badge config-ok" style="display:none"></span>
       <button class="hdr-btn" id="refresh-btn" onclick="loadData()">↻ רענון</button>
     </div>
   </div>
 
   <div class="app-main">
     <div class="stats" id="stats-bar"></div>
-
     <div class="domain-tabs" id="domain-tabs"></div>
 
     <div class="controls">
@@ -309,15 +294,12 @@
       </div>
       <button class="modal-close" onclick="closeLogModal()">✕</button>
     </div>
-
     <div class="modal-sec-label">נושא המבדק</div>
     <select class="modal-select" id="modal-unit-select"></select>
-
     <div class="action-btns">
       <button class="btn-fail" id="btn-fail" onclick="logEvent(false)">✗ לא עבר/ה</button>
       <button class="btn-pass" id="btn-pass" onclick="logEvent(true)">✓ עבר/ה</button>
     </div>
-
     <div class="history-toggle-row">
       <button class="history-toggle-btn" onclick="toggleHistory()">היסטוריה מלאה ▾</button>
     </div>
@@ -327,55 +309,99 @@
 
 <script>
 
-// ════════════════════════════════
-// תצורת יחידות ורצפים
-// ════════════════════════════════
-// ════════════════════════════════
-// תצורת יחידות — מסונכרן מ-units_config.json
-// כשמוסיפים רצף: עדכן units_config.json → הקוד כאן מתעדכן אוטומטית
-// ════════════════════════════════
-const DOMAINS = [{"name":"תחום מספרי","color":"#3B82F6","units":[{"name":"מספרים מכוונים","sequences":["ערך מוחלט","מספרים נגדיים","מיקום על ציר המספרים","מודל החצים וכלל הסימן","תרגילים ארוכים וחוק החילוף","חיסור = חיבור הנגדי","תרגילים ארוכים וכתיבה ללא סוגריים","כפל וחילוק מספרים מכוונים","סדר פעולות חשבון","סדר פעולות עם קו שבר"]},{"name":"מערכת הצירים — כל הרביעים","sequences":["נקודות בכל הרביעים","אורכים ושטחים בכל הרביעים"]},{"name":"חזקות ושורשים","sequences":["הגדרת חזקה וחישוב בסיסי","חזקות מיוחדות — 0, 1 ושברים","השוואה וסדר פעולות עם חזקות","הגדרת שורש ריבועי","חישובים עם שורשים","רצף בדיקה — האם אתה רואה אותי?","ניסיון נוסף"]}]},{"name":"תחום אלגברי","color":"#8B5CF6","units":[{"name":"משתנים וביטויים אלגבריים","sequences":["כתיבת ביטויים אלגבריים","הצבה וחישוב ערך הביטוי","כינוס איברים דומים","מבוא למשוואות — זיהוי פתרון","משוואות פשוטות — פעולה אחת","משוואות מורכבות — כמה שלבים","משוואות עם פתיחת סוגריים","סוגי פתרון — פתרון יחיד, אין פתרון, אינסוף","שאלות מילוליות","קריאת תיאור גרפי של נקודות ברביע I","מבדק מקיף — כל נושא המשוואות"]}]},{"name":"תחום גיאומטרי","color":"#10B981","units":[{"name":"מבוא לגיאומטריה","sequences":["מבוא — מה זו גיאומטריה?"]},{"name":"זוויות","sequences":["סוגי זוויות","כתיב מתמטי של זוויות","סכום והפרש זוויות","חוצה-זווית","זוויות צמודות","זוויות קודקודיות","משולש שווה-צלעות","משולש שווה-שוקיים","סכום זוויות במשולש","סכום זוויות במרובע"]},{"name":"חפיפה והזזות","sequences":["חפיפה — מה זה אומר שצורות חופפות?","הזזה","סיבוב","שיקוף","סימטריה"]},{"name":"שטחים והיקפים","sequences":["היקף ושטח של מלבן וריבוע","שטח משולש","צורות מורכבות","מעוין ודלתון — אלכסונות מאונכים"]},{"name":"גופים תלת-ממדיים","sequences":["מושגים — פאה, מקצוע, קודקוד","נפח תיבה","שטח פנים של תיבה","קובייה — מקרה מיוחד","פריסות"]}]}];
+// ════════════════════════════════════════════════════════
+// תצורת יחידות — נטענת מ-GitHub אוטומטית
+// אל תשנה כאן! עדכן את units_config.json בגיטהאב בלבד
+// ════════════════════════════════════════════════════════
 
-const TEACHER_UNITS = DOMAINS.flatMap(function(d) {
-  return d.units.map(function(u) { return Object.assign({}, u, { domain: d.name }); });
-});
-const ALL_SEQUENCES = TEACHER_UNITS.flatMap(function(u) {
-  return u.sequences.map(function(s) { return { unit: u.name, name: s }; });
-});
+var DOMAINS = [];
+var TEACHER_UNITS = [];
+var ALL_SEQUENCES = [];
 
-function loadConfig(callback) { callback(); }
+var CONFIG_URL = 'https://chenmar6-maker.github.io/coordinate-system/units_config.json';
 
+function initConfig(domains) {
+  DOMAINS = domains;
+  TEACHER_UNITS = DOMAINS.flatMap(function(d) {
+    return d.units.map(function(u) { return Object.assign({}, u, { domain: d.name }); });
+  });
+  ALL_SEQUENCES = TEACHER_UNITS.flatMap(function(u) {
+    return u.sequences.map(function(s) { return { unit: u.name, name: s }; });
+  });
+}
+
+function loadConfig(callback) {
+  fetch(CONFIG_URL)
+    .then(function(r) { return r.json(); })
+    .then(function(domains) {
+      initConfig(domains);
+      var badge = document.getElementById('config-badge');
+      badge.textContent = '✓ תצורה עדכנית';
+      badge.className = 'config-badge config-ok';
+      badge.style.display = '';
+      callback();
+    })
+    .catch(function() {
+      // fallback — נתונים מקומיים אם אין חיבור
+      initConfig(FALLBACK_DOMAINS);
+      var badge = document.getElementById('config-badge');
+      badge.textContent = '⚠ תצורה מקומית';
+      badge.className = 'config-badge config-fail';
+      badge.style.display = '';
+      callback();
+    });
+}
+
+// נתוני גיבוי — משמשים רק אם אין חיבור לאינטרנט
+var FALLBACK_DOMAINS = [
+  {"name":"תחום מספרי","color":"#3B82F6","units":[
+    {"name":"מספרים מכוונים","sequences":["ערך מוחלט","מספרים נגדיים","מיקום על ציר המספרים","מודל החצים וכלל הסימן","תרגילים ארוכים וחוק החילוף","חיסור = חיבור הנגדי","תרגילים ארוכים וכתיבה ללא סוגריים","כפל וחילוק מספרים מכוונים","סדר פעולות חשבון","סדר פעולות עם קו שבר"]},
+    {"name":"מערכת הצירים — כל הרביעים","sequences":["נקודות בכל הרביעים","אורכים ושטחים בכל הרביעים"]},
+    {"name":"חזקות ושורשים","sequences":["הגדרת חזקה וחישוב בסיסי","חזקות מיוחדות — 0, 1 ושברים","השוואה וסדר פעולות עם חזקות","הגדרת שורש ריבועי","חישובים עם שורשים"]}
+  ]},
+  {"name":"תחום אלגברי","color":"#8B5CF6","units":[
+    {"name":"משתנים וביטויים אלגבריים","sequences":["כתיבת ביטויים אלגבריים","הצבה וחישוב ערך הביטוי","כינוס איברים דומים","מבוא למשוואות — זיהוי פתרון","משוואות פשוטות — פעולה אחת","משוואות מורכבות — כמה שלבים","משוואות עם פתיחת סוגריים","סוגי פתרון — פתרון יחיד, אין פתרון, אינסוף","שאלות מילוליות","קריאת תיאור גרפי של נקודות ברביע I","מבדק מקיף — כל נושא המשוואות"]}
+  ]},
+  {"name":"תחום גיאומטרי","color":"#10B981","units":[
+    {"name":"מבוא לגיאומטריה","sequences":["מבוא — מה זו גיאומטריה?"]},
+    {"name":"זוויות","sequences":["סוגי זוויות","כתיב מתמטי של זוויות","סכום והפרש זוויות","חוצה-זווית","זוויות צמודות","זוויות קודקודיות","משולש שווה-צלעות","משולש שווה-שוקיים","סכום זוויות במשולש","סכום זוויות במרובע"]},
+    {"name":"חפיפה והזזות","sequences":["חפיפה — מה זה אומר שצורות חופפות?","הזזה","סיבוב","שיקוף","סימטריה"]},
+    {"name":"שטחים והיקפים","sequences":["היקף ושטח של מלבן וריבוע","שטח משולש","צורות מורכבות","מעוין ודלתון — אלכסונות מאונכים"]},
+    {"name":"גופים תלת-ממדיים","sequences":["מושגים — פאה, מקצוע, קודקוד","נפח תיבה","שטח פנים של תיבה","קובייה — מקרה מיוחד","פריסות"]}
+  ]}
+];
 
 // ════════════════════════════════
 // הגדרות
 // ════════════════════════════════
-const PASSWORD = '1111';
-
-const state = { students: [], events: [], currentStudentId: null };
+var PASSWORD = '1111';
+var state = { students: [], events: [], currentStudentId: null };
 
 // ════════════════════════════════
 // כניסה
 // ════════════════════════════════
 function checkAuth() {
-  const val = document.getElementById('pass-input').value;
+  var val = document.getElementById('pass-input').value;
   if (val === PASSWORD) {
     document.getElementById('auth-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
     loadData();
   } else {
-    const inp = document.getElementById('pass-input');
+    var inp = document.getElementById('pass-input');
     inp.classList.add('shake');
     document.getElementById('auth-error').textContent = 'סיסמה שגויה';
-    setTimeout(() => inp.classList.remove('shake'), 400);
+    setTimeout(function() { inp.classList.remove('shake'); }, 400);
   }
 }
-document.getElementById('pass-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkAuth(); });
+document.getElementById('pass-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkAuth();
+});
 
 // ════════════════════════════════
-// טעינת נתונים — google.script.run
+// טעינת נתונים
 // ════════════════════════════════
 function loadData() {
-  const btn = document.getElementById('refresh-btn');
+  var btn = document.getElementById('refresh-btn');
   btn.disabled = true;
   btn.textContent = 'טוען...';
 
@@ -390,14 +416,12 @@ function fetchStudentData(btn) {
     .withSuccessHandler(function(data) {
       btn.disabled = false;
       btn.textContent = '↻ רענון';
-
       if (!data.ok) {
         showToast('שגיאה: ' + (data.error || 'לא ידועה'));
         document.getElementById('student-list').innerHTML =
-          '<div class="empty-state" style="color:#B91C1C;">שגיאה בטעינת נתונים: ' + escHtml(data.error || '') + '</div>';
+          '<div class="empty-state" style="color:#B91C1C;">שגיאה: ' + escHtml(data.error || '') + '</div>';
         return;
       }
-
       state.students = data.students;
       state.events   = data.events;
       populateFilter();
@@ -420,21 +444,21 @@ function fetchStudentData(btn) {
 // חישובים
 // ════════════════════════════════
 function studentEvents(id) {
-  return state.events.filter(e => e.studentId === id);
+  return state.events.filter(function(e) { return e.studentId === id; });
 }
 
 function passedUnits(id) {
-  return new Set(state.events.filter(e => e.studentId === id && e.passed).map(e => e.unit));
+  return new Set(state.events.filter(function(e) { return e.studentId === id && e.passed; }).map(function(e) { return e.unit; }));
 }
 
 function nextSequence(id) {
-  const passed = passedUnits(id);
-  return ALL_SEQUENCES.find(s => !passed.has(s.name)) || null;
+  var passed = passedUnits(id);
+  return ALL_SEQUENCES.find(function(s) { return !passed.has(s.name); }) || null;
 }
 
 function nextSequenceInDomain(id, domainName) {
-  const passed = passedUnits(id);
-  const domain = DOMAINS.find(function(d) { return d.name === domainName; });
+  var passed = passedUnits(id);
+  var domain = DOMAINS.find(function(d) { return d.name === domainName; });
   if (!domain) return null;
   for (var i = 0; i < domain.units.length; i++) {
     var u = domain.units[i];
@@ -442,23 +466,13 @@ function nextSequenceInDomain(id, domainName) {
       if (!passed.has(u.sequences[j])) return u.sequences[j];
     }
   }
-  return null; // הושלם
-}
-
-function lastPassedUnit(id) {
-  const passed = passedUnits(id);
-  if (!passed.size) return null;
-  let last = null;
-  ALL_SEQUENCES.forEach(function(s) {
-    if (passed.has(s.name)) last = s.name;
-  });
-  return last;
+  return null;
 }
 
 function daysSince(id) {
-  const evts = studentEvents(id);
+  var evts = studentEvents(id);
   if (!evts.length) return null;
-  const last = Math.max(...evts.map(e => new Date(e.timestamp)));
+  var last = Math.max.apply(null, evts.map(function(e) { return new Date(e.timestamp); }));
   return Math.floor((Date.now() - last) / 86400000);
 }
 
@@ -470,17 +484,31 @@ function daysBadge(days) {
   return '<span class="days-badge days-urgent">' + days + ' ימים</span>';
 }
 
+function domainProgress(studentId) {
+  var passed = passedUnits(studentId);
+  return DOMAINS.map(function(d) {
+    var total = d.units.reduce(function(sum, u) { return sum + u.sequences.length; }, 0);
+    if (total === 0) return null;
+    var done = d.units.reduce(function(sum, u) {
+      return sum + u.sequences.filter(function(s) { return passed.has(s); }).length;
+    }, 0);
+    return { name: d.name, color: d.color, done: done, total: total };
+  }).filter(Boolean);
+}
+
 // ════════════════════════════════
 // תחומים
 // ════════════════════════════════
 var activeDomain = '';
 
 function renderDomainTabs() {
-  const container = document.getElementById('domain-tabs');
-  const tabs = [{ name: 'הכל', value: '' }].concat(DOMAINS.map(function(d) { return { name: d.name, value: d.name, color: d.color }; }));
+  var container = document.getElementById('domain-tabs');
+  var tabs = [{ name: 'הכל', value: '' }].concat(DOMAINS.map(function(d) {
+    return { name: d.name, value: d.name, color: d.color };
+  }));
   container.innerHTML = tabs.map(function(t) {
-    const isActive = activeDomain === t.value;
-    const style = isActive && t.color ? 'background:' + t.color + ';' : '';
+    var isActive = activeDomain === t.value;
+    var style = isActive && t.color ? 'background:' + t.color + ';' : '';
     return '<button class="domain-tab' + (isActive ? ' active' : '') + '" style="' + style + '" onclick="setDomain(\'' + t.value + '\')">' + t.name + '</button>';
   }).join('');
 }
@@ -491,28 +519,17 @@ function setDomain(d) {
   render();
 }
 
-function domainProgress(studentId) {
-  const passed = passedUnits(studentId);
-  return DOMAINS.map(function(d) {
-    const total = d.units.reduce(function(sum, u) { return sum + u.sequences.length; }, 0);
-    if (total === 0) return null;
-    const done = d.units.reduce(function(sum, u) {
-      return sum + u.sequences.filter(function(s) { return passed.has(s); }).length;
-    }, 0);
-    return { name: d.name, color: d.color, done: done, total: total };
-  }).filter(Boolean);
-}
-
 // ════════════════════════════════
-// רנדר
+// רנדר רשימת תלמידים
 // ════════════════════════════════
 function populateFilter() {
-  const classes = [...new Set(state.students.map(s => s.class).filter(Boolean))].sort();
-  const sel = document.getElementById('filter-class');
-  const cur = sel.value;
+  var classes = state.students.map(function(s) { return s.class; }).filter(Boolean);
+  classes = [...new Set(classes)].sort();
+  var sel = document.getElementById('filter-class');
+  var cur = sel.value;
   sel.innerHTML = '<option value="">כולן</option>';
   classes.forEach(function(c) {
-    const o = document.createElement('option');
+    var o = document.createElement('option');
     o.value = c; o.textContent = c;
     if (c === cur) o.selected = true;
     sel.appendChild(o);
@@ -520,12 +537,11 @@ function populateFilter() {
 }
 
 function renderStats() {
-  const total = state.students.length;
-  const todayStr = new Date().toDateString();
-  const todayCount = state.events.filter(e => new Date(e.timestamp).toDateString() === todayStr).length;
-  const urgent = state.students.filter(function(s) { const d = daysSince(s.id); return d === null || d >= 7; }).length;
-  const completed = state.students.filter(function(s) { return nextSequence(s.id) === null; }).length;
-
+  var total = state.students.length;
+  var todayStr = new Date().toDateString();
+  var todayCount = state.events.filter(function(e) { return new Date(e.timestamp).toDateString() === todayStr; }).length;
+  var urgent = state.students.filter(function(s) { var d = daysSince(s.id); return d === null || d >= 7; }).length;
+  var completed = state.students.filter(function(s) { return nextSequence(s.id) === null; }).length;
   document.getElementById('stats-bar').innerHTML =
     '<div class="stat-card"><div class="stat-num">' + total + '</div><div class="stat-label">תלמידים</div></div>' +
     '<div class="stat-card"><div class="stat-num">' + todayCount + '</div><div class="stat-label">מבדקים היום</div></div>' +
@@ -534,21 +550,21 @@ function renderStats() {
 }
 
 function render() {
-  const filterClass = document.getElementById('filter-class').value;
-  const sortBy = document.getElementById('sort-by').value;
-
+  var filterClass = document.getElementById('filter-class').value;
+  var sortBy = document.getElementById('sort-by').value;
   var students = state.students.slice();
+
   if (filterClass) students = students.filter(function(s) { return s.class === filterClass; });
   if (activeDomain) {
     students = students.filter(function(s) {
-      const next = nextSequence(s.id);
+      var next = nextSequence(s.id);
       return next && TEACHER_UNITS.find(function(u) { return u.name === next.unit && u.domain === activeDomain; });
     });
   }
 
   students.sort(function(a, b) {
     if (sortBy === 'days') {
-      const da = daysSince(a.id), db = daysSince(b.id);
+      var da = daysSince(a.id), db = daysSince(b.id);
       if (da === null && db === null) return a.name.localeCompare(b.name, 'he');
       if (da === null) return -1;
       if (db === null) return 1;
@@ -559,19 +575,20 @@ function render() {
     return 0;
   });
 
-  const list = document.getElementById('student-list');
+  var list = document.getElementById('student-list');
   if (!students.length) {
     list.innerHTML = '<div class="empty-state">אין תלמידים להצגה</div>';
     return;
   }
 
   list.innerHTML = students.map(function(s) {
-    const days = daysSince(s.id);
-    const urgency = days === null || days >= 7 ? 'urgent' : days >= 4 ? 'warn' : '';
-    const sid = escHtml(s.id);
+    var days = daysSince(s.id);
+    var urgency = days === null || days >= 7 ? 'urgent' : days >= 4 ? 'warn' : '';
+    var sid = escHtml(s.id);
+
     function domainCell(domainName) {
-      const next = nextSequenceInDomain(s.id, domainName);
-      const text = next === null
+      var next = nextSequenceInDomain(s.id, domainName);
+      var text = next === null
         ? '<span style="color:#10B981;font-weight:700;">✓ הושלם</span>'
         : '<span style="color:#374151;">' + escHtml(next) + '</span>';
       return '<div class="domain-cell" data-sid="' + sid + '" data-domain="' + escHtml(domainName) + '" ' +
@@ -579,28 +596,27 @@ function render() {
         'onmouseover="this.style.background=\'#F3F4F6\'" onmouseout="this.style.background=\'\'">' +
         text + '</div>';
     }
-    const progress = domainProgress(s.id);
-    const progressLine = progress.map(function(p) {
+
+    var progress = domainProgress(s.id);
+    var progressLine = progress.map(function(p) {
       return '<span style="background:' + p.color + '22;border:1.5px solid ' + p.color + '55;color:' + p.color + ';' +
         'font-size:11px;font-weight:700;padding:1px 7px;border-radius:20px;white-space:nowrap;">' +
-        p.done + '/' + p.total + ' ' + p.name.replace('תחום ','') + '</span>';
+        p.done + '/' + p.total + ' ' + p.name.replace('תחום ', '') + '</span>';
     }).join(' ');
+
     return '<div class="student-row ' + urgency + '" data-sid="' + sid + '">' +
       '<div><div class="s-name">' + escHtml(s.name) + '</div>' +
-      '<div style="font-size:11px;margin-top:2px;display:flex;align-items:center;gap:2px;">' + progressLine + '</div></div>' +
+      '<div style="font-size:11px;margin-top:2px;display:flex;gap:4px;flex-wrap:wrap;">' + progressLine + '</div></div>' +
       domainCell('תחום מספרי') +
       domainCell('תחום אלגברי') +
       domainCell('תחום גיאומטרי') +
-      '<div style="font-size:13px;color:#444;">' + studentEvents(s.id).length + '</div>' +
+      '<div class="s-done">' + studentEvents(s.id).length + '</div>' +
       '<div>' + daysBadge(days) + '</div>' +
       '</div>';
   }).join('');
 
-  // attach click handlers via event delegation (avoids quote-escaping issues with IDs/names)
   list.querySelectorAll('.student-row').forEach(function(row) {
-    row.addEventListener('click', function() {
-      openLogModal(row.dataset.sid, '');
-    });
+    row.addEventListener('click', function() { openLogModal(row.dataset.sid, ''); });
     row.querySelectorAll('.domain-cell').forEach(function(cell) {
       cell.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -614,33 +630,33 @@ function render() {
 // מודל רישום מבדק
 // ════════════════════════════════
 function openLogModal(studentId, domainName) {
-  const student = state.students.find(function(s) { return s.id === studentId; });
+  var student = state.students.find(function(s) { return s.id === studentId; });
   if (!student) return;
   state.currentStudentId = studentId;
 
   document.getElementById('modal-name').textContent = student.name;
   document.getElementById('modal-class').textContent = 'כיתה ' + (student.class || '—');
 
-  const sel = document.getElementById('modal-unit-select');
+  var sel = document.getElementById('modal-unit-select');
   sel.innerHTML = '';
 
-  // pre-select: next in the clicked domain, or global next if no domain given
-  const preselect = domainName
+  var preselect = domainName
     ? nextSequenceInDomain(studentId, domainName)
     : (nextSequence(studentId) || {}).name;
 
   DOMAINS.forEach(function(d) {
     if (!d.units.length) return;
-    const domainGrp = document.createElement('optgroup');
+    var domainGrp = document.createElement('optgroup');
     domainGrp.label = '── ' + d.name + ' ──';
     domainGrp.disabled = true;
     sel.appendChild(domainGrp);
     d.units.forEach(function(u) {
-      const grp = document.createElement('optgroup');
+      var grp = document.createElement('optgroup');
       grp.label = '    ' + u.name;
       u.sequences.forEach(function(s) {
-        const opt = document.createElement('option');
-        opt.value = s; opt.textContent = '        ' + s;
+        var opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = '        ' + s;
         if (s === preselect) opt.selected = true;
         grp.appendChild(opt);
       });
@@ -663,28 +679,22 @@ function overlayClick(e, id) {
 }
 
 function toggleHistory() {
-  const el = document.getElementById('modal-history');
-  if (el.style.display === 'none') {
-    renderHistory();
-    el.style.display = 'block';
-  } else {
-    el.style.display = 'none';
-  }
+  var el = document.getElementById('modal-history');
+  if (el.style.display === 'none') { renderHistory(); el.style.display = 'block'; }
+  else { el.style.display = 'none'; }
 }
 
 function renderHistory() {
-  const evts = studentEvents(state.currentStudentId)
+  var evts = studentEvents(state.currentStudentId)
     .sort(function(a, b) { return new Date(b.timestamp) - new Date(a.timestamp); });
-
-  const el = document.getElementById('modal-history');
+  var el = document.getElementById('modal-history');
   if (!evts.length) {
     el.innerHTML = '<div style="text-align:center;color:#9CA3AF;padding:16px;font-size:13px;">אין מבדקים עדיין</div>';
     return;
   }
-
   el.innerHTML = '<div class="history-list">' + evts.map(function(e) {
-    const d = new Date(e.timestamp);
-    const dateStr = d.toLocaleDateString('he-IL') + ' ' + d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+    var d = new Date(e.timestamp);
+    var dateStr = d.toLocaleDateString('he-IL') + ' ' + d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
     return '<div class="history-item">' +
       '<span class="hi-unit">' + escHtml(e.unit) + '</span>' +
       '<span class="' + (e.passed ? 'hi-pass' : 'hi-fail') + '">' + (e.passed ? '✓' : '✗') + '</span>' +
@@ -702,29 +712,23 @@ function setActionBtns(enabled) {
 }
 
 function logEvent(passed) {
-  const studentId = state.currentStudentId;
-  const student = state.students.find(function(s) { return s.id === studentId; });
-  const unit = document.getElementById('modal-unit-select').value;
+  var studentId = state.currentStudentId;
+  var student = state.students.find(function(s) { return s.id === studentId; });
+  var unit = document.getElementById('modal-unit-select').value;
   if (!student || !unit) return;
 
   setActionBtns(false);
 
-  // עדכון מיידי (optimistic)
-  const newEvent = { id: String(Date.now()), studentId: studentId, unit: unit, passed: passed, timestamp: new Date().toISOString() };
+  var newEvent = { id: String(Date.now()), studentId: studentId, unit: unit, passed: passed, timestamp: new Date().toISOString() };
   state.events.push(newEvent);
-
   closeLogModal();
   render();
   renderStats();
   showToast(passed ? ('✓ ' + student.name + ' — עבר/ה') : ('✗ ' + student.name + ' — לא עבר/ה'));
 
-  // שמירה בגיליון
   google.script.run
     .withSuccessHandler(function(res) {
-      if (!res.ok) {
-        showToast('שגיאה בשמירה: ' + (res.error || ''));
-      }
-      // רענון הנתונים אחרי שמירה
+      if (!res.ok) showToast('שגיאה בשמירה: ' + (res.error || ''));
       setTimeout(loadData, 1000);
     })
     .withFailureHandler(function(err) {
@@ -741,11 +745,11 @@ function showToast(msg) {
   clearTimeout(toastTimer);
   var old = document.querySelector('.toast');
   if (old) old.parentNode.removeChild(old);
-  const el = document.createElement('div');
+  var el = document.createElement('div');
   el.className = 'toast';
   el.textContent = msg;
   document.body.appendChild(el);
-  toastTimer = setTimeout(function() { el.parentNode && el.parentNode.removeChild(el); }, 3000);
+  toastTimer = setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 3000);
 }
 
 function escHtml(str) {
