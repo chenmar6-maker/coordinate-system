@@ -235,6 +235,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
         <button class="btn primary" id="goBtn">הזיזו!</button>
         <button class="btn ghost" id="retryBtn" hidden>החזירו ונסו שוב</button>
         <button class="btn ghost" id="nextBtn">שאלה אחרת</button>
+        <button class="btn primary" id="doneBtn" hidden onclick="window.parent.postMessage({action:'done'},'*')">המשך ←</button>
       </div>
       <div class="fb" id="fb" hidden></div>
     </section>
@@ -613,7 +614,7 @@ function evaluate(final,t,fo){
       feedback('bad',msg);
     }
   }
-  if(ok){ if(S.wrong===0) st.st++; else st.st=0; st.s++; } else { S.wrong++; st.st=0; }
+  if(ok){ if(S.wrong===0) st.st++; else st.st=0; st.s++; _answered++; } else { S.wrong++; st.st=0; }
   ui();
 }
 function clearResult(){S.result=null; S.mid=null; draw(null); ui();}
@@ -646,9 +647,12 @@ function ui(){
   const solved=S.result&&S.result.ok;
   $('goBtn').disabled=S.busy||!!solved;
   $('retryBtn').hidden=!(S.result&&!S.result.ok)||S.busy;
+  const done=_limit>0&&_answered>=_limit;
+  $('nextBtn').hidden=done;
   $('nextBtn').textContent=solved?'לשאלה הבאה':'שאלה אחרת';
   $('nextBtn').className='btn '+(solved?'primary':'ghost');
   $('nextBtn').disabled=S.busy;
+  $('doneBtn').hidden=!(done&&!S.busy&&S.result&&S.result.ok);
   $('stSolved').textContent=S.stats[m].s; $('stStreak').textContent=S.stats[m].st;
 }
 function changed(){ if(S.result&&!S.result.ok&&!S.busy) clearResult(); else ui(); }
@@ -668,7 +672,7 @@ $('goBtn').onclick=go;
 $('retryBtn').onclick=()=>{if(!S.busy)clearResult();$('fb').hidden=true;};
 $('nextBtn').onclick=()=>{if(!S.busy)newQ();};
 
-const _params = new URLSearchParams(location.search); const _urlTab = _params.get("tab"); const _urlMode = _params.get("mode"); if(_urlMode) S.mode = _urlMode; else if(_urlTab && GAMES[_urlTab]) S.mode = GAMES[_urlTab][0]; drawGrid(); newQ();
+const _params = new URLSearchParams(location.search); const _urlTab = _params.get("tab"); const _urlMode = _params.get("mode"); const _limit=parseInt(_params.get('limit')||'0',10); let _answered=0; if(_urlMode) S.mode = _urlMode; else if(_urlTab && GAMES[_urlTab]) S.mode = GAMES[_urlTab][0]; drawGrid(); newQ();
 })();
 </script>
 
