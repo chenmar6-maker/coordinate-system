@@ -227,6 +227,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
       </div>
 
       <div class="actions">
+        <button class="btn primary" id="doneBtn" hidden onclick="window.parent.postMessage({action:'done'},'*')">המשך ←</button>
         <button class="btn primary" id="goBtn">הזיזו!</button>
         <button class="btn ghost" id="retryBtn" hidden>החזירו ונסו שוב</button>
         <button class="btn ghost" id="nextBtn">שאלה אחרת</button>
@@ -355,6 +356,7 @@ function genTwo(){
 }
 
 /* ---------- state ---------- */
+const _limit=parseInt(new URLSearchParams(location.search).get('limit')||'0',10);let _answered=0;
 const newStep=()=>({type:null,h:0,v:0,axis:'reflX',rot:'cw90'});
 const S={mode:'move',q:null,busy:false,result:null,steps:[newStep(),newStep()],cur:0,mid:null,wrong:0,
   stats:{move:{s:0,st:0},coords:{s:0,st:0},choose:{s:0,st:0},two:{s:0,st:0},refl:{s:0,st:0},rot:{s:0,st:0}}};
@@ -576,7 +578,7 @@ function evaluate(final,t,fo){
   const q=S.q, st=S.stats[S.mode]; let ok;
   if(S.mode==='coords'){
     ok=S.answer[0]===q.expect[0]&&S.answer[1]===q.expect[1];
-    S.result={final,t,ok}; draw(final,t,ok?'ok':'bad',fo);
+    S.result={final,t,ok}; _answered++; draw(final,t,ok?'ok':'bad',fo);
     const L=ltr(LET[q.k]), P=q.orig[q.k];
     if(ok) feedback('ok',`<b>נכון!</b> ${L} עברה מ־${pt(P)} אל ${pt(q.expect)}.`);
     else{
@@ -588,7 +590,7 @@ function evaluate(final,t,fo){
     }
   } else {
     ok=sameSet(final,q.target)&&(!q.emoji||eqM(fo,q.TO));
-    S.result={final,t,ok}; draw(final,t,ok?'ok':'bad',fo,S.mid?S.mid.pts:undefined);
+    S.result={final,t,ok}; _answered++; draw(final,t,ok?'ok':'bad',fo,S.mid?S.mid.pts:undefined);
     const two=S.mode==='two';
     if(ok){
       let extra='';
@@ -643,7 +645,7 @@ function ui(){
   $('retryBtn').hidden=!(S.result&&!S.result.ok)||S.busy;
   $('nextBtn').textContent=solved?'לשאלה הבאה':'שאלה אחרת';
   $('nextBtn').className='btn '+(solved?'primary':'ghost');
-  $('nextBtn').disabled=S.busy;
+  $('nextBtn').hidden=_limit>0&&_answered>=_limit;$('doneBtn').hidden=!(_limit>0&&_answered>=_limit&&!S.busy&&S.result);$('nextBtn').disabled=S.busy;
   $('stSolved').textContent=S.stats[m].s; $('stStreak').textContent=S.stats[m].st;
 }
 function changed(){ if(S.result&&!S.result.ok&&!S.busy) clearResult(); else ui(); }

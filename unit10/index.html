@@ -76,7 +76,8 @@
   <iframe class="ws-frame" id="wsFrame" src=""></iframe>
 </div>
 <script>
-const state = { screen:'home', sequence:1, qi:0, score:0, answered:false, gameUrl:'' };
+const state = { screen:'home', sequence:1, qi:0, score:0, answered:false, gameUrl:'', nextGameUrl:null, worksheetAfterGame:null };
+let _gameMessageHandler = null;
 const openSections = new Set();
 
 function goTo(s){ state.screen=s; render(); window.scrollTo(0,0); }
@@ -158,14 +159,35 @@ function render(){
   else if(state.screen==='iframeGame') app.innerHTML = renderTopbar()+'<div class="wrap">'+renderIframeGame()+'</div>';
 }
 
-function openIframeGame(url){ state.gameUrl=url; state.screen='iframeGame'; render(); }
+function openIframeGame(url){ state.gameUrl=url; state.nextGameUrl=null; state.worksheetAfterGame=null; _startIframeGame(); }
+
+function openChainedGames(url1, url2, worksheet){
+  state.gameUrl=url1; state.nextGameUrl=url2; state.worksheetAfterGame=worksheet;
+  _startIframeGame();
+}
+
+function _startIframeGame(){
+  if(_gameMessageHandler){ window.removeEventListener('message',_gameMessageHandler); }
+  _gameMessageHandler = function(e){
+    if(!e.data||e.data.action!=='done') return;
+    if(state.nextGameUrl){
+      state.gameUrl=state.nextGameUrl; state.nextGameUrl=null;
+      document.getElementById('gameIframe').src=state.gameUrl;
+    } else if(state.worksheetAfterGame){
+      window.removeEventListener('message',_gameMessageHandler); _gameMessageHandler=null;
+      goHome(); setTimeout(()=>showWorksheet(state.worksheetAfterGame),50);
+    }
+  };
+  window.addEventListener('message',_gameMessageHandler);
+  state.screen='iframeGame'; render();
+}
 
 function renderIframeGame(){
   return `<div style="margin-bottom:14px;">
     <button class="btn secondary" onclick="goHome()" style="font-size:14px;padding:7px 16px;">← חזרה</button>
   </div>
   <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);">
-    <iframe src="${state.gameUrl}" style="width:100%;height:620px;border:none;display:block;"></iframe>
+    <iframe id="gameIframe" src="${state.gameUrl}" style="width:100%;height:620px;border:none;display:block;"></iframe>
   </div>`;
 }
 
@@ -182,10 +204,9 @@ function seqRow(seqNum, label, opts={}){
       ? `<div class="flow-arrow">←</div><div class="card quiz" onclick="showWorksheet('${opts.worksheetUrl}')"><h3>מבדק שליטה</h3></div>`
       : `<div class="flow-arrow">←</div><div class="card quiz" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול נוסף</h3></div>`;
     let practiceCards = '';
-    if(opts.gameUrls){
-      practiceCards = opts.gameUrls.map(g =>
-        `<div class="flow-arrow">←</div><div class="card game" onclick="openIframeGame('${g.url}')"><h3>${g.label}</h3></div>`
-      ).join('');
+    if(opts.gameUrl==='__chained__'){
+      const cg = opts.chainedGame;
+      practiceCards = `<div class="flow-arrow">←</div><div class="card game" onclick="openChainedGames('${cg.url1}','${cg.url2}','${cg.worksheet}')"><h3>תרגול</h3></div>`;
     } else if(opts.gameUrl){
       practiceCards = `<div class="flow-arrow">←</div><div class="card game" onclick="openIframeGame('${opts.gameUrl}')"><h3>תרגול</h3></div>`;
     } else {
@@ -211,7 +232,7 @@ function renderHome(){
   <div class="sequence-section">
     <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">טרנספורמציות גיאומטריות</div>
     ${seqRow(1,'1. חפיפה — מה זה אומר שצורות חופפות?',{worksheetUrl:'../worksheets/geo_congruence_exam.html'})}
-    ${seqRow(2,'2. הזזה',{worksheetUrl:'../worksheets/geo_translation_exam.html',gameUrls:[{label:'כמה להזיז',url:'../games/translate-move-game.html'},{label:'מה השיעורים',url:'../games/translate-coords-game.html'}]})}
+    ${seqRow(2,'2. הזזה',{worksheetUrl:'../worksheets/geo_translation_exam.html',gameUrl:'__chained__',chainedGame:{url1:'../games/translate-move-game.html?limit=5',url2:'../games/translate-coords-game.html?limit=5',worksheet:'../worksheets/geo_translation_exam.html'}})}
     ${seqRow(3,'3. סיבוב',{worksheetUrl:'../worksheets/geo_rotation_exam.html',gameUrl:'../games/rotate-game.html'})}
     ${seqRow(4,'4. שיקוף',{worksheetUrl:'../worksheets/geo_reflection_exam.html',gameUrl:'../games/reflect-game.html'})}
     ${seqRow(5,'5. סימטריה',{worksheetUrl:'../worksheets/geo_symmetry_exam.html'})}
