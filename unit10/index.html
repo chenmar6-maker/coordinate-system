@@ -169,10 +169,13 @@ function seqRow(seqNum, label, opts={}){
     const nextCard = opts.worksheetUrl
       ? `<div class="flow-arrow">←</div><div class="card quiz" onclick="showWorksheet('${opts.worksheetUrl}')"><h3>מבדק שליטה</h3></div>`
       : `<div class="flow-arrow">←</div><div class="card quiz" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול נוסף</h3></div>`;
+    const practiceCard = opts.gameUrl
+      ? `<div class="card game" onclick="showWorksheet('${opts.gameUrl}')"><h3>תרגול</h3></div>`
+      : `<div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>`;
     cards = `<div class="cards" style="margin-bottom:6px;">
       <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
       <div class="flow-arrow">←</div>
-      <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
+      ${practiceCard}
       ${nextCard}
     </div>`;
   }
@@ -190,9 +193,9 @@ function renderHome(){
   <div class="sequence-section">
     <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">טרנספורמציות גיאומטריות</div>
     ${seqRow(1,'1. חפיפה — מה זה אומר שצורות חופפות?',{worksheetUrl:'../worksheets/geo_congruence_exam.html'})}
-    ${seqRow(2,'2. הזזה',{worksheetUrl:'../worksheets/geo_translation_exam.html'})}
-    ${seqRow(3,'3. סיבוב',{worksheetUrl:'../worksheets/geo_rotation_exam.html'})}
-    ${seqRow(4,'4. שיקוף',{worksheetUrl:'../worksheets/geo_reflection_exam.html'})}
+    ${seqRow(2,'2. הזזה',{worksheetUrl:'../worksheets/geo_translation_exam.html',gameUrl:'../games/transformations-game.html?tab=translate'})}
+    ${seqRow(3,'3. סיבוב',{worksheetUrl:'../worksheets/geo_rotation_exam.html',gameUrl:'../games/transformations-game.html?tab=rotate'})}
+    ${seqRow(4,'4. שיקוף',{worksheetUrl:'../worksheets/geo_reflection_exam.html',gameUrl:'../games/transformations-game.html?tab=reflect'})}
     ${seqRow(5,'5. סימטריה',{worksheetUrl:'../worksheets/geo_symmetry_exam.html'})}
   </div>
   <div onclick="showWorksheet('../worksheets/geometry_transformations_exam.html')" style="cursor:pointer;margin-top:14px;display:flex;align-items:center;justify-content:space-between;background:rgba(16,185,129,0.1);border:1.5px solid rgba(16,185,129,0.35);border-radius:10px;padding:13px 18px;">
