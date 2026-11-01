@@ -58,7 +58,7 @@
   .q-num { color: #10B981; font-size: 16px; }
 
   .sub-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; }
-  .sub-lbl { font-weight: 700; color: #555; min-width: 100px; flex-shrink: 0; }
+  .sub-lbl { font-weight: 700; color: #555; min-width: 28px; flex-shrink: 0; }
 
   .ans-input {
     border: none;
@@ -70,14 +70,13 @@
     direction: ltr;
     unicode-bidi: isolate;
     text-align: center;
-    width: 100px;
+    width: 110px;
     padding: 2px 4px;
     outline: none;
     color: #1a1a2e;
     transition: border-color .15s;
   }
   .ans-input:focus { border-color: #10B981; }
-  .ans-input.wide { width: 130px; }
 
   .check-btn {
     width: 100%;
@@ -141,8 +140,11 @@
   .wrong-tag { background: #FEF2F2; border: 1.5px solid #FCA5A5; border-radius: 16px; padding: 4px 12px; font-size: 13px; font-weight: 600; color: #991B1B; }
   .all-correct-note { margin-top: 14px; font-size: 14px; color: #065F46; font-weight: 600; }
 
-  .open-ans-box { background: #ECFDF5; border: 1px solid #6EE7B7; border-radius: 8px; padding: 10px 14px; margin-top: 8px; font-size: 13px; line-height: 1.7; color: #065F46; }
-  .open-ans-title { font-weight: 700; margin-bottom: 4px; }
+  .open-ans-box { background: #ECFDF5; border: 1px solid #6EE7B7; border-radius: 8px; padding: 10px 14px; margin-top: 8px; font-size: 13px; line-height: 1.9; color: #065F46; display: none; }
+  .open-ans-box.show { display: block; }
+  .open-ans-title { font-weight: 700; margin-bottom: 4px; color: #047857; }
+
+  .ang { font-size: 1.1em; font-weight: 700; direction: ltr; unicode-bidi: isolate; }
 
   .nav-btn { position: fixed; border: none; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; padding: 9px 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
   .nav-back { bottom: 62px; right: 18px; background: #374151; color: #fff; }
@@ -164,7 +166,7 @@
 
 <div id="score-card">
   <div class="score-big" id="score-num">—</div>
-  <div class="score-out-of" id="score-denom">מתוך תשובות</div>
+  <div class="score-out-of" id="score-denom">מתוך 5 תשובות</div>
   <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
   <div class="score-msg" id="score-msg"></div>
   <div id="wrong-list-container"></div>
@@ -177,36 +179,37 @@
 </div>
 
 <!-- שאלה 1 -->
-<div class="q-card" id="q5-card">
-  <div class="q-title"><span class="q-num">5.</span> קריאת כתיב מתמטי — ∡BAC</div>
-  <div class="sub-row"><span class="sub-lbl">קודקוד:</span><input class="ans-input" id="q5vertex" type="text" placeholder="אות"></div>
-  <div class="sub-row"><span class="sub-lbl">שוק 1:</span><input class="ans-input" id="q5leg1" type="text" placeholder="AB / BA"></div>
-  <div class="sub-row"><span class="sub-lbl">שוק 2:</span><input class="ans-input" id="q5leg2" type="text" placeholder="AC / CA"></div>
+<div class="q-card">
+  <div class="q-title"><span class="q-num">1.</span> שם הזווית המסומנת בכל סרטוט (בעזרת 3 אותיות)</div>
+  <img src="seq2_exam_q1.png" style="width:100%;max-width:680px;display:block;margin:0 auto 14px;border-radius:6px;" />
+  <div class="sub-row"><span class="sub-lbl">ב.</span><input class="ans-input" id="q1b" type="text" placeholder="∡___"></div>
+  <div class="sub-row"><span class="sub-lbl">ג.</span><input class="ans-input" id="q1c" type="text" placeholder="∡___"></div>
+  <div class="sub-row"><span class="sub-lbl">ד.</span><input class="ans-input" id="q1d" type="text" placeholder="∡___"></div>
 </div>
 
-<!-- שאלה 2 — open -->
+<!-- שאלה 2 -->
 <div class="q-card">
-  <div class="q-title"><span class="q-num">6.</span> שלוש דרכים לכתוב זווית עם קודקוד B, שוקיים BA ו-BC</div>
-  <div class="open-ans-box">
-    <div class="open-ans-title">תשובות אפשריות:</div>
-    ∡ABC &nbsp;|&nbsp; ∡CBA &nbsp;|&nbsp; ∡B<br>
-    בדקו שכתבתם שלוש דרכים שונות ותקינות.
+  <div class="q-title"><span class="q-num">2.</span> שם הזווית המתקבלת מסכום הזוויות</div>
+  <img src="seq2_exam_q2.png" style="width:100%;max-width:620px;display:block;margin:0 auto 14px;border-radius:6px;" />
+  <div class="sub-row">
+    <span class="sub-lbl" style="min-width:80px;font-size:13px;"><span class="ang">∡2 + ∡1</span> =</span>
+    <input class="ans-input" id="q2ii" type="text" placeholder="∡___">
   </div>
-</div>
-
-<!-- שאלה 3 — open -->
-<div class="q-card">
-  <div class="q-title"><span class="q-num">7.</span> שלוש זוויות במשולש ABC בכתיב מתמטי</div>
-  <div class="open-ans-box">
-    <div class="open-ans-title">תשובות אפשריות:</div>
-    זווית A: ∡BAC או ∡CAB<br>
-    זווית B: ∡ABC או ∡CBA<br>
-    זווית C: ∡ACB או ∡BCA<br>
-    (אפשר גם ∡A, ∡B, ∡C כקיצור)
+  <div class="sub-row">
+    <span class="sub-lbl" style="min-width:80px;font-size:13px;"><span class="ang">∡1+∡2+∡3</span> =</span>
+    <input class="ans-input" id="q2iii" type="text" placeholder="∡___">
   </div>
 </div>
 
 <button class="check-btn no-print" onclick="checkAnswers()">בדוק ←</button>
+
+<!-- תשובות לשאלה 1 (נחשפות אחרי בדיקה) -->
+<div class="open-ans-box" id="q1-answers">
+  <div class="open-ans-title">✓ תשובות לשאלה 1:</div>
+  ב. <span class="ang">∡BED</span> (או ∡DEB) &nbsp;|&nbsp;
+  ג. <span class="ang">∡KSR</span> (או ∡RSK) &nbsp;|&nbsp;
+  ד. <span class="ang">∡ACB</span> (או ∡BCA)
+</div>
 
 </div>
 
@@ -214,39 +217,49 @@
 <button class="nav-btn nav-exam no-print" onclick="window.open('angles_seq2_exam.html')">חזרה למבדק</button>
 
 <script>
-function normLetter(s) {
-  return s.trim().replace(/\s+/g,'').toUpperCase();
+function normAng(s) {
+  return s.trim()
+    .replace(/∡/g, '')
+    .replace(/\s+/g, '')
+    .toUpperCase();
 }
 
-const TOTAL = 3;
-const LABELS = { q5vertex:'5-קודקוד', q5leg1:'5-שוק1', q5leg2:'5-שוק2' };
+function matchAng(input, accepted) {
+  const n = normAng(input);
+  if (n === '') return false;
+  return accepted.some(a => normAng(a) === n);
+}
+
+const KEY = {
+  q1b:  ['BED','DEB'],
+  q1c:  ['KSR','RSK'],
+  q1d:  ['ACB','BCA'],
+  q2ii: ['AKR','RKA'],
+  q2iii:['BKR','RKB'],
+};
+
+const TOTAL = 5;
+
+const LABELS = {
+  q1b:'1ב', q1c:'1ג', q1d:'1ד',
+  q2ii:'2(ii)', q2iii:'2(iii)',
+};
+
+const ALL_IDS = ['q1b','q1c','q1d','q2ii','q2iii'];
 
 function checkAnswers() {
   let correct = 0;
   const wrong = [];
+  ALL_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    const ok = matchAng(el.value, KEY[id]);
+    el.classList.toggle('correct', ok);
+    el.classList.toggle('wrong', !ok);
+    if (ok) correct++; else wrong.push(id);
+  });
 
-  // Q5 vertex = A
-  const vertex = document.getElementById('q5vertex');
-  const okV = normLetter(vertex.value) === 'A';
-  vertex.classList.toggle('correct', okV);
-  vertex.classList.toggle('wrong', !okV);
-  if (okV) correct++; else wrong.push('q5vertex');
-
-  // Q5 leg1 = AB or BA
-  const leg1 = document.getElementById('q5leg1');
-  const l1v = normLetter(leg1.value);
-  const okL1 = l1v === 'AB' || l1v === 'BA';
-  leg1.classList.toggle('correct', okL1);
-  leg1.classList.toggle('wrong', !okL1);
-  if (okL1) correct++; else wrong.push('q5leg1');
-
-  // Q5 leg2 = AC or CA
-  const leg2 = document.getElementById('q5leg2');
-  const l2v = normLetter(leg2.value);
-  const okL2 = l2v === 'AC' || l2v === 'CA';
-  leg2.classList.toggle('correct', okL2);
-  leg2.classList.toggle('wrong', !okL2);
-  if (okL2) correct++; else wrong.push('q5leg2');
+  // Show open answers for Q1
+  document.getElementById('q1-answers').classList.add('show');
 
   showScore(correct, TOTAL, wrong);
 }
@@ -254,20 +267,20 @@ function checkAnswers() {
 function showScore(correct, total, wrong) {
   const pct = correct / total;
   document.getElementById('score-num').textContent = correct;
-  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות (שאלות 6 ו-7 לבדיקה עצמית)';
+  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות';
   const bar = document.getElementById('score-bar');
   bar.style.width = (pct * 100) + '%';
   let msg, cls, barColor;
-  if (pct >= 0.85) { msg = 'מעולה! 💪'; cls = 'score-great'; barColor = '#065F46'; }
-  else if (pct >= 0.54) { msg = 'טוב! עוד קצת אימון ✏️'; cls = 'score-ok'; barColor = '#D97706'; }
-  else { msg = 'כדאי לחזור על החומר 🔄'; cls = 'score-retry'; barColor = '#DC2626'; }
+  if (pct >= 0.8)       { msg = 'מעולה! 💪';               cls = 'score-great'; barColor = '#065F46'; }
+  else if (pct >= 0.54) { msg = 'טוב! עוד קצת אימון ✏️';  cls = 'score-ok';    barColor = '#D97706'; }
+  else                  { msg = 'כדאי לחזור על החומר 🔄'; cls = 'score-retry'; barColor = '#DC2626'; }
   bar.style.background = barColor;
   const msgEl = document.getElementById('score-msg');
   msgEl.textContent = msg;
   msgEl.className = 'score-msg ' + cls;
   const wc = document.getElementById('wrong-list-container');
   if (wrong.length === 0) {
-    wc.innerHTML = '<div class="all-correct-note">כל התשובות הנבדקות נכונות!</div>';
+    wc.innerHTML = '<div class="all-correct-note">כל התשובות נכונות!</div>';
   } else {
     wc.innerHTML = '<div class="wrong-list-wrap"><div class="wrong-list-title">לתקן:</div><div class="wrong-tags">' +
       wrong.map(id => '<span class="wrong-tag">שאלה ' + (LABELS[id]||id) + '</span>').join('') +
@@ -279,10 +292,11 @@ function showScore(correct, total, wrong) {
 }
 
 function resetForm() {
-  ['q5vertex','q5leg1','q5leg2'].forEach(id => {
+  ALL_IDS.forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.value = ''; el.classList.remove('wrong','correct'); }
   });
+  document.getElementById('q1-answers').classList.remove('show');
   document.getElementById('wrong-list-container').innerHTML = '';
   document.getElementById('score-card').classList.remove('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });
