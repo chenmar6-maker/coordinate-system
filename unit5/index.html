@@ -137,39 +137,70 @@ const state = {
 
 /* ============ GAME LEVELS ============ */
 
+/* seq 2 — משוואות פשוטות (פעולה אחת) */
 const gameLevels2 = [
-  { id:'typedSum', title:'פתרון משוואות', expr:'x + 7 = 12',
+  { id:'typedSum', title:'משוואה פשוטה', expr:'x + 7 = 12',
     correct:5, explain:'מחסירים 7 משני האגפים: x = 12 − 7 = 5' },
-  { id:'typedSum', title:'פתרון משוואות', expr:'3x = 18',
-    correct:6, explain:'מחלקים שני האגפים ב-3: x = 18 ÷ 3 = 6' },
+  { id:'typedSum', title:'משוואה פשוטה', expr:'3x = 18',
+    correct:6, explain:'מחלקים ב-3: x = 18 ÷ 3 = 6' },
+  { id:'typedSum', title:'משוואה פשוטה', expr:'x − 4 = 9',
+    correct:13, explain:'מוסיפים 4 לשני האגפים: x = 9 + 4 = 13' },
+  { id:'typedSum', title:'משוואה פשוטה', expr:'2x = 14',
+    correct:7, explain:'מחלקים ב-2: x = 14 ÷ 2 = 7' },
+  { id:'mc', title:'פעולה נכונה',
+    question:'הצעד הנכון לפתרון <span class="m">x + 9 = 15</span>:',
+    options:['x = 15 + 9','x = 15 − 9','x = 9 − 15','x = 15 × 9'],
+    correct:'x = 15 − 9',
+    explain:'מחסירים 9 משני האגפים: x = 15 − 9 = 6' },
+  { id:'typedSum', title:'חלוקה', expr:'4x = 20',
+    correct:5, explain:'מחלקים ב-4: x = 20 ÷ 4 = 5' },
+];
+
+/* seq 3 — משוואות מורכבות (כמה שלבים) */
+const gameLevels3 = [
   { id:'typedSum', title:'משוואה דו-שלבית', expr:'2x + 3 = 11',
     correct:4, explain:'מחסירים 3: 2x = 8. מחלקים ב-2: x = 4' },
   { id:'typedSum', title:'משוואה דו-שלבית', expr:'5x − 2 = 13',
     correct:3, explain:'מוסיפים 2: 5x = 15. מחלקים ב-5: x = 3' },
   { id:'mc', title:'צעד ראשון נכון',
-    question:'מהו הצעד הראשון הנכון לפתרון המשוואה <span class="m">4x + 6 = 18</span>?',
+    question:'מהו הצעד הראשון הנכון לפתרון <span class="m">4x + 6 = 18</span>?',
     options:['4x = 18 + 6','4x = 18 − 6','x = (18 + 6) ÷ 4','מחלקים ב-4 את שני האגפים'],
     correct:'4x = 18 − 6',
-    explain:'מחסירים 6 משני האגפים: 4x = 12. ואז מחלקים ב-4: x = 3.' },
+    explain:'מחסירים 6: 4x = 12. מחלקים ב-4: x = 3.' },
   { id:'typedSum', title:'נעלם משני האגפים', expr:'3x + 2 = x + 10',
     correct:4, explain:'מחסירים x: 2x + 2 = 10. מחסירים 2: 2x = 8. x = 4' },
-  { id:'typedSum', title:'עם סוגריים', expr:'2(x + 3) = 14',
-    correct:4, explain:'פותחים סוגריים: 2x + 6 = 14. 2x = 8. x = 4' },
-  { id:'mc', title:'עם סוגריים — ארבעה שלבים',
-    question:'פתרון המשוואה <span class="m">4(x − 1) = 2x + 6</span> הוא:',
-    options:['x = 2','x = 3','x = 4','x = 5'],
-    correct:'x = 5',
-    explain:'פותחים: 4x − 4 = 2x + 6. מעבירים: 2x = 10. x = 5' },
+  { id:'typedSum', title:'נעלם משני האגפים', expr:'5x − 3 = 2x + 9',
+    correct:4, explain:'מחסירים 2x: 3x − 3 = 9. מוסיפים 3: 3x = 12. x = 4' },
   { id:'mc', title:'כמה פתרונות?',
     question:'למשוואה <span class="m">2x + 5 = 2x + 8</span> יש:',
     options:['פתרון אחד: x = 3','פתרון אחד: x = 0','אינסוף פתרונות','אין פתרון כלל'],
     correct:'אין פתרון כלל',
-    explain:'מחסירים 2x משני האגפים: 5 = 8 — זה שקר תמיד. אין שום ערך של x שיעבוד.' },
+    explain:'מחסירים 2x: 5 = 8 — שקר תמיד. אין פתרון.' },
+];
+
+/* seq 4 — משוואות עם פתיחת סוגריים */
+const gameLevels4 = [
+  { id:'typedSum', title:'פתיחת סוגריים', expr:'2(x + 3) = 14',
+    correct:4, explain:'פותחים: 2x + 6 = 14. מחסירים 6: 2x = 8. x = 4' },
+  { id:'mc', title:'ארבעה שלבים',
+    question:'פתרון המשוואה <span class="m">4(x − 1) = 2x + 6</span>:',
+    options:['x = 2','x = 3','x = 4','x = 5'],
+    correct:'x = 5',
+    explain:'פותחים: 4x − 4 = 2x + 6. מחסירים 2x: 2x − 4 = 6. מוסיפים 4: 2x = 10. x = 5' },
+  { id:'typedSum', title:'פתיחת סוגריים', expr:'3(x + 2) = 21',
+    correct:5, explain:'פותחים: 3x + 6 = 21. 3x = 15. x = 5' },
+  { id:'typedSum', title:'פתיחת סוגריים', expr:'2(x − 4) = x + 1',
+    correct:9, explain:'פותחים: 2x − 8 = x + 1. מחסירים x: x − 8 = 1. x = 9' },
   { id:'mc', title:'כמה פתרונות?',
     question:'למשוואה <span class="m">3(x + 2) = 3x + 6</span> יש:',
     options:['פתרון אחד: x = 0','פתרון אחד: x = 2','אינסוף פתרונות','אין פתרון כלל'],
     correct:'אינסוף פתרונות',
-    explain:'פותחים: 3x + 6 = 3x + 6. אחרי ביטול 3x: 6 = 6 — זה נכון לכל x. אינסוף פתרונות.' },
+    explain:'פותחים: 3x + 6 = 3x + 6. נכון לכל x. אינסוף פתרונות.' },
+  { id:'mc', title:'כמה פתרונות?',
+    question:'למשוואה <span class="m">2(x + 1) + 3 = 2x + 5</span> יש:',
+    options:['פתרון אחד: x = 0','אין פתרון','אינסוף פתרונות','פתרון: x = 5'],
+    correct:'אינסוף פתרונות',
+    explain:'פותחים: 2x + 2 + 3 = 2x + 5. כלומר 2x + 5 = 2x + 5 — נכון לכל x.' },
 ];
 
 
@@ -225,6 +256,8 @@ function skipLevel(){
 
 function currentGameLevels(){
   if(state.sequence===2) return gameLevels2;
+  if(state.sequence===3) return gameLevels3;
+  if(state.sequence===4) return gameLevels4;
   return [];
 }
 
@@ -302,11 +335,13 @@ function renderHome(){
     <div class="sequence-section" style="margin-bottom:32px;">
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">משוואות</div>
       ${seqRow(1,'1. מבוא למשוואות — זיהוי פתרון',{worksheetUrl:'../worksheets/equations_intro_exam.html',answersUrl:'../worksheets/equations_intro_exam_answers.html',checkUrl:'../worksheets/equations_intro_exam_check.html'})}
-      ${seqRow(2,'2. פתרון משוואות',{worksheetUrl:'../worksheets/equations_solving_exam.html',answersUrl:'../worksheets/equations_solving_exam_answers.html',checkUrl:'../worksheets/equations_solving_exam_check.html'})}
-      ${seqRow(3,'3. שאלות מילוליות',{worksheetUrl:'../worksheets/equations_word_problems_exam.html',answersUrl:'../worksheets/equations_word_problems_exam_answers.html',checkUrl:'../worksheets/equations_word_problems_exam_check.html'})}
+      ${seqRow(2,'2. משוואות פשוטות — פעולה אחת',{})}
+      ${seqRow(3,'3. משוואות מורכבות — כמה שלבים',{worksheetUrl:'../worksheets/equations_solving_exam.html',answersUrl:'../worksheets/equations_solving_exam_answers.html',checkUrl:'../worksheets/equations_solving_exam_check.html'})}
+      ${seqRow(4,'4. משוואות עם פתיחת סוגריים',{})}
+      ${seqRow(5,'5. שאלות מילוליות',{worksheetUrl:'../worksheets/equations_word_problems_exam.html',answersUrl:'../worksheets/equations_word_problems_exam_answers.html',checkUrl:'../worksheets/equations_word_problems_exam_check.html'})}
 
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin:20px 0 8px;">קריאת תיאור גרפי של נקודות ברביע I</div>
-      ${seqRow(4,'4. קריאת תיאור גרפי של נקודות ברביע I',{worksheetUrl:'../worksheets/graphs_reading_exam.html'})}
+      ${seqRow(6,'6. קריאת תיאור גרפי של נקודות ברביע I',{worksheetUrl:'../worksheets/graphs_reading_exam.html'})}
 
       <div style="font-size:12px;font-weight:700;letter-spacing:1px;color:rgba(234,244,241,0.4);text-transform:uppercase;margin:14px 0 6px;">מבדק מקיף</div>
       <div onclick="showWorksheet('../worksheets/equations_master_exam.html')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-radius:12px;background:rgba(226,96,79,0.1);border:1.5px solid rgba(226,96,79,0.4);margin-bottom:4px;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
@@ -335,6 +370,8 @@ function renderLearn(){
   if(state.sequence===2) return renderLearn2();
   if(state.sequence===3) return renderLearn3();
   if(state.sequence===4) return renderLearn4();
+  if(state.sequence===5) return renderLearn5();
+  if(state.sequence===6) return renderLearn6();
   return renderLearn1();
 }
 
@@ -392,7 +429,7 @@ function renderLearn1(){
   </div>`;
 }
 
-function renderLearn3(){
+function renderLearn5(){
   return `<div class="panel">
     <h2 class="qtitle">שאלות מילוליות</h2>
 
@@ -445,13 +482,13 @@ function renderLearn3(){
     <div class="learn-note">טיפ: בדיקה — החזר לשאלה המקורית ובדוק, לא לבדיקה האלגברית בלבד</div>
 
     <div class="btnrow" style="margin-top:20px;">
-      <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
+      <button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
 }
 
-function renderLearn4(){
+function renderLearn6(){
   return `<div class="panel">
     <h2 class="qtitle">קריאת תיאור גרפי של נקודות ברביע I</h2>
 
@@ -532,7 +569,7 @@ function renderLearn4(){
     <div class="learn-note">ברביע הראשון: x חיובי ו-y חיובי. שני הערכים תמיד גדולים מ-0.</div>
 
     <div class="btnrow" style="margin-top:20px;">
-      <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
+      <button class="btn" onclick="state.sequence=6;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
@@ -540,55 +577,166 @@ function renderLearn4(){
 
 function renderLearn2(){
   return `<div class="panel">
-    <h2 class="qtitle">פתרון משוואות</h2>
-    <p class="qtext" style="margin-bottom:16px;">משוואה היא כמו מאזניים ⚖️ — שני האגפים שווים. מה שעושים לאגף אחד, חייבים לעשות לשני.</p>
+    <h2 class="qtitle">משוואות פשוטות — פעולה אחת</h2>
 
-    <div class="gold-box" style="font-size:15px;text-align:right;padding:14px 18px;">
-      <div style="font-weight:800;margin-bottom:8px;font-size:16px;text-align:center;">שלבי פתרון</div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <div><span style="color:var(--gold);font-weight:800;">1.</span> פתחו סוגריים (אם יש)</div>
-        <div><span style="color:var(--gold);font-weight:800;">2.</span> העבירו נעלמים לאגף ימין, מספרים לאגף שמאל</div>
-        <div><span style="color:var(--gold);font-weight:800;">3.</span> כנסו איברים דומים</div>
-        <div><span style="color:var(--gold);font-weight:800;">4.</span> חלקו בציפר של הנעלם</div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 140" style="display:block;margin:10px auto 14px;max-width:320px;">
+      <!-- "before" balance -->
+      <line x1="40" y1="55" x2="148" y2="55" stroke="#EFA94A" stroke-width="3" stroke-linecap="round"/>
+      <polygon points="94,55 84,88 104,88" fill="rgba(239,169,74,0.5)"/>
+      <rect x="52" y="55" width="36" height="24" rx="5" fill="rgba(239,169,74,0.15)" stroke="#EFA94A" stroke-width="1.5"/>
+      <rect x="100" y="55" width="36" height="24" rx="5" fill="rgba(72,176,140,0.15)" stroke="#48B08C" stroke-width="1.5"/>
+      <text x="70" y="72" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#EFA94A" direction="ltr">x+7</text>
+      <text x="118" y="72" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#48B08C" direction="ltr">12</text>
+      <!-- arrow down -->
+      <text x="160" y="65" font-family="Rubik" font-size="22" fill="rgba(234,244,241,0.5)">→</text>
+      <!-- "after" balance -->
+      <line x1="175" y1="55" x2="305" y2="55" stroke="#EFA94A" stroke-width="3" stroke-linecap="round"/>
+      <polygon points="240,55 230,88 250,88" fill="rgba(239,169,74,0.5)"/>
+      <rect x="187" y="55" width="36" height="24" rx="5" fill="rgba(139,92,246,0.15)" stroke="#8B5CF6" stroke-width="1.5"/>
+      <rect x="257" y="55" width="36" height="24" rx="5" fill="rgba(72,176,140,0.15)" stroke="#48B08C" stroke-width="1.5"/>
+      <text x="205" y="72" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#8B5CF6" direction="ltr">x</text>
+      <text x="275" y="72" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#48B08C" direction="ltr">5</text>
+      <!-- minus 7 label -->
+      <text x="94" y="112" text-anchor="middle" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.5)">לפני</text>
+      <text x="240" y="112" text-anchor="middle" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.5)">אחרי −7 משני האגפים</text>
+    </svg>
+
+    <div class="gold-box">כלל מאזניים: מה שעושים לאגף אחד — חייבים לעשות לשני!</div>
+
+    <ul class="bullets">
+      <li>משוואה פשוטה נפתרת <strong>בפעולה אחת</strong>: חיסור, חיבור, כפל או חילוק</li>
+      <li>יש <strong>x</strong> בצד אחד? — בצעו את הפעולה ההפוכה לשני האגפים</li>
+      <li>תמיד בדקו: הציבו את התשובה בחזרה במשוואה</li>
+    </ul>
+
+    <div class="examples-row">
+      <div class="example-box" style="text-align:right;font-size:14px;font-weight:400;padding:12px 14px;">
+        <div style="font-weight:700;color:var(--gold);text-align:center;margin-bottom:6px;"><span class="m">x + 7 = 12</span></div>
+        <div>מחסירים 7: <span class="m">x = 12 − 7 = 5</span></div>
+        <div style="color:var(--seafoam);margin-top:4px;">בדיקה: 5 + 7 = 12 ✓</div>
       </div>
-    </div>
-
-    <div class="learn-note" style="margin-top:18px;">
-      <div style="font-weight:700;margin-bottom:10px;">דוגמה 1 — משוואה דו-שלבית:</div>
-      <div class="examples-row" style="font-size:15px;gap:8px;">
-        <div class="example-box" style="font-size:15px;text-align:right;padding:10px 14px;">
-          <div class="m" style="text-align:center;font-size:18px;margin-bottom:8px;">2x + 3 = 11</div>
-          <div>מחסירים 3: <span class="m">2x = 8</span></div>
-          <div>מחלקים ב-2: <span class="m">x = 4</span></div>
-          <div style="margin-top:6px;color:var(--seafoam);">בדיקה: 2·4 + 3 = 11 ✓</div>
-        </div>
-        <div class="example-box" style="font-size:15px;text-align:right;padding:10px 14px;">
-          <div class="m" style="text-align:center;font-size:18px;margin-bottom:8px;">3x + 2 = x + 10</div>
-          <div>מחסירים x: <span class="m">2x + 2 = 10</span></div>
-          <div>מחסירים 2: <span class="m">2x = 8</span></div>
-          <div>מחלקים ב-2: <span class="m">x = 4</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="learn-note" style="margin-top:14px;border-right-color:var(--coral);">
-      <div style="font-weight:700;margin-bottom:10px;">משוואות מיוחדות:</div>
-      <div style="display:flex;flex-direction:column;gap:12px;font-size:15px;">
-        <div>
-          <div style="font-weight:700;color:var(--coral);">🚫 אין פתרון</div>
-          <div class="m" style="margin:4px 0;">2x + 5 = 2x + 8</div>
-          <div>מחסירים 2x: <span class="m">5 = 8</span> — שגוי תמיד. אין ערך של x שיעבוד.</div>
-        </div>
-        <div>
-          <div style="font-weight:700;color:var(--seafoam);">♾️ אינסוף פתרונות</div>
-          <div class="m" style="margin:4px 0;">3(x + 2) = 3x + 6</div>
-          <div>פותחים: <span class="m">3x + 6 = 3x + 6</span> — נכון לכל x. כל מספר הוא פתרון.</div>
-        </div>
+      <div class="example-box" style="text-align:right;font-size:14px;font-weight:400;padding:12px 14px;">
+        <div style="font-weight:700;color:var(--gold);text-align:center;margin-bottom:6px;"><span class="m">3x = 18</span></div>
+        <div>מחלקים ב-3: <span class="m">x = 18 ÷ 3 = 6</span></div>
+        <div style="color:var(--seafoam);margin-top:4px;">בדיקה: 3 × 6 = 18 ✓</div>
       </div>
     </div>
 
     <div class="btnrow" style="margin-top:20px;">
       <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn3(){
+  return `<div class="panel">
+    <h2 class="qtitle">משוואות מורכבות — כמה שלבים</h2>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 130" style="display:block;margin:10px auto 14px;max-width:320px;">
+      <!-- step boxes -->
+      <rect x="10" y="20" width="68" height="34" rx="6" fill="rgba(239,169,74,0.15)" stroke="#EFA94A" stroke-width="1.5"/>
+      <text x="44" y="42" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#EFA94A" direction="ltr">2x+3=11</text>
+      <line x1="82" y1="37" x2="98" y2="37" stroke="rgba(234,244,241,0.4)" stroke-width="1.5" marker-end="url(#u5a1)"/>
+      <defs><marker id="u5a1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="rgba(234,244,241,0.4)"/></marker></defs>
+      <text x="90" y="28" text-anchor="middle" font-family="Rubik" font-size="9" fill="rgba(234,244,241,0.5)">−3</text>
+      <rect x="101" y="20" width="58" height="34" rx="6" fill="rgba(139,92,246,0.15)" stroke="#8B5CF6" stroke-width="1.5"/>
+      <text x="130" y="42" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#8B5CF6" direction="ltr">2x = 8</text>
+      <line x1="163" y1="37" x2="179" y2="37" stroke="rgba(234,244,241,0.4)" stroke-width="1.5" marker-end="url(#u5a1)"/>
+      <text x="171" y="28" text-anchor="middle" font-family="Rubik" font-size="9" fill="rgba(234,244,241,0.5)">÷2</text>
+      <rect x="182" y="20" width="58" height="34" rx="6" fill="rgba(72,176,140,0.15)" stroke="#48B08C" stroke-width="1.5"/>
+      <text x="211" y="42" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#48B08C" direction="ltr">x = 4</text>
+      <!-- check -->
+      <text x="260" y="42" font-family="Rubik" font-size="18" fill="#48B08C">✓</text>
+      <!-- labels -->
+      <text x="44" y="72" text-anchor="middle" font-family="Rubik" font-size="10" fill="rgba(234,244,241,0.45)">התחלה</text>
+      <text x="130" y="72" text-anchor="middle" font-family="Rubik" font-size="10" fill="rgba(234,244,241,0.45)">שלב 1</text>
+      <text x="211" y="72" text-anchor="middle" font-family="Rubik" font-size="10" fill="rgba(234,244,241,0.45)">שלב 2</text>
+      <!-- second example row -->
+      <rect x="10" y="90" width="88" height="28" rx="5" fill="rgba(239,169,74,0.1)" stroke="rgba(239,169,74,0.3)" stroke-width="1"/>
+      <text x="54" y="109" text-anchor="middle" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.6)" direction="ltr">3x+2 = x+10</text>
+      <text x="108" y="107" font-family="Rubik" font-size="13" fill="rgba(234,244,241,0.35)">→</text>
+      <rect x="120" y="90" width="68" height="28" rx="5" fill="rgba(139,92,246,0.1)" stroke="rgba(139,92,246,0.3)" stroke-width="1"/>
+      <text x="154" y="109" text-anchor="middle" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.6)" direction="ltr">2x+2 = 10</text>
+      <text x="198" y="107" font-family="Rubik" font-size="13" fill="rgba(234,244,241,0.35)">→</text>
+      <rect x="210" y="90" width="50" height="28" rx="5" fill="rgba(72,176,140,0.1)" stroke="rgba(72,176,140,0.3)" stroke-width="1"/>
+      <text x="235" y="109" text-anchor="middle" font-family="Rubik" font-size="11" fill="#48B08C" direction="ltr">x = 4</text>
+    </svg>
+
+    <div class="gold-box" style="font-size:15px;text-align:right;padding:12px 16px;">
+      <div style="font-weight:800;margin-bottom:6px;text-align:center;">סדר פתרון</div>
+      <div><span style="color:var(--gold);font-weight:800;">1.</span> העבירו מספרים לאגף שמאל (חישוב), נעלמים לאגף ימין</div>
+      <div style="margin-top:4px;"><span style="color:var(--gold);font-weight:800;">2.</span> כנסו איברים דומים</div>
+      <div style="margin-top:4px;"><span style="color:var(--gold);font-weight:800;">3.</span> חלקו בציפר של x</div>
+    </div>
+
+    <div class="learn-note" style="margin-top:12px;border-right-color:var(--coral);">
+      <strong>כמה פתרונות?</strong><br>
+      <span style="color:var(--coral);">אין פתרון:</span> <span class="m">2x+5 = 2x+8</span> → מחסירים 2x → <span class="m">5=8</span> — שקר תמיד<br>
+      <span style="color:var(--seafoam);">אינסוף פתרונות:</span> <span class="m">2x+4 = 2x+4</span> → נכון לכל x
+    </div>
+
+    <div class="btnrow" style="margin-top:20px;">
+      <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn4(){
+  return `<div class="panel">
+    <h2 class="qtitle">משוואות עם פתיחת סוגריים</h2>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" style="display:block;margin:10px auto 14px;max-width:320px;">
+      <!-- rectangle area model: 2(x+3) -->
+      <rect x="20" y="20" width="50" height="60" rx="4" fill="rgba(72,176,140,0.2)" stroke="#48B08C" stroke-width="1.5"/>
+      <rect x="75" y="20" width="80" height="60" rx="4" fill="rgba(239,169,74,0.2)" stroke="#EFA94A" stroke-width="1.5"/>
+      <!-- height label -->
+      <text x="11" y="54" font-family="Rubik" font-size="14" font-weight="700" fill="rgba(234,244,241,0.7)" text-anchor="middle">2</text>
+      <!-- width labels -->
+      <text x="45" y="95" font-family="Rubik" font-size="12" fill="#48B08C" text-anchor="middle">x</text>
+      <text x="115" y="95" font-family="Rubik" font-size="12" fill="#EFA94A" text-anchor="middle">3</text>
+      <!-- bracket above -->
+      <line x1="20" y1="15" x2="155" y2="15" stroke="rgba(234,244,241,0.3)" stroke-width="1"/>
+      <text x="87" y="12" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.5)" text-anchor="middle">x + 3</text>
+      <!-- equals arrow -->
+      <text x="172" y="54" font-family="Rubik" font-size="18" fill="rgba(234,244,241,0.5)">=</text>
+      <!-- result boxes -->
+      <rect x="190" y="25" width="42" height="26" rx="4" fill="rgba(72,176,140,0.15)" stroke="#48B08C" stroke-width="1.5"/>
+      <text x="211" y="43" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#48B08C" direction="ltr">2x</text>
+      <text x="238" y="43" font-family="Rubik" font-size="14" fill="rgba(234,244,241,0.4)">+</text>
+      <rect x="246" y="25" width="42" height="26" rx="4" fill="rgba(239,169,74,0.15)" stroke="#EFA94A" stroke-width="1.5"/>
+      <text x="267" y="43" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#EFA94A" direction="ltr">6</text>
+      <!-- formula -->
+      <text x="255" y="80" text-anchor="middle" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.5)" direction="ltr">2(x+3) = 2x+6</text>
+    </svg>
+
+    <div class="gold-box">פתיחת סוגריים: מכפילים כל איבר בתוך הסוגריים בגורם שמחוצה להם</div>
+
+    <ul class="bullets">
+      <li><span class="m">a(b + c) = ab + ac</span></li>
+      <li>שומרים על הסימן: <span class="m">3(x − 2) = 3x − 6</span> (לא <span class="m">3x + 6</span>!)</li>
+      <li>מינוס לפני סוגריים: <span class="m">−(x + 4) = −x − 4</span> — הסימן מתהפך</li>
+      <li>אחרי פתיחה — פותרים כרגיל (כמה שלבים)</li>
+    </ul>
+
+    <div class="examples-row">
+      <div class="example-box" style="text-align:right;font-size:14px;font-weight:400;padding:12px 14px;">
+        <div style="font-weight:700;color:var(--gold);text-align:center;margin-bottom:6px;"><span class="m">2(x + 3) = 14</span></div>
+        <div>פותחים: <span class="m">2x + 6 = 14</span></div>
+        <div>מחסירים 6: <span class="m">2x = 8</span></div>
+        <div style="color:var(--seafoam);">x = 4 ✓</div>
+      </div>
+      <div class="example-box" style="text-align:right;font-size:14px;font-weight:400;padding:12px 14px;">
+        <div style="font-weight:700;color:var(--gold);text-align:center;margin-bottom:6px;"><span class="m">4(x − 1) = 2x + 6</span></div>
+        <div>פותחים: <span class="m">4x − 4 = 2x + 6</span></div>
+        <div>מחסירים 2x: <span class="m">2x − 4 = 6</span></div>
+        <div style="color:var(--seafoam);">x = 5 ✓</div>
+      </div>
+    </div>
+
+    <div class="btnrow" style="margin-top:20px;">
+      <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
