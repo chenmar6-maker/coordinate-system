@@ -144,7 +144,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
       <p class="note" id="qnote"></p>
       <div class="legend" id="legend">
         <span><i class="lg-o"></i>צורה א, המקורית</span>
-        <span id="lgT"><i class="lg-t"></i>צורה ב, המטרה</span>
+        <span id="lgT"><i class="lg-t"></i>צורה ב</span>
         <span><i class="lg-m"></i>התוצאה שלכם</span>
       </div>
       <div class="stats"><span>נפתרו: <b id="stSolved">0</b></span><span>ברצף: <b id="stStreak">0</b></span></div>
@@ -519,7 +519,7 @@ function newQ(){
   const q=S.q;
   if(S.mode==='move'){
     $('qtext').innerHTML='הזיזו את צורה א כך שתכסה בדיוק את צורה ב.';
-    $('qnote').innerHTML='בכמה יחידות צריך להזיז אופקית ובכמה אנכית? השתמשו במספרים שליליים להזזה שמאלה או למטה.';
+    $('qnote').innerHTML='';
   } else if(S.mode==='coords'){
     const letters=LET.slice(0,q.orig.length);
     $('qtext').innerHTML=`מזיזים את ${q.shape.name} ${ltr(letters)}${q.emoji?' (עם '+q.emoji+')':''} ${moveTxt(q.dx,q.dy)}. מה יהיו שיעורי הנקודה ${ltr(LET[q.k])} אחרי ההזזה?`;
