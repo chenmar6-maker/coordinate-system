@@ -92,6 +92,14 @@
   .domain-card-exam { font-size:12px; color:#374151; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:3px; font-style:italic; }
   .domain-card-sub { font-size:11px; color:#9CA3AF; }
 
+  /* ── HISTOGRAM ── */
+  .chart-wrap {
+    background:#fff; border-radius:14px; padding:20px 20px 16px;
+    box-shadow:0 1px 4px rgba(0,0,0,0.07); margin-bottom:20px;
+  }
+  .chart-title { font-size:13px; font-weight:700; color:#374151; margin-bottom:14px; text-align:center; }
+  .chart-svg { display:block; width:100%; overflow:visible; }
+
   .controls {
     display: flex; gap: 10px; margin-bottom: 14px;
     align-items: center; flex-wrap: wrap;
@@ -262,6 +270,7 @@
   <div class="app-main">
     <div class="stats" id="stats-bar"></div>
     <div class="stats-domains" id="stats-domains"></div>
+    <div class="chart-wrap" id="units-chart" style="display:none"></div>
     <div class="domain-tabs" id="domain-tabs"></div>
 
     <div class="controls">
@@ -575,6 +584,83 @@ function renderStats() {
       '<div class="domain-card-sub">' + totalEvents + ' מבדקים בתחום</div>' +
       '</div>';
   }).join('');
+
+  renderChart();
+}
+
+function renderChart() {
+  var wrap = document.getElementById('units-chart');
+  if (!state.students.length) { wrap.style.display = 'none'; return; }
+
+  // Count total sequences across all domains
+  var allSeqs = DOMAINS.reduce(function(acc, d) {
+    return acc.concat(d.units.reduce(function(a2, u) { return a2.concat(u.sequences); }, []));
+  }, []);
+  var maxSeqs = allSeqs.length;
+
+  // Build frequency map: unitsDone -> studentCount
+  var freq = {};
+  state.students.forEach(function(s) {
+    var n = passedUnits(s.id).size;
+    freq[n] = (freq[n] || 0) + 1;
+  });
+
+  // Build ordered buckets from 0..maxSeqs (skip empty tails)
+  var buckets = [];
+  var maxKey = Math.max.apply(null, Object.keys(freq).map(Number));
+  for (var k = 0; k <= maxKey; k++) {
+    buckets.push({ x: k, y: freq[k] || 0 });
+  }
+
+  var maxCount = Math.max.apply(null, buckets.map(function(b) { return b.y; }));
+
+  // SVG dimensions
+  var W = 860, H = 180;
+  var padL = 36, padR = 10, padT = 10, padB = 36;
+  var chartW = W - padL - padR;
+  var chartH = H - padT - padB;
+  var n = buckets.length;
+  var barW = Math.max(4, Math.floor(chartW / (n + 1) * 0.7));
+  var step = chartW / (n > 1 ? n - 1 : 1);
+
+  function xPos(i) { return padL + (n > 1 ? i * step : chartW / 2); }
+  function yPos(val) { return padT + chartH - (maxCount ? val / maxCount * chartH : 0); }
+
+  // Y-axis ticks (up to 5)
+  var yTicks = [];
+  var tickStep = Math.ceil(maxCount / 4) || 1;
+  for (var t = 0; t <= maxCount; t += tickStep) yTicks.push(t);
+
+  var bars = buckets.map(function(b, i) {
+    var x = xPos(i) - barW / 2;
+    var y = yPos(b.y);
+    var h = padT + chartH - y;
+    var color = b.y === 0 ? '#E5E7EB' : '#6366F1';
+    var label = b.y > 0
+      ? '<text x="' + (x + barW/2) + '" y="' + (y - 4) + '" text-anchor="middle" font-size="10" fill="#374151">' + b.y + '</text>'
+      : '';
+    return (h > 0 ? '<rect x="' + x + '" y="' + y + '" width="' + barW + '" height="' + h + '" fill="' + color + '" rx="2"/>' : '') + label +
+      '<text x="' + (x + barW/2) + '" y="' + (padT + chartH + 16) + '" text-anchor="middle" font-size="10" fill="#6B7280">' + b.x + '</text>';
+  }).join('');
+
+  var yAxis = yTicks.map(function(t) {
+    var y = yPos(t);
+    return '<line x1="' + padL + '" x2="' + (padL + chartW) + '" y1="' + y + '" y2="' + y + '" stroke="#F3F4F6" stroke-width="1"/>' +
+      '<text x="' + (padL - 5) + '" y="' + (y + 4) + '" text-anchor="end" font-size="10" fill="#9CA3AF">' + t + '</text>';
+  }).join('');
+
+  var baseline = '<line x1="' + padL + '" x2="' + (padL + chartW) + '" y1="' + (padT + chartH) + '" y2="' + (padT + chartH) + '" stroke="#D1D5DB" stroke-width="1"/>';
+  var yline   = '<line x1="' + padL + '" x2="' + padL + '" y1="' + padT + '" y2="' + (padT + chartH) + '" stroke="#D1D5DB" stroke-width="1"/>';
+
+  var xLabel = '<text x="' + (padL + chartW / 2) + '" y="' + (H) + '" text-anchor="middle" font-size="11" fill="#6B7280">מספר יחידות שנעשו</text>';
+  var yLabel = '<text transform="rotate(-90,' + 10 + ',' + (H/2) + ')" x="10" y="' + (H/2) + '" text-anchor="middle" font-size="11" fill="#6B7280">מספר תלמידים</text>';
+
+  wrap.style.display = '';
+  wrap.innerHTML =
+    '<div class="chart-title">התפלגות תלמידים לפי מספר יחידות שהשלימו</div>' +
+    '<svg class="chart-svg" viewBox="0 0 ' + W + ' ' + H + '" height="' + H + '">' +
+      yAxis + baseline + yline + bars + xLabel + yLabel +
+    '</svg>';
 }
 
 function render() {
