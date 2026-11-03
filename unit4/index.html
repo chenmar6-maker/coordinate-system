@@ -420,6 +420,48 @@ const gameLevels5 = [
 ];
 
 const gameLevels6 = [
+  { id:'mc', title:'תכונת המפתח',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√5 · √5</bdi>?',
+    options:['10','5','25','√10'],
+    correct:'5',
+    explain:'√5 · √5 = (√5)² = 5. הכלל: √a · √a = a.' },
+  { id:'typedSum', title:'חשבו', expr:'√13 · √13', correct:13,
+    explain:'√13 · √13 = (√13)² = 13. הכלל: √a · √a = a.' },
+  { id:'typedSum', title:'חשבו', expr:'√100 · √100', correct:100,
+    explain:'√100 · √100 = (√100)² = 100. אפשר גם: √100 = 10, ו-10·10 = 100.' },
+  { id:'mc', title:'כלל כללי',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√a · √a</bdi>?',
+    options:['2a','a','a²','√(2a)'],
+    correct:'a',
+    explain:'√a · √a = (√a)² = a. זו ההגדרה: √a הוא המספר שריבועו a.' },
+  { id:'mc', title:'צלע ריבוע — שטח 7',
+    question:'מה אורך הצלע של ריבוע ששטחו 7?',
+    options:['3.5','7/2','√7','7²'],
+    correct:'√7',
+    explain:'צלע = √7, כי (√7)² = 7. זה לא מספר שלם — וזה בסדר גמור!' },
+  { id:'mc', title:'צלע ריבוע — שטח 3',
+    question:'מה אורך הצלע של ריבוע ששטחו 3 סמ"ר?',
+    options:['1.5 סמ','√3 סמ','9 סמ','6 סמ'],
+    correct:'√3 סמ',
+    explain:'צלע = √3, כי (√3)² = 3.' },
+  { id:'mc', title:'למה רק פתרון אחד?',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√9</bdi>?',
+    options:['3 ו-−3','±3','3','−3'],
+    correct:'3',
+    explain:'√9 = 3 בלבד. סימן השורש מוגדר תמיד כמספר הלא-שלילי. −3 הוא לא √9.' },
+  { id:'mc', title:'נכון או לא נכון?',
+    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">√25 = ±5</bdi>',
+    options:['נכון','לא נכון — √25 = 5 בלבד'],
+    correct:'לא נכון — √25 = 5 בלבד',
+    explain:'√25 = 5. ה-−5 הוא פתרון של המשוואה x²=25, אבל סימן √ מחזיר תמיד את הערך הלא-שלילי.' },
+  { id:'mc', title:'מי צודק?',
+    question:'תלמיד אמר: "ל-√16 יש שני ערכים: 4 ו-−4". האם הוא צודק?',
+    options:['כן, כי גם 4²=16 וגם (−4)²=16','לא — √16 = 4 בלבד','כן, כי 16 גדול','לא — √16 = −4'],
+    correct:'לא — √16 = 4 בלבד',
+    explain:'נכון ש-4²=16 וגם (−4)²=16. אבל √16 מוגדר כמספר הלא-שלילי בלבד, כלומר 4.' },
+];
+
+const gameLevels7 = [
   { id:'mc', title:'הערכת שורש',
     question:'<bdi style="direction:ltr;unicode-bidi:isolate;">√20</bdi> נמצא בין אילו מספרים שלמים רצופים?',
     options:['בין 3 ל-4','בין 4 ל-5','בין 5 ל-6','בין 2 ל-3'],
@@ -521,6 +563,7 @@ function currentGameLevels(){
   if(state.sequence===4) return gameLevels4;
   if(state.sequence===5) return gameLevels5;
   if(state.sequence===6) return gameLevels6;
+  if(state.sequence===7) return gameLevels7;
   return gameLevels1;
 }
 
@@ -887,7 +930,7 @@ function renderLearn7(){
       <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">√(9+16) ≠ √9 + √16</bdi>. נכון: <bdi style="direction:ltr;unicode-bidi:isolate;">√25 = 5</bdi>, לא <bdi style="direction:ltr;unicode-bidi:isolate;">3+4 = 7</bdi>!</div>
 
       <div class="btnrow">
-        <button class="btn" onclick="state.sequence=6;startGame()">לתרגול ←</button>
+        <button class="btn" onclick="state.sequence=7;startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
       </div>
     </div>
