@@ -574,7 +574,9 @@ function renderStats() {
 
     return `<div class="domain-card" style="border-top:3px solid ${d.color}">
       <div class="domain-card-hdr" style="color:${d.color}">${d.name}</div>
-      <div class="domain-card-num" style="color:#1a1a2e">${median}<span style="font-size:13px;font-weight:400;color:#9CA3AF"> / ${seqs.length}</span></div>
+      <div style="font-size:10px;color:#9CA3AF;margin-bottom:2px;">חציון</div>
+      <div class="domain-card-num" style="color:#1a1a2e;direction:ltr;text-align:right;">${median}<span style="font-size:13px;font-weight:400;color:#9CA3AF"> / ${seqs.length}</span></div>
+      <div style="font-size:10px;color:#9CA3AF;margin-top:5px;margin-bottom:2px;">הגיעו עד</div>
       <div class="domain-card-exam" title="${examName}">${examName}</div>
       <div class="domain-card-sub">${totalEvents} מבדקים בתחום</div>
     </div>`;
