@@ -96,13 +96,22 @@
   .app-main { max-width: 920px; margin: 0 auto; padding: 24px 20px 60px; }
 
   /* Stats */
-  .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
+  .stats { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 12px; }
+  .stats-domains { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
   .stat-card {
     background: #fff; border-radius: 12px; padding: 16px;
     text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.07);
   }
   .stat-num { font-size: 28px; font-weight: 700; line-height: 1.2; }
   .stat-label { font-size: 12px; color: #6B7280; margin-top: 3px; }
+  .domain-card {
+    background: #fff; border-radius: 12px; padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07); overflow: hidden;
+  }
+  .domain-card-hdr { font-size: 11px; font-weight: 700; letter-spacing: .4px; margin-bottom: 7px; }
+  .domain-card-num { font-size: 26px; font-weight: 700; line-height: 1.1; margin-bottom: 5px; }
+  .domain-card-exam { font-size: 12px; color: #374151; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px; font-style: italic; }
+  .domain-card-sub { font-size: 11px; color: #9CA3AF; }
 
   /* Controls */
   .controls {
@@ -296,6 +305,7 @@
 
   <div class="app-main">
     <div class="stats" id="stats-bar"></div>
+    <div class="stats-domains" id="stats-domains"></div>
 
     <div class="controls">
       <span class="ctrl-label">כיתה:</span>
@@ -542,15 +552,33 @@ function renderStats() {
   const total = state.students.length;
   const todayStr = new Date().toDateString();
   const todayCount = state.events.filter(e => new Date(e.timestamp).toDateString() === todayStr).length;
-  const urgent = state.students.filter(s => { const d = daysSince(s.id); return d === null || d >= 7; }).length;
-  const completed = state.students.filter(s => nextSequence(s.id) === null).length;
 
   document.getElementById('stats-bar').innerHTML = `
     <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">תלמידים</div></div>
     <div class="stat-card"><div class="stat-num">${todayCount}</div><div class="stat-label">מבדקים היום</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:#B91C1C">${urgent}</div><div class="stat-label">ממתינים למבדק</div></div>
-    <div class="stat-card"><div class="stat-num" style="color:#047857">${completed}</div><div class="stat-label">השלימו הכל</div></div>
   `;
+
+  document.getElementById('stats-domains').innerHTML = DOMAINS.map(d => {
+    const seqs = d.units.flatMap(u => u.sequences);
+    const counts = state.students.map(s => {
+      const passed = passedUnits(s.id);
+      return seqs.filter(seq => passed.has(seq)).length;
+    }).sort((a, b) => a - b);
+
+    const median = counts.length ? counts[Math.floor(counts.length / 2)] : 0;
+    const examName = !counts.length ? '—'
+      : median === 0 ? 'טרם התחיל'
+      : median >= seqs.length ? '✓ הושלם'
+      : seqs[median - 1];
+    const totalEvents = state.events.filter(e => seqs.includes(e.unit)).length;
+
+    return `<div class="domain-card" style="border-top:3px solid ${d.color}">
+      <div class="domain-card-hdr" style="color:${d.color}">${d.name}</div>
+      <div class="domain-card-num" style="color:#1a1a2e">${median}<span style="font-size:13px;font-weight:400;color:#9CA3AF"> / ${seqs.length}</span></div>
+      <div class="domain-card-exam" title="${examName}">${examName}</div>
+      <div class="domain-card-sub">${totalEvents} מבדקים בתחום</div>
+    </div>`;
+  }).join('');
 }
 
 function render() {
