@@ -78,13 +78,19 @@
   /* ── MAIN ── */
   .app-main { max-width: 920px; margin: 0 auto; padding: 24px 20px 60px; }
 
-  .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
+  .stats { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 12px; }
+  .stats-domains { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
   .stat-card {
     background: #fff; border-radius: 12px; padding: 16px;
     text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.07);
   }
   .stat-num { font-size: 28px; font-weight: 700; line-height: 1.2; }
   .stat-label { font-size: 12px; color: #6B7280; margin-top: 3px; }
+  .domain-card { background:#fff; border-radius:12px; padding:14px 16px; box-shadow:0 1px 4px rgba(0,0,0,0.07); overflow:hidden; }
+  .domain-card-hdr { font-size:11px; font-weight:700; letter-spacing:.4px; margin-bottom:7px; }
+  .domain-card-num { font-size:26px; font-weight:700; line-height:1.1; margin-bottom:5px; }
+  .domain-card-exam { font-size:12px; color:#374151; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:3px; font-style:italic; }
+  .domain-card-sub { font-size:11px; color:#9CA3AF; }
 
   .controls {
     display: flex; gap: 10px; margin-bottom: 14px;
@@ -255,6 +261,7 @@
 
   <div class="app-main">
     <div class="stats" id="stats-bar"></div>
+    <div class="stats-domains" id="stats-domains"></div>
     <div class="domain-tabs" id="domain-tabs"></div>
 
     <div class="controls">
@@ -355,12 +362,12 @@ function loadConfig(callback) {
 // נתוני גיבוי — משמשים רק אם אין חיבור לאינטרנט
 var FALLBACK_DOMAINS = [
   {"name":"תחום מספרי","color":"#3B82F6","units":[
-    {"name":"מספרים מכוונים","sequences":["ערך מוחלט","מספרים נגדיים","מיקום על ציר המספרים","מודל החצים וכלל הסימן","תרגילים ארוכים וחוק החילוף","חיסור = חיבור הנגדי","תרגילים ארוכים וכתיבה ללא סוגריים","כפל וחילוק מספרים מכוונים","סדר פעולות חשבון","סדר פעולות עם קו שבר"]},
+    {"name":"מספרים מכוונים","sequences":["ערך מוחלט","מספרים נגדיים","מיקום על ציר המספרים (כולל שברים)","מודל החצים וכלל הסימן","תרגילים ארוכים וחוק החילוף","חיסור = חיבור הנגדי","תרגילים ארוכים וכתיבה ללא סוגריים","כפל וחילוק מספרים מכוונים","סדר פעולות חשבון עם מספרים מכוונים","סדר פעולות עם קו שבר"]},
     {"name":"מערכת הצירים — כל הרביעים","sequences":["נקודות בכל הרביעים","אורכים ושטחים בכל הרביעים"]},
-    {"name":"חזקות ושורשים","sequences":["הגדרת חזקה וחישוב בסיסי","בסיס שלילי — עם סוגריים ובלי","חזקות מיוחדות — מעריך 1, בסיס 1 ושברים","השוואה וסדר פעולות עם חזקות","הגדרת שורש ריבועי","חישובים עם שורשים"]}
+    {"name":"חזקות ושורשים","sequences":["הגדרת חזקה וחישוב בסיסי","בסיס שלילי — עם סוגריים ובלי","חזקות מיוחדות — מעריך 1, בסיס 1 ושברים","השוואה וסדר פעולות עם חזקות","הגדרה גיאומטרית","הגדרה אלגברית","שורש ריבועי של שבר","חישובים עם שורשים"]}
   ]},
   {"name":"תחום אלגברי","color":"#8B5CF6","units":[
-    {"name":"משתנים וביטויים אלגבריים","sequences":["כתיבת ביטויים אלגבריים","הצבה וחישוב ערך הביטוי","כינוס איברים דומים","חוק הפילוג","כינוס איברים וחוק הפילוג","זהות בין ביטויים אלגבריים","מבוא למשוואות — זיהוי פתרון","משוואות פשוטות — פעולה אחת","משוואות מורכבות — כמה שלבים","משוואות עם פתיחת סוגריים","סוגי פתרון — פתרון יחיד, אין פתרון, אינסוף","שאלות מילוליות","קריאת תיאור גרפי של נקודות ברביע I","מבדק מקיף — כל נושא המשוואות"]}
+    {"name":"משתנים וביטויים אלגבריים","sequences":["מבוא — מאין הגיעה האלגברה?","כתיבת ביטויים אלגבריים","הצבה וחישוב ערך הביטוי","כינוס איברים דומים","חוק הפילוג","זהות בין ביטויים אלגבריים","מבוא למשוואות — זיהוי פתרון","משוואות פשוטות — פעולה אחת","משוואות מורכבות — כמה שלבים","משוואות עם פתיחת סוגריים","סוגי פתרון — פתרון יחיד, אין פתרון, אינסוף","שאלות מילוליות","קריאת תיאור גרפי של נקודות ברביע I"]}
   ]},
   {"name":"תחום גיאומטרי","color":"#10B981","units":[
     {"name":"מבוא לגיאומטריה","sequences":["מבוא — מה זו גיאומטריה?"]},
@@ -540,13 +547,32 @@ function renderStats() {
   var total = state.students.length;
   var todayStr = new Date().toDateString();
   var todayCount = state.events.filter(function(e) { return new Date(e.timestamp).toDateString() === todayStr; }).length;
-  var urgent = state.students.filter(function(s) { var d = daysSince(s.id); return d === null || d >= 7; }).length;
-  var completed = state.students.filter(function(s) { return nextSequence(s.id) === null; }).length;
+
   document.getElementById('stats-bar').innerHTML =
     '<div class="stat-card"><div class="stat-num">' + total + '</div><div class="stat-label">תלמידים</div></div>' +
-    '<div class="stat-card"><div class="stat-num">' + todayCount + '</div><div class="stat-label">מבדקים היום</div></div>' +
-    '<div class="stat-card"><div class="stat-num" style="color:#B91C1C">' + urgent + '</div><div class="stat-label">ממתינים למבדק</div></div>' +
-    '<div class="stat-card"><div class="stat-num" style="color:#047857">' + completed + '</div><div class="stat-label">השלימו הכל</div></div>';
+    '<div class="stat-card"><div class="stat-num">' + todayCount + '</div><div class="stat-label">מבדקים היום</div></div>';
+
+  document.getElementById('stats-domains').innerHTML = DOMAINS.map(function(d) {
+    var seqs = d.units.reduce(function(acc, u) { return acc.concat(u.sequences); }, []);
+    var counts = state.students.map(function(s) {
+      var passed = passedUnits(s.id);
+      return seqs.filter(function(seq) { return passed.has(seq); }).length;
+    }).sort(function(a, b) { return a - b; });
+
+    var median = counts.length ? counts[Math.floor(counts.length / 2)] : 0;
+    var examName = !counts.length ? '—'
+      : median === 0 ? 'טרם התחיל'
+      : median >= seqs.length ? '✓ הושלם'
+      : seqs[median - 1];
+    var totalEvents = state.events.filter(function(e) { return seqs.indexOf(e.unit) !== -1; }).length;
+
+    return '<div class="domain-card" style="border-top:3px solid ' + d.color + '">' +
+      '<div class="domain-card-hdr" style="color:' + d.color + '">' + d.name + '</div>' +
+      '<div class="domain-card-num" style="color:#1a1a2e">' + median + '<span style="font-size:13px;font-weight:400;color:#9CA3AF"> / ' + seqs.length + '</span></div>' +
+      '<div class="domain-card-exam" title="' + examName + '">' + examName + '</div>' +
+      '<div class="domain-card-sub">' + totalEvents + ' מבדקים בתחום</div>' +
+      '</div>';
+  }).join('');
 }
 
 function render() {
