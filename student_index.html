@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>המבדק שלי</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Rubik', sans-serif;
+    background: #F0F2F8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 36px 32px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+    text-align: center;
+  }
+
+  .logo { font-size: 36px; margin-bottom: 10px; }
+  h1 { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+  .subtitle { font-size: 14px; color: #6B7280; margin-bottom: 28px; }
+
+  .input-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  input[type="text"] {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #E5E7EB;
+    border-radius: 12px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    color: #1a1a2e;
+    outline: none;
+    transition: border-color .15s;
+  }
+  input[type="text"]:focus { border-color: #6366F1; }
+  button {
+    padding: 12px 20px;
+    background: #6366F1;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s;
+    white-space: nowrap;
+  }
+  button:hover { background: #4F46E5; }
+  button:disabled { background: #A5B4FC; cursor: default; }
+
+  #result { text-align: right; }
+
+  .student-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+
+  .domain-block {
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border-right: 4px solid;
+  }
+  .domain-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    margin-bottom: 8px;
+  }
+  .next-label {
+    font-size: 11px;
+    color: #9CA3AF;
+    margin-bottom: 3px;
+  }
+  .next-exam {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .done-count {
+    font-size: 11px;
+    color: #6B7280;
+    margin-top: 6px;
+  }
+  .all-done {
+    font-size: 15px;
+    font-weight: 700;
+    color: #10B981;
+  }
+
+  .error-msg {
+    background: #FEF2F2;
+    color: #DC2626;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 20px; height: 20px;
+    border: 3px solid #E5E7EB;
+    border-top-color: #6366F1;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    margin: 20px auto;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">📋</div>
+  <h1>המבדק שלי</h1>
+  <p class="subtitle">הקלד את שמך כדי לראות את המבדק הבא שלך</p>
+
+  <div class="input-row">
+    <input type="text" id="name-input" placeholder="שם מלא" autocomplete="off"
+      onkeydown="if(event.key==='Enter') lookup()">
+    <button id="lookup-btn" onclick="lookup()">חפש</button>
+  </div>
+
+  <div id="result"></div>
+</div>
+
+<script>
+var DOMAINS = [
+  {
+    name: 'מספרי', color: '#3B82F6',
+    sequences: [
+      'ערך מוחלט','מספרים נגדיים','מיקום על ציר המספרים',
+      'מודל החצים וכלל הסימן','תרגילים ארוכים וחוק החילוף',
+      'חיסור = חיבור הנגדי','תרגילים ארוכים וכתיבה ללא סוגריים',
+      'כפל וחילוק מספרים מכוונים','סדר פעולות חשבון','סדר פעולות עם קו שבר',
+      'נקודות בכל הרביעים','אורכים ושטחים בכל הרביעים',
+      'הגדרת חזקה וחישוב בסיסי','בסיס שלילי — עם סוגריים ובלי',
+      'חזקות מיוחדות — מעריך 1, בסיס 1 ושברים','השוואה וסדר פעולות עם חזקות',
+      'הגדרה גיאומטרית','הגדרה אלגברית','שורש ריבועי של שבר','חישובים עם שורשים'
+    ]
+  },
+  {
+    name: 'אלגברי', color: '#8B5CF6',
+    sequences: [
+      'מבוא — מאין הגיעה האלגברה?','כתיבת ביטויים אלגבריים',
+      'הצבה וחישוב ערך הביטוי','כינוס איברים דומים','חוק הפילוג',
+      'זהות בין ביטויים אלגבריים','מבוא למשוואות — זיהוי פתרון',
+      'משוואות פשוטות — פעולה אחת','משוואות מורכבות — כמה שלבים',
+      'משוואות עם פתיחת סוגריים',
+      'סוגי פתרון — פתרון יחיד, אין פתרון, אינסוף',
+      'שאלות מילוליות','קריאת תיאור גרפי של נקודות ברביע I'
+    ]
+  },
+  {
+    name: 'גיאומטרי', color: '#10B981',
+    sequences: [
+      'מבוא — מה זו גיאומטריה?',
+      'סוגי זוויות','כתיב מתמטי של זוויות','סכום והפרש זוויות',
+      'חוצה-זווית','זוויות צמודות','זוויות קודקודיות',
+      'משולש שווה-צלעות','משולש שווה-שוקיים','סכום זוויות במשולש','סכום זוויות במרובע',
+      'חפיפה — מה זה אומר שצורות חופפות?','הזזה','סיבוב','שיקוף','סימטריה',
+      'היקף ושטח של מלבן וריבוע','שטח משולש','צורות מורכבות',
+      'מעוין ודלתון — אלכסונות מאונכים',
+      'מושגים — פאה, מקצוע, קודקוד','נפח תיבה','שטח פנים של תיבה',
+      'קובייה — מקרה מיוחד','פריסות'
+    ]
+  }
+];
+
+function lookup() {
+  var name = document.getElementById('name-input').value.trim();
+  if (!name) return;
+  var btn = document.getElementById('lookup-btn');
+  btn.disabled = true;
+  document.getElementById('result').innerHTML = '<div class="spinner"></div>';
+
+  google.script.run
+    .withSuccessHandler(function(data) {
+      btn.disabled = false;
+      showResult(name, data);
+    })
+    .withFailureHandler(function(err) {
+      btn.disabled = false;
+      document.getElementById('result').innerHTML =
+        '<div class="error-msg">שגיאה בטעינת הנתונים. נסה שוב.</div>';
+    })
+    .getDataServer();
+}
+
+function showResult(query, data) {
+  if (!data || !data.ok) {
+    document.getElementById('result').innerHTML =
+      '<div class="error-msg">לא ניתן לטעון נתונים.</div>';
+    return;
+  }
+
+  var q = query.trim().toLowerCase();
+  var student = data.students.find(function(s) {
+    return s.name.toLowerCase() === q;
+  });
+  if (!student) {
+    // partial match fallback
+    student = data.students.find(function(s) {
+      return s.name.toLowerCase().indexOf(q) !== -1;
+    });
+  }
+
+  if (!student) {
+    document.getElementById('result').innerHTML =
+      '<div class="error-msg">לא נמצא תלמיד בשם "' + escHtml(query) + '".<br>בדוק שהשם נכתב כמו ברשימת הכיתה.</div>';
+    return;
+  }
+
+  // Build passed set
+  var passed = new Set();
+  data.events.forEach(function(e) {
+    if (e.studentId === student.id && e.passed) passed.add(e.unit);
+  });
+
+  var html = '<div class="student-name">שלום, ' + escHtml(student.name) + ' 👋</div>';
+
+  DOMAINS.forEach(function(d) {
+    var done = d.sequences.filter(function(s) { return passed.has(s); }).length;
+    var next = d.sequences.find(function(s) { return !passed.has(s); });
+
+    html += '<div class="domain-block" style="background:' + d.color + '11;border-color:' + d.color + ';">' +
+      '<div class="domain-title" style="color:' + d.color + '">תחום ' + d.name + '</div>';
+
+    if (!next) {
+      html += '<div class="all-done">✓ השלמת את כל המבדקים!</div>';
+    } else {
+      html += '<div class="next-label">המבדק הבא שלך:</div>' +
+        '<div class="next-exam">' + escHtml(next) + '</div>';
+    }
+
+    html += '<div class="done-count">' + done + ' מתוך ' + d.sequences.length + ' הושלמו</div>' +
+      '</div>';
+  });
+
+  document.getElementById('result').innerHTML = html;
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>

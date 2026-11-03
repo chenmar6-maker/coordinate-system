@@ -18,19 +18,24 @@
 // גיליון "מבדקים": נוצר אוטומטית
 // ═══════════════════════════════════════════════════════
 
-function doGet() {
+function doGet(e) {
+  var mode = e && e.parameter && e.parameter.mode;
+  var isStudent = mode === 'student';
+  var githubFile = isStudent ? 'student_index.html' : 'teacher_index.html';
+  var title     = isStudent ? 'המבדק שלי' : 'דף מורה — מבדקי שליטה';
+
   var html = '<!DOCTYPE html><html><head><meta charset="UTF-8">' +
     '<style>body{margin:0;font-family:sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#F0F2F8;}' +
     '.loading{font-size:16px;color:#6B7280;}</style></head>' +
     '<body><div class="loading">טוען...</div>' +
     '<script>' +
-    'fetch("https://raw.githubusercontent.com/chenmar6-maker/coordinate-system/master/teacher_index.html?nocache=" + Date.now())' +
+    'fetch("https://raw.githubusercontent.com/chenmar6-maker/coordinate-system/master/' + githubFile + '?nocache=" + Date.now())' +
     '.then(function(r){return r.text();})' +
     '.then(function(html){document.open();document.write(html);document.close();})' +
     '.catch(function(e){document.body.innerHTML="<p>שגיאה: "+e.message+"</p>";});' +
     '</script></body></html>';
   return HtmlService.createHtmlOutput(html)
-    .setTitle('דף מורה — מבדקי שליטה')
+    .setTitle(title)
     .setSandboxMode(HtmlService.SandboxMode.IFRAME);
 }
 
