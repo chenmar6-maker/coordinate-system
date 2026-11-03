@@ -217,38 +217,38 @@ const state = {
 
 const gameLevels1 = [
   { id:'mc', title:'הגדרה — בסיס ומעריך',
-    question:'ב-<bdi style="direction:ltr;unicode-bidi:isolate;">3<sup>5</sup></bdi>, מה הבסיס ומה המעריך?',
+    question:'ב-<span dir="ltr" style="unicode-bidi:isolate;">3<sup>5</sup></span>, מה הבסיס ומה המעריך?',
     options:['בסיס 3, מעריך 5','בסיס 5, מעריך 3','בסיס 15, מעריך 1','שניהם 3'],
     correct:'בסיס 3, מעריך 5',
     explain:'3⁵ פירושו 3·3·3·3·3. הבסיס (3) הוא המספר המוכפל, המעריך (5) הוא מספר הפעמים.' },
   { id:'mc', title:'משמעות החזקה',
-    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">2<sup>4</sup></bdi> שווה ל:',
+    question:'<span dir="ltr" style="unicode-bidi:isolate;">2<sup>4</sup></span> שווה ל:',
     options:['2 · 4','2 + 2 + 2 + 2','2 · 2 · 2 · 2','4 · 4'],
     correct:'2 · 2 · 2 · 2',
     explain:'2⁴ = 2·2·2·2 = 16. החזקה מייצגת כפל חוזר, לא כפל בסיס במעריך.' },
   { id:'typedSum', title:'חשבו', expr:'3<sup>3</sup>', correct:27,
     explain:'3³ = 3·3·3 = 9·3 = 27.' },
   { id:'mc', title:'כתיב חזקות',
-    question:'כיצד כותבים <bdi style="direction:ltr;unicode-bidi:isolate;">5 · 5 · 5 · 5</bdi> בכתיב חזקות?',
+    question:'כיצד כותבים <span dir="ltr" style="unicode-bidi:isolate;">5 · 5 · 5 · 5</span> בכתיב חזקות?',
     options:['5⁴','4⁵','5 · 4','20'],
     correct:'5⁴',
     explain:'5·5·5·5 — הבסיס 5 מוכפל 4 פעמים → 5⁴.' },
   { id:'typedSum', title:'חשבו', expr:'10<sup>2</sup>', correct:100,
     explain:'10² = 10·10 = 100.' },
   { id:'mc', title:'חשבו',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">2<sup>6</sup></bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">2<sup>6</sup></span>?',
     options:['12','32','64','128'],
     correct:'64',
     explain:'2⁶ = 2·2·2·2·2·2 = 64.' },
   { id:'typedSum', title:'חשבו', expr:'4<sup>3</sup>', correct:64,
     explain:'4³ = 4·4·4 = 16·4 = 64.' },
   { id:'mc', title:'כתיב',
-    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">2 · 2 · 2 · 2 · 2</bdi> בכתיב חזקות הוא:',
+    question:'<span dir="ltr" style="unicode-bidi:isolate;">2 · 2 · 2 · 2 · 2</span> בכתיב חזקות הוא:',
     options:['2⁵','5²','10','25'],
     correct:'2⁵',
     explain:'2 מוכפל 5 פעמים — זה 2⁵ = 32.' },
   { id:'mc', title:'חזקה ≠ כפל',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">3<sup>4</sup></bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">3<sup>4</sup></span>?',
     options:['12','64','81','27'],
     correct:'81',
     explain:'3⁴ = 3·3·3·3 = 81. שגיאה נפוצה: 3·4 = 12 — זה כפל, לא חזקה!' },
@@ -256,32 +256,32 @@ const gameLevels1 = [
 
 const gameLevels2 = [
   { id:'mc', title:'בסיס שלילי — מעריך זוגי',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(−3)²</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">(−3)²</span>?',
     options:['9','−9','6','−6'],
     correct:'9',
     explain:'הבסיס הוא −3. (−3)·(−3) = 9. מינוס כפול מינוס = פלוס.' },
   { id:'mc', title:'בסיס שלילי — מעריך אי-זוגי',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(−2)³</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">(−2)³</span>?',
     options:['8','−8','6','−6'],
     correct:'−8',
     explain:'(−2)·(−2)·(−2) = 4·(−2) = −8. מעריך אי-זוגי → תוצאה שלילית.' },
   { id:'mc', title:'סוגריים משנים הכל!',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">−3²</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">−3²</span>?',
     options:['9','−9','6','−6'],
     correct:'−9',
     explain:'ללא סוגריים הבסיס הוא 3 בלבד. −3² = −(3²) = −9.' },
   { id:'mc', title:'סוגריים — יש הבדל!',
-    question:'מה ההבדל בין <bdi style="direction:ltr;unicode-bidi:isolate;">(−3)²</bdi> לבין <bdi style="direction:ltr;unicode-bidi:isolate;">−3²</bdi>?',
-    options:['<bdi style="direction:ltr;unicode-bidi:isolate;">(−3)²=9</bdi> אבל <bdi style="direction:ltr;unicode-bidi:isolate;">−3²=−9</bdi>','שניהם שווים 9','<bdi style="direction:ltr;unicode-bidi:isolate;">(−3)²=−9</bdi> אבל <bdi style="direction:ltr;unicode-bidi:isolate;">−3²=9</bdi>','שניהם שווים −9'],
-    correct:'<bdi style="direction:ltr;unicode-bidi:isolate;">(−3)²=9</bdi> אבל <bdi style="direction:ltr;unicode-bidi:isolate;">−3²=−9</bdi>',
+    question:'מה ההבדל בין <span dir="ltr" style="unicode-bidi:isolate;">(−3)²</span> לבין <span dir="ltr" style="unicode-bidi:isolate;">−3²</span>?',
+    options:['<span dir="ltr" style="unicode-bidi:isolate;">(−3)²=9</span> אבל <span dir="ltr" style="unicode-bidi:isolate;">−3²=−9</span>','שניהם שווים 9','<span dir="ltr" style="unicode-bidi:isolate;">(−3)²=−9</span> אבל <span dir="ltr" style="unicode-bidi:isolate;">−3²=9</span>','שניהם שווים −9'],
+    correct:'<span dir="ltr" style="unicode-bidi:isolate;">(−3)²=9</span> אבל <span dir="ltr" style="unicode-bidi:isolate;">−3²=−9</span>',
     explain:'ב-(−3)² הבסיס הוא −3 → תוצאה חיובית. ב-−3² הבסיס הוא 3 והמינוס בחוץ → תוצאה שלילית.' },
   { id:'mc', title:'כלל הזוגי/האי-זוגי',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(−1)⁷</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">(−1)⁷</span>?',
     options:['1','−1','7','−7'],
     correct:'−1',
     explain:'(−1) בחזקה אי-זוגית = −1. בחזקה זוגית = 1. 7 הוא אי-זוגי.' },
   { id:'mc', title:'השוואה',
-    question:'האם <bdi style="direction:ltr;unicode-bidi:isolate;">(−5)² = 5²</bdi>?',
+    question:'האם <span dir="ltr" style="unicode-bidi:isolate;">(−5)² = 5²</span>?',
     options:['כן, שניהם 25','לא, (−5)² שלילי','לא, ערכים שונים','תלוי ב-5'],
     correct:'כן, שניהם 25',
     explain:'(−5)² = 25 וגם 5² = 25. חזקה זוגית תמיד נותנת תוצאה חיובית.' },
@@ -296,49 +296,49 @@ const gameLevels2 = [
 
 const gameLevels3 = [
   { id:'mc', title:'מעריך 1',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">a¹</bdi> לכל מספר a?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">a¹</span> לכל מספר a?',
     options:['1','0','a','a²'],
     correct:'a',
     explain:'כל מספר בחזקת 1 שווה לעצמו. a¹ = a.' },
   { id:'typedSum', title:'חשבו', expr:'1<sup>99</sup>', correct:1,
     explain:'1 בכל חזקה שהיא שווה 1. 1·1·1·...·1 = 1.' },
   { id:'mc', title:'שבר בריבוע',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(½)²</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">(½)²</span>?',
     options:['½','¼','1','2'],
     correct:'¼',
     explain:'(½)² = ½·½ = ¼. מכפילים מונה במונה ומכנה במכנה: 1/2 · 1/2 = 1/4.' },
   { id:'mc', title:'שבר בריבוע',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(⅓)²</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">(⅓)²</span>?',
     options:['⅓','1/6','1/9','⅔'],
     correct:'1/9',
     explain:'(⅓)² = ⅓·⅓ = 1/9. מעלים מונה ומכנה בנפרד: 1²/3² = 1/9.' },
   { id:'mc', title:'שבר בריבוע',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(¼)²</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">(¼)²</span>?',
     options:['¼','1/8','1/16','½'],
     correct:'1/16',
     explain:'(¼)² = ¼·¼ = 1/16. 1²/4² = 1/16.' },
   { id:'mc', title:'נכון או לא נכון?',
-    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">(½)² = ½</bdi>',
+    question:'<span dir="ltr" style="unicode-bidi:isolate;">(½)² = ½</span>',
     options:['נכון','לא נכון — זה שווה ¼','לא נכון — זה שווה 1','לא נכון — זה שווה 2'],
     correct:'לא נכון — זה שווה ¼',
     explain:'(½)² = ½·½ = ¼. שבר בריבוע קטן מהשבר המקורי!' },
   { id:'mc', title:'אתגר — מי גדול יותר?',
-    question:'מי גדול יותר: <bdi style="direction:ltr;unicode-bidi:isolate;">(½)¹</bdi> או <bdi style="direction:ltr;unicode-bidi:isolate;">(½)²</bdi>?',
+    question:'מי גדול יותר: <span dir="ltr" style="unicode-bidi:isolate;">(½)¹</span> או <span dir="ltr" style="unicode-bidi:isolate;">(½)²</span>?',
     options:['(½)¹ גדול יותר','(½)² גדול יותר','הם שווים'],
     correct:'(½)¹ גדול יותר',
     explain:'(½)¹ = ½ = 0.5 ו-(½)² = ¼ = 0.25. כשמעלים שבר הקטן מ-1 בחזקה — הוא מתקטן!' },
   { id:'mc', title:'שבר מעורב בריבוע',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(1½)²</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">(1½)²</span>?',
     options:['1¼','2¼','9/4','4/9'],
     correct:'2¼',
     explain:'קודם הופכים לשבר: 1½ = 3/2. אחר כך: (3/2)² = 9/4 = 2¼.' },
   { id:'mc', title:'בסיס שלילי — מעריך זוגי',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(−½)²</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">(−½)²</span>?',
     options:['−¼','¼','−½','½'],
     correct:'¼',
     explain:'(−½)² = (−½)·(−½) = ¼. מעריך זוגי → תוצאה חיובית!' },
   { id:'mc', title:'בסיס שלילי — מעריך אי-זוגי',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(−½)³</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">(−½)³</span>?',
     options:['⅛','−⅛','−½','½'],
     correct:'−⅛',
     explain:'(−½)³ = (−½)·(−½)·(−½) = −⅛. מעריך אי-זוגי → תוצאה שלילית!' },
@@ -346,32 +346,32 @@ const gameLevels3 = [
 
 const gameLevels4 = [
   { id:'mc', title:'השוואה',
-    question:'מה גדול יותר: <bdi style="direction:ltr;unicode-bidi:isolate;">2<sup>3</sup></bdi> או <bdi style="direction:ltr;unicode-bidi:isolate;">3<sup>2</sup></bdi>?',
+    question:'מה גדול יותר: <span dir="ltr" style="unicode-bidi:isolate;">2<sup>3</sup></span> או <span dir="ltr" style="unicode-bidi:isolate;">3<sup>2</sup></span>?',
     options:['2³ גדול יותר','3² גדול יותר','הם שווים'],
     correct:'3² גדול יותר',
     explain:'2³ = 8, 3² = 9. לכן 3² גדול יותר.' },
   { id:'mc', title:'השוואה',
-    question:'מה גדול יותר: <bdi style="direction:ltr;unicode-bidi:isolate;">10<sup>2</sup></bdi> או <bdi style="direction:ltr;unicode-bidi:isolate;">2<sup>10</sup></bdi>?',
+    question:'מה גדול יותר: <span dir="ltr" style="unicode-bidi:isolate;">10<sup>2</sup></span> או <span dir="ltr" style="unicode-bidi:isolate;">2<sup>10</sup></span>?',
     options:['10² גדול יותר','2¹⁰ גדול יותר','הם שווים','אי אפשר לדעת'],
     correct:'2¹⁰ גדול יותר',
     explain:'10² = 100. 2¹⁰ = 1024. לכן 2¹⁰ גדול בהרבה.' },
   { id:'mc', title:'סדר פעולות — חזקה קודמת',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">2 + 3<sup>2</sup></bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">2 + 3<sup>2</sup></span>?',
     options:['25','11','36','13'],
     correct:'11',
     explain:'חזקה לפני חיבור: 3² = 9, ואז 2 + 9 = 11.' },
   { id:'mc', title:'סדר פעולות — סוגריים קודמים',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(2 + 3)<sup>2</sup></bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">(2 + 3)<sup>2</sup></span>?',
     options:['25','11','13','7'],
     correct:'25',
     explain:'סוגריים קודמים: 2+3 = 5, ואז 5² = 25.' },
   { id:'mc', title:'סדר פעולות — כפל וחזקה',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">3 · 2<sup>2</sup> − 4</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">3 · 2<sup>2</sup> − 4</span>?',
     options:['32','8','16','4'],
     correct:'8',
     explain:'חזקה קודמת: 2² = 4. כפל: 3·4 = 12. חיסור: 12−4 = 8.' },
   { id:'mc', title:'אתגר — סדר פעולות',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">(3 + 5)<sup>2</sup> − 2<sup>4</sup></bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;">(3 + 5)<sup>2</sup> − 2<sup>4</sup></span>?',
     options:['48','80','32','64'],
     correct:'48',
     explain:'סוגריים: 3+5=8. 8²=64. 2⁴=16. 64−16=48.' },
@@ -379,7 +379,7 @@ const gameLevels4 = [
 
 const gameLevels5 = [
   { id:'mc', title:'הגדרת שורש ריבועי',
-    question:'מה פירוש <bdi style="direction:ltr;unicode-bidi:isolate;">√16</bdi>?',
+    question:'מה פירוש <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;16</span>?',
     options:['המספר הלא-שלילי שריבועו שווה 16','16 ÷ 2','16 · 2','4 או −4'],
     correct:'המספר הלא-שלילי שריבועו שווה 16',
     explain:'√16 = 4 כי 4² = 16 וגם 4 ≥ 0. השורש מוגדר תמיד כמספר לא-שלילי.' },
@@ -411,12 +411,12 @@ const gameLevels5 = [
     correct:'12 סמ',
     explain:'צלע = √144 = 12, כי 12² = 144.' },
   { id:'mc', title:'נכון או לא נכון?',
-    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">√9 = ±3</bdi>',
+    question:'<span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;9 = ±3</span>',
     options:['נכון','לא נכון — √9 = 3 בלבד','לא נכון — √9 = −3','לא נכון — √9 = 9'],
     correct:'לא נכון — √9 = 3 בלבד',
     explain:'השורש הריבועי מוגדר כמספר הלא-שלילי בלבד. √9 = 3, לא −3.' },
   { id:'mc', title:'נכון או לא נכון?',
-    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">√0 = 0</bdi>',
+    question:'<span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;0 = 0</span>',
     options:['נכון','לא נכון'],
     correct:'נכון',
     explain:'0² = 0, לכן √0 = 0. אפס הוא הריבוע המושלם הקטן ביותר.' },
@@ -424,7 +424,7 @@ const gameLevels5 = [
 
 const gameLevels6 = [
   { id:'mc', title:'תכונת המפתח',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√5 · √5</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;5 · √5</span>?',
     options:['10','5','25','√10'],
     correct:'5',
     explain:'√5 · √5 = (√5)² = 5. הכלל: √a · √a = a.' },
@@ -433,7 +433,7 @@ const gameLevels6 = [
   { id:'typedSum', title:'חשבו', expr:'√100 · √100', correct:100,
     explain:'√100 · √100 = (√100)² = 100. אפשר גם: √100 = 10, ו-10·10 = 100.' },
   { id:'mc', title:'כלל כללי',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√a · √a</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;a · √a</span>?',
     options:['2a','a','a²','√(2a)'],
     correct:'a',
     explain:'√a · √a = (√a)² = a. זו ההגדרה: √a הוא המספר שריבועו a.' },
@@ -448,12 +448,12 @@ const gameLevels6 = [
     correct:'√3 סמ',
     explain:'צלע = √3, כי (√3)² = 3.' },
   { id:'mc', title:'למה רק פתרון אחד?',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√9</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;9</span>?',
     options:['3 ו-−3','±3','3','−3'],
     correct:'3',
     explain:'√9 = 3 בלבד. סימן השורש מוגדר תמיד כמספר הלא-שלילי. −3 הוא לא √9.' },
   { id:'mc', title:'נכון או לא נכון?',
-    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">√25 = ±5</bdi>',
+    question:'<span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;25 = ±5</span>',
     options:['נכון','לא נכון — √25 = 5 בלבד'],
     correct:'לא נכון — √25 = 5 בלבד',
     explain:'√25 = 5. ה-−5 הוא פתרון של המשוואה x²=25, אבל סימן √ מחזיר תמיד את הערך הלא-שלילי.' },
@@ -466,42 +466,42 @@ const gameLevels6 = [
 
 const gameLevels7 = [
   { id:'mc', title:'שורש של שבר',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(4/9)</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;(4/9)</span>?',
     options:['2/3','4/3','2/9','√4·9'],
     correct:'2/3',
     explain:'√(4/9) = √4 / √9 = 2/3. הכלל: √(a/b) = √a / √b.' },
   { id:'mc', title:'שורש של שבר',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(1/4)</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;(1/4)</span>?',
     options:['1/2','1/8','2','1/16'],
     correct:'1/2',
     explain:'√(1/4) = √1 / √4 = 1/2. בדיקה: (1/2)² = 1/4 ✓' },
   { id:'mc', title:'שורש של שבר',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(9/16)</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;(9/16)</span>?',
     options:['3/4','9/4','3/16','√9/4'],
     correct:'3/4',
     explain:'√(9/16) = √9 / √16 = 3/4.' },
   { id:'mc', title:'שורש של שבר',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(25/36)</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;(25/36)</span>?',
     options:['5/6','25/6','5/36','6/5'],
     correct:'5/6',
     explain:'√(25/36) = √25 / √36 = 5/6.' },
   { id:'mc', title:'שורש של שבר',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(1/9)</bdi>?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;(1/9)</span>?',
     options:['1/3','1/81','3','1/6'],
     correct:'1/3',
     explain:'√(1/9) = √1 / √9 = 1/3.' },
   { id:'mc', title:'גיאומטריה',
-    question:'ריבוע ששטחו <bdi style="direction:ltr;unicode-bidi:isolate;">4/9 מ"ר</bdi> — מה אורך צלעו?',
+    question:'ריבוע ששטחו <span dir="ltr" style="unicode-bidi:isolate;">4/9 מ"ר</span> — מה אורך צלעו?',
     options:['2/3 מ','4/9 מ','2/9 מ','4/3 מ'],
     correct:'2/3 מ',
     explain:'צלע = √(4/9) = 2/3 מ. בדיקה: (2/3)² = 4/9 ✓' },
   { id:'mc', title:'כלל כללי',
-    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(a/b)</bdi> ?',
+    question:'מה שווה <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;(a/b)</span> ?',
     options:['√a / √b','√a · √b','√(a+b)','a / √b'],
     correct:'√a / √b',
     explain:'√(a/b) = √a / √b לכל a ≥ 0 ו-b > 0.' },
   { id:'mc', title:'בדיקה',
-    question:'האם <bdi style="direction:ltr;unicode-bidi:isolate;">(3/4)²</bdi> שווה <bdi style="direction:ltr;unicode-bidi:isolate;">9/16</bdi>?',
+    question:'האם <span dir="ltr" style="unicode-bidi:isolate;">(3/4)²</span> שווה <span dir="ltr" style="unicode-bidi:isolate;">9/16</span>?',
     options:['כן — לכן √(9/16) = 3/4','לא — הכלל לא עובד לשברים','כן — אבל שורש של שבר לא מוגדר','לא — צריך לחשב אחרת'],
     correct:'כן — לכן √(9/16) = 3/4',
     explain:'(3/4)² = 9/16. לכן √(9/16) = 3/4. הכלל עובד בדיוק אותו דבר לשברים.' },
@@ -509,47 +509,47 @@ const gameLevels7 = [
 
 const gameLevels8 = [
   { id:'mc', title:'בין אילו שלמים?',
-    question:'בין אילו מספרים שלמים רצופים נמצא <bdi style="direction:ltr;unicode-bidi:isolate;">√20</bdi>?',
+    question:'בין אילו מספרים שלמים רצופים נמצא <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;20</span>?',
     options:['בין 3 ל-4','בין 4 ל-5','בין 5 ל-6','בין 2 ל-3'],
     correct:'בין 4 ל-5',
     explain:'√16 = 4 ו-√25 = 5. מכיוון ש-16 < 20 < 25 נקבל 4 < √20 < 5.' },
   { id:'mc', title:'בין אילו שלמים?',
-    question:'בין אילו מספרים שלמים רצופים נמצא <bdi style="direction:ltr;unicode-bidi:isolate;">√30</bdi>?',
+    question:'בין אילו מספרים שלמים רצופים נמצא <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;30</span>?',
     options:['בין 4 ל-5','בין 5 ל-6','בין 6 ל-7','בין 3 ל-4'],
     correct:'בין 5 ל-6',
     explain:'√25 = 5 ו-√36 = 6. מכיוון ש-25 < 30 < 36 נקבל 5 < √30 < 6.' },
   { id:'mc', title:'בין אילו שלמים?',
-    question:'בין אילו מספרים שלמים רצופים נמצא <bdi style="direction:ltr;unicode-bidi:isolate;">√70</bdi>?',
+    question:'בין אילו מספרים שלמים רצופים נמצא <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;70</span>?',
     options:['בין 7 ל-8','בין 8 ל-9','בין 9 ל-10','בין 6 ל-7'],
     correct:'בין 8 ל-9',
     explain:'√64 = 8 ו-√81 = 9. מכיוון ש-64 < 70 < 81 נקבל 8 < √70 < 9.' },
   { id:'mc', title:'בין אילו שלמים?',
-    question:'בין אילו מספרים שלמים רצופים נמצא <bdi style="direction:ltr;unicode-bidi:isolate;">√2</bdi>?',
+    question:'בין אילו מספרים שלמים רצופים נמצא <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;2</span>?',
     options:['בין 1 ל-2','בין 2 ל-3','בין 0 ל-1','בין 3 ל-4'],
     correct:'בין 1 ל-2',
     explain:'√1 = 1 ו-√4 = 2. מכיוון ש-1 < 2 < 4 נקבל 1 < √2 < 2.' },
   { id:'mc', title:'השוואה',
-    question:'בחרו את הסימן הנכון: <span dir="ltr" style="unicode-bidi:isolate;display:inline-block;font-weight:700;">√7 &nbsp;_&nbsp; 3</span>',
+    question:'בחרו את הסימן הנכון: <span dir="ltr" style="unicode-bidi:isolate;display:inline-block;font-weight:700;white-space:nowrap;">&#x221A;7 &nbsp;_&nbsp; 3</span>',
     options:['< (קטן מ-3)','> (גדול מ-3)','= (שווה ל-3)'],
     correct:'< (קטן מ-3)',
     explain:'√9 = 3. מכיוון ש-7 < 9 נקבל √7 < √9 = 3.' },
   { id:'mc', title:'השוואה',
-    question:'בחרו את הסימן הנכון: <span dir="ltr" style="unicode-bidi:isolate;display:inline-block;font-weight:700;">√50 &nbsp;_&nbsp; 7</span>',
+    question:'בחרו את הסימן הנכון: <span dir="ltr" style="unicode-bidi:isolate;display:inline-block;font-weight:700;white-space:nowrap;">&#x221A;50 &nbsp;_&nbsp; 7</span>',
     options:['> (גדול מ-7)','< (קטן מ-7)','= (שווה ל-7)'],
     correct:'> (גדול מ-7)',
     explain:'√49 = 7. מכיוון ש-50 > 49 נקבל √50 > √49 = 7.' },
   { id:'mc', title:'השוואה',
-    question:'בחרו את הסימן הנכון: <span dir="ltr" style="unicode-bidi:isolate;display:inline-block;font-weight:700;">2 &nbsp;_&nbsp; √3</span>',
+    question:'בחרו את הסימן הנכון: <span dir="ltr" style="unicode-bidi:isolate;display:inline-block;font-weight:700;white-space:nowrap;">2 &nbsp;_&nbsp; &#x221A;3</span>',
     options:['> (2 גדול מ-√3)','< (2 קטן מ-√3)','= (שווים)'],
     correct:'> (2 גדול מ-√3)',
     explain:'√4 = 2. מכיוון ש-4 > 3 נקבל √4 > √3, כלומר 2 > √3.' },
   { id:'mc', title:'השוואה עם שברים',
-    question:'בחרו את הסימן הנכון: <span dir="ltr" style="unicode-bidi:isolate;display:inline-block;font-weight:700;">√(1/4) &nbsp;_&nbsp; 1/3</span>',
+    question:'בחרו את הסימן הנכון: <span dir="ltr" style="unicode-bidi:isolate;display:inline-block;font-weight:700;white-space:nowrap;">&#x221A;(1/4) &nbsp;_&nbsp; 1/3</span>',
     options:['> (גדול)','< (קטן)','= (שווה)'],
     correct:'> (גדול)',
     explain:'√(1/4) = 1/2. השוואה: 1/2 מול 1/3 — מכיוון ש-1/2 > 1/3 נקבל √(1/4) > 1/3.' },
   { id:'mc', title:'השוואה עם שברים',
-    question:'בחרו את הסימן הנכון: <span dir="ltr" style="unicode-bidi:isolate;display:inline-block;font-weight:700;">√(9/25) &nbsp;_&nbsp; 1/2</span>',
+    question:'בחרו את הסימן הנכון: <span dir="ltr" style="unicode-bidi:isolate;display:inline-block;font-weight:700;white-space:nowrap;">&#x221A;(9/25) &nbsp;_&nbsp; 1/2</span>',
     options:['> (גדול)','< (קטן)','= (שווה)'],
     correct:'> (גדול)',
     explain:'√(9/25) = 3/5. השוואה: 3/5 מול 1/2 — מכיוון ש-3/5 = 0.6 > 0.5 = 1/2 נקבל √(9/25) > 1/2.' },
@@ -730,10 +730,10 @@ function renderLearn1(){
       <ul class="bullets">
         <li><strong>a</strong> הוא הבסיס — המספר שמוכפל</li>
         <li><strong>n</strong> הוא המעריך — כמה פעמים מכפילים</li>
-        <li>חשוב: <bdi style="direction:ltr;unicode-bidi:isolate;">2³ ≠ 2·3</bdi>. <bdi style="direction:ltr;unicode-bidi:isolate;">2³ = 2·2·2 = 8</bdi>, אך <bdi style="direction:ltr;unicode-bidi:isolate;">2·3 = 6</bdi></li>
+        <li>חשוב: <span dir="ltr" style="unicode-bidi:isolate;">2³ ≠ 2·3</span>. <span dir="ltr" style="unicode-bidi:isolate;">2³ = 2·2·2 = 8</span>, אך <span dir="ltr" style="unicode-bidi:isolate;">2·3 = 6</span></li>
       </ul>
       <div class="example-box">3<sup>4</sup> = 3 · 3 · 3 · 3 = 81</div>
-      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">2⁴ ≠ 8</bdi>. זה לא כפל! <bdi style="direction:ltr;unicode-bidi:isolate;">2⁴ = 2·2·2·2 = 16</bdi></div>
+      <div class="learn-note">שגיאה נפוצה: <span dir="ltr" style="unicode-bidi:isolate;">2⁴ ≠ 8</span>. זה לא כפל! <span dir="ltr" style="unicode-bidi:isolate;">2⁴ = 2·2·2·2 = 16</span></div>
 
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button>
@@ -754,25 +754,25 @@ function renderLearn2(){
       <div class="gold-box" dir="rtl">הכלל: בסיס שלילי + מעריך <strong>זוגי</strong> = חיובי &nbsp;·&nbsp; בסיס שלילי + מעריך <strong>אי-זוגי</strong> = שלילי</div>
 
       <div class="examples-row">
-        <div class="example-box"><bdi style="direction:ltr;unicode-bidi:isolate;">(−3)² = (−3)·(−3) = 9</bdi><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעריך זוגי → חיובי</span></div>
-        <div class="example-box"><bdi style="direction:ltr;unicode-bidi:isolate;">(−3)³ = (−3)·(−3)·(−3) = −27</bdi><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעריך אי-זוגי → שלילי</span></div>
+        <div class="example-box"><span dir="ltr" style="unicode-bidi:isolate;">(−3)² = (−3)·(−3) = 9</span><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעריך זוגי → חיובי</span></div>
+        <div class="example-box"><span dir="ltr" style="unicode-bidi:isolate;">(−3)³ = (−3)·(−3)·(−3) = −27</span><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעריך אי-זוגי → שלילי</span></div>
       </div>
 
       <div style="background:rgba(226,96,79,0.1);border:1.5px solid rgba(226,96,79,0.4);border-radius:10px;padding:14px 16px;margin:14px 0;">
         <div style="font-size:14px;font-weight:700;color:var(--coral);margin-bottom:10px;">⚠ הסוגריים משנים הכל!</div>
         <div class="examples-row" style="margin:0;">
-          <div class="example-box"><bdi style="direction:ltr;unicode-bidi:isolate;">(−3)² = 9</bdi><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">הבסיס הוא −3</span></div>
-          <div class="example-box"><bdi style="direction:ltr;unicode-bidi:isolate;">−3² = −9</bdi><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">הבסיס הוא 3, המינוס בחוץ</span></div>
+          <div class="example-box"><span dir="ltr" style="unicode-bidi:isolate;">(−3)² = 9</span><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">הבסיס הוא −3</span></div>
+          <div class="example-box"><span dir="ltr" style="unicode-bidi:isolate;">−3² = −9</span><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">הבסיס הוא 3, המינוס בחוץ</span></div>
         </div>
       </div>
 
       <ul class="bullets">
-        <li><strong>סוגריים חשובים!</strong> ב-<bdi style="direction:ltr;unicode-bidi:isolate;">(−3)²</bdi> הבסיס הוא −3</li>
-        <li>ב-<bdi style="direction:ltr;unicode-bidi:isolate;">−3²</bdi> הבסיס הוא 3, המינוס נשאר בחוץ: <bdi style="direction:ltr;unicode-bidi:isolate;">−(3²) = −9</bdi></li>
+        <li><strong>סוגריים חשובים!</strong> ב-<span dir="ltr" style="unicode-bidi:isolate;">(−3)²</span> הבסיס הוא −3</li>
+        <li>ב-<span dir="ltr" style="unicode-bidi:isolate;">−3²</span> הבסיס הוא 3, המינוס נשאר בחוץ: <span dir="ltr" style="unicode-bidi:isolate;">−(3²) = −9</span></li>
         <li>מעריך זוגי → תוצאה תמיד חיובית (מינוס·מינוס = פלוס)</li>
         <li>מעריך אי-זוגי → תוצאה שלילית</li>
       </ul>
-      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">(−3)² ≠ −9</bdi>. הסוגריים הופכים את הבסיס לשלילי — התוצאה חיובית!</div>
+      <div class="learn-note">שגיאה נפוצה: <span dir="ltr" style="unicode-bidi:isolate;">(−3)² ≠ −9</span>. הסוגריים הופכים את הבסיס לשלילי — התוצאה חיובית!</div>
 
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
@@ -802,7 +802,7 @@ function renderLearn3(){
       <div style="background:rgba(29,78,216,0.08);border:1.5px solid rgba(29,78,216,0.3);border-radius:10px;padding:14px 16px;margin:14px 0;">
         <div style="font-size:14px;font-weight:700;color:var(--light-teal);margin-bottom:8px;">כלל השברים בחזקה</div>
         <div class="example-box" style="margin:0;">(<span class="frac"><span class="num">a</span><span class="den">b</span></span>)ⁿ = <span class="frac"><span class="num">aⁿ</span><span class="den">bⁿ</span></span><br><span style="font-size:13px;font-weight:400;direction:rtl;unicode-bidi:isolate;">מעלים מונה ומכנה בנפרד</span></div>
-        <div style="font-size:13.5px;margin-top:10px;direction:rtl;">דוגמה: <bdi style="direction:ltr;unicode-bidi:isolate;">(<span class="frac"><span class="num">2</span><span class="den">3</span></span>)² = <span class="frac"><span class="num">2²</span><span class="den">3²</span></span> = <span class="frac"><span class="num">4</span><span class="den">9</span></span></bdi></div>
+        <div style="font-size:13.5px;margin-top:10px;direction:rtl;">דוגמה: <span dir="ltr" style="unicode-bidi:isolate;">(<span class="frac"><span class="num">2</span><span class="den">3</span></span>)² = <span class="frac"><span class="num">2²</span><span class="den">3²</span></span> = <span class="frac"><span class="num">4</span><span class="den">9</span></span></span></div>
       </div>
 
       <div style="background:rgba(239,169,74,0.08);border:1.5px solid rgba(239,169,74,0.35);border-radius:10px;padding:14px 16px;margin:14px 0;">
@@ -824,14 +824,14 @@ function renderLearn3(){
       </div>
 
       <ul class="bullets">
-        <li>כל מספר בחזקת 1 שווה לעצמו: <bdi style="direction:ltr;unicode-bidi:isolate;">99¹ = 99, (<span class="frac"><span class="num">1</span><span class="den">2</span></span>)¹ = <span class="frac"><span class="num">1</span><span class="den">2</span></span></bdi></li>
-        <li>1 בכל חזקה שהיא שווה 1: <bdi style="direction:ltr;unicode-bidi:isolate;">1¹⁰⁰⁰ = 1</bdi></li>
-        <li>שבר בחזקה — מעלים מונה ומכנה בנפרד: <bdi style="direction:ltr;unicode-bidi:isolate;">(<span class="frac"><span class="num">3</span><span class="den">4</span></span>)² = <span class="frac"><span class="num">9</span><span class="den">16</span></span></bdi></li>
-        <li>שבר מעורב — קודם הופכים לשבר רגיל: <bdi style="direction:ltr;unicode-bidi:isolate;">1<span class="frac"><span class="num">1</span><span class="den">2</span></span> → <span class="frac"><span class="num">3</span><span class="den">2</span></span>, אז (1<span class="frac"><span class="num">1</span><span class="den">2</span></span>)² = <span class="frac"><span class="num">9</span><span class="den">4</span></span></bdi></li>
-        <li>שבר עם בסיס שלילי — מעריך זוגי חיובי, מעריך אי-זוגי שלילי: <bdi style="direction:ltr;unicode-bidi:isolate;">(−<span class="frac"><span class="num">1</span><span class="den">2</span></span>)² = <span class="frac"><span class="num">1</span><span class="den">4</span></span>, (−<span class="frac"><span class="num">1</span><span class="den">2</span></span>)³ = −<span class="frac"><span class="num">1</span><span class="den">8</span></span></bdi></li>
+        <li>כל מספר בחזקת 1 שווה לעצמו: <span dir="ltr" style="unicode-bidi:isolate;">99¹ = 99, (<span class="frac"><span class="num">1</span><span class="den">2</span></span>)¹ = <span class="frac"><span class="num">1</span><span class="den">2</span></span></span></li>
+        <li>1 בכל חזקה שהיא שווה 1: <span dir="ltr" style="unicode-bidi:isolate;">1¹⁰⁰⁰ = 1</span></li>
+        <li>שבר בחזקה — מעלים מונה ומכנה בנפרד: <span dir="ltr" style="unicode-bidi:isolate;">(<span class="frac"><span class="num">3</span><span class="den">4</span></span>)² = <span class="frac"><span class="num">9</span><span class="den">16</span></span></span></li>
+        <li>שבר מעורב — קודם הופכים לשבר רגיל: <span dir="ltr" style="unicode-bidi:isolate;">1<span class="frac"><span class="num">1</span><span class="den">2</span></span> → <span class="frac"><span class="num">3</span><span class="den">2</span></span>, אז (1<span class="frac"><span class="num">1</span><span class="den">2</span></span>)² = <span class="frac"><span class="num">9</span><span class="den">4</span></span></span></li>
+        <li>שבר עם בסיס שלילי — מעריך זוגי חיובי, מעריך אי-זוגי שלילי: <span dir="ltr" style="unicode-bidi:isolate;">(−<span class="frac"><span class="num">1</span><span class="den">2</span></span>)² = <span class="frac"><span class="num">1</span><span class="den">4</span></span>, (−<span class="frac"><span class="num">1</span><span class="den">2</span></span>)³ = −<span class="frac"><span class="num">1</span><span class="den">8</span></span></span></li>
       </ul>
 
-      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">(<span class="frac"><span class="num">1</span><span class="den">2</span></span>)² ≠ <span class="frac"><span class="num">1</span><span class="den">2</span></span></bdi>. צריך להכפיל: <bdi style="direction:ltr;unicode-bidi:isolate;"><span class="frac"><span class="num">1</span><span class="den">2</span></span> · <span class="frac"><span class="num">1</span><span class="den">2</span></span> = <span class="frac"><span class="num">1</span><span class="den">4</span></span></bdi>! &nbsp;·&nbsp; שבר מעורב — תמיד הופכים קודם!</div>
+      <div class="learn-note">שגיאה נפוצה: <span dir="ltr" style="unicode-bidi:isolate;">(<span class="frac"><span class="num">1</span><span class="den">2</span></span>)² ≠ <span class="frac"><span class="num">1</span><span class="den">2</span></span></span>. צריך להכפיל: <span dir="ltr" style="unicode-bidi:isolate;"><span class="frac"><span class="num">1</span><span class="den">2</span></span> · <span class="frac"><span class="num">1</span><span class="den">2</span></span> = <span class="frac"><span class="num">1</span><span class="den">4</span></span></span>! &nbsp;·&nbsp; שבר מעורב — תמיד הופכים קודם!</div>
 
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
@@ -856,7 +856,7 @@ function renderLearn4(){
       <ul class="bullets">
         <li>חזקה מחושבת לפני כפל וחיבור</li>
         <li>סוגריים תמיד קודמים לחזקה</li>
-        <li><bdi style="direction:ltr;unicode-bidi:isolate;">2+3² ≠ (2+3)²</bdi> — חשוב להבחין!</li>
+        <li><span dir="ltr" style="unicode-bidi:isolate;">2+3² ≠ (2+3)²</span> — חשוב להבחין!</li>
       </ul>
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
@@ -928,16 +928,16 @@ function renderLearn6(){
       <div style="background:rgba(58,160,196,0.08);border:1.5px solid rgba(58,160,196,0.3);border-radius:10px;padding:14px 16px;margin:14px 0;">
         <div style="font-size:14px;font-weight:700;color:var(--light-teal);margin-bottom:10px;">למה √9 = 3 בלבד, ולא ±3?</div>
         <div style="font-size:14px;line-height:1.8;color:var(--foam);">
-          נכון ש־<bdi style="direction:ltr;unicode-bidi:isolate;">3² = 9</bdi> וגם <bdi style="direction:ltr;unicode-bidi:isolate;">(−3)² = 9</bdi>.<br>
-          אבל סימן השורש <bdi style="direction:ltr;unicode-bidi:isolate;">√</bdi> מוגדר <strong>תמיד</strong> כמספר הלא-שלילי בלבד.<br>
-          לכן <bdi style="direction:ltr;unicode-bidi:isolate;">√9 = 3</bdi>, לא <bdi style="direction:ltr;unicode-bidi:isolate;">−3</bdi>, ולא <bdi style="direction:ltr;unicode-bidi:isolate;">±3</bdi>.
+          נכון ש־<span dir="ltr" style="unicode-bidi:isolate;">3² = 9</span> וגם <span dir="ltr" style="unicode-bidi:isolate;">(−3)² = 9</span>.<br>
+          אבל סימן השורש <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;</span> מוגדר <strong>תמיד</strong> כמספר הלא-שלילי בלבד.<br>
+          לכן <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;9 = 3</span>, לא <span dir="ltr" style="unicode-bidi:isolate;">−3</span>, ולא <span dir="ltr" style="unicode-bidi:isolate;">±3</span>.
         </div>
       </div>
 
       <ul class="bullets">
-        <li><bdi style="direction:ltr;unicode-bidi:isolate;">√7 · √7 = 7</bdi> — כי √7 הוא המספר שריבועו 7</li>
-        <li>ריבוע ששטחו 7 — צלעו <bdi style="direction:ltr;unicode-bidi:isolate;">√7</bdi> (לא מספר עגול, אבל מוגדר היטב)</li>
-        <li>√n מוגדר רק עבור <bdi style="direction:ltr;unicode-bidi:isolate;">n ≥ 0</bdi></li>
+        <li><span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;7 · √7 = 7</span> — כי √7 הוא המספר שריבועו 7</li>
+        <li>ריבוע ששטחו 7 — צלעו <span dir="ltr" style="unicode-bidi:isolate;white-space:nowrap;font-weight:700;">&#x221A;7</span> (לא מספר עגול, אבל מוגדר היטב)</li>
+        <li>√n מוגדר רק עבור <span dir="ltr" style="unicode-bidi:isolate;">n ≥ 0</span></li>
       </ul>
 
       <div class="btnrow">
@@ -1149,11 +1149,11 @@ function wrapMath(str){
   if(!str) return str;
   str = sqrtify(str);
   return str
-    .replace(/\|[^|]+\|/g,m=>`<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`)
-    .replace(/\([-−][^)]+\)/g,m=>`<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`)
-    .replace(/[-−]\d+(\.\d+)?(?![)\d])/g,m=>`<bdi style="direction:ltr;unicode-bidi:isolate;">${m}</bdi>`);
+    .replace(/\|[^|]+\|/g,m=>`<span dir="ltr" style="unicode-bidi:isolate;">${m}</span>`)
+    .replace(/\([-−][^)]+\)/g,m=>`<span dir="ltr" style="unicode-bidi:isolate;">${m}</span>`)
+    .replace(/[-−]\d+(\.\d+)?(?![)\d])/g,m=>`<span dir="ltr" style="unicode-bidi:isolate;">${m}</span>`);
 }
-function bdi(v){ return `<bdi style="direction:ltr;unicode-bidi:isolate;">${v}</bdi>`; }
+function bdi(v){ return `<span dir="ltr" style="unicode-bidi:isolate;">${v}</span>`; }
 function escOpt(s){ return s.replace(/'/g,"&#39;"); }
 function wrapOpt(opt){
   if(!/[\u05d0-\u05ea]/.test(opt)) return `<span style="direction:ltr;unicode-bidi:embed;display:inline-block;">${wrapMath(opt)}</span>`;
