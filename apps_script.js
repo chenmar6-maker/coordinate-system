@@ -18,10 +18,20 @@
 // גיליון "מבדקים": נוצר אוטומטית
 // ═══════════════════════════════════════════════════════
 
+var TEACHER_PAGE_URL = 'https://raw.githubusercontent.com/chenmar6-maker/coordinate-system/master/teacher_index.html';
+
 function doGet() {
-  return HtmlService.createHtmlOutputFromFile('Index')
-    .setTitle('דף מורה — מבדקי שליטה')
-    .setSandboxMode(HtmlService.SandboxMode.IFRAME);
+  try {
+    var html = UrlFetchApp.fetch(TEACHER_PAGE_URL).getContentText();
+    return HtmlService.createHtmlOutput(html)
+      .setTitle('דף מורה — מבדקי שליטה')
+      .setSandboxMode(HtmlService.SandboxMode.IFRAME);
+  } catch (e) {
+    // fallback to local copy if GitHub is unreachable
+    return HtmlService.createHtmlOutputFromFile('Index')
+      .setTitle('דף מורה — מבדקי שליטה')
+      .setSandboxMode(HtmlService.SandboxMode.IFRAME);
+  }
 }
 
 function getDataServer() {
