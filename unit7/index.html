@@ -832,88 +832,82 @@ function renderLearn9(){
 
 function renderLearn10(){
   return `<div class="panel">
+    <style>
+      @keyframes rl10in{to{opacity:1}}
+      .rl10step{opacity:0;animation:rl10in .6s forwards}
+      .rl10step:nth-child(1){animation-delay:.3s}
+      .rl10step:nth-child(2){animation-delay:1.3s}
+      .rl10step:nth-child(3){animation-delay:2.3s;color:var(--gold);font-weight:bold;font-size:1.15em}
+    </style>
     <h2 class="qtitle">סכום זוויות במרובע</h2>
-    <div class="gold-box" style="text-align:center;">סכום ארבע הזוויות בכל מרובע הוא תמיד <strong>360°</strong><br><span dir="ltr" style="font-size:1.1em;">α + β + γ + δ = 360°</span></div>
+    <div class="gold-box" style="text-align:center;">
+      סכום ארבע הזוויות בכל מרובע הוא תמיד <strong>360°</strong><br>
+      <span dir="ltr" style="font-size:1.15em;font-family:'DejaVu Sans',sans-serif;">∡A + ∡B + ∡C + ∡D = 360°</span>
+    </div>
 
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:16px 0;background:#fff;border-radius:10px;padding:12px;">
-      <div style="flex:1;min-width:140px;">
-        <div style="text-align:center;font-size:12px;color:#555;margin-bottom:6px;">אלכסון מחלק למשולשים</div>
-        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:140px;display:block;">
-          <!-- angle sectors -->
-          <path d="M 20,130 L 38,130 A 18,18 0 0,0 26.2,113.0 Z" fill="#b8e8b8" stroke="none"/>
-          <path d="M 180,130 L 162,130 A 18,18 0 0,1 176.5,112.3 Z" fill="#ffe89a" stroke="none"/>
-          <path d="M 160,30 L 163.5,47.7 A 18,18 0 0,1 142.1,28.2 Z" fill="#f8c0c0" stroke="none"/>
-          <path d="M 60,20 L 77.9,21.8 A 18,18 0 0,1 53.8,37.0 Z" fill="#ddd6fe" stroke="none"/>
-          <!-- quadrilateral ABCD -->
-          <polygon points="20,130 180,130 160,30 60,20" fill="none" stroke="#555" stroke-width="1.8"/>
-          <!-- diagonal AC -->
-          <line x1="20" y1="130" x2="160" y2="30" stroke="#EFA94A" stroke-width="1.8" stroke-dasharray="5,3"/>
-          <!-- angle labels -->
-          <text x="41" y="115" font-family="Rubik" font-size="11" fill="#2a7a2a" text-anchor="middle">α</text>
-          <text x="157" y="113" font-family="Rubik" font-size="11" fill="#8a6600" text-anchor="middle">β</text>
-          <text x="143" y="48" font-family="Rubik" font-size="11" fill="#b03030" text-anchor="middle">γ</text>
-          <text x="73" y="40" font-family="Rubik" font-size="11" fill="#5b21b6" text-anchor="middle">δ</text>
-          <!-- vertex labels -->
-          <text x="8" y="148" font-family="Rubik" font-size="12" font-weight="700" fill="#333">A</text>
-          <text x="183" y="145" font-family="Rubik" font-size="12" font-weight="700" fill="#333">B</text>
-          <text x="162" y="22" font-family="Rubik" font-size="12" font-weight="700" fill="#333">C</text>
-          <text x="48" y="15" font-family="Rubik" font-size="12" font-weight="700" fill="#333">D</text>
-          <!-- triangle labels -->
-          <text x="75" y="105" font-family="Rubik" font-size="11" fill="#EFA94A" text-anchor="middle">180°</text>
-          <text x="115" y="68" font-family="Rubik" font-size="11" fill="#EFA94A" text-anchor="middle">180°</text>
+    <div style="background:#fff;border-radius:14px;margin:16px 0;padding:16px 18px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;">
+      <div style="flex:0 0 auto;max-width:100%;">
+        <div style="text-align:center;font-size:12px;color:#555;margin-bottom:6px;">אלכסון אחד הופך מרובע לשני משולשים</div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 330" style="width:100%;max-width:280px;height:auto;display:block;">
+          <rect width="340" height="330" fill="#ffffff"/>
+          <polygon points="40,290 240,290 297.4,208.1" fill="#e8f5e9"/>
+          <polygon points="40,290 297.4,208.1 130.5,41.3" fill="#e3f2fd"/>
+          <polygon points="40,290 240,290 297.4,208.1 130.5,41.3" fill="none" stroke="#4db6ac" stroke-width="3" stroke-linejoin="round"/>
+          <line x1="40" y1="290" x2="297.4" y2="208.1" stroke="#e8a33d" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <text x="200.5" y="274.7" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="17" font-weight="bold" fill="#2e7d32">180°</text>
+          <text x="150.0" y="179.8" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="17" font-weight="bold" fill="#1565c0">180°</text>
+          <text x="20.0" y="308.0" text-anchor="middle" font-family="Liberation Serif,serif" font-weight="bold" font-size="21" fill="#555">A</text>
+          <text x="254.0" y="310.0" text-anchor="middle" font-family="Liberation Serif,serif" font-weight="bold" font-size="21" fill="#555">B</text>
+          <text x="313.4" y="204.1" text-anchor="middle" font-family="Liberation Serif,serif" font-weight="bold" font-size="21" fill="#555">C</text>
+          <text x="124.5" y="27.3" text-anchor="middle" font-family="Liberation Serif,serif" font-weight="bold" font-size="21" fill="#555">D</text>
         </svg>
       </div>
-      <div style="flex:1;min-width:140px;display:flex;align-items:center;">
-        <div style="font-size:14px;line-height:2;color:rgba(234,244,241,0.85);">
-          <div dir="ltr">▲ABC + ▲ACD</div>
-          <div dir="ltr">= 180° + 180°</div>
-          <div dir="ltr">= <strong style="color:var(--gold);font-size:1.1em;">360°</strong></div>
-        </div>
+      <div style="flex:1;min-width:180px;display:flex;flex-direction:column;justify-content:center;gap:4px;">
+        <div class="rl10step" style="font-family:'DejaVu Sans',sans-serif;font-size:18px;direction:ltr;">△ABC + △ACD</div>
+        <div class="rl10step" style="font-family:'DejaVu Sans',sans-serif;font-size:18px;direction:ltr;">= 180° + 180°</div>
+        <div class="rl10step" style="font-family:'DejaVu Sans',sans-serif;font-size:20px;direction:ltr;">= 360°</div>
+        <p style="font-size:14px;color:#555;margin:8px 0 0;direction:rtl;">הזוויות של שני המשולשים יחד הן בדיוק הזוויות של המרובע.</p>
       </div>
     </div>
 
     <ul class="bullets">
-      <li>כל מרובע — ריבוע, מלבן, מקבילית, טרפז — סכום זוויותיו תמיד 360°</li>
-      <li>אם שלוש זוויות ידועות, הרביעית = <span dir="ltr">360° − (α + β + γ)</span></li>
+      <li>זה נכון לכל מרובע: ריבוע, מלבן, מעוין, טרפז, דלתון ומרובע "סתם".</li>
+      <li>במלבן כל זווית היא <span dir="ltr">90°</span>, ובאמת: <span dir="ltr">4 · 90° = 360°</span></li>
+      <li>אם ידועות שלוש זוויות, מוצאים את הרביעית: מחסירים את שלושתן מ־<span dir="ltr">360°</span></li>
     </ul>
 
     <div style="background:#1e2d3d;border:1.5px solid rgba(245,200,66,0.35);border-radius:10px;padding:14px 16px;margin:14px 0;">
       <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px;text-transform:uppercase;">דוגמה</div>
-      <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
-        <div style="flex:0 0 auto;">
-          <svg viewBox="0 0 210 175" xmlns="http://www.w3.org/2000/svg" style="width:170px;height:auto;display:block;background:#fff;border-radius:6px;">
-            <style>.ex10a{font:bold 13px 'Times New Roman',serif;}</style>
-            <!-- quadrilateral -->
-            <polygon points="25,145 185,145 165,35 70,25" fill="none" stroke="#333" stroke-width="2"/>
-            <!-- filled angle sectors -->
-            <path d="M 25,145 L 47,145 A 22,22 0 0,0 32.7,124.4 Z" fill="#b8e8b8" stroke="none"/>
-            <path d="M 185,145 L 163,145 A 22,22 0 0,1 181.1,123.4 Z" fill="#ffe89a" stroke="none"/>
-            <path d="M 165,35 L 168.9,56.7 A 22,22 0 0,1 143.1,32.7 Z" fill="#f8c0c0" stroke="none"/>
-            <path d="M 70,25 L 91.9,27.3 A 22,22 0 0,1 62.3,45.6 Z" fill="#ddd6fe" stroke="none"/>
-            <!-- sector borders (arc only) -->
-            <path d="M 47,145 A 22,22 0 0,0 32.7,124.4" fill="none" stroke="#3a9c3a" stroke-width="1.5"/>
-            <path d="M 163,145 A 22,22 0 0,1 181.1,123.4" fill="none" stroke="#b88a00" stroke-width="1.5"/>
-            <path d="M 168.9,56.7 A 22,22 0 0,1 143.1,32.7" fill="none" stroke="#c94040" stroke-width="1.5"/>
-            <path d="M 91.9,27.3 A 22,22 0 0,1 62.3,45.6" fill="none" stroke="#7c3aed" stroke-width="1.5"/>
-            <!-- angle labels -->
-            <text x="52" y="126" class="ex10a" fill="#2a7a2a" text-anchor="middle">80°</text>
-            <text x="157" y="124" class="ex10a" fill="#8a6600" text-anchor="middle">110°</text>
-            <text x="143" y="59" class="ex10a" fill="#b03030" text-anchor="middle">95°</text>
-            <text x="87" y="52" class="ex10a" fill="#5b21b6" text-anchor="middle">?</text>
-            <!-- vertex labels -->
-            <text x="14" y="160" style="font:700 13px 'Times New Roman',serif;fill:#222;">A</text>
-            <text x="185" y="160" style="font:700 13px 'Times New Roman',serif;fill:#222;">B</text>
-            <text x="165" y="28" style="font:700 13px 'Times New Roman',serif;fill:#222;">C</text>
-            <text x="58" y="18" style="font:700 13px 'Times New Roman',serif;fill:#222;">D</text>
+      <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;">
+        <div style="flex:0 0 auto;background:#fff;border-radius:10px;padding:4px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 330" style="width:200px;height:auto;display:block;">
+            <rect width="340" height="330" fill="#ffffff"/>
+            <polygon points="40,290 240,290 297.4,208.1 130.5,41.3" fill="none" stroke="#333" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M48.2,267.4 A24,24 0 0 1 64.0,290.0" fill="none" stroke="#2e7d32" stroke-width="3"/>
+            <text x="77.7" y="269.6" text-anchor="middle" font-family="Liberation Serif,serif" font-weight="bold" font-size="19" fill="#2e7d32">70°</text>
+            <path d="M216.0,290.0 A24,24 0 0 1 253.8,270.3" fill="none" stroke="#c99700" stroke-width="3"/>
+            <text x="218.8" y="255.2" text-anchor="middle" font-family="Liberation Serif,serif" font-weight="bold" font-size="19" fill="#8a6500">125°</text>
+            <path d="M283.6,227.8 A24,24 0 0 1 280.4,191.1" fill="none" stroke="#c62828" stroke-width="3"/>
+            <text x="251.6" y="218.1" text-anchor="middle" font-family="Liberation Serif,serif" font-weight="bold" font-size="19" fill="#c62828">100°</text>
+            <path d="M146.1,56.9 A22,22 0 0 1 123.0,62.0" fill="none" stroke="#6a3fd1" stroke-width="3"/>
+            <text x="140.0" y="90.3" text-anchor="middle" font-family="Liberation Serif,serif" font-weight="bold" font-size="19" fill="#6a3fd1">?</text>
+            <text x="20.0" y="308.0" text-anchor="middle" font-family="Liberation Serif,serif" font-weight="bold" font-size="21" fill="#222">A</text>
+            <text x="254.0" y="310.0" text-anchor="middle" font-family="Liberation Serif,serif" font-weight="bold" font-size="21" fill="#222">B</text>
+            <text x="313.4" y="204.1" text-anchor="middle" font-family="Liberation Serif,serif" font-weight="bold" font-size="21" fill="#222">C</text>
+            <text x="124.5" y="27.3" text-anchor="middle" font-family="Liberation Serif,serif" font-weight="bold" font-size="21" fill="#222">D</text>
           </svg>
         </div>
-        <div style="flex:1;min-width:140px;font-size:14px;line-height:1.9;color:var(--foam);">
-          <div><strong>נתון:</strong> <span dir="ltr">∠A=80°, ∠B=110°, ∠C=95°</span></div>
-          <div><strong>מצאו:</strong> <span dir="ltr">∠D = ?</span></div>
-          <div style="margin-top:8px;padding:8px 10px;background:rgba(255,255,255,0.07);border-radius:6px;font-size:13px;">
-            <div dir="ltr">∠D = 360° − 80° − 110° − 95°</div>
-            <div dir="ltr">∠D = <strong style="color:var(--gold);">75°</strong></div>
+        <div style="flex:1;min-width:160px;font-size:14px;line-height:1.9;color:var(--foam);">
+          <div><strong>נתון:</strong> <span dir="ltr">∡A = 70°, ∡B = 125°, ∡C = 100°</span></div>
+          <div><strong>מצאו:</strong> <span dir="ltr">∡D = ?</span></div>
+          <div style="margin-top:10px;padding:10px 12px;background:rgba(255,255,255,0.07);border-radius:8px;font-size:13.5px;">
+            <div dir="ltr">∡D = 360° − 70° − 125° − 100°</div>
+            <div dir="ltr">∡D = <strong style="color:var(--gold);font-size:1.1em;">65°</strong></div>
           </div>
+          <details style="margin-top:10px;">
+            <summary style="cursor:pointer;color:#4db6ac;font-size:14px;">איך בודקים?</summary>
+            <p style="font-size:13px;color:var(--foam);margin:6px 0 0;">מחברים את כל ארבע הזוויות: <span dir="ltr">70° + 125° + 100° + 65° = 360°</span> ✓</p>
+          </details>
         </div>
       </div>
     </div>
