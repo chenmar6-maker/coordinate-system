@@ -375,9 +375,14 @@
               <span style="font-size:15px;">📖</span>תרגול
             </a>
             <div onclick="openExamModal('angles_summary')"
-              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 10px;font-size:12px;font-weight:700;color:#10B981;cursor:pointer;background:rgba(16,185,129,0.05);transition:background .15s;"
+              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 10px;font-size:12px;font-weight:700;color:#10B981;cursor:pointer;background:rgba(16,185,129,0.05);transition:background .15s;border-left:1px solid rgba(16,185,129,0.18);"
               onmouseover="this.style.background='rgba(16,185,129,0.12)'" onmouseout="this.style.background='rgba(16,185,129,0.05)'">
               <span style="font-size:15px;">🔒</span>מבדק שליטה
+            </div>
+            <div onclick="openExamModal('angles_summary_answers')"
+              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 10px;font-size:12px;font-weight:700;color:#6B7280;cursor:pointer;background:rgba(107,114,128,0.04);transition:background .15s;"
+              onmouseover="this.style.background='rgba(107,114,128,0.1)'" onmouseout="this.style.background='rgba(107,114,128,0.04)'">
+              <span style="font-size:15px;">🔒</span>תשובות
             </div>
           </div>
         </div>
@@ -624,7 +629,8 @@ const NUM_EXAM_CODE = '1111';
 const EXAM_URLS = {
   basic:           './worksheets/numbers_exam_basic.pdf',
   advanced:        './worksheets/numbers_exam_advanced.pdf',
-  angles_summary:  './worksheets/angles_summary_exam.html'
+  angles_summary:         './worksheets/angles_summary_exam.html',
+  angles_summary_answers: './worksheets/angles_summary_exam_answers.html'
 };
 let _examTarget = null;
 
@@ -665,7 +671,7 @@ function toggleDomain(id) {
 
 function openExamModal(type) {
   _examTarget = type;
-  const titles = { basic: 'מבדק שליטה מסכם — רמה בסיסית', advanced: 'מבדק שליטה מסכם — רמה מתקדמת', angles_summary: 'מבדק שליטה מסכם — זוויות' };
+  const titles = { basic: 'מבדק שליטה מסכם — רמה בסיסית', advanced: 'מבדק שליטה מסכם — רמה מתקדמת', angles_summary: 'מבדק שליטה מסכם — זוויות', angles_summary_answers: 'תשובות — מבדק שליטה מסכם זוויות' };
   document.getElementById('exam-modal-title').textContent = titles[type] || 'מבדק שליטה מסכם';
   document.getElementById('exam-modal-code').value = '';
   document.getElementById('exam-modal-err').textContent = '';
