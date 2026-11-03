@@ -27,10 +27,8 @@ function doGet() {
       .setTitle('דף מורה — מבדקי שליטה')
       .setSandboxMode(HtmlService.SandboxMode.IFRAME);
   } catch (e) {
-    // fallback to local copy if GitHub is unreachable
-    return HtmlService.createHtmlOutputFromFile('Index')
-      .setTitle('דף מורה — מבדקי שליטה')
-      .setSandboxMode(HtmlService.SandboxMode.IFRAME);
+    return HtmlService.createHtmlOutput('<h2>Fetch error: ' + e.message + '</h2>')
+      .setTitle('error');
   }
 }
 
