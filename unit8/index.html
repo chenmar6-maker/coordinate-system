@@ -399,6 +399,39 @@ function startGame(){
   render();
 }
 
+const gameLevels0 = [
+  { id:'mc', title:'מי היה אל-חווריזמי?',
+    question:'מי היה מוחמד אבן מוסא אל-חווריזמי?',
+    options:['מתמטיקאי פרסי שחי במאה ה-9','פילוסוף יווני מהמאה ה-3','מדען איטלקי מהמאה ה-15','אסטרונום מצרי מהמאה ה-5'],
+    correct:'מתמטיקאי פרסי שחי במאה ה-9',
+    explain:'אל-חווריזמי (כ-780–850) היה מתמטיקאי פרסי שעבד בבגדד. שמו ועבודתו עיצבו את המתמטיקה שאנו לומדים היום.' },
+  { id:'mc', title:'בית החכמה',
+    question:'איפה עבד אל-חווריזמי?',
+    options:['בבית החכמה בבגדד','בספריית אלכסנדריה','באוניברסיטת אתונה','בארמון קהיר'],
+    correct:'בבית החכמה בבגדד',
+    explain:'אל-חווריזמי עבד ב"בית החכמה" (Bayt al-&#x1E24;ikma) בבגדד — מרכז הידע הגדול ביותר בעולם באותה תקופה.' },
+  { id:'mc', title:'מקור המילה אלגברה',
+    question:'מה פירוש "אל-ג\'בר" — השורש של המילה "אלגברה"?',
+    options:['השלמה ואיזון','חיסור ומחיקה','מספרים וחישוב','כוחות וגדלות'],
+    correct:'השלמה ואיזון',
+    explain:'בספרו הידוע כתב אל-חווריזמי על "אל-ג\'בר" — פעולת השלמה (העברת איברים). המילה הגיעה לאירופה והפכה ל-"algebra".' },
+  { id:'mc', title:'מקור המילה אלגוריתם',
+    question:'כיצד הגיעה המילה "אלגוריתם" לשפות אירופה?',
+    options:['מהשם "אל-חווריזמי" שלָטינו ל-Algoritmi','ממלך פרסי בשם אלגוריס','מהמילה הערבית "אל-גורי" = חישוב','ממספר יווני עתיק'],
+    correct:'מהשם "אל-חווריזמי" שלָטינו ל-Algoritmi',
+    explain:'כשתרגמו את ספריו ללטינית כתבו "Algoritmi dixit" (= אמר אלגוריתמי). "Algoritmi" הוא שמו הלטיני של אל-חווריזמי, ומשם נולד המונח "אלגוריתם".' },
+  { id:'mc', title:'שם ספרו של אל-חווריזמי',
+    question:'מה שם ספרו הידוע של אל-חווריזמי?',
+    options:['הספר הקצר על חישוב השלמה ואיזון','המדריך לאלגברה המודרנית','ספר החכמה הגדולה','כללי החשבון'],
+    correct:'הספר הקצר על חישוב השלמה ואיזון',
+    explain:'שם הספר בערבית: "אל-כתאב אל-מֻח\'תצר פי חסאב אל-ג\'בר ואל-מֻקאבלה". שתי המילות המרכזיות — אל-ג\'בר ואל-מֻקאבלה — פירושן השלמה ואיזון.' },
+  { id:'mc', title:'חשיבות תרומתו',
+    question:'מה מהדברים הבאים ניתן לייחס לאל-חווריזמי?',
+    options:['ייסד את האלגברה כתחום ידע והחדיר ספרות הינדו-ערביות לאירופה','המציא את ה-0 (אפס)','פיתח את הגיאומטריה של אוקלידס','כתב את חוקי הפיזיקה הראשונים'],
+    correct:'ייסד את האלגברה כתחום ידע והחדיר ספרות הינדו-ערביות לאירופה',
+    explain:'אל-חווריזמי פרסם שיטות לפתרון משוואות (= האלגברה) וגם כתב על מספרי 1–9 + 0 מהודו — הספרות שאנו משתמשים בהן היום.' },
+];
+
 function freshLevelSub(){ return {answered:false,correct:false}; }
 
 function nextLevel(){
@@ -429,6 +462,7 @@ function skipLevel(){
 }
 
 function currentGameLevels(){
+  if(state.sequence===0) return gameLevels0;
   if(state.sequence===1) return gameLevels1;
   if(state.sequence===2) return gameLevels2;
   if(state.sequence===3) return gameLevels3;
@@ -510,6 +544,10 @@ function renderHome(){
       <h1 class="title">ביטויים, כינוס וחוק הפילוג</h1>
     </div>
     <div class="sequence-section" style="margin-bottom:20px;">
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">מבוא</div>
+      ${seqRow(0,'0. מבוא — מאין הגיעה האלגברה?',{})}
+    </div>
+    <div class="sequence-section" style="margin-bottom:20px;">
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">ביטויים אלגבריים</div>
       ${seqRow(1,'1. כתיבת ביטויים אלגבריים',{worksheetUrl:'../worksheets/algebra_writing_exam.html',answersUrl:'../worksheets/algebra_writing_answers.html',checkUrl:'../worksheets/algebra_writing_exam_check.html'})}
       ${seqRow(2,'2. הצבה וחישוב ערך הביטוי',{worksheetUrl:'../worksheets/algebra_substitution_exam.html',answersUrl:'../worksheets/algebra_substitution_answers.html',checkUrl:'../worksheets/algebra_substitution_exam_check.html'})}
@@ -525,12 +563,46 @@ function renderHome(){
 /* ============ LEARN ============ */
 
 function renderLearn(){
+  if(state.sequence===0) return renderLearn0();
   if(state.sequence===1) return renderLearn1();
   if(state.sequence===2) return renderLearn2();
   if(state.sequence===3) return renderLearn3();
   if(state.sequence===4) return renderLearn4();
   if(state.sequence===5) return renderLearn5();
   return renderLearn1();
+}
+
+function renderLearn0(){
+  return `<div class="panel" dir="rtl">
+    <h2 class="qtitle">מבוא — מאין הגיעה האלגברה?</h2>
+    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;margin:14px 0;">
+      <iframe src="https://www.youtube.com/embed/KtQAqRtKWdM" style="position:absolute;top:0;right:0;width:100%;height:100%;border:0;" allowfullscreen></iframe>
+    </div>
+    <div class="gold-box">כל מילה שאתם לומדים בשיעור הזה — אלגברה, אלגוריתם — הגיעה מאדם אחד שחי לפני 1,200 שנה</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin:14px 0;">
+      <div style="flex:1;min-width:160px;background:rgba(139,92,246,0.12);border:1.5px solid #8B5CF6;border-radius:10px;padding:12px 14px;">
+        <div style="font-size:13px;font-weight:800;color:#c4b5fd;margin-bottom:8px;">אל-חווריזמי</div>
+        <div style="font-size:14px;line-height:1.7;">מוחמד אבן מוסא אל-חווריזמי<br>מתמטיקאי פרסי<br>כ-780–850 לספירה<br>עבד בבגדד</div>
+      </div>
+      <div style="flex:1;min-width:160px;background:rgba(74,160,196,0.12);border:1.5px solid var(--light-teal);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:13px;font-weight:800;color:var(--light-teal);margin-bottom:8px;">אלגברה</div>
+        <div style="font-size:14px;line-height:1.7;">מקור: "אל-ג'בר" (&#x627;&#x644;&#x62C;&#x628;&#x631;)<br>פירוש: השלמה ואיזון<br>מהספר: "הספר הקצר על חישוב השלמה ואיזון"<br>הגיע לאירופה &#x2192; algebra</div>
+      </div>
+      <div style="flex:1;min-width:160px;background:rgba(239,169,74,0.12);border:1.5px solid var(--gold);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:13px;font-weight:800;color:var(--gold);margin-bottom:8px;">אלגוריתם</div>
+        <div style="font-size:14px;line-height:1.7;">מקור: שמו הלטיני "Algoritmi"<br>כשתרגמו ספריו ללטינית כתבו "Algoritmi dixit"<br>כל שיטת פתרון שלב-אחר-שלב = אלגוריתם</div>
+      </div>
+    </div>
+    <ul class="bullets">
+      <li>בית החכמה (Bayt al-&#x1E24;ikma) בבגדד היה המרכז האינטלקטואלי הגדול של המאה ה-9</li>
+      <li>אל-חווריזמי גם הציג לאירופה את הספרות ההינדו-ערביות: 1, 2, 3... ו-0</li>
+      <li>כל "אלגוריתם" שכותבים כיום בתכנות — קרוי על שמו</li>
+    </ul>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=0;startGame()">לתרגול &#x2190;</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
 }
 
 function renderLearn1(){
