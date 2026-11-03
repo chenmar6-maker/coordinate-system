@@ -739,9 +739,21 @@ function checkGateCode() {
 var ST_URL = 'https://script.google.com/macros/s/AKfycbypGYgALZmBe9jtRU_C49lvRPOtK_mC_iS5wYw5lem_EPQaYj7vErZiP64TZbEZvsb-BQ/exec';
 
 var ST_DOMAINS = [
-  { name:'מספרי', color:'#3B82F6', sequences:['ערך מוחלט','מספרים נגדיים','מיקום על ציר המספרים','מודל החצים וכלל הסימן','תרגילים ארוכים וחוק החילוף','חיסור = חיבור הנגדי','תרגילים ארוכים וכתיבה ללא סוגריים','כפל וחילוק מספרים מכוונים','סדר פעולות חשבון','סדר פעולות עם קו שבר','נקודות בכל הרביעים','אורכים ושטחים בכל הרביעים','הגדרת חזקה וחישוב בסיסי','בסיס שלילי — עם סוגריים ובלי','חזקות מיוחדות — מעריך 1, בסיס 1 ושברים','השוואה וסדר פעולות עם חזקות','הגדרה גיאומטרית','הגדרה אלגברית','שורש ריבועי של שבר','חישובים עם שורשים'] },
-  { name:'אלגברי', color:'#8B5CF6', sequences:['מבוא — מאין הגיעה האלגברה?','כתיבת ביטויים אלגבריים','הצבה וחישוב ערך הביטוי','כינוס איברים דומים','חוק הפילוג','זהות בין ביטויים אלגבריים','מבוא למשוואות — זיהוי פתרון','משוואות פשוטות — פעולה אחת','משוואות מורכבות — כמה שלבים','משוואות עם פתיחת סוגריים','סוגי פתרון — פתרון יחיד, אין פתרון, אינסוף','שאלות מילוליות','קריאת תיאור גרפי של נקודות ברביע I'] },
-  { name:'גיאומטרי', color:'#10B981', sequences:['מבוא — מה זו גיאומטריה?','סוגי זוויות','כתיב מתמטי של זוויות','סכום והפרש זוויות','חוצה-זווית','זוויות צמודות','זוויות קודקודיות','משולש שווה-צלעות','משולש שווה-שוקיים','סכום זוויות במשולש','סכום זוויות במרובע','חפיפה — מה זה אומר שצורות חופפות?','הזזה','סיבוב','שיקוף','סימטריה','היקף ושטח של מלבן וריבוע','שטח משולש','צורות מורכבות','מעוין ודלתון — אלכסונות מאונכים','מושגים — פאה, מקצוע, קודקוד','נפח תיבה','שטח פנים של תיבה','קובייה — מקרה מיוחד','פריסות'] }
+  { name:'מספרי', color:'#3B82F6', units:[
+    { name:'מספרים מכוונים', sequences:['ערך מוחלט','מספרים נגדיים','מיקום על ציר המספרים','מודל החצים וכלל הסימן','תרגילים ארוכים וחוק החילוף','חיסור = חיבור הנגדי','תרגילים ארוכים וכתיבה ללא סוגריים','כפל וחילוק מספרים מכוונים','סדר פעולות חשבון','סדר פעולות עם קו שבר'] },
+    { name:'מערכת הצירים — כל הרביעים', sequences:['נקודות בכל הרביעים','אורכים ושטחים בכל הרביעים'] },
+    { name:'חזקות ושורשים', sequences:['הגדרת חזקה וחישוב בסיסי','בסיס שלילי — עם סוגריים ובלי','חזקות מיוחדות — מעריך 1, בסיס 1 ושברים','השוואה וסדר פעולות עם חזקות','הגדרה גיאומטרית','הגדרה אלגברית','שורש ריבועי של שבר','חישובים עם שורשים'] }
+  ]},
+  { name:'אלגברי', color:'#8B5CF6', units:[
+    { name:'משתנים וביטויים אלגבריים', sequences:['מבוא — מאין הגיעה האלגברה?','כתיבת ביטויים אלגבריים','הצבה וחישוב ערך הביטוי','כינוס איברים דומים','חוק הפילוג','זהות בין ביטויים אלגבריים','מבוא למשוואות — זיהוי פתרון','משוואות פשוטות — פעולה אחת','משוואות מורכבות — כמה שלבים','משוואות עם פתיחת סוגריים','סוגי פתרון — פתרון יחיד, אין פתרון, אינסוף','שאלות מילוליות','קריאת תיאור גרפי של נקודות ברביע I'] }
+  ]},
+  { name:'גיאומטרי', color:'#10B981', units:[
+    { name:'מבוא לגיאומטריה', sequences:['מבוא — מה זו גיאומטריה?'] },
+    { name:'זוויות', sequences:['סוגי זוויות','כתיב מתמטי של זוויות','סכום והפרש זוויות','חוצה-זווית','זוויות צמודות','זוויות קודקודיות','משולש שווה-צלעות','משולש שווה-שוקיים','סכום זוויות במשולש','סכום זוויות במרובע'] },
+    { name:'חפיפה והזזות', sequences:['חפיפה — מה זה אומר שצורות חופפות?','הזזה','סיבוב','שיקוף','סימטריה'] },
+    { name:'שטחים והיקפים', sequences:['היקף ושטח של מלבן וריבוע','שטח משולש','צורות מורכבות','מעוין ודלתון — אלכסונות מאונכים'] },
+    { name:'גופים תלת-ממדיים', sequences:['מושגים — פאה, מקצוע, קודקוד','נפח תיבה','שטח פנים של תיבה','קובייה — מקרה מיוחד','פריסות'] }
+  ]}
 ];
 
 function stLookup() {
@@ -810,14 +822,25 @@ function stShowResult(query, data) {
   var html = '<div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;text-align:center;">היי ' + firstName + ',</div>' +
     '<div style="text-align:center;margin-bottom:16px;font-size:13px;font-weight:600;color:' + daysColor + ';">' + daysLine + '</div>';
   ST_DOMAINS.forEach(function(d) {
-    var done = d.sequences.filter(function(s){ return passed.has(s); }).length;
-    var next = d.sequences.find(function(s){ return !passed.has(s); });
+    var allSeqs = d.units.reduce(function(acc, u) { return acc.concat(u.sequences); }, []);
+    var done = allSeqs.filter(function(s){ return passed.has(s); }).length;
+
+    // Find next sequence and its unit name
+    var nextSeq = null, nextUnit = null;
+    for (var i = 0; i < d.units.length; i++) {
+      var u = d.units[i];
+      var n = u.sequences.find(function(s){ return !passed.has(s); });
+      if (n) { nextSeq = n; nextUnit = u.name; break; }
+    }
+
     html += '<div style="border-radius:10px;padding:12px 14px;margin-bottom:10px;background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.1);border-right:4px solid ' + d.color + ';">' +
       '<div style="font-size:11px;font-weight:700;color:' + d.color + ';margin-bottom:6px;">תחום ' + d.name + '</div>' +
-      (next
-        ? '<div style="font-size:11px;color:rgba(234,244,241,0.4);margin-bottom:2px;">המבדק הבא:</div><div style="font-size:14px;font-weight:700;color:#fff;">' + next + '</div>'
+      (nextSeq
+        ? '<div style="font-size:11px;color:rgba(234,244,241,0.4);margin-bottom:3px;">המבדק הבא:</div>' +
+          '<div style="font-size:12px;color:rgba(234,244,241,0.55);margin-bottom:2px;">' + nextUnit + '</div>' +
+          '<div style="font-size:14px;font-weight:700;color:#fff;">' + nextSeq + '</div>'
         : '<div style="font-size:14px;font-weight:700;color:#10B981;">הושלמו כל המבדקים!</div>') +
-      '<div style="font-size:11px;color:rgba(234,244,241,0.35);margin-top:5px;">' + done + ' מתוך ' + d.sequences.length + ' הושלמו</div>' +
+      '<div style="font-size:11px;color:rgba(234,244,241,0.35);margin-top:5px;">' + done + ' מתוך ' + allSeqs.length + ' הושלמו</div>' +
       '</div>';
   });
   document.getElementById('st-result').innerHTML = html;
