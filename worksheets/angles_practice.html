@@ -5,33 +5,53 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>תרגול הכנה — מבדק שליטה מסכם זוויות</title>
 <style>
-html,body{margin:0;padding:0;background:#f9fafb;color-scheme:light}
-.page{max-width:920px;margin:0 auto;padding:30px 24px 50px;font-family:FreeSans,"Arial",sans-serif;font-size:19px;color:#222;direction:rtl;text-align:right;box-sizing:border-box}
-.header{background:#d4e8dc;border-radius:12px;text-align:center;font-weight:bold;font-size:24px;padding:14px 20px;margin-bottom:28px;color:#1a4731}
-.ex{background:#fff;border-radius:12px;border:1.5px solid #e5e7eb;padding:22px 26px;margin-bottom:20px}
-.ex-title{font-size:20px;font-weight:700;margin-bottom:10px;color:#1a3a2a}
-.row{display:flex;gap:24px;align-items:flex-start}
-.txt{flex:1}
-.fig{flex:0 0 auto;text-align:center}
-.figw{text-align:center;margin-top:8px}
-p{margin:4px 0;line-height:1.6}
-ul{margin:6px 0;padding-right:22px;line-height:1.8}
-ul ul{list-style:none;padding-right:18px}
-.m{font-family:"Liberation Serif","DejaVu Sans",serif;font-size:20px;white-space:nowrap}
-.nw{white-space:nowrap}
-details{margin-top:16px;border:1.5px solid #c6e8d4;border-radius:10px;padding:10px 16px;background:#f0faf5}
-summary{cursor:pointer;font-weight:700;color:#166534;font-size:17px;user-select:none}
-summary:hover{color:#15803d}
-details ul{margin-top:8px}
-.footer{text-align:center;margin-top:40px;font-size:13px;color:#9ca3af}
-@media print{details{display:none}.ex{break-inside:avoid}}
-@media (max-width:700px){.row{flex-direction:column-reverse}.page{padding:16px}.ex{padding:16px 14px}}
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Rubik',sans-serif;font-size:14px;color:#1a1a2e;direction:rtl;background:#F0F2F8;min-height:100vh;padding:24px 16px 80px;}
+  .page-wrap{max-width:780px;margin:0 auto;}
+  .header{background:linear-gradient(135deg,#1E1B2E 0%,#2D2A45 100%);color:#fff;border-radius:14px;padding:18px 22px 14px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-end;}
+  .header-title{font-size:20px;font-weight:700;}
+  .header-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:4px;}
+  .brand{font-size:12px;font-weight:600;color:rgba(255,255,255,0.45);}
+  .ex{background:#fff;border-radius:10px;border-right:4px solid #10B981;padding:16px 18px;margin-bottom:14px;font-size:13.5px;line-height:1.8;box-shadow:0 1px 3px rgba(0,0,0,0.07);break-inside:avoid;}
+  .ex.challenge{border-right-color:#F59E0B;}
+  .ex-title{font-weight:700;color:#10B981;margin-bottom:8px;font-size:13.5px;}
+  .ex.challenge .ex-title{color:#D97706;}
+  .row{display:flex;gap:20px;align-items:flex-start;}
+  .txt{flex:1;}
+  .fig{flex:0 0 auto;text-align:center;}
+  .figw{text-align:center;margin-top:8px;}
+  p{margin:3px 0;line-height:1.7;}
+  ul{margin:5px 0;padding-right:20px;line-height:1.8;}
+  ul ul{list-style:none;padding-right:16px;}
+  .m{font-family:'Times New Roman',serif;font-size:14px;white-space:nowrap;}
+  .nw{white-space:nowrap;}
+  details{margin-top:12px;border:1.5px solid #A7F3D0;border-radius:8px;padding:10px 14px;background:#ECFDF5;}
+  summary{cursor:pointer;font-weight:700;color:#065F46;font-size:13px;user-select:none;}
+  summary:hover{color:#047857;}
+  details ul{margin-top:6px;font-size:13px;}
+  details li{margin-bottom:3px;}
+  .footer{text-align:center;margin-top:32px;font-size:11px;color:#9ca3af;padding-top:16px;border-top:1px solid #e5e7eb;}
+  .note-box{background:#ECFDF5;border:1.5px solid #6EE7B7;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;color:#065F46;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  @media print{details{display:none} .ex{break-inside:avoid} @page{size:A4;margin:12mm} body{background:#fff;padding:10px}}
+  @media (max-width:700px){.row{flex-direction:column-reverse}.page-wrap{padding:0}.ex{padding:14px 12px}}
 </style>
 </head>
 <body dir="rtl">
-<div class="page">
+<div class="page-wrap">
 
-<div class="header">תרגול הכנה — מבדק שליטה מסכם זוויות</div>
+<div class="header">
+  <div>
+    <div class="header-title">תרגול הכנה — מבדק שליטה מסכם זוויות</div>
+    <div class="header-sub">כיתה ז׳ · תחום גיאומטרי &nbsp;|&nbsp; הכנה למבדק · פתרו על דף נפרד</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div class="note-box">
+  <span style="font-size:18px;">📝</span>
+  <span>פתרו על דף נפרד — כתבו את מספרי השאלות. לחצו על "הצגת פתרון" לאחר הפתרון.</span>
+</div>
 
 <!-- תרגיל 1 -->
 <div class="ex">
@@ -206,7 +226,7 @@ details ul{margin-top:8px}
 </details>
 </div>
 
-<div class="footer">© כל הזכויות שמורות לחן מרגלית</div>
+<div class="footer">© כל הזכויות שמורות לחן מרגלית &nbsp;|&nbsp; תרגול הכנה — זוויות</div>
 </div>
 </body>
 </html>
