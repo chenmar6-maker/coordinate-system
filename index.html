@@ -779,9 +779,35 @@ function stShowResult(query, data) {
     return;
   }
   var passed = new Set();
-  data.events.forEach(function(e){ if (e.studentId === student.id && e.passed) passed.add(e.unit); });
+  var lastEventMs = null;
+  data.events.forEach(function(e) {
+    if (e.studentId === student.id && e.passed) {
+      passed.add(e.unit);
+      var t = new Date(e.timestamp).getTime();
+      if (!isNaN(t) && (lastEventMs === null || t > lastEventMs)) lastEventMs = t;
+    }
+  });
 
-  var html = '<div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:14px;text-align:center;">שלום, ' + student.name + '</div>';
+  var daysSince = null;
+  if (lastEventMs !== null) {
+    daysSince = Math.floor((Date.now() - lastEventMs) / (1000 * 60 * 60 * 24));
+  }
+
+  var daysLine = '';
+  if (daysSince === null) {
+    daysLine = 'עדיין לא עשית מבדק שליטה';
+  } else if (daysSince === 0) {
+    daysLine = 'עשית מבדק שליטה היום';
+  } else if (daysSince === 1) {
+    daysLine = 'עשית מבדק שליטה אתמול';
+  } else {
+    daysLine = 'עבר ' + daysSince + ' ימים מאז המבדק האחרון שלך';
+  }
+
+  var daysColor = daysSince === null || daysSince >= 7 ? '#F87171' : daysSince >= 4 ? '#FCD34D' : '#6EE7B7';
+
+  var html = '<div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;text-align:center;">שלום, ' + student.name + '</div>' +
+    '<div style="text-align:center;margin-bottom:16px;font-size:13px;font-weight:600;color:' + daysColor + ';">' + daysLine + '</div>';
   ST_DOMAINS.forEach(function(d) {
     var done = d.sequences.filter(function(s){ return passed.has(s); }).length;
     var next = d.sequences.find(function(s){ return !passed.has(s); });
