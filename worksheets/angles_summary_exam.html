@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>משימת סיכום — זוויות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Rubik',sans-serif;background:#fff;color:#1a1a2e;direction:rtl;font-size:15px;line-height:1.7;}
+  .page{max-width:760px;margin:0 auto;padding:32px 28px 70px;}
+
+  .header{background:#2D2A45;color:#fff;border-radius:14px;padding:18px 24px 14px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:flex-end;}
+  .header-title{font-size:21px;font-weight:800;}
+  .header-sub{font-size:12px;color:rgba(255,255,255,0.5);margin-top:3px;}
+  .brand{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);}
+
+  .q-block{border:1.5px solid #e5e7eb;border-radius:13px;padding:20px 22px;margin-bottom:22px;break-inside:avoid;}
+  .q-num{font-size:10px;font-weight:800;letter-spacing:2px;color:#10B981;margin-bottom:4px;text-transform:uppercase;}
+  .q-title{font-size:17px;font-weight:800;margin-bottom:10px;color:#1a1a2e;}
+  .q-text{font-size:14.5px;line-height:1.75;margin-bottom:10px;}
+  .q-text p{margin-bottom:4px;}
+  ul.steps{padding-right:18px;margin:6px 0;}
+  ul.steps li{margin-bottom:4px;font-size:14px;line-height:1.7;}
+  ul.steps li ul{list-style:none;padding-right:18px;margin-top:2px;}
+  ul.steps li ul li{font-size:13.5px;color:#374151;}
+
+  .row{display:flex;gap:20px;align-items:flex-start;}
+  .txt{flex:1;}
+  .fig{flex-shrink:0;}
+
+  .m{font-family:'Times New Roman',serif;font-size:15.5px;white-space:nowrap;}
+  .ltr{direction:ltr;unicode-bidi:isolate;display:inline;}
+
+  .ans-line{border:none;border-bottom:1.5px solid #9ca3af;display:block;width:100%;height:26px;margin-top:6px;background:transparent;}
+  .ans-line-sm{border-bottom:1.5px solid #9ca3af;display:inline-block;min-width:55px;height:18px;vertical-align:bottom;}
+  .explain-box{border:1.5px solid #d1d5db;border-radius:6px;width:100%;min-height:44px;display:block;background:transparent;padding:5px 10px;font-family:'Rubik',sans-serif;font-size:13.5px;resize:none;margin-top:5px;}
+
+  .choices{list-style:none;padding:0;margin:8px 0 0;}
+  .choices li{border:1.5px solid #e5e7eb;border-radius:8px;padding:6px 12px;margin-bottom:5px;font-size:13.5px;display:flex;align-items:center;gap:10px;}
+  .choices li::before{content:'';width:16px;height:16px;border:1.5px solid #9ca3af;border-radius:50%;flex-shrink:0;}
+
+  .sub{font-size:13px;font-weight:700;color:#374151;margin:10px 0 3px;}
+
+  .score-bar{border:1.5px solid #e5e7eb;border-radius:10px;padding:12px 18px;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:12px;margin-top:28px;}
+  .sc-item{display:flex;align-items:center;gap:6px;}
+  .sc-blank{border-bottom:1.5px solid #9ca3af;display:inline-block;min-width:30px;height:17px;}
+
+  .note{background:#ECFDF5;border:1.5px solid #6EE7B7;border-right:4px solid #10B981;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:22px;}
+
+  @media print{
+    .q-block{break-inside:avoid;}
+    @page{size:A4;margin:13mm;}
+    .no-print{display:none;}
+    body{background:#fff;}
+  }
+
+  .svg-wrap{border:1px solid #e5e7eb;border-radius:8px;background:#fff;padding:6px;display:inline-block;}
+  svg text{font-family:'Times New Roman',serif;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="header-title">משימת סיכום — זוויות</div>
+    <div class="header-sub">שם: _________________________ &nbsp;|&nbsp; כיתה: _______ &nbsp;|&nbsp; תאריך: _____________</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div class="note">📝 כתבו את כל הדרך — כל תרגיל חישוב דורש נימוק קצר.</div>
+
+<!-- ══════════════════════════════
+     תרגיל 1
+══════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">תרגיל 1</div>
+  <div class="q-title">חישוב זוויות</div>
+  <div class="q-text"><p>חשבו את גודל הזווית <span class="ltr m">α</span> בכל אחד מהשרטוטים, ונמקו.</p></div>
+
+  <!-- 3 diagrams in a row -->
+  <div style="display:flex;gap:16px;align-items:flex-end;justify-content:space-around;flex-wrap:wrap;margin-bottom:14px;">
+
+    <!-- (א) parallel lines: alternate interior α=110° (co-interior with 70°) -->
+    <div style="text-align:center;">
+      <div class="svg-wrap">
+        <svg width="170" height="130" viewBox="0 0 170 130">
+          <!-- top parallel line -->
+          <line x1="10" y1="35" x2="160" y2="35" stroke="#000" stroke-width="1.8"/>
+          <!-- bottom parallel line -->
+          <line x1="10" y1="95" x2="160" y2="95" stroke="#000" stroke-width="1.8"/>
+          <!-- arrows indicating parallel -->
+          <text x="30" y="30" font-size="11" fill="#555">›</text>
+          <text x="30" y="90" font-size="11" fill="#555">›</text>
+          <text x="50" y="30" font-size="11" fill="#555">›</text>
+          <text x="50" y="90" font-size="11" fill="#555">›</text>
+          <!-- transversal from upper-left to lower-right -->
+          <line x1="55" y1="10" x2="115" y2="120" stroke="#000" stroke-width="1.8"/>
+          <!-- 70° angle at top intersection (upper-right sector) -->
+          <!-- intersection top ≈ (72,35), intersection bottom ≈ (98,95) -->
+          <path d="M 82,35 A 14,14 0 0,0 76.5,23.5" fill="none" stroke="#555" stroke-width="1.2"/>
+          <text x="86" y="30" font-size="13" fill="#333">70°</text>
+          <!-- α angle at bottom intersection (lower-left sector, co-interior) -->
+          <path d="M 88,95 A 14,14 0 0,1 93.5,107" fill="none" stroke="#10B981" stroke-width="1.4"/>
+          <text x="100" y="114" font-size="14" fill="#10B981" font-weight="bold" font-family="Times New Roman,serif">α</text>
+        </svg>
+      </div>
+      <div style="font-size:13px;font-weight:700;margin-top:6px;">(א)</div>
+      <div style="font-size:12px;color:#6b7280;">שני ישרים מקבילים</div>
+    </div>
+
+    <!-- (ב) flat angle: α + 2α + 60° = 180° → α=40° -->
+    <div style="text-align:center;">
+      <div class="svg-wrap">
+        <svg width="190" height="110" viewBox="0 0 190 110">
+          <!-- flat line -->
+          <line x1="10" y1="80" x2="180" y2="80" stroke="#000" stroke-width="1.8"/>
+          <!-- left ray: going up-right at ~40° from vertical (creating angle α on left) -->
+          <!-- from point (70,80) going to (50,20) -->
+          <line x1="70" y1="80" x2="50" y2="15" stroke="#000" stroke-width="1.8"/>
+          <!-- right ray: going up at ~60° from horizontal creating 60° on right -->
+          <!-- from (70,80) going to (120,20) -->
+          <line x1="70" y1="80" x2="120" y2="20" stroke="#000" stroke-width="1.8"/>
+          <!-- arc for α (leftmost angle, between left edge and left ray) -->
+          <path d="M 46,80 A 24,24 0 0,0 59.5,57.5" fill="none" stroke="#10B981" stroke-width="1.3"/>
+          <text x="30" y="72" font-size="14" fill="#10B981" font-weight="bold" font-family="Times New Roman,serif">α</text>
+          <!-- arc for 2α (middle angle, between two rays) -->
+          <path d="M 62,58" fill="none" stroke="#555" stroke-width="1.1"/>
+          <path d="M 57,56 A 30,30 0 0,0 85,54" fill="none" stroke="#555" stroke-width="1.2"/>
+          <text x="62" y="50" font-size="13" fill="#333" font-family="Times New Roman,serif">2α</text>
+          <!-- arc for 60° (right angle) -->
+          <path d="M 94,80 A 24,24 0 0,0 82.5,56" fill="none" stroke="#555" stroke-width="1.2"/>
+          <text x="95" y="68" font-size="13" fill="#333">60°</text>
+        </svg>
+      </div>
+      <div style="font-size:13px;font-weight:700;margin-top:6px;">(ב)</div>
+      <div style="font-size:12px;color:#6b7280;">שלוש זוויות — זווית שטוחה</div>
+    </div>
+
+    <!-- (ג) triangle exterior angle: ∠A=55°, ext at C=130°, find α=∠B=75° -->
+    <div style="text-align:center;">
+      <div class="svg-wrap">
+        <svg width="190" height="140" viewBox="0 0 190 140">
+          <!-- A(40,15), B(10,115), C(130,115), D(175,115) -->
+          <line x1="40"  y1="15"  x2="10"  y2="115" stroke="#000" stroke-width="1.8"/>
+          <line x1="40"  y1="15"  x2="130" y2="115" stroke="#000" stroke-width="1.8"/>
+          <line x1="10"  y1="115" x2="175" y2="115" stroke="#000" stroke-width="1.8"/>
+          <!-- 55° at A -->
+          <path d="M 32,34 A 22,22 0 0,0 27.5,21" fill="none" stroke="#555" stroke-width="1.2"/>
+          <text x="44" y="42" font-size="13" fill="#333">55°</text>
+          <!-- α at B -->
+          <path d="M 30,115 A 20,20 0 0,1 22.5,96.5" fill="none" stroke="#10B981" stroke-width="1.4"/>
+          <text x="6" y="103" font-size="14" fill="#10B981" font-weight="bold" font-family="Times New Roman,serif">α</text>
+          <!-- 130° exterior at C -->
+          <path d="M 148,115 A 22,22 0 0,0 138.5,94" fill="none" stroke="#555" stroke-width="1.2"/>
+          <text x="148" y="108" font-size="13" fill="#333">130°</text>
+          <!-- labels -->
+          <text x="40" y="10"  font-size="14" text-anchor="middle" fill="#000" font-weight="bold">A</text>
+          <text x="5"  y="130" font-size="14" text-anchor="middle" fill="#000" font-weight="bold">B</text>
+          <text x="130" y="130" font-size="14" text-anchor="middle" fill="#000" font-weight="bold">C</text>
+          <text x="178" y="130" font-size="14" text-anchor="middle" fill="#000" font-weight="bold">D</text>
+        </svg>
+      </div>
+      <div style="font-size:13px;font-weight:700;margin-top:6px;">(ג)</div>
+      <div style="font-size:12px;color:#6b7280;">משולש ABC — BC הוארכה עד D</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px 16px;margin-top:4px;">
+    <div>
+      <div class="sub">(א) α = <span class="ans-line-sm"></span></div>
+      <textarea class="explain-box" rows="2" placeholder="כי..."></textarea>
+    </div>
+    <div>
+      <div class="sub">(ב) α = <span class="ans-line-sm"></span></div>
+      <textarea class="explain-box" rows="2" placeholder="כי..."></textarea>
+    </div>
+    <div>
+      <div class="sub">(ג) α = <span class="ans-line-sm"></span></div>
+      <textarea class="explain-box" rows="2" placeholder="כי..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     תרגיל 2
+══════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">תרגיל 2</div>
+  <div class="q-title">שני ישרים נחתכים</div>
+
+  <div class="row">
+    <div class="txt">
+      <ul class="steps">
+        <li>(א) כתבו זוג של זוויות צמודות. &nbsp;<span class="ans-line-sm" style="min-width:80px;"></span></li>
+        <li>(ב) כתבו זוג של זוויות קודקודיות. &nbsp;<span class="ans-line-sm" style="min-width:80px;"></span></li>
+        <li>(ג) ידוע שהזווית <span class="ltr m">α</span> גדולה פי 3 מהזווית <span class="ltr m">β</span>. חשבו את ארבע הזוויות.
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;margin-top:6px;font-size:13.5px;">
+            <span><span class="ltr m">α</span> = <span class="ans-line-sm"></span></span>
+            <span><span class="ltr m">β</span> = <span class="ans-line-sm"></span></span>
+            <span><span class="ltr m">γ</span> = <span class="ans-line-sm"></span></span>
+            <span><span class="ltr m">δ</span> = <span class="ans-line-sm"></span></span>
+          </div>
+          <textarea class="explain-box" rows="2" placeholder="הדרך:"></textarea>
+        </li>
+        <li style="margin-top:8px;">(ד) נתון שהזווית <span class="ltr m">γ</span> ישרה. בחרו את הטענה הנכונה:
+          <ul class="choices" style="list-style:none;padding:0;margin-top:6px;">
+            <li style="border:1.5px solid #e5e7eb;border-radius:8px;padding:5px 10px;margin-bottom:4px;font-size:13.5px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:16px;border:1.5px solid #9ca3af;border-radius:50%;flex-shrink:0;display:inline-block;"></span>① שלוש הזוויות האחרות שונות זו מזו.</li>
+            <li style="border:1.5px solid #e5e7eb;border-radius:8px;padding:5px 10px;margin-bottom:4px;font-size:13.5px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:16px;border:1.5px solid #9ca3af;border-radius:50%;flex-shrink:0;display:inline-block;"></span>② כל ארבע הזוויות שוות זו לזו.</li>
+            <li style="border:1.5px solid #e5e7eb;border-radius:8px;padding:5px 10px;margin-bottom:4px;font-size:13.5px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:16px;border:1.5px solid #9ca3af;border-radius:50%;flex-shrink:0;display:inline-block;"></span>③ רק הזווית <span class="ltr m">α</span> שווה לזווית <span class="ltr m">γ</span>.</li>
+            <li style="border:1.5px solid #e5e7eb;border-radius:8px;padding:5px 10px;font-size:13.5px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:16px;border:1.5px solid #9ca3af;border-radius:50%;flex-shrink:0;display:inline-block;"></span>④ אי אפשר לדעת את גודל הזוויות האחרות.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="fig">
+      <div class="svg-wrap">
+        <svg width="160" height="160" viewBox="-80 -80 160 160">
+          <!-- Two intersecting lines -->
+          <line x1="-70" y1="-45" x2="70" y2="45"  stroke="#000" stroke-width="1.8"/>
+          <line x1="-70" y1="45"  x2="70" y2="-45" stroke="#000" stroke-width="1.8"/>
+          <!-- angle labels -->
+          <text x="0"   y="-28" font-size="16" text-anchor="middle" dominant-baseline="central" font-weight="bold" fill="#1a1a2e" font-family="Times New Roman,serif">α</text>
+          <text x="30"  y="0"   font-size="16" text-anchor="start"  dominant-baseline="central" font-weight="bold" fill="#1a1a2e" font-family="Times New Roman,serif">β</text>
+          <text x="0"   y="30"  font-size="16" text-anchor="middle" dominant-baseline="central" font-weight="bold" fill="#1a1a2e" font-family="Times New Roman,serif">γ</text>
+          <text x="-38" y="0"   font-size="16" text-anchor="end"    dominant-baseline="central" font-weight="bold" fill="#1a1a2e" font-family="Times New Roman,serif">δ</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     תרגיל 3 — המספריים
+══════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">תרגיל 3</div>
+  <div class="q-title">המספריים</div>
+
+  <div class="row">
+    <div class="txt">
+      <div class="q-text">
+        <p>שני הלהבים נפגשים בבורג <span class="ltr m">O</span>. אורכי הלהבים שווים <span class="ltr m">(OP = OQ)</span> וגם אורכי הידיות שווים <span class="ltr m">(OR = OS)</span>. הנקודות <span class="ltr m">P, O, S</span> על ישר אחד, וגם הנקודות <span class="ltr m">Q, O, R</span>.</p>
+        <p>נתון: <span class="ltr m">∡OPQ = 55°</span></p>
+      </div>
+      <ul class="steps">
+        <li>(א) מצאו שני זוגות של זוויות שוות, ונמקו.</li>
+        <li>(ב) חשבו את <span class="ltr m">∡POQ</span>. &nbsp;<span class="ans-line-sm"></span></li>
+        <li>(ג) חשבו את <span class="ltr m">∡ROS</span> ואת <span class="ltr m">∡ORS</span>.<br>
+          <span class="ltr m">∡ROS</span> = <span class="ans-line-sm"></span> &nbsp;&nbsp; <span class="ltr m">∡ORS</span> = <span class="ans-line-sm"></span></li>
+        <li>(ד) האם <span class="ltr m">PQ</span> מקביל ל-<span class="ltr m">RS</span>? נמקו.</li>
+      </ul>
+      <textarea class="explain-box" rows="4" placeholder="פרטו כאן את הדרך לכל הסעיפים:"></textarea>
+    </div>
+    <div class="fig">
+      <div class="svg-wrap">
+        <!-- Scissors: two rhombus/kite shapes crossing at O -->
+        <!-- P top-left, Q top-right, R bottom-left, S bottom-right, O center -->
+        <svg width="180" height="200" viewBox="-90 -100 180 200">
+          <!-- Line POS: P(-70,-55) O(0,0) S(70,55) -->
+          <!-- Line QOR: Q(70,-55) O(0,0) R(-70,55) -->
+          <!-- Purple blade PQ -->
+          <line x1="-70" y1="-55" x2="70" y2="-55" stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="-70" y1="-55" x2="0"  y2="0"   stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="70"  y1="-55" x2="0"  y2="0"   stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Gray blade RS -->
+          <line x1="-70" y1="55"  x2="70" y2="55"  stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="-70" y1="55"  x2="0"  y2="0"   stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="70"  y1="55"  x2="0"  y2="0"   stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Hinge circles -->
+          <circle cx="-70" cy="-55" r="7" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+          <circle cx="70"  cy="-55" r="7" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+          <circle cx="-70" cy="55"  r="7" fill="none" stroke="#6b7280" stroke-width="2"/>
+          <circle cx="70"  cy="55"  r="7" fill="none" stroke="#6b7280" stroke-width="2"/>
+          <!-- dashed lines for P-O-S axis and Q-O-R axis -->
+          <line x1="-70" y1="-55" x2="70"  y2="55"  stroke="#aaa" stroke-width="1" stroke-dasharray="5 4"/>
+          <line x1="70"  y1="-55" x2="-70" y2="55"  stroke="#aaa" stroke-width="1" stroke-dasharray="5 4"/>
+          <!-- 55° angle at P -->
+          <path d="M -55,-55 A 15,15 0 0,1 -63.5,-43" fill="none" stroke="#555" stroke-width="1.3"/>
+          <text x="-48" y="-42" font-size="12" fill="#333">55°</text>
+          <!-- O label -->
+          <text x="6" y="14" font-size="13" fill="#000" font-weight="bold">O</text>
+          <!-- point labels -->
+          <text x="-70" y="-66" font-size="13" text-anchor="middle" fill="#8B5CF6" font-weight="bold">P</text>
+          <text x="70"  y="-66" font-size="13" text-anchor="middle" fill="#8B5CF6" font-weight="bold">Q</text>
+          <text x="-70" y="72"  font-size="13" text-anchor="middle" fill="#6b7280" font-weight="bold">R</text>
+          <text x="70"  y="72"  font-size="13" text-anchor="middle" fill="#6b7280" font-weight="bold">S</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     תרגיל 4 — הסולם והמדף
+══════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">תרגיל 4</div>
+  <div class="q-title">הסולם והמדף</div>
+
+  <div class="row">
+    <div class="txt">
+      <div class="q-text">
+        <p>סולם <span class="ltr m">WF</span> נשען על קיר. הקיר <span class="ltr m">WC</span> מאונך לרצפה. המדף <span class="ltr m">MN</span> מקביל לרצפה, והסולם חוצה אותו בנקודה <span class="ltr m">K</span>.</p>
+        <p>נתון: <span class="ltr m">∡WFC = 68°</span></p>
+      </div>
+      <ul class="steps">
+        <li>(א) חשבו את הזווית שבין הסולם לקיר — <span class="ltr m">∡FWC</span>.<br>
+          <span class="ltr m">∡FWC</span> = <span class="ans-line-sm"></span>
+          <textarea class="explain-box" rows="2" placeholder="כי..."></textarea>
+        </li>
+        <li>(ב) חשבו את <span class="ltr m">∡WKM</span> ואת <span class="ltr m">∡MKF</span>.<br>
+          <span class="ltr m">∡WKM</span> = <span class="ans-line-sm"></span> &nbsp;&nbsp; <span class="ltr m">∡MKF</span> = <span class="ans-line-sm"></span>
+          <textarea class="explain-box" rows="2" placeholder="כי..."></textarea>
+        </li>
+        <li>(ג) בחרו את הטענה הנכונה:
+          <ul style="list-style:none;padding:0;margin-top:6px;">
+            <li style="border:1.5px solid #e5e7eb;border-radius:8px;padding:5px 10px;margin-bottom:4px;font-size:13px;display:flex;align-items:flex-start;gap:8px;"><span style="width:15px;height:15px;border:1.5px solid #9ca3af;border-radius:50%;flex-shrink:0;margin-top:3px;display:inline-block;"></span>① <span class="ltr m">∡MKF = ∡KFC</span> כי הן זוויות מתחלפות.</li>
+            <li style="border:1.5px solid #e5e7eb;border-radius:8px;padding:5px 10px;margin-bottom:4px;font-size:13px;display:flex;align-items:flex-start;gap:8px;"><span style="width:15px;height:15px;border:1.5px solid #9ca3af;border-radius:50%;flex-shrink:0;margin-top:3px;display:inline-block;"></span>② <span class="ltr m">∡WKM = ∡WFC</span> כי הן זוויות מתאימות.</li>
+            <li style="border:1.5px solid #e5e7eb;border-radius:8px;padding:5px 10px;margin-bottom:4px;font-size:13px;display:flex;align-items:flex-start;gap:8px;"><span style="width:15px;height:15px;border:1.5px solid #9ca3af;border-radius:50%;flex-shrink:0;margin-top:3px;display:inline-block;"></span>③ <span class="ltr m">∡MKF + ∡KFC = 180°</span> כי הן זוויות צמודות.</li>
+            <li style="border:1.5px solid #e5e7eb;border-radius:8px;padding:5px 10px;font-size:13px;display:flex;align-items:flex-start;gap:8px;"><span style="width:15px;height:15px;border:1.5px solid #9ca3af;border-radius:50%;flex-shrink:0;margin-top:3px;display:inline-block;"></span>④ אין טענה נכונה.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="fig">
+      <div class="svg-wrap">
+        <!-- W=top of wall (20,20), C=bottom of wall (20,180), F=foot of ladder (170,180) -->
+        <!-- K=ladder meets shelf (~75,110) -->
+        <!-- Shelf M(10,110) to N(170,110) parallel to floor -->
+        <svg width="180" height="200" viewBox="0 0 180 200">
+          <!-- floor -->
+          <line x1="10" y1="180" x2="175" y2="180" stroke="#555" stroke-width="2"/>
+          <!-- wall (vertical) -->
+          <line x1="20" y1="20"  x2="20"  y2="180" stroke="#000" stroke-width="2.5"/>
+          <!-- right angle at W-C corner -->
+          <path d="M 20,170 L 30,170 L 30,180" fill="none" stroke="#555" stroke-width="1.2"/>
+          <!-- shelf MN parallel to floor at y=105 -->
+          <line x1="10" y1="105" x2="170" y2="105" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 3"/>
+          <!-- ladder from W(20,20) to F(170,180) -->
+          <line x1="20"  y1="20"  x2="170" y2="180" stroke="#1a1a2e" stroke-width="2.5"/>
+          <!-- K = intersection of ladder with shelf -->
+          <!-- ladder line: from (20,20) to (170,180): slope=160/150, at y=105: x=20+150*(105-20)/160=20+150*85/160=20+79.7=99.7≈100 -->
+          <!-- mark K -->
+          <circle cx="100" cy="105" r="3" fill="#000"/>
+          <!-- 68° angle at F between ladder and floor -->
+          <path d="M 148,180 A 22,22 0 0,0 156.5,161" fill="none" stroke="#555" stroke-width="1.3"/>
+          <text x="136" y="174" font-size="12" fill="#333">68°</text>
+          <!-- labels -->
+          <text x="10"  y="16"  font-size="13" text-anchor="middle" fill="#000" font-weight="bold">W</text>
+          <text x="10"  y="194" font-size="13" text-anchor="middle" fill="#000" font-weight="bold">C</text>
+          <text x="174" y="194" font-size="13" text-anchor="middle" fill="#000" font-weight="bold">F</text>
+          <text x="106" y="99"  font-size="13" fill="#000" font-weight="bold">K</text>
+          <text x="4"   y="105" font-size="13" text-anchor="end" fill="#9ca3af" font-weight="bold">M</text>
+          <text x="174" y="105" font-size="13" fill="#9ca3af" font-weight="bold">N</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     תרגיל 5
+══════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">תרגיל 5</div>
+  <div class="q-title">מרובע ומשולש שווה-צלעות</div>
+
+  <div class="row">
+    <div class="txt">
+      <div class="q-text">
+        <p>בשרטוט מרובע <span class="ltr m">ABCD</span>. הנקודה <span class="ltr m">E</span> על הצלע <span class="ltr m">BC</span>.</p>
+        <p>נתון: המשולש <span class="ltr m">ABE</span> שווה-צלעות, <span class="ltr m">∡C = 90°</span>, <span class="ltr m">∡DEC = 40°</span>, <span class="ltr m">AE = ED</span>.</p>
+      </div>
+      <ul class="steps">
+        <li>(א) חשבו את <span class="ltr m">∡CDE</span>. &nbsp;<span class="ans-line-sm"></span>
+          <textarea class="explain-box" rows="2" placeholder="כי..."></textarea>
+        </li>
+        <li>(ב) חשבו את <span class="ltr m">∡AED</span>. &nbsp;<span class="ans-line-sm"></span>
+          <textarea class="explain-box" rows="2" placeholder="כי..."></textarea>
+        </li>
+        <li>(ג) חשבו את <span class="ltr m">∡EAD</span> ואת <span class="ltr m">∡EDA</span>.<br>
+          <span class="ltr m">∡EAD</span> = <span class="ans-line-sm"></span> &nbsp;&nbsp; <span class="ltr m">∡EDA</span> = <span class="ans-line-sm"></span>
+          <textarea class="explain-box" rows="2" placeholder="כי..."></textarea>
+        </li>
+        <li>(ד) חשבו את זוויות המרובע <span class="ltr m">ABCD</span>, ובדקו שסכומן 360°.<br>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 14px;margin-top:4px;font-size:13.5px;">
+            <span><span class="ltr m">∡A</span> = <span class="ans-line-sm"></span></span>
+            <span><span class="ltr m">∡B</span> = <span class="ans-line-sm"></span></span>
+            <span><span class="ltr m">∡C</span> = <span class="ans-line-sm"></span></span>
+            <span><span class="ltr m">∡D</span> = <span class="ans-line-sm"></span></span>
+          </div>
+          <div style="font-size:13px;margin-top:5px;">סכום: <span class="ans-line-sm" style="min-width:80px;"></span></div>
+        </li>
+      </ul>
+    </div>
+    <div class="fig">
+      <div class="svg-wrap">
+        <!-- ABCD quadrilateral: A(30,20) B(30,160) C(150,160) D(150,70) E on BC at (30+some, 160)? -->
+        <!-- Let's make: A(30,25) B(30,165) C(155,165) D(155,75) E on BC: since ABE is equilateral and AB vertical... -->
+        <!-- AB is vertical: A(30,25) B(30,165), AB length=140 -->
+        <!-- For equilateral ABE: E is to the right of AB at (30+140*√3/2, 95) = (30+121,95) = (151,95) -->
+        <!-- But E must be on BC. BC goes from B(30,165) to C(155,165) — horizontal. -->
+        <!-- Let me simplify: A(30,20) B(30,130) C(150,130) D(145,30) E on BC -->
+        <!-- ABE equilateral: AB=100, E at (30+100*√3/2, 30+100/2)=(30+87,80)=(117,80) - not on BC (which is y=130) -->
+        <!-- Let's place E on BC: A(25,25) B(25,155) C(155,155) D(150,55) -->
+        <!-- AB=130, equilateral → E at (25+130*√3/2, 25+130/2)=(25+112,90)=(137,90). Not on BC(y=155). -->
+        <!-- Let me just use a schematic diagram -->
+        <svg width="185" height="210" viewBox="0 0 185 210">
+          <!-- A(30,20) B(30,170) C(160,170) D(155,50) E(110,170) on BC -->
+          <line x1="30"  y1="20"  x2="30"  y2="170" stroke="#000" stroke-width="1.8"/><!-- AB -->
+          <line x1="30"  y1="170" x2="160" y2="170" stroke="#000" stroke-width="1.8"/><!-- BC -->
+          <line x1="160" y1="170" x2="155" y2="50"  stroke="#000" stroke-width="1.8"/><!-- CD -->
+          <line x1="155" y1="50"  x2="30"  y2="20"  stroke="#000" stroke-width="1.8"/><!-- DA -->
+          <!-- AE diagonal -->
+          <line x1="30"  y1="20"  x2="110" y2="170" stroke="#555" stroke-width="1.5"/>
+          <!-- DE diagonal -->
+          <line x1="155" y1="50"  x2="110" y2="170" stroke="#555" stroke-width="1.5"/>
+          <!-- right angle at C -->
+          <path d="M 148,170 L 148,162 L 160,162" fill="none" stroke="#555" stroke-width="1.1"/>
+          <!-- 40° at E for ∡DEC -->
+          <path d="M 126,170 A 16,16 0 0,0 122.5,154" fill="none" stroke="#555" stroke-width="1.1"/>
+          <text x="132" y="162" font-size="11" fill="#333">40°</text>
+          <!-- tick marks AE=DE -->
+          <text x="62" y="92" font-size="11" fill="#555">|</text>
+          <text x="133" y="112" font-size="11" fill="#555">|</text>
+          <!-- equilateral ABE marks -->
+          <line x1="27" y1="93" x2="33" y2="97" stroke="#555" stroke-width="1.5"/>
+          <line x1="67" y1="168" x2="73" y2="172" stroke="#555" stroke-width="1.5"/>
+          <line x1="68" y1="88" x2="72" y2="82" stroke="#555" stroke-width="1.5"/>
+          <!-- labels -->
+          <text x="22"  y="16"  font-size="13" text-anchor="end" fill="#000" font-weight="bold">A</text>
+          <text x="22"  y="178" font-size="13" text-anchor="end" fill="#000" font-weight="bold">B</text>
+          <text x="166" y="183" font-size="13" fill="#000" font-weight="bold">C</text>
+          <text x="160" y="46"  font-size="13" fill="#000" font-weight="bold">D</text>
+          <text x="110" y="186" font-size="13" text-anchor="middle" fill="#000" font-weight="bold">E</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     תרגיל 6 — אתגר
+══════════════════════════════ -->
+<div class="q-block" style="border-color:#F59E0B;background:rgba(251,191,36,0.03);">
+  <div class="q-num" style="color:#D97706;">אתגר — תרגיל 6</div>
+  <div class="q-title">משולש שווה-שוקיים עם חוצה-זווית</div>
+
+  <div class="row">
+    <div class="txt">
+      <div class="q-text">
+        <p>במשולש שווה-שוקיים <span class="ltr m">ABC</span> נתון <span class="ltr m">AB = AC</span>. הקטע <span class="ltr m">BD</span> חוצה את <span class="ltr m">∡ABC</span>, והנקודה <span class="ltr m">D</span> על הצלע <span class="ltr m">AC</span>.</p>
+        <p>נתון: <span class="ltr m">∡A = 36°</span></p>
+      </div>
+      <ul class="steps">
+        <li>(א) חשבו את <span class="ltr m">∡ABC</span> ואת <span class="ltr m">∡ACB</span>.<br>
+          <span class="ltr m">∡ABC</span> = <span class="ans-line-sm"></span> &nbsp;&nbsp; <span class="ltr m">∡ACB</span> = <span class="ans-line-sm"></span>
+          <textarea class="explain-box" rows="2" placeholder="כי..."></textarea>
+        </li>
+        <li>(ב) חשבו את <span class="ltr m">∡DBC</span> ואת <span class="ltr m">∡BDC</span>.<br>
+          <span class="ltr m">∡DBC</span> = <span class="ans-line-sm"></span> &nbsp;&nbsp; <span class="ltr m">∡BDC</span> = <span class="ans-line-sm"></span>
+          <textarea class="explain-box" rows="2" placeholder="כי..."></textarea>
+        </li>
+        <li>(ג) מצאו עוד שני משולשים שווי-שוקיים בשרטוט, ונמקו.
+          <textarea class="explain-box" rows="3" placeholder="המשולשים: _______ ו-_______, כי..."></textarea>
+        </li>
+        <li>(ד) מה אפשר לומר על אורכי הקטעים <span class="ltr m">AD</span>, <span class="ltr m">BD</span>, <span class="ltr m">BC</span>? נמקו.
+          <textarea class="explain-box" rows="3" placeholder="..."></textarea>
+        </li>
+      </ul>
+    </div>
+    <div class="fig">
+      <div class="svg-wrap">
+        <!-- ABC isosceles: A at top, B bottom-left, C bottom-right, AB=AC -->
+        <!-- ∠A=36°, ∠B=∠C=72°, BD bisects ∠B → ∠ABD=∠DBC=36° -->
+        <!-- D on AC -->
+        <!-- A(90,20) B(20,175) C(160,175) -->
+        <svg width="180" height="200" viewBox="0 0 180 200">
+          <!-- Main triangle ABC -->
+          <line x1="90"  y1="20"  x2="20"  y2="175" stroke="#000" stroke-width="2"/>
+          <line x1="90"  y1="20"  x2="160" y2="175" stroke="#000" stroke-width="2"/>
+          <line x1="20"  y1="175" x2="160" y2="175" stroke="#000" stroke-width="2"/>
+          <!-- tick marks AB=AC -->
+          <line x1="49"  y1="93"  x2="56"  y2="102" stroke="#000" stroke-width="1.5"/>
+          <line x1="122" y1="102" x2="129" y2="93"  stroke="#000" stroke-width="1.5"/>
+          <!-- D on AC: ∠A=36°, ∠DBC=36°=∠A, so triangle ABD is isosceles with AB=BD... -->
+          <!-- D at roughly 55% down AC from A -->
+          <!-- A(90,20) C(160,175): D ≈ A + 0.55*(C-A) = (90+38.5, 20+85.25) = (128.5, 105.25) ≈ (129,105) -->
+          <line x1="20"  y1="175" x2="129" y2="105" stroke="#555" stroke-width="1.5" stroke-dasharray="5 3"/>
+          <circle cx="129" cy="105" r="3" fill="#000"/>
+          <!-- ∠A = 36° arc -->
+          <path d="M 78,38 A 20,20 0 0,0 98,37" fill="none" stroke="#555" stroke-width="1.2"/>
+          <text x="86" y="56" font-size="12" fill="#333">36°</text>
+          <!-- labels -->
+          <text x="90"  y="13"  font-size="13" text-anchor="middle" fill="#000" font-weight="bold">A</text>
+          <text x="12"  y="190" font-size="13" text-anchor="middle" fill="#000" font-weight="bold">B</text>
+          <text x="166" y="190" font-size="13" text-anchor="middle" fill="#000" font-weight="bold">C</text>
+          <text x="137" y="103" font-size="13" fill="#000" font-weight="bold">D</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCORE BAR -->
+<div class="score-bar">
+  <div class="sc-item">תרגיל 1: <span class="sc-blank"></span></div>
+  <div class="sc-item">תרגיל 2: <span class="sc-blank"></span></div>
+  <div class="sc-item">תרגיל 3: <span class="sc-blank"></span></div>
+  <div class="sc-item">תרגיל 4: <span class="sc-blank"></span></div>
+  <div class="sc-item">תרגיל 5: <span class="sc-blank"></span></div>
+  <div class="sc-item">תרגיל 6: <span class="sc-blank"></span></div>
+  <div class="sc-item"><strong>סה״כ: <span class="sc-blank" style="min-width:50px;"></span></strong></div>
+</div>
+
+<div style="text-align:center;font-size:11px;color:#9ca3af;padding:22px 0 0;border-top:1px solid #f3f4f6;margin-top:18px;">
+  חן מרגלית למידה אקטיבית &nbsp;|&nbsp; משימת סיכום — יחידת זוויות
+</div>
+
+</div><!-- end page -->
+
+<button onclick="window.print()" class="no-print"
+  style="position:fixed;bottom:18px;left:18px;background:#10B981;color:#fff;border:none;padding:9px 22px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 3px 12px rgba(16,185,129,0.35);">
+  🖨️ הדפסה / שמירה כ-PDF
+</button>
+</body>
+</html>
