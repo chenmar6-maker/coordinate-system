@@ -585,8 +585,11 @@ function render() {
 
   if (filterClass) students = students.filter(function(s) { return s.class === filterClass; });
   if (activeDomain) {
+    var domain = DOMAINS.find(function(d) { return d.name === activeDomain; });
+    var domainSeqs = domain ? domain.units.reduce(function(acc, u) { return acc.concat(u.sequences); }, []) : [];
     students = students.filter(function(s) {
-      return nextSequenceInDomain(s.id, activeDomain) !== null;
+      var passed = passedUnits(s.id);
+      return domainSeqs.some(function(seq) { return passed.has(seq); });
     });
   }
 
