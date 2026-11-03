@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>תרגול הכנה — מבדק שליטה מסכם זוויות</title>
+<style>
+html,body{margin:0;padding:0;background:#f9fafb;color-scheme:light}
+.page{max-width:920px;margin:0 auto;padding:30px 24px 50px;font-family:FreeSans,"Arial",sans-serif;font-size:19px;color:#222;direction:rtl;text-align:right;box-sizing:border-box}
+.header{background:#d4e8dc;border-radius:12px;text-align:center;font-weight:bold;font-size:24px;padding:14px 20px;margin-bottom:28px;color:#1a4731}
+.ex{background:#fff;border-radius:12px;border:1.5px solid #e5e7eb;padding:22px 26px;margin-bottom:20px}
+.ex-title{font-size:20px;font-weight:700;margin-bottom:10px;color:#1a3a2a}
+.row{display:flex;gap:24px;align-items:flex-start}
+.txt{flex:1}
+.fig{flex:0 0 auto;text-align:center}
+.figw{text-align:center;margin-top:8px}
+p{margin:4px 0;line-height:1.6}
+ul{margin:6px 0;padding-right:22px;line-height:1.8}
+ul ul{list-style:none;padding-right:18px}
+.m{font-family:"Liberation Serif","DejaVu Sans",serif;font-size:20px;white-space:nowrap}
+.nw{white-space:nowrap}
+details{margin-top:16px;border:1.5px solid #c6e8d4;border-radius:10px;padding:10px 16px;background:#f0faf5}
+summary{cursor:pointer;font-weight:700;color:#166534;font-size:17px;user-select:none}
+summary:hover{color:#15803d}
+details ul{margin-top:8px}
+.footer{text-align:center;margin-top:40px;font-size:13px;color:#9ca3af}
+@media print{details{display:none}.ex{break-inside:avoid}}
+@media (max-width:700px){.row{flex-direction:column-reverse}.page{padding:16px}.ex{padding:16px 14px}}
+</style>
+</head>
+<body dir="rtl">
+<div class="page">
+
+<div class="header">תרגול הכנה — מבדק שליטה מסכם זוויות</div>
+
+<!-- תרגיל 1 -->
+<div class="ex">
+<div class="ex-title">(1) חישוב הזווית α</div>
+<div class="txt">
+<p>חשבו את גודל הזווית <span dir="ltr" class="m">α</span> בכל אחד מהשרטוטים, ונמקו.</p>
+<ul>
+  <li>(א) שלוש זוויות יוצרות יחד זווית שטוחה.</li>
+  <li>(ב) ארבע זוויות סביב נקודה. אחת מהן ישרה.</li>
+  <li>(ג) המשולש <span dir="ltr" class="m">ABC</span> הוא משולש <span class="nw">שווה-שוקיים</span> <span dir="ltr" class="m">(AB = AC)</span>.</li>
+</ul>
+</div>
+<div class="figw">
+<svg xmlns="http://www.w3.org/2000/svg" style="width:800px;max-width:100%;height:auto" viewBox="0 0 980 260" direction="ltr" font-family="DejaVu Sans, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<!-- פאנל ג -->
+<svg x="0" y="0" width="320" height="250" viewBox="0 0 320 250" direction="ltr" font-family="DejaVu Sans, Arial, sans-serif"><rect width="100%" height="100%" fill="white"/><text x="160.0" y="22" text-anchor="middle" font-size="17" font-weight="bold" fill="#222">(ג)</text><line x1="160.0" y1="60.1" x2="90.0" y2="225.0" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="90.0" y1="225.0" x2="230.0" y2="225.0" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="230.0" y1="225.0" x2="160.0" y2="60.1" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="131.4" y1="145.3" x2="118.6" y2="139.8" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><line x1="201.4" y1="139.8" x2="188.6" y2="145.3" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><path d="M149.8 84.0 A26 26 0 0 0 170.2 84.0" fill="none" stroke="#c0392b" stroke-width="1.6"/><text x="160.0" y="111.1" text-anchor="middle" font-size="15" fill="#c0392b">46°</text><path d="M118.0 225.0 A28 28 0 0 0 100.9 199.2" fill="none" stroke="#c0392b" stroke-width="1.6"/><text x="126.7" y="205.7" text-anchor="middle" font-size="15" fill="#c0392b">α</text><text x="160.0" y="51.1" text-anchor="middle" font-size="16" fill="#222">A</text><text x="76.0" y="236.0" text-anchor="middle" font-size="16" fill="#222">B</text><text x="244.0" y="236.0" text-anchor="middle" font-size="16" fill="#222">C</text></svg>
+<!-- פאנל ב -->
+<svg x="330" y="0" width="320" height="260" viewBox="0 0 320 260" direction="ltr" font-family="DejaVu Sans, Arial, sans-serif"><rect width="100%" height="100%" fill="white"/><text x="160.0" y="22" text-anchor="middle" font-size="17" font-weight="bold" fill="#222">(ב)</text><line x1="160.0" y1="140.0" x2="260.0" y2="140.0" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="160.0" y1="140.0" x2="160.0" y2="40.0" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="160.0" y1="140.0" x2="73.4" y2="190.0" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="160.0" y1="140.0" x2="202.3" y2="230.6" stroke="#222" stroke-width="2" stroke-linecap="round"/><circle cx="160.0" cy="140.0" r="3" fill="#222"/><path d="M174.0 140.0 L174.0 126.0 L160.0 126.0" fill="none" stroke="#c0392b" stroke-width="1.4"/><path d="M160.0 116.0 A24 24 0 0 0 139.2 152.0" fill="none" stroke="#c0392b" stroke-width="1.6"/><text x="118.4" y="121.0" text-anchor="middle" font-size="15" fill="#c0392b">120°</text><path d="M134.0 155.0 A30 30 0 0 0 172.7 167.2" fill="none" stroke="#c0392b" stroke-width="1.6"/><text x="145.0" y="192.7" text-anchor="middle" font-size="15" fill="#c0392b">85°</text><path d="M171.0 163.6 A26 26 0 0 0 186.0 140.0" fill="none" stroke="#c0392b" stroke-width="1.6"/><text x="197.1" y="168.6" text-anchor="middle" font-size="15" fill="#c0392b">α</text></svg>
+<!-- פאנל א -->
+<svg x="660" y="0" width="320" height="230" viewBox="0 0 320 230" direction="ltr" font-family="DejaVu Sans, Arial, sans-serif"><rect width="100%" height="100%" fill="white"/><text x="160.0" y="22" text-anchor="middle" font-size="17" font-weight="bold" fill="#222">(א)</text><line x1="20.0" y1="180.0" x2="300.0" y2="180.0" stroke="#222" stroke-width="2" stroke-linecap="round"/><circle cx="160.0" cy="180.0" r="3" fill="#222"/><line x1="160.0" y1="180.0" x2="205.0" y2="68.7" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="160.0" y1="180.0" x2="78.2" y2="92.2" stroke="#222" stroke-width="2" stroke-linecap="round"/><path d="M194.0 180.0 A34 34 0 0 0 172.7 148.5" fill="none" stroke="#c0392b" stroke-width="1.6"/><text x="204.8" y="154.8" text-anchor="middle" font-size="15" fill="#c0392b">68°</text><path d="M170.5 154.0 A28 28 0 0 0 140.9 159.5" fill="none" stroke="#c0392b" stroke-width="1.6"/><text x="151.6" y="139.8" text-anchor="middle" font-size="15" fill="#c0392b">α</text><path d="M132.7 150.7 A40 40 0 0 0 120.0 180.0" fill="none" stroke="#c0392b" stroke-width="1.6"/><text x="105.0" y="161.1" text-anchor="middle" font-size="15" fill="#c0392b">47°</text></svg>
+</svg>
+</div>
+<details dir="rtl"><summary>הצגת פתרון</summary>
+<ul>
+  <li>(א) <span dir="ltr" class="m">α = 65°</span>. בזווית שטוחה יש <span dir="ltr" class="m">180°</span>, ולכן <span dir="ltr" class="m">α = 180° − 68° − 47°</span>.</li>
+  <li>(ב) <span dir="ltr" class="m">α = 65°</span>. סביב נקודה יש <span dir="ltr" class="m">360°</span>, ולכן <span dir="ltr" class="m">α = 360° − 90° − 120° − 85°</span>.</li>
+  <li>(ג) <span dir="ltr" class="m">α = 67°</span>. בשתי זוויות הבסיס יחד יש <span dir="ltr" class="m">180° − 46° = 134°</span>, וכל אחת מהן היא החצי.</li>
+</ul>
+</details>
+</div>
+
+<!-- תרגיל 2 -->
+<div class="ex">
+<div class="row">
+<div class="txt">
+<div class="ex-title">(2) הכיכר</div>
+<p>שלושה רחובות ישרים נפגשים בכיכר אחת. נוצרו שש זוויות, והן ממוספרות מ-1 עד 6.</p>
+<p>נתון: <span dir="ltr" class="m">∡1 = 40°</span>, <span dir="ltr" class="m">∡2 = 75°</span></p>
+<ul>
+  <li>(א) כתבו שני זוגות של זוויות קודקודיות.</li>
+  <li>(ב) האם <span dir="ltr" class="m">∡1</span> ו-<span dir="ltr" class="m">∡2</span> הן זוויות צמודות? נמקו.</li>
+  <li>(ג) חשבו את <span dir="ltr" class="m">∡3</span>. רמז: אילו זוויות יוצרות יחד זווית שטוחה?</li>
+  <li>(ד) חשבו את <span dir="ltr" class="m">∡4</span>, <span dir="ltr" class="m">∡5</span> ו-<span dir="ltr" class="m">∡6</span>.</li>
+  <li>(ה) נועה טוענת שסכום כל שש הזוויות הוא <span dir="ltr" class="m">360°</span>. האם היא צודקת? נמקו.</li>
+</ul>
+</div>
+<div class="fig">
+<svg xmlns="http://www.w3.org/2000/svg" style="width:260px;max-width:100%;height:auto" viewBox="0 0 320 280" direction="ltr" font-family="DejaVu Sans, Arial, sans-serif"><rect width="100%" height="100%" fill="white"/><circle cx="160" cy="140" r="16" fill="#e5e5e5"/><line x1="300.0" y1="140.0" x2="20.0" y2="140.0" stroke="#e5e5e5" stroke-width="22"/><line x1="267.2" y1="50.0" x2="52.8" y2="230.0" stroke="#e5e5e5" stroke-width="22"/><line x1="100.8" y1="13.1" x2="219.2" y2="266.9" stroke="#e5e5e5" stroke-width="22"/><line x1="300.0" y1="140.0" x2="20.0" y2="140.0" stroke="#222" stroke-width="1.6" stroke-linecap="round"/><line x1="267.2" y1="50.0" x2="52.8" y2="230.0" stroke="#222" stroke-width="1.6" stroke-linecap="round"/><line x1="100.8" y1="13.1" x2="219.2" y2="266.9" stroke="#222" stroke-width="1.6" stroke-linecap="round"/><circle cx="160.0" cy="140.0" r="3" fill="#222"/><text x="203.2" y="129.3" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">1</text><text x="170.0" y="100.1" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">2</text><text x="121.2" y="120.3" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">3</text><text x="116.8" y="160.7" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">4</text><text x="150.0" y="189.9" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">5</text><text x="198.8" y="169.7" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">6</text></svg>
+</div>
+</div>
+<details dir="rtl"><summary>הצגת פתרון</summary>
+<ul>
+  <li>(א) <span dir="ltr" class="m">∡1</span> ו-<span dir="ltr" class="m">∡4</span>, <span dir="ltr" class="m">∡2</span> ו-<span dir="ltr" class="m">∡5</span>, <span dir="ltr" class="m">∡3</span> ו-<span dir="ltr" class="m">∡6</span>.</li>
+  <li>(ב) לא. יש להן שוק משותפת, אבל השוקיים האחרות שלהן לא יוצרות ישר אחד, וסכומן <span dir="ltr" class="m">115°</span> ולא <span dir="ltr" class="m">180°</span>.</li>
+  <li>(ג) <span dir="ltr" class="m">∡3 = 180° − 40° − 75° = 65°</span>.</li>
+  <li>(ד) <span dir="ltr" class="m">∡4 = 40°</span>, <span dir="ltr" class="m">∡5 = 75°</span>, <span dir="ltr" class="m">∡6 = 65°</span>, כי הן קודקודיות.</li>
+  <li>(ה) כן. כל הזוויות יחד מקיפות את הנקודה, ולכן סכומן <span dir="ltr" class="m">360°</span>.</li>
+</ul>
+</details>
+</div>
+
+<!-- תרגיל 3 -->
+<div class="ex">
+<div class="row">
+<div class="txt">
+<div class="ex-title">(3) העפיפון</div>
+<p>מיכל בנתה עפיפון <span dir="ltr" class="m">ABCD</span>. במסגרת שלו <span dir="ltr" class="m">AB = AD</span> וגם <span dir="ltr" class="m">CB = CD</span>, ומוט הרוחב <span dir="ltr" class="m">BD</span> מחבר בין <span dir="ltr" class="m">B</span> ל-<span dir="ltr" class="m">D</span>.</p>
+<p>נתון: <span dir="ltr" class="m">∡BAD = 80°</span>, <span dir="ltr" class="m">∡BCD = 50°</span></p>
+<ul>
+  <li>(א) חשבו את <span dir="ltr" class="m">∡ABD</span> ואת <span dir="ltr" class="m">∡ADB</span>.</li>
+  <li>(ב) חשבו את <span dir="ltr" class="m">∡CBD</span>.</li>
+  <li>(ג) חשבו את <span dir="ltr" class="m">∡ABC</span> ואת <span dir="ltr" class="m">∡ADC</span>.</li>
+  <li>(ד) בדקו שסכום הזוויות של העפיפון הוא <span dir="ltr" class="m">360°</span>.</li>
+</ul>
+</div>
+<div class="fig">
+<svg xmlns="http://www.w3.org/2000/svg" style="width:260px;max-width:100%;height:auto" viewBox="0 0 300 334" direction="ltr" font-family="DejaVu Sans, Arial, sans-serif"><rect width="100%" height="100%" fill="white"/><path d="M150 30 L220.0 113.4 L150 263.5 L80.0 113.4Z" fill="#fde2c4" stroke="#222" stroke-width="2"/><line x1="80.0" y1="113.4" x2="220.0" y2="113.4" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="120.4" y1="76.2" x2="109.6" y2="67.2" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><line x1="190.4" y1="67.2" x2="179.6" y2="76.2" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><line x1="120.3" y1="183.3" x2="107.6" y2="189.2" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><line x1="122.4" y1="187.8" x2="109.7" y2="193.7" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><line x1="192.4" y1="189.2" x2="179.7" y2="183.3" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><line x1="190.3" y1="193.7" x2="177.6" y2="187.8" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><path d="M150 263.5 q 15 15 0 28 q -15 14 0 26" fill="none" stroke="#e67e22" stroke-width="2"/><path d="M133.3 49.9 A26 26 0 0 0 166.7 49.9" fill="none" stroke="#c0392b" stroke-width="1.6"/><text x="150.0" y="79.0" text-anchor="middle" font-size="15" fill="#c0392b">80°</text><path d="M162.7 236.3 A30 30 0 0 0 137.3 236.3" fill="none" stroke="#c0392b" stroke-width="1.6"/><text x="150.0" y="218.5" text-anchor="middle" font-size="15" fill="#c0392b">50°</text><text x="150.0" y="21.0" text-anchor="middle" font-size="16" fill="#222">A</text><text x="64.0" y="118.4" text-anchor="middle" font-size="16" fill="#222">B</text><text x="236.0" y="118.4" text-anchor="middle" font-size="16" fill="#222">D</text><text x="134.0" y="270.5" text-anchor="middle" font-size="16" fill="#222">C</text></svg>
+</div>
+</div>
+<details dir="rtl"><summary>הצגת פתרון</summary>
+<ul>
+  <li>(א) <span dir="ltr" class="m">50°</span> כל אחת, כי המשולש <span dir="ltr" class="m">ABD</span> <span class="nw">שווה-שוקיים</span>: <span dir="ltr" class="m">(180° − 80°) : 2</span>.</li>
+  <li>(ב) <span dir="ltr" class="m">∡CBD = 65°</span>, כי המשולש <span dir="ltr" class="m">CBD</span> <span class="nw">שווה-שוקיים</span>: <span dir="ltr" class="m">(180° − 50°) : 2</span>.</li>
+  <li>(ג) <span dir="ltr" class="m">∡ABC = ∡ADC = 50° + 65° = 115°</span>.</li>
+  <li>(ד) <span dir="ltr" class="m">80° + 115° + 50° + 115° = 360°</span>.</li>
+</ul>
+</details>
+</div>
+
+<!-- תרגיל 4 -->
+<div class="ex">
+<div class="row">
+<div class="txt">
+<div class="ex-title">(4) שולחן הביליארד</div>
+<p>כדור יוצא מהנקודה <span dir="ltr" class="m">A</span>, פוגע בדופן התחתונה בנקודה <span dir="ltr" class="m">P</span>, ממשיך לדופן הימנית בנקודה <span dir="ltr" class="m">Q</span>, ומשם מתגלגל ל-<span dir="ltr" class="m">B</span>. שתי הדפנות נפגשות בפינה <span dir="ltr" class="m">C</span> בזווית ישרה.</p>
+<p>כשכדור פוגע בדופן, הזווית שבה הוא פוגע שווה לזווית שבה הוא ממשיך.</p>
+<p>נתון: הזווית בין הקטע <span dir="ltr" class="m">PA</span> לדופן התחתונה היא <span dir="ltr" class="m">40°</span>.</p>
+<ul>
+  <li>(א) מהי הזווית בין הקטע <span dir="ltr" class="m">PQ</span> לדופן התחתונה <span dir="ltr" class="m">(∡QPC)</span>?</li>
+  <li>(ב) חשבו את <span dir="ltr" class="m">∡APQ</span>.</li>
+  <li>(ג) חשבו את <span dir="ltr" class="m">∡PQC</span> במשולש <span dir="ltr" class="m">PQC</span>.</li>
+  <li>(ד) חשבו את <span dir="ltr" class="m">∡PQB</span>.</li>
+</ul>
+</div>
+<div class="fig">
+<svg xmlns="http://www.w3.org/2000/svg" style="width:260px;max-width:100%;height:auto" viewBox="0 0 340 260" direction="ltr" font-family="DejaVu Sans, Arial, sans-serif"><rect width="100%" height="100%" fill="white"/><rect x="10" y="18" width="312" height="214" rx="10" fill="#7b4a2a"/><rect x="18" y="30" width="292" height="190" fill="#2e8b57"/><line x1="138.7" y1="168.6" x2="200.0" y2="220.0" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 5"/><line x1="200.0" y1="220.0" x2="310.0" y2="127.7" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 5"/><line x1="310.0" y1="127.7" x2="248.7" y2="76.3" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 5"/><circle cx="138.7" cy="168.6" r="8" fill="#f1c40f" stroke="#222"/><circle cx="248.7" cy="76.3" r="8" fill="#f1c40f" stroke="#222" stroke-dasharray="2 2"/><path d="M180.1 203.3 A26 26 0 0 0 174.0 220.0" fill="none" stroke="#ffeb3b" stroke-width="1.6"/><text x="156.8" y="209.3" text-anchor="middle" font-size="15" fill="#ffeb3b">40°</text><text x="122.7" y="167.6" text-anchor="middle" font-size="16" fill="#fff">A</text><text x="232.7" y="71.3" text-anchor="middle" font-size="16" fill="#fff">B</text><text x="200.0" y="209.0" text-anchor="middle" font-size="16" fill="#fff">P</text><text x="294.0" y="140.7" text-anchor="middle" font-size="16" fill="#fff">Q</text><text x="298.0" y="213.0" text-anchor="middle" font-size="16" fill="#fff">C</text></svg>
+</div>
+</div>
+<details dir="rtl"><summary>הצגת פתרון</summary>
+<ul>
+  <li>(א) <span dir="ltr" class="m">∡QPC = 40°</span>, כי זווית הפגיעה שווה לזווית ההמשך.</li>
+  <li>(ב) <span dir="ltr" class="m">∡APQ = 180° − 40° − 40° = 100°</span>.</li>
+  <li>(ג) <span dir="ltr" class="m">∡PQC = 180° − 90° − 40° = 50°</span>.</li>
+  <li>(ד) גם בצד השני של <span dir="ltr" class="m">Q</span> יש <span dir="ltr" class="m">50°</span>, ולכן <span dir="ltr" class="m">∡PQB = 180° − 50° − 50° = 80°</span>.</li>
+</ul>
+</details>
+</div>
+
+<!-- תרגיל 5 -->
+<div class="ex">
+<div class="row">
+<div class="txt">
+<div class="ex-title">(5) גג הבית</div>
+<p>הגג של בית הוא משולש <span dir="ltr" class="m">ABC</span>, שבו <span dir="ltr" class="m">AB = AC</span>. העמוד <span dir="ltr" class="m">AD</span> מאונך ל-<span dir="ltr" class="m">BC</span>.</p>
+<p>נתון: <span dir="ltr" class="m">∡ABC = 32°</span></p>
+<ul>
+  <li>(א) חשבו את <span dir="ltr" class="m">∡ACB</span> ואת <span dir="ltr" class="m">∡BAC</span>.</li>
+  <li>(ב) חשבו את <span dir="ltr" class="m">∡BAD</span>.</li>
+  <li>(ג) חשבו את <span dir="ltr" class="m">∡CAD</span>. האם העמוד <span dir="ltr" class="m">AD</span> חוצה את הזווית העליונה של הגג? נמקו.</li>
+  <li>(ד) בבית אחר הזווית העליונה של הגג היא <span dir="ltr" class="m">100°</span>, וגם שם <span dir="ltr" class="m">AB = AC</span>. מהי הזווית בין הגג לתקרה <span dir="ltr" class="m">BC</span>?</li>
+</ul>
+</div>
+<div class="fig">
+<svg xmlns="http://www.w3.org/2000/svg" style="width:260px;max-width:100%;height:auto" viewBox="0 0 320 265" direction="ltr" font-family="DejaVu Sans, Arial, sans-serif"><rect width="100%" height="100%" fill="white"/><rect x="50" y="170" width="220" height="80" fill="#f3e6d3" stroke="#8a6d46"/><rect x="140" y="200" width="40" height="50" fill="#c8a978"/><path d="M30 170 L160 88.8 L290 170Z" fill="#e8a49c" stroke="#222" stroke-width="2"/><line x1="160.0" y1="88.8" x2="160.0" y2="170.0" stroke="#222" stroke-width="2" stroke-linecap="round"/><path d="M172.0 170.0 L172.0 158.0 L160.0 158.0" fill="none" stroke="#c0392b" stroke-width="1.4"/><line x1="98.7" y1="135.3" x2="91.3" y2="123.4" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><line x1="228.7" y1="123.4" x2="221.3" y2="135.3" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><path d="M66.0 170.0 A36 36 0 0 0 60.5 150.9" fill="none" stroke="#c0392b" stroke-width="1.6"/><text x="83.8" y="159.6" text-anchor="middle" font-size="15" fill="#c0392b">32°</text><text x="160.0" y="79.8" text-anchor="middle" font-size="16" fill="#222">A</text><text x="16.0" y="175.0" text-anchor="middle" font-size="16" fill="#222">B</text><text x="304.0" y="175.0" text-anchor="middle" font-size="16" fill="#222">C</text><text x="172.0" y="191.0" text-anchor="middle" font-size="16" fill="#222">D</text></svg>
+</div>
+</div>
+<details dir="rtl"><summary>הצגת פתרון</summary>
+<ul>
+  <li>(א) <span dir="ltr" class="m">∡ACB = 32°</span>, <span dir="ltr" class="m">∡BAC = 180° − 32° − 32° = 116°</span>.</li>
+  <li>(ב) <span dir="ltr" class="m">∡BAD = 180° − 90° − 32° = 58°</span>.</li>
+  <li>(ג) <span dir="ltr" class="m">∡CAD = 58°</span> מאותה סיבה. כן, <span dir="ltr" class="m">58° + 58° = 116°</span>, ושני החלקים שווים.</li>
+  <li>(ד) <span dir="ltr" class="m">40°</span>, כי <span dir="ltr" class="m">(180° − 100°) : 2 = 40°</span>.</li>
+</ul>
+</details>
+</div>
+
+<!-- תרגיל 6 -->
+<div class="ex">
+<div class="row">
+<div class="txt">
+<div class="ex-title">(6) אתגר: ריבוע ומשולש</div>
+<p><span dir="ltr" class="m">ABCD</span> הוא ריבוע. בתוך הריבוע בנו משולש <span class="nw">שווה-צלעות</span> <span dir="ltr" class="m">ABE</span>, וחיברו את <span dir="ltr" class="m">E</span> לקודקודים <span dir="ltr" class="m">C</span> ו-<span dir="ltr" class="m">D</span>.</p>
+<ul>
+  <li>(א) חשבו את <span dir="ltr" class="m">∡DAE</span>.</li>
+  <li>(ב) הסבירו למה <span dir="ltr" class="m">AD = AE</span>.</li>
+  <li>(ג) חשבו את <span dir="ltr" class="m">∡ADE</span> ואת <span dir="ltr" class="m">∡AED</span>.</li>
+  <li>(ד) חשבו את <span dir="ltr" class="m">∡EDC</span> ואת <span dir="ltr" class="m">∡DEC</span>.</li>
+</ul>
+</div>
+<div class="fig">
+<svg xmlns="http://www.w3.org/2000/svg" style="width:260px;max-width:100%;height:auto" viewBox="0 0 300 280" direction="ltr" font-family="DejaVu Sans, Arial, sans-serif"><rect width="100%" height="100%" fill="white"/><line x1="50.0" y1="250.0" x2="250.0" y2="250.0" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="250.0" y1="250.0" x2="250.0" y2="50.0" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="250.0" y1="50.0" x2="50.0" y2="50.0" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="50.0" y1="50.0" x2="50.0" y2="250.0" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="50.0" y1="250.0" x2="150.0" y2="76.8" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="250.0" y1="250.0" x2="150.0" y2="76.8" stroke="#222" stroke-width="2" stroke-linecap="round"/><line x1="50.0" y1="50.0" x2="150.0" y2="76.8" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><line x1="250.0" y1="50.0" x2="150.0" y2="76.8" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><line x1="150.0" y1="243.0" x2="150.0" y2="257.0" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><line x1="93.9" y1="159.9" x2="106.1" y2="166.9" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><line x1="193.9" y1="166.9" x2="206.1" y2="159.9" stroke="#2266aa" stroke-width="1.6" stroke-linecap="round"/><path d="M62.0 250.0 L62.0 238.0 L50.0 238.0" fill="none" stroke="#c0392b" stroke-width="1.4"/><path d="M238.0 250.0 L238.0 238.0 L250.0 238.0" fill="none" stroke="#c0392b" stroke-width="1.4"/><path d="M250.0 62.0 L238.0 62.0 L238.0 50.0" fill="none" stroke="#c0392b" stroke-width="1.4"/><path d="M50.0 62.0 L62.0 62.0 L62.0 50.0" fill="none" stroke="#c0392b" stroke-width="1.4"/><text x="36.0" y="265.0" text-anchor="middle" font-size="16" fill="#222">A</text><text x="264.0" y="265.0" text-anchor="middle" font-size="16" fill="#222">B</text><text x="264.0" y="45.0" text-anchor="middle" font-size="16" fill="#222">C</text><text x="36.0" y="45.0" text-anchor="middle" font-size="16" fill="#222">D</text><text x="150.0" y="103.8" text-anchor="middle" font-size="16" fill="#222">E</text></svg>
+</div>
+</div>
+<details dir="rtl"><summary>הצגת פתרון</summary>
+<ul>
+  <li>(א) <span dir="ltr" class="m">∡DAE = 90° − 60° = 30°</span>.</li>
+  <li>(ב) <span dir="ltr" class="m">AD = AB</span> כי אלה צלעות של ריבוע, ו-<span dir="ltr" class="m">AB = AE</span> כי אלה צלעות של משולש <span class="nw">שווה-צלעות</span>.</li>
+  <li>(ג) <span dir="ltr" class="m">75°</span> כל אחת: <span dir="ltr" class="m">(180° − 30°) : 2</span>.</li>
+  <li>(ד) <span dir="ltr" class="m">∡EDC = 90° − 75° = 15°</span>. מאותה סיבה גם <span dir="ltr" class="m">∡ECD = 15°</span>, ולכן <span dir="ltr" class="m">∡DEC = 150°</span>.</li>
+</ul>
+</details>
+</div>
+
+<div class="footer">© כל הזכויות שמורות לחן מרגלית</div>
+</div>
+</body>
+</html>
