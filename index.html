@@ -567,9 +567,9 @@
     <div style="background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.12);border-radius:20px;overflow:hidden;">
       <div onclick="stToggle()" style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;user-select:none;">
         <span style="font-size:16px;font-weight:800;color:#FFFFFF;letter-spacing:-0.3px;">איפה אני?</span>
-        <span id="st-chev" style="font-size:12px;color:rgba(234,244,241,0.5);transition:transform .25s;">▼</span>
+        <span id="st-chev" style="font-size:12px;color:rgba(234,244,241,0.5);transition:transform .25s;transform:rotate(-90deg);">▼</span>
       </div>
-      <div id="st-body" style="padding:0 20px 20px;">
+      <div id="st-body" style="padding:0 20px 20px;display:none;">
         <div style="font-size:13px;color:rgba(234,244,241,0.5);margin-bottom:16px;text-align:center;">הקלידו שם מלא — שם פרטי ואז שם משפחה<br>כדי לראות באיזה מבדק אתם</div>
         <div style="display:flex;gap:10px;margin-bottom:16px;">
           <input id="st-name" type="text" placeholder="שם מלא"
@@ -748,7 +748,7 @@ function stToggle() {
   var chev = document.getElementById('st-chev');
   var open = body.style.display !== 'none';
   body.style.display = open ? 'none' : '';
-  chev.style.transform = open ? 'rotate(-90deg)' : '';
+  chev.style.transform = open ? 'rotate(-90deg)' : 'rotate(0deg)';
 }
 
 var ST_DOMAINS = [
