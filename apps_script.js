@@ -20,6 +20,15 @@
 
 function doGet(e) {
   var mode = e && e.parameter && e.parameter.mode;
+
+  // JSON API endpoint — called by the main website
+  if (mode === 'api') {
+    var data = getDataServer();
+    return ContentService
+      .createTextOutput(JSON.stringify(data))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
   var isStudent = mode === 'student';
   var githubFile = isStudent ? 'student_index.html' : 'teacher_index.html';
   var title     = isStudent ? 'המבדק שלי' : 'דף מורה — מבדקי שליטה';

@@ -756,6 +756,87 @@ function checkGateCode() {
   </div>
 </div>
 
+<section style="max-width:520px;margin:32px auto 24px;padding:0 16px;">
+  <div style="background:#fff;border-radius:20px;padding:28px 24px;box-shadow:0 4px 20px rgba(0,0,0,0.08);text-align:center;">
+    <div style="font-size:28px;margin-bottom:8px;">📋</div>
+    <div style="font-size:18px;font-weight:700;color:#1a1a2e;margin-bottom:4px;">איפה אני?</div>
+    <div style="font-size:13px;color:#6B7280;margin-bottom:20px;">הקלד את שמך כדי לראות את המבדק הבא שלך</div>
+    <div style="display:flex;gap:10px;margin-bottom:20px;">
+      <input id="st-name" type="text" placeholder="שם מלא"
+        style="flex:1;padding:11px 14px;border:2px solid #E5E7EB;border-radius:12px;font-family:'Rubik',sans-serif;font-size:14px;color:#1a1a2e;outline:none;"
+        onfocus="this.style.borderColor='#6366F1'" onblur="this.style.borderColor='#E5E7EB'"
+        onkeydown="if(event.key==='Enter')stLookup()">
+      <button onclick="stLookup()" id="st-btn"
+        style="padding:11px 18px;background:#6366F1;color:#fff;border:none;border-radius:12px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;">
+        חפש
+      </button>
+    </div>
+    <div id="st-result" style="text-align:right;"></div>
+  </div>
+</section>
+
 <footer style="text-align:center;padding:18px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+
+<script>
+var ST_URL = 'https://script.google.com/macros/s/AKfycbypGYgALZmBe9jtRU_C49lvRPOtK_mC_iS5wYw5lem_EPQaYj7vErZiP64TZbEZvsb-BQ/exec';
+
+var ST_DOMAINS = [
+  { name:'מספרי', color:'#3B82F6', sequences:['ערך מוחלט','מספרים נגדיים','מיקום על ציר המספרים','מודל החצים וכלל הסימן','תרגילים ארוכים וחוק החילוף','חיסור = חיבור הנגדי','תרגילים ארוכים וכתיבה ללא סוגריים','כפל וחילוק מספרים מכוונים','סדר פעולות חשבון','סדר פעולות עם קו שבר','נקודות בכל הרביעים','אורכים ושטחים בכל הרביעים','הגדרת חזקה וחישוב בסיסי','בסיס שלילי — עם סוגריים ובלי','חזקות מיוחדות — מעריך 1, בסיס 1 ושברים','השוואה וסדר פעולות עם חזקות','הגדרה גיאומטרית','הגדרה אלגברית','שורש ריבועי של שבר','חישובים עם שורשים'] },
+  { name:'אלגברי', color:'#8B5CF6', sequences:['מבוא — מאין הגיעה האלגברה?','כתיבת ביטויים אלגבריים','הצבה וחישוב ערך הביטוי','כינוס איברים דומים','חוק הפילוג','זהות בין ביטויים אלגבריים','מבוא למשוואות — זיהוי פתרון','משוואות פשוטות — פעולה אחת','משוואות מורכבות — כמה שלבים','משוואות עם פתיחת סוגריים','סוגי פתרון — פתרון יחיד, אין פתרון, אינסוף','שאלות מילוליות','קריאת תיאור גרפי של נקודות ברביע I'] },
+  { name:'גיאומטרי', color:'#10B981', sequences:['מבוא — מה זו גיאומטריה?','סוגי זוויות','כתיב מתמטי של זוויות','סכום והפרש זוויות','חוצה-זווית','זוויות צמודות','זוויות קודקודיות','משולש שווה-צלעות','משולש שווה-שוקיים','סכום זוויות במשולש','סכום זוויות במרובע','חפיפה — מה זה אומר שצורות חופפות?','הזזה','סיבוב','שיקוף','סימטריה','היקף ושטח של מלבן וריבוע','שטח משולש','צורות מורכבות','מעוין ודלתון — אלכסונות מאונכים','מושגים — פאה, מקצוע, קודקוד','נפח תיבה','שטח פנים של תיבה','קובייה — מקרה מיוחד','פריסות'] }
+];
+
+function stLookup() {
+  var name = document.getElementById('st-name').value.trim();
+  if (!name) return;
+  var btn = document.getElementById('st-btn');
+  btn.disabled = true;
+  document.getElementById('st-result').innerHTML = '<div style="text-align:center;padding:12px 0;color:#6B7280;font-size:13px;">טוען...</div>';
+
+  fetch(ST_URL + '?mode=api')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      btn.disabled = false;
+      stShowResult(name, data);
+    })
+    .catch(function() {
+      btn.disabled = false;
+      document.getElementById('st-result').innerHTML =
+        '<div style="color:#DC2626;font-size:13px;text-align:center;">לא הצלחנו לטעון נתונים. נסה שוב.</div>';
+    });
+}
+
+function stShowResult(query, data) {
+  if (!data || !data.ok) {
+    document.getElementById('st-result').innerHTML =
+      '<div style="color:#DC2626;font-size:13px;text-align:center;">לא ניתן לטעון נתונים.</div>';
+    return;
+  }
+  var q = query.toLowerCase();
+  var student = data.students.find(function(s){ return s.name.toLowerCase() === q; });
+  if (!student) student = data.students.find(function(s){ return s.name.toLowerCase().indexOf(q) !== -1; });
+  if (!student) {
+    document.getElementById('st-result').innerHTML =
+      '<div style="color:#DC2626;font-size:13px;text-align:center;">לא נמצא תלמיד בשם "' + query + '".<br>בדוק שהשם נכתב כמו ברשימת הכיתה.</div>';
+    return;
+  }
+  var passed = new Set();
+  data.events.forEach(function(e){ if (e.studentId === student.id && e.passed) passed.add(e.unit); });
+
+  var html = '<div style="font-size:16px;font-weight:700;color:#1a1a2e;margin-bottom:14px;text-align:center;">שלום, ' + student.name + ' 👋</div>';
+  ST_DOMAINS.forEach(function(d) {
+    var done = d.sequences.filter(function(s){ return passed.has(s); }).length;
+    var next = d.sequences.find(function(s){ return !passed.has(s); });
+    html += '<div style="border-radius:10px;padding:12px 14px;margin-bottom:10px;background:' + d.color + '11;border-right:4px solid ' + d.color + ';">' +
+      '<div style="font-size:11px;font-weight:700;color:' + d.color + ';margin-bottom:6px;">תחום ' + d.name + '</div>' +
+      (next
+        ? '<div style="font-size:11px;color:#9CA3AF;margin-bottom:2px;">המבדק הבא:</div><div style="font-size:14px;font-weight:700;color:#1a1a2e;">' + next + '</div>'
+        : '<div style="font-size:14px;font-weight:700;color:#10B981;">✓ הושלמו כל המבדקים!</div>') +
+      '<div style="font-size:11px;color:#6B7280;margin-top:5px;">' + done + ' מתוך ' + d.sequences.length + ' הושלמו</div>' +
+      '</div>';
+  });
+  document.getElementById('st-result').innerHTML = html;
+}
+</script>
 </body>
 </html>
