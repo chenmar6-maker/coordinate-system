@@ -564,20 +564,25 @@
   </div>
 
   <section style="max-width:340px;margin:32px auto 8px;">
-    <div style="background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.12);border-radius:20px;padding:28px 24px;text-align:center;">
-      <div style="font-size:17px;font-weight:800;color:#FFFFFF;margin-bottom:6px;letter-spacing:-0.3px;">איפה אני?</div>
-      <div style="font-size:13px;color:rgba(234,244,241,0.5);margin-bottom:20px;">הקלידו שם מלא — שם פרטי ואז שם משפחה<br>כדי לראות באיזה מבדק אתם</div>
-      <div style="display:flex;gap:10px;margin-bottom:20px;">
-        <input id="st-name" type="text" placeholder="שם מלא"
-          style="flex:1;padding:11px 14px;background:rgba(234,244,241,0.07);border:1.5px solid rgba(234,244,241,0.15);border-radius:12px;font-family:'Rubik',sans-serif;font-size:14px;color:#fff;outline:none;"
-          onfocus="this.style.borderColor='rgba(234,244,241,0.45)'" onblur="this.style.borderColor='rgba(234,244,241,0.15)'"
-          onkeydown="if(event.key==='Enter')stLookup()">
-        <button onclick="stLookup()" id="st-btn"
-          style="padding:11px 18px;background:rgba(234,244,241,0.12);color:#fff;border:1.5px solid rgba(234,244,241,0.2);border-radius:12px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s;">
-          חפש
-        </button>
+    <div style="background:rgba(234,244,241,0.05);border:1.5px solid rgba(234,244,241,0.12);border-radius:20px;overflow:hidden;">
+      <div onclick="stToggle()" style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;user-select:none;">
+        <span style="font-size:16px;font-weight:800;color:#FFFFFF;letter-spacing:-0.3px;">איפה אני?</span>
+        <span id="st-chev" style="font-size:12px;color:rgba(234,244,241,0.5);transition:transform .25s;">▼</span>
       </div>
-      <div id="st-result" style="text-align:right;"></div>
+      <div id="st-body" style="padding:0 20px 20px;">
+        <div style="font-size:13px;color:rgba(234,244,241,0.5);margin-bottom:16px;text-align:center;">הקלידו שם מלא — שם פרטי ואז שם משפחה<br>כדי לראות באיזה מבדק אתם</div>
+        <div style="display:flex;gap:10px;margin-bottom:16px;">
+          <input id="st-name" type="text" placeholder="שם מלא"
+            style="flex:1;padding:11px 14px;background:rgba(234,244,241,0.07);border:1.5px solid rgba(234,244,241,0.15);border-radius:12px;font-family:'Rubik',sans-serif;font-size:14px;color:#fff;outline:none;"
+            onfocus="this.style.borderColor='rgba(234,244,241,0.45)'" onblur="this.style.borderColor='rgba(234,244,241,0.15)'"
+            onkeydown="if(event.key==='Enter')stLookup()">
+          <button onclick="stLookup()" id="st-btn"
+            style="padding:11px 18px;background:rgba(234,244,241,0.12);color:#fff;border:1.5px solid rgba(234,244,241,0.2);border-radius:12px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s;">
+            חפש
+          </button>
+        </div>
+        <div id="st-result" style="text-align:right;"></div>
+      </div>
     </div>
   </section>
 
@@ -737,6 +742,14 @@ function checkGateCode() {
 
 <script>
 var ST_URL = 'https://script.google.com/macros/s/AKfycbypGYgALZmBe9jtRU_C49lvRPOtK_mC_iS5wYw5lem_EPQaYj7vErZiP64TZbEZvsb-BQ/exec';
+
+function stToggle() {
+  var body = document.getElementById('st-body');
+  var chev = document.getElementById('st-chev');
+  var open = body.style.display !== 'none';
+  body.style.display = open ? 'none' : '';
+  chev.style.transform = open ? 'rotate(-90deg)' : '';
+}
 
 var ST_DOMAINS = [
   { name:'מספרי', color:'#3B82F6', units:[
