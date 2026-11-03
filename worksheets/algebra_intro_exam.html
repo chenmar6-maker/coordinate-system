@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — מבוא לאלגברה</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 80px;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+    background: #C05621;
+  }
+
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 10px 14px 10px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #F6A35A;
+  }
+
+  .quiz-q .qrow {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 6px;
+  }
+  .quiz-q .qnum { font-weight: 700; min-width: 18px; flex-shrink: 0; }
+
+  .ans-line {
+    display: inline-block;
+    border-bottom: 1.5px solid #555;
+    min-width: 80px;
+    margin: 0 3px;
+    vertical-align: bottom;
+  }
+  .ans-sm { min-width: 44px; }
+  .ans-lg { min-width: 140px; }
+  .ans-xl { min-width: 200px; }
+
+  .match-table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+  .match-table td { padding: 7px 10px; font-size: 13.5px; vertical-align: middle; }
+  .match-table tr { border-bottom: 1px solid #f0f0f0; }
+  .match-table tr:last-child { border-bottom: none; }
+  .match-key { font-weight: 700; color: #7C3AED; white-space: nowrap; }
+  .match-arrow { color: #9CA3AF; padding: 0 6px; text-align: center; width: 24px; }
+
+  .write-lines { margin-top: 10px; }
+  .write-line { border-bottom: 1px solid #ccc; height: 28px; margin-bottom: 4px; }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; border: 1px solid #e0e0e0 !important; page-break-inside: avoid; border-right: 4px solid #F6A35A !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — מבוא לאלגברה</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; תחום אלגברי</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div style="background:#FFF3CD;border:2px solid #F59E0B;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#92400E;display:flex;align-items:center;gap:10px;">
+  <span style="font-size:20px;">📝</span>
+  <span>כתבו את התשובות על דף נפרד — <u>ממספרים לפי מספר השאלה</u>!</span>
+</div>
+
+<span class="part-label">אל-חווריזמי והמורשת שהותיר</span>
+
+<!-- Q1 – fill in the blanks -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span>השלימו את המשפטים:</span></div>
+  <div style="line-height:2.4;padding-right:4px;">
+    מוחמד אבן מוסא אל-חווריזמי היה מתמטיקאי <span class="ans-line ans-sm">&nbsp;</span> שחי בערך במאה ה-<span class="ans-line ans-sm">&nbsp;</span> לספירה.<br>
+    הוא עבד ב<span class="ans-line">&nbsp;</span>, מרכז הידע הגדול של התקופה, שנמצא בעיר <span class="ans-line ans-sm">&nbsp;</span>.
+  </div>
+</div>
+
+<!-- Q2 – origin of words -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span>מאיפה הגיעה כל מילה? כתבו בשורה המתאימה.</span></div>
+  <table class="match-table">
+    <tr>
+      <td class="match-key">אַלְגֶּבְרָה</td>
+      <td class="match-arrow">←</td>
+      <td><span class="ans-line ans-xl">&nbsp;</span></td>
+    </tr>
+    <tr>
+      <td class="match-key">אַלְגּוֹרִיתְם</td>
+      <td class="match-arrow">←</td>
+      <td><span class="ans-line ans-xl">&nbsp;</span></td>
+    </tr>
+  </table>
+</div>
+
+<!-- Q3 – open question -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span>הסבירו במשפט אחד: למה אנחנו אומרים שאל-חווריזמי <strong>ייסד</strong> את האלגברה?</span></div>
+  <div class="write-lines">
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+</div>
+
+<!-- שאלת היכרות -->
+<div style="margin-top:22px;padding:16px 18px;background:#FFFBEB;border:1.5px solid #FCD34D;border-right:4px solid #F59E0B;border-radius:10px;font-size:13.5px;line-height:1.8;">
+  <div style="font-size:11px;font-weight:800;color:#D97706;letter-spacing:1px;margin-bottom:10px;">💬 שאלת היכרות</div>
+  <div style="background:#FEF3C7;border-radius:8px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#92400E;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span>✏️</span><span>לפני שאתם עונים — כתבו את השאלה במלואה בדף!</span></div>
+  <div style="font-size:14px;font-weight:700;color:#1a1a2e;">אם הייתם מגלים שמשהו שאתם עושים כל יום נקרא על שמכם — מה הייתם רוצים שיהיה?</div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:16px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+</div>
+
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
