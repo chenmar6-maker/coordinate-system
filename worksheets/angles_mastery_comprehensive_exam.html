@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה מסכם — יחידת זוויות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Rubik',sans-serif;background:#fff;color:#1a1a2e;direction:rtl;line-height:1.7;}
+  .page{max-width:720px;margin:0 auto;padding:32px 24px 60px;}
+  .header{border-bottom:3px solid #10B981;padding-bottom:16px;margin-bottom:28px;}
+  .header h1{font-size:22px;font-weight:800;margin:0 0 4px;color:#10B981;}
+  .header p{font-size:13px;color:#6b7280;margin:0;}
+  .header-meta{display:flex;gap:24px;align-items:center;margin-top:10px;flex-wrap:wrap;}
+  .header-badge{font-size:11px;font-weight:700;background:#ECFDF5;border:1.5px solid #6EE7B7;border-radius:20px;padding:3px 12px;color:#065F46;}
+  .q-block{margin-bottom:28px;padding:18px 20px;border:1.5px solid #e5e7eb;border-radius:12px;break-inside:avoid;}
+  .q-num{font-size:10.5px;font-weight:800;letter-spacing:1.5px;color:#10B981;margin-bottom:5px;text-transform:uppercase;}
+  .q-topic{font-size:10.5px;font-weight:700;color:#9ca3af;margin-bottom:6px;}
+  .q-text{font-size:14.5px;font-weight:600;margin-bottom:12px;line-height:1.7;}
+  .q-text p{margin:0 0 5px;}
+  .q-svg-wrap{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:8px;display:block;margin:10px auto 14px;}
+  .q-svg-wrap svg{display:block;width:100%;height:auto;}
+  .lbl{font:600 16px 'Times New Roman',serif;fill:#000;}
+  .ang{font:14px 'Times New Roman',serif;fill:#000;}
+  .ans-line{border:none;border-bottom:1.5px solid #9ca3af;width:100%;height:28px;display:block;margin-top:4px;background:transparent;}
+  .ans-line-sm{border:none;border-bottom:1.5px solid #9ca3af;display:inline-block;min-width:60px;height:20px;vertical-align:bottom;background:transparent;}
+  .explain-box{border:1.5px solid #d1d5db;border-radius:6px;width:100%;min-height:48px;display:block;background:transparent;padding:6px 10px;font-family:'Rubik',sans-serif;font-size:14px;resize:none;margin-top:4px;}
+  .sub-label{font-size:13px;font-weight:700;color:#374151;margin:10px 0 3px;}
+  .ltr{direction:ltr;unicode-bidi:isolate;display:inline;}
+  .classify-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px 14px;margin-top:8px;font-size:13.5px;}
+  .classify-grid span{display:flex;align-items:center;gap:6px;}
+  .tf-list{list-style:none;padding:0;margin:8px 0 0;}
+  .tf-list li{padding:5px 0;font-size:13.5px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #f3f4f6;}
+  .tf-list li:last-child{border-bottom:none;}
+  .tf-blank{border-bottom:1.5px solid #9ca3af;display:inline-block;min-width:44px;height:18px;vertical-align:bottom;}
+  .row-pair{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;}
+  .row-pair .fig{flex-shrink:0;}
+  .row-pair .txt{flex:1;min-width:180px;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin-top:8px;}
+  .score-bar{margin-top:32px;border:1.5px solid #e5e7eb;border-radius:10px;padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px 20px;font-size:12px;}
+  .score-bar .sc-item{display:flex;align-items:center;gap:6px;}
+  .score-bar .sc-blank{border-bottom:1.5px solid #9ca3af;display:inline-block;min-width:34px;height:18px;}
+  .note-box{background:#ECFDF5;border:1.5px solid #6EE7B7;border-right:4px solid #10B981;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:20px;line-height:1.6;}
+  @media print{
+    .q-block{break-inside:avoid;}
+    body{background:#fff;}
+    @page{size:A4;margin:14mm;}
+    .no-print{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="header">
+  <h1>מבדק שליטה מסכם — יחידת זוויות</h1>
+  <p>שם: _________________________ &nbsp;&nbsp; כיתה: _______ &nbsp;&nbsp; תאריך: _____________</p>
+  <div class="header-meta">
+    <span class="header-badge">10 שאלות</span>
+    <span class="header-badge">רצפים 1–10</span>
+    <span style="font-size:12px;color:#10B981;font-weight:700;">חן מרגלית למידה אקטיבית</span>
+  </div>
+</div>
+
+<div class="note-box">
+  📝 כתבו את כל הדרך — שאלות חישוב דורשות הנמקה קצרה.
+</div>
+
+<!-- ══════════════════════════════════════
+     שאלה 1 — סוגי זוויות (רצף 1)
+══════════════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">שאלה 1 מתוך 10</div>
+  <div class="q-topic">רצף 1 — סוגי זוויות</div>
+  <div class="q-text"><p>סווגו כל זווית: <strong>חדה / ישרה / קהה / שטוחה / שלמה</strong>.</p></div>
+  <div class="classify-grid">
+    <span>א. 28°&nbsp;<span class="ans-line-sm"></span></span>
+    <span>ב. 90°&nbsp;<span class="ans-line-sm"></span></span>
+    <span>ג. 145°&nbsp;<span class="ans-line-sm"></span></span>
+    <span>ד. 180°&nbsp;<span class="ans-line-sm"></span></span>
+    <span>ה. 360°&nbsp;<span class="ans-line-sm"></span></span>
+    <span>ו. 55°&nbsp;<span class="ans-line-sm"></span></span>
+    <span>ז. 93°&nbsp;<span class="ans-line-sm"></span></span>
+    <span>ח. 172°&nbsp;<span class="ans-line-sm"></span></span>
+  </div>
+  <div class="sub-label" style="margin-top:14px;">ענו נכון / לא נכון:</div>
+  <ul class="tf-list">
+    <li>א. זווית קהה תמיד גדולה מ-90°. <span class="tf-blank"></span></li>
+    <li>ב. יכולה להיות זווית בת 200°. <span class="tf-blank"></span></li>
+    <li>ג. זווית שטוחה ששוקיה הפוכים זה לזה. <span class="tf-blank"></span></li>
+  </ul>
+</div>
+
+<!-- ══════════════════════════════════════
+     שאלה 2 — כתיב מתמטי (רצף 2)
+══════════════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">שאלה 2 מתוך 10</div>
+  <div class="q-topic">רצף 2 — כתיב מתמטי של זוויות</div>
+  <div class="row-pair">
+    <div class="txt">
+      <div class="q-text" style="margin-bottom:8px;">
+        <p>בעזרת האיור ענו:</p>
+      </div>
+      <div style="font-size:13.5px;line-height:2.0;">
+        א. בכתיב <span class="ltr">∡PQR</span> — הקודקוד הוא <span class="ans-line-sm"></span>, השוקיים הן <span class="ans-line-sm"></span> ו-<span class="ans-line-sm"></span><br>
+        ב. כתבו שלוש דרכים לכתוב את הזווית שקודקודה <span class="ltr">Q</span>:<br>
+        &nbsp;&nbsp;&nbsp;1.&nbsp;<span class="ans-line-sm" style="min-width:80px;"></span>&nbsp;&nbsp;
+        2.&nbsp;<span class="ans-line-sm" style="min-width:80px;"></span>&nbsp;&nbsp;
+        3.&nbsp;<span class="ans-line-sm" style="min-width:80px;"></span>
+      </div>
+    </div>
+    <div class="fig">
+      <div class="q-svg-wrap" style="max-width:130px;margin:0;">
+        <svg viewBox="-10 -10 160 130" xmlns="http://www.w3.org/2000/svg">
+          <!-- Q at (20,100), P at (30,10), R at (140,100) -->
+          <line x1="20" y1="100" x2="30" y2="10" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+          <line x1="20" y1="100" x2="140" y2="100" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+          <!-- angle arc -->
+          <path d="M 42,100 A 22,22 0 0,0 37.3,79.8" fill="none" stroke="#555" stroke-width="1.2"/>
+          <text x="20" y="116" class="lbl" text-anchor="middle">Q</text>
+          <text x="24" y="8" class="lbl" text-anchor="middle">P</text>
+          <text x="148" y="112" class="lbl" text-anchor="middle">R</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     שאלה 3 — סכום והפרש זוויות (רצף 3)
+══════════════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">שאלה 3 מתוך 10</div>
+  <div class="q-topic">רצף 3 — סכום והפרש זוויות</div>
+
+  <!-- 3א: sum -->
+  <div class="row-pair" style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #f3f4f6;">
+    <div class="txt">
+      <div class="q-text" style="margin-bottom:4px;">
+        א. <span class="ltr">∡ABD = 43°, ∡DBC = 37°</span>. מה <span class="ltr">∡ABC</span>?
+      </div>
+      <div style="font-size:13.5px;"><span class="ltr">∡ABC</span> = <span class="ans-line-sm"></span></div>
+      <input class="ans-line" type="text" placeholder="הדרך:"/>
+    </div>
+    <div class="fig">
+      <div class="q-svg-wrap" style="max-width:110px;margin:0;">
+        <svg viewBox="-10 -10 150 130" xmlns="http://www.w3.org/2000/svg">
+          <!-- B at (10,100), C at (130,100), A at (10,10), D at (90,10) -->
+          <line x1="10" y1="100" x2="130" y2="100" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+          <line x1="10" y1="100" x2="10" y2="10"  stroke="#000" stroke-width="2" stroke-linecap="round"/>
+          <line x1="10" y1="100" x2="90" y2="10"  stroke="#000" stroke-width="1.6" stroke-dasharray="5 3" stroke-linecap="round"/>
+          <!-- 43° arc from A direction to D direction -->
+          <path d="M 10,76 A 24,24 0 0,0 22.8,78.7" fill="none" stroke="#555" stroke-width="1.1"/>
+          <text x="28" y="74" style="font:12px 'Rubik',sans-serif;fill:#555;" text-anchor="middle">43°</text>
+          <!-- 37° arc from D direction to C direction -->
+          <path d="M 26.6,80.5 A 30,30 0 0,0 40,100" fill="none" stroke="#555" stroke-width="1.1"/>
+          <text x="46" y="90" style="font:12px 'Rubik',sans-serif;fill:#555;" text-anchor="middle">37°</text>
+          <text x="10" y="116" class="lbl" text-anchor="middle">B</text>
+          <text x="2"  y="8"   class="lbl" text-anchor="middle">A</text>
+          <text x="96" y="8"   class="lbl" text-anchor="middle">D</text>
+          <text x="138" y="116" class="lbl" text-anchor="middle">C</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3ב: difference from flat angle -->
+  <div class="row-pair">
+    <div class="txt">
+      <div class="q-text" style="margin-bottom:4px;">
+        ב. <span class="ltr">∡AOB = 180°</span> (זווית שטוחה). שוק <span class="ltr">OC</span> בתוכה. נתון: <span class="ltr">∡AOC = 68°</span>. חשבו <span class="ltr">∡COB</span>.
+      </div>
+      <div style="font-size:13.5px;"><span class="ltr">∡COB</span> = <span class="ans-line-sm"></span></div>
+      <input class="ans-line" type="text" placeholder="הדרך:"/>
+    </div>
+    <div class="fig">
+      <div class="q-svg-wrap" style="max-width:130px;margin:0;">
+        <svg viewBox="-70 -10 200 110" xmlns="http://www.w3.org/2000/svg">
+          <!-- O at (0,80), A at (-60,80), B at (110,80), C at (30,10) -->
+          <line x1="-60" y1="80" x2="110" y2="80" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+          <line x1="0"   y1="80" x2="30"  y2="10" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+          <!-- 68° arc on left side -->
+          <path d="M -28,80 A 28,28 0 0,0 -10.7,53.4" fill="none" stroke="#555" stroke-width="1.1"/>
+          <text x="-28" y="62" style="font:11px 'Rubik',sans-serif;fill:#555;" text-anchor="middle">68°</text>
+          <!-- ? arc on right side -->
+          <path d="M 9.3,53.4 A 28,28 0 0,0 28,80" fill="none" stroke="#10B981" stroke-width="1.1" stroke-dasharray="4 3"/>
+          <text x="28" y="60" style="font:12px 'Rubik',sans-serif;fill:#10B981;font-weight:700;" text-anchor="middle">?</text>
+          <text x="-2"  y="94" class="lbl" text-anchor="middle">O</text>
+          <text x="-68" y="94" class="lbl" text-anchor="middle">A</text>
+          <text x="116" y="94" class="lbl" text-anchor="middle">B</text>
+          <text x="34"  y="6"  class="lbl" text-anchor="middle">C</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     שאלה 4 — חוצה-זווית (רצף 4)
+══════════════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">שאלה 4 מתוך 10</div>
+  <div class="q-topic">רצף 4 — חוצה-זווית</div>
+
+  <div class="two-col">
+    <!-- 4א -->
+    <div>
+      <div class="q-text" style="margin-bottom:4px;">
+        א. שוק <span class="ltr">OC</span> הוא חוצה-זווית של <span class="ltr">∡AOB = 96°</span>. מה גודל כל חצי?
+      </div>
+      <div style="font-size:13.5px;"><span class="ltr">∡AOC = ∡COB</span> = <span class="ans-line-sm"></span></div>
+      <input class="ans-line" type="text" placeholder="הדרך:"/>
+    </div>
+    <!-- 4ב -->
+    <div>
+      <div class="q-text" style="margin-bottom:4px;">
+        ב. שוק <span class="ltr">OD</span> הוא חוצה-זווית. <span class="ltr">∡AOD = 33°</span>. מה <span class="ltr">∡AOB</span>?
+      </div>
+      <div style="font-size:13.5px;"><span class="ltr">∡AOB</span> = <span class="ans-line-sm"></span></div>
+      <input class="ans-line" type="text" placeholder="הדרך:"/>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;">
+    <div class="q-text" style="margin-bottom:4px;">
+      ג. שוק <span class="ltr">OD</span> חוצה את הזווית הישרה <span class="ltr">∡AOB</span>. שוק <span class="ltr">OE</span> חוצה את <span class="ltr">∡DOB</span>. חשבו <span class="ltr">∡AOE</span>.
+    </div>
+    <div style="font-size:13.5px;"><span class="ltr">∡AOE</span> = <span class="ans-line-sm"></span></div>
+    <input class="ans-line" type="text" placeholder="הדרך:"/>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     שאלה 5 — זוויות צמודות (רצף 5)
+══════════════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">שאלה 5 מתוך 10</div>
+  <div class="q-topic">רצף 5 — זוויות צמודות</div>
+  <div class="q-text">
+    <p>שוק יוצא מנקודה על קו ישר ויוצר שתי זוויות צמודות (סכומן 180°).</p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="sub-label">א. זווית אחת = 73°. מה הצמודה?</div>
+      <div style="font-size:13.5px;">הצמודה = <span class="ans-line-sm"></span></div>
+    </div>
+    <div>
+      <div class="sub-label">ב. זווית אחת = 117°. מה הצמודה?</div>
+      <div style="font-size:13.5px;">הצמודה = <span class="ans-line-sm"></span></div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;">
+    <div class="q-text" style="margin-bottom:4px;">
+      ג. שתי זוויות צמודות. האחת גדולה פי 2 מהשנייה. מה גודל כל אחת?
+    </div>
+    <div style="font-size:13.5px;display:flex;gap:20px;">
+      <span>קטנה = <span class="ans-line-sm"></span></span>
+      <span>גדולה = <span class="ans-line-sm"></span></span>
+    </div>
+    <input class="ans-line" type="text" placeholder="הדרך:"/>
+  </div>
+
+  <div style="margin-top:10px;">
+    <div class="q-text" style="margin-bottom:4px;">
+      ד. שתי זוויות צמודות שוות זו לזו. מה גודל כל אחת?
+    </div>
+    <div style="font-size:13.5px;">כל זווית = <span class="ans-line-sm"></span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     שאלה 6 — זוויות קודקודיות (רצף 6)
+══════════════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">שאלה 6 מתוך 10</div>
+  <div class="q-topic">רצף 6 — זוויות קודקודיות</div>
+
+  <div class="row-pair">
+    <div class="txt">
+      <div class="q-text" style="margin-bottom:6px;">
+        שני קווים נחתכים. α = 65°. חשבו את שלוש הזוויות הנותרות.
+      </div>
+      <div style="font-size:13.5px;line-height:2.2;">
+        β = <span class="ans-line-sm"></span><br>
+        α′ = <span class="ans-line-sm"></span><br>
+        β′ = <span class="ans-line-sm"></span>
+      </div>
+      <input class="ans-line" type="text" placeholder="נמקו:"/>
+    </div>
+    <div class="fig">
+      <div class="q-svg-wrap" style="max-width:120px;margin:0;">
+        <svg viewBox="-70 -70 140 140" xmlns="http://www.w3.org/2000/svg">
+          <!-- Two lines crossing at origin: one diagonal NE-SW ~54° from horizontal, one diagonal NW-SE -->
+          <!-- Line 1: from (-55,-40) to (55,40) -->
+          <!-- Line 2: from (-55,40) to (55,-40) -->
+          <line x1="-55" y1="-40" x2="55" y2="40"  stroke="#000" stroke-width="2" stroke-linecap="round"/>
+          <line x1="-55" y1="40"  x2="55" y2="-40" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+          <!-- Labels for 4 regions -->
+          <text x="0" y="-28" class="ang" text-anchor="middle" dominant-baseline="central">α</text>
+          <text x="28" y="0"  class="ang" text-anchor="start" dominant-baseline="central">β</text>
+          <text x="0"  y="30" class="ang" text-anchor="middle" dominant-baseline="central">α′</text>
+          <text x="-34" y="0" class="ang" text-anchor="end" dominant-baseline="central">β′</text>
+          <text x="0" y="-42" style="font:11px 'Rubik',sans-serif;fill:#555;font-weight:700;" text-anchor="middle">65°</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:10px;">
+    <div class="sub-label">ענו נכון / לא נכון:</div>
+    <ul class="tf-list">
+      <li>א. זוויות קודקודיות תמיד שוות. <span class="tf-blank"></span></li>
+      <li>ב. סכום כל ארבע הזוויות בחיתוך = 360°. <span class="tf-blank"></span></li>
+      <li>ג. אם זווית אחת = 90°, כל ארבע הזוויות = 90°. <span class="tf-blank"></span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     שאלה 7 — משולש שווה-צלעות (רצף 7)
+══════════════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">שאלה 7 מתוך 10</div>
+  <div class="q-topic">רצף 7 — משולש שווה-צלעות</div>
+
+  <div class="two-col">
+    <div>
+      <div class="q-text">
+        א. מהו גודל כל זווית במשולש שווה-צלעות? נמקו.
+      </div>
+      <div style="font-size:13.5px;">כל זווית = <span class="ans-line-sm"></span></div>
+      <input class="ans-line" type="text" placeholder="כי..."/>
+    </div>
+    <div>
+      <div class="q-text">
+        ב. שתי זוויות של משולש שווה-צלעות. האם ייתכן שאחת מהן = 55°? הסבירו.
+      </div>
+      <textarea class="explain-box" rows="2" placeholder="כן / לא, כי..."></textarea>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;">
+    <div class="q-text" style="margin-bottom:4px;">
+      ג. <span class="ltr">∡ACB = 60°</span> ו-<span class="ltr">AC = CB</span>. האם בהכרח מדובר במשולש שווה-צלעות? נמקו.
+    </div>
+    <textarea class="explain-box" rows="2" placeholder="כן / לא, כי..."></textarea>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     שאלה 8 — משולש שווה-שוקיים (רצף 8)
+══════════════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">שאלה 8 מתוך 10</div>
+  <div class="q-topic">רצף 8 — משולש שווה-שוקיים</div>
+
+  <div class="two-col">
+    <!-- 8א: given apex, find base -->
+    <div>
+      <div class="row-pair">
+        <div class="txt">
+          <div class="q-text" style="margin-bottom:4px;">
+            א. זווית הראש = 52°. חשבו כל זווית בסיס.
+          </div>
+          <div style="font-size:13.5px;">זווית בסיס = <span class="ans-line-sm"></span></div>
+          <input class="ans-line" type="text" placeholder="הדרך:"/>
+        </div>
+        <div class="fig">
+          <div class="q-svg-wrap" style="max-width:90px;margin:0;">
+            <svg viewBox="-10 -10 160 150" xmlns="http://www.w3.org/2000/svg">
+              <!-- isosceles: apex A at (70,0), base B(0,130), C(140,130) -->
+              <line x1="70" y1="10"  x2="0"   y2="130" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <line x1="70" y1="10"  x2="140" y2="130" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <line x1="0"  y1="130" x2="140" y2="130" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <!-- tick marks on equal sides -->
+              <line x1="33" y1="63" x2="39" y2="73" stroke="#000" stroke-width="1.5"/>
+              <line x1="101" y1="73" x2="107" y2="63" stroke="#000" stroke-width="1.5"/>
+              <!-- apex angle arc -->
+              <path d="M 48,23 A 26,26 0 0,0 92,23" fill="none" stroke="#555" stroke-width="1.1"/>
+              <text x="70" y="42" class="ang" text-anchor="middle">52°</text>
+              <!-- base angles -->
+              <text x="18" y="122" class="ang" text-anchor="middle">?</text>
+              <text x="122" y="122" class="ang" text-anchor="middle">?</text>
+              <text x="70"  y="4"   class="lbl" text-anchor="middle">A</text>
+              <text x="-4"  y="145" class="lbl" text-anchor="middle">B</text>
+              <text x="144" y="145" class="lbl" text-anchor="middle">C</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 8ב: given base, find apex -->
+    <div>
+      <div class="row-pair">
+        <div class="txt">
+          <div class="q-text" style="margin-bottom:4px;">
+            ב. זווית בסיס = 38°. חשבו זווית הראש.
+          </div>
+          <div style="font-size:13.5px;">זווית ראש = <span class="ans-line-sm"></span></div>
+          <input class="ans-line" type="text" placeholder="הדרך:"/>
+        </div>
+        <div class="fig">
+          <div class="q-svg-wrap" style="max-width:90px;margin:0;">
+            <svg viewBox="-10 -10 160 150" xmlns="http://www.w3.org/2000/svg">
+              <line x1="70" y1="10"  x2="0"   y2="130" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <line x1="70" y1="10"  x2="140" y2="130" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <line x1="0"  y1="130" x2="140" y2="130" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <line x1="33" y1="63" x2="39" y2="73" stroke="#000" stroke-width="1.5"/>
+              <line x1="101" y1="73" x2="107" y2="63" stroke="#000" stroke-width="1.5"/>
+              <!-- apex angle -->
+              <text x="70"  y="40"  class="ang" text-anchor="middle">?</text>
+              <!-- base angle arcs -->
+              <path d="M 22,130 A 22,22 0 0,1 14.2,109.7" fill="none" stroke="#555" stroke-width="1.1"/>
+              <text x="30" y="115" class="ang" text-anchor="middle">38°</text>
+              <text x="70"  y="4"   class="lbl" text-anchor="middle">A</text>
+              <text x="-4"  y="145" class="lbl" text-anchor="middle">B</text>
+              <text x="144" y="145" class="lbl" text-anchor="middle">C</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     שאלה 9 — סכום זוויות במשולש (רצף 9)
+══════════════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">שאלה 9 מתוך 10</div>
+  <div class="q-topic">רצף 9 — סכום זוויות במשולש</div>
+
+  <div class="two-col">
+    <!-- 9א: find missing angle -->
+    <div>
+      <div class="row-pair">
+        <div class="txt">
+          <div class="q-text" style="margin-bottom:4px;">
+            א. במשולש <span class="ltr">DEF</span>: <span class="ltr">∡D = 53°</span>, <span class="ltr">∡E = 74°</span>. חשבו <span class="ltr">∡F</span>.
+          </div>
+          <div style="font-size:13.5px;"><span class="ltr">∡F</span> = <span class="ans-line-sm"></span></div>
+          <input class="ans-line" type="text" placeholder="הדרך:"/>
+        </div>
+        <div class="fig">
+          <div class="q-svg-wrap" style="max-width:100px;margin:0;">
+            <svg viewBox="-10 -10 180 150" xmlns="http://www.w3.org/2000/svg">
+              <!-- D(0,130), E(160,130), F(80,10) -->
+              <line x1="0"   y1="130" x2="160" y2="130" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <line x1="0"   y1="130" x2="80"  y2="10"  stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <line x1="160" y1="130" x2="80"  y2="10"  stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <!-- D angle -->
+              <path d="M 24,130 A 24,24 0 0,1 15.7,108.2" fill="none" stroke="#555" stroke-width="1.1"/>
+              <text x="32" y="114" class="ang" text-anchor="middle">53°</text>
+              <!-- E angle -->
+              <path d="M 136,130 A 24,24 0 0,0 144.3,108.2" fill="none" stroke="#555" stroke-width="1.1"/>
+              <text x="128" y="114" class="ang" text-anchor="middle">74°</text>
+              <!-- F angle -->
+              <text x="80" y="40" class="ang" text-anchor="middle">?</text>
+              <text x="80"  y="4"   class="lbl" text-anchor="middle">F</text>
+              <text x="-8"  y="145" class="lbl" text-anchor="middle">D</text>
+              <text x="168" y="145" class="lbl" text-anchor="middle">E</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 9ב: external angle logic -->
+    <div>
+      <div class="q-text" style="margin-bottom:4px;">
+        ב. במשולש <span class="ltr">KLM</span>: <span class="ltr">∡K = 48°</span>. הזווית החיצונית ל-<span class="ltr">∡L</span> = 110°. חשבו <span class="ltr">∡M</span>.
+      </div>
+      <div style="font-size:13px;color:#6b7280;margin-bottom:6px;">רמז: זווית חיצונית + פנימית = 180°</div>
+      <div style="font-size:13.5px;"><span class="ltr">∡M</span> = <span class="ans-line-sm"></span></div>
+      <input class="ans-line" type="text" placeholder="הדרך:"/>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;">
+    <div class="q-text" style="margin-bottom:4px;">
+      ג. האם ייתכן משולש עם זוויות 90°, 90° ו-0°? נמקו.
+    </div>
+    <textarea class="explain-box" rows="2" placeholder="כן / לא, כי..."></textarea>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     שאלה 10 — סכום זוויות במרובע (רצף 10)
+══════════════════════════════════════ -->
+<div class="q-block">
+  <div class="q-num">שאלה 10 מתוך 10</div>
+  <div class="q-topic">רצף 10 — סכום זוויות במרובע</div>
+
+  <div class="two-col">
+    <!-- 10א: find missing -->
+    <div>
+      <div class="row-pair">
+        <div class="txt">
+          <div class="q-text" style="margin-bottom:4px;">
+            א. במרובע <span class="ltr">ABCD</span>: <span class="ltr">∡A=88°, ∡B=115°, ∡C=97°</span>. חשבו <span class="ltr">∡D</span>.
+          </div>
+          <div style="font-size:13.5px;"><span class="ltr">∡D</span> = <span class="ans-line-sm"></span></div>
+          <input class="ans-line" type="text" placeholder="הדרך:"/>
+        </div>
+        <div class="fig">
+          <div class="q-svg-wrap" style="max-width:100px;margin:0;">
+            <svg viewBox="-10 -10 180 170" xmlns="http://www.w3.org/2000/svg">
+              <!-- A(0,130), B(140,150), C(160,20), D(30,0) -->
+              <line x1="0"   y1="130" x2="140" y2="150" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <line x1="140" y1="150" x2="160" y2="20"  stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <line x1="160" y1="20"  x2="30"  y2="0"   stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <line x1="30"  y1="0"   x2="0"   y2="130" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+              <!-- angle labels -->
+              <text x="18"  y="118" class="ang" text-anchor="middle">88°</text>
+              <text x="126" y="138" class="ang" text-anchor="middle">115°</text>
+              <text x="148" y="30"  class="ang" text-anchor="middle">97°</text>
+              <text x="42"  y="14"  class="ang" text-anchor="middle">?</text>
+              <text x="-8"  y="145" class="lbl" text-anchor="middle">A</text>
+              <text x="148" y="162" class="lbl" text-anchor="middle">B</text>
+              <text x="170" y="16"  class="lbl" text-anchor="middle">C</text>
+              <text x="30"  y="-6"  class="lbl" text-anchor="middle">D</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 10ב: is quadrilateral possible -->
+    <div>
+      <div class="q-text" style="margin-bottom:4px;">
+        ב. האם מרובע עם הזוויות 100°, 85°, 90°, 95° אפשרי? נמקו.
+      </div>
+      <textarea class="explain-box" rows="2" placeholder="כן / לא, כי..."></textarea>
+      <div style="margin-top:10px;">
+        <div class="q-text" style="margin-bottom:4px;">
+          ג. במרובע שלוש זוויות שוות, כל אחת 80°. מה הזווית הרביעית?
+        </div>
+        <div style="font-size:13.5px;">זווית רביעית = <span class="ans-line-sm"></span></div>
+        <input class="ans-line" type="text" placeholder="הדרך:"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCORE BAR -->
+<div class="score-bar">
+  <div class="sc-item">ש׳ 1: <span class="sc-blank"></span></div>
+  <div class="sc-item">ש׳ 2: <span class="sc-blank"></span></div>
+  <div class="sc-item">ש׳ 3: <span class="sc-blank"></span></div>
+  <div class="sc-item">ש׳ 4: <span class="sc-blank"></span></div>
+  <div class="sc-item">ש׳ 5: <span class="sc-blank"></span></div>
+  <div class="sc-item">ש׳ 6: <span class="sc-blank"></span></div>
+  <div class="sc-item">ש׳ 7: <span class="sc-blank"></span></div>
+  <div class="sc-item">ש׳ 8: <span class="sc-blank"></span></div>
+  <div class="sc-item">ש׳ 9: <span class="sc-blank"></span></div>
+  <div class="sc-item">ש׳ 10: <span class="sc-blank"></span></div>
+  <div class="sc-item"><strong>סה״כ: <span class="sc-blank" style="min-width:50px;"></span></strong></div>
+</div>
+
+<footer style="text-align:center;font-size:11px;color:#9ca3af;padding:24px 0;border-top:1px solid #f3f4f6;margin-top:10px;">
+  חן מרגלית למידה אקטיבית &nbsp;|&nbsp; יחידת זוויות — מבדק שליטה מסכם
+</footer>
+
+</div><!-- end page -->
+
+<button onclick="window.print()" class="no-print"
+  style="position:fixed;bottom:18px;left:18px;background:#10B981;color:#fff;border:none;padding:9px 22px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 3px 12px rgba(16,185,129,0.35);">
+  🖨️ הדפסה / שמירה כ-PDF
+</button>
+</body>
+</html>
