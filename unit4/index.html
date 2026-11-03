@@ -509,17 +509,17 @@ const gameLevels7 = [
 
 const gameLevels8 = [
   { id:'mc', title:'הערכת שורש',
-    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">√20</bdi> נמצא בין אילו מספרים שלמים רצופים?',
+    question:'בין אילו מספרים שלמים רצופים נמצא <bdi style="direction:ltr;unicode-bidi:isolate;">√20</bdi>?',
     options:['בין 3 ל-4','בין 4 ל-5','בין 5 ל-6','בין 2 ל-3'],
     correct:'בין 4 ל-5',
     explain:'√16 = 4 ו-√25 = 5. מכיוון ש-16 < 20 < 25 נקבל 4 < √20 < 5.' },
   { id:'mc', title:'הערכת שורש',
-    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">√50</bdi> נמצא בין אילו מספרים שלמים רצופים?',
+    question:'בין אילו מספרים שלמים רצופים נמצא <bdi style="direction:ltr;unicode-bidi:isolate;">√50</bdi>?',
     options:['בין 6 ל-7','בין 7 ל-8','בין 8 ל-9','בין 5 ל-6'],
     correct:'בין 7 ל-8',
     explain:'√49 = 7 ו-√64 = 8. מכיוון ש-49 < 50 < 64 נקבל 7 < √50 < 8.' },
   { id:'mc', title:'הערכת שורש',
-    question:'<bdi style="direction:ltr;unicode-bidi:isolate;">√10</bdi> נמצא בין אילו מספרים שלמים רצופים?',
+    question:'בין אילו מספרים שלמים רצופים נמצא <bdi style="direction:ltr;unicode-bidi:isolate;">√10</bdi>?',
     options:['בין 2 ל-3','בין 3 ל-4','בין 4 ל-5','בין 1 ל-2'],
     correct:'בין 3 ל-4',
     explain:'√9 = 3 ו-√16 = 4. מכיוון ש-9 < 10 < 16 נקבל 3 < √10 < 4.' },
@@ -994,38 +994,6 @@ function renderLearn8(){
       <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;margin-bottom:18px;">
         <iframe src="https://www.youtube.com/embed/-RfMp4kEXtU" title="חישובים עם שורשים" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;right:0;width:100%;height:100%;border-radius:12px;"></iframe>
       </div>
-
-      <!-- הערכת שורשים לא מושלמים -->
-      <div style="margin-bottom:6px;font-size:15px;font-weight:700;color:rgba(234,244,241,0.7);">1. הערכת שורשים שאינם ריבועים מושלמים</div>
-      <div class="gold-box" dir="rtl" style="font-size:15px;">אם a² &lt; n &lt; b², אז a &lt; √n &lt; b</div>
-      <div class="examples-row">
-        <div class="example-box" style="direction:rtl;text-align:center;">√20 בין כמה?<br><span style="font-size:13px;font-weight:400;">16 &lt; 20 &lt; 25<br>4² &lt; 20 &lt; 5²<br><strong>4 &lt; √20 &lt; 5</strong></span></div>
-        <div class="example-box" style="direction:rtl;text-align:center;">√50 בין כמה?<br><span style="font-size:13px;font-weight:400;">49 &lt; 50 &lt; 64<br>7² &lt; 50 &lt; 8²<br><strong>7 &lt; √50 &lt; 8</strong></span></div>
-      </div>
-
-      <!-- כלל כפל בשורשים -->
-      <div style="margin:16px 0 6px;font-size:15px;font-weight:700;color:rgba(234,244,241,0.7);">2. כלל הכפל בשורשים</div>
-      <div class="gold-box" dir="ltr">√(a · b) = √a · √b</div>
-      <div class="examples-row">
-        <div class="example-box">√(4·25)<br>= √100 = 10<br><span style="font-size:13px;font-weight:400;">או: √4·√25 = 2·5 = 10</span></div>
-        <div class="example-box">√(9·16)<br>= √144 = 12<br><span style="font-size:13px;font-weight:400;">או: √9·√16 = 3·4 = 12</span></div>
-      </div>
-
-      <!-- קשר לחזקות -->
-      <div style="margin:16px 0 6px;font-size:15px;font-weight:700;color:rgba(234,244,241,0.7);">3. קשר בין שורשים וחזקות</div>
-      <div class="examples-row">
-        <div class="example-box">√(a²) = a<br><span style="font-size:13px;font-weight:400;">√(3²) = √9 = 3</span></div>
-        <div class="example-box">(√a)² = a<br><span style="font-size:13px;font-weight:400;">(√5)² = 5</span></div>
-        <div class="example-box">√a · √a = a<br><span style="font-size:13px;font-weight:400;">√7 · √7 = 7</span></div>
-      </div>
-
-      <ul class="bullets">
-        <li>שורש של מכפלה: <bdi style="direction:ltr;unicode-bidi:isolate;">√(a·b) = √a · √b</bdi> — מותר לפרק!</li>
-        <li>שורש של סכום: <bdi style="direction:ltr;unicode-bidi:isolate;">√(a+b) ≠ √a + √b</bdi> — אסור לפרק!</li>
-        <li><bdi style="direction:ltr;unicode-bidi:isolate;">√(a²) = a</bdi> ו-<bdi style="direction:ltr;unicode-bidi:isolate;">(√a)² = a</bdi> (לכל <bdi style="direction:ltr;unicode-bidi:isolate;">a ≥ 0</bdi>)</li>
-      </ul>
-
-      <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">√(9+16) ≠ √9 + √16</bdi>. נכון: <bdi style="direction:ltr;unicode-bidi:isolate;">√25 = 5</bdi>, לא <bdi style="direction:ltr;unicode-bidi:isolate;">3+4 = 7</bdi>!</div>
 
       <div class="btnrow">
         <button class="btn" onclick="state.sequence=8;startGame()">לתרגול ←</button>
