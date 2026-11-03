@@ -18,18 +18,20 @@
 // גיליון "מבדקים": נוצר אוטומטית
 // ═══════════════════════════════════════════════════════
 
-var TEACHER_PAGE_URL = 'https://raw.githubusercontent.com/chenmar6-maker/coordinate-system/master/teacher_index.html';
-
 function doGet() {
-  try {
-    var html = UrlFetchApp.fetch(TEACHER_PAGE_URL).getContentText();
-    return HtmlService.createHtmlOutput(html)
-      .setTitle('דף מורה — מבדקי שליטה')
-      .setSandboxMode(HtmlService.SandboxMode.IFRAME);
-  } catch (e) {
-    return HtmlService.createHtmlOutput('<h2>Fetch error: ' + e.message + '</h2>')
-      .setTitle('error');
-  }
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8">' +
+    '<style>body{margin:0;font-family:sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#F0F2F8;}' +
+    '.loading{font-size:16px;color:#6B7280;}</style></head>' +
+    '<body><div class="loading">טוען...</div>' +
+    '<script>' +
+    'fetch("https://raw.githubusercontent.com/chenmar6-maker/coordinate-system/master/teacher_index.html?nocache=" + Date.now())' +
+    '.then(function(r){return r.text();})' +
+    '.then(function(html){document.open();document.write(html);document.close();})' +
+    '.catch(function(e){document.body.innerHTML="<p>שגיאה: "+e.message+"</p>";});' +
+    '</script></body></html>';
+  return HtmlService.createHtmlOutput(html)
+    .setTitle('דף מורה — מבדקי שליטה')
+    .setSandboxMode(HtmlService.SandboxMode.IFRAME);
 }
 
 function getDataServer() {
