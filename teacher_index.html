@@ -550,7 +550,7 @@ function renderStats() {
 
   document.getElementById('stats-bar').innerHTML =
     '<div class="stat-card"><div class="stat-num">' + total + '</div><div class="stat-label">תלמידים</div></div>' +
-    '<div class="stat-card"><div class="stat-num">' + todayCount + '</div><div class="stat-label">מבדקים היום</div></div>';
+    '<div class="stat-card"><div class="stat-num">' + todayCount + '</div><div class="stat-label">כמה מבדקים נעשו היום</div></div>';
 
   document.getElementById('stats-domains').innerHTML = DOMAINS.map(function(d) {
     var seqs = d.units.reduce(function(acc, u) { return acc.concat(u.sequences); }, []);
