@@ -586,8 +586,7 @@ function render() {
   if (filterClass) students = students.filter(function(s) { return s.class === filterClass; });
   if (activeDomain) {
     students = students.filter(function(s) {
-      var next = nextSequence(s.id);
-      return next && TEACHER_UNITS.find(function(u) { return u.name === next.unit && u.domain === activeDomain; });
+      return nextSequenceInDomain(s.id, activeDomain) !== null;
     });
   }
 
