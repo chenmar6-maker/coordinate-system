@@ -806,7 +806,8 @@ function stShowResult(query, data) {
 
   var daysColor = daysSince === null || daysSince >= 7 ? '#F87171' : daysSince >= 4 ? '#FCD34D' : '#6EE7B7';
 
-  var html = '<div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;text-align:center;">שלום, ' + student.name + '</div>' +
+  var firstName = student.name.split(' ')[0];
+  var html = '<div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px;text-align:center;">היי ' + firstName + ',</div>' +
     '<div style="text-align:center;margin-bottom:16px;font-size:13px;font-weight:600;color:' + daysColor + ';">' + daysLine + '</div>';
   ST_DOMAINS.forEach(function(d) {
     var done = d.sequences.filter(function(s){ return passed.has(s); }).length;
