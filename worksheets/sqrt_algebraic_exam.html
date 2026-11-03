@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — הגדרה אלגברית של שורש ריבועי</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 80px;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+    background: #C05621;
+  }
+
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 10px 14px 10px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #F6A35A;
+  }
+
+  .quiz-q .qrow {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+  .quiz-q .qnum { font-weight: 700; min-width: 18px; flex-shrink: 0; }
+  .qtext { direction: rtl; }
+
+  .math { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+
+  .rt { display: inline-flex; align-items: flex-start; direction: ltr; font-weight: 600; white-space: nowrap; vertical-align: text-bottom; }
+  .rs { font-size: 1.15em; line-height: 1; }
+  .rb { border-top: 1.5px solid #1a1a2e; padding: 0 3px; line-height: 1.35; margin-top: -2px; margin-left: -1px; }
+  @media print { .rb { border-top: 1.5px solid #000; } }
+
+  .ans-line {
+    display: inline-block;
+    border-bottom: 1.5px solid #555;
+    min-width: 60px;
+    margin: 0 2px;
+    vertical-align: bottom;
+  }
+  .ans-sm { min-width: 36px; }
+  .ans-lg { min-width: 90px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px; margin: 6px 0; padding-right: 8px; }
+  .ex-row { display: flex; align-items: baseline; gap: 6px; font-size: 13px; padding: 4px 0; }
+  .ex-row .lbl { font-weight: 700; min-width: 20px; }
+
+  .tf-table { width: 100%; margin: 6px 0; border-collapse: collapse; }
+  .tf-table td { padding: 5px 8px; font-size: 13px; vertical-align: middle; }
+  .tf-table tr { border-bottom: 1px solid #f0f0f0; }
+  .tf-table tr:last-child { border-bottom: none; }
+  .tf-box { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; margin: 0 6px; }
+  .cb { width: 16px; height: 16px; border: 1.5px solid #555; border-radius: 3px; display: inline-block; flex-shrink: 0; }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; border: 1px solid #e0e0e0 !important; page-break-inside: avoid; border-right: 4px solid #F6A35A !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — הגדרה אלגברית של שורש ריבועי</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; תחום המספרי</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+<div style="background:#FFF3CD;border:2px solid #F59E0B;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#92400E;display:flex;align-items:center;gap:10px;">
+  <span style="font-size:20px;">📝</span>
+  <span>כתבו את התשובות על דף נפרד — <u>ממספרים לפי מספר השאלה</u>! תזדקקו לזה בבדיקה העצמית.</span>
+</div>
+
+<span class="part-label">הגדרה אלגברית</span>
+
+<!-- Q1 – √a · √a = a -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span class="qtext">חשבו:</span></div>
+  <div class="two-col" style="margin-top:6px;">
+    <div class="ex-row"><span class="lbl">א.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">5</span></span> · <span class="rt"><span class="rs">√</span><span class="rb">5</span></span></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="ex-row"><span class="lbl">ב.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">13</span></span> · <span class="rt"><span class="rs">√</span><span class="rb">13</span></span></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="ex-row"><span class="lbl">ג.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">100</span></span> · <span class="rt"><span class="rs">√</span><span class="rb">100</span></span></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="ex-row"><span class="lbl">ד.</span><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">a</span></span> · <span class="rt"><span class="rs">√</span><span class="rb">a</span></span></span> = <span class="ans-line ans-sm">&nbsp;</span></div>
+  </div>
+</div>
+
+<!-- Q2 – side of square with area -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span class="qtext">מה אורך צלע של ריבוע שהשטח שלו נתון? (השאירו את התשובה עם סימן שורש)</span></div>
+  <div class="two-col" style="margin-top:6px;">
+    <div class="ex-row"><span class="lbl">א.</span>שטח = 7 &nbsp;&nbsp; צלע = <span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="ex-row"><span class="lbl">ב.</span>שטח = 3 &nbsp;&nbsp; צלע = <span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="ex-row"><span class="lbl">ג.</span>שטח = 50 &nbsp;&nbsp; צלע = <span class="ans-line ans-sm">&nbsp;</span></div>
+    <div class="ex-row"><span class="lbl">ד.</span>שטח = <span class="math">n</span> &nbsp;&nbsp; צלע = <span class="ans-line ans-sm">&nbsp;</span></div>
+  </div>
+</div>
+
+<!-- Q3 – true/false: one answer only -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span class="qtext">הקיפו נכון או לא נכון:</span></div>
+  <table class="tf-table">
+    <tr>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">9</span></span> = 3</span></td>
+      <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
+      <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
+    </tr>
+    <tr>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">9</span></span> = ±3</span></td>
+      <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
+      <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
+    </tr>
+    <tr>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">25</span></span> = −5</span></td>
+      <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
+      <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
+    </tr>
+    <tr>
+      <td>לשאלה "מה שורש של 9" יש שני פתרונות</td>
+      <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
+      <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
+    </tr>
+    <tr>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb">7</span></span> · <span class="rt"><span class="rs">√</span><span class="rb">7</span></span> = 7</span></td>
+      <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
+      <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
+    </tr>
+  </table>
+</div>
+
+<!-- שאלת היכרות -->
+<div style="margin-top:22px;padding:16px 18px;background:#FFFBEB;border:1.5px solid #FCD34D;border-right:4px solid #F59E0B;border-radius:10px;font-size:13.5px;line-height:1.8;">
+  <div style="font-size:11px;font-weight:800;color:#D97706;letter-spacing:1px;margin-bottom:10px;">💬 שאלת היכרות</div>
+  <div style="background:#FEF3C7;border-radius:8px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#92400E;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span>✏️</span><span>לפני שאתם עונים — כתבו את השאלה במלואה בדף!</span></div>
+  <div style="font-size:14px;font-weight:700;color:#1a1a2e;">מה הדבר הכי מסובך שלמדתם השנה? למה דווקא הוא?</div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:16px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+</div>
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
