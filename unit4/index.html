@@ -462,6 +462,49 @@ const gameLevels6 = [
 ];
 
 const gameLevels7 = [
+  { id:'mc', title:'שורש של שבר',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(4/9)</bdi>?',
+    options:['2/3','4/3','2/9','√4·9'],
+    correct:'2/3',
+    explain:'√(4/9) = √4 / √9 = 2/3. הכלל: √(a/b) = √a / √b.' },
+  { id:'mc', title:'שורש של שבר',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(1/4)</bdi>?',
+    options:['1/2','1/8','2','1/16'],
+    correct:'1/2',
+    explain:'√(1/4) = √1 / √4 = 1/2. בדיקה: (1/2)² = 1/4 ✓' },
+  { id:'mc', title:'שורש של שבר',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(9/16)</bdi>?',
+    options:['3/4','9/4','3/16','√9/4'],
+    correct:'3/4',
+    explain:'√(9/16) = √9 / √16 = 3/4.' },
+  { id:'mc', title:'שורש של שבר',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(25/36)</bdi>?',
+    options:['5/6','25/6','5/36','6/5'],
+    correct:'5/6',
+    explain:'√(25/36) = √25 / √36 = 5/6.' },
+  { id:'mc', title:'שורש של שבר',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(1/9)</bdi>?',
+    options:['1/3','1/81','3','1/6'],
+    correct:'1/3',
+    explain:'√(1/9) = √1 / √9 = 1/3.' },
+  { id:'mc', title:'גיאומטריה',
+    question:'ריבוע ששטחו <bdi style="direction:ltr;unicode-bidi:isolate;">4/9 מ"ר</bdi> — מה אורך צלעו?',
+    options:['2/3 מ','4/9 מ','2/9 מ','4/3 מ'],
+    correct:'2/3 מ',
+    explain:'צלע = √(4/9) = 2/3 מ. בדיקה: (2/3)² = 4/9 ✓' },
+  { id:'mc', title:'כלל כללי',
+    question:'מה שווה <bdi style="direction:ltr;unicode-bidi:isolate;">√(a/b)</bdi> ?',
+    options:['√a / √b','√a · √b','√(a+b)','a / √b'],
+    correct:'√a / √b',
+    explain:'√(a/b) = √a / √b לכל a ≥ 0 ו-b > 0.' },
+  { id:'mc', title:'בדיקה',
+    question:'האם <bdi style="direction:ltr;unicode-bidi:isolate;">(3/4)²</bdi> שווה <bdi style="direction:ltr;unicode-bidi:isolate;">9/16</bdi>?',
+    options:['כן — לכן √(9/16) = 3/4','לא — הכלל לא עובד לשברים','כן — אבל שורש של שבר לא מוגדר','לא — צריך לחשב אחרת'],
+    correct:'כן — לכן √(9/16) = 3/4',
+    explain:'(3/4)² = 9/16. לכן √(9/16) = 3/4. הכלל עובד בדיוק אותו דבר לשברים.' },
+];
+
+const gameLevels8 = [
   { id:'mc', title:'הערכת שורש',
     question:'<bdi style="direction:ltr;unicode-bidi:isolate;">√20</bdi> נמצא בין אילו מספרים שלמים רצופים?',
     options:['בין 3 ל-4','בין 4 ל-5','בין 5 ל-6','בין 2 ל-3'],
@@ -564,6 +607,7 @@ function currentGameLevels(){
   if(state.sequence===5) return gameLevels5;
   if(state.sequence===6) return gameLevels6;
   if(state.sequence===7) return gameLevels7;
+  if(state.sequence===8) return gameLevels8;
   return gameLevels1;
 }
 
@@ -645,7 +689,8 @@ function renderHome(){
         <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">שורש ריבועי</div>
         ${seqRow(5, '5. הגדרה גיאומטרית', {worksheetUrl:'../worksheets/sqrt_definition_exam.html', answersUrl:'../worksheets/sqrt_definition_exam_answers.html', checkUrl:'../worksheets/sqrt_definition_exam_check.html'})}
         ${seqRow(6, '6. הגדרה אלגברית', {worksheetUrl:'../worksheets/sqrt_algebraic_exam.html'})}
-        ${seqRow(7, '7. חישובים עם שורשים', {worksheetUrl:'../worksheets/sqrt_exam.html', answersUrl:'../worksheets/sqrt_exam_answers.html', checkUrl:'../worksheets/sqrt_exam_check.html'})}
+        ${seqRow(7, '7. שורש ריבועי של שבר', {worksheetUrl:'../worksheets/sqrt_fraction_exam.html'})}
+        ${seqRow(8, '8. חישובים עם שורשים', {worksheetUrl:'../worksheets/sqrt_exam.html', answersUrl:'../worksheets/sqrt_exam_answers.html', checkUrl:'../worksheets/sqrt_exam_check.html'})}
       </div>
     </div>
   `;
@@ -660,6 +705,7 @@ function renderLearn(){
   if(state.sequence===5) return renderLearn5();
   if(state.sequence===6) return renderLearn6();
   if(state.sequence===7) return renderLearn7();
+  if(state.sequence===8) return renderLearn8();
   return renderLearn1();
 }
 
@@ -895,6 +941,39 @@ function renderLearn6(){
 function renderLearn7(){
   return sqrtify(`
     <div class="panel">
+      <h2 class="qtitle">שורש ריבועי של שבר</h2>
+      <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;margin-bottom:18px;">
+        <iframe src="https://www.youtube.com/embed/HXTFJgpCOfA" title="שורש ריבועי של שבר" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;right:0;width:100%;height:100%;border-radius:12px;"></iframe>
+      </div>
+
+      <div class="gold-box" dir="rtl">√(a/b) = √a / √b</div>
+
+      <div style="background:rgba(72,176,140,0.08);border:1.5px solid rgba(72,176,140,0.3);border-radius:10px;padding:14px 16px;margin:14px 0;">
+        <div style="font-size:13px;font-weight:700;color:var(--seafoam);text-align:center;margin-bottom:12px;letter-spacing:0.5px;">דוגמאות</div>
+        <div class="examples-row">
+          <div class="example-box" style="direction:ltr;text-align:center;">√(4/9) = √4/√9 = 2/3</div>
+          <div class="example-box" style="direction:ltr;text-align:center;">√(25/36) = √25/√36 = 5/6</div>
+          <div class="example-box" style="direction:ltr;text-align:center;">√(1/4) = √1/√4 = 1/2</div>
+        </div>
+      </div>
+
+      <ul class="bullets">
+        <li>שורש של שבר = שורש המונה חלקי שורש המכנה</li>
+        <li>כדי שהכלל יעבוד — המונה והמכנה צריכים להיות ריבועים מושלמים</li>
+        <li>בדיקה: (2/3)² = 4/9 ✓ — זו הדרך לאמת תשובה</li>
+      </ul>
+
+      <div class="btnrow">
+        <button class="btn" onclick="state.sequence=7;startGame()">לתרגול ←</button>
+        <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+      </div>
+    </div>
+  `);
+}
+
+function renderLearn8(){
+  return sqrtify(`
+    <div class="panel">
       <h2 class="qtitle">חישובים עם שורשים</h2>
 
       <!-- הערכת שורשים לא מושלמים -->
@@ -930,7 +1009,7 @@ function renderLearn7(){
       <div class="learn-note">שגיאה נפוצה: <bdi style="direction:ltr;unicode-bidi:isolate;">√(9+16) ≠ √9 + √16</bdi>. נכון: <bdi style="direction:ltr;unicode-bidi:isolate;">√25 = 5</bdi>, לא <bdi style="direction:ltr;unicode-bidi:isolate;">3+4 = 7</bdi>!</div>
 
       <div class="btnrow">
-        <button class="btn" onclick="state.sequence=7;startGame()">לתרגול ←</button>
+        <button class="btn" onclick="state.sequence=8;startGame()">לתרגול ←</button>
         <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
       </div>
     </div>

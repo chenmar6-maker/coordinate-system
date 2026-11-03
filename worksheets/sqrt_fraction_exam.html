@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — שורש ריבועי של שבר</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 80px;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .part-label {
+    font-size: 13px; font-weight: 700; color: #fff;
+    padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+    background: #C05621;
+  }
+
+  .quiz-q {
+    margin-bottom: 8px;
+    padding: 10px 14px 10px 10px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #F6A35A;
+  }
+
+  .quiz-q .qrow {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+  .quiz-q .qnum { font-weight: 700; min-width: 18px; flex-shrink: 0; }
+
+  .math { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+
+  /* שורש ריבועי */
+  .rt { display: inline-flex; align-items: flex-start; direction: ltr; font-weight: 600; white-space: nowrap; vertical-align: text-bottom; }
+  .rs { font-size: 1.15em; line-height: 1; }
+  .rb { border-top: 1.5px solid #1a1a2e; padding: 0 3px; line-height: 1.35; margin-top: -2px; margin-left: -1px; }
+  @media print { .rb { border-top: 1.5px solid #000; } }
+
+  /* שבר */
+  .fr { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; font-weight: 600; direction: ltr; line-height: 1.1; }
+  .fn { border-bottom: 1.5px solid #1a1a2e; padding: 0 3px; font-size: 0.92em; }
+  .fd { padding: 0 3px; font-size: 0.92em; }
+  @media print { .fn { border-bottom: 1.5px solid #000; } }
+
+  .ans-line {
+    display: inline-block;
+    border-bottom: 1.5px solid #555;
+    min-width: 60px;
+    margin: 0 2px;
+    vertical-align: bottom;
+  }
+  .ans-sm { min-width: 36px; }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px 12px;
+    margin: 8px 0 4px;
+    padding-right: 4px;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 20px;
+    margin: 8px 0 4px;
+    padding-right: 4px;
+  }
+  .cell {
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+    padding: 9px 12px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+  .cell .letter { font-weight: 700; color: #888; margin-right: auto; font-size: 12px; }
+
+  .ex-row { display: flex; align-items: center; gap: 6px; font-size: 13px; padding: 5px 0; }
+  .ex-row .lbl { font-weight: 700; min-width: 20px; }
+
+  .tf-table { width: 100%; margin: 6px 0; border-collapse: collapse; }
+  .tf-table td { padding: 6px 8px; font-size: 13px; vertical-align: middle; }
+  .tf-table tr { border-bottom: 1px solid #f0f0f0; }
+  .tf-table tr:last-child { border-bottom: none; }
+  .tf-box { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; margin: 0 6px; }
+  .cb { width: 16px; height: 16px; border: 1.5px solid #555; border-radius: 3px; display: inline-block; flex-shrink: 0; }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .print-btn {
+    position: fixed; bottom: 18px; left: 18px;
+    background: #1a1a2e; color: #fff; border: none;
+    padding: 9px 20px; border-radius: 20px;
+    font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+
+  @media print {
+    .no-print { display: none; }
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 10px; }
+    .quiz-q { box-shadow: none; border: 1px solid #e0e0e0 !important; page-break-inside: avoid; border-right: 4px solid #F6A35A !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — שורש ריבועי של שבר</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; תחום המספרי</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+<div style="background:#FFF3CD;border:2px solid #F59E0B;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#92400E;display:flex;align-items:center;gap:10px;">
+  <span style="font-size:20px;">📝</span>
+  <span>כתבו את התשובות על דף נפרד — <u>ממספרים לפי מספר השאלה</u>! תזדקקו לזה בבדיקה העצמית.</span>
+</div>
+
+<span class="part-label">שורש של שבר</span>
+
+<!-- Q1 – חשבו -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">1.</span><span>חשבו:</span></div>
+  <div class="grid-3" style="margin-top:8px;">
+    <div class="cell">
+      <span class="rt"><span class="rs">√</span><span class="rb"><span class="fr"><span class="fn">1</span><span class="fd">4</span></span></span></span>
+      &nbsp;=&nbsp;<span class="ans-line ans-sm">&nbsp;</span>
+      <span class="letter">א.</span>
+    </div>
+    <div class="cell">
+      <span class="rt"><span class="rs">√</span><span class="rb"><span class="fr"><span class="fn">4</span><span class="fd">9</span></span></span></span>
+      &nbsp;=&nbsp;<span class="ans-line ans-sm">&nbsp;</span>
+      <span class="letter">ב.</span>
+    </div>
+    <div class="cell">
+      <span class="rt"><span class="rs">√</span><span class="rb"><span class="fr"><span class="fn">9</span><span class="fd">16</span></span></span></span>
+      &nbsp;=&nbsp;<span class="ans-line ans-sm">&nbsp;</span>
+      <span class="letter">ג.</span>
+    </div>
+    <div class="cell">
+      <span class="rt"><span class="rs">√</span><span class="rb"><span class="fr"><span class="fn">25</span><span class="fd">36</span></span></span></span>
+      &nbsp;=&nbsp;<span class="ans-line ans-sm">&nbsp;</span>
+      <span class="letter">ד.</span>
+    </div>
+    <div class="cell">
+      <span class="rt"><span class="rs">√</span><span class="rb"><span class="fr"><span class="fn">1</span><span class="fd">9</span></span></span></span>
+      &nbsp;=&nbsp;<span class="ans-line ans-sm">&nbsp;</span>
+      <span class="letter">ה.</span>
+    </div>
+    <div class="cell">
+      <span class="rt"><span class="rs">√</span><span class="rb"><span class="fr"><span class="fn">16</span><span class="fd">25</span></span></span></span>
+      &nbsp;=&nbsp;<span class="ans-line ans-sm">&nbsp;</span>
+      <span class="letter">ו.</span>
+    </div>
+  </div>
+</div>
+
+<!-- Q2 – בדיקה עצמית: ריבוע התשובה -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">2.</span><span>בדקו את תשובותיכם מסעיף 1 — העלו כל תשובה בריבוע וודאו שמקבלים את השבר המקורי:</span></div>
+  <div class="grid-2" style="margin-top:8px;">
+    <div class="ex-row"><span class="lbl">א.</span><span class="math">(<span class="ans-line ans-sm">&nbsp;</span>)²</span> = <span class="fr"><span class="fn">1</span><span class="fd">4</span></span> ?</div>
+    <div class="ex-row"><span class="lbl">ב.</span><span class="math">(<span class="ans-line ans-sm">&nbsp;</span>)²</span> = <span class="fr"><span class="fn">4</span><span class="fd">9</span></span> ?</div>
+    <div class="ex-row"><span class="lbl">ג.</span><span class="math">(<span class="ans-line ans-sm">&nbsp;</span>)²</span> = <span class="fr"><span class="fn">9</span><span class="fd">16</span></span> ?</div>
+    <div class="ex-row"><span class="lbl">ד.</span><span class="math">(<span class="ans-line ans-sm">&nbsp;</span>)²</span> = <span class="fr"><span class="fn">25</span><span class="fd">36</span></span> ?</div>
+  </div>
+</div>
+
+<!-- Q3 – גיאומטריה -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">3.</span><span>ריבוע שהשטח שלו נתון — מה אורך צלעו?</span></div>
+  <div class="grid-2" style="margin-top:8px;">
+    <div class="ex-row"><span class="lbl">א.</span>שטח = <span class="math"><span class="fr"><span class="fn">4</span><span class="fd">9</span></span> מ"ר</span> &nbsp;&nbsp; צלע = <span class="ans-line ans-sm">&nbsp;</span> מ</div>
+    <div class="ex-row"><span class="lbl">ב.</span>שטח = <span class="math"><span class="fr"><span class="fn">9</span><span class="fd">25</span></span> מ"ר</span> &nbsp;&nbsp; צלע = <span class="ans-line ans-sm">&nbsp;</span> מ</div>
+    <div class="ex-row"><span class="lbl">ג.</span>שטח = <span class="math"><span class="fr"><span class="fn">1</span><span class="fd">16</span></span> מ"ר</span> &nbsp;&nbsp; צלע = <span class="ans-line ans-sm">&nbsp;</span> מ</div>
+    <div class="ex-row"><span class="lbl">ד.</span>שטח = <span class="math"><span class="fr"><span class="fn">36</span><span class="fd">49</span></span> מ"ר</span> &nbsp;&nbsp; צלע = <span class="ans-line ans-sm">&nbsp;</span> מ</div>
+  </div>
+</div>
+
+<!-- Q4 – נכון/לא נכון -->
+<div class="quiz-q">
+  <div class="qrow"><span class="qnum">4.</span><span>הקיפו נכון או לא נכון:</span></div>
+  <table class="tf-table">
+    <tr>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb"><span class="fr"><span class="fn">4</span><span class="fd">9</span></span></span></span> = <span class="fr"><span class="fn">2</span><span class="fd">3</span></span></span></td>
+      <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
+      <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
+    </tr>
+    <tr>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb"><span class="fr"><span class="fn">1</span><span class="fd">4</span></span></span></span> = <span class="fr"><span class="fn">1</span><span class="fd">2</span></span></span></td>
+      <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
+      <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
+    </tr>
+    <tr>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb"><span class="fr"><span class="fn">9</span><span class="fd">16</span></span></span></span> = <span class="fr"><span class="fn">3</span><span class="fd">4</span></span></span></td>
+      <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
+      <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
+    </tr>
+    <tr>
+      <td><span class="math"><span class="rt"><span class="rs">√</span><span class="rb"><span class="fr"><span class="fn">4</span><span class="fd">9</span></span></span></span> = <span class="fr"><span class="fn">4</span><span class="fd">3</span></span></span></td>
+      <td><span class="tf-box"><span class="cb"></span> נכון</span></td>
+      <td><span class="tf-box"><span class="cb"></span> לא נכון</span></td>
+    </tr>
+  </table>
+</div>
+
+<!-- שאלת היכרות -->
+<div style="margin-top:22px;padding:16px 18px;background:#FFFBEB;border:1.5px solid #FCD34D;border-right:4px solid #F59E0B;border-radius:10px;font-size:13.5px;line-height:1.8;">
+  <div style="font-size:11px;font-weight:800;color:#D97706;letter-spacing:1px;margin-bottom:10px;">💬 שאלת היכרות</div>
+  <div style="background:#FEF3C7;border-radius:8px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#92400E;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span>✏️</span><span>לפני שאתם עונים — כתבו את השאלה במלואה בדף!</span></div>
+  <div style="font-size:14px;font-weight:700;color:#1a1a2e;">מה הדבר הכי מפתיע שגיליתם בשיעורי מתמטיקה השנה?</div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:16px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+</div>
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
