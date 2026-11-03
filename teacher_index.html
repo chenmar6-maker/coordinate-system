@@ -92,14 +92,6 @@
   .domain-card-exam { font-size:12px; color:#374151; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:3px; font-style:italic; }
   .domain-card-sub { font-size:11px; color:#9CA3AF; }
 
-  /* ── HISTOGRAM ── */
-  .chart-wrap {
-    background:#fff; border-radius:14px; padding:20px 20px 16px;
-    box-shadow:0 1px 4px rgba(0,0,0,0.07); margin-bottom:20px;
-  }
-  .chart-title { font-size:13px; font-weight:700; color:#374151; margin-bottom:14px; text-align:center; }
-  .chart-svg { display:block; width:100%; overflow:visible; }
-
   .controls {
     display: flex; gap: 10px; margin-bottom: 14px;
     align-items: center; flex-wrap: wrap;
@@ -270,7 +262,6 @@
   <div class="app-main">
     <div class="stats" id="stats-bar"></div>
     <div class="stats-domains" id="stats-domains"></div>
-    <div class="chart-wrap" id="units-chart" style="display:none"></div>
     <div class="domain-tabs" id="domain-tabs"></div>
 
     <div class="controls">
@@ -585,48 +576,6 @@ function renderStats() {
       '</div>';
   }).join('');
 
-  renderChart();
-}
-
-function renderChart() {
-  var wrap = document.getElementById('units-chart');
-  if (!state.students.length) { wrap.style.display = 'none'; return; }
-
-  // Build frequency map: unitsDone -> studentCount
-  var freq = {};
-  state.students.forEach(function(s) {
-    var n = passedUnits(s.id).size;
-    freq[n] = (freq[n] || 0) + 1;
-  });
-
-  var keys = Object.keys(freq).map(Number).sort(function(a,b){return a-b;});
-  var maxKey = keys[keys.length - 1] || 0;
-  var buckets = [];
-  for (var k = 0; k <= maxKey; k++) {
-    buckets.push({ x: k, y: freq[k] || 0 });
-  }
-  var maxCount = Math.max.apply(null, buckets.map(function(b){return b.y;})) || 1;
-
-  var bars = buckets.map(function(b) {
-    var pct = Math.round(b.y / maxCount * 100);
-    var bg = b.y === 0 ? '#E5E7EB' : '#6366F1';
-    return '<div style="display:flex;flex-direction:column;align-items:center;flex:1;min-width:0;">' +
-      '<div style="font-size:10px;color:#374151;height:14px;line-height:14px;">' + (b.y || '') + '</div>' +
-      '<div style="width:80%;max-width:32px;background:' + bg + ';height:' + pct + '%;border-radius:3px 3px 0 0;min-height:' + (b.y?2:0) + 'px;"></div>' +
-      '<div style="font-size:10px;color:#6B7280;margin-top:4px;">' + b.x + '</div>' +
-    '</div>';
-  }).join('');
-
-  wrap.style.display = '';
-  wrap.innerHTML =
-    '<div class="chart-title">התפלגות תלמידים לפי מספר יחידות שהשלימו</div>' +
-    '<div style="display:flex;align-items:flex-end;gap:0;height:160px;padding:0 8px;border-bottom:2px solid #E5E7EB;">' +
-      bars +
-    '</div>' +
-    '<div style="display:flex;justify-content:space-between;padding:0 8px;margin-top:6px;">' +
-      '<div style="font-size:11px;color:#9CA3AF;">← מספר יחידות שנעשו</div>' +
-      '<div style="font-size:11px;color:#9CA3AF;">ציר Y = מספר תלמידים</div>' +
-    '</div>';
 }
 
 function render() {
@@ -681,12 +630,12 @@ function render() {
     var progressLine = progress.map(function(p) {
       return '<span style="background:' + p.color + '22;border:1.5px solid ' + p.color + '55;color:' + p.color + ';' +
         'font-size:11px;font-weight:700;padding:1px 7px;border-radius:20px;white-space:nowrap;">' +
-        p.done + '/' + p.total + ' ' + p.name.replace('תחום ', '') + '</span>';
+        p.done + ' ' + p.name.replace('תחום ', '') + '</span>';
     }).join(' ');
 
     return '<div class="student-row ' + urgency + '" data-sid="' + sid + '">' +
       '<div><div class="s-name">' + escHtml(s.name) + '</div>' +
-      '<div style="font-size:11px;margin-top:2px;display:flex;gap:4px;flex-wrap:wrap;">' + progressLine + '</div></div>' +
+      '<div style="font-size:11px;margin-top:2px;display:flex;gap:4px;flex-wrap:nowrap;overflow:hidden;">' + progressLine + '</div></div>' +
       domainCell('תחום מספרי') +
       domainCell('תחום אלגברי') +
       domainCell('תחום גיאומטרי') +
