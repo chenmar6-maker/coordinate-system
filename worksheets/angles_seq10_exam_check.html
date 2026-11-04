@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בדיקה עצמית — רצף 10: סכום זוויות במרובע</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 100px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .intro-box { background: #fff; border-radius: 10px; padding: 13px 16px; margin-bottom: 18px; border-right: 4px solid #10B981; font-size: 13.5px; line-height: 1.7; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+  .intro-box strong { color: #065F46; }
+  .q-card { background: #fff; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border-right: 4px solid #10B981; }
+  .q-title { font-weight: 700; font-size: 14px; margin-bottom: 10px; display: flex; align-items: baseline; gap: 6px; }
+  .q-num { color: #10B981; font-size: 16px; }
+  .sub-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; flex-wrap: wrap; }
+  .sub-lbl { font-weight: 700; color: #555; min-width: 90px; flex-shrink: 0; }
+  .ans-input { border: none; border-bottom: 2px solid #aaa; background: transparent; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; direction: ltr; unicode-bidi: isolate; text-align: center; width: 70px; padding: 2px 4px; outline: none; color: #1a1a2e; transition: border-color .15s; }
+  .ans-input:focus { border-color: #10B981; }
+  .check-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #10B981, #059669); color: #fff; border: none; border-radius: 12px; font-family: 'Rubik', sans-serif; font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(16,185,129,0.35); margin-top: 6px; }
+  .check-btn:hover { transform: translateY(-1px); }
+  #score-card { display: none; background: #fff; border-radius: 16px; padding: 28px 24px 22px; margin-bottom: 22px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; }
+  #score-card.show { display: block; }
+  .score-big { font-size: 64px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .score-out-of { font-size: 16px; color: #888; margin-bottom: 18px; }
+  .score-msg { font-size: 18px; font-weight: 700; padding: 10px 24px; border-radius: 24px; display: inline-block; }
+  .score-great { color: #065F46; background: #ECFDF5; }
+  .score-ok { color: #92400E; background: #FEF3C7; }
+  .score-retry { color: #991B1B; background: #FEF2F2; }
+  .score-bar-wrap { background: #f0f0f0; border-radius: 99px; height: 10px; margin: 16px 0 10px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
+  .retry-btn { margin-top: 16px; background: transparent; border: 1.5px solid #ccc; border-radius: 20px; padding: 8px 22px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; color: #555; }
+  .retry-btn:hover { border-color: #10B981; color: #065F46; }
+  .ans-input.wrong { border-bottom-color: #DC2626; background: #FEF2F2; color: #991B1B; }
+  .ans-input.correct { border-bottom-color: #065F46; background: #ECFDF5; color: #065F46; }
+  .wrong-list-wrap { margin-top: 18px; text-align: right; }
+  .wrong-list-title { font-size: 13px; font-weight: 700; color: #991B1B; margin-bottom: 8px; }
+  .wrong-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .wrong-tag { background: #FEF2F2; border: 1.5px solid #FCA5A5; border-radius: 16px; padding: 4px 12px; font-size: 13px; font-weight: 600; color: #991B1B; }
+  .all-correct-note { margin-top: 14px; font-size: 14px; color: #065F46; font-weight: 600; }
+  .note-box { background: #F0FDF4; border-radius: 6px; padding: 6px 10px; font-size: 12px; color: #555; margin-bottom: 8px; }
+  .skip-note { background: #FFF7ED; border-right: 3px solid #F59E0B; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #92400E; margin-bottom: 8px; }
+  .pair-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 8px; font-size: 13px; }
+  .nav-btn { position: fixed; border: none; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; padding: 9px 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  .nav-back { bottom: 62px; right: 18px; background: #374151; color: #fff; }
+  .nav-exam { bottom: 18px; right: 18px; background: #065F46; color: #fff; }
+  @media print { .no-print { display: none; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">בדיקה עצמית — רצף 10: סכום זוויות במרובע</div>
+    <div class="header-sub">הכניסו את תשובותיכם מהמבדק ולחצו "בדוק"</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div id="score-card">
+  <div class="score-big" id="score-num">—</div>
+  <div class="score-out-of" id="score-denom">מתוך 13 תשובות</div>
+  <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
+  <div class="score-msg" id="score-msg"></div>
+  <div id="wrong-list-container"></div>
+  <br>
+  <button class="retry-btn" onclick="resetForm()">נסו שוב ←</button>
+</div>
+
+<div class="intro-box">
+  <strong>הוראות:</strong> העתיקו את תשובותיכם מהמבדק הכתוב לשדות הבאים ולחצו "בדוק". כתבו מספרים בלבד (ללא סימן °).
+</div>
+
+<!-- שאלה 1 — לא נבדקת אוטומטית -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">1.</span> אפשרי / לא אפשרי</div>
+  <div class="skip-note">שאלה זו דורשת הסבר — בדקו אותה לבד על פי הכלל: סכום זוויות מרובע = 360°.<br>
+    (א) 95+85+120+60 = 360 ← אפשרי &nbsp;|&nbsp;
+    (ב) 70+115+98+80 = 363 ← לא אפשרי &nbsp;|&nbsp;
+    (ג) 130+52+104+74 = 360 ← אפשרי &nbsp;|&nbsp;
+    (ד) 88+93+91+85 = 357 ← לא אפשרי
+  </div>
+</div>
+
+<!-- שאלה 2 -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">2.</span> חשבו α ו-β בכל מרובע</div>
+  <div class="note-box">השתמשו בזוויות קדקודיות, זוויות צמודות וסכום זוויות מרובע.</div>
+
+  <div style="font-weight:700;font-size:13px;margin-bottom:6px;">(א) מרובע ABCD: ∡B=84°, ∡A=78°, זווית קדקודית ב-D = 112°</div>
+  <div class="pair-row">
+    <span style="font-weight:700;color:#555;">α =</span>
+    <input class="ans-input" id="q2a_alpha" type="text" placeholder="°">°
+    <span style="font-weight:700;color:#555;">β =</span>
+    <input class="ans-input" id="q2a_beta" type="text" placeholder="°">°
+  </div>
+
+  <div style="font-weight:700;font-size:13px;margin:10px 0 6px;">(ב) מרובע ABCD: ∡A=135°, ∡C=90°, זווית צמודה ב-D = 112°</div>
+  <div class="pair-row">
+    <span style="font-weight:700;color:#555;">α =</span>
+    <input class="ans-input" id="q2b_alpha" type="text" placeholder="°">°
+    <span style="font-weight:700;color:#555;">β =</span>
+    <input class="ans-input" id="q2b_beta" type="text" placeholder="°">°
+  </div>
+
+  <div style="font-weight:700;font-size:13px;margin:10px 0 6px;">(ג) מרובע ABCD: ∡A=76°, זוויות צמודות: 110° ב-D, 122° ב-C</div>
+  <div class="pair-row">
+    <span style="font-weight:700;color:#555;">α =</span>
+    <input class="ans-input" id="q2c_alpha" type="text" placeholder="°">°
+    <span style="font-weight:700;color:#555;">β =</span>
+    <input class="ans-input" id="q2c_beta" type="text" placeholder="°">°
+  </div>
+</div>
+
+<!-- שאלה 3 -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">3.</span> מרובע PQRS — △QRS שווה-צלעות, △PQS שווה-שוקיים</div>
+  <div class="note-box">△QRS שווה-צלעות. △PQS שווה-שוקיים (PQ=QS), ∡PQS=100°. חשבו את כל 4 זוויות המרובע.</div>
+  <div class="pair-row">
+    <span style="font-weight:700;color:#555;">∡P =</span>
+    <input class="ans-input" id="q3p" type="text" placeholder="°">°
+    <span style="font-weight:700;color:#555;">∡Q =</span>
+    <input class="ans-input" id="q3q" type="text" placeholder="°">°
+    <span style="font-weight:700;color:#555;">∡R =</span>
+    <input class="ans-input" id="q3r" type="text" placeholder="°">°
+    <span style="font-weight:700;color:#555;">∡S =</span>
+    <input class="ans-input" id="q3s" type="text" placeholder="°">°
+  </div>
+</div>
+
+<!-- שאלה 4 -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">4.</span> מלבן KLMN ומשולש KPQ</div>
+  <div class="note-box">P על LM, Q על MN. נתון: ∡LKP=27°, ∡NKQ=21°. נתון נוסף: KP=KQ.</div>
+  <div class="sub-row">
+    <span class="sub-lbl">א. ∡PKQ =</span>
+    <input class="ans-input" id="q4a" type="text" placeholder="°">°
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ב.1 ∡KQP =</span>
+    <input class="ans-input" id="q4b1" type="text" placeholder="°">°
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ב.2 ∡PQM =</span>
+    <input class="ans-input" id="q4b2" type="text" placeholder="°">°
+  </div>
+</div>
+
+<button class="check-btn no-print" onclick="checkAnswers()">בדוק ←</button>
+
+</div>
+
+<button class="nav-btn nav-back no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}">← חזרה</button>
+<button class="nav-btn nav-exam no-print" onclick="window.open('angles_seq10_exam.html')">חזרה למבדק</button>
+
+<script>
+function normNum(s) {
+  return parseFloat(s.trim().replace(/°/g,'').replace(/\s+/g,''));
+}
+
+const KEY = {
+  q2a_alpha: 112, q2a_beta: 86,
+  q2b_alpha: 67,  q2b_beta: 68,
+  q2c_alpha: 70,  q2c_beta: 58,
+  q3p: 40, q3q: 160, q3r: 60, q3s: 100,
+  q4a: 42, q4b1: 69, q4b2: 42,
+};
+
+const LABELS = {
+  q2a_alpha:'2א (α)', q2a_beta:'2א (β)',
+  q2b_alpha:'2ב (α)', q2b_beta:'2ב (β)',
+  q2c_alpha:'2ג (α)', q2c_beta:'2ג (β)',
+  q3p:'3 (∡P)', q3q:'3 (∡Q)', q3r:'3 (∡R)', q3s:'3 (∡S)',
+  q4a:'4א', q4b1:'4ב.1', q4b2:'4ב.2',
+};
+
+const TOTAL = 13;
+
+function checkAnswers() {
+  let correct = 0;
+  const wrong = [];
+  Object.keys(KEY).forEach(id => {
+    const el = document.getElementById(id);
+    const v = normNum(el.value);
+    const ok = !isNaN(v) && Math.abs(v - KEY[id]) < 0.01;
+    el.classList.toggle('correct', ok);
+    el.classList.toggle('wrong', !ok);
+    if (ok) correct++; else wrong.push(id);
+  });
+  showScore(correct, TOTAL, wrong);
+}
+
+function showScore(correct, total, wrong) {
+  const pct = correct / total;
+  document.getElementById('score-num').textContent = correct;
+  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות';
+  const bar = document.getElementById('score-bar');
+  bar.style.width = (pct * 100) + '%';
+  let msg, cls, barColor;
+  if (pct >= 0.85) { msg = 'מעולה! 💪'; cls = 'score-great'; barColor = '#065F46'; }
+  else if (pct >= 0.54) { msg = 'טוב! עוד קצת אימון ✏️'; cls = 'score-ok'; barColor = '#D97706'; }
+  else { msg = 'כדאי לחזור על החומר 🔄'; cls = 'score-retry'; barColor = '#DC2626'; }
+  bar.style.background = barColor;
+  const msgEl = document.getElementById('score-msg');
+  msgEl.textContent = msg;
+  msgEl.className = 'score-msg ' + cls;
+  const wc = document.getElementById('wrong-list-container');
+  if (wrong.length === 0) {
+    wc.innerHTML = '<div class="all-correct-note">כל התשובות נכונות!</div>';
+  } else {
+    wc.innerHTML = '<div class="wrong-list-wrap"><div class="wrong-list-title">לתקן:</div><div class="wrong-tags">' +
+      wrong.map(id => '<span class="wrong-tag">שאלה ' + (LABELS[id]||id) + '</span>').join('') +
+      '</div></div>';
+  }
+  const card = document.getElementById('score-card');
+  card.classList.add('show');
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetForm() {
+  Object.keys(KEY).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.value = ''; el.classList.remove('wrong','correct'); }
+  });
+  document.getElementById('wrong-list-container').innerHTML = '';
+  document.getElementById('score-card').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
