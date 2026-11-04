@@ -165,7 +165,7 @@ const MODES={
     rules:['חמישה מספרים בין 1 ל־10, ומטרה עד 100.','משתמשים בארבע פעולות החשבון. כל מספר משמש פעם אחת לכל היותר.','המטרה בנויה כך שצריך לפחות שלושה מספרים.','חילוק רק כשהתוצאה מספר שלם, ותוצאות תמיד חיוביות.','פגיעה מדויקת שווה 10 נקודות. לא הצלחתם? מגישים את המספר הכי קרוב: הפרש של עד 2 שווה 7 נקודות, ועד 5 שווה 5.']}
 };
 const S={mode:'small',score:{small:0,big:0},streak:{small:0,big:0},
-  smallCount:4,timerOn:false,tiles:[],start:[],target:0,hist:[],first:null,op:null,done:false,nextId:1,tLeft:90,tInt:null};
+  smallCount:4,timerOn:false,bigNumbers:false,tiles:[],start:[],target:0,hist:[],first:null,op:null,done:false,nextId:1,tLeft:90,tInt:null};
 
 function rnd(a,b){return a+Math.floor(Math.random()*(b-a+1))}
 function apply(a,op,b){
@@ -176,7 +176,8 @@ function apply(a,op,b){
 }
 function startNumbers(){
   if(S.mode==='small'){const n=[];for(let i=0;i<S.smallCount;i++)n.push(rnd(1,9));return n;}
-  const sm=[];for(let i=0;i<5;i++)sm.push(rnd(1,10));
+  const max=S.bigNumbers?25:10;
+  const sm=[];for(let i=0;i<5;i++)sm.push(rnd(1,max));
   return sm;
 }
 function smallTarget(nums){return reachTarget(nums,false,3,20,Math.min(nums.length,4));}
@@ -198,6 +199,7 @@ function reachTarget(nums,all4,lo,hi,need){
 }
 function makeTarget(nums){
   if(S.mode==='small')return smallTarget(nums);
+  if(S.bigNumbers)return reachTarget(nums,true,50,500,3);
   return reachTarget(nums,true,10,100,3);
   const M=MODES[S.mode];
   for(let t=0;t<4000;t++){
@@ -362,8 +364,11 @@ function renderOpts(){
       <label><input type="radio" name="cnt" id="cnt5" value="5" ${S.smallCount===5?'checked':''}> 5</label>`;
     box.querySelectorAll('input').forEach(i=>i.onchange=()=>{S.smallCount=+i.value;newRound();});
   }else{
-    box.innerHTML=`<label><input type="checkbox" id="tmr" ${S.timerOn?'checked':''}> שעון של 90 שניות לכל סיבוב</label>`;
+    box.innerHTML=`
+      <label><input type="checkbox" id="tmr" ${S.timerOn?'checked':''}> שעון של 90 שניות לכל סיבוב</label>
+      <label><input type="checkbox" id="bignums" ${S.bigNumbers?'checked':''}> מספרים גדולים (עד 25, מטרה עד 500)</label>`;
     $('tmr').onchange=e=>{S.timerOn=e.target.checked;newRound();};
+    $('bignums').onchange=e=>{S.bigNumbers=e.target.checked;newRound()};
   }
   const r=$('rules');r.innerHTML='';MODES[S.mode].rules.forEach(t=>{const li=document.createElement('li');li.textContent=t;r.appendChild(li);});
 }
