@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>חידות מלכודת</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Varela+Round&display=swap">
+<style>
+/* Layout: one riddle card at a time — picture stage, question, then two reveal steps stacked under it */
+:root{
+  --bg:#eef3f7; --surface:#ffffff; --ink:#1d2b3a; --muted:#5d6f80; --line:#d3dde6;
+  --stage:#17324d; --stage-ink:#ffe27a;
+  --trap:#fff1d6; --trap-ink:#7a4a00; --trap-edge:#e9b44c;
+  --right:#dcf3ec; --right-ink:#145045; --right-edge:#2a8c7a;
+  --accent:#e2541b; --accent-ink:#ffffff; --focus:#2a8c7a;
+  --display:"Secular One","Varela Round",system-ui,sans-serif;
+  --body:"Varela Round",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#101a24; --surface:#18252f; --ink:#e7eef4; --muted:#9db0c0; --line:#2b3d4c;
+  --stage:#0a1622; --stage-ink:#ffd95a;
+  --trap:#3a2c12; --trap-ink:#ffd58a; --trap-edge:#a87d05;
+  --right:#123a33; --right-ink:#a8eedd; --right-edge:#4cc2ab;
+  --accent:#ff7a45; --accent-ink:#1a0d06; --focus:#4cc2ab; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#101a24; --surface:#18252f; --ink:#e7eef4; --muted:#9db0c0; --line:#2b3d4c;
+  --stage:#0a1622; --stage-ink:#ffd95a;
+  --trap:#3a2c12; --trap-ink:#ffd58a; --trap-edge:#a87d05;
+  --right:#123a33; --right-ink:#a8eedd; --right-edge:#4cc2ab;
+  --accent:#ff7a45; --accent-ink:#1a0d06; --focus:#4cc2ab; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px}
+.wrap{max-width:620px;margin:0 auto;padding-block:20px 40px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:16px;text-align:right}
+h1{font-family:var(--display);font-weight:400;font-size:1.9rem;margin:0}
+.sub{margin:0;color:var(--muted);line-height:1.5}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.count{color:var(--muted);font-size:.95rem}
+.dots{display:flex;gap:5px;flex-wrap:wrap}
+.dots button{width:12px;height:12px;border-radius:50%;border:0;padding:0;background:var(--line);cursor:pointer}
+.dots button.seen{background:var(--right-edge)}
+.dots button.cur{outline:2px solid var(--accent);outline-offset:2px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+.stage{background:var(--stage);color:var(--stage-ink);padding:26px 16px 22px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.pic{font-size:3.6rem;line-height:1.15;text-align:center;letter-spacing:.06em;direction:ltr}
+.pic.in{animation:pop .4s ease}
+.tag{font-size:.85rem;color:#c9d6e3;letter-spacing:.04em}
+.body{padding:20px;display:flex;flex-direction:column;gap:14px}
+.title{font-family:var(--display);font-size:1.4rem;margin:0}
+.q{margin:0;font-size:1.2rem;line-height:1.65}
+
+.reveal{border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;animation:rise .3s ease}
+.reveal h3{margin:0;font-size:.9rem;font-weight:400;letter-spacing:.03em}
+.reveal p{margin:0;line-height:1.6}
+.reveal .ans{font-family:var(--display);font-size:1.5rem}
+.trap{background:var(--trap);color:var(--trap-ink);border:2px dashed var(--trap-edge)}
+.trap.wrong .ans{text-decoration:line-through;text-decoration-thickness:3px}
+.right{background:var(--right);color:var(--right-ink);border:2px solid var(--right-edge)}
+
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;padding:12px 18px;border-radius:999px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-size:1.05rem}
+.btn.trapbtn{background:var(--trap);color:var(--trap-ink);border:2px dashed var(--trap-edge);font-size:1.05rem}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.nav{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+
+@keyframes pop{0%{transform:scale(.6);opacity:.3}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+@keyframes rise{from{transform:translateY(8px);opacity:.4}to{transform:none;opacity:1}}
+@media (max-width:420px){.pic{font-size:2.8rem}.q{font-size:1.1rem}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap" dir="rtl">
+  <div>
+    <h1>חידות מלכודת</h1>
+    <p class="sub">בכל חידה יש תשובה שקופצת לראש מיד. עצרו רגע, חשבו, ורק אז בדקו.</p>
+  </div>
+
+  <div class="top">
+    <span class="count" id="count"></span>
+    <div class="dots" id="dots" aria-label="מעבר בין חידות"></div>
+  </div>
+
+  <article class="card" aria-live="polite">
+    <div class="stage">
+      <div class="pic" id="pic" aria-hidden="true"></div>
+      <div class="tag" id="tag"></div>
+    </div>
+    <div class="body">
+      <h2 class="title" id="title"></h2>
+      <p class="q" id="q"></p>
+      <div id="reveals" style="display:flex;flex-direction:column;gap:12px"></div>
+      <div id="action"></div>
+    </div>
+  </article>
+
+  <div class="nav">
+    <button class="btn" id="prev">החידה הקודמת</button>
+    <button class="btn" id="shuffle">לערבב את הסדר</button>
+    <button class="btn" id="next">החידה הבאה</button>
+  </div>
+</div>
+
+<script>
+(function(){
+const R=[
+ {t:'ממתק ומסטיק',tag:'כסף וחשבון',pic:'🍭 + 🍬',q:'ממתק ומסטיק עולים יחד 6 שקלים. הממתק עולה 4 שקלים יותר מהמסטיק. כמה עולה המסטיק?',
+  trap:'2 שקלים',right:'שקל אחד',why:'אם המסטיק עולה 2, הממתק עולה 6, ויחד זה 8. אם המסטיק עולה 1, הממתק עולה 5, ו־5 ועוד 1 זה בדיוק 6.'},
+ {t:'התפוחים',tag:'קריאה זהירה',pic:'🧺 🍎🍎🍎🍎🍎',q:'בסל יש 5 תפוחים. לקחת ממנו 3. כמה תפוחים יש לך?',
+  trap:'2',right:'3',why:'2 זה מה שנשאר בסל. השאלה היא כמה יש לך, ולך יש את 3 התפוחים שלקחת.'},
+ {t:'הגדר',tag:'ספירת רווחים',pic:'🪵 ━━━━ 🪵',q:'בונים גדר ישרה באורך 5 מטרים, עם עמוד בכל מטר. כמה עמודים צריך?',
+  trap:'5',right:'6',why:'יש עמוד בהתחלה, ועוד עמוד בסוף כל מטר. 5 מטרים הם 5 רווחים, ויש עמוד אחד יותר מרווחים.'},
+ {t:'הסרט',tag:'ספירת רווחים',pic:'🎀 ✂️',q:'כל גזירה של סרט לוקחת דקה אחת. כמה זמן לוקח לגזור את הסרט ל־4 חתיכות?',
+  trap:'4 דקות',right:'3 דקות',why:'גזירה אחת עושה 2 חתיכות, שתי גזירות עושות 3, ושלוש גזירות עושות 4.'},
+ {t:'המדרגות',tag:'ספירת רווחים',pic:'🏢 🚶',q:'לעלות מקומה 1 לקומה 2 לוקח דקה אחת. כמה זמן לוקח לעלות מקומה 1 לקומה 4?',
+  trap:'4 דקות',right:'3 דקות',why:'מקומה 1 עולים ל־2, מ־2 ל־3, ומ־3 ל־4. זה שלוש עליות, ולא ארבע.'},
+ {t:'העוגיות',tag:'ספירת רווחים',pic:'🍪🍪🍪 ⏱️',q:'יש לך 3 עוגיות, ומותר לאכול עוגייה אחת כל 10 דקות. כמה זמן ייקח לאכול את כולן?',
+  trap:'30 דקות',right:'20 דקות',why:'את העוגייה הראשונה אוכלים מיד. אחרי 10 דקות את השנייה, ואחרי עוד 10 דקות את השלישית.'},
+ {t:'התור לגלידה',tag:'ספירת רווחים',pic:'🍦 🧒',q:'דני עומד בתור לגלידה. הוא חמישי מההתחלה וחמישי מהסוף. כמה ילדים בתור?',
+  trap:'10',right:'9',why:'לפני דני יש 4 ילדים, ואחריו עוד 4. יחד עם דני זה 9. ב־10 ספרנו את דני פעמיים.'},
+ {t:'השבלול',tag:'ספירת רווחים',pic:'🐌 🕳️',q:'שבלול נמצא בתחתית בור בעומק 5 מטרים. בכל יום הוא מטפס 2 מטרים, ובכל לילה מחליק מטר אחד. אחרי כמה ימים הוא יוצא?',
+  trap:'5 ימים',right:'4 ימים',why:'בכל יום ולילה הוא מתקדם מטר. בבוקר של היום הרביעי הוא כבר בגובה 3 מטרים, ומטפס 2 מטרים החוצה לפני שמגיע הלילה.'},
+ {t:'החתולים',tag:'קצב',pic:'🐱🐱 🐟🐟',q:'2 חתולים אוכלים 2 דגים ב־2 דקות. כמה זמן לוקח ל־4 חתולים לאכול 4 דגים?',
+  trap:'4 דקות',right:'2 דקות',why:'כל חתול אוכל דג אחד בשתי דקות. כשיש 4 חתולים, כל אחד אוכל דג משלו באותו זמן.'},
+ {t:'המרוץ',tag:'קריאה זהירה',pic:'🏃 🏁',q:'במרוץ, עקפת את הילד שבמקום השני. באיזה מקום אתה עכשיו?',
+  trap:'ראשון',right:'שני',why:'תפסת את המקום של הילד שעקפת, והוא היה במקום השני. מי שבמקום הראשון עדיין לפניך.'},
+ {t:'הכבשים',tag:'קריאה זהירה',pic:'🧑‍🌾 🐑🐑🐑',q:'לרועה היו 10 כבשים. כולן ברחו חוץ מ־4. כמה כבשים נשארו?',
+  trap:'6',right:'4',why:'"כולן חוץ מ־4" אומר ש־4 לא ברחו. אלה הכבשים שנשארו.'},
+ {t:'האחים של דנה',tag:'קריאה זהירה',pic:'👧 ❓',q:'לדנה יש 3 אחים, ולכל אחד מהם יש אחות אחת. כמה ילדים במשפחה?',
+  trap:'7',right:'4',why:'האחות של כל האחים היא אותה ילדה: דנה. במשפחה יש 3 בנים ודנה.'},
+ {t:'נוצות וברזל',tag:'קריאה זהירה',pic:'🪶 ⚖️ 🔩',q:'מה כבד יותר: קילו נוצות או קילו ברזל?',
+  trap:'ברזל',right:'הם שוקלים אותו דבר',why:'שניהם שוקלים קילו. נוצות פשוט תופסות הרבה יותר מקום.'},
+ {t:'החודשים',tag:'קריאה זהירה',pic:'📅',q:'בכמה חודשים בשנה יש 28 ימים?',
+  trap:'אחד, פברואר',right:'בכל ה־12',why:'בכל חודש יש לפחות 28 ימים. בפברואר יש רק 28 (או 29), ובשאר החודשים יש יותר.'}
+];
+const $=id=>document.getElementById(id);
+let order=R.map((_,i)=>i), pos=0, step=[], seen=new Set();
+R.forEach(()=>step.push(0));
+
+function render(anim){
+  const i=order[pos], r=R[i], s=step[i];
+  $('count').textContent=`חידה ${pos+1} מתוך ${R.length}`;
+  const pic=$('pic');pic.textContent=r.pic;
+  if(anim){pic.classList.remove('in');void pic.offsetWidth;pic.classList.add('in');}
+  $('tag').textContent=r.tag;$('title').textContent=r.t;$('q').textContent=r.q;
+
+  const rv=$('reveals');rv.innerHTML='';
+  if(s>=1){
+    const d=document.createElement('div');d.className='reveal trap'+(s>=2?' wrong':'');
+    d.innerHTML=`<h3>🤔 התשובה שקופצת לראש</h3><p class="ans"></p>`;
+    d.querySelector('.ans').textContent=r.trap;rv.appendChild(d);
+  }
+  if(s>=2){
+    const d=document.createElement('div');d.className='reveal right';
+    d.innerHTML=`<h3>✅ התשובה הנכונה</h3><p class="ans"></p><p class="why"></p>`;
+    d.querySelector('.ans').textContent=r.right;d.querySelector('.why').textContent=r.why;rv.appendChild(d);
+  }
+  const act=$('action');act.innerHTML='';
+  if(s<2){
+    const b=document.createElement('button');
+    b.className='btn '+(s===0?'trapbtn':'primary');
+    b.textContent=s===0?'מה התשובה שקופצת?':'ומה התשובה הנכונה?';
+    b.onclick=()=>{step[i]++;if(step[i]===2)seen.add(i);render();};
+    act.appendChild(b);
+  }
+  $('prev').disabled=pos===0;
+  $('next').disabled=pos===R.length-1;
+
+  const dots=$('dots');dots.innerHTML='';
+  order.forEach((ri,p)=>{
+    const b=document.createElement('button');
+    b.className=(seen.has(ri)?'seen':'')+(p===pos?' cur':'');
+    b.setAttribute('aria-label',`חידה ${p+1}: ${R[ri].t}`);
+    b.onclick=()=>{pos=p;render(true);};dots.appendChild(b);
+  });
+}
+$('prev').onclick=()=>{if(pos>0){pos--;render(true);}};
+$('next').onclick=()=>{if(pos<R.length-1){pos++;render(true);}};
+$('shuffle').onclick=()=>{
+  for(let k=order.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[order[k],order[j]]=[order[j],order[k]];}
+  pos=0;render(true);
+};
+render(true);
+})();
+</script>
+</body>
+</html>
