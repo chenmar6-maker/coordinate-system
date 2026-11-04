@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מגיעים למטרה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Varela+Round&display=swap">
+<style>
+/* Layout: one centered play column — target "scoreboard" on top, number blocks, operation keys, step log */
+:root{
+  --bg:#eef3f7; --surface:#ffffff; --ink:#1d2b3a; --muted:#5d6f80; --line:#d3dde6;
+  --accent:#e2541b; --accent-ink:#ffffff; --board:#17324d; --board-ink:#ffe27a;
+  --tile:#ffd24a; --tile-ink:#3a2a00; --tile-edge:#d9a514; --sel:#2a8c7a;
+  --good:#2a8c7a; --bad:#c23b3b;
+  --display:"Secular One","Varela Round",system-ui,sans-serif;
+  --body:"Varela Round",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#101a24; --surface:#18252f; --ink:#e7eef4; --muted:#9db0c0; --line:#2b3d4c;
+  --accent:#ff7a45; --accent-ink:#1a0d06; --board:#0a1622; --board-ink:#ffd95a;
+  --tile:#f2c230; --tile-ink:#2a1e00; --tile-edge:#a87d05; --sel:#4cc2ab;
+  --good:#4cc2ab; --bad:#ff6b6b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#101a24; --surface:#18252f; --ink:#e7eef4; --muted:#9db0c0; --line:#2b3d4c;
+  --accent:#ff7a45; --accent-ink:#1a0d06; --board:#0a1622; --board-ink:#ffd95a;
+  --tile:#f2c230; --tile-ink:#2a1e00; --tile-edge:#a87d05; --sel:#4cc2ab;
+  --good:#4cc2ab; --bad:#ff6b6b; color-scheme:dark}
+.big-mode{--tile:#3d7fd1; --tile-ink:#ffffff; --tile-edge:#24578f}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .big-mode{--tile:#4a8ee0;--tile-edge:#1f4f85}}
+:root[data-theme="dark"] .big-mode{--tile:#4a8ee0;--tile-edge:#1f4f85}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px}
+.wrap{max-width:640px;margin:0 auto;padding-block:20px 40px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:16px;text-align:right}
+h1{font-family:var(--display);font-weight:400;font-size:1.9rem;margin:0;text-wrap:balance}
+.sub{margin:0;color:var(--muted);line-height:1.5}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+
+.modes{display:flex;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:5px}
+.modes button{flex:1;border:0;background:transparent;color:var(--ink);font:inherit;padding:10px 8px;border-radius:10px;cursor:pointer}
+.modes button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.modes small{display:block;font-size:.78rem;opacity:.75}
+
+.board{background:var(--board);color:var(--board-ink);border-radius:18px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.board .lbl{font-size:.85rem;letter-spacing:.04em;color:#c9d6e3}
+.board .target{font-family:var(--display);font-size:3.4rem;line-height:1;font-variant-numeric:tabular-nums}
+.stats{display:flex;gap:18px;text-align:center}
+.stats b{display:block;font-family:var(--display);font-weight:400;font-size:1.6rem;color:#fff;font-variant-numeric:tabular-nums}
+.stats span{font-size:.8rem;color:#c9d6e3}
+.timer.low b{color:#ff8a8a}
+
+.tiles{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;min-height:96px;padding:8px 0}
+.tile{min-width:78px;height:86px;padding:6px 10px;border-radius:16px;border:0;cursor:pointer;
+  background:var(--tile);color:var(--tile-ink);box-shadow:0 5px 0 var(--tile-edge);
+  font-family:var(--display);font-size:2.1rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  transition:transform .12s ease, box-shadow .12s ease}
+.tile:hover{transform:translateY(-2px)}
+.tile[aria-pressed="true"]{outline:4px solid var(--sel);outline-offset:3px;transform:translateY(-3px)}
+.tile.new{animation:pop .35s ease}
+.tile.hit{background:var(--good);color:#fff;box-shadow:0 5px 0 #1b5e52}
+.pips{display:grid;grid-template-columns:repeat(5,7px);gap:3px;direction:ltr}
+.pips i{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.75}
+@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.12)}100%{transform:scale(1)}}
+.shake{animation:shake .35s}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+.ops{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.op{width:64px;height:58px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--ink);
+  font-size:1.9rem;font-family:var(--display);cursor:pointer}
+.op[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.op:disabled{opacity:.35;cursor:not-allowed}
+
+.msg{min-height:1.6em;text-align:center;font-size:1.05rem;margin:0}
+.msg.good{color:var(--good)} .msg.bad{color:var(--bad)}
+
+.actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;padding:10px 16px;border-radius:999px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+button:focus-visible{outline:3px solid var(--sel);outline-offset:2px}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.panel h2{font-family:var(--display);font-weight:400;font-size:1.1rem;margin:0 0 8px}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.steps li{font-size:1.1rem}
+.steps li.empty{color:var(--muted);font-size:.95rem}
+.rules{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;color:var(--muted);line-height:1.5}
+.rules li::before{content:"• ";color:var(--accent)}
+.opts{display:flex;flex-wrap:wrap;gap:14px;align-items:center;color:var(--muted);font-size:.95rem}
+.opts label{display:flex;gap:6px;align-items:center;cursor:pointer}
+
+@media (max-width:420px){
+  .tile{min-width:64px;height:76px;font-size:1.7rem}
+  .board .target{font-size:2.8rem}
+  .op{width:56px;height:52px}
+}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap" dir="rtl" id="app">
+  <div>
+    <h1>מגיעים למטרה</h1>
+    <p class="sub">משלבים את המספרים בעזרת פעולות חשבון עד שמגיעים בדיוק למספר שעל הלוח.</p>
+  </div>
+
+  <div class="modes" role="group" aria-label="בחירת גרסה">
+    <button id="m-small" aria-pressed="true">בסיסי</button>
+    <button id="m-big" aria-pressed="false">מתקדם</button>
+  </div>
+
+  <div class="board">
+    <div>
+      <div class="lbl">המטרה</div>
+      <div class="target ltr" id="target">0</div>
+    </div>
+    <div class="stats">
+      <div><b id="score">0</b><span>נקודות</span></div>
+      <div><b id="streak">0</b><span>ברצף</span></div>
+      <div class="timer" id="timerBox" hidden><b id="timer">90</b><span>שניות</span></div>
+    </div>
+  </div>
+
+  <div class="tiles" id="tiles" aria-label="המספרים שלך"></div>
+
+  <div class="ops" id="ops" role="group" aria-label="פעולות"></div>
+
+  <p class="msg" id="msg" aria-live="polite"></p>
+
+  <div class="actions">
+    <button class="btn" id="undo">ביטול צעד</button>
+    <button class="btn" id="reset">להתחיל מחדש</button>
+    <button class="btn" id="submit" hidden>הגשה: זה הכי קרוב שלי</button>
+    <button class="btn" id="hint">פתרון אפשרי</button>
+    <button class="btn primary" id="next">סיבוב חדש</button>
+  </div>
+
+  <div class="panel">
+    <h2>הצעדים שלי</h2>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <div class="panel">
+    <h2>הגדרות</h2>
+    <div class="opts" id="opts"></div>
+  </div>
+
+  <div class="panel">
+    <h2>איך משחקים</h2>
+    <ul class="rules" id="rules"></ul>
+  </div>
+</div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const SYM={'+':'+','-':'−','*':'×','/':'÷'};
+const MODES={
+  small:{ops:['+','-'],count:3,min:3,max:20,pips:true,
+    rules:['בוחרים מספר, לוחצים על פעולה, ובוחרים מספר שני.','שני המספרים מתחברים לקלף חדש עם התוצאה.','המטרה בנויה כך שצריך לפחות כמה צעדים: עם 3 או 4 מספרים צריך את כולם, ועם 5 מספרים צריך לפחות ארבעה.','מגיעים בדיוק למטרה? מקבלים נקודה!']},
+  big:{ops:['+','-','*','/'],count:5,min:10,max:100,pips:false,
+    rules:['חמישה מספרים בין 1 ל־10, ומטרה עד 100.','משתמשים בארבע פעולות החשבון. כל מספר משמש פעם אחת לכל היותר.','המטרה בנויה כך שצריך לפחות שלושה מספרים.','חילוק רק כשהתוצאה מספר שלם, ותוצאות תמיד חיוביות.','פגיעה מדויקת שווה 10 נקודות. לא הצלחתם? מגישים את המספר הכי קרוב: הפרש של עד 2 שווה 7 נקודות, ועד 5 שווה 5.']}
+};
+const S={mode:'small',score:{small:0,big:0},streak:{small:0,big:0},
+  smallCount:4,timerOn:false,tiles:[],start:[],target:0,hist:[],first:null,op:null,done:false,nextId:1,tLeft:90,tInt:null};
+
+function rnd(a,b){return a+Math.floor(Math.random()*(b-a+1))}
+function apply(a,op,b){
+  if(op==='+')return a+b;
+  if(op==='-')return a-b>0?a-b:null;
+  if(op==='*')return (a===1||b===1)?a*b:a*b;
+  if(op==='/')return (b!==0&&a%b===0)?a/b:null;
+}
+function startNumbers(){
+  if(S.mode==='small'){const n=[];for(let i=0;i<S.smallCount;i++)n.push(rnd(1,9));return n;}
+  const sm=[];for(let i=0;i<5;i++)sm.push(rnd(1,10));
+  return sm;
+}
+function smallTarget(nums){return reachTarget(nums,false,3,20,Math.min(nums.length,4));}
+function reachTarget(nums,all4,lo,hi,need){
+  const n=nums.length,full=(1<<n)-1,reach=new Array(full+1);
+  const pc=m=>m.toString(2).split('1').length-1;
+  for(let m=1;m<=full;m++){
+    const set=new Set();
+    if(pc(m)===1){set.add(nums[Math.log2(m)]);}
+    else for(let a=(m-1)&m;a>0;a=(a-1)&m){const b=m^a;if(a<b)continue;
+      for(const x of reach[a])for(const y of reach[b]){set.add(x+y);if(x-y>0)set.add(x-y);if(y-x>0)set.add(y-x);
+        if(all4){set.add(x*y);if(y>1&&x%y===0)set.add(x/y);if(x>1&&y%x===0)set.add(y/x);}}}
+    reach[m]=set;
+  }
+  const minUse={};
+  for(let m=1;m<=full;m++)for(const v of reach[m]){const c=pc(m);if(!(v in minUse)||c<minUse[v])minUse[v]=c;}
+  const ok=Object.keys(minUse).map(Number).filter(v=>v>=lo&&v<=hi&&minUse[v]>=need&&!nums.includes(v));
+  return ok.length?ok[rnd(0,ok.length-1)]:null;
+}
+function makeTarget(nums){
+  if(S.mode==='small')return smallTarget(nums);
+  return reachTarget(nums,true,10,100,3);
+  const M=MODES[S.mode];
+  for(let t=0;t<4000;t++){
+    let pool=nums.slice();
+    const steps=rnd(S.mode==='small'?1:2, nums.length-1);
+    for(let s=0;s<steps&&pool.length>1;s++){
+      const i=rnd(0,pool.length-1);let j=rnd(0,pool.length-2);if(j>=i)j++;
+      let op=M.ops[rnd(0,M.ops.length-1)];
+      if(S.mode==='big'&&Math.random()<.35)op='*';
+      let a=pool[i],b=pool[j];if(b>a&&op!=='+'&&op!=='*'){[a,b]=[b,a]}
+      const r=apply(a,op,b);if(r==null)continue;
+      pool=pool.filter((_,k)=>k!==i&&k!==j);pool.push(r);
+      if(s===steps-1||pool.length===1){
+        if(r>=M.min&&r<=M.max&&!nums.includes(r))return r;
+      }
+    }
+  }
+  return null;
+}
+function solve(nums,target,ops){
+  const seen=new Set();
+  function rec(items){
+    for(const it of items)if(it.v===target)return it.steps;
+    if(items.length<2)return null;
+    const key=items.map(x=>x.v).sort((a,b)=>a-b).join(',');
+    if(seen.has(key))return null;seen.add(key);
+    for(let i=0;i<items.length;i++)for(let j=0;j<items.length;j++){
+      if(i===j)continue;const A=items[i],B=items[j];
+      for(const op of ops){
+        if((op==='+'||op==='*')&&i>j)continue;
+        const r=apply(A.v,op,B.v);if(r==null)continue;
+        if(op==='*'&&(A.v===1||B.v===1))continue;
+        if(op==='/'&&B.v===1)continue;
+        const rest=items.filter((_,k)=>k!==i&&k!==j);
+        rest.push({v:r,steps:A.steps.concat(B.steps,[`${A.v} ${SYM[op]} ${B.v} = ${r}`])});
+        const res=rec(rest);if(res)return res;
+      }
+    }
+    return null;
+  }
+  return rec(nums.map(v=>({v,steps:[]})));
+}
+
+function newRound(){
+  stopTimer();
+  let nums,t;
+  do{nums=startNumbers();t=makeTarget(nums);}while(t==null);
+  S.start=nums;S.target=t;S.done=false;
+  S.tiles=nums.map(v=>({id:S.nextId++,v}));S.hist=[];S.first=null;S.op=null;
+  setMsg('');render();
+  if(S.mode==='big'&&S.timerOn)startTimer();
+}
+function resetRound(){
+  if(S.done)return;
+  S.tiles=S.start.map(v=>({id:S.nextId++,v}));S.hist=[];S.first=null;S.op=null;setMsg('');render();
+}
+function setMsg(t,cls){const m=$('msg');m.textContent=t;m.className='msg'+(cls?' '+cls:'');}
+
+function clickTile(id){
+  if(S.done)return;
+  if(S.first==null||S.op==null){S.first=(S.first===id&&S.op==null)?null:id;render();return;}
+  if(id===S.first){S.op=null;render();return;}
+  const A=S.tiles.find(t=>t.id===S.first),B=S.tiles.find(t=>t.id===id);
+  const r=apply(A.v,S.op,B.v);
+  if(r==null){
+    const why=S.op==='-'?'אי אפשר להוריד מספר גדול ממספר קטן יותר (או שווה לו). נסו בסדר אחר.':'החילוק הזה לא יוצא מספר שלם. נסו משהו אחר.';
+    setMsg(why,'bad');const el=document.querySelector(`[data-id="${id}"]`);
+    if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');}
+    return;
+  }
+  S.hist.push({tiles:S.tiles.slice(),text:`${A.v} ${SYM[S.op]} ${B.v} = ${r}`});
+  const nt={id:S.nextId++,v:r,isNew:true};
+  S.tiles=S.tiles.flatMap(t=>t.id===A.id?[]:t.id===B.id?[nt]:[t]);
+  S.first=null;S.op=null;setMsg('');
+  if(r===S.target)win(nt.id);else render();
+}
+function win(id){
+  S.done=true;stopTimer();
+  const pts=S.mode==='big'?10:1;
+  S.score[S.mode]+=pts;S.streak[S.mode]++;
+  const cheers=S.mode==='small'?['כל הכבוד!','יש!','מעולה!','איזה יופי!']:['פגיעה מדויקת!','מושלם!','בול!'];
+  setMsg(`${cheers[rnd(0,cheers.length-1)]} +${pts}`,'good');
+  render(id);
+}
+function submitClosest(){
+  if(S.done)return;
+  stopTimer();
+  const best=S.tiles.reduce((b,t)=>Math.abs(t.v-S.target)<Math.abs(b-S.target)?t.v:b,S.tiles[0].v);
+  const d=Math.abs(best-S.target);
+  const pts=d<=2?7:d<=5?5:0;
+  S.score.big+=pts;S.streak.big=0;S.done=true;
+  setMsg(pts?`המספר הכי קרוב שלך: ${best} (הפרש ${d}). +${pts} נקודות`:`המספר הכי קרוב שלך: ${best}, הפרש ${d}. הפעם בלי נקודות.`,pts?'good':'bad');
+  render();
+}
+function undo(){
+  if(S.done||!S.hist.length)return;
+  S.tiles=S.hist.pop().tiles;S.first=null;S.op=null;setMsg('');render();
+}
+function hint(){
+  const sol=solve(S.start,S.target,MODES[S.mode].ops);
+  if(!sol){setMsg('לא נמצא פתרון.','bad');return;}
+  if(!S.done){S.done=true;S.streak[S.mode]=0;stopTimer();}
+  const ul=$('steps');ul.innerHTML='';
+  const h=document.createElement('li');h.className='empty';h.textContent='דרך אחת להגיע למטרה:';ul.appendChild(h);
+  sol.forEach(s=>{const li=document.createElement('li');li.innerHTML=`<span class="ltr">${s}</span>`;ul.appendChild(li);});
+  setMsg('הנה פתרון אפשרי. אולי מצאתם דרך אחרת?');
+  renderBoard();renderTiles();renderOps();renderButtons();
+}
+
+function startTimer(){
+  S.tLeft=90;$('timerBox').hidden=false;$('timer').textContent=S.tLeft;$('timerBox').classList.remove('low');
+  S.tInt=setInterval(()=>{S.tLeft--;$('timer').textContent=S.tLeft;
+    if(S.tLeft<=10)$('timerBox').classList.add('low');
+    if(S.tLeft<=0){stopTimer();setMsg('נגמר הזמן!','bad');submitClosest();}},1000);
+}
+function stopTimer(){if(S.tInt){clearInterval(S.tInt);S.tInt=null;}}
+
+function pips(v){
+  if(v>20)return '';
+  return '<span class="pips" aria-hidden="true">'+'<i></i>'.repeat(v)+'</span>';
+}
+function renderBoard(){
+  $('target').textContent=S.target;
+  $('score').textContent=S.score[S.mode];$('streak').textContent=S.streak[S.mode];
+  $('timerBox').hidden=!(S.mode==='big'&&S.timerOn);
+}
+function renderTiles(hitId){
+  const box=$('tiles');box.innerHTML='';
+  S.tiles.forEach(t=>{
+    const b=document.createElement('button');b.className='tile'+(t.isNew?' new':'')+(t.id===hitId?' hit':'');
+    b.dataset.id=t.id;b.setAttribute('aria-pressed',S.first===t.id);
+    b.setAttribute('aria-label',`מספר ${t.v}`);
+    b.innerHTML=`<span class="ltr">${t.v}</span>`+(MODES[S.mode].pips?pips(t.v):'');
+    b.disabled=S.done&&t.id!==hitId;
+    b.onclick=()=>clickTile(t.id);box.appendChild(b);t.isNew=false;
+  });
+}
+function renderOps(){
+  const box=$('ops');box.innerHTML='';
+  MODES[S.mode].ops.forEach(op=>{
+    const b=document.createElement('button');b.className='op';b.textContent=SYM[op];
+    b.setAttribute('aria-label',{'+':'חיבור','-':'חיסור','*':'כפל','/':'חילוק'}[op]);
+    b.setAttribute('aria-pressed',S.op===op);b.disabled=S.done||S.first==null;
+    b.onclick=()=>{S.op=S.op===op?null:op;render();};box.appendChild(b);
+  });
+}
+function renderSteps(){
+  const ul=$('steps');ul.innerHTML='';
+  if(!S.hist.length){const li=document.createElement('li');li.className='empty';li.textContent='עוד לא עשיתם צעדים. בחרו מספר כדי להתחיל.';ul.appendChild(li);return;}
+  S.hist.forEach(h=>{const li=document.createElement('li');li.innerHTML=`<span class="ltr">${h.text}</span>`;ul.appendChild(li);});
+}
+function renderButtons(){
+  $('undo').disabled=S.done||!S.hist.length;$('reset').disabled=S.done||!S.hist.length;
+  $('submit').hidden=S.mode!=='big';$('submit').disabled=S.done;$('hint').disabled=false;
+}
+function renderOpts(){
+  const box=$('opts');
+  if(S.mode==='small'){
+    box.innerHTML=`<span>כמה מספרים?</span>
+      <label><input type="radio" name="cnt" id="cnt3" value="3" ${S.smallCount===3?'checked':''}> 3</label>
+      <label><input type="radio" name="cnt" id="cnt4" value="4" ${S.smallCount===4?'checked':''}> 4</label>
+      <label><input type="radio" name="cnt" id="cnt5" value="5" ${S.smallCount===5?'checked':''}> 5</label>`;
+    box.querySelectorAll('input').forEach(i=>i.onchange=()=>{S.smallCount=+i.value;newRound();});
+  }else{
+    box.innerHTML=`<label><input type="checkbox" id="tmr" ${S.timerOn?'checked':''}> שעון של 90 שניות לכל סיבוב</label>`;
+    $('tmr').onchange=e=>{S.timerOn=e.target.checked;newRound();};
+  }
+  const r=$('rules');r.innerHTML='';MODES[S.mode].rules.forEach(t=>{const li=document.createElement('li');li.textContent=t;r.appendChild(li);});
+}
+function render(hitId){renderBoard();renderTiles(hitId);renderOps();renderSteps();renderButtons();}
+
+function setMode(m){
+  S.mode=m;$('m-small').setAttribute('aria-pressed',m==='small');$('m-big').setAttribute('aria-pressed',m==='big');
+  $('app').classList.toggle('big-mode',m==='big');renderOpts();newRound();
+}
+$('m-small').onclick=()=>setMode('small');$('m-big').onclick=()=>setMode('big');
+$('undo').onclick=undo;$('reset').onclick=resetRound;$('next').onclick=()=>{if(!S.done)S.streak[S.mode]=0;newRound();};
+$('hint').onclick=hint;$('submit').onclick=submitClosest;
+setMode('small');
+})();
+</script>
+</body>
+</html>
