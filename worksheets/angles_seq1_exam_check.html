@@ -96,6 +96,7 @@
   .ans-input:focus { border-color: #10B981; }
   .ans-input.wide { width: 140px; }
   .ans-input.narrow { width: 60px; }
+  .input-wrap { display: inline-flex; align-items: center; gap: 3px; direction: ltr; }
 
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
   .chip {
@@ -274,11 +275,11 @@
 <!-- שאלה 3 -->
 <div class="q-card" id="q3-card">
   <div class="q-title"><span class="q-num">3.</span> כתבו דוגמה לכל סוג זווית (מספר במעלות)</div>
-  <div class="sub-row"><span class="sub-lbl">חדה:</span><input class="ans-input narrow" id="q3acute" type="text" placeholder="°">°</div>
-  <div class="sub-row"><span class="sub-lbl">ישרה:</span><input class="ans-input narrow" id="q3right" type="text" placeholder="°">°</div>
-  <div class="sub-row"><span class="sub-lbl">קהה:</span><input class="ans-input narrow" id="q3obtuse" type="text" placeholder="°">°</div>
-  <div class="sub-row"><span class="sub-lbl">שטוחה:</span><input class="ans-input narrow" id="q3flat" type="text" placeholder="°">°</div>
-  <div class="sub-row"><span class="sub-lbl">שלמה:</span><input class="ans-input narrow" id="q3full" type="text" placeholder="°">°</div>
+  <div class="sub-row"><span class="sub-lbl">חדה:</span><span class="input-wrap"><input class="ans-input narrow" id="q3acute" type="text" placeholder="°"><span>°</span></span></div>
+  <div class="sub-row"><span class="sub-lbl">ישרה:</span><span class="input-wrap"><input class="ans-input narrow" id="q3right" type="text" placeholder="°"><span>°</span></span></div>
+  <div class="sub-row"><span class="sub-lbl">קהה:</span><span class="input-wrap"><input class="ans-input narrow" id="q3obtuse" type="text" placeholder="°"><span>°</span></span></div>
+  <div class="sub-row"><span class="sub-lbl">שטוחה:</span><span class="input-wrap"><input class="ans-input narrow" id="q3flat" type="text" placeholder="°"><span>°</span></span></div>
+  <div class="sub-row"><span class="sub-lbl">שלמה:</span><span class="input-wrap"><input class="ans-input narrow" id="q3full" type="text" placeholder="°"><span>°</span></span></div>
 </div>
 
 <!-- שאלה 4 — פתוחה -->

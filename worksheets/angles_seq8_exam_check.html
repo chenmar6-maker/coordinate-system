@@ -22,6 +22,7 @@
   .sub-lbl { font-weight: 700; color: #555; min-width: 90px; flex-shrink: 0; }
   .ans-input { border: none; border-bottom: 2px solid #aaa; background: transparent; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; direction: ltr; unicode-bidi: isolate; text-align: center; width: 70px; padding: 2px 4px; outline: none; color: #1a1a2e; transition: border-color .15s; }
   .ans-input:focus { border-color: #10B981; }
+  .input-wrap { display: inline-flex; align-items: center; gap: 3px; direction: ltr; }
   .check-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #10B981, #059669); color: #fff; border: none; border-radius: 12px; font-family: 'Rubik', sans-serif; font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(16,185,129,0.35); margin-top: 6px; }
   .check-btn:hover { transform: translateY(-1px); }
   #score-card { display: none; background: #fff; border-radius: 16px; padding: 28px 24px 22px; margin-bottom: 22px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; }
@@ -81,11 +82,11 @@
   <div class="note-box">△DHY שווה-שוקיים (DH = DY). Z על המשך הבסיס YH. נתון: ∡DHZ = 124°</div>
   <div class="sub-row">
     <span class="sub-lbl">א. ∡DHY =</span>
-    <input class="ans-input" id="q1a" type="text" placeholder="°">°
+    <span class="input-wrap"><input class="ans-input" id="q1a" type="text" placeholder="°"><span>°</span></span>
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ב. α = ∡D =</span>
-    <input class="ans-input" id="q1b" type="text" placeholder="°">°
+    <span class="input-wrap"><input class="ans-input" id="q1b" type="text" placeholder="°"><span>°</span></span>
   </div>
 </div>
 
@@ -95,11 +96,11 @@
   <div class="note-box">△TUV שווה-שוקיים (TU = TV). נתון: ∡T = 48°. UW חוצה את ∡U.</div>
   <div class="sub-row">
     <span class="sub-lbl">א. ∡U =</span>
-    <input class="ans-input" id="q2a" type="text" placeholder="°">°
+    <span class="input-wrap"><input class="ans-input" id="q2a" type="text" placeholder="°"><span>°</span></span>
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ב. β = ∡TUW =</span>
-    <input class="ans-input" id="q2b" type="text" placeholder="°">°
+    <span class="input-wrap"><input class="ans-input" id="q2b" type="text" placeholder="°"><span>°</span></span>
   </div>
 </div>
 
@@ -109,11 +110,11 @@
   <div class="note-box">△GHN שווה-שוקיים (GH = GN). NX חוצה את ∡GNH. נתון: ∡XNH = 34°</div>
   <div class="sub-row">
     <span class="sub-lbl">א. ∡GNH =</span>
-    <input class="ans-input" id="q3a" type="text" placeholder="°">°
+    <span class="input-wrap"><input class="ans-input" id="q3a" type="text" placeholder="°"><span>°</span></span>
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ב. α = ∡G =</span>
-    <input class="ans-input" id="q3b" type="text" placeholder="°">°
+    <span class="input-wrap"><input class="ans-input" id="q3b" type="text" placeholder="°"><span>°</span></span>
   </div>
 </div>
 
@@ -123,7 +124,7 @@
   <div class="note-box">△RST שווה-שוקיים (RS = RT). △STU שווה-צלעות. נתון: ∡RSU = 22°</div>
   <div class="sub-row">
     <span class="sub-lbl">α = ∡R =</span>
-    <input class="ans-input" id="q4" type="text" placeholder="°">°
+    <span class="input-wrap"><input class="ans-input" id="q4" type="text" placeholder="°"><span>°</span></span>
   </div>
 </div>
 
