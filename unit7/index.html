@@ -36,6 +36,7 @@
   .card.quiz{background:rgba(226,96,79,0.18);border:1.5px solid var(--coral);color:var(--coral);}
   .card.check{background:rgba(58,160,196,0.18);border:1.5px solid #3AA0C4;color:#3AA0C4;}
   .card.ans{background:rgba(139,92,246,0.18);border:1.5px solid #8B5CF6;color:#8B5CF6;}
+  .card.sheet{background:rgba(249,115,22,0.18);border:1.5px solid #F97316;color:#F97316;}
   .panel{background:rgba(234,244,241,0.06);border:1px solid rgba(234,244,241,0.15);border-radius:10px;padding:22px;margin:18px 0;}
   .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
   .btn{background:var(--green);color:#0F1E18;border:none;font-weight:700;font-family:'Rubik',sans-serif;font-size:15px;padding:11px 26px;border-radius:24px;cursor:pointer;transition:transform .12s;}
@@ -451,12 +452,16 @@ function seqRow(seqNum, label, opts={}){
     const ansCard = opts.answersUrl
       ? `<div class="flow-arrow">←</div><div class="card ans" onclick="window.open('${opts.answersUrl}','_blank')"><h3>תשובות</h3></div>`
       : '';
+    const sheetCard = opts.sheetUrl
+      ? `<div class="flow-arrow">←</div><div class="card sheet" onclick="window.open('${opts.sheetUrl}','_blank')"><h3>דף עבודה</h3></div>`
+      : '';
     const learnCard = opts.noLearn
       ? `<div class="card learn" style="opacity:.4;cursor:default;"><h3>הקנייה — בקרוב</h3></div>`
       : `<div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>`;
     cards = `<div class="cards" style="margin-bottom:6px;">
       ${learnCard}
       ${gameCard}
+      ${sheetCard}
       ${quizCard}
       ${checkCard}
       ${ansCard}
@@ -488,7 +493,7 @@ function renderHome(){
       ${seqRow(2,  '2. כתיב מתמטי של זוויות', {worksheetUrl:'../worksheets/angles_seq2_exam.html', checkUrl:'../worksheets/angles_seq2_exam_check.html', answersUrl:'../worksheets/angles_seq2_exam_answers.html'})}
 
       <div style="${SH}">פעולות עם זוויות</div>
-      ${seqRow(3,  '3. סכום והפרש זוויות',    {worksheetUrl:'../worksheets/angles_life_practice.html'})}
+      ${seqRow(3,  '3. סכום והפרש זוויות',    {sheetUrl:'../worksheets/angles_naming_worksheet.html', worksheetUrl:'../worksheets/angles_life_practice.html'})}
       ${seqRow(4,  '4. חוצה-זווית',           {worksheetUrl:'../worksheets/angles_seq4_exam.html', checkUrl:'../worksheets/angles_seq4_exam_check.html', answersUrl:'../worksheets/angles_seq4_exam_answers.html'})}
 
       <div style="${SH}">זוויות מיוחדות</div>
