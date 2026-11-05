@@ -144,6 +144,15 @@
   <div class="gate-title">מתמטיקה אקטיבית לכיתה ז׳</div>
   <input class="gate-input" id="gate-input" type="password" maxlength="3" placeholder="···" autocomplete="off" oninput="checkGate()">
   <div class="gate-error" id="gate-error"></div>
+  <div id="games-gate" style="margin-top:8px;">
+    <button class="games-btn" onclick="openGate()">משחקתמטיקה</button>
+  </div>
+  <div id="games-code-row" style="display:none;flex-direction:column;align-items:center;gap:10px;">
+    <input id="games-code-input" type="password" maxlength="4" placeholder="קוד" autocomplete="off"
+      style="width:110px;padding:10px 14px;background:rgba(234,244,241,0.06);border:1.5px solid rgba(234,244,241,0.2);border-radius:12px;color:#EAF4F1;font-family:'Rubik',sans-serif;font-size:20px;font-weight:700;text-align:center;letter-spacing:4px;direction:ltr;outline:none;"
+      oninput="checkGateCode()">
+    <span id="games-code-err" style="font-size:12px;color:rgba(255,120,120,0.8);display:none;">קוד שגוי</span>
+  </div>
 </div>
 
 <div class="wrap" id="main-wrap" style="display:none;">
@@ -601,15 +610,6 @@
 
   <div class="bottom-btns">
     <a class="teacher-btn" href="https://script.google.com/macros/s/AKfycbypGYgALZmBe9jtRU_C49lvRPOtK_mC_iS5wYw5lem_EPQaYj7vErZiP64TZbEZvsb-BQ/exec" target="_blank" rel="noopener">מעקב למורה</a>
-    <div id="games-gate">
-      <button class="games-btn" onclick="openGate()">משחקתמטיקה</button>
-    </div>
-    <div id="games-code-row" style="display:none;flex-direction:column;align-items:center;gap:10px;">
-      <input id="games-code-input" type="password" maxlength="4" placeholder="קוד" autocomplete="off"
-        style="width:110px;padding:10px 14px;background:rgba(234,244,241,0.06);border:1.5px solid rgba(234,244,241,0.2);border-radius:12px;color:#EAF4F1;font-family:'Rubik',sans-serif;font-size:20px;font-weight:700;text-align:center;letter-spacing:4px;direction:ltr;outline:none;"
-        oninput="checkGateCode()">
-      <span id="games-code-err" style="font-size:12px;color:rgba(255,120,120,0.8);display:none;">קוד שגוי</span>
-    </div>
   </div>
 
 </div>
