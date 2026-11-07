@@ -3,31 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>מבדק שליטה — רצף 3: סכום והפרש זוויות</title>
+<title>מבדק שליטה — רצף 3: שיום זוויות</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
-
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Rubik',sans-serif;font-size:14px;color:#1a1a2e;direction:rtl;background:#F0F2F8;min-height:100vh;padding:24px 16px 80px;}
-
-  .page-wrap{max-width:780px;margin:0 auto;}
-
+  .page-wrap{max-width:820px;margin:0 auto;}
   .header{background:linear-gradient(135deg,#1E1B2E 0%,#2D2A45 100%);color:#fff;border-radius:14px;padding:18px 22px 14px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-end;}
   .header-title{font-size:20px;font-weight:700;color:#fff;}
   .header-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:4px;}
   .brand{font-size:12px;font-weight:600;color:rgba(255,255,255,0.45);}
-
-  .part-label{font-size:13px;font-weight:700;color:#fff;padding:5px 14px;border-radius:6px;display:inline-block;margin-bottom:10px;background:#10B981;}
-
-  .q{margin-bottom:12px;padding:14px 16px;background:#fff;border-radius:8px;font-size:13.5px;line-height:1.75;box-shadow:0 1px 3px rgba(0,0,0,0.07);border-right:4px solid #10B981;}
-  .qn{font-weight:700;margin-left:4px;}
-  .b{border-bottom:1px solid #555;display:inline-block;min-width:80px;}
-  .wl{border-bottom:1px solid #ccc;margin-top:14px;height:1px;}
-  .ang{font-size:1.25em;font-weight:700;direction:ltr;unicode-bidi:isolate;}
-  .sbar{font-size:12px;color:#444;background:#fff;border-radius:8px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.07);display:flex;justify-content:flex-end;}
+  .part-label{font-size:13px;font-weight:700;color:#fff;padding:5px 14px;border-radius:6px;display:inline-block;margin-bottom:12px;background:#10B981;}
+  .q{margin-bottom:14px;padding:14px 16px;background:#fff;border-radius:10px;font-size:13.5px;line-height:1.75;box-shadow:0 1px 3px rgba(0,0,0,0.07);border-right:4px solid #10B981;}
+  .qn{font-weight:700;font-size:15px;margin-bottom:8px;color:#065F46;}
+  .qdesc{margin-bottom:12px;font-size:13.5px;line-height:1.7;}
+  .fig{width:100%;overflow:hidden;margin:10px 0 14px;border-radius:8px;}
+  .fig img{width:100%;max-width:700px;display:block;margin:0 auto;border-radius:6px;}
+  .sub-row{display:flex;align-items:baseline;gap:8px;margin-bottom:10px;font-size:13.5px;}
+  .sub-lbl{font-weight:700;min-width:36px;flex-shrink:0;color:#374151;}
+  .ang{font-size:1.1em;font-weight:700;direction:ltr;unicode-bidi:isolate;font-family:serif;}
+  .blank-line{border-bottom:1.5px solid #555;flex:1;min-width:120px;}
+  .wl{border-bottom:1px solid #ddd;margin-top:12px;}
+  .tf-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;font-size:13.5px;}
+  .tf-lbl{font-weight:700;min-width:36px;flex-shrink:0;color:#374151;padding-top:1px;}
+  .tf-content{flex:1;}
+  .tf-boxes{margin:4px 0 6px;display:flex;gap:14px;font-size:13px;}
+  .tf-boxes label{display:flex;align-items:center;gap:5px;cursor:pointer;}
+  .explain-line{border-bottom:1px solid #ccc;margin-top:6px;}
+  .explain-line+.explain-line{margin-top:10px;}
+  .sbar{font-size:12px;color:#444;background:#fff;border-radius:8px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.07);display:flex;justify-content:flex-end;margin-top:8px;}
   .sf{border-bottom:1px solid #555;min-width:40px;display:inline-block;}
-
   .print-btn{position:fixed;bottom:18px;left:18px;background:#1a1a2e;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);}
+  .nav-btn{position:fixed;border:none;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;padding:9px 20px;box-shadow:0 3px 10px rgba(0,0,0,0.2);}
+  .nav-back{bottom:62px;right:18px;background:#374151;color:#fff;}
+  .nav-check{bottom:18px;right:18px;background:#065F46;color:#fff;}
+  .remind-box{background:#ECFDF5;border:2px solid #10B981;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#065F46;display:flex;align-items:center;gap:10px;}
   @media print{.no-print{display:none;}@page{size:A4;margin:12mm;}body{background:#fff;padding:10px;}.q{box-shadow:none;border:1px solid #ddd;}}
 </style>
 </head>
@@ -36,65 +46,145 @@
 
 <div class="header">
   <div>
-    <div class="header-title">מבדק שליטה — רצף 3: סכום והפרש זוויות</div>
+    <div class="header-title">מבדק שליטה — רצף 3: שיום זוויות</div>
     <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; יחידה: זוויות</div>
   </div>
   <div class="brand">חן מרגלית למידה אקטיבית</div>
 </div>
 
-<div style="background:#ECFDF5;border:2px solid #10B981;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:13.5px;font-weight:700;color:#065F46;display:flex;align-items:center;gap:10px;">
+<div class="remind-box no-print">
   <span style="font-size:20px;">📝</span>
   <span>כתבו את התשובות על דף נפרד — ממספרים לפי מספר השאלה! תזדקקו לזה בבדיקה העצמית.</span>
 </div>
 
-<span class="part-label">רצף 3 — סכום והפרש זוויות</span>
+<span class="part-label">רצף 3 — שיום זוויות</span>
 
+<!-- שאלה 1 -->
 <div class="q">
-  <div style="margin-bottom:10px;"><span class="qn">1.</span> התבוננו בסרטוט.</div>
-  <img src="seq3_exam_q1.png" style="width:100%;max-width:560px;display:block;margin:0 auto 14px;border-radius:6px;" />
-  <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
-    <div>א. חשבו את <span class="ang">∡ABC</span> = <span class="b">&nbsp;</span><div class="wl"></div></div>
-    <div>ב. חשבו את <span class="ang">∡KBR</span> = <span class="b">&nbsp;</span><div class="wl"></div></div>
-    <div>ג. חשבו את <span class="ang">∡KBC</span> = <span class="b">&nbsp;</span><div class="wl"></div></div>
+  <div class="qn">1. שיום זוויות מהחיים</div>
+  <div class="qdesc">בכל אחד מהסרטוטים מסומנת זווית בכתום. רשמו בעזרת שלוש אותיות את שמה של הזווית המסומנת.</div>
+  <div class="fig">
+    <img src="../unit7/naming_ex1.svg" alt="סרטוטי זוויות מהחיים" />
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">(א)</span>
+    <span>מחשב נייד:</span>
+    <span class="blank-line"></span>
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">(ב)</span>
+    <span>מפרש סירה:</span>
+    <span class="blank-line"></span>
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">(ג)</span>
+    <span>שעון:</span>
+    <span class="blank-line"></span>
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">(ד)</span>
+    <span>מספריים:</span>
+    <span class="blank-line"></span>
   </div>
 </div>
 
+<!-- שאלה 2 -->
 <div class="q">
-  <div style="margin-bottom:10px;"><span class="qn">2.</span> התבוננו בסרטוט.</div>
-  <img src="seq3_exam_q2.png" style="width:100%;max-width:500px;display:block;margin:0 auto 14px;border-radius:6px;" />
-  <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
-    <div>א. חשבו את <span class="ang">∡CED</span> = <span class="b">&nbsp;</span><div class="wl"></div></div>
-    <div>ב. חשבו את <span class="ang">∡BEC</span> = <span class="b">&nbsp;</span><div class="wl"></div><div class="wl" style="margin-top:14px;"></div></div>
+  <div class="qn">2. סכום והפרש — מגדלור</div>
+  <div class="qdesc">המנורה של המגדלור נמצאת בנקודה K. הקרן KR מקבילה לקו האופק. שלוש אלומות אור ממוספרות 1, 2, 3.<br>רשמו בעזרת שלוש אותיות את שם הזווית שמתקבלת בכל סעיף.</div>
+  <div class="fig">
+    <img src="../unit7/naming_ex2.svg" alt="מגדלור — סכום זוויות" style="max-width:380px;" />
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">(א)</span>
+    <span class="ang">∡1 + ∡2</span>
+    <span> = </span>
+    <span class="blank-line"></span>
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">(ב)</span>
+    <span class="ang">∡2 + ∡3</span>
+    <span> = </span>
+    <span class="blank-line"></span>
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">(ג)</span>
+    <span class="ang">∡1 + ∡2 + ∡3</span>
+    <span> = </span>
+    <span class="blank-line"></span>
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">(ד)</span>
+    <span class="ang">∡RKA − ∡1</span>
+    <span> = </span>
+    <span class="blank-line"></span>
   </div>
 </div>
 
+<!-- שאלה 3 -->
 <div class="q">
-  <div style="margin-bottom:10px;"><span class="qn">3.</span> התבוננו בסרטוט.</div>
-  <img src="seq3_exam_q3.png" style="width:100%;max-width:560px;display:block;margin:0 auto 14px;border-radius:6px;" />
-  <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
-    <div>א. חשבו את גודל <span class="ang">∡B₃</span> ו-<span class="ang">∡B₄</span>: <span class="b">&nbsp;</span><div class="wl"></div></div>
-    <div>ב. חשבו את <span class="ang">∡ABF</span> ואת <span class="ang">∡ABC</span>: <span class="b" style="min-width:120px;">&nbsp;</span><div class="wl"></div><div class="wl" style="margin-top:14px;"></div></div>
-    <div>ג. מצאו בסרטוט זוג זוויות שוות (לא אלו הנתונות). הסבירו:<div class="wl"></div><div class="wl" style="margin-top:14px;"></div></div>
+  <div class="qn">3. נכון או לא נכון — גג הבית</div>
+  <div class="qdesc">בגג הבית יש קורה TM שמחברת את קודקוד הגג לקורה התחתונה LR. הזוויות בסרטוט ממוספרות 1 עד 5.<br>סמנו ✓ לנכון ✗ ללא נכון, והסבירו בקצרה.</div>
+  <div class="fig">
+    <img src="../unit7/naming_ex3.svg" alt="גג הבית — שיום זוויות" style="max-width:360px;" />
+  </div>
+
+  <div class="tf-row">
+    <span class="tf-lbl">(א)</span>
+    <div class="tf-content">
+      <div>את <span class="ang">∡1</span> אפשר לקרוא גם <span class="ang">∡L</span>.</div>
+      <div class="tf-boxes"><label><input type="checkbox" /> נכון</label><label><input type="checkbox" /> לא נכון</label></div>
+      <div class="explain-line"></div>
+    </div>
+  </div>
+
+  <div class="tf-row">
+    <span class="tf-lbl">(ב)</span>
+    <div class="tf-content">
+      <div>את <span class="ang">∡2</span> אפשר לקרוא גם <span class="ang">∡T</span>.</div>
+      <div class="tf-boxes"><label><input type="checkbox" /> נכון</label><label><input type="checkbox" /> לא נכון</label></div>
+      <div class="explain-line"></div>
+      <div class="explain-line" style="margin-top:14px;"></div>
+    </div>
+  </div>
+
+  <div class="tf-row">
+    <span class="tf-lbl">(ג)</span>
+    <div class="tf-content">
+      <div><span class="ang">∡2 + ∡3 = ∡LTR</span></div>
+      <div class="tf-boxes"><label><input type="checkbox" /> נכון</label><label><input type="checkbox" /> לא נכון</label></div>
+      <div class="explain-line"></div>
+    </div>
+  </div>
+
+  <div class="tf-row">
+    <span class="tf-lbl">(ד)</span>
+    <div class="tf-content">
+      <div>את <span class="ang">∡5</span> אפשר לקרוא גם <span class="ang">∡TLM</span>.</div>
+      <div class="tf-boxes"><label><input type="checkbox" /> נכון</label><label><input type="checkbox" /> לא נכון</label></div>
+      <div class="explain-line"></div>
+      <div class="explain-line" style="margin-top:14px;"></div>
+    </div>
   </div>
 </div>
 
 <div class="sbar">ניקוד: <span class="sf">&nbsp;</span></div>
 
-
 <!-- שאלת היכרות -->
 <div style="margin-top:22px;padding:16px 18px;background:#FFFBEB;border:1.5px solid #FCD34D;border-right:4px solid #F59E0B;border-radius:10px;font-size:13.5px;line-height:1.8;">
   <div style="font-size:11px;font-weight:800;color:#D97706;letter-spacing:1px;margin-bottom:10px;">💬 שאלת היכרות</div>
   <div style="background:#FEF3C7;border-radius:8px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#92400E;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span>✏️</span><span>לפני שאתם עונים — כתבו את השאלה במלואה בדף!</span></div>
-  <div style="font-size:14px;font-weight:700;color:#1a1a2e;">מה שאלה שתמיד סקרנה אותך ועדיין אין לך תשובה עליה?</div>
+  <div style="font-size:14px;font-weight:700;color:#1a1a2e;">מה דבר שמאוד קל לך לשים לב אליו, שאחרים בדרך כלל מפספסים?</div>
   <div style="border-bottom:1px solid #FCD34D;margin-top:16px;"></div>
   <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
   <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
 </div>
+
 </div><!-- end page-wrap -->
 
 <button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
-<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
-<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#10B981;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+<button class="nav-btn nav-back no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}">← חזרה</button>
+<button class="nav-btn nav-check no-print" onclick="window.open('angles_seq3_exam_check.html')">בדיקה עצמית ✓</button>
 <footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
 </body>
 </html>

@@ -508,7 +508,7 @@ function renderHome(){
       ${seqRow(2,  '2. כתיב מתמטי של זוויות', {worksheetUrl:'../worksheets/angles_seq2_exam.html', checkUrl:'../worksheets/angles_seq2_exam_check.html', answersUrl:'../worksheets/angles_seq2_exam_answers.html'})}
 
       <div style="${SH}">פעולות עם זוויות</div>
-      ${seqRow(3,  '3. סכום והפרש זוויות',    {worksheetUrl:'../worksheets/angles_life_practice.html'})}
+      ${seqRow(3,  '3. שיום זוויות',            {worksheetUrl:'../worksheets/angles_seq3_exam.html', checkUrl:'../worksheets/angles_seq3_exam_check.html', answersUrl:'../worksheets/angles_seq3_exam_answers.html'})}
       ${seqRow(4,  '4. חוצה-זווית',           {worksheetUrl:'../worksheets/angles_seq4_exam.html', checkUrl:'../worksheets/angles_seq4_exam_check.html', answersUrl:'../worksheets/angles_seq4_exam_answers.html'})}
 
       <div style="${SH}">זוויות מיוחדות</div>
@@ -1007,7 +1007,7 @@ function skipQ(){ state.qi++; state.answered=false; state.lastAnswer=-1; render(
 function renderGameResults(){
   const total = currentLevels().length;
   const pct = Math.round(state.score/total*100);
-  const seqUrls = {1:'../worksheets/angles_seq1_exam.html',2:'../worksheets/angles_seq2_exam.html',3:'../worksheets/angles_life_practice.html',4:'../worksheets/angles_seq4_exam.html',5:'../worksheets/angles_seq5_exam.html',6:'../worksheets/angles_seq6_exam.html',7:'../worksheets/angles_seq7_exam.html',8:'../worksheets/angles_seq8_exam.html',9:'../worksheets/angles_seq9_exam.html'};
+  const seqUrls = {1:'../worksheets/angles_seq1_exam.html',2:'../worksheets/angles_seq2_exam.html',3:'../worksheets/angles_seq3_exam.html',4:'../worksheets/angles_seq4_exam.html',5:'../worksheets/angles_seq5_exam.html',6:'../worksheets/angles_seq6_exam.html',7:'../worksheets/angles_seq7_exam.html',8:'../worksheets/angles_seq8_exam.html',9:'../worksheets/angles_seq9_exam.html'};
   const examUrl = seqUrls[state.sequence] || '';
   const examBtn = examUrl
     ? `<button class="btn" onclick="window.open('${examUrl}','_blank')">למבדק שליטה ←</button>`
