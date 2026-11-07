@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>כל מבדקי השליטה — מספרים מכוונים ומערכת צירים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 80px;
+  }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #1E3A5F 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .section-title {
+    font-size: 13px; font-weight: 800; letter-spacing: 1px;
+    color: #fff; padding: 5px 14px; border-radius: 6px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .blue { background: #1D4ED8; }
+  .teal { background: #0F766E; }
+
+  .exam-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 520px) { .exam-grid { grid-template-columns: 1fr; } }
+
+  .exam-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform .15s, box-shadow .15s;
+    border-right: 4px solid;
+  }
+  .exam-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.11); }
+  .exam-card.blue-border { border-color: #3B82F6; }
+  .exam-card.teal-border { border-color: #0D9488; }
+
+  .exam-num {
+    font-size: 20px; font-weight: 800; min-width: 32px; text-align: center;
+  }
+  .blue-num { color: #3B82F6; }
+  .teal-num { color: #0D9488; }
+
+  .exam-name { font-size: 13.5px; font-weight: 700; flex: 1; }
+  .exam-arrow { font-size: 16px; color: #9CA3AF; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">כל מבדקי השליטה — תחום מספרי</div>
+    <div class="header-sub">מספרים מכוונים · מערכת צירים בכל הרביעים</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<!-- מספרים מכוונים -->
+<div class="section-title blue">מספרים מכוונים</div>
+<div class="exam-grid">
+
+  <a class="exam-card blue-border" href="unit1_mastery_part_a.html" target="_blank">
+    <span class="exam-num blue-num">1</span>
+    <span class="exam-name">ערך מוחלט</span>
+    <span class="exam-arrow">←</span>
+  </a>
+
+  <a class="exam-card blue-border" href="unit1_mastery_part_b.html" target="_blank">
+    <span class="exam-num blue-num">2</span>
+    <span class="exam-name">מספרים נגדיים</span>
+    <span class="exam-arrow">←</span>
+  </a>
+
+  <a class="exam-card blue-border" href="unit1_mastery_part_c.html" target="_blank">
+    <span class="exam-num blue-num">3</span>
+    <span class="exam-name">מיקום על ציר המספרים</span>
+    <span class="exam-arrow">←</span>
+  </a>
+
+  <a class="exam-card blue-border" href="add_part_a_exam.html" target="_blank">
+    <span class="exam-num blue-num">4</span>
+    <span class="exam-name">מודל החצים וכלל הסימן</span>
+    <span class="exam-arrow">←</span>
+  </a>
+
+  <a class="exam-card blue-border" href="add_part_b_exam.html" target="_blank">
+    <span class="exam-num blue-num">5</span>
+    <span class="exam-name">תרגילים ארוכים וחוק החילוף</span>
+    <span class="exam-arrow">←</span>
+  </a>
+
+  <a class="exam-card blue-border" href="sub_part_a_exam.html" target="_blank">
+    <span class="exam-num blue-num">6</span>
+    <span class="exam-name">חיסור = חיבור הנגדי</span>
+    <span class="exam-arrow">←</span>
+  </a>
+
+  <a class="exam-card blue-border" href="sub_part_b_c_exam.html" target="_blank">
+    <span class="exam-num blue-num">7</span>
+    <span class="exam-name">תרגילים ארוכים — ללא סוגריים</span>
+    <span class="exam-arrow">←</span>
+  </a>
+
+  <a class="exam-card blue-border" href="mult_part_a_exam.html" target="_blank">
+    <span class="exam-num blue-num">8</span>
+    <span class="exam-name">כפל וחילוק מספרים מכוונים</span>
+    <span class="exam-arrow">←</span>
+  </a>
+
+  <a class="exam-card blue-border" href="mult_part_b_exam.html" target="_blank">
+    <span class="exam-num blue-num">9</span>
+    <span class="exam-name">סדר פעולות חשבון</span>
+    <span class="exam-arrow">←</span>
+  </a>
+
+  <a class="exam-card blue-border" href="mult_part_c_exam.html" target="_blank">
+    <span class="exam-num blue-num">10</span>
+    <span class="exam-name">סדר פעולות עם קו שבר</span>
+    <span class="exam-arrow">←</span>
+  </a>
+
+</div>
+
+<!-- מערכת צירים -->
+<div class="section-title teal">מערכת צירים — כל הרביעים</div>
+<div class="exam-grid">
+
+  <a class="exam-card teal-border" href="unit3_exam_part_a.html" target="_blank">
+    <span class="exam-num teal-num">1</span>
+    <span class="exam-name">נקודות בכל הרביעים</span>
+    <span class="exam-arrow">←</span>
+  </a>
+
+  <a class="exam-card teal-border" href="unit3_exam_part_b.html" target="_blank">
+    <span class="exam-num teal-num">2</span>
+    <span class="exam-name">אורכים ושטחים בכל הרביעים</span>
+    <span class="exam-arrow">←</span>
+  </a>
+
+</div>
+
+</div>
+<button onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}"
+  style="position:fixed;bottom:18px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
