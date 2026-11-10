@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>המשחק 15</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f4ee;
+    --card: #ffffff;
+    --ink: #1f2430;
+    --muted: #6b7080;
+    --line: #e4ded2;
+    --p1: #2563eb;
+    --p1-soft: #dbe7ff;
+    --p2: #e0590f;
+    --p2-soft: #ffe3d2;
+    --gold: #f2b705;
+    --gold-soft: #fff3c4;
+    --shadow: 0 2px 0 rgba(0,0,0,.06), 0 8px 24px rgba(31,36,48,.07);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15171d;
+      --card: #1f222b;
+      --ink: #f1efe9;
+      --muted: #a2a6b3;
+      --line: #333744;
+      --p1: #6c9bff;
+      --p1-soft: #1f2d4d;
+      --p2: #ff8a4c;
+      --p2-soft: #4a2a1a;
+      --gold: #ffd43b;
+      --gold-soft: #4a3f12;
+      --shadow: 0 2px 0 rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15171d;
+    --card: #1f222b;
+    --ink: #f1efe9;
+    --muted: #a2a6b3;
+    --line: #333744;
+    --p1: #6c9bff;
+    --p1-soft: #1f2d4d;
+    --p2: #ff8a4c;
+    --p2-soft: #4a2a1a;
+    --gold: #ffd43b;
+    --gold-soft: #4a3f12;
+    --shadow: 0 2px 0 rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Rubik", system-ui, sans-serif;
+    direction: rtl;
+    text-align: right;
+    line-height: 1.55;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 16px 48px;
+  }
+  header { text-align: center; margin-bottom: 18px; }
+  h1 {
+    font-size: clamp(2.4rem, 9vw, 3.6rem);
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -1px;
+  }
+  h1 .num {
+    display: inline-block;
+    background: var(--gold);
+    color: #1f2430;
+    border-radius: 14px;
+    padding: 0 14px;
+    transform: rotate(-3deg);
+  }
+  .tagline { color: var(--muted); margin: 6px 0 0; text-align: center; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .rules p { margin: 0 0 6px; text-align: right; }
+  .rules ul { margin: 0; padding-right: 20px; padding-left: 0; }
+  .rules li { margin-bottom: 4px; text-align: right; }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .seg {
+    display: inline-flex;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .seg button {
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .seg button.on { background: var(--ink); color: var(--bg); }
+
+  .score {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 10px;
+    align-items: stretch;
+    margin-bottom: 14px;
+  }
+  .player {
+    border-radius: 16px;
+    padding: 12px 14px;
+    border: 2px solid transparent;
+    background: var(--card);
+    box-shadow: var(--shadow);
+    transition: border-color .2s, transform .2s;
+    text-align: right;
+  }
+  .player.p1 { --c: var(--p1); --soft: var(--p1-soft); }
+  .player.p2 { --c: var(--p2); --soft: var(--p2-soft); }
+  .player.active { border-color: var(--c); transform: translateY(-2px); }
+  .player .name {
+    font-weight: 700;
+    color: var(--c);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+  }
+  .player .pts {
+    background: var(--soft);
+    color: var(--c);
+    border-radius: 999px;
+    padding: 0 10px;
+    font-weight: 800;
+    min-width: 2em;
+    text-align: center;
+  }
+  .tray {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+    min-height: 34px;
+  }
+  .chip {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    display: grid; place-items: center;
+    background: var(--soft);
+    color: var(--c);
+    font-weight: 800;
+  }
+  .chip.win { background: var(--gold); color: #1f2430; }
+  .draws {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    color: var(--muted); font-size: .9rem; padding: 0 4px; text-align: center;
+  }
+  .draws b { font-size: 1.3rem; color: var(--ink); }
+
+  .status {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    min-height: 2.2em;
+    margin: 6px 0 12px;
+  }
+  .status .eq { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+
+  .board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 360px;
+    margin: 0 auto 18px;
+  }
+  .num-btn {
+    aspect-ratio: 1;
+    border-radius: 18px;
+    border: 2px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    font: inherit;
+    font-size: clamp(1.8rem, 9vw, 2.6rem);
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform .12s, background .2s, border-color .2s;
+  }
+  .num-btn:hover:not(:disabled) { transform: translateY(-3px); border-color: var(--ink); }
+  .num-btn:disabled { cursor: default; }
+  .num-btn.p1 { background: var(--p1-soft); color: var(--p1); border-color: var(--p1); }
+  .num-btn.p2 { background: var(--p2-soft); color: var(--p2); border-color: var(--p2); }
+  .num-btn.win { background: var(--gold); color: #1f2430; border-color: var(--gold); animation: pop .5s ease; }
+  .num-btn.fade { opacity: .45; }
+  @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.12)} 100%{transform:scale(1)} }
+
+  .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px; }
+  .btn {
+    font: inherit; font-weight: 700;
+    border-radius: 14px;
+    padding: 12px 20px;
+    border: 2px solid var(--ink);
+    background: var(--ink);
+    color: var(--bg);
+    cursor: pointer;
+  }
+  .btn.ghost { background: transparent; color: var(--ink); }
+
+  .secret h2 { margin: 0 0 8px; font-size: 1.3rem; text-align: right; }
+  .secret p { margin: 0 0 10px; text-align: right; }
+  .magic {
+    display: grid;
+    grid-template-columns: repeat(3, 64px);
+    gap: 6px;
+    justify-content: center;
+    direction: ltr;
+    margin: 14px auto;
+  }
+  .magic div {
+    height: 64px;
+    border-radius: 12px;
+    display: grid; place-items: center;
+    font-size: 1.6rem; font-weight: 800;
+    background: var(--bg);
+    border: 2px solid var(--line);
+  }
+  .magic .p1 { background: var(--p1-soft); color: var(--p1); border-color: var(--p1); }
+  .magic .p2 { background: var(--p2-soft); color: var(--p2); border-color: var(--p2); }
+  .magic .win { background: var(--gold); color: #1f2430; border-color: var(--gold); }
+  .hidden { display: none; }
+
+  @media (max-width: 480px) {
+    .score { grid-template-columns: 1fr 1fr; }
+    .draws { grid-column: 1 / -1; flex-direction: row; gap: 6px; order: 3; }
+  }
+  /* PIN overlay */
+  .pin-overlay { position:fixed;inset:0;background:rgba(15,13,26,0.92);display:flex;align-items:center;justify-content:center;z-index:9999; }
+  .pin-overlay.hidden { display:none; }
+  .pin-box { background:#fff;border-radius:18px;padding:36px 32px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.4);max-width:300px;width:90%; }
+  .pin-title { font-size:20px;font-weight:800;color:#1f2430;margin-bottom:6px; }
+  .pin-sub { font-size:13px;color:#6b7080;margin-bottom:22px; }
+  .pin-input { width:100%;padding:14px;border:2px solid #ddd;border-radius:10px;font-size:26px;text-align:center;letter-spacing:10px;font-family:'Rubik',sans-serif;margin-bottom:14px;outline:none;direction:ltr; }
+  .pin-input:focus { border-color:#2563eb; }
+  .pin-err { color:#dc2626;font-size:13px;margin-top:8px;min-height:18px; }
+</style>
+</head>
+<body>
+
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <div class="pin-title">🔢 המשחק 15</div>
+    <div class="pin-sub">הכניסו את הקוד כדי להתחיל</div>
+    <input class="pin-input" type="password" id="pinInput" maxlength="4" placeholder="••••" autocomplete="off" onkeydown="if(event.key==='Enter')checkPin()" oninput="checkPin()" />
+    <div class="pin-err" id="pinErr"></div>
+  </div>
+</div>
+<script>
+function checkPin(){
+  var v = document.getElementById('pinInput').value;
+  if(v === '1515'){
+    document.getElementById('pinOverlay').classList.add('hidden');
+  } else if(v.length === 4){
+    document.getElementById('pinErr').textContent = 'קוד שגוי';
+    document.getElementById('pinInput').value = '';
+    setTimeout(function(){ document.getElementById('pinErr').textContent=''; }, 1000);
+  }
+}
+</script>
+
+<div class="wrap" dir="rtl">
+
+  <header>
+    <h1>המשחק <span class="num">15</span></h1>
+    <p class="tagline">משחק מספרים לשניים — פשוט לחוקים, מפתיע בסוד</p>
+  </header>
+
+  <section class="card rules">
+    <p><b>איך משחקים?</b></p>
+    <ul>
+      <li>כל שחקן בתורו בוחר מספר מ־1 עד 9 שעוד לא נבחר.</li>
+      <li>מנצח מי שהראשון שיש לו <b>שלושה מספרים שסכומם בדיוק 15</b>.</li>
+      <li>מותר שיהיו לך יותר משלושה מספרים — מספיק ששלושה מהם יסתכמו ל־15.</li>
+      <li>אם כל המספרים נבחרו ואף אחד לא הגיע ל־15 — תיקו.</li>
+    </ul>
+  </section>
+
+  <div class="controls">
+    <div class="seg" id="modeSeg">
+      <button data-mode="pvp" class="on">שני שחקנים</button>
+      <button data-mode="easy">נגד המחשב: קל</button>
+      <button data-mode="hard">נגד המחשב: קשה</button>
+    </div>
+  </div>
+
+  <div class="score">
+    <div class="player p1" id="pl1">
+      <div class="name"><span id="name1">הכחול</span><span class="pts" id="pts1">0</span></div>
+      <div class="tray" id="tray1"></div>
+    </div>
+    <div class="draws">תיקו<b id="ptsD">0</b></div>
+    <div class="player p2" id="pl2">
+      <div class="name"><span id="name2">הכתום</span><span class="pts" id="pts2">0</span></div>
+      <div class="tray" id="tray2"></div>
+    </div>
+  </div>
+
+  <div class="status" id="status" aria-live="polite"></div>
+
+  <div class="board" id="board"></div>
+
+  <div class="actions">
+    <button class="btn" id="newGame">משחק חדש</button>
+    <button class="btn ghost" id="secretBtn">רוצים לגלות סוד?</button>
+  </div>
+
+  <section class="card secret hidden" id="secret">
+    <h2>הסוד של המשחק 15</h2>
+    <p>מסדרים את המספרים 1 עד 9 בריבוע הזה:</p>
+    <div class="magic" id="magic"></div>
+    <p>בכל שורה, בכל עמודה ובכל אלכסון הסכום הוא 15. ריבוע כזה נקרא <b>ריבוע קסם</b>.</p>
+    <p>ויש עוד הפתעה: יש בדיוק 8 שלשות של מספרים מ־1 עד 9 שסכומן 15 — והן בדיוק 3 השורות, 3 העמודות ו־2 האלכסונים של הריבוע.</p>
+    <p>כלומר, המשחק 15 הוא בעצם <b>איקס־עיגול בתחפושת</b>! הסתכלו על הריבוע תוך כדי משחק, ותראו את המהלכים שלכם מופיעים עליו.</p>
+    <p><b>לחשוב:</b> למה המספר 5 כל כך חזק? מה מיוחד במספרים הזוגיים? ואם שני השחקנים משחקים הכי טוב שאפשר — מי ינצח?</p>
+  </section>
+
+</div>
+
+<script>
+  const MAGIC = [2,7,6, 9,5,1, 4,3,8];
+  const LINES = [
+    [2,7,6],[9,5,1],[4,3,8],
+    [2,9,4],[7,5,3],[6,1,8],
+    [2,5,8],[6,5,4]
+  ];
+
+  let owner = Array(10).fill(0);
+  let current = 1;
+  let starter = 1;
+  let over = false;
+  let mode = "pvp";
+  let thinking = false;
+  let winInfo = null;
+  let score = {1: 0, 2: 0, d: 0};
+
+  const $ = id => document.getElementById(id);
+  const board = $("board"), magic = $("magic");
+
+  for (let n = 1; n <= 9; n++) {
+    const b = document.createElement("button");
+    b.className = "num-btn";
+    b.textContent = n;
+    b.dataset.n = n;
+    b.addEventListener("click", () => humanPick(n));
+    board.appendChild(b);
+  }
+  MAGIC.forEach(n => {
+    const d = document.createElement("div");
+    d.textContent = n;
+    d.dataset.n = n;
+    magic.appendChild(d);
+  });
+
+  function getWinner(o) {
+    for (const l of LINES) {
+      const a = o[l[0]];
+      if (a && a === o[l[1]] && a === o[l[2]]) return {p: a, line: l};
+    }
+    return null;
+  }
+  function freeNums(o) {
+    const r = [];
+    for (let n = 1; n <= 9; n++) if (!o[n]) r.push(n);
+    return r;
+  }
+
+  function minimax(o, player, depth) {
+    const w = getWinner(o);
+    if (w) return w.p === 2 ? 10 - depth : depth - 10;
+    const f = freeNums(o);
+    if (!f.length) return 0;
+    let best = player === 2 ? -Infinity : Infinity;
+    for (const n of f) {
+      o[n] = player;
+      const s = minimax(o, player === 2 ? 1 : 2, depth + 1);
+      o[n] = 0;
+      best = player === 2 ? Math.max(best, s) : Math.min(best, s);
+    }
+    return best;
+  }
+
+  function winningMove(o, p) {
+    for (const n of freeNums(o)) {
+      o[n] = p;
+      const w = getWinner(o);
+      o[n] = 0;
+      if (w && w.p === p) return n;
+    }
+    return null;
+  }
+
+  function computerMove() {
+    const o = owner.slice();
+    const f = freeNums(o);
+    if (mode === "easy") {
+      const win = winningMove(o, 2);
+      if (win) return win;
+      if (Math.random() < 0.4) {
+        const block = winningMove(o, 1);
+        if (block) return block;
+      }
+      return f[Math.floor(Math.random() * f.length)];
+    }
+    let bestScore = -Infinity, bests = [];
+    for (const n of f) {
+      o[n] = 2;
+      const s = minimax(o, 1, 1);
+      o[n] = 0;
+      if (s > bestScore) { bestScore = s; bests = [n]; }
+      else if (s === bestScore) bests.push(n);
+    }
+    return bests[Math.floor(Math.random() * bests.length)];
+  }
+
+  function humanPick(n) {
+    if (over || owner[n] || thinking) return;
+    if (mode !== "pvp" && current === 2) return;
+    play(n);
+  }
+
+  function play(n) {
+    owner[n] = current;
+    const w = getWinner(owner);
+    if (w) {
+      over = true; winInfo = w; score[w.p]++;
+    } else if (!freeNums(owner).length) {
+      over = true; score.d++;
+    } else {
+      current = current === 1 ? 2 : 1;
+    }
+    render();
+    if (!over && mode !== "pvp" && current === 2) {
+      thinking = true;
+      render();
+      setTimeout(() => {
+        thinking = false;
+        play(computerMove());
+      }, 700);
+    }
+  }
+
+  function names() {
+    return mode === "pvp" ? {1: "הכחול", 2: "הכתום"} : {1: "את/ה", 2: "המחשב"};
+  }
+
+  function render() {
+    const nm = names();
+    $("name1").textContent = nm[1];
+    $("name2").textContent = nm[2];
+    $("pts1").textContent = score[1];
+    $("pts2").textContent = score[2];
+    $("ptsD").textContent = score.d;
+
+    const winSet = new Set(winInfo ? winInfo.line : []);
+
+    board.querySelectorAll(".num-btn").forEach(b => {
+      const n = +b.dataset.n;
+      b.className = "num-btn";
+      if (owner[n]) b.classList.add("p" + owner[n]);
+      if (winSet.has(n)) b.classList.add("win");
+      else if (over && winInfo && owner[n]) b.classList.add("fade");
+      b.disabled = over || !!owner[n] || thinking || (mode !== "pvp" && current === 2);
+    });
+    magic.querySelectorAll("div").forEach(d => {
+      const n = +d.dataset.n;
+      d.className = "";
+      if (owner[n]) d.classList.add("p" + owner[n]);
+      if (winSet.has(n)) d.className = "win";
+    });
+
+    [1, 2].forEach(p => {
+      const tray = $("tray" + p);
+      tray.innerHTML = "";
+      for (let n = 1; n <= 9; n++) if (owner[n] === p) {
+        const c = document.createElement("div");
+        c.className = "chip" + (winSet.has(n) ? " win" : "");
+        c.textContent = n;
+        tray.appendChild(c);
+      }
+      $("pl" + p).classList.toggle("active", !over && current === p);
+    });
+
+    const st = $("status");
+    if (winInfo) {
+      const t = winInfo.line.slice().sort((a, b) => a - b);
+      const who = winInfo.p === 1 && mode !== "pvp" ? "ניצחת!" :
+                  winInfo.p === 2 && mode !== "pvp" ? "המחשב ניצח!" :
+                  nm[winInfo.p] + " ניצח!";
+      st.innerHTML = who + " &nbsp; <span class='eq'>" + t.join(" + ") + " = 15</span>";
+    } else if (over) {
+      st.textContent = "תיקו! כל המספרים נבחרו ואף אחד לא הגיע ל־15.";
+    } else if (thinking) {
+      st.textContent = "המחשב חושב…";
+    } else if (mode !== "pvp") {
+      st.textContent = current === 1 ? "התור שלך — בחר/י מספר" : "התור של המחשב";
+    } else {
+      st.textContent = "התור של " + nm[current];
+    }
+    st.style.color = over ? "var(--ink)" : (current === 1 ? "var(--p1)" : "var(--p2)");
+  }
+
+  function newGame() {
+    owner = Array(10).fill(0);
+    over = false; winInfo = null; thinking = false;
+    current = starter;
+    starter = starter === 1 ? 2 : 1;
+    render();
+    if (mode !== "pvp" && current === 2) {
+      thinking = true; render();
+      setTimeout(() => { thinking = false; play(computerMove()); }, 700);
+    }
+  }
+
+  $("newGame").addEventListener("click", newGame);
+  $("secretBtn").addEventListener("click", () => {
+    const s = $("secret");
+    const hidden = s.classList.toggle("hidden");
+    $("secretBtn").textContent = hidden ? "רוצים לגלות סוד?" : "להסתיר את הסוד";
+    if (!hidden) s.scrollIntoView({behavior: "smooth", block: "start"});
+  });
+  document.querySelectorAll("#modeSeg button").forEach(b => {
+    b.addEventListener("click", () => {
+      if (thinking) return;
+      document.querySelectorAll("#modeSeg button").forEach(x => x.classList.remove("on"));
+      b.classList.add("on");
+      mode = b.dataset.mode;
+      score = {1: 0, 2: 0, d: 0};
+      starter = 1;
+      newGame();
+    });
+  });
+
+  newGame();
+</script>
+</body>
+</html>
