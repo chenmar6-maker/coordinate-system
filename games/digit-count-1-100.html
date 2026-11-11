@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>כמה פעמים מופיעה כל ספרה בין 1 ל־100?</title>
+<style>
+  .digit-widget {
+    --text: #2C2C2A;
+    --text-2: #5F5E5A;
+    --cell: #F1EFE8;
+    --muted: #888780;
+    direction: rtl;
+    text-align: right;
+    font-family: "Heebo", "Rubik", "Assistant", Arial, sans-serif;
+    color: var(--text);
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  .digit-widget * { box-sizing: border-box; }
+  .digit-widget h2 { font-size: 22px; font-weight: 500; margin: 0 0 1rem; }
+  .dw-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin: 0 0 1rem; }
+  .dw-row .lbl { font-size: 15px; color: var(--text-2); margin-left: 4px; }
+  .dw-row button {
+    min-width: 40px; height: 40px; font-size: 17px; font-weight: 500;
+    border: none; border-radius: 8px; color: #fff; cursor: pointer;
+    font-family: inherit; transition: transform .1s;
+  }
+  .dw-row button:active { transform: scale(0.95); }
+  .dw-row button.on { outline: 3px solid #2C2C2A; outline-offset: 2px; }
+  .dw-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0 0 1rem; }
+  .dw-m { border-radius: 12px; padding: .75rem 1rem; }
+  .dw-m .k { font-size: 13px; }
+  .dw-m .v { font-size: 26px; font-weight: 500; }
+  .dw-note { font-size: 15px; color: var(--text-2); margin: 0 0 1rem; }
+  .dw-pink { background: #F4C0D1; color: #4B1528; border-radius: 4px; padding: 0 6px; }
+  .dw-grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 5px; direction: ltr; }
+  .dw-c {
+    border-radius: 8px; text-align: center; padding: 7px 0; font-size: 16px;
+    font-family: "Courier New", monospace; color: var(--muted); background: var(--cell);
+    transition: transform .15s;
+  }
+  .dw-c.has { font-weight: 700; color: var(--text); }
+  .dw-c.cu { background: #9FE1CB; }
+  .dw-c.ct { background: #CECBF6; }
+  .dw-c.ch { background: #F5C4B3; }
+  .dw-c.cb { background: #F4C0D1; }
+  .dw-c.has:hover { transform: scale(1.12); }
+  .dw-d { display: inline-block; border-radius: 4px; padding: 0 3px; color: #fff; }
+  .dw-d.u { background: #0F6E56; }
+  .dw-d.t { background: #534AB7; }
+  .dw-d.h { background: #993C1D; }
+  @media (max-width: 480px) {
+    .dw-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .dw-grid { gap: 3px; }
+    .dw-c { font-size: 13px; padding: 5px 0; }
+    .dw-row button { min-width: 34px; height: 34px; font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="digit-widget" dir="rtl">
+  <h2>כמה פעמים מופיעה כל ספרה בין 1 ל־100?</h2>
+
+  <div class="dw-row" id="dwDigits"><span class="lbl">בחרו ספרה:</span></div>
+
+  <div class="dw-stats">
+    <div class="dw-m" style="background:#9FE1CB;color:#04342C"><div class="k">באחדות</div><div class="v" id="dwU">0</div></div>
+    <div class="dw-m" style="background:#CECBF6;color:#26215C"><div class="k">בעשרות</div><div class="v" id="dwT">0</div></div>
+    <div class="dw-m" style="background:#F5C4B3;color:#4A1B0C"><div class="k">במאות</div><div class="v" id="dwH">0</div></div>
+    <div class="dw-m" style="background:#FAC775;color:#412402"><div class="k">סך הכול</div><div class="v" id="dwS">0</div></div>
+  </div>
+
+  <p class="dw-note"><span id="dwNote"></span> · <span class="dw-pink">ורוד</span> = הספרה מופיעה פעמיים</p>
+
+  <div class="dw-grid" id="dwGrid"></div>
+</div>
+
+<script>
+(function () {
+  var grid = document.getElementById('dwGrid');
+  var digitsRow = document.getElementById('dwDigits');
+  var palette = ['#5F5E5A','#D85A30','#BA7517','#639922','#1D9E75','#378ADD','#534AB7','#D4537E','#993C1D','#0F6E56'];
+
+  function draw(D) {
+    grid.innerHTML = '';
+    var cu = 0, ct = 0, ch = 0, nums = 0;
+    for (var n = 1; n <= 100; n++) {
+      var s = String(n), L = s.length, html = '', ks = [];
+      for (var i = 0; i < L; i++) {
+        var d = s[i], p = L - 1 - i;
+        if (d === D) {
+          var k = p === 0 ? 'u' : (p === 1 ? 't' : 'h');
+          ks.push(k);
+          if (k === 'u') cu++; else if (k === 't') ct++; else ch++;
+          html += '<span class="dw-d ' + k + '">' + d + '</span>';
+        } else {
+          html += d;
+        }
+      }
+      if (ks.length) nums++;
+      var cc = '';
+      if (ks.length > 1) cc = ' cb';
+      else if (ks.length === 1) cc = ' c' + ks[0];
+      var el = document.createElement('div');
+      el.className = 'dw-c' + (ks.length ? ' has' : '') + cc;
+      el.innerHTML = html;
+      grid.appendChild(el);
+    }
+    document.getElementById('dwU').textContent = cu;
+    document.getElementById('dwT').textContent = ct;
+    document.getElementById('dwH').textContent = ch;
+    document.getElementById('dwS').textContent = cu + ct + ch;
+    document.getElementById('dwNote').textContent = nums + ' מספרים שונים מכילים את הספרה ' + D;
+    var btns = digitsRow.querySelectorAll('button');
+    for (var j = 0; j < btns.length; j++) btns[j].classList.toggle('on', btns[j].getAttribute('data-d') === D);
+  }
+
+  for (var d = 0; d <= 9; d++) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = d;
+    b.setAttribute('data-d', String(d));
+    b.setAttribute('aria-label', 'ספרה ' + d);
+    b.style.background = palette[d];
+    b.addEventListener('click', (function (x) { return function () { draw(x); }; })(String(d)));
+    digitsRow.appendChild(b);
+  }
+
+  draw('1');
+})();
+</script>
+
+</body>
+</html>
