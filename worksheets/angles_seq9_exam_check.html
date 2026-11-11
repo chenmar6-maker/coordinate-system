@@ -18,17 +18,15 @@
   .q-card { background: #fff; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border-right: 4px solid #10B981; }
   .q-title { font-weight: 700; font-size: 14px; margin-bottom: 10px; }
   .q-num { color: #10B981; font-size: 16px; margin-left: 6px; }
-  /* RTL row: label on right, input on left */
-  .sub-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; }
+  .sub-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; flex-wrap: wrap; }
   .sub-lbl { font-weight: 700; color: #374151; flex-shrink: 0; }
-  /* LTR island for the input + degree symbol */
   .input-wrap { display: inline-flex; align-items: center; gap: 3px; direction: ltr; }
   .ans-input { border: none; border-bottom: 2px solid #aaa; background: transparent; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; direction: ltr; text-align: center; width: 68px; padding: 2px 4px; outline: none; color: #1a1a2e; transition: border-color .15s; }
   .ans-input:focus { border-color: #10B981; }
   .deg { font-size: 13px; color: #555; }
-  /* LTR island for inline math/angle notation */
   .ltr { direction: ltr; display: inline; unicode-bidi: isolate; }
   .note-box { background: #F0FDF4; border-right: 3px solid #6EE7B7; border-radius: 6px; padding: 7px 11px; font-size: 12px; color: #374151; margin-bottom: 10px; line-height: 1.8; }
+  .diagram-thumb { width: 100%; max-width: 640px; display: block; margin: 0 auto 12px; border-radius: 6px; border: 1px solid #e5e7eb; }
   .check-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #10B981, #059669); color: #fff; border: none; border-radius: 12px; font-family: 'Rubik', sans-serif; font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(16,185,129,0.35); margin-top: 6px; }
   .check-btn:hover { transform: translateY(-1px); }
   #score-card { display: none; background: #fff; border-radius: 16px; padding: 28px 24px 22px; margin-bottom: 22px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; }
@@ -69,7 +67,7 @@
 
 <div id="score-card">
   <div class="score-big" id="score-num">—</div>
-  <div class="score-out-of" id="score-denom">מתוך 9 תשובות</div>
+  <div class="score-out-of" id="score-denom">מתוך 11 תשובות</div>
   <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
   <div class="score-msg" id="score-msg"></div>
   <div id="wrong-list-container"></div>
@@ -83,72 +81,31 @@
 
 <!-- שאלה 1 -->
 <div class="q-card">
-  <div class="q-title">
-    <span class="q-num">1.</span>
-    משולש <span class="ltr">EFG</span> — חוצה זווית
-  </div>
-  <div class="note-box">
-    <span class="ltr">EH</span> חוצה את <span class="ltr">∡FEG</span>.
-    נתון: <span class="ltr">∡FEH = 26°</span>, <span class="ltr">∡G = 38°</span>
+  <div class="q-title"><span class="q-num">1.</span> חשבו <span class="ltr">α</span> ו-<span class="ltr">β</span> בכל סעיף</div>
+  <img src="seq9_exam_q.png" class="diagram-thumb" alt="סרטוטים לחישוב α ו-β" />
+  <div class="sub-row">
+    <span class="sub-lbl">א. <span class="ltr">α</span> =</span>
+    <span class="input-wrap"><input class="ans-input" id="q1aa" type="text" placeholder="°"><span class="deg">°</span></span>
+    <span class="sub-lbl" style="margin-right:16px;"><span class="ltr">β</span> =</span>
+    <span class="input-wrap"><input class="ans-input" id="q1ab" type="text" placeholder="°"><span class="deg">°</span></span>
   </div>
   <div class="sub-row">
-    <span class="sub-lbl">א. <span class="ltr">∡F</span> =</span>
-    <span class="input-wrap"><input class="ans-input" id="q1a" type="text" placeholder="°"><span class="deg">°</span></span>
+    <span class="sub-lbl">ב. <span class="ltr">α</span> =</span>
+    <span class="input-wrap"><input class="ans-input" id="q1ba" type="text" placeholder="°"><span class="deg">°</span></span>
+    <span class="sub-lbl" style="margin-right:16px;"><span class="ltr">β</span> =</span>
+    <span class="input-wrap"><input class="ans-input" id="q1bb" type="text" placeholder="°"><span class="deg">°</span></span>
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ג. <span class="ltr">α</span> =</span>
+    <span class="input-wrap"><input class="ans-input" id="q1ca" type="text" placeholder="°"><span class="deg">°</span></span>
+    <span class="sub-lbl" style="margin-right:16px;"><span class="ltr">β</span> =</span>
+    <span class="input-wrap"><input class="ans-input" id="q1cb" type="text" placeholder="°"><span class="deg">°</span></span>
   </div>
 </div>
 
 <!-- שאלה 2 -->
 <div class="q-card">
-  <div class="q-title">
-    <span class="q-num">2.</span>
-    משולש <span class="ltr">KLM</span> — חוצה זווית
-  </div>
-  <div class="note-box">
-    <span class="ltr">KN</span> חוצה את <span class="ltr">∡LKM</span>.
-    נתון: <span class="ltr">∡KNM = 105°</span>, <span class="ltr">∡M = 35°</span>
-  </div>
-  <div class="sub-row">
-    <span class="sub-lbl">א. <span class="ltr">α</span> =</span>
-    <span class="input-wrap"><input class="ans-input" id="q2a" type="text" placeholder="°"><span class="deg">°</span></span>
-  </div>
-  <div class="sub-row">
-    <span class="sub-lbl">ב. <span class="ltr">∡L</span> =</span>
-    <span class="input-wrap"><input class="ans-input" id="q2b" type="text" placeholder="°"><span class="deg">°</span></span>
-  </div>
-</div>
-
-<!-- שאלה 3 -->
-<div class="q-card">
-  <div class="q-title">
-    <span class="q-num">3.</span>
-    קטעים <span class="ltr">KM</span> ו-<span class="ltr">LN</span> נחתכים ב-<span class="ltr">F</span>
-  </div>
-  <div class="note-box">
-    <span class="ltr">NM ⊥ ML</span>,
-    <span class="ltr">∡LNM = 35°</span>.
-    <span class="ltr">LN</span> חוצה את <span class="ltr">∡KLM</span>.
-    נתון נוסף: <span class="ltr">∡LKM = 40°</span>
-  </div>
-  <div class="sub-row">
-    <span class="sub-lbl">א. <span class="ltr">∡NLM</span> =</span>
-    <span class="input-wrap"><input class="ans-input" id="q3a" type="text" placeholder="°"><span class="deg">°</span></span>
-  </div>
-  <div class="sub-row">
-    <span class="sub-lbl">ב. <span class="ltr">∡KLN</span> =</span>
-    <span class="input-wrap"><input class="ans-input" id="q3b" type="text" placeholder="°"><span class="deg">°</span></span>
-  </div>
-  <div class="sub-row">
-    <span class="sub-lbl">ג. <span class="ltr">∡NFM</span> =</span>
-    <span class="input-wrap"><input class="ans-input" id="q3c" type="text" placeholder="°"><span class="deg">°</span></span>
-  </div>
-</div>
-
-<!-- שאלה 4 -->
-<div class="q-card">
-  <div class="q-title">
-    <span class="q-num">4.</span>
-    משולש <span class="ltr">XYZ</span> — זווית ישרה ב-<span class="ltr">Y</span>, נקודה <span class="ltr">W</span> על <span class="ltr">XZ</span>
-  </div>
+  <div class="q-title"><span class="q-num">2.</span> משולש <span class="ltr">XYZ</span> — זווית ישרה ב-<span class="ltr">Y</span>, נקודה <span class="ltr">W</span> על <span class="ltr">XZ</span></div>
   <div class="note-box">
     <span class="ltr">∡Y = 90°</span>.
     <span class="ltr">W</span> על <span class="ltr">XZ</span>.
@@ -157,15 +114,32 @@
   </div>
   <div class="sub-row">
     <span class="sub-lbl">א. <span class="ltr">∡X</span> =</span>
-    <span class="input-wrap"><input class="ans-input" id="q4a" type="text" placeholder="°"><span class="deg">°</span></span>
+    <span class="input-wrap"><input class="ans-input" id="q2a" type="text" placeholder="°"><span class="deg">°</span></span>
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ב. <span class="ltr">∡Z</span> =</span>
-    <span class="input-wrap"><input class="ans-input" id="q4b" type="text" placeholder="°"><span class="deg">°</span></span>
+    <span class="input-wrap"><input class="ans-input" id="q2b" type="text" placeholder="°"><span class="deg">°</span></span>
   </div>
   <div class="sub-row">
     <span class="sub-lbl">ג. <span class="ltr">∡WYZ</span> =</span>
-    <span class="input-wrap"><input class="ans-input" id="q4c" type="text" placeholder="°"><span class="deg">°</span></span>
+    <span class="input-wrap"><input class="ans-input" id="q2c" type="text" placeholder="°"><span class="deg">°</span></span>
+  </div>
+</div>
+
+<!-- שאלה 3 -->
+<div class="q-card">
+  <div class="q-title"><span class="q-num">3.</span> משולש <span class="ltr">KLM</span> — חוצה זווית</div>
+  <div class="note-box">
+    <span class="ltr">KN</span> חוצה את <span class="ltr">∡LKM</span>.
+    נתון: <span class="ltr">∡KNM = 105°</span>, <span class="ltr">∡M = 35°</span>
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">א. <span class="ltr">α</span> =</span>
+    <span class="input-wrap"><input class="ans-input" id="q3a" type="text" placeholder="°"><span class="deg">°</span></span>
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ב. <span class="ltr">∡L</span> =</span>
+    <span class="input-wrap"><input class="ans-input" id="q3b" type="text" placeholder="°"><span class="deg">°</span></span>
   </div>
 </div>
 
@@ -182,20 +156,22 @@ function normNum(s) {
 }
 
 const KEY = {
-  q1a: 90,
-  q2a: 40, q2b: 65,
-  q3a: 55, q3b: 55, q3c: 85,
-  q4a: 58, q4b: 32, q4c: 26,
+  q1aa: 40, q1ab: 60,
+  q1ba: 54, q1bb: 48,
+  q1ca: 50, q1cb: 10,
+  q2a: 58,  q2b: 32,  q2c: 26,
+  q3a: 40,  q3b: 65,
 };
 
 const LABELS = {
-  q1a: '1א',
-  q2a: '2א', q2b: '2ב',
-  q3a: '3א', q3b: '3ב', q3c: '3ג',
-  q4a: '4א', q4b: '4ב', q4c: '4ג',
+  q1aa: '1א (α)', q1ab: '1א (β)',
+  q1ba: '1ב (α)', q1bb: '1ב (β)',
+  q1ca: '1ג (α)', q1cb: '1ג (β)',
+  q2a: '2א', q2b: '2ב', q2c: '2ג',
+  q3a: '3א', q3b: '3ב',
 };
 
-const TOTAL = 9;
+const TOTAL = 11;
 
 function checkAnswers() {
   let correct = 0;
