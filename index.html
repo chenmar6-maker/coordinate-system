@@ -205,7 +205,7 @@
             style="width:100%;display:flex;align-items:center;justify-content:space-between;background:rgba(245,158,11,0.08);border:1.5px solid rgba(245,158,11,0.3);border-radius:10px;padding:11px 16px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:700;color:#D97706;cursor:pointer;transition:background .15s;"
             onmouseover="this.style.background='rgba(245,158,11,0.14)'" onmouseout="this.style.background='rgba(245,158,11,0.08)'">
             <div style="display:flex;align-items:center;gap:10px;">
-              <span>מבדק שליטה מסכם — יחידות 2–3</span>
+              <span>מבדק שליטה מסכם</span>
               <span style="font-size:12px;font-weight:600;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.35);border-radius:20px;padding:2px 10px;color:#FCD34D;white-space:nowrap;">לעבור עד 29.11.2026</span>
             </div>
             <span id="num-summary-chevron" style="font-size:12px;color:#FCD34D;transition:transform .25s;">▼</span>
@@ -245,12 +245,6 @@
           </div>
         </div>
 
-        <!-- יעד ביניים: סיום יחידות 2–3 -->
-        <div style="display:flex;align-items:center;gap:8px;padding:6px 4px 2px;">
-          <div style="flex:1;height:1px;background:rgba(59,130,246,0.2);"></div>
-          <span style="font-size:11.5px;font-weight:600;background:rgba(59,130,246,0.13);border:1px solid rgba(59,130,246,0.3);border-radius:20px;padding:2px 10px;color:#93C5FD;white-space:nowrap;">יש לסיים יחידות 2–3 עד 29.11.2026</span>
-          <div style="flex:1;height:1px;background:rgba(59,130,246,0.2);"></div>
-        </div>
         <a class="unit-card" href="./unit4/" style="border-right:3px solid #3B82F6;">
           <div class="unit-left">
             <div class="unit-num" style="color:#3B82F6;">04</div>
@@ -275,100 +269,36 @@
           <span id="num-exams-chevron" style="font-size:12px;color:#FCD34D;transition:transform .25s;">▼</span>
         </button>
 
-        <div id="num-exams-panel" style="display:none;margin-top:10px;flex-direction:column;gap:8px;opacity:0;transition:opacity .25s;">
+        <div id="num-exams-panel" style="display:none;margin-top:8px;flex-direction:column;gap:6px;opacity:0;transition:opacity .25s;">
 
-          <!-- תרגול -->
-          <div style="font-size:11.5px;font-weight:700;color:#93C5FD;letter-spacing:0.6px;padding-right:4px;margin-bottom:2px;">תרגול לפני המבדק</div>
-
-          <a href="./worksheets/numbers_practice_basic.pdf" target="_blank"
-            style="display:flex;align-items:center;justify-content:space-between;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit;transition:background .15s;"
-            onmouseover="this.style.background='#DBEAFE'" onmouseout="this.style.background='#EFF6FF'">
-            <div style="display:flex;align-items:center;gap:12px;">
-              <span style="font-size:21px;">📄</span>
-              <div>
-                <div style="font-size:14px;font-weight:700;color:#1E40AF;">תרגול מבדק שליטה מסכם — רמה בסיסית</div>
-                <div style="font-size:12px;color:#6B7280;margin-top:2px;">הכנה למבדק · ללא מגבלת זמן</div>
-              </div>
-            </div>
-            <span style="font-size:16px;color:#93C5FD;">←</span>
-          </a>
-
-          <a href="./worksheets/numbers_practice_advanced.pdf" target="_blank"
-            style="display:flex;align-items:center;justify-content:space-between;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit;transition:background .15s;"
-            onmouseover="this.style.background='#DBEAFE'" onmouseout="this.style.background='#EFF6FF'">
-            <div style="display:flex;align-items:center;gap:12px;">
-              <span style="font-size:21px;">📄</span>
-              <div>
-                <div style="font-size:14px;font-weight:700;color:#1E40AF;">תרגול מבדק שליטה מסכם — רמה מתקדמת</div>
-                <div style="font-size:12px;color:#6B7280;margin-top:2px;">הכנה למבדק · ללא מגבלת זמן</div>
-              </div>
-            </div>
-            <span style="font-size:16px;color:#93C5FD;">←</span>
-          </a>
-
-          <a href="./worksheets/numbers_practice_advanced_2.html" target="_blank"
-            style="display:flex;align-items:center;justify-content:space-between;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit;transition:background .15s;"
-            onmouseover="this.style.background='#DBEAFE'" onmouseout="this.style.background='#EFF6FF'">
-            <div style="display:flex;align-items:center;gap:12px;">
-              <span style="font-size:21px;">📝</span>
-              <div>
-                <div style="font-size:14px;font-weight:700;color:#1E40AF;">תרגול נוסף מבדק שליטה מסכם — רמה מתקדמת</div>
-                <div style="font-size:12px;color:#6B7280;margin-top:2px;">גרסה חלופית · כולל בדיקה עצמית</div>
-              </div>
-            </div>
-            <span style="font-size:16px;color:#93C5FD;">←</span>
-          </a>
-
-          <a href="./worksheets/numbers_practice_advanced_3.html" target="_blank"
-            style="display:flex;align-items:center;justify-content:space-between;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit;transition:background .15s;"
-            onmouseover="this.style.background='#DBEAFE'" onmouseout="this.style.background='#EFF6FF'">
-            <div style="display:flex;align-items:center;gap:12px;">
-              <span style="font-size:21px;">📝</span>
-              <div>
-                <div style="font-size:14px;font-weight:700;color:#1E40AF;">תרגול נוסף (ב) מבדק שליטה מסכם — רמה מתקדמת</div>
-                <div style="font-size:12px;color:#6B7280;margin-top:2px;">גרסה ב׳ · כולל בדיקה עצמית</div>
-              </div>
-            </div>
-            <span style="font-size:16px;color:#93C5FD;">←</span>
-          </a>
-
-          <!-- מבחנים רשמיים -->
-          <div style="font-size:11.5px;font-weight:700;color:#93C5FD;letter-spacing:0.6px;padding-right:4px;margin-top:6px;margin-bottom:2px;">המבחן הרשמי</div>
-
+          <div style="font-size:11.5px;font-weight:700;color:#FCD34D;letter-spacing:0.5px;padding-right:2px;">רמה בסיסית</div>
           <div style="display:flex;gap:6px;align-items:stretch;">
+            <a href="./worksheets/numbers_practice_basic.pdf" target="_blank"
+              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:700;color:#1E40AF;text-decoration:none;transition:background .15s;"
+              onmouseover="this.style.background='#DBEAFE'" onmouseout="this.style.background='#EFF6FF'">📖 תרגול</a>
             <div onclick="openExamModal('basic')"
-              style="flex:1;display:flex;align-items:center;justify-content:space-between;background:#1E40AF;border:none;border-radius:10px;padding:12px 16px;cursor:pointer;color:#fff;transition:opacity .15s;"
+              style="flex:2;display:flex;align-items:center;justify-content:space-between;background:#1E40AF;border-radius:10px;padding:10px 14px;cursor:pointer;color:#fff;font-size:13px;font-weight:700;transition:opacity .15s;"
               onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-              <div style="display:flex;align-items:center;gap:12px;">
-                <span style="font-size:21px;">📝</span>
-                <div>
-                  <div style="font-size:14px;font-weight:700;">מבדק שליטה מסכם — רמה בסיסית</div>
-                  <div style="font-size:12px;opacity:.7;margin-top:2px;">מבדק שליטה מסכם רשמי · נדרש קוד</div>
-                </div>
-              </div>
-              <span style="font-size:18px;opacity:.6;">🔒</span>
+              <span>📝 מבדק שליטה</span><span style="opacity:.6;">🔒</span>
             </div>
             <a href="./worksheets/numbers_exam_basic_answers.html" target="_blank"
               style="display:flex;align-items:center;justify-content:center;background:#065F46;border-radius:10px;padding:10px 13px;color:#fff;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;transition:opacity .15s;"
-              onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">תשובות<br>🔒</a>
+              onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">פתרון<br>🔒</a>
           </div>
 
+          <div style="font-size:11.5px;font-weight:700;color:#FCD34D;letter-spacing:0.5px;padding-right:2px;margin-top:2px;">רמה מתקדמת</div>
           <div style="display:flex;gap:6px;align-items:stretch;">
+            <a href="./worksheets/numbers_practice_advanced.pdf" target="_blank"
+              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:700;color:#1E40AF;text-decoration:none;transition:background .15s;"
+              onmouseover="this.style.background='#DBEAFE'" onmouseout="this.style.background='#EFF6FF'">📖 תרגול</a>
             <div onclick="openExamModal('advanced')"
-              style="flex:1;display:flex;align-items:center;justify-content:space-between;background:#1E40AF;border:none;border-radius:10px;padding:12px 16px;cursor:pointer;color:#fff;transition:opacity .15s;"
+              style="flex:2;display:flex;align-items:center;justify-content:space-between;background:#1E40AF;border-radius:10px;padding:10px 14px;cursor:pointer;color:#fff;font-size:13px;font-weight:700;transition:opacity .15s;"
               onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-              <div style="display:flex;align-items:center;gap:12px;">
-                <span style="font-size:21px;">📝</span>
-                <div>
-                  <div style="font-size:14px;font-weight:700;">מבדק שליטה מסכם — רמה מתקדמת</div>
-                  <div style="font-size:12px;opacity:.7;margin-top:2px;">מבדק שליטה מסכם רשמי · נדרש קוד</div>
-                </div>
-              </div>
-              <span style="font-size:18px;opacity:.6;">🔒</span>
+              <span>📝 מבדק שליטה</span><span style="opacity:.6;">🔒</span>
             </div>
             <a href="./worksheets/numbers_exam_advanced_answers.html" target="_blank"
               style="display:flex;align-items:center;justify-content:center;background:#065F46;border-radius:10px;padding:10px 13px;color:#fff;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;transition:opacity .15s;"
-              onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">תשובות<br>🔒</a>
+              onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">פתרון<br>🔒</a>
           </div>
 
         </div>
@@ -408,22 +338,18 @@
             <span style="font-size:12px;font-weight:700;color:#D97706;">מבדק שליטה מסכם — זוויות</span>
             <span style="font-size:11px;font-weight:600;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.35);border-radius:20px;padding:2px 9px;color:#FCD34D;white-space:nowrap;">עד 12.11.2026</span>
           </div>
-          <div style="display:flex;border-top:1px solid rgba(245,158,11,0.2);">
+          <div style="display:flex;gap:6px;padding:8px;">
             <a href="./worksheets/angles_practice.html" target="_blank"
-              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 10px;font-size:12px;font-weight:700;color:#D97706;text-decoration:none;background:rgba(245,158,11,0.05);transition:background .15s;border-left:1px solid rgba(245,158,11,0.2);"
-              onmouseover="this.style.background='rgba(245,158,11,0.12)'" onmouseout="this.style.background='rgba(245,158,11,0.05)'">
-              <span style="font-size:15px;">📖</span>תרגול
-            </a>
+              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:700;color:#1E40AF;text-decoration:none;transition:background .15s;"
+              onmouseover="this.style.background='#DBEAFE'" onmouseout="this.style.background='#EFF6FF'">📖 תרגול</a>
             <div onclick="openExamModal('angles_summary')"
-              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 10px;font-size:12px;font-weight:700;color:#D97706;cursor:pointer;background:rgba(245,158,11,0.05);transition:background .15s;border-left:1px solid rgba(245,158,11,0.2);"
-              onmouseover="this.style.background='rgba(245,158,11,0.12)'" onmouseout="this.style.background='rgba(245,158,11,0.05)'">
-              <span style="font-size:15px;">🔒</span>מבדק שליטה
+              style="flex:2;display:flex;align-items:center;justify-content:space-between;background:#1E40AF;border-radius:10px;padding:10px 14px;cursor:pointer;color:#fff;font-size:13px;font-weight:700;transition:opacity .15s;"
+              onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+              <span>📝 מבדק שליטה</span><span style="opacity:.6;">🔒</span>
             </div>
             <div onclick="openExamModal('angles_summary_answers')"
-              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 10px;font-size:12px;font-weight:700;color:#6B7280;cursor:pointer;background:rgba(107,114,128,0.04);transition:background .15s;"
-              onmouseover="this.style.background='rgba(107,114,128,0.1)'" onmouseout="this.style.background='rgba(107,114,128,0.04)'">
-              <span style="font-size:15px;">🔒</span>תשובות
-            </div>
+              style="display:flex;align-items:center;justify-content:center;background:#065F46;border-radius:10px;padding:10px 13px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s;"
+              onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">פתרון<br>🔒</div>
           </div>
         </div>
 
@@ -502,39 +428,27 @@
             <span id="alg-exams-chevron" style="font-size:12px;color:#FCD34D;transition:transform .25s;">▼</span>
           </button>
           <div id="alg-exams-panel" style="display:none;margin-top:8px;flex-direction:column;gap:6px;opacity:0;transition:opacity .25s;">
+            <div style="font-size:11.5px;font-weight:700;color:#FCD34D;letter-spacing:0.5px;padding-right:2px;">רמה בסיסית</div>
             <div style="display:flex;gap:6px;align-items:stretch;">
               <div onclick="openExamModal('algebra_basic')"
-                style="flex:1;display:flex;align-items:center;justify-content:space-between;background:#2D1D6E;border:none;border-radius:10px;padding:12px 16px;cursor:pointer;color:#fff;transition:opacity .15s;"
+                style="flex:2;display:flex;align-items:center;justify-content:space-between;background:#1E40AF;border-radius:10px;padding:10px 14px;cursor:pointer;color:#fff;font-size:13px;font-weight:700;transition:opacity .15s;"
                 onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-                <div style="display:flex;align-items:center;gap:12px;">
-                  <span style="font-size:21px;">📝</span>
-                  <div>
-                    <div style="font-size:14px;font-weight:700;">רמה בסיסית</div>
-                    <div style="font-size:12px;opacity:.7;margin-top:2px;">נדרש קוד</div>
-                  </div>
-                </div>
-                <span style="font-size:18px;opacity:.6;">🔒</span>
+                <span>📝 מבדק שליטה</span><span style="opacity:.6;">🔒</span>
               </div>
               <div onclick="openExamModal('algebra_basic_ans')"
                 style="display:flex;align-items:center;justify-content:center;background:#065F46;border-radius:10px;padding:10px 13px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s;"
-                onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">תשובות<br>🔒</div>
+                onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">פתרון<br>🔒</div>
             </div>
+            <div style="font-size:11.5px;font-weight:700;color:#FCD34D;letter-spacing:0.5px;padding-right:2px;margin-top:2px;">רמה מתקדמת</div>
             <div style="display:flex;gap:6px;align-items:stretch;">
               <div onclick="openExamModal('algebra_advanced')"
-                style="flex:1;display:flex;align-items:center;justify-content:space-between;background:#2D1D6E;border:none;border-radius:10px;padding:12px 16px;cursor:pointer;color:#fff;transition:opacity .15s;"
+                style="flex:2;display:flex;align-items:center;justify-content:space-between;background:#1E40AF;border-radius:10px;padding:10px 14px;cursor:pointer;color:#fff;font-size:13px;font-weight:700;transition:opacity .15s;"
                 onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-                <div style="display:flex;align-items:center;gap:12px;">
-                  <span style="font-size:21px;">📝</span>
-                  <div>
-                    <div style="font-size:14px;font-weight:700;">רמה מתקדמת</div>
-                    <div style="font-size:12px;opacity:.7;margin-top:2px;">נדרש קוד</div>
-                  </div>
-                </div>
-                <span style="font-size:18px;opacity:.6;">🔒</span>
+                <span>📝 מבדק שליטה</span><span style="opacity:.6;">🔒</span>
               </div>
               <div onclick="openExamModal('algebra_advanced_ans')"
                 style="display:flex;align-items:center;justify-content:center;background:#065F46;border-radius:10px;padding:10px 13px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s;"
-                onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">תשובות<br>🔒</div>
+                onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">פתרון<br>🔒</div>
             </div>
           </div>
         </div>
@@ -567,39 +481,27 @@
             <span id="eq-exams-chevron" style="font-size:12px;color:#FCD34D;transition:transform .25s;">▼</span>
           </button>
           <div id="eq-exams-panel" style="display:none;margin-top:8px;flex-direction:column;gap:6px;opacity:0;transition:opacity .25s;">
+            <div style="font-size:11.5px;font-weight:700;color:#FCD34D;letter-spacing:0.5px;padding-right:2px;">רמה בסיסית</div>
             <div style="display:flex;gap:6px;align-items:stretch;">
               <div onclick="openExamModal('equations_basic')"
-                style="flex:1;display:flex;align-items:center;justify-content:space-between;background:#2D1D6E;border:none;border-radius:10px;padding:12px 16px;cursor:pointer;color:#fff;transition:opacity .15s;"
+                style="flex:2;display:flex;align-items:center;justify-content:space-between;background:#1E40AF;border-radius:10px;padding:10px 14px;cursor:pointer;color:#fff;font-size:13px;font-weight:700;transition:opacity .15s;"
                 onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-                <div style="display:flex;align-items:center;gap:12px;">
-                  <span style="font-size:21px;">📝</span>
-                  <div>
-                    <div style="font-size:14px;font-weight:700;">רמה בסיסית</div>
-                    <div style="font-size:12px;opacity:.7;margin-top:2px;">נדרש קוד</div>
-                  </div>
-                </div>
-                <span style="font-size:18px;opacity:.6;">🔒</span>
+                <span>📝 מבדק שליטה</span><span style="opacity:.6;">🔒</span>
               </div>
               <div onclick="openExamModal('equations_basic_ans')"
                 style="display:flex;align-items:center;justify-content:center;background:#065F46;border-radius:10px;padding:10px 13px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s;"
-                onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">תשובות<br>🔒</div>
+                onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">פתרון<br>🔒</div>
             </div>
+            <div style="font-size:11.5px;font-weight:700;color:#FCD34D;letter-spacing:0.5px;padding-right:2px;margin-top:2px;">רמה מתקדמת</div>
             <div style="display:flex;gap:6px;align-items:stretch;">
               <div onclick="openExamModal('equations_advanced')"
-                style="flex:1;display:flex;align-items:center;justify-content:space-between;background:#2D1D6E;border:none;border-radius:10px;padding:12px 16px;cursor:pointer;color:#fff;transition:opacity .15s;"
+                style="flex:2;display:flex;align-items:center;justify-content:space-between;background:#1E40AF;border-radius:10px;padding:10px 14px;cursor:pointer;color:#fff;font-size:13px;font-weight:700;transition:opacity .15s;"
                 onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-                <div style="display:flex;align-items:center;gap:12px;">
-                  <span style="font-size:21px;">📝</span>
-                  <div>
-                    <div style="font-size:14px;font-weight:700;">רמה מתקדמת</div>
-                    <div style="font-size:12px;opacity:.7;margin-top:2px;">נדרש קוד</div>
-                  </div>
-                </div>
-                <span style="font-size:18px;opacity:.6;">🔒</span>
+                <span>📝 מבדק שליטה</span><span style="opacity:.6;">🔒</span>
               </div>
               <div onclick="openExamModal('equations_advanced_ans')"
                 style="display:flex;align-items:center;justify-content:center;background:#065F46;border-radius:10px;padding:10px 13px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s;"
-                onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">תשובות<br>🔒</div>
+                onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">פתרון<br>🔒</div>
             </div>
           </div>
         </div>
