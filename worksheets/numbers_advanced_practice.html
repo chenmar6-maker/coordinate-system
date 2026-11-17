@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>תרגול — מספרים מכוונים — מתקדמת</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet"><style>
+@page { size: A4; margin: 14mm 15mm 16mm 15mm; }
+* { box-sizing: border-box; }
+html, body { background: #fff; color: #000; }
+body { font-family: 'Heebo','DejaVu Sans',sans-serif; font-size: 10.5pt; line-height: 1.55; margin: 0; }
+p, li, div, td, h1, h2, h3 { text-align: right; }
+.m { display: inline-block; direction: ltr; unicode-bidi: isolate; font-family: 'Liberation Serif','Times New Roman',serif; font-size: 1.12em; white-space: nowrap; }
+.m i { font-style: italic; }
+h1 { font-size: 19pt; font-weight: 800; text-align: center; margin: 0 0 8px; }
+table.head { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+table.head td { border: 1px solid #000; padding: 4px 8px; font-size: 10pt; }
+table.head b { font-weight: 700; }
+.ul { display: inline-block; border-bottom: 1px solid #000; min-width: 28mm; height: 1em; vertical-align: bottom; }
+.ul.w { min-width: 70mm; }
+.instr { border-top: 1.5px solid #000; padding-top: 4px; margin-bottom: 6px; }
+.instr h3 { font-size: 11pt; margin: 0 0 2px; }
+.instr ul { margin: 0; padding-right: 20px; }
+.q { border-top: 1px solid #999; padding-top: 7px; margin-top: 10px; break-inside: avoid; page-break-inside: avoid; }
+.q h2 { font-size: 12pt; font-weight: 800; margin: 0 0 3px; }
+.q p { margin: 2px 0; }
+.row { display: flex; gap: 12px; align-items: flex-start; }
+.row .txt { flex: 1; }
+.fig { flex: 0 0 62mm; border: 1px solid #bbb; border-radius: 6px; padding: 6px; text-align: center; }
+.fig svg { width: 100%; height: auto; display: block; }
+ul.sec { list-style: none; margin: 4px 0 0; padding: 0; }
+ul.sec > li { position: relative; padding-right: 14px; margin: 3px 0 2px; }
+ul.sec > li::before { content: "•"; position: absolute; right: 0; top: 0; }
+.ans { margin: 4px 0 2px; }
+.ans .lbl { margin-left: 6px; }
+.line { border-bottom: 1px solid #aaa; height: 7.5mm; }
+.pair { display: flex; gap: 14px; margin: 4px 0; }
+.pair > div { flex: 1; }
+.opts { margin: 4px 0 2px; }
+.opt { display: flex; align-items: center; gap: 8px; border: 1px solid #888; border-radius: 4px; padding: 2px 8px; margin: 3px 0; width: 78%; }
+.opt .c { width: 11px; height: 11px; border: 1px solid #000; border-radius: 50%; flex: 0 0 11px; }
+.opt .n { font-weight: 500; }
+.chk { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 5px 0; }
+.chk span.box { display: inline-block; width: 11px; height: 11px; border: 1px solid #000; margin-left: 6px; vertical-align: middle; }
+.given { font-weight: 500; }
+table.t { border-collapse: collapse; margin: 6px 0; }
+table.t td { border: 1px solid #000; width: 17mm; height: 8mm; text-align: center; padding: 0 4px; }
+table.t td.h { font-weight: 700; background: #f2f2f2; width: 22mm; }
+.star { display: inline-block; border: 1.5px solid #000; border-radius: 4px; padding: 0 8px; font-weight: 800; font-size: 9.5pt; margin-bottom: 3px; background: #f2f2f2; }
+table.score { width: 100%; border-collapse: collapse; margin-top: 14px; break-inside: avoid; }
+table.score td { border: 1.5px solid #000; padding: 6px 8px; font-size: 10pt; }
+table.score td .ul { min-width: 14mm; }
+.key .a { font-weight: 500; }
+.key .note { color: #333; font-size: 9.5pt; }
+
+.fr { display: inline-flex; flex-direction: column; vertical-align: middle; line-height: 1.2; margin: 0 2px; }
+.fr > span { display: block; text-align: center; padding: 0 3px; }
+.fr > span + span { border-top: 1px solid #000; }
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; width: 90%; }
+.opt { width: auto; }
+.fig.wide { flex: 0 0 72mm; }
+.sq { display: inline-block; width: 16px; height: 16px; border: 1px solid #000; vertical-align: middle; margin: 0 3px; }
+
+.sol-title { break-before: page; page-break-before: always; }
+.sol .step { margin: 1px 0; }
+.sol .fin { font-weight: 700; }
+table.self { width: 100%; border-collapse: collapse; margin-top: 14px; break-inside: avoid; }
+table.self td { border: 1.5px solid #000; padding: 6px 8px; font-size: 10pt; }
+table.self .box { display:inline-block; width: 12px; height: 12px; border: 1px solid #000; vertical-align: middle; margin-right: 6px; }
+details.solbox { margin-top: 8px; }
+details.solbox > summary { display: inline-block; cursor: pointer; list-style: none; border: 1.5px solid #000; border-radius: 4px; padding: 2px 12px; font-weight: 700; font-size: 9.5pt; background: #fff; }
+details.solbox > summary::-webkit-details-marker { display: none; }
+details.solbox[open] > summary { background: #000; color: #fff; }
+details.solbox > .sol { border: 1px solid #000; border-radius: 4px; padding: 6px 10px; margin-top: 6px; background: #f7f7f7; }
+@media print { details.solbox { display: none; } }
+@media screen { body { max-width: 190mm; margin: 0 auto; padding: 20px 16px 40px; } }
+.tip { border: 1px solid #000; border-radius: 4px; padding: 4px 8px; margin: 6px 0; background: #f2f2f2; }
+table.t td { width: 14mm; }
+
+details.solbox { margin-top: 8px; }
+details.solbox > summary { display: inline-block; cursor: pointer; list-style: none; border: 1.5px solid #000; border-radius: 4px; padding: 2px 12px; font-weight: 700; font-size: 9.5pt; background: #fff; }
+details.solbox > summary::-webkit-details-marker { display: none; }
+details.solbox[open] > summary { background: #000; color: #fff; }
+details.solbox > .sol { border: 1px solid #000; border-radius: 4px; padding: 6px 10px; margin-top: 6px; background: #f7f7f7; }
+@media print { details.solbox { display: none; } }
+@media screen { body.practice { max-width: 190mm; margin: 0 auto; padding: 20px 16px 40px; } }
+</style></head>
+<body dir="rtl" class="practice"><h1>תרגול לקראת המבדק — מספרים מכוונים ומערכת צירים</h1>
+<table class="head">
+<tr><td><b>נושא:</b> מספרים מכוונים ומערכת צירים — כיתה ז׳</td><td><b>כיתה:</b> ז׳</td><td><b>רמה:</b> מתקדמת</td></tr>
+<tr><td colspan="2"><b>שם התלמיד/ה:</b> <span class="ul w"></span></td><td><b>תאריך:</b> <span class="ul"></span></td></tr>
+</table><div class="instr"><h3>הנחיות</h3><ul>
+<li>התרגול מכין למבדק השליטה המסכם — אותם נושאים, שאלות אחרות.</li>
+<li>פתרו לבד, בכתב, וכתבו את דרך הפתרון — כמו במבדק.</li>
+<li>רק אחרי שסיימתם שאלה — לחצו על ״הצגת פתרון״ שמתחתיה ובדקו את עצמכם.</li>
+<li>טעיתם? קראו את דרך הפתרון, ונסו שוב את הסעיף בלי להסתכל.</li>
+</ul></div><div class="q"><h2>שאלה 1</h2><p>מהו ערך הביטוי <span class="m" dir="ltr">(−20) : 4 − 3 · (−4)</span>?</p>
+<div class="opts"><div class="opt"><span class="c"></span><span class="n">①</span><span><span class="m" dir="ltr">7</span></span></div><div class="opt"><span class="c"></span><span class="n">②</span><span><span class="m" dir="ltr">−17</span></span></div><div class="opt"><span class="c"></span><span class="n">③</span><span><span class="m" dir="ltr">17</span></span></div><div class="opt"><span class="c"></span><span class="n">④</span><span><span class="m" dir="ltr">−7</span></span></div></div><details class="solbox"><summary>הצגת פתרון</summary><div class="sol"><div style="margin-bottom:4px"><p class="step"><span class="m" dir="ltr">(−20) : 4 = −5</span>, <span class="m" dir="ltr">3 · (−4) = −12</span></p><p class="step"><span class="m" dir="ltr">−5 − (−12) = −5 + 12 = 7</span></p><p class="step fin">תשובה ①</p></div></div></details></div><div class="q"><h2>שאלה 2</h2><p>הנקודה A נמצאת על ציר המספרים על המספר <span class="m" dir="ltr">−13</span>, והנקודה B על המספר <span class="m" dir="ltr">8</span>.</p>
+<ul class="sec"><li>(א) שתי נקודות מחלקות את הקטע AB לשלושה חלקים שווים. אילו מספרים הן מייצגות?</li></ul>
+<div class="line"></div>
+<ul class="sec"><li>(ב) איזה מספר נמצא בדיוק באמצע הקטע AB? <span class="ul"></span></li></ul>
+<ul class="sec"><li>(ג) הנקודה C נבחרה כך ש-A נמצאת בדיוק באמצע הקטע BC. על איזה מספר נמצאת C? <span class="ul"></span></li></ul><details class="solbox"><summary>הצגת פתרון</summary><div class="sol"><div style="margin-bottom:4px"><p class="step">(א) אורך הקטע <span class="m" dir="ltr">8 − (−13) = 21</span>, כל חלק <span class="m" dir="ltr">21 : 3 = 7</span>: <span class="m" dir="ltr">−13 + 7 = −6</span>, <span class="m" dir="ltr">−6 + 7 = 1</span></p><p class="step fin"><span class="m" dir="ltr">−6</span> ו-<span class="m" dir="ltr">1</span></p></div><div style="margin-bottom:4px"><p class="step">(ב) <span class="m" dir="ltr">(−13 + 8) : 2 = −5 : 2 = −2.5</span></p></div><div style="margin-bottom:4px"><p class="step">(ג) מ-B ל-A יורדים 21, ומ-A ל-C עוד 21: <span class="m" dir="ltr">−13 − 21 = −34</span></p></div></div></details></div><div class="q"><h2>שאלה 3</h2><p>חשבו:</p>
+<div class="pair"><div>(א) <span class="m" dir="ltr">(−0.5) · 6 + 4 = <span class="ul"></span></span></div><div>(ב) <span class="m" dir="ltr">(−1¼) + (−2½) = <span class="ul"></span></span></div></div>
+<div class="pair"><div>(ג) <span class="m" dir="ltr">−¾ − (−⅓) = <span class="ul"></span></span></div><div>(ד) <span class="m" dir="ltr">(−2.5) · (−4) : (−5) = <span class="ul"></span></span></div></div><details class="solbox"><summary>הצגת פתרון</summary><div class="sol"><div style="margin-bottom:4px"><p class="step">(א) <span class="m" dir="ltr">−3 + 4 = 1</span></p></div><div style="margin-bottom:4px"><p class="step">(ב) <span class="m" dir="ltr">−1¼ − 2½ = −3¾</span></p></div><div style="margin-bottom:4px"><p class="step">(ג) מכנה משותף 12: <span class="m" dir="ltr">−9/12 + 4/12 = −5/12</span></p></div><div style="margin-bottom:4px"><p class="step">(ד) <span class="m" dir="ltr">10 : (−5) = −2</span></p></div></div></details></div><div class="q"><h2>שאלה 4</h2><p>השלימו בכל משבצת סימן <b>+</b> או <b>−</b> כך שהשוויון יהיה נכון:</p>
+<p style="padding-right:14px"><span class="m" dir="ltr">−7 <span class="sq"></span> 4 <span class="sq"></span> 9 <span class="sq"></span> 2 = −10</span></p>
+<p style="padding-right:14px"><span class="m" dir="ltr">−7 <span class="sq"></span> 4 <span class="sq"></span> 9 <span class="sq"></span> 2 = 0</span></p>
+<ul class="sec"><li>(ג) מה התוצאה הגדולה ביותר שאפשר לקבל בתרגיל הזה? איך?</li></ul>
+<div class="line"></div><details class="solbox"><summary>הצגת פתרון</summary><div class="sol"><div style="margin-bottom:4px"><p class="step"><span class="m" dir="ltr">−7 + 4 − 9 + 2 = −10</span></p><p class="step"><span class="m" dir="ltr">−7 − 4 + 9 + 2 = 0</span></p><p class="step">(ג) כל הסימנים פלוס: <span class="m" dir="ltr">−7 + 4 + 9 + 2 = 8</span></p></div></div></details></div><div class="q"><h2>שאלה 5</h2><ul class="sec"><li>(א) בסדרה, האיבר הראשון הוא <span class="m" dir="ltr">−31</span>, וכל איבר גדול ב-7 מקודמו. מהו האיבר החיובי הראשון, ובאיזה מקום הוא?</li></ul>
+<div class="line"></div><div class="line"></div>
+<ul class="sec"><li>(ב) בסדרה אחרת, האיבר הראשון הוא 3, וכל איבר מתקבל מקודמו בהכפלה ב-<span class="m" dir="ltr">(−2)</span>. מהו האיבר הראשון שקטן מ-<span class="m" dir="ltr">−100</span>, ובאיזה מקום הוא?</li></ul>
+<div class="line"></div><div class="line"></div><details class="solbox"><summary>הצגת פתרון</summary><div class="sol"><div style="margin-bottom:4px"><p class="step">(א) <span class="m" dir="ltr">−31, −24, −17, −10, −3, 4</span></p><p class="step fin">4, האיבר השישי</p></div><div style="margin-bottom:4px"><p class="step">(ב) <span class="m" dir="ltr">3, −6, 12, −24, 48, −96, 192, −384</span></p><p class="step">שימו לב: <span class="m" dir="ltr">−96</span> עוד לא קטן מ-<span class="m" dir="ltr">−100</span>.</p><p class="step fin"><span class="m" dir="ltr">−384</span>, האיבר השמיני</p></div></div></details></div><div class="q"><h2>שאלה 6</h2><p>חשבו. כתבו את הדרך.</p>
+<ul class="sec"><li>(א) <span class="m" dir="ltr">7 − (3 − 8) · 3</span></li></ul><div class="line"></div>
+<ul class="sec"><li>(ב) <span class="m" dir="ltr">−2 · {−5 − [6 − (−4) · 2] : (−7)} + (−4)</span></li></ul><div class="line"></div><div class="line"></div>
+<ul class="sec"><li>(ג) <span class="m" dir="ltr"><span class="fr"><span>6 − 3 · (4 − 7)</span><span>(−5) − 2 · (−4)</span></span></span></li></ul><div class="line"></div>
+<ul class="sec"><li>(ד) באיזו פעולה מתחילים בתרגיל <span class="m" dir="ltr">10 − 4 · (2 − 5) : 6</span>?</li></ul>
+<div class="opts"><div class="opt"><span class="c"></span><span class="n">①</span><span>חיסור</span></div><div class="opt"><span class="c"></span><span class="n">②</span><span>כפל</span></div><div class="opt"><span class="c"></span><span class="n">③</span><span>הפעולה שבסוגריים</span></div><div class="opt"><span class="c"></span><span class="n">④</span><span>חילוק</span></div></div><details class="solbox"><summary>הצגת פתרון</summary><div class="sol"><div style="margin-bottom:4px"><p class="step">(א) <span class="m" dir="ltr">3 − 8 = −5</span>, <span class="m" dir="ltr">(−5) · 3 = −15</span>, <span class="m" dir="ltr">7 − (−15) = 22</span></p></div><div style="margin-bottom:4px"><p class="step">(ב) מבפנים החוצה: <span class="m" dir="ltr">(−4) · 2 = −8</span>, <span class="m" dir="ltr">6 − (−8) = 14</span>, <span class="m" dir="ltr">14 : (−7) = −2</span>, <span class="m" dir="ltr">−5 − (−2) = −3</span>, <span class="m" dir="ltr">−2 · (−3) = 6</span>, <span class="m" dir="ltr">6 + (−4) = 2</span></p></div><div style="margin-bottom:4px"><p class="step">(ג) מונה <span class="m" dir="ltr">6 − 3 · (−3) = 6 + 9 = 15</span>, מכנה <span class="m" dir="ltr">−5 + 8 = 3</span>: <span class="m" dir="ltr">15 : 3 = 5</span></p></div><div style="margin-bottom:4px"><p class="step">(ד) תשובה ③ — קודם סוגריים, אחר כך כפל וחילוק (משמאל לימין), ובסוף חיסור</p></div></div></details></div><div class="q"><h2>שאלה 7</h2><ul class="sec"><li>(א) חנות מפסידה 400 שקלים בכל יום. לפני 5 ימים היו בקופה 6,000 שקלים. כמה יהיו בקופה בעוד 3 ימים? כתבו תרגיל.</li></ul>
+<div class="line"></div>
+<ul class="sec"><li>(ב) מפלס המים בבריכה יורד ב-4 ס״מ בכל שעה. בשעה 15:00 המד הראה <span class="m" dir="ltr">−14</span> ס״מ. מה הראה המד בשעה 10:00 באותו יום?</li></ul>
+<div class="line"></div>
+<ul class="sec"><li>(ג) באיזו שעה יראה המד <span class="m" dir="ltr">−30</span> ס״מ?</li></ul>
+<div class="line"></div><details class="solbox"><summary>הצגת פתרון</summary><div class="sol"><div style="margin-bottom:4px"><p class="step">(א) מ״לפני 5 ימים״ עד ״בעוד 3 ימים״ — 8 ימים: <span class="m" dir="ltr">6000 − 8 · 400 = 6000 − 3200 = 2800</span></p><p class="step fin">2,800 שקלים</p></div><div style="margin-bottom:4px"><p class="step">(ב) 5 שעות קודם המפלס היה גבוה יותר: <span class="m" dir="ltr">−14 + 5 · 4 = 6</span></p><p class="step fin">6 ס״מ</p></div><div style="margin-bottom:4px"><p class="step">(ג) ירידה של <span class="m" dir="ltr">−14 − (−30) = 16</span> ס״מ, <span class="m" dir="ltr">16 : 4 = 4</span> שעות</p><p class="step fin">בשעה 19:00</p></div></div></details></div><div class="q"><h2>שאלה 8</h2><ul class="sec"><li>(א) מכפלתם של שלושה מספרים שלמים עוקבים היא <span class="m" dir="ltr">−60</span>. מהו סכומם?</li></ul>
+<div class="opts"><div class="opt"><span class="c"></span><span class="n">①</span><span><span class="m" dir="ltr">−12</span></span></div><div class="opt"><span class="c"></span><span class="n">②</span><span><span class="m" dir="ltr">12</span></span></div><div class="opt"><span class="c"></span><span class="n">③</span><span><span class="m" dir="ltr">−9</span></span></div><div class="opt"><span class="c"></span><span class="n">④</span><span><span class="m" dir="ltr">−60</span></span></div></div>
+<ul class="sec"><li>(ב) מכפלתם של שני מספרים שלמים היא <span class="m" dir="ltr">−18</span> וסכומם 3. מהם המספרים? בדקו.</li></ul>
+<div class="line"></div><details class="solbox"><summary>הצגת פתרון</summary><div class="sol"><div style="margin-bottom:4px"><p class="step">(א) מכפלה שלילית — שלושת המספרים שליליים: <span class="m" dir="ltr">(−5) · (−4) · (−3) = −60</span>, <span class="m" dir="ltr">−5 − 4 − 3 = −12</span></p><p class="step fin">תשובה ①</p></div><div style="margin-bottom:4px"><p class="step">(ב) <span class="m" dir="ltr">6</span> ו-<span class="m" dir="ltr">−3</span>: <span class="m" dir="ltr">6 · (−3) = −18</span>, <span class="m" dir="ltr">6 + (−3) = 3</span></p></div></div></details></div><div class="q"><h2>שאלה 9</h2><ul class="sec"><li>(א) הנקודה P נמצאת ברביע הרביעי. מרחקה מציר <span class="m" dir="ltr"><i>y</i></span> הוא 5 יחידות, ומרחקה מציר <span class="m" dir="ltr"><i>x</i></span> גדול פי 2. מהם שיעורי P?</li></ul>
+<div class="ans"><span class="m" dir="ltr">P(______ , ______)</span></div>
+<ul class="sec"><li>(ב) מזיזים את P שבע יחידות שמאלה ו-12 יחידות למעלה. מהם שיעורי הנקודה החדשה, ובאיזה רביע היא?</li></ul>
+<div class="line"></div>
+<ul class="sec"><li>(ג) המרחק בין הנקודות <span class="m" dir="ltr">(<i>b</i>, 3)</span> ו-<span class="m" dir="ltr">(−4, 3)</span> הוא 10 יחידות, והנקודה <span class="m" dir="ltr">(<i>b</i>, 3)</span> נמצאת ברביע הראשון. מהו <span class="m" dir="ltr"><i>b</i></span>? <span class="ul"></span></li></ul><details class="solbox"><summary>הצגת פתרון</summary><div class="sol"><div style="margin-bottom:4px"><p class="step">(א) מרחק מציר <span class="m" dir="ltr"><i>y</i></span> הוא שיעור ה-<span class="m" dir="ltr"><i>x</i></span>: 5. מרחק מציר <span class="m" dir="ltr"><i>x</i></span>: 10. ברביע הרביעי <span class="m" dir="ltr"><i>y</i></span> שלילי.</p><p class="step fin"><span class="m" dir="ltr">P(5, −10)</span></p></div><div style="margin-bottom:4px"><p class="step">(ב) <span class="m" dir="ltr">(5 − 7, −10 + 12) = (−2, 2)</span></p><p class="step fin">רביע שני</p></div><div style="margin-bottom:4px"><p class="step">(ג) רביע ראשון — <span class="m" dir="ltr"><i>b</i></span> חיובי: <span class="m" dir="ltr">−4 + 10 = 6</span></p><p class="step fin"><span class="m" dir="ltr"><i>b</i> = 6</span></p></div></div></details></div><div class="q"><h2>שאלה 10</h2><div class="row"><div class="txt">
+<p>בשרטוט שלושה קודקודים של המלבן ABCD: <span class="m" dir="ltr">A(−6, −3)</span>, <span class="m" dir="ltr">B(3, −3)</span>, <span class="m" dir="ltr">C(3, 3)</span>.</p>
+<ul class="sec"><li>(א) מהם שיעורי D? השלימו את המלבן.</li></ul>
+<div class="ans"><span class="m" dir="ltr">D(______ , ______)</span></div>
+<ul class="sec"><li>(ב) חשבו את שטח המלבן ואת היקפו.</li></ul>
+<div class="pair"><div>שטח: <span class="ul"></span></div><div>היקף: <span class="ul"></span></div></div>
+<ul class="sec"><li>(ג) הנקודה E נמצאת על הצלע BC, ושטח המשולש ABE שווה לשליש משטח המלבן. מהם שיעורי E?</li></ul>
+<div class="line"></div><div class="line"></div>
+</div><div class="fig wide"><svg viewBox="0 0 208 208" xmlns="http://www.w3.org/2000/svg" direction="ltr" font-family="Liberation Serif,serif" font-size="8.5"><line x1="14" y1="194" x2="14" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="194" x2="194" y2="194" stroke="#c8c8c8" stroke-width="0.6"/><line x1="29" y1="194" x2="29" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="179" x2="194" y2="179" stroke="#c8c8c8" stroke-width="0.6"/><line x1="44" y1="194" x2="44" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="164" x2="194" y2="164" stroke="#c8c8c8" stroke-width="0.6"/><line x1="59" y1="194" x2="59" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="149" x2="194" y2="149" stroke="#c8c8c8" stroke-width="0.6"/><line x1="74" y1="194" x2="74" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="134" x2="194" y2="134" stroke="#c8c8c8" stroke-width="0.6"/><line x1="89" y1="194" x2="89" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="119" x2="194" y2="119" stroke="#c8c8c8" stroke-width="0.6"/><line x1="104" y1="194" x2="104" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="104" x2="194" y2="104" stroke="#c8c8c8" stroke-width="0.6"/><line x1="119" y1="194" x2="119" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="89" x2="194" y2="89" stroke="#c8c8c8" stroke-width="0.6"/><line x1="134" y1="194" x2="134" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="74" x2="194" y2="74" stroke="#c8c8c8" stroke-width="0.6"/><line x1="149" y1="194" x2="149" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="59" x2="194" y2="59" stroke="#c8c8c8" stroke-width="0.6"/><line x1="164" y1="194" x2="164" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="44" x2="194" y2="44" stroke="#c8c8c8" stroke-width="0.6"/><line x1="179" y1="194" x2="179" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="29" x2="194" y2="29" stroke="#c8c8c8" stroke-width="0.6"/><line x1="194" y1="194" x2="194" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="14" x2="194" y2="14" stroke="#c8c8c8" stroke-width="0.6"/><line x1="14" y1="104" x2="200" y2="104" stroke="#000" stroke-width="1.2"/><line x1="104" y1="194" x2="104" y2="8" stroke="#000" stroke-width="1.2"/><text x="202" y="101" font-style="italic" font-size="11">x</text><text x="108" y="12" font-style="italic" font-size="11">y</text><text x="14" y="114" text-anchor="middle">−6</text><text x="101" y="197" text-anchor="end">−6</text><text x="44" y="114" text-anchor="middle">−4</text><text x="101" y="167" text-anchor="end">−4</text><text x="74" y="114" text-anchor="middle">−2</text><text x="101" y="137" text-anchor="end">−2</text><text x="134" y="114" text-anchor="middle">2</text><text x="101" y="77" text-anchor="end">2</text><text x="164" y="114" text-anchor="middle">4</text><text x="101" y="47" text-anchor="end">4</text><text x="194" y="114" text-anchor="middle">6</text><text x="101" y="17" text-anchor="end">6</text><text x="101" y="114" text-anchor="end">0</text><polyline points="14,149 149,149 149,59" fill="none" stroke="#000" stroke-width="1.4"/><circle cx="14" cy="149" r="2.8" fill="#000"/><text x="3" y="160" font-size="11" font-family="Liberation Sans,sans-serif" font-weight="bold">A</text><circle cx="149" cy="149" r="2.8" fill="#000"/><text x="153" y="160" font-size="11" font-family="Liberation Sans,sans-serif" font-weight="bold">B</text><circle cx="149" cy="59" r="2.8" fill="#000"/><text x="153" y="55" font-size="11" font-family="Liberation Sans,sans-serif" font-weight="bold">C</text></svg></div></div>
+<ul class="sec"><li>(ד) מזיזים את כל המלבן כך ש-C עוברת לראשית הצירים. מהם השיעורים החדשים של A?</li></ul>
+<div class="line"></div><details class="solbox"><summary>הצגת פתרון</summary><div class="sol"><div style="margin-bottom:4px"><p class="step">(א) <span class="m" dir="ltr">D(−6, 3)</span></p></div><div style="margin-bottom:4px"><p class="step">(ב) <span class="m" dir="ltr">AB = 3 − (−6) = 9</span>, <span class="m" dir="ltr">BC = 3 − (−3) = 6</span>: שטח <span class="m" dir="ltr">54</span>, היקף <span class="m" dir="ltr">30</span></p></div><div style="margin-bottom:4px"><p class="step">(ג) שליש: <span class="m" dir="ltr">54 : 3 = 18</span>. במשולש זווית ישרה ב-B: <span class="m" dir="ltr">9 · BE : 2 = 18</span> ← <span class="m" dir="ltr">BE = 4</span>. מ-B עולים 4:</p><p class="step fin"><span class="m" dir="ltr">E(3, 1)</span></p></div><div style="margin-bottom:4px"><p class="step">(ד) C זזה 3 שמאלה ו-3 למטה; גם A: <span class="m" dir="ltr">(−6 − 3, −3 − 3)</span></p><p class="step fin"><span class="m" dir="ltr">(−9, −6)</span></p></div></div></details></div><table class="self"><tr><td colspan="5"><b>בדיקה עצמית:</b> סמנו ✓ ליד כל שאלה שפתרתם נכון בלי עזרה. שאלה בלי ✓ — לחזור עליה לפני המבדק.</td></tr><tr><td>שאלה 1 <span class="box"></span></td><td>שאלה 2 <span class="box"></span></td><td>שאלה 3 <span class="box"></span></td><td>שאלה 4 <span class="box"></span></td><td>שאלה 5 <span class="box"></span></td></tr><tr><td>שאלה 6 <span class="box"></span></td><td>שאלה 7 <span class="box"></span></td><td>שאלה 8 <span class="box"></span></td><td>שאלה 9 <span class="box"></span></td><td>שאלה 10 <span class="box"></span></td></tr></table></body></html>
