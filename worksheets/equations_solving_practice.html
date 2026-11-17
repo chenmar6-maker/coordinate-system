@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תרגול — משוואות מורכבות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 60px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .quiz-q { margin-bottom: 8px; padding: 10px 12px 10px 10px; background: #fff; border-radius: 8px; font-size: 13.5px; line-height: 1.65; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border-right: 4px solid #6EE7B7; }
+  .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 6px; }
+  .mc-opt { display: flex; align-items: center; gap: 5px; font-size: 13.5px; }
+  .mc-opt .circ { width: 14px; height: 14px; border: 1.5px solid #777; border-radius: 50%; flex-shrink: 0; }
+  .mc-opt .sq { width: 14px; height: 14px; border: 1.5px solid #047857; border-radius: 2px; flex-shrink: 0; }
+  .al { display: block; border-bottom: 1.5px solid #bbb; margin-top: 8px; height: 16px; }
+  .al2 { display: block; border-bottom: 1px solid #ccc; margin-top: 14px; height: 16px; }
+  .ali { display: inline-block; border-bottom: 1.5px solid #888; min-width: 60px; vertical-align: bottom; }
+  .ali-lg { display: inline-block; border-bottom: 1.5px solid #888; min-width: 130px; vertical-align: bottom; }
+  .solve-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+  .solve-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px 10px; }
+  .solve-lbl { font-weight: 700; color: #555; margin-left: 4px; }
+  .solve-eq { direction: ltr; unicode-bidi: isolate; font-weight: 700; font-size: 14px; display: block; margin: 4px 0; }
+  .work-line { display: block; border-bottom: 1px solid #cbd5e1; margin-top: 10px; height: 10px; }
+  .note-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-right: 3px solid #047857; border-radius: 6px; padding: 7px 12px; font-size: 13px; margin-bottom: 10px; line-height: 1.7; }
+  .score-bar { display: flex; gap: 14px; justify-content: flex-end; flex-wrap: wrap; font-size: 13px; margin-top: 12px; background: #fff; border-radius: 8px; padding: 10px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+  .score-part { display: flex; align-items: center; gap: 6px; }
+  .score-dot { width: 10px; height: 10px; border-radius: 50%; background: #047857; flex-shrink: 0; }
+  .score-field { border-bottom: 1.5px solid #888; min-width: 36px; display: inline-block; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+  .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  .error-box { background: #FEF2F2; border: 1px solid #FECACA; border-right: 3px solid #EF4444; border-radius: 6px; padding: 9px 12px; margin-top: 8px; font-size: 13px; direction: ltr; unicode-bidi: isolate; }
+  .steps-row { display: flex; gap: 8px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+  .step-chip { background: #D1FAE5; color: #065F46; border-radius: 12px; padding: 3px 10px; font-size: 12px; font-weight: 700; }
+  @media print { body { background: #fff; padding: 10px; } .no-print { display: none; } .quiz-q { box-shadow: none; border: 1px solid #ddd; } .header { background: #222 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } .solve-grid { grid-template-columns: 1fr 1fr; } @page { margin: 12mm; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">תרגול — משוואות מורכבות</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; אלגברה &nbsp;|&nbsp; כמה שלבים</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div class="note-box">
+  💡 <strong>שלבים לפתרון:</strong> &nbsp;<span style="background:#D1FAE5;padding:2px 7px;border-radius:4px;font-weight:700;color:#065F46;">1</span>&nbsp; כנסו איברים דומים &nbsp;&nbsp;<span style="background:#D1FAE5;padding:2px 7px;border-radius:4px;font-weight:700;color:#065F46;">2</span>&nbsp; העבירו לצד אחד &nbsp;&nbsp;<span style="background:#D1FAE5;padding:2px 7px;border-radius:4px;font-weight:700;color:#065F46;">3</span>&nbsp; בידדו את המשתנה
+</div>
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span> פתרו את המשוואות. הראו את שלבי הפתרון.
+  <div class="solve-grid">
+    <div class="solve-item">
+      <span class="solve-lbl">א.</span><span class="solve-eq">3x + 2 = 11</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <div style="margin-top:6px;font-size:12px;color:#555;">פתרון: <span class="m">x =</span> <span style="display:inline-block;border-bottom:2px solid #047857;min-width:30px;"></span></div>
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ב.</span><span class="solve-eq">2a − 5 = 1</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <div style="margin-top:6px;font-size:12px;color:#555;">פתרון: <span class="m">a =</span> <span style="display:inline-block;border-bottom:2px solid #047857;min-width:30px;"></span></div>
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ג.</span><span class="solve-eq">5n + 4 = −6</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <div style="margin-top:6px;font-size:12px;color:#555;">פתרון: <span class="m">n =</span> <span style="display:inline-block;border-bottom:2px solid #047857;min-width:30px;"></span></div>
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ד.</span><span class="solve-eq">3b − 7 = −1</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <div style="margin-top:6px;font-size:12px;color:#555;">פתרון: <span class="m">b =</span> <span style="display:inline-block;border-bottom:2px solid #047857;min-width:30px;"></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span> פתרו ובדקו את הפתרון: &nbsp;<span class="m">4x − 3 = 9</span>
+  <div class="solve-grid" style="margin-top:8px;">
+    <div class="solve-item">
+      <div style="font-size:12.5px;font-weight:700;color:#047857;margin-bottom:4px;">פתרון</div>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <div style="margin-top:6px;font-size:12px;color:#555;">פתרון: <span class="m">x =</span> <span style="display:inline-block;border-bottom:2px solid #047857;min-width:30px;"></span></div>
+    </div>
+    <div class="solve-item">
+      <div style="font-size:12.5px;font-weight:700;color:#047857;margin-bottom:4px;">בדיקה — הציבו בחזרה במשוואה</div>
+      <div style="font-size:12px;color:#555;margin-bottom:4px;">צד שמאל: <span class="ali-lg"></span></div>
+      <div style="font-size:12px;color:#555;margin-bottom:4px;">צד ימין: <span class="ali"></span></div>
+      <div style="font-size:12px;color:#555;">האם שווה? <span class="ali"></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <span class="qnum">3.</span> כנסו איברים דומים ופתרו:
+  <div class="solve-grid">
+    <div class="solve-item">
+      <span class="solve-lbl">א.</span><span class="solve-eq">2x + x + 1 = 10</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <div style="margin-top:6px;font-size:12px;color:#555;">פתרון: <span class="m">x =</span> <span style="display:inline-block;border-bottom:2px solid #047857;min-width:30px;"></span></div>
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ב.</span><span class="solve-eq">5a − 2a = 12</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <div style="margin-top:6px;font-size:12px;color:#555;">פתרון: <span class="m">a =</span> <span style="display:inline-block;border-bottom:2px solid #047857;min-width:30px;"></span></div>
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ג.</span><span class="solve-eq">3n + 4 − n = 8</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <div style="margin-top:6px;font-size:12px;color:#555;">פתרון: <span class="m">n =</span> <span style="display:inline-block;border-bottom:2px solid #047857;min-width:30px;"></span></div>
+    </div>
+    <div class="solve-item">
+      <span class="solve-lbl">ד.</span><span class="solve-eq">6b − 10 = 2b + 2</span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <span class="work-line"></span>
+      <div style="margin-top:6px;font-size:12px;color:#555;">פתרון: <span class="m">b =</span> <span style="display:inline-block;border-bottom:2px solid #047857;min-width:30px;"></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <span class="qnum">4.</span> <strong>הקיפו את כל המשוואות</strong> שיש להן פתרון <span class="m">x = 3</span>:
+  <div class="mc-opts" style="margin-top:10px;">
+    <div class="mc-opt"><div class="sq"></div> <span class="m">2x + 1 = 5</span></div>
+    <div class="mc-opt"><div class="sq"></div> <span class="m">x + 4 = 7</span></div>
+    <div class="mc-opt"><div class="sq"></div> <span class="m">3x − 2 = 7</span></div>
+    <div class="mc-opt"><div class="sq"></div> <span class="m">x − 1 = 4</span></div>
+  </div>
+  <div style="margin-top:8px;font-size:12.5px;color:#555;">הסברו את הבחירה שלכם: <span class="ali-lg"></span></div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <span class="qnum">5.</span> <strong>תיקנו את השגיאה:</strong>
+  <div class="error-box">
+    2x + 3 = 11 &nbsp;→&nbsp; 2x = 11 + 3 = 14 &nbsp;→&nbsp; x = 7
+  </div>
+  <div style="margin-top:10px;">
+    <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:4px;">האם הפתרון נכון? מה הטעות?</div>
+    <span class="al"></span>
+    <span class="al2"></span>
+    <div style="font-size:13px;font-weight:600;color:#374151;margin-top:10px;margin-bottom:4px;">הפתרון הנכון:</div>
+    <span class="al"></span>
+    <span class="al2"></span>
+  </div>
+</div>
+
+<!-- Q6 -->
+<div class="quiz-q">
+  <span class="qnum">6.</span> <strong>יצירתי:</strong> המציאו משוואה מורכבת (עם לפחות שני שלבים לפתרון) שהפתרון שלה הוא <span class="m">x = 5</span>.
+  <div style="font-size:12.5px;color:#555;margin-top:4px;margin-bottom:6px;">כתבו את המשוואה ואת שלבי הפתרון שלה כדי להוכיח שהפתרון אכן <span class="m">x = 5</span>.</div>
+  <div style="margin-bottom:10px;">המשוואה שלי: <span class="ali-lg"></span></div>
+  <span class="al"></span>
+  <span class="al2"></span>
+  <span class="al2"></span>
+</div>
+
+<div class="score-bar">
+  <div class="score-part"><div class="score-dot"></div>ניקוד: <span class="score-field">&nbsp;</span> / 6</div>
+</div>
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+<div style="margin-top:22px;padding:16px 18px;background:#FFFBEB;border:1.5px solid #FCD34D;border-right:4px solid #F59E0B;border-radius:10px;font-size:13.5px;line-height:1.8;">
+  <div style="font-size:11px;font-weight:800;color:#D97706;letter-spacing:1px;margin-bottom:10px;">💬 שאלת היכרות</div>
+  <div style="background:#FEF3C7;border-radius:8px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#92400E;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span>✏️</span><span>לפני שאתם עונים — כתבו את השאלה במלואה בדף!</span></div>
+  <div style="font-size:14px;font-weight:700;color:#1a1a2e;">אם הייתם יכולים לאמן קבוצת ספורט — באיזה ספורט? מה האסטרטגיה שהייתם מלמדים את הקבוצה?</div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:16px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+</div>
+
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#047857;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
