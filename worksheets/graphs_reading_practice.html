@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תרגול — קריאת גרף וסימון נקודות</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 60px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .quiz-q { margin-bottom: 8px; padding: 10px 12px 10px 10px; background: #fff; border-radius: 8px; font-size: 13.5px; line-height: 1.65; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border-right: 4px solid #93C5FD; }
+  .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; font-weight: 600; }
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 16px; font-weight: 700; flex-shrink: 0; color: #555; }
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 6px; }
+  .mc-opt { display: flex; align-items: center; gap: 5px; font-size: 13.5px; }
+  .mc-opt .circ { width: 14px; height: 14px; border: 1.5px solid #777; border-radius: 50%; flex-shrink: 0; }
+  .al { display: block; border-bottom: 1.5px solid #bbb; margin-top: 8px; height: 16px; }
+  .al2 { display: block; border-bottom: 1px solid #ccc; margin-top: 14px; height: 16px; }
+  .ali { display: inline-block; border-bottom: 1.5px solid #888; min-width: 60px; vertical-align: bottom; }
+  .ali-lg { display: inline-block; border-bottom: 1.5px solid #888; min-width: 160px; vertical-align: bottom; }
+  .note-box { background: #fafafa; border: 1px solid #e5e7eb; border-right: 3px solid #1D4ED8; border-radius: 6px; padding: 7px 12px; font-size: 13px; margin-bottom: 10px; line-height: 1.7; }
+  .coord-table { border-collapse: collapse; margin-top: 10px; font-size: 13px; width: 100%; }
+  .coord-table th { background: #eff6ff; padding: 5px 10px; border: 1px solid #bfdbfe; font-weight: 700; text-align: center; }
+  .coord-table td { padding: 6px 10px; border: 1px solid #e2e8f0; text-align: center; }
+  .coord-table td.pt-name { font-weight: 700; color: #1D4ED8; font-size: 14px; }
+  .graph-wrap { display: flex; justify-content: center; margin: 10px 0 6px; }
+  .score-bar { display: flex; gap: 14px; justify-content: flex-end; flex-wrap: wrap; font-size: 13px; margin-top: 12px; background: #fff; border-radius: 8px; padding: 10px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+  .score-part { display: flex; align-items: center; gap: 6px; }
+  .score-dot { width: 10px; height: 10px; border-radius: 50%; background: #1D4ED8; flex-shrink: 0; }
+  .score-field { border-bottom: 1.5px solid #888; min-width: 36px; display: inline-block; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+  .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  @media print { body { background: #fff; padding: 10px; } .no-print { display: none; } .quiz-q { box-shadow: none; border: 1px solid #ddd; } .header { background: #222 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } @page { margin: 12mm; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<div class="header">
+  <div>
+    <div class="header-title">תרגול — קריאת תיאור גרפי</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; אלגברה &nbsp;|&nbsp; רביע ראשון</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div class="note-box">
+  <strong>איך קוראים נקודה על הגרף?</strong> נקודה = <span class="m">(x, y)</span>. &nbsp; <span class="m">x</span> — ציר האופק (ימינה), &nbsp;<span class="m">y</span> — ציר האנך (למעלה). <strong>הסדר חשוב!</strong>
+</div>
+
+<!-- Q1: Graph reading -->
+<div class="quiz-q">
+  <span class="qnum">1.</span> הסתכלו בגרף שלהלן ורשמו את הקואורדינטות של כל נקודה:
+
+  <!-- SVG GRID -->
+  <div class="graph-wrap">
+    <svg viewBox="0 0 290 290" style="width:270px;height:270px;display:block;" dir="ltr">
+      <!-- Background -->
+      <rect x="30" y="10" width="250" height="250" fill="#f8faff" rx="4"/>
+
+      <!-- Grid lines vertical -->
+      <line x1="30" y1="10" x2="30" y2="260" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="65" y1="10" x2="65" y2="260" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="100" y1="10" x2="100" y2="260" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="135" y1="10" x2="135" y2="260" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="170" y1="10" x2="170" y2="260" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="205" y1="10" x2="205" y2="260" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="240" y1="10" x2="240" y2="260" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="275" y1="10" x2="275" y2="260" stroke="#dbeafe" stroke-width="1"/>
+
+      <!-- Grid lines horizontal -->
+      <line x1="30" y1="10" x2="280" y2="10" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="30" y1="45" x2="280" y2="45" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="30" y1="80" x2="280" y2="80" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="30" y1="115" x2="280" y2="115" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="30" y1="150" x2="280" y2="150" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="30" y1="185" x2="280" y2="185" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="30" y1="220" x2="280" y2="220" stroke="#dbeafe" stroke-width="1"/>
+      <line x1="30" y1="260" x2="280" y2="260" stroke="#dbeafe" stroke-width="1"/>
+
+      <!-- Axes -->
+      <line x1="30" y1="260" x2="280" y2="260" stroke="#1e40af" stroke-width="2"/>
+      <line x1="30" y1="260" x2="30" y2="10" stroke="#1e40af" stroke-width="2"/>
+
+      <!-- Arrow heads -->
+      <polygon points="280,256 280,264 288,260" fill="#1e40af"/>
+      <polygon points="26,10 34,10 30,2" fill="#1e40af"/>
+
+      <!-- X-axis labels (0-7) -->
+      <!-- x=0 → svg_x=30, step=35 so x=n → svg_x=30+n*35 -->
+      <text x="30" y="276" text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">0</text>
+      <text x="65" y="276" text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">1</text>
+      <text x="100" y="276" text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">2</text>
+      <text x="135" y="276" text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">3</text>
+      <text x="170" y="276" text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">4</text>
+      <text x="205" y="276" text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">5</text>
+      <text x="240" y="276" text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">6</text>
+      <text x="275" y="276" text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">7</text>
+      <!-- x-axis label -->
+      <text x="285" y="264" font-size="11" fill="#1e40af" font-family="Rubik,sans-serif" font-weight="700">x</text>
+
+      <!-- Y-axis labels (0-7) -->
+      <!-- y=0 → svg_y=260, step=35 so y=n → svg_y=260-n*35 -->
+      <text x="20" y="264" text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">0</text>
+      <text x="20" y="229" text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">1</text>
+      <text x="20" y="194" text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">2</text>
+      <text x="20" y="159" text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">3</text>
+      <text x="20" y="124" text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">4</text>
+      <text x="20" y="89"  text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">5</text>
+      <text x="20" y="54"  text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">6</text>
+      <text x="20" y="19"  text-anchor="middle" font-size="11" fill="#374151" font-family="Rubik,sans-serif">7</text>
+      <!-- y-axis label -->
+      <text x="34" y="8" font-size="11" fill="#1e40af" font-family="Rubik,sans-serif" font-weight="700">y</text>
+
+      <!-- Tick marks on x-axis -->
+      <line x1="65"  y1="257" x2="65"  y2="263" stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="100" y1="257" x2="100" y2="263" stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="135" y1="257" x2="135" y2="263" stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="170" y1="257" x2="170" y2="263" stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="205" y1="257" x2="205" y2="263" stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="240" y1="257" x2="240" y2="263" stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="275" y1="257" x2="275" y2="263" stroke="#1e40af" stroke-width="1.5"/>
+
+      <!-- Tick marks on y-axis -->
+      <line x1="27" y1="225" x2="33" y2="225" stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="27" y1="190" x2="33" y2="190" stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="27" y1="155" x2="33" y2="155" stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="27" y1="120" x2="33" y2="120" stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="27" y1="85"  x2="33" y2="85"  stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="27" y1="50"  x2="33" y2="50"  stroke="#1e40af" stroke-width="1.5"/>
+      <line x1="27" y1="15"  x2="33" y2="15"  stroke="#1e40af" stroke-width="1.5"/>
+
+      <!-- Points -->
+      <!-- A = (2, 5): svg_x = 30+2*35=100, svg_y = 260-5*35=85 -->
+      <circle cx="100" cy="85" r="6" fill="#ef4444" stroke="#fff" stroke-width="1.5"/>
+      <text x="108" y="80" font-size="12" font-weight="700" fill="#b91c1c" font-family="Rubik,sans-serif">A</text>
+
+      <!-- B = (4, 1): svg_x = 30+4*35=170, svg_y = 260-1*35=225 -->
+      <circle cx="170" cy="225" r="6" fill="#f59e0b" stroke="#fff" stroke-width="1.5"/>
+      <text x="178" y="221" font-size="12" font-weight="700" fill="#b45309" font-family="Rubik,sans-serif">B</text>
+
+      <!-- C = (6, 3): svg_x = 30+6*35=240, svg_y = 260-3*35=155 -->
+      <circle cx="240" cy="155" r="6" fill="#10b981" stroke="#fff" stroke-width="1.5"/>
+      <text x="248" y="150" font-size="12" font-weight="700" fill="#065f46" font-family="Rubik,sans-serif">C</text>
+
+      <!-- D = (1, 4): svg_x = 30+1*35=65, svg_y = 260-4*35=120 -->
+      <circle cx="65" cy="120" r="6" fill="#8b5cf6" stroke="#fff" stroke-width="1.5"/>
+      <text x="73" y="115" font-size="12" font-weight="700" fill="#6d28d9" font-family="Rubik,sans-serif">D</text>
+    </svg>
+  </div>
+
+  <table class="coord-table">
+    <tr>
+      <th>נקודה</th>
+      <th>קואורדינטת <span class="m">x</span></th>
+      <th>קואורדינטת <span class="m">y</span></th>
+      <th>צורת כתיבה <span class="m">(x, y)</span></th>
+    </tr>
+    <tr>
+      <td class="pt-name" style="color:#b91c1c;">A</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="pt-name" style="color:#b45309;">B</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="pt-name" style="color:#065f46;">C</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="pt-name" style="color:#6d28d9;">D</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span> איזו נקודה מהגרף נמצאת בקואורדינטות <span class="m">(4, 1)</span>?
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span>נקודה A</span></div>
+    <div class="mc-opt"><div class="circ"></div><span>נקודה B</span></div>
+    <div class="mc-opt"><div class="circ"></div><span>נקודה C</span></div>
+    <div class="mc-opt"><div class="circ"></div><span>נקודה D</span></div>
+  </div>
+  <div style="margin-top:8px;font-size:12px;color:#666;">הסבירו: איך הגעתם לתשובה?</div>
+  <span class="al"></span>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <span class="qnum">3.</span> <strong>על אותו גרף למעלה</strong> — סמנו (ציירו) את הנקודות הבאות ורשמו את שמן ליד:
+  <div style="display:flex; gap:30px; margin-top:8px; flex-wrap:wrap;">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span style="font-weight:700;color:#1D4ED8;font-size:14px;">E</span>
+      <span class="m">= (5, 2)</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span style="font-weight:700;color:#1D4ED8;font-size:14px;">F</span>
+      <span class="m">= (3, 6)</span>
+    </div>
+  </div>
+  <div style="margin-top:8px; font-size:12.5px; color:#555;">
+    לנקודה E: אני מתחיל בראשית, הולך <span class="ali" style="min-width:30px;"></span> צעדים ימינה ואז <span class="ali" style="min-width:30px;"></span> צעדים למעלה.
+  </div>
+  <div style="margin-top:6px; font-size:12.5px; color:#555;">
+    לנקודה F: אני מתחיל בראשית, הולך <span class="ali" style="min-width:30px;"></span> צעדים ימינה ואז <span class="ali" style="min-width:30px;"></span> צעדים למעלה.
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <span class="qnum">4.</span> נקודה <span class="m">T</span> נמצאת <strong>על ציר ה-<span class="m">x</span></strong>. מה ניתן לומר על הקואורדינטה <span class="m">y</span> שלה?
+  <div class="mc-opts">
+    <div class="mc-opt"><div class="circ"></div><span><span class="m">y = 0</span></span></div>
+    <div class="mc-opt"><div class="circ"></div><span><span class="m">y = x</span></span></div>
+    <div class="mc-opt"><div class="circ"></div><span><span class="m">y</span> יכולה להיות כל מספר</span></div>
+    <div class="mc-opt"><div class="circ"></div><span><span class="m">y = 1</span></span></div>
+  </div>
+  <div style="margin-top:8px;font-size:12px;color:#666;">הסבירו:</div>
+  <span class="al"></span>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <span class="qnum">5.</span> <strong>שאלה יצירתית — מסלול:</strong> התחלתם ב-<span class="m">(1, 1)</span>. הלכתם שלושה צעדים ימינה (בכיוון ציר ה-<span class="m">x</span>), ואחר כך שני צעדים למעלה (בכיוון ציר ה-<span class="m">y</span>). איפה סיימתם?
+  <div style="margin-top:10px; display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
+    <div style="font-size:13px;">
+      נקודת סיום: <span class="m">( </span><span class="ali" style="min-width:30px;"></span><span class="m"> , </span><span class="ali" style="min-width:30px;"></span><span class="m"> )</span>
+    </div>
+  </div>
+  <div style="margin-top:10px;font-size:12px;color:#666;">הסבירו את החישוב:</div>
+  <span class="al"></span>
+  <div style="margin-top:12px;font-size:12.5px;color:#555;font-weight:600;">בונוס: סמנו את המסלול כולו על הגרף שבשאלה 1.</div>
+</div>
+
+<div class="score-bar">
+  <div class="score-part"><div class="score-dot"></div>ניקוד: <span class="score-field">&nbsp;</span> / 5</div>
+</div>
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+<div style="margin-top:22px;padding:16px 18px;background:#FFFBEB;border:1.5px solid #FCD34D;border-right:4px solid #F59E0B;border-radius:10px;font-size:13.5px;line-height:1.8;">
+  <div style="font-size:11px;font-weight:800;color:#D97706;letter-spacing:1px;margin-bottom:10px;">💬 שאלת היכרות</div>
+  <div style="background:#FEF3C7;border-radius:8px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#92400E;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span>✏️</span><span>לפני שאתם עונים — כתבו את השאלה במלואה בדף!</span></div>
+  <div style="font-size:14px;font-weight:700;color:#1a1a2e;">אם הייתם יכולים לגור בכל מקום בעולם — איפה הייתם בוחרים לגור ולמה?</div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:16px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+</div>
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#1D4ED8;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
