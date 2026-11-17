@@ -514,6 +514,7 @@ function seqRow(seqNum, label, opts={}){
       : '';
     const answersCard = opts.answersUrl ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.answersUrl}')" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>תשובות</h3></div>` : '';
     const checkCard = opts.checkUrl ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.checkUrl}')" style="background:rgba(99,102,241,0.12);border:1.5px solid rgba(99,102,241,0.45);color:#a5b4fc;"><h3>בדיקה עצמית</h3></div>` : '';
+    const sheetCard = opts.sheetUrl ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.sheetUrl}')" style="background:rgba(245,158,11,0.12);border:1.5px solid rgba(245,158,11,0.4);color:#FCD34D;"><h3>דף עבודה</h3></div>` : '';
     const nextUrl = opts.nextUrl || '../index.html';
     const nextCard = (opts.hasNext || opts.nextUrl)
       ? `<div class="flow-arrow">←</div><div class="card" onclick="window.location.href='${nextUrl}'" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>ליחידה הבאה</h3></div>`
@@ -522,6 +523,7 @@ function seqRow(seqNum, label, opts={}){
       <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
       <div class="flow-arrow">←</div>
       <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
+      ${sheetCard}
       ${quizCard ? '<div class="flow-arrow">←</div>'+quizCard : ''}
       ${checkCard}
       ${answersCard}
