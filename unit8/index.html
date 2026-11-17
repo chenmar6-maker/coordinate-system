@@ -514,7 +514,6 @@ function seqRow(seqNum, label, opts={}){
       : '';
     const answersCard = opts.answersUrl ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.answersUrl}')" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>תשובות</h3></div>` : '';
     const checkCard = opts.checkUrl ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.checkUrl}')" style="background:rgba(99,102,241,0.12);border:1.5px solid rgba(99,102,241,0.45);color:#a5b4fc;"><h3>בדיקה עצמית</h3></div>` : '';
-    const sheetCard = opts.sheetUrl ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.sheetUrl}')" style="background:rgba(245,158,11,0.12);border:1.5px solid rgba(245,158,11,0.4);color:#FCD34D;"><h3>דף עבודה</h3></div>` : '';
     const nextUrl = opts.nextUrl || '../index.html';
     const nextCard = (opts.hasNext || opts.nextUrl)
       ? `<div class="flow-arrow">←</div><div class="card" onclick="window.location.href='${nextUrl}'" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>ליחידה הבאה</h3></div>`
@@ -523,7 +522,6 @@ function seqRow(seqNum, label, opts={}){
       <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
       <div class="flow-arrow">←</div>
       <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
-      ${sheetCard}
       ${quizCard ? '<div class="flow-arrow">←</div>'+quizCard : ''}
       ${checkCard}
       ${answersCard}
@@ -547,18 +545,18 @@ function renderHome(){
     </div>
     <div class="sequence-section" style="margin-bottom:20px;">
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">מבוא</div>
-      ${seqRow(0,'0. מבוא — מאין הגיעה האלגברה?',{worksheetUrl:'../worksheets/algebra_intro_exam.html',sheetUrl:'../worksheets/algebra_intro_practice.html'})}
+      ${seqRow(0,'0. מבוא — מאין הגיעה האלגברה?',{worksheetUrl:'../worksheets/algebra_intro_exam.html'})}
     </div>
     <div class="sequence-section" style="margin-bottom:20px;">
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">ביטויים אלגבריים</div>
-      ${seqRow(1,'1. כתיבת ביטויים אלגבריים',{worksheetUrl:'../worksheets/algebra_writing_exam.html',answersUrl:'../worksheets/algebra_writing_answers.html',checkUrl:'../worksheets/algebra_writing_exam_check.html',sheetUrl:'../worksheets/algebra_writing_practice.html'})}
-      ${seqRow(2,'2. הצבה וחישוב ערך הביטוי',{worksheetUrl:'../worksheets/algebra_substitution_exam.html',answersUrl:'../worksheets/algebra_substitution_answers.html',checkUrl:'../worksheets/algebra_substitution_exam_check.html',sheetUrl:'../worksheets/algebra_substitution_practice.html'})}
+      ${seqRow(1,'1. כתיבת ביטויים אלגבריים',{worksheetUrl:'../worksheets/algebra_writing_exam.html',answersUrl:'../worksheets/algebra_writing_answers.html',checkUrl:'../worksheets/algebra_writing_exam_check.html'})}
+      ${seqRow(2,'2. הצבה וחישוב ערך הביטוי',{worksheetUrl:'../worksheets/algebra_substitution_exam.html',answersUrl:'../worksheets/algebra_substitution_answers.html',checkUrl:'../worksheets/algebra_substitution_exam_check.html'})}
     </div>
     <div class="sequence-section" style="margin-bottom:32px;">
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">כינוס וחוק הפילוג</div>
-      ${seqRow(3,'3. כינוס איברים דומים',{worksheetUrl:'../worksheets/algebra_combining_exam.html',answersUrl:'../worksheets/algebra_combining_answers.html',checkUrl:'../worksheets/algebra_combining_exam_check.html',sheetUrl:'../worksheets/algebra_combining_practice.html'})}
-      ${seqRow(4,'4. חוק הפילוג',{worksheetUrl:'../worksheets/algebra_distributing_exam.html',sheetUrl:'../worksheets/algebra_distributing_practice.html'})}
-      ${seqRow(5,'5. זהות בין ביטויים אלגבריים',{worksheetUrl:'../worksheets/algebra_identity_exam.html',sheetUrl:'../worksheets/algebra_identity_practice.html'})}
+      ${seqRow(3,'3. כינוס איברים דומים',{worksheetUrl:'../worksheets/algebra_combining_exam.html',answersUrl:'../worksheets/algebra_combining_answers.html',checkUrl:'../worksheets/algebra_combining_exam_check.html'})}
+      ${seqRow(4,'4. חוק הפילוג',{worksheetUrl:'../worksheets/algebra_distributing_exam.html'})}
+      ${seqRow(5,'5. זהות בין ביטויים אלגבריים',{worksheetUrl:'../worksheets/algebra_identity_exam.html'})}
     </div>
 `;
 }
@@ -1034,6 +1032,8 @@ function checkTypedSum(){
 function renderGameResults(){
   const pct=state.gameTotal>0?Math.round(state.gameScore/state.gameTotal*100):0;
   const msg=pct>=85?'מעולה! שליטה מלאה':'כמעט! כדאי לתרגל שוב';
+  const practiceUrls={0:'../worksheets/algebra_intro_practice.html',1:'../worksheets/algebra_writing_practice.html',2:'../worksheets/algebra_substitution_practice.html',3:'../worksheets/algebra_combining_practice.html',4:'../worksheets/algebra_distributing_practice.html',5:'../worksheets/algebra_identity_practice.html'};
+  const practiceUrl=practiceUrls[state.sequence];
   return `<div class="panel" style="text-align:center;">
     <h2 class="qtitle">תוצאות</h2>
     <div class="scorebig">${state.gameScore}/${state.gameTotal}</div>
@@ -1041,6 +1041,7 @@ function renderGameResults(){
     <div style="font-size:16px;opacity:.8;margin-bottom:20px;">${msg}</div>
     <div class="btnrow">
       <button class="btn" onclick="startGame()">שוב ←</button>
+      ${practiceUrl?`<button class="btn secondary" onclick="showWorksheet('${practiceUrl}')">לתרגול נוסף ←</button>`:''}
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;

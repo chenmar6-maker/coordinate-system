@@ -328,7 +328,6 @@ function seqRow(seqNum, label, opts={}){
       : '';
     const answersCard = opts.answersUrl ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.answersUrl}')" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>תשובות</h3></div>` : '';
     const checkCard = opts.checkUrl ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.checkUrl}')" style="background:rgba(99,102,241,0.12);border:1.5px solid rgba(99,102,241,0.45);color:#a5b4fc;"><h3>בדיקה עצמית</h3></div>` : '';
-    const sheetCard = opts.sheetUrl ? `<div class="flow-arrow">←</div><div class="card" onclick="showWorksheet('${opts.sheetUrl}')" style="background:rgba(245,158,11,0.12);border:1.5px solid rgba(245,158,11,0.4);color:#FCD34D;"><h3>דף עבודה</h3></div>` : '';
     const nextCard = opts.hasNext
       ? `<div class="flow-arrow">←</div><div class="card" onclick="window.location.href='../index.html'" style="background:rgba(72,176,140,0.12);border:1.5px solid rgba(72,176,140,0.35);color:var(--seafoam);"><h3>ליחידה הבאה</h3></div>`
       : '';
@@ -336,7 +335,6 @@ function seqRow(seqNum, label, opts={}){
       <div class="card learn" onclick="state.sequence=${seqNum};goTo('learn')"><h3>הקנייה</h3></div>
       <div class="flow-arrow">←</div>
       <div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>
-      ${sheetCard}
       ${quizCard ? '<div class="flow-arrow">←</div>'+quizCard : ''}
       ${checkCard}
       ${answersCard}
@@ -360,15 +358,15 @@ function renderHome(){
     </div>
     <div class="sequence-section" style="margin-bottom:32px;">
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">משוואות</div>
-      ${seqRow(1,'1. מבוא למשוואות — זיהוי פתרון',{worksheetUrl:'../worksheets/equations_intro_exam.html',answersUrl:'../worksheets/equations_intro_exam_answers.html',checkUrl:'../worksheets/equations_intro_exam_check.html',sheetUrl:'../worksheets/equations_intro_practice.html'})}
-      ${seqRow(2,'2. משוואות פשוטות — פעולה אחת',{worksheetUrl:'../worksheets/equations_simple_exam.html',sheetUrl:'../worksheets/equations_simple_practice.html'})}
-      ${seqRow(3,'3. משוואות מורכבות — כמה שלבים',{worksheetUrl:'../worksheets/equations_solving_exam.html',answersUrl:'../worksheets/equations_solving_exam_answers.html',checkUrl:'../worksheets/equations_solving_exam_check.html',sheetUrl:'../worksheets/equations_solving_practice.html'})}
-      ${seqRow(4,'4. משוואות עם פתיחת סוגריים',{worksheetUrl:'../worksheets/equations_brackets_exam.html',sheetUrl:'../worksheets/equations_brackets_practice.html'})}
-      ${seqRow(5,'5. סוגי פתרון — פתרון יחיד, אין פתרון, אינסוף',{worksheetUrl:'../worksheets/equations_solution_types_exam.html',sheetUrl:'../worksheets/equations_solution_types_practice.html'})}
-      ${seqRow(6,'6. שאלות מילוליות',{worksheetUrl:'../worksheets/equations_word_problems_exam.html',answersUrl:'../worksheets/equations_word_problems_exam_answers.html',checkUrl:'../worksheets/equations_word_problems_exam_check.html',sheetUrl:'../worksheets/equations_word_problems_practice.html'})}
+      ${seqRow(1,'1. מבוא למשוואות — זיהוי פתרון',{worksheetUrl:'../worksheets/equations_intro_exam.html',answersUrl:'../worksheets/equations_intro_exam_answers.html',checkUrl:'../worksheets/equations_intro_exam_check.html'})}
+      ${seqRow(2,'2. משוואות פשוטות — פעולה אחת',{worksheetUrl:'../worksheets/equations_simple_exam.html'})}
+      ${seqRow(3,'3. משוואות מורכבות — כמה שלבים',{worksheetUrl:'../worksheets/equations_solving_exam.html',answersUrl:'../worksheets/equations_solving_exam_answers.html',checkUrl:'../worksheets/equations_solving_exam_check.html'})}
+      ${seqRow(4,'4. משוואות עם פתיחת סוגריים',{worksheetUrl:'../worksheets/equations_brackets_exam.html'})}
+      ${seqRow(5,'5. סוגי פתרון — פתרון יחיד, אין פתרון, אינסוף',{worksheetUrl:'../worksheets/equations_solution_types_exam.html'})}
+      ${seqRow(6,'6. שאלות מילוליות',{worksheetUrl:'../worksheets/equations_word_problems_exam.html',answersUrl:'../worksheets/equations_word_problems_exam_answers.html',checkUrl:'../worksheets/equations_word_problems_exam_check.html'})}
 
       <div class="sequence-title" style="font-size:19px;color:var(--gold);margin:20px 0 8px;">קריאת תיאור גרפי של נקודות ברביע I</div>
-      ${seqRow(7,'7. קריאת תיאור גרפי של נקודות ברביע I',{worksheetUrl:'../worksheets/graphs_reading_exam.html',sheetUrl:'../worksheets/graphs_reading_practice.html'})}
+      ${seqRow(7,'7. קריאת תיאור גרפי של נקודות ברביע I',{worksheetUrl:'../worksheets/graphs_reading_exam.html'})}
 
       <div style="font-size:12px;font-weight:700;letter-spacing:1px;color:rgba(234,244,241,0.4);text-transform:uppercase;margin:14px 0 6px;">מבדק מקיף</div>
       <div onclick="showWorksheet('../worksheets/equations_master_exam.html')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-radius:12px;background:rgba(226,96,79,0.1);border:1.5px solid rgba(226,96,79,0.4);margin-bottom:4px;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
@@ -914,6 +912,8 @@ function checkTypedSum(){
 function renderGameResults(){
   const pct=state.gameTotal>0?Math.round(state.gameScore/state.gameTotal*100):0;
   const msg=pct>=85?'מעולה! שליטה מלאה':'כמעט! כדאי לתרגל שוב';
+  const practiceUrls={1:'../worksheets/equations_intro_practice.html',2:'../worksheets/equations_simple_practice.html',3:'../worksheets/equations_solving_practice.html',4:'../worksheets/equations_brackets_practice.html',5:'../worksheets/equations_solution_types_practice.html',6:'../worksheets/equations_word_problems_practice.html',7:'../worksheets/graphs_reading_practice.html'};
+  const practiceUrl=practiceUrls[state.sequence];
   return `<div class="panel" style="text-align:center;">
     <h2 class="qtitle">תוצאות</h2>
     <div class="scorebig">${state.gameScore}/${state.gameTotal}</div>
@@ -921,6 +921,7 @@ function renderGameResults(){
     <div style="font-size:16px;opacity:.8;margin-bottom:20px;">${msg}</div>
     <div class="btnrow">
       <button class="btn" onclick="startGame()">שוב ←</button>
+      ${practiceUrl?`<button class="btn secondary" onclick="showWorksheet('${practiceUrl}')">לתרגול נוסף ←</button>`:''}
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
