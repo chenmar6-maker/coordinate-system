@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תרגול — כתיבת ביטויים אלגבריים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Rubik', sans-serif; font-size: 14px; color: #1a1a2e; direction: rtl; background: #F0F2F8; min-height: 100vh; padding: 24px 16px 60px; }
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%); color: #fff; border-radius: 14px; padding: 18px 22px 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+  .part-label { font-size: 13px; font-weight: 700; color: #fff; padding: 5px 14px; border-radius: 6px; display: inline-block; margin-bottom: 10px; background: #D97706; }
+  .quiz-q { margin-bottom: 8px; padding: 10px 12px 10px 10px; background: #fff; border-radius: 8px; font-size: 13.5px; line-height: 1.65; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border-right: 4px solid #FCD34D; }
+  .qnum { font-weight: 700; margin-left: 4px; }
+  .m { direction: ltr; unicode-bidi: isolate; }
+  .sub-row { display: flex; align-items: baseline; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+  .sub-lbl { min-width: 16px; font-weight: 700; flex-shrink: 0; color: #555; }
+  .mc-opts { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 6px; }
+  .mc-opt { display: flex; align-items: center; gap: 5px; font-size: 13.5px; }
+  .mc-opt .circ { width: 14px; height: 14px; border: 1.5px solid #777; border-radius: 50%; flex-shrink: 0; }
+  .al { display: block; border-bottom: 1.5px solid #bbb; margin-top: 8px; height: 16px; }
+  .al2 { display: block; border-bottom: 1px solid #ccc; margin-top: 14px; height: 16px; }
+  .ali { display: inline-block; border-bottom: 1.5px solid #888; min-width: 60px; vertical-align: bottom; }
+  .ali-lg { display: inline-block; border-bottom: 1.5px solid #888; min-width: 130px; vertical-align: bottom; }
+  .math-row { direction: ltr; display: inline-flex; align-items: baseline; gap: 5px; }
+  .note-box { background: #fffbeb; border: 1px solid #fde68a; border-right: 3px solid #D97706; border-radius: 6px; padding: 7px 12px; font-size: 13px; margin-bottom: 10px; line-height: 1.7; }
+  .score-bar { display: flex; gap: 14px; justify-content: flex-end; flex-wrap: wrap; font-size: 13px; margin-top: 12px; background: #fff; border-radius: 8px; padding: 10px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+  .score-part { display: flex; align-items: center; gap: 6px; }
+  .score-dot { width: 10px; height: 10px; border-radius: 50%; background: #D97706; flex-shrink: 0; }
+  .score-field { border-bottom: 1.5px solid #888; min-width: 36px; display: inline-block; }
+  .brand-line { font-size: 11px; font-weight: 600; color: #888; margin-top: 8px; text-align: left; }
+  .print-btn { position: fixed; bottom: 18px; left: 18px; background: #1a1a2e; color: #fff; border: none; padding: 9px 20px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  .circle-group { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 8px; }
+  .circle-item .circ-sq { width: 56px; height: 28px; border: 1.5px solid #D97706; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; direction: ltr; }
+  @media print { body { background: #fff; padding: 10px; } .no-print { display: none; } .quiz-q { box-shadow: none; border: 1px solid #ddd; } .header { background: #222 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; } @page { margin: 12mm; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">תרגול — כתיבת ביטויים אלגבריים</div>
+    <div class="header-sub">כיתה ז׳ &nbsp;|&nbsp; אלגברה</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div style="margin-bottom:14px;">
+  <span class="part-label">שאלות תרגול</span>
+</div>
+
+<!-- Q1 -->
+<div class="quiz-q">
+  <span class="qnum">1.</span>
+  כתבו ביטוי אלגברי לפי התיאור:
+  <div class="sub-row" style="margin-top:10px;">
+    <span class="sub-lbl">א.</span>
+    <span>מספר פחות 9</span>
+    <span style="margin-right:6px;">ביטוי:</span>
+    <span class="ali"></span>
+  </div>
+  <div class="sub-row" style="margin-top:8px;">
+    <span class="sub-lbl">ב.</span>
+    <span>פי שלושה מ-<span class="m">k</span></span>
+    <span style="margin-right:6px;">ביטוי:</span>
+    <span class="ali"></span>
+  </div>
+  <div class="sub-row" style="margin-top:8px;">
+    <span class="sub-lbl">ג.</span>
+    <span>פי שניים מ-<span class="m">n</span> ועוד 4</span>
+    <span style="margin-right:6px;">ביטוי:</span>
+    <span class="ali"></span>
+  </div>
+  <div class="sub-row" style="margin-top:8px;">
+    <span class="sub-lbl">ד.</span>
+    <span>רבע מ-<span class="m">m</span></span>
+    <span style="margin-right:6px;">ביטוי:</span>
+    <span class="ali"></span>
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-q">
+  <span class="qnum">2.</span>
+  בכיתה ז׳ יש <span class="m">b</span> בנים. מספר הבנות גדול ב-3 מהבנים.
+  <div class="sub-row" style="margin-top:10px;">
+    <span class="sub-lbl">א.</span>
+    <span>כתבו ביטוי למספר הבנות:</span>
+    <span class="ali"></span>
+  </div>
+  <div class="sub-row" style="margin-top:10px;">
+    <span class="sub-lbl">ב.</span>
+    <span>כתבו ביטוי למספר כל התלמידים בכיתה:</span>
+    <span class="ali"></span>
+  </div>
+  <div style="margin-top:10px; font-size:12.5px; color:#666;">נמקו: איך הגעתם לביטוי בסעיף ב׳?</div>
+  <span class="al"></span>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-q">
+  <span class="qnum">3.</span>
+  מה מייצג הביטוי: <strong>"שניים פחות פי ארבעה מ-<span class="m">x</span>"</strong>?
+  <div class="mc-opts" style="margin-top:10px;">
+    <div class="mc-opt"><div class="circ"></div><span class="m">4x − 2</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="m">2 − 4x</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="m">4 − 2x</span></div>
+    <div class="mc-opt"><div class="circ"></div><span class="m">2x − 4</span></div>
+  </div>
+  <div style="margin-top:10px; font-size:12.5px; color:#666;">הסבירו בקצרה: מה היה מבלבל בניסוח הזה?</div>
+  <span class="al"></span>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-q">
+  <span class="qnum">4.</span>
+  מחיר חולצה הוא <span class="m">p</span> שקלים. מחיר מכנסיים כפול מחיר החולצה פחות 15 ש"ח.
+  <div class="sub-row" style="margin-top:10px;">
+    <span class="sub-lbl">א.</span>
+    <span>ביטוי למחיר המכנסיים:</span>
+    <span class="ali"></span>
+  </div>
+  <div class="sub-row" style="margin-top:10px;">
+    <span class="sub-lbl">ב.</span>
+    <span>ביטוי למחיר שניהם יחד:</span>
+    <span class="ali"></span>
+  </div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-q">
+  <span class="qnum">5.</span>
+  הקיפו את הביטוי <strong>שלא שייך</strong> לקבוצה — ונמקו:
+  <div class="circle-group" style="margin-top:10px;">
+    <div class="circle-item"><div class="circ-sq">3x</div></div>
+    <div class="circle-item"><div class="circ-sq">5x</div></div>
+    <div class="circle-item"><div class="circ-sq">2x+1</div></div>
+    <div class="circle-item"><div class="circ-sq">7x</div></div>
+  </div>
+  <div style="margin-top:12px; font-size:13px; color:#555;">נימוק:</div>
+  <span class="al"></span>
+</div>
+
+<!-- Q6 -->
+<div class="quiz-q">
+  <span class="qnum">6.</span>
+  <strong>יצירתי:</strong> כתבו שאלה מילולית (סיפור קצר) שהתשובה לה היא הביטוי <span class="m" style="font-weight:700;">2n + 1</span>.
+  <span class="al" style="margin-top:14px;"></span>
+  <span class="al"></span>
+  <span class="al"></span>
+</div>
+
+<div class="score-bar">
+  <div class="score-part"><div class="score-dot"></div>ניקוד: <span class="score-field">&nbsp;&nbsp;&nbsp;&nbsp;</span> / 6</div>
+</div>
+<div class="brand-line">חן מרגלית למידה אקטיבית</div>
+
+<!-- שאלת היכרות -->
+<div style="margin-top:22px;padding:16px 18px;background:#FFFBEB;border:1.5px solid #FCD34D;border-right:4px solid #F59E0B;border-radius:10px;font-size:13.5px;line-height:1.8;">
+  <div style="font-size:11px;font-weight:800;color:#D97706;letter-spacing:1px;margin-bottom:10px;">💬 שאלת היכרות</div>
+  <div style="background:#FEF3C7;border-radius:8px;padding:9px 13px;font-size:12.5px;font-weight:700;color:#92400E;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span>✏️</span><span>לפני שאתם עונים — כתבו את השאלה במלואה בדף!</span></div>
+  <div style="font-size:14px;font-weight:700;color:#1a1a2e;">אם היה לכם חנות — מה הייתם מוכרים? תארו משהו שהמחיר שלו תלוי בכמות — ורשמו ביטוי אלגברי קצר שמחשב את העלות הכוללת.</div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:16px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+  <div style="border-bottom:1px solid #FCD34D;margin-top:22px;"></div>
+</div>
+
+</div><!-- end page-wrap -->
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ הדפסה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:62px;right:18px;background:#374151;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">← חזרה</button>
+<button class="no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}" style="position:fixed;bottom:18px;right:18px;background:#D97706;color:#fff;border:none;padding:9px 20px;border-radius:20px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.2);">סיימתי ✓</button>
+
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
