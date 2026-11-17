@@ -159,7 +159,7 @@ const gameLevels2 = [
     options:['x = 2.5','x = 3','x = 10','x = 2'],
     correct:'x = 2.5',
     explain:'מחלקים ב-2: x = 5 ÷ 2 = 2.5' },
-  { id:'typedSum', title:'חלוקה בשלילי', expr:'−2x = 10',
+  { id:'typedSum', title:'פתרו את המשוואה', expr:'−2x = 10',
     correct:-5, explain:'מחלקים ב-(−2): x = 10 ÷ (−2) = −5' },
 ];
 
@@ -888,7 +888,8 @@ function renderTypedSum(lvl){
     ? `<div style="font-size:12px;color:rgba(234,244,241,0.5);margin-bottom:6px;text-align:center;">נתון הביטוי:</div>
        <div style="text-align:center;font-size:26px;font-weight:700;direction:ltr;unicode-bidi:isolate;margin-bottom:12px;">${lvl.expr}</div>
        <div style="text-align:center;font-size:16px;color:var(--gold);margin-bottom:4px;">הציבו: ${lvl.sub}</div>`
-    : `<div style="text-align:center;font-size:22px;font-weight:700;direction:ltr;unicode-bidi:isolate;">${lvl.expr} = ?</div>`;
+    : `<div style="text-align:center;font-size:22px;font-weight:700;direction:ltr;unicode-bidi:isolate;margin-bottom:12px;">${lvl.expr}</div>
+       <div style="text-align:center;font-size:15px;color:rgba(234,244,241,0.5);">מהו x?</div>`;
   return `
     <h2 class="qtitle">${lvl.title}</h2>
     <div style="margin:14px 0;">${exprBlock}</div>
@@ -912,8 +913,8 @@ function checkTypedSum(){
 function renderGameResults(){
   const pct=state.gameTotal>0?Math.round(state.gameScore/state.gameTotal*100):0;
   const msg=pct>=85?'מעולה! שליטה מלאה':'כמעט! כדאי לתרגל שוב';
-  const practiceUrls={1:'../worksheets/equations_intro_practice.html',2:'../worksheets/equations_simple_practice.html',3:'../worksheets/equations_solving_practice.html',4:'../worksheets/equations_brackets_practice.html',5:'../worksheets/equations_solution_types_practice.html',6:'../worksheets/equations_word_problems_practice.html',7:'../worksheets/graphs_reading_practice.html'};
-  const practiceUrl=practiceUrls[state.sequence];
+  const examUrls={1:'../worksheets/equations_intro_exam.html',2:'../worksheets/equations_simple_exam.html',3:'../worksheets/equations_solving_exam.html',4:'../worksheets/equations_brackets_exam.html',5:'../worksheets/equations_solution_types_exam.html',6:'../worksheets/equations_word_problems_exam.html',7:'../worksheets/graphs_reading_exam.html'};
+  const examUrl=examUrls[state.sequence];
   return `<div class="panel" style="text-align:center;">
     <h2 class="qtitle">תוצאות</h2>
     <div class="scorebig">${state.gameScore}/${state.gameTotal}</div>
@@ -921,7 +922,7 @@ function renderGameResults(){
     <div style="font-size:16px;opacity:.8;margin-bottom:20px;">${msg}</div>
     <div class="btnrow">
       <button class="btn" onclick="startGame()">שוב ←</button>
-      ${practiceUrl?`<button class="btn secondary" onclick="showWorksheet('${practiceUrl}')">לתרגול נוסף ←</button>`:''}
+      ${examUrl?`<button class="btn secondary" onclick="showWorksheet('${examUrl}')">למבדק השליטה ←</button>`:''}
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;

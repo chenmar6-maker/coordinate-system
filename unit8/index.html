@@ -1032,8 +1032,8 @@ function checkTypedSum(){
 function renderGameResults(){
   const pct=state.gameTotal>0?Math.round(state.gameScore/state.gameTotal*100):0;
   const msg=pct>=85?'מעולה! שליטה מלאה':'כמעט! כדאי לתרגל שוב';
-  const practiceUrls={0:'../worksheets/algebra_intro_practice.html',1:'../worksheets/algebra_writing_practice.html',2:'../worksheets/algebra_substitution_practice.html',3:'../worksheets/algebra_combining_practice.html',4:'../worksheets/algebra_distributing_practice.html',5:'../worksheets/algebra_identity_practice.html'};
-  const practiceUrl=practiceUrls[state.sequence];
+  const examUrls={0:'../worksheets/algebra_intro_exam.html',1:'../worksheets/algebra_writing_exam.html',2:'../worksheets/algebra_substitution_exam.html',3:'../worksheets/algebra_combining_exam.html',4:'../worksheets/algebra_distributing_exam.html',5:'../worksheets/algebra_identity_exam.html'};
+  const examUrl=examUrls[state.sequence];
   return `<div class="panel" style="text-align:center;">
     <h2 class="qtitle">תוצאות</h2>
     <div class="scorebig">${state.gameScore}/${state.gameTotal}</div>
@@ -1041,7 +1041,7 @@ function renderGameResults(){
     <div style="font-size:16px;opacity:.8;margin-bottom:20px;">${msg}</div>
     <div class="btnrow">
       <button class="btn" onclick="startGame()">שוב ←</button>
-      ${practiceUrl?`<button class="btn secondary" onclick="showWorksheet('${practiceUrl}')">לתרגול נוסף ←</button>`:''}
+      ${examUrl?`<button class="btn secondary" onclick="showWorksheet('${examUrl}')">למבדק השליטה ←</button>`:''}
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
