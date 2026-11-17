@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מבדק ביטויים אלגבריים — רמה מתקדמת</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet"><style>
+@page { size: A4; margin: 14mm 15mm 16mm 15mm; }
+* { box-sizing: border-box; }
+html, body { background: #fff; color: #000; }
+body { font-family: 'Heebo','DejaVu Sans',sans-serif; font-size: 10.5pt; line-height: 1.55; margin: 0; }
+p, li, div, td, h1, h2, h3 { text-align: right; }
+.m { display: inline-block; direction: ltr; unicode-bidi: isolate; font-family: 'Liberation Serif','Times New Roman',serif; font-size: 1.12em; white-space: nowrap; }
+.m i { font-style: italic; }
+h1 { font-size: 19pt; font-weight: 800; text-align: center; margin: 0 0 8px; }
+table.head { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+table.head td { border: 1px solid #000; padding: 4px 8px; font-size: 10pt; }
+table.head b { font-weight: 700; }
+.ul { display: inline-block; border-bottom: 1px solid #000; min-width: 28mm; height: 1em; vertical-align: bottom; }
+.ul.w { min-width: 70mm; }
+.instr { border-top: 1.5px solid #000; padding-top: 4px; margin-bottom: 6px; }
+.instr h3 { font-size: 11pt; margin: 0 0 2px; }
+.instr ul { margin: 0; padding-right: 20px; }
+.q { border-top: 1px solid #999; padding-top: 7px; margin-top: 10px; break-inside: avoid; page-break-inside: avoid; }
+.q h2 { font-size: 12pt; font-weight: 800; margin: 0 0 3px; }
+.q p { margin: 2px 0; }
+.row { display: flex; gap: 12px; align-items: flex-start; }
+.row .txt { flex: 1; }
+.fig { flex: 0 0 62mm; border: 1px solid #bbb; border-radius: 6px; padding: 6px; text-align: center; }
+.fig svg { width: 100%; height: auto; display: block; }
+ul.sec { list-style: none; margin: 4px 0 0; padding: 0; }
+ul.sec > li { position: relative; padding-right: 14px; margin: 3px 0 2px; }
+ul.sec > li::before { content: "•"; position: absolute; right: 0; top: 0; }
+.ans { margin: 4px 0 2px; }
+.ans .lbl { margin-left: 6px; }
+.line { border-bottom: 1px solid #aaa; height: 7.5mm; }
+.pair { display: flex; gap: 14px; margin: 4px 0; }
+.pair > div { flex: 1; }
+.opts { margin: 4px 0 2px; }
+.opt { display: flex; align-items: center; gap: 8px; border: 1px solid #888; border-radius: 4px; padding: 2px 8px; margin: 3px 0; width: 78%; }
+.opt .c { width: 11px; height: 11px; border: 1px solid #000; border-radius: 50%; flex: 0 0 11px; }
+.opt .n { font-weight: 500; }
+.chk { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 5px 0; }
+.chk span.box { display: inline-block; width: 11px; height: 11px; border: 1px solid #000; margin-left: 6px; vertical-align: middle; }
+.given { font-weight: 500; }
+table.t { border-collapse: collapse; margin: 6px 0; }
+table.t td { border: 1px solid #000; width: 17mm; height: 8mm; text-align: center; padding: 0 4px; }
+table.t td.h { font-weight: 700; background: #f2f2f2; width: 22mm; }
+.star { display: inline-block; border: 1.5px solid #000; border-radius: 4px; padding: 0 8px; font-weight: 800; font-size: 9.5pt; margin-bottom: 3px; background: #f2f2f2; }
+table.score { width: 100%; border-collapse: collapse; margin-top: 14px; break-inside: avoid; }
+table.score td { border: 1.5px solid #000; padding: 6px 8px; font-size: 10pt; }
+table.score td .ul { min-width: 14mm; }
+.key .a { font-weight: 500; }
+.key .note { color: #333; font-size: 9.5pt; }
+
+.fr { display: inline-flex; flex-direction: column; vertical-align: middle; line-height: 1.2; margin: 0 2px; }
+.fr > span { display: block; text-align: center; padding: 0 3px; }
+.fr > span + span { border-top: 1px solid #000; }
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; width: 90%; }
+.opt { width: auto; }
+.fig.wide { flex: 0 0 72mm; }
+.sq { display: inline-block; width: 16px; height: 16px; border: 1px solid #000; vertical-align: middle; margin: 0 3px; }
+
+.signs { font-size: 1.05em; }
+</style></head>
+<body dir="rtl"><h1>מבדק שליטה מסכם — ביטויים אלגבריים</h1>
+<table class="head">
+<tr><td><b>נושא:</b> ביטויים אלגבריים — כיתה ז׳</td><td><b>כיתה:</b> ז׳</td><td><b>רמה:</b> מתקדמת</td></tr>
+<tr><td colspan="2"><b>שם התלמיד/ה:</b> <span class="ul w"></span></td><td><b>תאריך:</b> <span class="ul"></span></td></tr>
+</table><div class="instr"><h3>הנחיות</h3><ul>
+<li>בשאלות חישוב — יש לכתוב את דרך הפתרון ולא רק את התשובה.</li>
+<li>בשאלות הסבר — ענו במשפט שלם.</li>
+<li>בשאלות רב-ברירה — הקיפו את התשובה הנכונה.</li>
+</ul></div><div class="q"><h2>שאלה 1</h2>
+<p>רשמו ביטוי אלגברי לפי כל תיאור:</p>
+<ul class="sec"><li>(א) פי 2 ממספר שגדול ב-5 מ-<span class="m" dir="ltr"><i>x</i></span>: <span class="ul"></span></li></ul>
+<ul class="sec"><li>(ב) הסכום של שלושה מספרים עוקבים, כשהקטן מביניהם הוא <span class="m" dir="ltr"><i>n</i></span>. פשטו: <span class="ul w"></span></li></ul>
+<ul class="sec"><li>(ג) היום דנה מבוגרת פי 2 מאחיה, שגילו <span class="m" dir="ltr"><i>a</i></span>. מה יהיה גילה של דנה בעוד 5 שנים? <span class="ul"></span></li></ul>
+<ul class="sec"><li>(ד) כתבו סיפור קצר מהחיים שהביטוי <span class="m" dir="ltr">3<i>x</i> + 10</span> מתאר.</li></ul>
+<div class="line"></div><div class="line"></div>
+</div><div class="q"><h2>שאלה 2</h2>
+<p>מהו ערך הביטוי <span class="m" dir="ltr">−<i>x</i>² + 2<i>x</i></span> עבור <span class="m" dir="ltr"><i>x</i> = −3</span>?</p>
+<div class="opts"><div class="opt"><span class="c"></span><span class="n">①</span><span><span class="m" dir="ltr">−15</span></span></div><div class="opt"><span class="c"></span><span class="n">②</span><span><span class="m" dir="ltr">3</span></span></div><div class="opt"><span class="c"></span><span class="n">③</span><span><span class="m" dir="ltr">15</span></span></div><div class="opt"><span class="c"></span><span class="n">④</span><span><span class="m" dir="ltr">−3</span></span></div></div>
+</div><div class="q"><h2>שאלה 3</h2>
+<ul class="sec"><li>(א) חשבו את ערך הביטוי <span class="m" dir="ltr"><span class="fr"><span><i>a</i>² − <i>b</i></span><span>2</span></span></span> עבור <span class="m" dir="ltr"><i>a</i> = −4</span> ו-<span class="m" dir="ltr"><i>b</i> = 6</span>.</li></ul>
+<div class="line"></div>
+<ul class="sec"><li>(ב) ידוע כי <span class="m" dir="ltr"><i>a</i> − <i>b</i> = 4</span>. מהו ערך הביטוי <span class="m" dir="ltr">3(<i>a</i> − <i>b</i>) + 2<i>a</i> − 2<i>b</i></span>? הסבירו.</li></ul>
+<div class="line"></div><div class="line"></div>
+<ul class="sec"><li>(ג) נתון הביטוי <span class="m" dir="ltr"><span class="fr"><span>10</span><span><i>x</i> + 1</span></span></span>. מה קורה כשמציבים <span class="m" dir="ltr"><i>x</i> = −1</span>? הסבירו.</li></ul>
+<div class="line"></div>
+</div><div class="q"><h2>שאלה 4</h2>
+<ul class="sec"><li>(א) פשטו:</li></ul>
+<div class="pair"><div><span class="m" dir="ltr">½<i>x</i> + 3 + ¼<i>x</i> − 1 = <span class="ul"></span></span></div><div><span class="m" dir="ltr">5<i>a</i> − 2<i>b</i> − 3<i>a</i> + 7<i>b</i> + <i>a</i> = <span class="ul"></span></span></div></div>
+<ul class="sec"><li>(ב) הציבו <span class="m" dir="ltr"><i>a</i> = −2</span> ו-<span class="m" dir="ltr"><i>b</i> = 3</span> בביטוי השני שקיבלתם בסעיף (א) וחשבו. <span class="ul"></span></li></ul>
+<ul class="sec"><li>(ג) השלימו בכל משבצת סימן <b>+</b> או <b>−</b> כך שהשוויון יהיה נכון:</li></ul>
+<p class="signs" style="padding-right:14px"><span class="m" dir="ltr">7<i>x</i> <span class="sq"></span> 9 <span class="sq"></span> 2<i>x</i> <span class="sq"></span> 5 = 9<i>x</i> − 14</span></p>
+</div><div class="q"><h2>שאלה 5</h2>
+<div class="row"><div class="txt">
+<p>במגדל ביטויים, בכל לבנה כותבים את הסכום של שתי הלבנים שמתחתיה.</p>
+<ul class="sec"><li>(א) השלימו את המגדל ופשטו כל ביטוי.</li></ul>
+<ul class="sec"><li>(ב) מה יהיה כתוב בראש המגדל כאשר <span class="m" dir="ltr"><i>a</i> = −1</span>? <span class="ul"></span></li></ul>
+<ul class="sec"><li>(ג) אם בלבנה הימנית התחתונה יהיה כתוב <span class="m" dir="ltr"><i>a</i> + 6</span> במקום <span class="m" dir="ltr"><i>a</i> − 4</span>, בכמה ישתנה הביטוי בראש המגדל? נמקו.</li></ul>
+<div class="line"></div><div class="line"></div>
+</div><div class="fig"><svg viewBox="0 0 230 125" xmlns="http://www.w3.org/2000/svg" direction="ltr">
+<rect x="7" y="85" width="72" height="34" fill="#fff" stroke="#000" stroke-width="1.5"/><text x="43.0" y="107.0" text-anchor="middle" font-family="Liberation Serif,serif" font-size="14">2<tspan font-style="italic">a</tspan></text><rect x="79" y="85" width="72" height="34" fill="#fff" stroke="#000" stroke-width="1.5"/><text x="115.0" y="107.0" text-anchor="middle" font-family="Liberation Serif,serif" font-size="14">3<tspan font-style="italic">a</tspan> + 1</text><rect x="151" y="85" width="72" height="34" fill="#fff" stroke="#000" stroke-width="1.5"/><text x="187.0" y="107.0" text-anchor="middle" font-family="Liberation Serif,serif" font-size="14"><tspan font-style="italic">a</tspan> − 4</text>
+<rect x="43" y="51" width="72" height="34" fill="#fff" stroke="#000" stroke-width="1.5"/><rect x="115" y="51" width="72" height="34" fill="#fff" stroke="#000" stroke-width="1.5"/><rect x="79" y="17" width="72" height="34" fill="#fff" stroke="#000" stroke-width="1.5"/>
+</svg></div></div>
+</div><div class="q"><h2>שאלה 6</h2>
+<p>פתחו סוגריים ופשטו. כתבו את הדרך.</p>
+<div class="pair"><div>(א) <span class="m" dir="ltr">3(2<i>x</i> − 1) − 2(<i>x</i> + 4)</span></div><div>(ב) <span class="m" dir="ltr">5(<i>a</i> + 2) − 3(<i>a</i> − 4)</span></div></div>
+<div class="line"></div><div class="line"></div>
+<div class="pair"><div>(ג) <span class="m" dir="ltr">−4(2 − <i>y</i>) + 3<i>y</i></span></div><div>(ד) <span class="m" dir="ltr"><i>a</i> − (2<i>a</i> − (3<i>a</i> + 1))</span></div></div>
+<div class="line"></div><div class="line"></div>
+</div><div class="q"><h2>שאלה 7</h2>
+<p>איזה ביטוי שווה ל-<span class="m" dir="ltr">−(3 − 2<i>x</i>) + 4(<i>x</i> − 1)</span>?</p>
+<div class="opts"><div class="opt"><span class="c"></span><span class="n">①</span><span><span class="m" dir="ltr">6<i>x</i> − 7</span></span></div><div class="opt"><span class="c"></span><span class="n">②</span><span><span class="m" dir="ltr">2<i>x</i> − 7</span></span></div><div class="opt"><span class="c"></span><span class="n">③</span><span><span class="m" dir="ltr">6<i>x</i> + 1</span></span></div><div class="opt"><span class="c"></span><span class="n">④</span><span><span class="m" dir="ltr">−2<i>x</i> − 1</span></span></div></div>
+</div><div class="q"><h2>שאלה 8</h2>
+<ul class="sec"><li>(א) נתונים הביטויים <span class="m" dir="ltr">5<i>x</i> − (9 − <i>x</i>)</span> ו-<span class="m" dir="ltr">7<i>x</i> − (<i>x</i> + 9)</span>. האם הם שווים לכל ערך של <span class="m" dir="ltr"><i>x</i></span>? הראו.</li></ul>
+<div class="line"></div><div class="line"></div>
+<ul class="sec"><li>(ב) מצאו את הביטוי החסר כך שהשוויון יהיה זהות:</li></ul>
+<div class="pair"><div><span class="m" dir="ltr">3( ______ ) = 6<i>x</i> + 9</span></div><div><span class="m" dir="ltr">____ (<i>x</i> − 4) = 5<i>x</i> − 20</span></div><div><span class="m" dir="ltr">−( ______ ) = −<i>x</i> + 6</span></div></div>
+<ul class="sec"><li>(ג) נועם טוען: <span class="m" dir="ltr">3(<i>x</i> − 2) + <i>x</i> = 4<i>x</i> − 2</span>. האם הוא צודק? בדקו בשתי דרכים — בהצבה ובפישוט.</li></ul>
+<div class="line"></div><div class="line"></div>
+</div><div class="q"><h2>שאלה 9</h2>
+<p>אורכי הצלעות של מלבן הם <span class="m" dir="ltr">2<i>x</i> + 3</span> ו-<span class="m" dir="ltr"><i>x</i> − 1</span>. מהו היקף המלבן?</p>
+<div class="opts"><div class="opt"><span class="c"></span><span class="n">①</span><span><span class="m" dir="ltr">6<i>x</i> + 4</span></span></div><div class="opt"><span class="c"></span><span class="n">②</span><span><span class="m" dir="ltr">3<i>x</i> + 2</span></span></div><div class="opt"><span class="c"></span><span class="n">③</span><span><span class="m" dir="ltr">6<i>x</i> + 2</span></span></div><div class="opt"><span class="c"></span><span class="n">④</span><span><span class="m" dir="ltr">4<i>x</i> + 4</span></span></div></div>
+</div><div class="q"><h2>שאלה 10</h2>
+<div class="row"><div class="txt">
+<p>במסגרת ריבועית של נקודות יש בכל צלע <span class="m" dir="ltr"><i>n</i></span> נקודות (כולל שתי נקודות הפינה).</p>
+<p>דנה כתבה למספר הנקודות במסגרת את הביטוי <span class="m" dir="ltr">4(<i>n</i> − 1)</span>, ורון כתב <span class="m" dir="ltr">2<i>n</i> + 2(<i>n</i> − 2)</span>.</p>
+<ul class="sec"><li>(א) כמה נקודות יש במסגרת שבשרטוט? <span class="ul"></span></li></ul>
+<ul class="sec"><li>(ב) פשטו את שני הביטויים. האם דנה ורון צודקים שניהם? נמקו.</li></ul>
+<div class="line"></div><div class="line"></div>
+<ul class="sec"><li>(ג) הסבירו על פי השרטוט איך ״ראה״ רון את המסגרת.</li></ul>
+<div class="line"></div>
+<ul class="sec"><li>(ד) כמה נקודות יש במסגרת שבה <span class="m" dir="ltr"><i>n</i> = 20</span>? <span class="ul"></span></li></ul>
+<ul class="sec"><li>(ה) האם יכולה להיות מסגרת כזו שבה בדיוק 50 נקודות? נמקו.</li></ul>
+<div class="line"></div><div class="line"></div>
+</div><div class="fig"><svg viewBox="0 0 260 205" xmlns="http://www.w3.org/2000/svg" font-family="Liberation Serif,serif" font-size="15">
+<rect x="40" y="25" width="140" height="140" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="3 4"/>
+<circle cx="40" cy="25" r="4.5" fill="#000"/><circle cx="40" cy="60" r="4.5" fill="#000"/><circle cx="40" cy="95" r="4.5" fill="#000"/><circle cx="40" cy="130" r="4.5" fill="#000"/><circle cx="40" cy="165" r="4.5" fill="#000"/><circle cx="75" cy="25" r="4.5" fill="#000"/><circle cx="75" cy="165" r="4.5" fill="#000"/><circle cx="110" cy="25" r="4.5" fill="#000"/><circle cx="110" cy="165" r="4.5" fill="#000"/><circle cx="145" cy="25" r="4.5" fill="#000"/><circle cx="145" cy="165" r="4.5" fill="#000"/><circle cx="180" cy="25" r="4.5" fill="#000"/><circle cx="180" cy="60" r="4.5" fill="#000"/><circle cx="180" cy="95" r="4.5" fill="#000"/><circle cx="180" cy="130" r="4.5" fill="#000"/><circle cx="180" cy="165" r="4.5" fill="#000"/>
+<line x1="205" y1="25" x2="205" y2="165" stroke="#000"/><line x1="200" y1="25" x2="210" y2="25" stroke="#000"/><line x1="200" y1="165" x2="210" y2="165" stroke="#000"/>
+<text x="228" y="100" text-anchor="middle"><tspan font-style="italic">n</tspan> = 5</text>
+<text x="110" y="195" text-anchor="middle" font-family="Heebo,sans-serif" font-size="11.5">מסגרת שבה בכל צלע 5 נקודות</text>
+</svg></div></div>
+</div><table class="score"><tr><td>שאלה 1: <span class="ul"></span></td><td>שאלה 2: <span class="ul"></span></td><td>שאלה 3: <span class="ul"></span></td><td>שאלה 4: <span class="ul"></span></td><td>שאלה 5: <span class="ul"></span></td></tr><tr><td>שאלה 6: <span class="ul"></span></td><td>שאלה 7: <span class="ul"></span></td><td>שאלה 8: <span class="ul"></span></td><td>שאלה 9: <span class="ul"></span></td><td>שאלה 10: <span class="ul"></span></td></tr><tr><td colspan="5"><b>סה״כ:</b> <span class="ul"></span></td></tr></table></body></html>

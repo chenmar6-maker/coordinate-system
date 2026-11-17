@@ -456,27 +456,56 @@
           </div>
           <div class="unit-arrow" style="color:#8B5CF6;">←</div>
         </a>
-        <div style="border:1.5px solid rgba(139,92,246,0.25);border-radius:9px;overflow:hidden;">
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 12px 5px;background:rgba(139,92,246,0.08);">
-            <span style="font-size:12px;font-weight:700;color:#A78BFA;">מבדק שליטה מסכם — ביטויים + כינוס וחוק הפילוג</span>
-            <span style="font-size:11px;font-weight:600;background:rgba(139,92,246,0.18);border:1px solid rgba(139,92,246,0.35);border-radius:20px;padding:2px 9px;color:#C4B5FD;white-space:nowrap;">עד 24.2.2027</span>
-          </div>
-          <div style="font-size:10.5px;font-weight:400;color:rgba(167,139,250,0.55);padding:3px 12px 5px;background:rgba(139,92,246,0.05);">משותף לשתי היחידות</div>
-          <div style="display:flex;border-top:1px solid rgba(139,92,246,0.18);">
-            <a href="./worksheets/algebra_summary_practice.html" target="_blank"
-              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 10px;font-size:12px;font-weight:700;color:#A78BFA;text-decoration:none;background:rgba(139,92,246,0.05);transition:background .15s;border-left:1px solid rgba(139,92,246,0.18);"
-              onmouseover="this.style.background='rgba(139,92,246,0.14)'" onmouseout="this.style.background='rgba(139,92,246,0.05)'">
-              <span style="font-size:15px;">📖</span>תרגול
-            </a>
-            <div onclick="openExamModal('algebra_summary')"
-              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 10px;font-size:12px;font-weight:700;color:#A78BFA;cursor:pointer;background:rgba(139,92,246,0.05);transition:background .15s;"
-              onmouseover="this.style.background='rgba(139,92,246,0.14)'" onmouseout="this.style.background='rgba(139,92,246,0.05)'">
-              <span style="font-size:15px;">🔒</span>מבדק שליטה
+        <!-- מבדק שליטה מסכם — ביטויים -->
+        <div style="margin-top:10px;">
+          <button onclick="toggleAlgExams()" id="alg-exams-btn"
+            style="width:100%;display:flex;align-items:center;justify-content:space-between;background:rgba(139,92,246,0.08);border:1.5px solid rgba(139,92,246,0.22);border-radius:10px;padding:11px 16px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:700;color:#8B5CF6;cursor:pointer;transition:background .15s;"
+            onmouseover="this.style.background='rgba(139,92,246,0.13)'" onmouseout="this.style.background='rgba(139,92,246,0.08)'">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span>מבדק שליטה מסכם — ביטויים</span>
+              <span style="font-size:12px;font-weight:600;background:rgba(139,92,246,0.18);border:1px solid rgba(139,92,246,0.35);border-radius:20px;padding:2px 10px;color:#C4B5FD;white-space:nowrap;">עד 24.2.2027</span>
+            </div>
+            <span id="alg-exams-chevron" style="font-size:12px;color:#A78BFA;transition:transform .25s;">▼</span>
+          </button>
+          <div id="alg-exams-panel" style="display:none;margin-top:8px;flex-direction:column;gap:6px;opacity:0;transition:opacity .25s;">
+            <div style="display:flex;gap:6px;align-items:stretch;">
+              <div onclick="openExamModal('algebra_basic')"
+                style="flex:1;display:flex;align-items:center;justify-content:space-between;background:#2D1D6E;border:none;border-radius:10px;padding:12px 16px;cursor:pointer;color:#fff;transition:opacity .15s;"
+                onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <span style="font-size:21px;">📝</span>
+                  <div>
+                    <div style="font-size:14px;font-weight:700;">רמה בסיסית</div>
+                    <div style="font-size:12px;opacity:.7;margin-top:2px;">נדרש קוד</div>
+                  </div>
+                </div>
+                <span style="font-size:18px;opacity:.6;">🔒</span>
+              </div>
+              <div onclick="openExamModal('algebra_basic_ans')"
+                style="display:flex;align-items:center;justify-content:center;background:#065F46;border-radius:10px;padding:10px 13px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s;"
+                onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">תשובות<br>🔒</div>
+            </div>
+            <div style="display:flex;gap:6px;align-items:stretch;">
+              <div onclick="openExamModal('algebra_advanced')"
+                style="flex:1;display:flex;align-items:center;justify-content:space-between;background:#2D1D6E;border:none;border-radius:10px;padding:12px 16px;cursor:pointer;color:#fff;transition:opacity .15s;"
+                onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <span style="font-size:21px;">📝</span>
+                  <div>
+                    <div style="font-size:14px;font-weight:700;">רמה מתקדמת</div>
+                    <div style="font-size:12px;opacity:.7;margin-top:2px;">נדרש קוד</div>
+                  </div>
+                </div>
+                <span style="font-size:18px;opacity:.6;">🔒</span>
+              </div>
+              <div onclick="openExamModal('algebra_advanced_ans')"
+                style="display:flex;align-items:center;justify-content:center;background:#065F46;border-radius:10px;padding:10px 13px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s;"
+                onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">תשובות<br>🔒</div>
             </div>
           </div>
         </div>
 
-        <div style="height:1px;background:rgba(139,92,246,0.18);margin:6px 0;"></div>
+        <div style="height:1px;background:rgba(139,92,246,0.18);margin:10px 0;"></div>
 
         <a class="unit-card" href="./unit5/" style="border-right:3px solid #8B5CF6;">
           <div class="unit-left">
@@ -491,9 +520,54 @@
           </div>
           <div class="unit-arrow" style="color:#8B5CF6;">←</div>
         </a>
-        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(139,92,246,0.08);border:1.5px solid rgba(139,92,246,0.25);border-radius:9px;padding:9px 14px;font-size:13px;font-weight:700;color:#A78BFA;">
-          <div>מבדק שליטה מסכם — משוואות ונקודות על גרף</div>
-          <span style="font-size:11px;font-weight:600;background:rgba(139,92,246,0.18);border:1px solid rgba(139,92,246,0.35);border-radius:20px;padding:2px 9px;color:#C4B5FD;white-space:nowrap;">עד 11.5.2027</span>
+
+        <!-- מבדק שליטה מסכם — משוואות -->
+        <div style="margin-top:4px;">
+          <button onclick="toggleEqExams()" id="eq-exams-btn"
+            style="width:100%;display:flex;align-items:center;justify-content:space-between;background:rgba(139,92,246,0.08);border:1.5px solid rgba(139,92,246,0.22);border-radius:10px;padding:11px 16px;font-family:'Rubik',sans-serif;font-size:14px;font-weight:700;color:#8B5CF6;cursor:pointer;transition:background .15s;"
+            onmouseover="this.style.background='rgba(139,92,246,0.13)'" onmouseout="this.style.background='rgba(139,92,246,0.08)'">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span>מבדק שליטה מסכם — משוואות</span>
+              <span style="font-size:12px;font-weight:600;background:rgba(139,92,246,0.18);border:1px solid rgba(139,92,246,0.35);border-radius:20px;padding:2px 10px;color:#C4B5FD;white-space:nowrap;">עד 11.5.2027</span>
+            </div>
+            <span id="eq-exams-chevron" style="font-size:12px;color:#A78BFA;transition:transform .25s;">▼</span>
+          </button>
+          <div id="eq-exams-panel" style="display:none;margin-top:8px;flex-direction:column;gap:6px;opacity:0;transition:opacity .25s;">
+            <div style="display:flex;gap:6px;align-items:stretch;">
+              <div onclick="openExamModal('equations_basic')"
+                style="flex:1;display:flex;align-items:center;justify-content:space-between;background:#2D1D6E;border:none;border-radius:10px;padding:12px 16px;cursor:pointer;color:#fff;transition:opacity .15s;"
+                onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <span style="font-size:21px;">📝</span>
+                  <div>
+                    <div style="font-size:14px;font-weight:700;">רמה בסיסית</div>
+                    <div style="font-size:12px;opacity:.7;margin-top:2px;">נדרש קוד</div>
+                  </div>
+                </div>
+                <span style="font-size:18px;opacity:.6;">🔒</span>
+              </div>
+              <div onclick="openExamModal('equations_basic_ans')"
+                style="display:flex;align-items:center;justify-content:center;background:#065F46;border-radius:10px;padding:10px 13px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s;"
+                onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">תשובות<br>🔒</div>
+            </div>
+            <div style="display:flex;gap:6px;align-items:stretch;">
+              <div onclick="openExamModal('equations_advanced')"
+                style="flex:1;display:flex;align-items:center;justify-content:space-between;background:#2D1D6E;border:none;border-radius:10px;padding:12px 16px;cursor:pointer;color:#fff;transition:opacity .15s;"
+                onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <span style="font-size:21px;">📝</span>
+                  <div>
+                    <div style="font-size:14px;font-weight:700;">רמה מתקדמת</div>
+                    <div style="font-size:12px;opacity:.7;margin-top:2px;">נדרש קוד</div>
+                  </div>
+                </div>
+                <span style="font-size:18px;opacity:.6;">🔒</span>
+              </div>
+              <div onclick="openExamModal('equations_advanced_ans')"
+                style="display:flex;align-items:center;justify-content:center;background:#065F46;border-radius:10px;padding:10px 13px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s;"
+                onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">תשובות<br>🔒</div>
+            </div>
+          </div>
         </div>
       </div>
       </div>
@@ -663,13 +737,51 @@ const EXAM_URLS = {
   advanced:        './worksheets/numbers_exam_advanced.pdf',
   angles_summary:         './worksheets/angles_summary_exam.html',
   angles_summary_answers: './worksheets/angles_summary_exam_answers.html',
-  algebra_summary:        './worksheets/algebra_summary_exam.html'
+  algebra_summary:        './worksheets/algebra_summary_exam.html',
+  algebra_basic:          './worksheets/algebra_summary_basic.html',
+  algebra_advanced:       './worksheets/algebra_summary_advanced.html',
+  algebra_basic_ans:      './worksheets/algebra_summary_basic_answers.html',
+  algebra_advanced_ans:   './worksheets/algebra_summary_advanced_answers.html',
+  equations_basic:        './worksheets/equations_summary_basic.html',
+  equations_advanced:     './worksheets/equations_summary_advanced.html',
+  equations_basic_ans:    './worksheets/equations_summary_basic_answers.html',
+  equations_advanced_ans: './worksheets/equations_summary_advanced_answers.html'
 };
 let _examTarget = null;
 
 function toggleNumExams() {
   const panel = document.getElementById('num-exams-panel');
   const chevron = document.getElementById('num-exams-chevron');
+  const isHidden = panel.style.display === 'none';
+  if (isHidden) {
+    panel.style.display = 'flex';
+    requestAnimationFrame(() => { panel.style.opacity = '1'; });
+    chevron.style.transform = 'rotate(180deg)';
+  } else {
+    panel.style.opacity = '0';
+    chevron.style.transform = 'rotate(0deg)';
+    setTimeout(() => { panel.style.display = 'none'; }, 250);
+  }
+}
+
+function toggleAlgExams() {
+  const panel = document.getElementById('alg-exams-panel');
+  const chevron = document.getElementById('alg-exams-chevron');
+  const isHidden = panel.style.display === 'none';
+  if (isHidden) {
+    panel.style.display = 'flex';
+    requestAnimationFrame(() => { panel.style.opacity = '1'; });
+    chevron.style.transform = 'rotate(180deg)';
+  } else {
+    panel.style.opacity = '0';
+    chevron.style.transform = 'rotate(0deg)';
+    setTimeout(() => { panel.style.display = 'none'; }, 250);
+  }
+}
+
+function toggleEqExams() {
+  const panel = document.getElementById('eq-exams-panel');
+  const chevron = document.getElementById('eq-exams-chevron');
   const isHidden = panel.style.display === 'none';
   if (isHidden) {
     panel.style.display = 'flex';
@@ -704,7 +816,7 @@ function toggleDomain(id) {
 
 function openExamModal(type) {
   _examTarget = type;
-  const titles = { basic: 'מבדק שליטה מסכם — רמה בסיסית', advanced: 'מבדק שליטה מסכם — רמה מתקדמת', angles_summary: 'מבדק שליטה מסכם — זוויות', angles_summary_answers: 'תשובות — מבדק שליטה מסכם זוויות', algebra_summary: 'מבדק שליטה מסכם — ביטויים, כינוס וחוק הפילוג' };
+  const titles = { basic: 'מבדק שליטה מסכם — רמה בסיסית', advanced: 'מבדק שליטה מסכם — רמה מתקדמת', angles_summary: 'מבדק שליטה מסכם — זוויות', angles_summary_answers: 'תשובות — מבדק שליטה מסכם זוויות', algebra_summary: 'מבדק שליטה מסכם — ביטויים, כינוס וחוק הפילוג', algebra_basic: 'מבדק שליטה מסכם — ביטויים · רמה בסיסית', algebra_advanced: 'מבדק שליטה מסכם — ביטויים · רמה מתקדמת', algebra_basic_ans: 'תשובות — ביטויים · רמה בסיסית', algebra_advanced_ans: 'תשובות — ביטויים · רמה מתקדמת', equations_basic: 'מבדק שליטה מסכם — משוואות · רמה בסיסית', equations_advanced: 'מבדק שליטה מסכם — משוואות · רמה מתקדמת', equations_basic_ans: 'תשובות — משוואות · רמה בסיסית', equations_advanced_ans: 'תשובות — משוואות · רמה מתקדמת' };
   document.getElementById('exam-modal-title').textContent = titles[type] || 'מבדק שליטה מסכם';
   document.getElementById('exam-modal-code').value = '';
   document.getElementById('exam-modal-err').textContent = '';

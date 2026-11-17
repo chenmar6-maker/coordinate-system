@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>פתרון — משוואות — רמה מתקדמת</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet"><style>
+@page { size: A4; margin: 14mm 15mm 16mm 15mm; }
+* { box-sizing: border-box; }
+html, body { background: #fff; color: #000; }
+body { font-family: 'Heebo','DejaVu Sans',sans-serif; font-size: 10.5pt; line-height: 1.55; margin: 0; }
+p, li, div, td, h1, h2, h3 { text-align: right; }
+.m { display: inline-block; direction: ltr; unicode-bidi: isolate; font-family: 'Liberation Serif','Times New Roman',serif; font-size: 1.12em; white-space: nowrap; }
+.m i { font-style: italic; }
+h1 { font-size: 19pt; font-weight: 800; text-align: center; margin: 0 0 8px; }
+table.head { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+table.head td { border: 1px solid #000; padding: 4px 8px; font-size: 10pt; }
+table.head b { font-weight: 700; }
+.ul { display: inline-block; border-bottom: 1px solid #000; min-width: 28mm; height: 1em; vertical-align: bottom; }
+.ul.w { min-width: 70mm; }
+.instr { border-top: 1.5px solid #000; padding-top: 4px; margin-bottom: 6px; }
+.instr h3 { font-size: 11pt; margin: 0 0 2px; }
+.instr ul { margin: 0; padding-right: 20px; }
+.q { border-top: 1px solid #999; padding-top: 7px; margin-top: 10px; break-inside: avoid; page-break-inside: avoid; }
+.q h2 { font-size: 12pt; font-weight: 800; margin: 0 0 3px; }
+.q p { margin: 2px 0; }
+.row { display: flex; gap: 12px; align-items: flex-start; }
+.row .txt { flex: 1; }
+.fig { flex: 0 0 62mm; border: 1px solid #bbb; border-radius: 6px; padding: 6px; text-align: center; }
+.fig svg { width: 100%; height: auto; display: block; }
+ul.sec { list-style: none; margin: 4px 0 0; padding: 0; }
+ul.sec > li { position: relative; padding-right: 14px; margin: 3px 0 2px; }
+ul.sec > li::before { content: "•"; position: absolute; right: 0; top: 0; }
+.ans { margin: 4px 0 2px; }
+.ans .lbl { margin-left: 6px; }
+.line { border-bottom: 1px solid #aaa; height: 7.5mm; }
+.pair { display: flex; gap: 14px; margin: 4px 0; }
+.pair > div { flex: 1; }
+.opts { margin: 4px 0 2px; }
+.opt { display: flex; align-items: center; gap: 8px; border: 1px solid #888; border-radius: 4px; padding: 2px 8px; margin: 3px 0; width: 78%; }
+.opt .c { width: 11px; height: 11px; border: 1px solid #000; border-radius: 50%; flex: 0 0 11px; }
+.opt .n { font-weight: 500; }
+.chk { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 5px 0; }
+.chk span.box { display: inline-block; width: 11px; height: 11px; border: 1px solid #000; margin-left: 6px; vertical-align: middle; }
+.given { font-weight: 500; }
+table.t { border-collapse: collapse; margin: 6px 0; }
+table.t td { border: 1px solid #000; width: 17mm; height: 8mm; text-align: center; padding: 0 4px; }
+table.t td.h { font-weight: 700; background: #f2f2f2; width: 22mm; }
+.star { display: inline-block; border: 1.5px solid #000; border-radius: 4px; padding: 0 8px; font-weight: 800; font-size: 9.5pt; margin-bottom: 3px; background: #f2f2f2; }
+table.score { width: 100%; border-collapse: collapse; margin-top: 14px; break-inside: avoid; }
+table.score td { border: 1.5px solid #000; padding: 6px 8px; font-size: 10pt; }
+table.score td .ul { min-width: 14mm; }
+.key .a { font-weight: 500; }
+.key .note { color: #333; font-size: 9.5pt; }
+
+.fr { display: inline-flex; flex-direction: column; vertical-align: middle; line-height: 1.2; margin: 0 2px; }
+.fr > span { display: block; text-align: center; padding: 0 3px; }
+.fr > span + span { border-top: 1px solid #000; }
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; width: 90%; }
+.opt { width: auto; }
+.fig.wide { flex: 0 0 72mm; }
+.sq { display: inline-block; width: 16px; height: 16px; border: 1px solid #000; vertical-align: middle; margin: 0 3px; }
+
+table.t td { width: 14mm; }
+</style></head>
+<body dir="rtl"><h1>פתרון — מבדק שליטה מסכם — משוואות</h1><p style="text-align:center;margin-top:0">רמה מתקדמת · למורה בלבד</p><div class="q"><h2>שאלה 1</h2><ul class="sec"><li>תשובה ③ — אגף שמאל: <span class="m" dir="ltr">3<i>x</i> − 6 + 5 = 3<i>x</i> − 1</span>, זהה לאגף ימין</li></ul></div><div class="q"><h2>שאלה 2</h2><ul class="sec"><li>(א) <span class="m" dir="ltr">2<i>x</i> + 8 = 2<i>x</i> + 6</span> ← <span class="m" dir="ltr">8 = 6</span>: אין פתרון</li><li>(ב) <span class="m" dir="ltr">5<i>x</i> − <i>x</i> + 3 = 4<i>x</i> + 3</span> ← <span class="m" dir="ltr">4<i>x</i> + 3 = 4<i>x</i> + 3</span>: כל מספר הוא פתרון</li><li>(ג) <span class="m" dir="ltr">4<i>x</i> − 4 = 3<i>x</i> − 1</span> ← <span class="m" dir="ltr"><i>x</i> = 3</span>: פתרון יחיד</li></ul></div><div class="q"><h2>שאלה 3</h2><ul class="sec"><li>(א) <span class="m" dir="ltr">−<i>x</i> − 6 − 6 + 4<i>x</i> = 9</span> ← <span class="m" dir="ltr">3<i>x</i> − 12 = 9</span> ← <span class="m" dir="ltr"><i>x</i> = 7</span></li><li>(ב) שמאל: <span class="m" dir="ltr">6<i>x</i> − 3 − 2<i>x</i> + 8 = 4<i>x</i> + 5</span>; ימין: <span class="m" dir="ltr">−<i>x</i> + 15 + <i>x</i> = 15</span> ← <span class="m" dir="ltr">4<i>x</i> = 10</span> ← <span class="m" dir="ltr"><i>x</i> = 2.5</span></li><li>(ג) כופלים ב-6: <span class="m" dir="ltr">2<i>x</i> + 3<i>x</i> = 60</span> ← <span class="m" dir="ltr"><i>x</i> = 12</span></li><li>(ד) כופלים ב-4: <span class="m" dir="ltr"><i>x</i> + 1 = 2(<i>x</i> − 3) = 2<i>x</i> − 6</span> ← <span class="m" dir="ltr"><i>x</i> = 7</span></li></ul></div><div class="q"><h2>שאלה 4</h2><ul class="sec"><li>תשובה ① — מציבים 2: <span class="m" dir="ltr">2<i>a</i> − <i>b</i> = 0</span>, ולכן <span class="m" dir="ltr"><i>b</i> = 2<i>a</i></span></li></ul></div><div class="q"><h2>שאלה 5</h2><ul class="sec"><li>(א) <span class="m" dir="ltr">4 + <i>k</i> = 2 − 6 = −4</span> ← <span class="m" dir="ltr"><i>k</i> = −8</span></li><li>(ב) <span class="m" dir="ltr">−20 + <i>k</i> = −10 − 6 = −16</span> ← <span class="m" dir="ltr"><i>k</i> = 4</span></li><li>(ג) לא. אחרי העברת אגפים <span class="m" dir="ltr">2<i>x</i> = −6 − <i>k</i></span>, כלומר <span class="m" dir="ltr"><i>x</i> = (−6 − <i>k</i>) : 2</span> — לכל <span class="m" dir="ltr"><i>k</i></span> יש פתרון יחיד, כי המקדמים של <span class="m" dir="ltr"><i>x</i></span> בשני האגפים שונים (4 ו-2).</li></ul></div><div class="q"><h2>שאלה 6</h2><ul class="sec"><li>תשובה ① — <span class="m" dir="ltr">(<i>k</i> − 2) · (−3) = 12</span> ← <span class="m" dir="ltr"><i>k</i> − 2 = −4</span> ← <span class="m" dir="ltr"><i>k</i> = −2</span></li></ul></div><div class="q"><h2>שאלה 7</h2><ul class="sec"><li>(א) <span class="m" dir="ltr">41 + <i>x</i> = 3(11 + <i>x</i>)</span> ← <span class="m" dir="ltr">41 + <i>x</i> = 33 + 3<i>x</i></span> ← <span class="m" dir="ltr">8 = 2<i>x</i></span> ← <span class="m" dir="ltr"><i>x</i> = 4</span>. בדיקה: <span class="m" dir="ltr">45 = 3 · 15</span> ✓</li><li>(ב) <span class="m" dir="ltr">41 − <i>x</i> = 4(11 − <i>x</i>)</span> ← <span class="m" dir="ltr">41 − <i>x</i> = 44 − 4<i>x</i></span> ← <span class="m" dir="ltr">3<i>x</i> = 3</span> ← <span class="m" dir="ltr"><i>x</i> = 1</span>: לפני שנה (<span class="m" dir="ltr">40 = 4 · 10</span> ✓)</li></ul></div><div class="q"><h2>שאלה 8</h2><ul class="sec"><li>(א) <span class="m" dir="ltr">2(2<i>x</i> + 3) + <i>x</i> + 6 = 42</span> ← <span class="m" dir="ltr">5<i>x</i> + 12 = 42</span> ← <span class="m" dir="ltr"><i>x</i> = 6</span>: שוקיים 15 ס״מ, בסיס 12 ס״מ</li><li>(ב) <span class="m" dir="ltr">2<i>x</i> + 3 = <i>x</i> + 6</span> ← <span class="m" dir="ltr"><i>x</i> = 3</span>: כל הצלעות 9 ס״מ, היקף 27 ס״מ</li></ul></div><div class="q"><h2>שאלה 9</h2><ul class="sec"><li>תשובה ① — <span class="m" dir="ltr">2(<i>x</i> + 3<i>x</i>) = 56</span> ← <span class="m" dir="ltr">8<i>x</i> = 56</span> ← <span class="m" dir="ltr"><i>x</i> = 7</span></li></ul></div><div class="q"><h2>שאלה 10</h2><ul class="sec"><li>(א) כש-<span class="m" dir="ltr"><i>x</i></span> גדל ב-4, <span class="m" dir="ltr"><i>y</i></span> גדל ב-12, ולכן <span class="m" dir="ltr"><i>a</i> = 12 : 4 = 3</span>. מציבים <span class="m" dir="ltr">(3, 4)</span>: <span class="m" dir="ltr">4 = 9 + <i>b</i></span> ← <span class="m" dir="ltr"><i>b</i> = −5</span></li><li>(ב) <span class="m" dir="ltr">3<i>x</i> − 5 = 55</span> ← <span class="m" dir="ltr">3<i>x</i> = 60</span> ← <span class="m" dir="ltr"><i>x</i> = 20</span></li><li>(ג) עבור <span class="m" dir="ltr"><i>x</i> = 4</span> נרשם 8; הערך הנכון <span class="m" dir="ltr">3 · 4 − 5 = 7</span></li><li>(ד) <span class="m" dir="ltr">(0, −5)</span></li></ul></div></body></html>
