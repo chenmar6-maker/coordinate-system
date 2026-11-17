@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>חטיף שוקולד מורעל</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f1e8;
+    --card: #ffffff;
+    --ink: #2a1f1a;
+    --muted: #7a6a60;
+    --line: #e6dccf;
+    --choc: #7b4a2d;
+    --choc-dark: #5a331d;
+    --choc-light: #9a6440;
+    --eat: #f2c14e;
+    --poison: #3f9b47;
+    --poison-dark: #2b6e31;
+    --p1: #2563eb;
+    --p1-soft: #dbe7ff;
+    --p2: #d9480f;
+    --p2-soft: #ffe3d2;
+    --hint: #ffd43b;
+    --shadow: 0 2px 0 rgba(0,0,0,.06), 0 8px 24px rgba(42,31,26,.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17130f;
+      --card: #221c17;
+      --ink: #f3ece4;
+      --muted: #b3a497;
+      --line: #3a3029;
+      --choc: #8a5634;
+      --choc-dark: #613920;
+      --choc-light: #a8714a;
+      --p1: #6c9bff;
+      --p1-soft: #1f2d4d;
+      --p2: #ff8a4c;
+      --p2-soft: #4a2a1a;
+      --shadow: 0 2px 0 rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17130f;
+    --card: #221c17;
+    --ink: #f3ece4;
+    --muted: #b3a497;
+    --line: #3a3029;
+    --choc: #8a5634;
+    --choc-dark: #613920;
+    --choc-light: #a8714a;
+    --p1: #6c9bff;
+    --p1-soft: #1f2d4d;
+    --p2: #ff8a4c;
+    --p2-soft: #4a2a1a;
+    --shadow: 0 2px 0 rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Rubik", system-ui, sans-serif;
+    direction: rtl;
+    text-align: right;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { text-align: center; margin-bottom: 18px; }
+  h1 {
+    font-size: clamp(2rem, 8vw, 3.2rem);
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -1px;
+  }
+  h1 .tag {
+    display: inline-block;
+    background: var(--poison);
+    color: #fff;
+    border-radius: 14px;
+    padding: 0 12px;
+    transform: rotate(-3deg);
+  }
+  .tagline { color: var(--muted); margin: 6px 0 0; text-align: center; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .card p { margin: 0 0 8px; text-align: right; }
+  .card ul { margin: 0; padding-right: 20px; padding-left: 0; }
+  .card li { margin-bottom: 4px; text-align: right; }
+
+  .controls {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+  }
+  .row-label { font-size: .9rem; color: var(--muted); text-align: center; }
+  .seg {
+    display: inline-flex; flex-wrap: wrap; justify-content: center;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px; gap: 4px;
+  }
+  .seg button {
+    border: 0; background: transparent; color: var(--ink);
+    font: inherit; font-weight: 500;
+    padding: 7px 13px; border-radius: 999px; cursor: pointer;
+  }
+  .seg button.on { background: var(--ink); color: var(--bg); }
+  .seg .size { direction: ltr; unicode-bidi: isolate; }
+
+  .score {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px;
+    margin-bottom: 12px;
+  }
+  .player {
+    border-radius: 16px; padding: 12px 14px;
+    border: 2px solid transparent;
+    background: var(--card); box-shadow: var(--shadow);
+    transition: border-color .2s, transform .2s;
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  }
+  .player.p1 { --c: var(--p1); --soft: var(--p1-soft); }
+  .player.p2 { --c: var(--p2); --soft: var(--p2-soft); }
+  .player.active { border-color: var(--c); transform: translateY(-2px); }
+  .player .name { font-weight: 700; color: var(--c); }
+  .player .pts {
+    background: var(--soft); color: var(--c);
+    border-radius: 999px; padding: 0 10px; font-weight: 800; min-width: 2em; text-align: center;
+  }
+  .moves {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    color: var(--muted); font-size: .85rem; text-align: center;
+  }
+  .moves b { font-size: 1.2rem; color: var(--ink); }
+
+  .status {
+    text-align: center; font-size: 1.15rem; font-weight: 700;
+    min-height: 2.2em; margin: 6px 0 12px;
+  }
+
+  .board-wrap { display: flex; justify-content: center; margin-bottom: 18px; }
+  .board {
+    direction: ltr;
+    display: grid;
+    gap: 4px;
+    padding: 10px;
+    border-radius: 16px;
+    background: var(--card);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--line);
+    touch-action: manipulation;
+  }
+  .sq {
+    width: var(--s); height: var(--s);
+    border-radius: 7px;
+    border: 0;
+    padding: 0;
+    background: var(--choc);
+    box-shadow: inset 0 -4px 0 var(--choc-dark), inset 0 3px 0 var(--choc-light);
+    cursor: pointer;
+    position: relative;
+    transition: transform .25s, opacity .3s, background .15s;
+    font: inherit;
+    color: #fff;
+  }
+  .sq.poison {
+    background: var(--poison);
+    box-shadow: inset 0 -4px 0 var(--poison-dark), inset 0 3px 0 rgba(255,255,255,.25);
+    font-size: calc(var(--s) * .5);
+    line-height: 1;
+  }
+  .sq.eaten {
+    opacity: 0;
+    transform: scale(.4);
+    pointer-events: none;
+  }
+  .sq.preview { background: var(--eat); box-shadow: inset 0 -4px 0 #c99a2e; }
+  .sq.poison.preview { background: #e03131; box-shadow: inset 0 -4px 0 #a51d1d; }
+  .sq.hint::after {
+    content: "";
+    position: absolute; inset: 28%;
+    border-radius: 50%;
+    background: var(--hint);
+    box-shadow: 0 0 0 3px rgba(0,0,0,.25);
+  }
+  .sq:disabled { cursor: default; }
+
+  .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px; }
+  .btn {
+    font: inherit; font-weight: 700;
+    border-radius: 14px; padding: 11px 18px;
+    border: 2px solid var(--ink);
+    background: var(--ink); color: var(--bg); cursor: pointer;
+  }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn.on { background: var(--hint); border-color: var(--hint); color: #2a1f1a; }
+
+  .secret h2 { margin: 0 0 10px; font-size: 1.3rem; text-align: right; }
+  .secret h3 { margin: 14px 0 6px; font-size: 1.05rem; text-align: right; }
+  .hidden { display: none; }
+  .note { color: var(--muted); font-size: .92rem; text-align: center; margin: -6px 0 16px; }
+
+  @media (max-width: 480px) {
+    .score { grid-template-columns: 1fr 1fr; }
+    .moves { grid-column: 1 / -1; flex-direction: row; gap: 6px; order: 3; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap" dir="rtl">
+
+  <header>
+    <h1>חטיף שוקולד <span class="tag">מורעל</span></h1>
+    <p class="tagline">משחק לשניים — מי יאכל את המשבצת הירוקה?</p>
+  </header>
+
+  <section class="card">
+    <p><b>איך משחקים?</b></p>
+    <ul>
+      <li>המשבצת הירוקה בפינה השמאלית העליונה מורעלת.</li>
+      <li>כל שחקן בתורו בוחר משבצת, ואוכל אותה ואת כל המשבצות שמימינה ומתחתיה.</li>
+      <li>מי שנשארת לו רק המשבצת המורעלת, וחייב לאכול אותה — מפסיד.</li>
+    </ul>
+  </section>
+
+  <div class="controls">
+    <div class="row-label">מי משחק?</div>
+    <div class="seg" id="modeSeg">
+      <button data-mode="pvp" class="on">שני שחקנים</button>
+      <button data-mode="easy">נגד המחשב: קל</button>
+      <button data-mode="hard">נגד המחשב: קשה</button>
+    </div>
+    <div class="row-label">גודל החטיף (שורות × עמודות)</div>
+    <div class="seg" id="sizeSeg"></div>
+  </div>
+
+  <div class="score">
+    <div class="player p1" id="pl1"><span class="name" id="name1">הכחול</span><span class="pts" id="pts1">0</span></div>
+    <div class="moves">משבצות שנשארו<b id="left">0</b></div>
+    <div class="player p2" id="pl2"><span class="name" id="name2">הכתום</span><span class="pts" id="pts2">0</span></div>
+  </div>
+
+  <div class="status" id="status" aria-live="polite"></div>
+
+  <div class="board-wrap"><div class="board" id="board"></div></div>
+  <p class="note">מעבר עם העכבר על משבצת מראה בצהוב מה ייאכל.</p>
+
+  <div class="actions">
+    <button class="btn" id="newGame">משחק חדש</button>
+    <button class="btn ghost" id="undoBtn">ביטול מהלך</button>
+    <button class="btn ghost" id="hintBtn">הצגת מהלכים מנצחים</button>
+    <button class="btn ghost" id="secretBtn">רוצים לגלות סוד?</button>
+  </div>
+
+  <section class="card secret hidden" id="secret">
+    <h2>הסודות של החטיף המורעל</h2>
+
+    <h3>סוד ראשון: חטיף ריבועי</h3>
+    <p>כשהחטיף הוא ריבוע, השחקן הראשון יכול תמיד לנצח. במהלך הראשון הוא אוכל את המשבצת שנמצאת באלכסון, צמוד למשבצת המורעלת. נשארת צורת L — שורה אחת ועמודה אחת באותו אורך.</p>
+    <p>מעכשיו הוא רק מחקה: כל מה שהיריב אוכל מהשורה, הוא אוכל אותו דבר מהעמודה, ולהפך. בסוף, היריב הוא זה שיישאר עם המשבצת הירוקה.</p>
+
+    <h3>סוד שני: חטיף של שתי שורות</h3>
+    <p>גם כאן השחקן הראשון יכול לנצח: במהלך הראשון הוא אוכל רק את המשבצת בפינה הימנית התחתונה. מעכשיו הוא דואג שבסוף כל תור שלו, השורה העליונה תהיה ארוכה בדיוק במשבצת אחת מהתחתונה.</p>
+
+    <h3>סוד שלישי: כל מלבן</h3>
+    <p>בכל חטיף מלבני (גדול ממשבצת אחת), השחקן הראשון יכול לנצח. איך יודעים? נניח שהיה לשחקן השני ניצחון בטוח. השחקן הראשון אוכל רק את המשבצת בפינה הימנית התחתונה, ועכשיו לשחקן השני יש תשובה מנצחת כלשהי. אבל כל תשובה כזאת אוכלת גם את הפינה הזאת — כך שהשחקן הראשון יכול היה לעשות אותה בעצמו כבר במהלך הראשון, ולנצח! זו סתירה, ולכן לשחקן השני אין ניצחון בטוח.</p>
+    <p>הטיעון הזה נקרא "גניבת אסטרטגיה". הוא מוכיח שיש לשחקן הראשון דרך לנצח, אבל לא מגלה מהי. לרוב המלבנים, עד היום אף אחד לא מצא כלל פשוט למהלך המנצח.</p>
+
+    <h3>לחשוב</h3>
+    <ul>
+      <li>בחטיף בגודל 2 × 2, מה המהלך המנצח? ובחטיף בגודל 3 × 3?</li>
+      <li>בחטיף של שורה אחת, מה המהלך המנצח?</li>
+      <li>הפעילו את "הצגת מהלכים מנצחים" בחטיף בגודל 3 × 5. האם יש יותר ממהלך פתיחה מנצח אחד?</li>
+    </ul>
+  </section>
+
+</div>
+
+<script>
+  const SIZES = [[2,2],[3,3],[4,4],[5,5],[2,6],[3,5],[4,6],[5,7],[6,8]];
+  let R = 4, C = 4;
+  let rows = [];
+  let history = [];
+  let current = 1, starter = 1;
+  let over = false, thinking = false;
+  let mode = "pvp";
+  let showHints = false;
+  let loser = 0;
+  let score = {1: 0, 2: 0};
+  const memo = new Map();
+
+  const $ = id => document.getElementById(id);
+  const boardEl = $("board");
+
+  SIZES.forEach(([r, c], i) => {
+    const b = document.createElement("button");
+    b.innerHTML = "<span class='size'>" + r + " × " + c + "</span>";
+    b.dataset.i = i;
+    if (r === R && c === C) b.classList.add("on");
+    b.addEventListener("click", () => {
+      if (thinking) return;
+      document.querySelectorAll("#sizeSeg button").forEach(x => x.classList.remove("on"));
+      b.classList.add("on");
+      [R, C] = SIZES[i];
+      buildBoard();
+      newGame();
+    });
+    $("sizeSeg").appendChild(b);
+  });
+
+  function key(r) { return r.join(","); }
+
+  function applyMove(r, i, j) {
+    const n = r.slice();
+    for (let k = i; k < n.length; k++) n[k] = Math.min(n[k], j);
+    return n;
+  }
+
+  function nonPoisonMoves(r) {
+    const m = [];
+    for (let i = 0; i < r.length; i++)
+      for (let j = 0; j < r[i]; j++)
+        if (i || j) m.push([i, j]);
+    return m;
+  }
+
+  function isWin(r) {
+    const k = key(r);
+    if (memo.has(k)) return memo.get(k);
+    let w = false;
+    for (const [i, j] of nonPoisonMoves(r)) {
+      if (!isWin(applyMove(r, i, j))) { w = true; break; }
+    }
+    memo.set(k, w);
+    return w;
+  }
+
+  function winningMoves(r) {
+    return nonPoisonMoves(r).filter(([i, j]) => !isWin(applyMove(r, i, j)));
+  }
+
+  function computerMove() {
+    const all = nonPoisonMoves(rows);
+    if (!all.length) return [0, 0];
+    const good = winningMoves(rows);
+    if (mode === "hard" || (mode === "easy" && Math.random() < 0.35)) {
+      if (good.length) return good[Math.floor(Math.random() * good.length)];
+    }
+    const small = all.filter(([i, j]) => {
+      let eaten = 0;
+      for (let k = i; k < rows.length; k++) eaten += Math.max(0, rows[k] - j);
+      return eaten <= 3;
+    });
+    const pool = mode === "hard" ? all : (small.length ? small : all);
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  function buildBoard() {
+    boardEl.innerHTML = "";
+    const avail = Math.min(window.innerWidth - 64, 520);
+    const s = Math.max(30, Math.min(62, Math.floor((avail - (C - 1) * 4) / C)));
+    boardEl.style.setProperty("--s", s + "px");
+    boardEl.style.gridTemplateColumns = "repeat(" + C + ", " + s + "px)";
+    for (let i = 0; i < R; i++) for (let j = 0; j < C; j++) {
+      const b = document.createElement("button");
+      b.className = "sq" + (i === 0 && j === 0 ? " poison" : "");
+      if (i === 0 && j === 0) b.textContent = "☠";
+      b.dataset.i = i; b.dataset.j = j;
+      b.setAttribute("aria-label", "שורה " + (i + 1) + ", עמודה " + (j + 1));
+      b.addEventListener("mouseenter", () => preview(i, j));
+      b.addEventListener("mouseleave", clearPreview);
+      b.addEventListener("click", () => humanMove(i, j));
+      boardEl.appendChild(b);
+    }
+  }
+
+  function canHumanAct() {
+    return !over && !thinking && !(mode !== "pvp" && current === 2);
+  }
+
+  function preview(i, j) {
+    if (!canHumanAct() || j >= rows[i]) return;
+    boardEl.querySelectorAll(".sq").forEach(b => {
+      const a = +b.dataset.i, c = +b.dataset.j;
+      b.classList.toggle("preview", a >= i && c >= j && c < rows[a]);
+    });
+  }
+  function clearPreview() {
+    boardEl.querySelectorAll(".sq.preview").forEach(b => b.classList.remove("preview"));
+  }
+
+  function humanMove(i, j) {
+    if (!canHumanAct() || j >= rows[i]) return;
+    play(i, j);
+  }
+
+  function play(i, j) {
+    clearPreview();
+    history.push({rows: rows.slice(), current});
+    if (i === 0 && j === 0) {
+      rows = rows.map(() => 0);
+      over = true; loser = current;
+      score[current === 1 ? 2 : 1]++;
+      render();
+      return;
+    }
+    rows = applyMove(rows, i, j);
+    current = current === 1 ? 2 : 1;
+    render();
+    maybeComputer();
+  }
+
+  function maybeComputer() {
+    if (!over && mode !== "pvp" && current === 2) {
+      thinking = true; render();
+      setTimeout(() => {
+        thinking = false;
+        const [i, j] = computerMove();
+        play(i, j);
+      }, 750);
+    }
+  }
+
+  function names() {
+    return mode === "pvp" ? {1: "הכחול", 2: "הכתום"} : {1: "את/ה", 2: "המחשב"};
+  }
+
+  function render() {
+    const nm = names();
+    $("name1").textContent = nm[1];
+    $("name2").textContent = nm[2];
+    $("pts1").textContent = score[1];
+    $("pts2").textContent = score[2];
+    $("left").textContent = rows.reduce((a, b) => a + b, 0);
+
+    const hintSet = new Set();
+    if (showHints && !over && !thinking) winningMoves(rows).forEach(([i, j]) => hintSet.add(i + "," + j));
+
+    boardEl.querySelectorAll(".sq").forEach(b => {
+      const i = +b.dataset.i, j = +b.dataset.j;
+      const gone = j >= rows[i];
+      b.classList.toggle("eaten", gone);
+      b.classList.toggle("hint", hintSet.has(i + "," + j));
+      b.disabled = gone || !canHumanAct();
+    });
+
+    [1, 2].forEach(p => $("pl" + p).classList.toggle("active", !over && current === p));
+
+    const st = $("status");
+    const onlyPoison = !over && rows[0] === 1 && rows.slice(1).every(x => x === 0);
+    if (over) {
+      const winner = loser === 1 ? 2 : 1;
+      if (mode === "pvp") st.textContent = nm[loser] + " אכל את הרעל… " + nm[winner] + " ניצח!";
+      else st.textContent = winner === 1 ? "ניצחת! המחשב נאלץ לאכול את הרעל." : "אכלת את הרעל… המחשב ניצח.";
+    } else if (thinking) {
+      st.textContent = "המחשב חושב…";
+    } else if (onlyPoison) {
+      st.textContent = mode !== "pvp" && current === 1
+        ? "נשארה רק המשבצת המורעלת… לחצו עליה."
+        : "נשארה רק המשבצת המורעלת… " + nm[current] + " חייב לאכול אותה.";
+    } else if (showHints) {
+      const n = winningMoves(rows).length;
+      st.textContent = (mode !== "pvp" && current === 1 ? "התור שלך" : "התור של " + nm[current]) +
+        (n ? " — יש כאן מהלכים מנצחים (מסומנים)" : " — אין כאן מהלך מנצח, היריב יכול לנצח");
+    } else {
+      st.textContent = mode !== "pvp" && current === 1 ? "התור שלך — בחר/י משבצת" : "התור של " + nm[current];
+    }
+    st.style.color = over ? "var(--ink)" : (current === 1 ? "var(--p1)" : "var(--p2)");
+    $("undoBtn").disabled = !history.length || thinking;
+    $("undoBtn").style.opacity = $("undoBtn").disabled ? .45 : 1;
+  }
+
+  function newGame() {
+    rows = Array(R).fill(C);
+    history = [];
+    over = false; thinking = false; loser = 0;
+    current = starter;
+    starter = starter === 1 ? 2 : 1;
+    render();
+    maybeComputer();
+  }
+
+  function undo() {
+    if (thinking || !history.length) return;
+    let h = history.pop();
+    if (mode !== "pvp" && h.current === 2 && history.length) h = history.pop();
+    if (over) { score[loser === 1 ? 2 : 1]--; over = false; loser = 0; }
+    rows = h.rows; current = h.current;
+    render();
+    maybeComputer();
+  }
+
+  $("newGame").addEventListener("click", newGame);
+  $("undoBtn").addEventListener("click", undo);
+  $("hintBtn").addEventListener("click", () => {
+    showHints = !showHints;
+    $("hintBtn").classList.toggle("on", showHints);
+    $("hintBtn").textContent = showHints ? "הסתרת מהלכים מנצחים" : "הצגת מהלכים מנצחים";
+    render();
+  });
+  $("secretBtn").addEventListener("click", () => {
+    const s = $("secret");
+    const hidden = s.classList.toggle("hidden");
+    $("secretBtn").textContent = hidden ? "רוצים לגלות סוד?" : "להסתיר את הסוד";
+    if (!hidden) s.scrollIntoView({behavior: "smooth", block: "start"});
+  });
+  document.querySelectorAll("#modeSeg button").forEach(b => {
+    b.addEventListener("click", () => {
+      if (thinking) return;
+      document.querySelectorAll("#modeSeg button").forEach(x => x.classList.remove("on"));
+      b.classList.add("on");
+      mode = b.dataset.mode;
+      score = {1: 0, 2: 0};
+      starter = 1;
+      newGame();
+    });
+  });
+  let rt;
+  window.addEventListener("resize", () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => { buildBoard(); render(); }, 150);
+  });
+
+  buildBoard();
+  newGame();
+</script>
+</body>
+</html>
