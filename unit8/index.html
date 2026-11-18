@@ -503,6 +503,9 @@ function currentGameLevels(){
   if(state.sequence===8) return gameLevels8;
   if(state.sequence===9) return gameLevels9;
   if(state.sequence===10) return gameLevels10;
+  if(state.sequence===11) return gameLevels11;
+  if(state.sequence===12) return gameLevels12;
+  if(state.sequence===13) return gameLevels13;
   return gameLevels1;
 }
 
@@ -600,6 +603,15 @@ function renderHome(){
       ${seqRow(8,'8. משוואות מורכבות — כמה שלבים',{worksheetUrl:'../worksheets/equations_solving_exam.html',answersUrl:'../worksheets/equations_solving_exam_answers.html',checkUrl:'../worksheets/equations_solving_exam_check.html'})}
       ${seqRow(9,'9. משוואות עם פתיחת סוגריים',{worksheetUrl:'../worksheets/equations_brackets_exam.html'})}
       ${seqRow(10,'10. סוגי פתרון — יחיד, אין פתרון, אינסוף',{worksheetUrl:'../worksheets/equations_solution_types_exam.html'})}
+      ${seqRow(11,'11. שאלות מילוליות',{})}
+    </div>
+    <div class="sequence-section" style="margin-bottom:32px;">
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">נקודות על גרף</div>
+      ${seqRow(12,'12. קריאת תיאור גרפי של נקודות ברביע I',{})}
+    </div>
+    <div class="sequence-section" style="margin-bottom:32px;">
+      <div class="sequence-title" style="font-size:19px;color:var(--gold);margin-bottom:8px;">מבדק מקיף</div>
+      ${seqRow(13,'13. מבדק מקיף — כל נושא המשוואות',{})}
     </div>
 `;
 }
@@ -618,6 +630,9 @@ function renderLearn(){
   if(state.sequence===8) return renderLearn8();
   if(state.sequence===9) return renderLearn9();
   if(state.sequence===10) return renderLearn10();
+  if(state.sequence===11) return renderLearn11();
+  if(state.sequence===12) return renderLearn12();
+  if(state.sequence===13) return renderLearn13();
   return renderLearn1();
 }
 
@@ -1851,6 +1866,66 @@ function renderLearn10(){
 
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=10;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+/* — seq 11: שאלות מילוליות — */
+const gameLevels11 = [
+  { id:'mc', title:'שאלה מילולית',
+    question:'גיל עמית גדול פי 3 מגיל דן, ובנוסף עמית מבוגר ב-4 שנים. אם גיל דן הוא <span class="m">d</span> — מה גיל עמית?',
+    options:['3d + 4','3(d + 4)','d + 4','4d + 3'],
+    correct:'3d + 4',
+    explain:'פי 3 מגיל דן = 3d. ובנוסף 4 = +4. ביחד: 3d+4.' },
+];
+
+/* — seq 12: נקודות על גרף — */
+const gameLevels12 = [
+  { id:'mc', title:'קריאת נקודה',
+    question:'נקודה A נמצאת 3 יחידות ימינה ו-5 יחידות למעלה מהמרכז. מה הצמד?',
+    options:['(3,5)','(5,3)','(−3,5)','(3,−5)'],
+    correct:'(3,5)',
+    explain:'x=3 (ימינה), y=5 (למעלה). הצמד הסדור הוא (x,y) = (3,5).' },
+];
+
+/* — seq 13: מבדק מקיף — */
+const gameLevels13 = [
+  { id:'mc', title:'מבדק — הצבה',
+    question:'מה ערך הביטוי <span class="m">3x − 1</span> כאשר <span class="m">x = 4</span>?',
+    options:['11','12','13','10'],
+    correct:'11',
+    explain:'3·4−1 = 12−1 = 11.' },
+];
+
+function renderLearn11(){
+  return `<div class="panel">
+    <h2 class="qtitle">שאלות מילוליות</h2>
+    <p style="font-size:15px;line-height:1.75;margin-bottom:14px;">תוכן בקרוב.</p>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=11;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn12(){
+  return `<div class="panel">
+    <h2 class="qtitle">קריאת תיאור גרפי של נקודות ברביע I</h2>
+    <p style="font-size:15px;line-height:1.75;margin-bottom:14px;">תוכן בקרוב.</p>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=12;startGame()">לתרגול ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
+
+function renderLearn13(){
+  return `<div class="panel">
+    <h2 class="qtitle">מבדק מקיף — כל נושא המשוואות</h2>
+    <p style="font-size:15px;line-height:1.75;margin-bottom:14px;">תוכן בקרוב.</p>
+    <div class="btnrow">
+      <button class="btn" onclick="state.sequence=13;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
   </div>`;
