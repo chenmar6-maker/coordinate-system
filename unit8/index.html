@@ -980,10 +980,32 @@ function renderLearn4(){
       </div>
     </div>
 
-    <!-- geometric note -->
-    <div style="font-size:13px;color:rgba(234,244,241,0.6);text-align:right;margin-bottom:18px;">
-      הדגמה גיאומטרית: שטח מלבן ברוחב <span class="m">a</span> ואורך <span class="m">(b+c)</span> שווה לסכום שטחי שני מלבנים קטנים — <span class="m">a·b</span> ו-<span class="m">a·c</span>.
-    </div>
+    <!-- geometric SVG -->
+    <svg viewBox="0 0 320 120" style="display:block;margin:4px auto 18px;max-width:320px;" xmlns="http://www.w3.org/2000/svg">
+      <!-- left sub-rect (green) -->
+      <rect x="20" y="28" width="150" height="58" rx="4" fill="rgba(72,176,140,0.18)" stroke="#48B08C" stroke-width="1.8"/>
+      <!-- right sub-rect (gold) -->
+      <rect x="170" y="28" width="110" height="58" rx="4" fill="rgba(239,169,74,0.16)" stroke="#EFA94A" stroke-width="1.8"/>
+      <!-- top brace: b -->
+      <line x1="20" y1="20" x2="170" y2="20" stroke="rgba(234,244,241,0.45)" stroke-width="1.2"/>
+      <line x1="20" y1="17" x2="20" y2="23" stroke="rgba(234,244,241,0.45)" stroke-width="1.2"/>
+      <line x1="170" y1="17" x2="170" y2="23" stroke="rgba(234,244,241,0.45)" stroke-width="1.2"/>
+      <text x="95" y="13" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="rgba(234,244,241,0.7)" direction="ltr">b</text>
+      <!-- top brace: c -->
+      <line x1="170" y1="20" x2="280" y2="20" stroke="rgba(234,244,241,0.45)" stroke-width="1.2"/>
+      <line x1="280" y1="17" x2="280" y2="23" stroke="rgba(234,244,241,0.45)" stroke-width="1.2"/>
+      <text x="225" y="13" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="rgba(234,244,241,0.7)" direction="ltr">c</text>
+      <!-- right brace: a -->
+      <line x1="295" y1="28" x2="295" y2="86" stroke="rgba(234,244,241,0.45)" stroke-width="1.2"/>
+      <line x1="292" y1="28" x2="298" y2="28" stroke="rgba(234,244,241,0.45)" stroke-width="1.2"/>
+      <line x1="292" y1="86" x2="298" y2="86" stroke="rgba(234,244,241,0.45)" stroke-width="1.2"/>
+      <text x="308" y="62" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="rgba(234,244,241,0.7)" direction="ltr">a</text>
+      <!-- area labels -->
+      <text x="95" y="62" text-anchor="middle" font-family="Rubik" font-size="18" font-weight="800" fill="#6ee7c0" direction="ltr">a·b</text>
+      <text x="225" y="62" text-anchor="middle" font-family="Rubik" font-size="18" font-weight="800" fill="#EFA94A" direction="ltr">a·c</text>
+      <!-- bottom formula -->
+      <text x="150" y="110" text-anchor="middle" font-family="Rubik" font-size="13" fill="rgba(234,244,241,0.6)" direction="ltr">שטח כולל = a(b+c) = a·b + a·c</text>
+    </svg>
 
     <!-- positive factor examples -->
     <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.85);margin-bottom:8px;">גורם חיובי</div>
@@ -1099,60 +1121,122 @@ function renderLearn4(){
 function renderLearn5(){
   return `<div class="panel">
     <h2 class="qtitle">זהות בין ביטויים אלגבריים</h2>
-    <svg viewBox="0 0 320 160" style="display:block;margin:14px auto;max-width:320px;" xmlns="http://www.w3.org/2000/svg">
-      <rect width="320" height="160" rx="10" fill="rgba(234,244,241,0.03)" stroke="rgba(234,244,241,0.1)" stroke-width="1"/>
-      <!-- beam (horizontal bar) -->
-      <rect x="60" y="68" width="200" height="8" rx="4" fill="rgba(234,244,241,0.45)"/>
-      <!-- fulcrum triangle -->
-      <polygon points="160,78 144,112 176,112" fill="rgba(234,244,241,0.3)" stroke="rgba(234,244,241,0.6)" stroke-width="1.5"/>
-      <!-- base line -->
-      <line x1="130" y1="112" x2="190" y2="112" stroke="rgba(234,244,241,0.5)" stroke-width="2"/>
-      <!-- left pan string -->
-      <line x1="80" y1="76" x2="80" y2="96" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
-      <!-- left pan -->
-      <rect x="46" y="96" width="68" height="28" rx="6" fill="rgba(139,92,246,0.2)" stroke="#8B5CF6" stroke-width="1.5"/>
-      <text x="80" y="115" text-anchor="middle" font-family="Rubik" font-size="14" font-weight="700" fill="#c4b5fd" direction="ltr">2(x+3)</text>
-      <!-- right pan string -->
-      <line x1="240" y1="76" x2="240" y2="96" stroke="rgba(234,244,241,0.5)" stroke-width="1.5"/>
-      <!-- right pan -->
-      <rect x="206" y="96" width="68" height="28" rx="6" fill="rgba(239,169,74,0.18)" stroke="#EFA94A" stroke-width="1.5"/>
-      <text x="240" y="115" text-anchor="middle" font-family="Rubik" font-size="14" font-weight="700" fill="#EFA94A" direction="ltr">2x+6</text>
-      <!-- equals sign on beam -->
-      <text x="160" y="64" text-anchor="middle" font-family="Rubik" font-size="15" font-weight="800" fill="rgba(234,244,241,0.8)" direction="ltr">=</text>
-      <!-- bottom label -->
-      <text x="160" y="146" text-anchor="middle" font-family="Rubik" font-size="12" fill="rgba(234,244,241,0.55)">שווים לכל ערך של x</text>
-    </svg>
-    <div class="gold-box">זהות = שני ביטויים שתמיד שווים, לכל ערך של המשתנה</div>
-    <ul class="bullets">
-      <li><strong>זהות</strong>: <span class="m">2(x + 3) = 2x + 6</span> — נכון לכל x ✓</li>
-      <li><strong>לא זהות</strong>: <span class="m">3(x + 2) = 3x + 5</span> — שגוי, כי 3·2 = 6 ≠ 5 ✗</li>
-    </ul>
-    <div class="learn-note" style="margin-top:4px;">
-      <div style="font-weight:700;margin-bottom:10px;">כיצד בודקים זהות?</div>
-      <div style="font-size:15px;line-height:1.9;">
-        <span style="color:var(--gold);font-weight:700;">שלב 1 —</span> פשטו אלגברית את שני האגפים<br>
-        <span style="color:var(--gold);font-weight:700;">שלב 2 —</span> בדקו בהצבה: הציבו ערך ספציפי ל-x בשניהם<br>
-        <span style="color:var(--gold);font-weight:700;">שלב 3 —</span> אם שוים — ייתכן זהות. אם שונים — בטוח לא זהות
-      </div>
+
+    <p style="font-size:15px;line-height:1.75;margin-bottom:14px;">
+      כשעוסקים באלגברה, אחד הרעיונות החזקים ביותר הוא היכולת לכתוב את אותו הדבר בכמה דרכים שונות. לזהות מתי שני ביטויים שווים לחלוטין — לכל ערך שנציב בהם — זה הבסיס לפתרון משוואות ולפישוט ביטויים מורכבים.
+    </p>
+
+    <!-- definition -->
+    <div class="gold-box" style="margin-bottom:14px;">
+      <strong>זהות אלגברית</strong> — שני ביטויים שנותנים את אותה תוצאה עבור <em>כל</em> ערך אפשרי של המשתנה.
     </div>
-    <div class="examples-row" style="margin-top:14px;">
-      <div class="example-box" style="text-align:right;padding:12px 16px;">
-        <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">זהות ידועה — בדיקה</div>
-        <div style="font-size:15px;line-height:1.8;">
-          <span class="m">x + x = 2x</span><br>
-          הציבו x = 7: <span class="m">7 + 7 = 14 ✓</span><br>
-          הציבו x = −3: <span class="m">−3 + (−3) = −6 ✓</span>
+
+    <!-- equation vs identity -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+      <div style="background:rgba(226,96,79,0.1);border:1px solid var(--coral);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:13px;font-weight:800;color:var(--coral);margin-bottom:8px;">משוואה רגילה</div>
+        <div style="font-size:14px;line-height:1.9;">
+          <span class="m">x + 2 = 5</span><br>
+          נכון רק כאשר <span class="m">x = 3</span><br>
+          <span style="font-size:12px;opacity:.7;">— פתרון מסוים, לא תמיד</span>
         </div>
       </div>
-      <div class="example-box" style="text-align:right;padding:12px 16px;">
-        <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">פירוק = הוכחת זהות</div>
-        <div style="font-size:15px;line-height:1.8;">
-          <span class="m">3x − 6 = 3(x − 2)</span><br>
-          הציבו x = 4: <span class="m">6 = 3·2 = 6 ✓</span><br>
-          הציבו x = 0: <span class="m">−6 = 3·(−2) = −6 ✓</span>
+      <div style="background:rgba(72,176,140,0.12);border:1px solid #48B08C;border-radius:10px;padding:12px 14px;">
+        <div style="font-size:13px;font-weight:800;color:#6ee7c0;margin-bottom:8px;">זהות אלגברית</div>
+        <div style="font-size:14px;line-height:1.9;">
+          <span class="m">2(x+3) = 2x+6</span><br>
+          נכון לכל ערך של <span class="m">x</span><br>
+          <span style="font-size:12px;opacity:.7;">— תמיד, ללא יוצא מן הכלל</span>
         </div>
       </div>
     </div>
+
+    <!-- verification table -->
+    <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.85);margin-bottom:8px;">בדיקה באמצעות הצבת מספרים</div>
+    <div style="font-size:14px;line-height:1.6;margin-bottom:10px;">נבדוק את <span class="m">2(x+3)</span> מול <span class="m">2x+6</span> עבור ערכים שונים:</div>
+    <div style="overflow-x:auto;margin-bottom:6px;">
+      <table style="border-collapse:collapse;font-size:14px;direction:ltr;min-width:100%;text-align:center;">
+        <thead>
+          <tr style="background:rgba(234,244,241,0.08);">
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:8px 12px;font-family:Rubik;">x</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:8px 12px;font-family:Rubik;">2(x+3)</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:8px 12px;font-family:Rubik;">2x+6</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:8px 12px;font-family:Rubik;">שווים?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">1</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">2·4 = 8</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">2+6 = 8</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;color:#6ee7c0;font-weight:700;">כן ✓</td>
+          </tr>
+          <tr style="background:rgba(234,244,241,0.03);">
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">4</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">2·7 = 14</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">8+6 = 14</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;color:#6ee7c0;font-weight:700;">כן ✓</td>
+          </tr>
+          <tr>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">0</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">2·3 = 6</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">0+6 = 6</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;color:#6ee7c0;font-weight:700;">כן ✓</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="learn-note" style="margin-bottom:16px;font-size:13px;">
+      <strong>שימו לב:</strong> הצבה מראה שהביטויים שווים עבור ערכים ספציפיים — אך אינה הוכחה מלאה. כדי להוכיח שוויון לכל ערך, משתמשים בחוקי חשבון. לעומת זאת, מספיק ערך אחד שבו הם שונים כדי להפריך את השוויון מיד!
+    </div>
+
+    <!-- proving identity -->
+    <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.85);margin-bottom:8px;">הוכחת זהות — פישוט אלגברי</div>
+    <p style="font-size:14px;line-height:1.65;margin-bottom:10px;">
+      מפשטים צד אחד (או שניהם) בעזרת: <strong>חוק הפילוג</strong>, <strong>חוק החילוף</strong>, <strong>כינוס איברים דומים</strong> — עד שמגיעים למבנה זהה.
+    </p>
+
+    <div class="example-box" style="text-align:right;margin-bottom:10px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 1 — כינוס איברים</div>
+      <div style="font-size:14px;margin-bottom:6px;text-align:right;">האם <span class="m">4x + 7 + 2x − 3 = 6x + 4</span>?</div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2;text-align:left;">
+        4x + 2x = 6x<br>
+        7 − 3 = 4<br>
+        → <span style="color:var(--gold);font-weight:700;">6x + 4 ✓</span>
+      </div>
+    </div>
+
+    <div class="example-box" style="text-align:right;margin-bottom:10px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 2 — חוק הפילוג + כינוס</div>
+      <div style="font-size:14px;margin-bottom:6px;text-align:right;">האם <span class="m">3(2x − 4) + 5 = 6x − 7</span>?</div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2;text-align:left;">
+        3·2x − 3·4 + 5<br>
+        = 6x − 12 + 5<br>
+        = <span style="color:var(--gold);font-weight:700;">6x − 7 ✓</span>
+      </div>
+    </div>
+
+    <div class="example-box" style="text-align:right;margin-bottom:16px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 3 — הפרכה עם דוגמה נגדית</div>
+      <div style="font-size:14px;margin-bottom:6px;text-align:right;">האם <span class="m">3(x + 2) = 3x + 2</span>?</div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2;text-align:left;">
+        3(x+2) = 3x + 6 ≠ 3x + 2
+      </div>
+      <div style="font-size:14px;margin-top:6px;text-align:right;">נציב <span class="m">x = 1</span> כדוגמה נגדית:<br>
+        <span class="m">3(1+2) = 9</span> &nbsp;אך&nbsp; <span class="m">3·1+2 = 5</span> → <span style="color:var(--coral);font-weight:700;">9 ≠ 5 ✗</span>
+      </div>
+    </div>
+
+    <!-- summary -->
+    <div class="learn-note" style="background:rgba(72,176,140,0.1);border-color:var(--seafoam);">
+      <strong>לסיכום — 3 כללים לזכור:</strong>
+      <ul class="bullets" style="margin:8px 0 0;">
+        <li><strong>זהות:</strong> שוויון שמתקיים לכל ערך של המשתנה. מוכיחים בפישוט אלגברי.</li>
+        <li><strong>הפרכה:</strong> מספיק ערך אחד שמוכיח שהביטויים שונים ("דוגמה נגדית").</li>
+        <li><strong>⚠️ טעות נפוצה:</strong> <span class="m">4(x+5) ≠ 4x+5</span>. הכפל מתפשט לכולם: <span class="m">4x + 20</span>.</li>
+      </ul>
+    </div>
+
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
