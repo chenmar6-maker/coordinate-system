@@ -830,76 +830,97 @@ function renderLearn2(){
 function renderLearn3(){
   return `<div class="panel">
     <h2 class="qtitle">כינוס איברים דומים</h2>
-    <svg viewBox="0 0 320 160" style="display:block;margin:14px auto;max-width:320px;" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <marker id="u8l3_arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-          <polygon points="0 1, 7 4, 0 7" fill="#EFA94A"/>
-        </marker>
-      </defs>
-      <rect width="320" height="160" rx="10" fill="rgba(234,244,241,0.03)" stroke="rgba(234,244,241,0.1)" stroke-width="1"/>
-      <!-- top expression with highlights -->
-      <!-- 3x box -->
-      <rect x="14" y="28" width="44" height="32" rx="6" fill="rgba(72,176,140,0.25)" stroke="#48B08C" stroke-width="1.8"/>
-      <text x="36" y="50" text-anchor="middle" font-family="Rubik" font-size="20" font-weight="700" fill="#6ee7c0" direction="ltr">3x</text>
-      <text x="62" y="50" text-anchor="middle" font-family="Rubik" font-size="20" font-weight="700" fill="rgba(234,244,241,0.8)" direction="ltr">+</text>
-      <!-- 2 box -->
-      <rect x="72" y="28" width="34" height="32" rx="6" fill="rgba(239,169,74,0.25)" stroke="#EFA94A" stroke-width="1.8"/>
-      <text x="89" y="50" text-anchor="middle" font-family="Rubik" font-size="20" font-weight="700" fill="#EFA94A" direction="ltr">2</text>
-      <text x="110" y="50" text-anchor="middle" font-family="Rubik" font-size="20" font-weight="700" fill="rgba(234,244,241,0.8)" direction="ltr">+</text>
-      <!-- 5x box -->
-      <rect x="120" y="28" width="44" height="32" rx="6" fill="rgba(72,176,140,0.25)" stroke="#48B08C" stroke-width="1.8"/>
-      <text x="142" y="50" text-anchor="middle" font-family="Rubik" font-size="20" font-weight="700" fill="#6ee7c0" direction="ltr">5x</text>
-      <text x="168" y="50" text-anchor="middle" font-family="Rubik" font-size="20" font-weight="700" fill="rgba(234,244,241,0.8)" direction="ltr">−</text>
-      <!-- 1 box -->
-      <rect x="177" y="28" width="34" height="32" rx="6" fill="rgba(239,169,74,0.25)" stroke="#EFA94A" stroke-width="1.8"/>
-      <text x="194" y="50" text-anchor="middle" font-family="Rubik" font-size="20" font-weight="700" fill="#EFA94A" direction="ltr">1</text>
-      <!-- brace labels -->
-      <text x="89" y="80" text-anchor="middle" font-family="Rubik" font-size="11" fill="#48B08C" direction="ltr">x-terms</text>
-      <line x1="36" y1="63" x2="36" y2="72" stroke="#48B08C" stroke-width="1.2"/>
-      <line x1="142" y1="63" x2="142" y2="72" stroke="#48B08C" stroke-width="1.2"/>
-      <line x1="36" y1="72" x2="142" y2="72" stroke="#48B08C" stroke-width="1.2"/>
-      <line x1="89" y1="72" x2="89" y2="78" stroke="#48B08C" stroke-width="1.2"/>
-      <text x="194" y="80" text-anchor="middle" font-family="Rubik" font-size="11" fill="#EFA94A" direction="ltr">numbers</text>
-      <line x1="89" y1="63" x2="89" y2="68" stroke="#EFA94A" stroke-width="1.2" opacity="0"/>
-      <line x1="172" y1="63" x2="172" y2="72" stroke="#EFA94A" stroke-width="1.2"/>
-      <line x1="216" y1="63" x2="216" y2="72" stroke="#EFA94A" stroke-width="1.2"/>
-      <line x1="172" y1="72" x2="216" y2="72" stroke="#EFA94A" stroke-width="1.2"/>
-      <line x1="194" y1="72" x2="194" y2="78" stroke="#EFA94A" stroke-width="1.2"/>
-      <!-- arrow down -->
-      <line x1="120" y1="95" x2="120" y2="112" stroke="#EFA94A" stroke-width="2" marker-end="url(#u8l3_arr)"/>
-      <!-- result -->
-      <rect x="62" y="118" width="116" height="34" rx="8" fill="rgba(239,169,74,0.12)" stroke="#EFA94A" stroke-width="1.8"/>
-      <text x="120" y="141" text-anchor="middle" font-family="Rubik" font-size="22" font-weight="800" fill="#EFA94A" direction="ltr">8x + 1</text>
-    </svg>
-    <div class="gold-box">איברים דומים = אותו משתנה, אותה חזקה — אפשר לסכם את המקדמים</div>
-    <div class="examples-row">
-      <div class="example-box">3x + 5x = 8x</div>
-      <div class="example-box">7b − 2b + b = 6b</div>
-      <div class="example-box">4a + 7 − a + 3<br>= 3a + 10</div>
+
+    <p style="font-size:15px;line-height:1.75;text-align:right;margin:10px 0 16px;">
+      כינוס איברים דומים הוא אחד הכלים החשובים והבסיסיים ביותר באלגברה.
+      בעזרתו אנו לוקחים ביטויים אלגבריים ארוכים ומסורבלים, ומקצרים אותם לצורה פשוטה, ברורה ונוחה לעבודה לקראת פתרון משוואות.
+    </p>
+
+    <div class="gold-box" style="font-size:16px;">
+      <span style="font-size:17px;font-weight:800;color:var(--gold);">מהם איברים דומים?</span><br>
+      <span style="font-weight:400;font-size:15px;line-height:1.75;">
+        בביטוי אלגברי, כל חלק שמופרד בסימני חיבור או חיסור נקרא <strong>איבר</strong>.<br>
+        איבר מורכב מ<strong>מקדם</strong> (המספר) ומ<strong>חלק המשתנה</strong> (האות).<br>
+        <strong>איברים דומים</strong> הם איברים שיש להם בדיוק את אותו החלק המשתנה — אותה אות באותה החזקה, או מספרים חופשיים בלבד.
+      </span>
     </div>
-    <ul class="bullets">
-      <li>מסכמים <strong>רק</strong> איברים עם אותו משתנה: <span class="m">3x + 5x = 8x</span></li>
-      <li>מספרים מסכמים עם מספרים: <span class="m">7 + 3 = 10</span></li>
-      <li>אי אפשר לכנס: <span class="m">3x + 5y</span> (משתנים שונים) | <span class="m">3x + 5x²</span> (חזקות שונות)</li>
-      <li><strong>שני משתנים:</strong> מכנסים כל משתנה בנפרד — <span class="m">3x + 2y + x − y = 4x + y</span></li>
-    </ul>
-    <div style="background:rgba(226,96,79,0.1);border-right:4px solid var(--coral);border-radius:6px;padding:12px 16px;margin-top:14px;font-size:15px;">
-      <strong>שגיאה נפוצה:</strong> <span class="m">3x + 5 ≠ 8x</span>. המספר 5 אינו "דומה" ל-3x!
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;">
+      <div style="background:rgba(72,176,140,0.12);border:1px solid #48B08C;border-radius:10px;padding:12px 14px;">
+        <div style="font-size:13px;font-weight:800;color:#6ee7c0;margin-bottom:8px;">✓ איברים דומים (אפשר לכנס)</div>
+        <div style="font-size:14px;line-height:2;direction:ltr;unicode-bidi:isolate;">
+          3x &nbsp;ו-&nbsp; 7x<br>
+          −2a &nbsp;ו-&nbsp; a<br>
+          5 &nbsp;ו-&nbsp; −12
+        </div>
+      </div>
+      <div style="background:rgba(226,96,79,0.1);border:1px solid var(--coral);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:13px;font-weight:800;color:var(--coral);margin-bottom:8px;">✗ איברים שאינם דומים (אסור)</div>
+        <div style="font-size:14px;line-height:2;direction:ltr;unicode-bidi:isolate;">
+          3x &nbsp;ו-&nbsp; 3y &nbsp;<span style="font-size:11px;opacity:.7;">(אותיות שונות)</span><br>
+          4x &nbsp;ו-&nbsp; 4 &nbsp;<span style="font-size:11px;opacity:.7;">(אחד עם משתנה, אחד בלי)</span><br>
+          2x² &nbsp;ו-&nbsp; 2x &nbsp;<span style="font-size:11px;opacity:.7;">(חזקות שונות)</span>
+        </div>
+      </div>
     </div>
+
+    <div style="font-size:16px;font-weight:700;color:var(--gold);margin:18px 0 8px;">כלל הכינוס</div>
+    <p style="font-size:15px;line-height:1.65;margin:0 0 10px;">
+      מחברים או מחסרים אך ורק את המקדמים — החלק המשתנה נשאר כפי שהוא.<br>
+      הכלל מבוסס על חוק הפילוג: <span class="m" style="direction:ltr;unicode-bidi:isolate;">a·x + b·x = (a+b)·x</span>
+    </p>
+    <div class="example-box" style="text-align:right;margin:0 0 6px;padding:12px 18px;">
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:18px;font-weight:700;line-height:2;text-align:left;">
+        4x + 3x = (4+3)x = <span style="color:var(--gold);">7x</span>
+      </div>
+      <div style="font-size:13px;opacity:.8;text-align:right;margin-top:4px;">
+        חשבו על זה כמו עצמים מוחשיים: 4 תפוחים ועוד 3 תפוחים = 7 תפוחים.
+      </div>
+    </div>
+
     <div class="learn-note" style="margin-top:14px;">
-      <strong>חוקי חילוף וקיבוץ</strong><br>
-      <span style="font-size:14px;line-height:2;">
-        חוק חילוף: <span class="m">3x + 5x = 5x + 3x</span> — הסדר לא משנה בחיבור<br>
-        חוק קיבוץ: <span class="m">(2x + 3x) + 4x = 2x + (3x + 4x)</span> — אפשר לשנות את הסוגריים
-      </span>
+      <strong>שני דגשים חשובים:</strong>
+      <ul class="bullets" style="margin:8px 0 0;">
+        <li><strong>הסימן שייך לאיבר שאחריו:</strong> הסימן + או − שלפני האיבר הולך תמיד יחד איתו.</li>
+        <li><strong>משתנה ללא מספר — מקדמו הוא 1:</strong> <span class="m">x</span> פירושו <span class="m">1x</span>, ו-<span class="m">−x</span> פירושו <span class="m">−1x</span>.</li>
+      </ul>
     </div>
-    <div class="learn-note" style="margin-top:10px;border-right-color:var(--light-teal);">
-      <strong>חילוק כשבר</strong><br>
-      <span style="font-size:14px;line-height:2;">
-        <span class="m">6x ÷ 3 = 6x/3 = 2x</span> — מחלקים את המקדם, המשתנה נשאר<br>
-        <span class="m">(4x + 8) ÷ 2 = 2x + 4</span> — מחלקים כל איבר
-      </span>
+
+    <div style="font-size:16px;font-weight:700;color:var(--gold);margin:18px 0 8px;">דוגמה 1 — ביטוי עם משתנה ומספר חופשי</div>
+    <div class="example-box" style="text-align:right;margin:0 0 14px;padding:14px 18px;">
+      <div style="font-size:14px;color:rgba(234,244,241,0.65);margin-bottom:8px;">כנסו: <span class="m">8x − 3 + 2x − 5</span></div>
+      <div style="font-size:14px;line-height:1.9;text-align:right;">
+        משפחת האיקסים: <span class="m" style="direction:ltr;unicode-bidi:isolate;">8x + 2x = 10x</span><br>
+        משפחת המספרים: <span class="m" style="direction:ltr;unicode-bidi:isolate;">−3 − 5 = −8</span>
+      </div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:18px;font-weight:700;margin-top:8px;text-align:left;">
+        = <span style="color:var(--gold);">10x − 8</span>
+      </div>
     </div>
+
+    <div style="font-size:16px;font-weight:700;color:var(--gold);margin:0 0 8px;">דוגמה 2 — שני משתנים ומקדם סמוי</div>
+    <div class="example-box" style="text-align:right;margin:0 0 18px;padding:14px 18px;">
+      <div style="font-size:14px;color:rgba(234,244,241,0.65);margin-bottom:8px;">כנסו: <span class="m">5a + 4b − a − 6b</span></div>
+      <div style="font-size:14px;line-height:1.9;text-align:right;">
+        משפחת <span class="m">a</span>: <span class="m" style="direction:ltr;unicode-bidi:isolate;">5a − 1a = 4a</span> &nbsp;<span style="font-size:12px;opacity:.75;">(−a הוא −1a)</span><br>
+        משפחת <span class="m">b</span>: <span class="m" style="direction:ltr;unicode-bidi:isolate;">4b − 6b = −2b</span>
+      </div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:18px;font-weight:700;margin-top:8px;text-align:left;">
+        = <span style="color:var(--gold);">4a − 2b</span>
+      </div>
+    </div>
+
+    <div class="learn-note" style="background:rgba(72,176,140,0.1);border-color:var(--seafoam);">
+      <strong>לסיכום — 4 כללים לזכור:</strong>
+      <ul class="bullets" style="margin:8px 0 0;">
+        <li><strong>זהות איברים:</strong> מכנסים רק איברים עם אותו חלק משתנה בדיוק.</li>
+        <li><strong>מקדמים בלבד:</strong> מחברים ומחסרים את המספרים שלפני האות — האות נשארת.</li>
+        <li><strong>סימן צמוד לאיבר:</strong> הסימן שלפני האיבר הוא חלק ממנו.</li>
+        <li><strong>מקדם סמוי:</strong> <span class="m">x = 1x</span> ו-<span class="m">−x = −1x</span>.</li>
+        <li><strong>⚠️ טעות נפוצה:</strong> <span class="m">5x + 3 ≠ 8x</span> ו-<span class="m">≠ 8</span>. מספר חופשי ומשתנה אינם דומים — הביטוי נשאר <span class="m">5x + 3</span>.</li>
+      </ul>
+    </div>
+
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
