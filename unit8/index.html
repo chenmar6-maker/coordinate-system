@@ -609,46 +609,78 @@ function renderLearn0(){
 function renderLearn1(){
   return `<div class="panel">
     <h2 class="qtitle">כתיבת ביטויים אלגבריים</h2>
-    <svg viewBox="0 0 320 160" style="display:block;margin:14px auto;max-width:320px;" xmlns="http://www.w3.org/2000/svg">
+
+    <p style="font-size:15px;line-height:1.7;text-align:right;margin:10px 0 16px;">
+      משתנים וביטויים אלגבריים הם השפה שבעזרתה עוברים מחשבון פשוט לחשיבה כללית.
+      במקום לפתור תרגיל עם מספר אחד מסוים, אנחנו לומדים לכתוב חוקים ונוסחאות שמתאימים לכל מספר שנבחר.
+    </p>
+
+    <!-- משתנה -->
+    <div class="gold-box" style="font-size:16px;text-align:right;">
+      <span style="color:var(--gold);font-size:17px;font-weight:800;">מהו משתנה?</span><br>
+      <span style="font-weight:400;font-size:15px;line-height:1.7;">
+        משתנה הוא אות (כמו <span class="m" style="color:#A78BFA;font-weight:700;">x</span>, <span class="m" style="color:#A78BFA;font-weight:700;">y</span> או <span class="m" style="color:#A78BFA;font-weight:700;">a</span>) שמייצגת מספר שאיננו יודעים עדיין, או מספר שיכול להשתנות.
+      </span>
+    </div>
+
+    <!-- box metaphor SVG -->
+    <svg viewBox="0 0 320 110" style="display:block;margin:4px auto 10px;max-width:300px;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="320" height="110" rx="10" fill="rgba(234,244,241,0.03)" stroke="rgba(234,244,241,0.08)" stroke-width="1"/>
+      <!-- box -->
+      <rect x="120" y="18" width="80" height="66" rx="8" fill="rgba(167,139,250,0.15)" stroke="#A78BFA" stroke-width="2"/>
+      <text x="160" y="58" text-anchor="middle" font-family="Rubik" font-size="28" font-weight="800" fill="#A78BFA">x</text>
+      <!-- label -->
+      <text x="160" y="98" text-anchor="middle" font-family="Rubik" font-size="12" fill="rgba(234,244,241,0.5)">קופסה ריקה — בכל פעם מספר אחר</text>
+    </svg>
+
+    <!-- ביטוי אלגברי -->
+    <div style="font-size:16px;font-weight:700;color:var(--gold);margin:14px 0 6px;">מהו ביטוי אלגברי?</div>
+    <p style="font-size:15px;line-height:1.65;margin:0 0 10px;">
+      ביטוי אלגברי הוא צירוף של מספרים, משתנים ופעולות חשבון (חיבור, חיסור, כפל, חילוק וחזקה).
+    </p>
+
+    <!-- annotated expression SVG -->
+    <svg viewBox="0 0 320 160" style="display:block;margin:6px auto 14px;max-width:320px;" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <marker id="u8l1_coef" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
-          <polygon points="0 0, 7 3.5, 0 7" fill="#EFA94A"/>
-        </marker>
-        <marker id="u8l1_var" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
-          <polygon points="0 0, 7 3.5, 0 7" fill="#8B5CF6"/>
-        </marker>
-        <marker id="u8l1_free" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
-          <polygon points="0 0, 7 3.5, 0 7" fill="rgba(234,244,241,0.7)"/>
-        </marker>
+        <marker id="u8l1_coef" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><polygon points="0 0, 7 3.5, 0 7" fill="#EFA94A"/></marker>
+        <marker id="u8l1_var"  markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><polygon points="0 0, 7 3.5, 0 7" fill="#A78BFA"/></marker>
+        <marker id="u8l1_free" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><polygon points="0 0, 7 3.5, 0 7" fill="rgba(234,244,241,0.7)"/></marker>
       </defs>
       <rect width="320" height="160" rx="10" fill="rgba(234,244,241,0.03)" stroke="rgba(234,244,241,0.1)" stroke-width="1"/>
-      <!-- main expression -->
       <text x="160" y="52" text-anchor="middle" font-family="Rubik" font-size="36" font-weight="700" fill="rgba(234,244,241,0.95)" direction="ltr">3x + 5</text>
-      <!-- מקדם → "3" (approx x=116) -->
-      <line x1="60" y1="132" x2="113" y2="63" stroke="#EFA94A" stroke-width="1.6" marker-end="url(#u8l1_coef)"/>
-      <text x="54" y="148" text-anchor="end" font-family="Rubik" font-size="13" fill="#EFA94A">מקדם</text>
-      <!-- משתנה → "x" (approx x=140) -->
-      <line x1="246" y1="132" x2="139" y2="63" stroke="#8B5CF6" stroke-width="1.6" marker-end="url(#u8l1_var)"/>
-      <text x="252" y="148" text-anchor="start" font-family="Rubik" font-size="13" fill="#8B5CF6">משתנה</text>
-      <!-- איבר חופשי → "5" (approx x=193) -->
-      <line x1="193" y1="126" x2="193" y2="63" stroke="rgba(234,244,241,0.7)" stroke-width="1.6" marker-end="url(#u8l1_free)"/>
-      <text x="193" y="148" text-anchor="middle" font-family="Rubik" font-size="13" fill="rgba(234,244,241,0.7)">איבר חופשי</text>
+      <line x1="58" y1="130" x2="113" y2="63" stroke="#EFA94A" stroke-width="1.6" marker-end="url(#u8l1_coef)"/>
+      <text x="52" y="146" text-anchor="end" font-family="Rubik" font-size="13" fill="#EFA94A">מקדם</text>
+      <line x1="244" y1="130" x2="139" y2="63" stroke="#A78BFA" stroke-width="1.6" marker-end="url(#u8l1_var)"/>
+      <text x="250" y="146" text-anchor="start" font-family="Rubik" font-size="13" fill="#A78BFA">משתנה</text>
+      <line x1="193" y1="124" x2="193" y2="63" stroke="rgba(234,244,241,0.7)" stroke-width="1.6" marker-end="url(#u8l1_free)"/>
+      <text x="193" y="146" text-anchor="middle" font-family="Rubik" font-size="13" fill="rgba(234,244,241,0.7)">איבר חופשי</text>
     </svg>
-    <div class="gold-box">ביטוי אלגברי = שילוב של מספרים, משתנים ופעולות חשבון</div>
+
+    <!-- מוסכמה: השמטת סימן הכפל -->
+    <div class="learn-note" style="margin-top:0;">
+      <strong>מוסכמה חשובה:</strong> כשכופלים מספר במשתנה — משמיטים את סימן הכפל.<br>
+      <span class="m" style="direction:ltr;unicode-bidi:isolate;">3 · x</span> כותבים כ־<span class="m" style="font-weight:800;color:var(--gold);">3x</span> &nbsp;|&nbsp;
+      <span class="m">a · b</span> כותבים כ־<span class="m" style="font-weight:800;color:var(--gold);">ab</span><br>
+      <span style="font-size:14px;opacity:.8;">המספר לפני המשתנה נקרא <strong>מקדם</strong>. ב-<span class="m">5x</span> המקדם הוא 5. למשתנה <span class="m">x</span> לבד יש מקדם 1 (כי <span class="m">1·x = x</span>).</span>
+    </div>
+
+    <!-- טבלת תרגום -->
+    <div style="font-size:16px;font-weight:700;color:var(--gold);margin:18px 0 8px;">תרגום מילולי ← אלגברי</div>
     <table class="def-table">
       <tr><th>תיאור מילולי</th><th>ביטוי</th></tr>
-      <tr><td>פי 4 מ-a</td><td><span class="m">4a</span></td></tr>
-      <tr><td>n גדול ב-7</td><td><span class="m">n + 7</span></td></tr>
-      <tr><td>חצי מ-x, פחות 3</td><td><span class="m">x/2 − 3</span></td></tr>
-      <tr><td>שלוש פעמים a ועוד פעמיים b</td><td><span class="m">3a + 2b</span></td></tr>
+      <tr><td>מספר גדול מ-x ב-4</td><td><span class="m">x + 4</span></td></tr>
+      <tr><td>מספר קטן מ-x ב-7</td><td><span class="m">x − 7</span></td></tr>
+      <tr><td>מספר גדול פי 3 מ-x</td><td><span class="m">3x</span></td></tr>
+      <tr><td>החלק הרביעי של x</td><td><span class="m">x ÷ 4</span></td></tr>
+      <tr><td>סכום x ו-5, כפול 2</td><td><span class="m">2(x + 5)</span></td></tr>
     </table>
-    <ul class="bullets">
-      <li><strong>משתנה</strong> — אות שמייצגת כמות לא ידועה (יכולה לקבל ערכים שונים)</li>
-      <li><strong>מקדם</strong> — המספר שלפני המשתנה: ב-3x המקדם הוא 3</li>
-      <li><strong>איבר חופשי</strong> — מספר ללא משתנה: ב-2x+5, האיבר החופשי הוא 5</li>
-      <li>"פי n" = כפל ב-n | "גדול ב-n" = חיבור n | "קטן ב-n" = חיסור n</li>
-    </ul>
-    <div class="learn-note">שימו לב: 2x ≠ x2 בכתיב — כותבים את המקדם לפני המשתנה</div>
+
+    <div class="learn-note" style="background:rgba(226,96,79,0.1);border-color:var(--coral);">
+      ⚠️ <strong>שימו לב לסוגריים!</strong><br>
+      <span class="m">2(x + 5)</span> — הכפלנו את <em>כל הסכום</em> ב-2.<br>
+      <span class="m">2x + 5</span> — הכפלנו <em>רק את x</em> ב-2. זה ביטוי שונה לחלוטין!
+    </div>
+
     <div class="btnrow">
       <button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
