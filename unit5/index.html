@@ -510,50 +510,124 @@ function renderLearn1(){
   return `<div class="panel">
     <h2 class="qtitle">מבוא למשוואות — זיהוי פתרון</h2>
 
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 160" width="100%" style="max-width:320px;display:block;margin:0 auto 10px;">
-      <!-- beam -->
-      <line x1="60" y1="72" x2="260" y2="72" stroke="#EFA94A" stroke-width="4" stroke-linecap="round"/>
-      <!-- fulcrum triangle -->
-      <polygon points="160,72 148,118 172,118" fill="#4A4080"/>
-      <line x1="136" y1="118" x2="184" y2="118" stroke="#4A4080" stroke-width="5" stroke-linecap="round"/>
-      <!-- left pan string + pan -->
-      <line x1="90" y1="72" x2="90" y2="95" stroke="#EFA94A" stroke-width="2"/>
-      <rect x="68" y="95" width="44" height="30" rx="5" fill="rgba(239,169,74,0.18)" stroke="#EFA94A" stroke-width="1.5"/>
-      <!-- right pan string + pan -->
-      <line x1="230" y1="72" x2="230" y2="95" stroke="#48B08C" stroke-width="2"/>
-      <rect x="208" y="95" width="44" height="30" rx="5" fill="rgba(72,176,140,0.18)" stroke="#48B08C" stroke-width="1.5"/>
-      <!-- left label -->
-      <text x="90" y="115" text-anchor="middle" font-family="Rubik" font-size="14" font-weight="700" fill="#EFA94A" direction="ltr">x + 3</text>
-      <!-- right label -->
-      <text x="230" y="115" text-anchor="middle" font-family="Rubik" font-size="14" font-weight="700" fill="#48B08C" direction="ltr">7</text>
-      <!-- caption -->
-      <text x="160" y="148" text-anchor="middle" font-family="Rubik" font-size="13" fill="rgba(234,244,241,0.7)">משוואה = שני אגפים שווים</text>
-    </svg>
+    <p style="font-size:15px;line-height:1.75;margin-bottom:14px;">
+      משוואות הן אחד הכלים החשובים ביותר במתמטיקה. היכולת לזהות מהי משוואה ומה המשמעות של הפתרון שלה היא הבסיס לכל האלגברה שנלמד בהמשך.
+    </p>
 
-    <div class="gold-box">משוואה = טענה שאומרת ששני ביטויים שווים. לא תמיד נכונה — תלוי בערך המשתנה.</div>
-
-    <ul class="bullets">
-      <li>פתרון המשוואה = ערך של המשתנה שהופך אותה לנכונה</li>
-      <li>בודקים פתרון על ידי הצבה ובדיקת שיוויון</li>
-      <li>יכול להיות פתרון אחד, אין פתרון, או אינסוף פתרונות</li>
-    </ul>
-
-    <div class="examples-row">
-      <div class="example-box">
-        <div style="font-size:14px;margin-bottom:8px;color:var(--gold);">האם <span class="m">x=4</span> פתרון של <span class="m">x+3=7</span>?</div>
-        <div class="m" style="font-size:16px;">מציבים: 4+3=7 ✓</div>
-        <div style="color:var(--seafoam);font-size:15px;margin-top:6px;">כן! פתרון.</div>
+    <!-- what is an equation -->
+    <div style="font-size:15px;font-weight:700;color:var(--gold);margin-bottom:8px;">מהי משוואה?</div>
+    <p style="font-size:15px;line-height:1.7;margin-bottom:12px;">
+      משוואה היא שוויון בין שני ביטויים אלגבריים המכיל לפחות משתנה אחד. אפשר לחשוב עליה כמאזניים במצב איזון מושלם:
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;text-align:center;">
+      <div style="background:rgba(72,176,140,0.12);border:1px solid #48B08C;border-radius:8px;padding:10px 8px;">
+        <div style="font-size:12px;color:#6ee7c0;font-weight:700;margin-bottom:4px;">אגף שמאל</div>
+        <div class="m" style="font-size:17px;">2x + 3</div>
       </div>
-      <div class="example-box">
-        <div style="font-size:14px;margin-bottom:8px;color:var(--gold);">האם <span class="m">x=5</span> פתרון של <span class="m">x+3=7</span>?</div>
-        <div class="m" style="font-size:16px;">מציבים: 5+3=8≠7 ✗</div>
-        <div style="color:var(--coral);font-size:15px;margin-top:6px;">לא! אינו פתרון.</div>
+      <div style="background:rgba(239,169,74,0.12);border:1px solid #EFA94A;border-radius:8px;padding:10px 8px;display:flex;align-items:center;justify-content:center;">
+        <div class="m" style="font-size:28px;font-weight:800;color:var(--gold);">=</div>
+      </div>
+      <div style="background:rgba(72,176,140,0.12);border:1px solid #48B08C;border-radius:8px;padding:10px 8px;">
+        <div style="font-size:12px;color:#6ee7c0;font-weight:700;margin-bottom:4px;">אגף ימין</div>
+        <div class="m" style="font-size:17px;">11</div>
       </div>
     </div>
 
-    <div class="learn-note">שים לב: משוואה ≠ ביטוי. ביטוי: <span class="m">x+3</span> (אין =). משוואה: <span class="m">x+3=7</span> (יש =).</div>
+    <!-- solution definition -->
+    <div class="gold-box" style="margin-bottom:14px;">
+      <strong>פתרון של משוואה</strong> — מספר שכאשר מציבים אותו במקום המשתנה, שני האגפים נותנים את אותה תוצאה (פסוק אמת).
+    </div>
 
-    <div class="btnrow" style="margin-top:20px;">
+    <!-- steps -->
+    <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.85);margin-bottom:8px;">בדיקת פתרון — 4 שלבים</div>
+    <div class="learn-note" style="margin-bottom:16px;">
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.7;">
+        <div><span style="color:var(--gold);font-weight:700;">1.</span> מחליפים כל מופע של המשתנה במספר (עם סוגריים!)</div>
+        <div><span style="color:var(--gold);font-weight:700;">2.</span> מחשבים את אגף שמאל לפי סדר פעולות</div>
+        <div><span style="color:var(--gold);font-weight:700;">3.</span> מחשבים את אגף ימין</div>
+        <div><span style="color:var(--gold);font-weight:700;">4.</span> משווים — שווים = פתרון ✓, שונים = לא פתרון ✗</div>
+      </div>
+    </div>
+
+    <!-- example 1 -->
+    <div class="example-box" style="text-align:right;margin-bottom:10px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 1 — פתרון נכון</div>
+      <div style="font-size:14px;margin-bottom:8px;">האם <span class="m">x = 6</span> פתרון של <span class="m">3x − 4 = 14</span>?</div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2;text-align:left;">
+        אגף שמאל: 3·6 − 4 = 18 − 4 = 14<br>
+        אגף ימין: 14<br>
+        14 = 14 → <span style="color:#6ee7c0;font-weight:700;">פסוק אמת ✓ — x=6 פתרון!</span>
+      </div>
+    </div>
+
+    <!-- example 2 -->
+    <div class="example-box" style="text-align:right;margin-bottom:10px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 2 — לא פתרון</div>
+      <div style="font-size:14px;margin-bottom:8px;">האם <span class="m">x = 3</span> פתרון של <span class="m">5(x−1) = 2x + 7</span>?</div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2;text-align:left;">
+        אגף שמאל: 5·(3−1) = 5·2 = 10<br>
+        אגף ימין: 2·3 + 7 = 13<br>
+        10 ≠ 13 → <span style="color:var(--coral);font-weight:700;">פסוק שקר ✗ — x=3 אינו פתרון!</span>
+      </div>
+    </div>
+
+    <!-- example 3 -->
+    <div class="example-box" style="text-align:right;margin-bottom:16px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 3 — מספר שלילי</div>
+      <div style="font-size:14px;margin-bottom:8px;">האם <span class="m">x = −3</span> פתרון של <span class="m">4 − 2x = 10</span>?</div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2;text-align:left;">
+        אגף שמאל: 4 − 2·(−3) = 4 − (−6) = 4 + 6 = 10<br>
+        אגף ימין: 10<br>
+        10 = 10 → <span style="color:#6ee7c0;font-weight:700;">פסוק אמת ✓ — x=−3 פתרון!</span>
+      </div>
+    </div>
+
+    <!-- verification table -->
+    <div style="font-size:14px;font-weight:700;color:rgba(234,244,241,0.8);margin-bottom:8px;">טבלת בדיקה — <span class="m">4 − 2x = 10</span></div>
+    <div style="overflow-x:auto;margin-bottom:16px;">
+      <table style="border-collapse:collapse;font-size:13px;direction:ltr;min-width:100%;text-align:center;">
+        <thead>
+          <tr style="background:rgba(234,244,241,0.08);">
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;">x</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;">4−2x</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;">= 10?</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;">פתרון?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;">1</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;">4−2=2</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;">2≠10</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;color:var(--coral);">לא ✗</td>
+          </tr>
+          <tr style="background:rgba(234,244,241,0.03);">
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;">−3</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;">4+6=10</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;">10=10</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;color:#6ee7c0;font-weight:700;">כן ✓</td>
+          </tr>
+          <tr>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;">0</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;">4−0=4</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;">4≠10</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;color:var(--coral);">לא ✗</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- summary -->
+    <div class="learn-note" style="background:rgba(72,176,140,0.1);border-color:var(--seafoam);">
+      <strong>לסיכום — 3 כללים:</strong>
+      <ul class="bullets" style="margin:8px 0 0;">
+        <li><strong>פתרון:</strong> ערך שהופך את השוויון לפסוק אמת — שני האגפים נותנים אותה תוצאה.</li>
+        <li><strong>בדיקה:</strong> תמיד מציבים בחזרה במשוואה המקורית.</li>
+        <li><strong>⚠️ טעות נפוצה:</strong> מספר שלילי עם מקדם שלילי — <span class="m">−2·(−3) = +6</span>, לא −6. תמיד משתמשים בסוגריים.</li>
+      </ul>
+    </div>
+
+    <div class="btnrow">
       <button class="btn" onclick="state.sequence=1;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
@@ -562,41 +636,76 @@ function renderLearn1(){
 
 function renderLearn5(){
   return `<div class="panel">
-    <h2 class="qtitle">סוגי פתרון למשוואות</h2>
+    <h2 class="qtitle">סוגי פתרון — יחיד, אין פתרון, אינסוף</h2>
 
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 120" style="display:block;margin:10px auto 14px;max-width:340px;">
-      <!-- Unique solution box -->
-      <rect x="10" y="20" width="90" height="70" rx="8" fill="rgba(45,212,191,0.12)" stroke="#2DD4BF" stroke-width="1.5"/>
-      <text x="55" y="44" text-anchor="middle" font-family="Rubik" font-size="11" font-weight="700" fill="#0D9488">פתרון יחיד</text>
-      <text x="55" y="62" text-anchor="middle" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.6)" direction="ltr">3x=9</text>
-      <text x="55" y="78" text-anchor="middle" font-family="Rubik" font-size="12" font-weight="700" fill="#2DD4BF" direction="ltr">x=3</text>
-      <!-- No solution box -->
-      <rect x="125" y="20" width="90" height="70" rx="8" fill="rgba(248,113,113,0.12)" stroke="#F87171" stroke-width="1.5"/>
-      <text x="170" y="44" text-anchor="middle" font-family="Rubik" font-size="11" font-weight="700" fill="#DC2626">אין פתרון</text>
-      <text x="170" y="62" text-anchor="middle" font-family="Rubik" font-size="10" fill="rgba(234,244,241,0.6)" direction="ltr">2x+3=2x+7</text>
-      <text x="170" y="78" text-anchor="middle" font-family="Rubik" font-size="11" fill="#F87171">3=7 ✗</text>
-      <!-- Infinite solutions box -->
-      <rect x="240" y="20" width="90" height="70" rx="8" fill="rgba(129,140,248,0.12)" stroke="#818CF8" stroke-width="1.5"/>
-      <text x="285" y="44" text-anchor="middle" font-family="Rubik" font-size="11" font-weight="700" fill="#6366F1">אינסוף</text>
-      <text x="285" y="60" text-anchor="middle" font-family="Rubik" font-size="10" fill="rgba(234,244,241,0.6)" direction="ltr">2x+4=2x+4</text>
-      <text x="285" y="78" text-anchor="middle" font-family="Rubik" font-size="11" fill="#818CF8">0=0 ✓</text>
-    </svg>
+    <p style="font-size:15px;line-height:1.75;margin-bottom:14px;">
+      בדרך כלל מקבלים פתרון יחיד כמו <span class="m">x=3</span>. אבל לפעמים המשתנה נעלם לחלוטין — ואז התוצאה מפתיעה.
+    </p>
 
-    <div class="gold-box">לכל משוואה יש בדיוק אחד מאלה: פתרון יחיד · אין פתרון · אינסוף פתרונות</div>
-
-    <ul class="bullets">
-      <li><strong style="color:#2DD4BF;">פתרון יחיד</strong> — אחרי פישוט נשאר <span class="m">x = מספר</span></li>
-      <li><strong style="color:#F87171;">אין פתרון</strong> — נשאר <span class="m">a = b</span> ו-<span class="m">a ≠ b</span>; שקר תמיד (למשל <span class="m">3 = 7</span>)</li>
-      <li><strong style="color:#818CF8;">אינסוף פתרונות</strong> — נשאר <span class="m">0 = 0</span> (אמת תמיד); כל ערך של x מקיים</li>
-    </ul>
-
-    <div class="learn-note" style="margin-top:14px;">
-      <strong>שיטת בדיקה:</strong><br>
-      1. פשטו ובצעו פעולות על שני האגפים כרגיל<br>
-      2. אם x נעלם — בדקו: האם הטענה שנשארה אמת תמיד? שקר תמיד? או ש-x שווה לערך יחיד?
+    <!-- three cases table -->
+    <div style="overflow-x:auto;margin-bottom:16px;">
+      <table style="border-collapse:collapse;font-size:14px;width:100%;text-align:right;">
+        <thead>
+          <tr style="background:rgba(234,244,241,0.08);">
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:8px 12px;font-family:Rubik;">תוצאה סופית</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:8px 12px;font-family:Rubik;">משמעות</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:8px 12px;font-family:Rubik;">מספר פתרונות</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;direction:ltr;unicode-bidi:isolate;">x = a</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">ערך בודד מתאים</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;color:var(--gold);font-weight:700;">פתרון יחיד</td>
+          </tr>
+          <tr style="background:rgba(234,244,241,0.03);">
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;direction:ltr;unicode-bidi:isolate;">0 = 7 (פסוק שקר)</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">אי-שוויון בלתי אפשרי</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;color:var(--coral);font-weight:700;">אין פתרון (∅)</td>
+          </tr>
+          <tr>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;direction:ltr;unicode-bidi:isolate;">0 = 0 (פסוק אמת)</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">שני האגפים זהים תמיד</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;color:#6ee7c0;font-weight:700;">אינסוף פתרונות</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <div class="btnrow" style="margin-top:20px;">
+    <!-- no solution example -->
+    <div class="example-box" style="text-align:right;margin-bottom:10px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 1 — אין פתרון</div>
+      <div style="font-size:14px;margin-bottom:8px;">פתרו: <span class="m">2(x+3) = 2x + 10</span></div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2.2;text-align:left;">
+        2x + 6 = 2x + 10<br>
+        6 = 10 &nbsp;<span style="font-size:12px;opacity:.65;">(חיסור 2x משני האגפים)</span><br>
+        <span style="color:var(--coral);font-weight:700;">פסוק שקר ← אין פתרון</span>
+      </div>
+    </div>
+
+    <!-- infinite solutions example -->
+    <div class="example-box" style="text-align:right;margin-bottom:16px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 2 — אינסוף פתרונות</div>
+      <div style="font-size:14px;margin-bottom:8px;">פתרו: <span class="m">5x − 4 = 3(x−2) + 2x + 2</span></div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2.2;text-align:left;">
+        5x − 4 = 3x − 6 + 2x + 2<br>
+        5x − 4 = 5x − 4<br>
+        0 = 0 &nbsp;<span style="font-size:12px;opacity:.65;">(חיסור 5x, חיבור 4)</span><br>
+        <span style="color:#6ee7c0;font-weight:700;">פסוק אמת ← כל מספר הוא פתרון</span>
+      </div>
+    </div>
+
+    <!-- summary -->
+    <div class="learn-note" style="background:rgba(72,176,140,0.1);border-color:var(--seafoam);">
+      <strong>לסיכום:</strong>
+      <ul class="bullets" style="margin:8px 0 0;">
+        <li><strong>המשתנה נעלם + שקר</strong> (כמו 6=10) → <strong>אין פתרון.</strong></li>
+        <li><strong>המשתנה נעלם + אמת</strong> (כמו 0=0) → <strong>אינסוף פתרונות.</strong></li>
+        <li><strong>⚠️ טעות נפוצה:</strong> <span class="m">3x=0</span> → <span class="m">x=0</span>. זה פתרון יחיד (המספר אפס) — לא "אין פתרון"!</li>
+      </ul>
+    </div>
+
+    <div class="btnrow">
       <button class="btn" onclick="state.sequence=5;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
@@ -753,50 +862,70 @@ function renderLearn2(){
   return `<div class="panel">
     <h2 class="qtitle">משוואות פשוטות — פעולה אחת</h2>
 
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 140" style="display:block;margin:10px auto 14px;max-width:320px;">
-      <!-- "before" balance -->
-      <line x1="40" y1="55" x2="148" y2="55" stroke="#EFA94A" stroke-width="3" stroke-linecap="round"/>
-      <polygon points="94,55 84,88 104,88" fill="rgba(239,169,74,0.5)"/>
-      <rect x="52" y="55" width="36" height="24" rx="5" fill="rgba(239,169,74,0.15)" stroke="#EFA94A" stroke-width="1.5"/>
-      <rect x="100" y="55" width="36" height="24" rx="5" fill="rgba(72,176,140,0.15)" stroke="#48B08C" stroke-width="1.5"/>
-      <text x="70" y="72" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#EFA94A" direction="ltr">x+7</text>
-      <text x="118" y="72" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#48B08C" direction="ltr">12</text>
-      <!-- arrow down -->
-      <text x="160" y="65" font-family="Rubik" font-size="22" fill="rgba(234,244,241,0.5)">→</text>
-      <!-- "after" balance -->
-      <line x1="175" y1="55" x2="305" y2="55" stroke="#EFA94A" stroke-width="3" stroke-linecap="round"/>
-      <polygon points="240,55 230,88 250,88" fill="rgba(239,169,74,0.5)"/>
-      <rect x="187" y="55" width="36" height="24" rx="5" fill="rgba(139,92,246,0.15)" stroke="#8B5CF6" stroke-width="1.5"/>
-      <rect x="257" y="55" width="36" height="24" rx="5" fill="rgba(72,176,140,0.15)" stroke="#48B08C" stroke-width="1.5"/>
-      <text x="205" y="72" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#8B5CF6" direction="ltr">x</text>
-      <text x="275" y="72" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#48B08C" direction="ltr">5</text>
-      <!-- minus 7 label -->
-      <text x="94" y="112" text-anchor="middle" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.5)">לפני</text>
-      <text x="240" y="112" text-anchor="middle" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.5)">אחרי −7 משני האגפים</text>
-    </svg>
+    <p style="font-size:15px;line-height:1.75;margin-bottom:14px;">
+      משוואה היא מאזניים. המטרה שלנו היא לגלות איזה מספר מסתתר מאחורי <span class="m">x</span>, תוך שמירה על האיזון לאורך כל הפתרון.
+    </p>
 
-    <div class="gold-box">כלל מאזניים: מה שעושים לאגף אחד — חייבים לעשות לשני!</div>
-
-    <ul class="bullets">
-      <li>משוואה פשוטה נפתרת <strong>בפעולה אחת</strong>: חיסור, חיבור, כפל או חילוק</li>
-      <li>יש <strong>x</strong> בצד אחד? — בצעו את הפעולה ההפוכה לשני האגפים</li>
-      <li>תמיד בדקו: הציבו את התשובה בחזרה במשוואה</li>
-    </ul>
-
-    <div class="examples-row">
-      <div class="example-box" style="text-align:right;font-size:14px;font-weight:400;padding:12px 14px;">
-        <div style="font-weight:700;color:var(--gold);text-align:center;margin-bottom:6px;"><span class="m">x + 7 = 12</span></div>
-        <div>מחסירים 7: <span class="m">x = 12 − 7 = 5</span></div>
-        <div style="color:var(--seafoam);margin-top:4px;">בדיקה: 5 + 7 = 12 ✓</div>
-      </div>
-      <div class="example-box" style="text-align:right;font-size:14px;font-weight:400;padding:12px 14px;">
-        <div style="font-weight:700;color:var(--gold);text-align:center;margin-bottom:6px;"><span class="m">3x = 18</span></div>
-        <div>מחלקים ב-3: <span class="m">x = 18 ÷ 3 = 6</span></div>
-        <div style="color:var(--seafoam);margin-top:4px;">בדיקה: 3 × 6 = 18 ✓</div>
-      </div>
+    <!-- balance law -->
+    <div style="font-size:15px;font-weight:700;color:var(--gold);margin-bottom:8px;">חוק המאזניים</div>
+    <div class="gold-box" style="margin-bottom:14px;">
+      כל פעולה שמבצעים <strong>חייבת</strong> להתבצע בדיוק באותו אופן בשני האגפים — ורק אז השוויון נשמר.
+    </div>
+    <div style="overflow-x:auto;margin-bottom:16px;">
+      <table style="border-collapse:collapse;font-size:14px;width:100%;text-align:center;">
+        <thead>
+          <tr style="background:rgba(234,244,241,0.08);">
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:8px 12px;font-family:Rubik;text-align:right;">פעולה</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:8px 12px;font-family:Rubik;">משמעות במאזניים</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;text-align:right;">הוספת מספר לשני האגפים</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">הוספת משקל זהה לשני הצדדים</td>
+          </tr>
+          <tr style="background:rgba(234,244,241,0.03);">
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;text-align:right;">חיסור מספר משני האגפים</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">הורדת משקל זהה משני הצדדים</td>
+          </tr>
+          <tr>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;text-align:right;">חילוק שני האגפים במספר</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:7px 12px;font-family:Rubik;">חלוקת הכמות בכל צד לקבוצות שוות</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <div class="btnrow" style="margin-top:20px;">
+    <!-- collect first -->
+    <div style="font-size:15px;font-weight:700;color:rgba(234,244,241,0.85);margin-bottom:8px;">שלב ראשון — כנסו איברים דומים בכל אגף</div>
+    <p style="font-size:14px;line-height:1.65;margin-bottom:12px;">
+      לפני שמעבירים דברים מצד לצד, מפשטים כל אגף בנפרד: מחברים את כל <span class="m">x</span>-ים ביחד, ואת כל המספרים החופשיים ביחד.
+    </p>
+
+    <!-- worked example -->
+    <div class="example-box" style="text-align:right;margin-bottom:16px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:8px;">פתרו: <span class="m">4x + 3 + 2x = 21</span></div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2.2;text-align:left;">
+        4x + 2x = 6x &nbsp;<span style="font-size:12px;opacity:.65;">(כינוס)</span><br>
+        6x + 3 = 21<br>
+        6x = 21 − 3 = 18 &nbsp;<span style="font-size:12px;opacity:.65;">(חיסור 3 משני האגפים)</span><br>
+        x = 18 ÷ 6 = <span style="color:var(--gold);font-weight:700;">3</span> &nbsp;<span style="font-size:12px;opacity:.65;">(חילוק ב-6)</span>
+      </div>
+      <div style="font-size:13px;margin-top:8px;text-align:right;color:#6ee7c0;">בדיקה: 4·3 + 3 + 2·3 = 12+3+6 = 21 ✓</div>
+    </div>
+
+    <!-- summary -->
+    <div class="learn-note" style="background:rgba(72,176,140,0.1);border-color:var(--seafoam);">
+      <strong>סדר פעולות מנצח:</strong>
+      <ul class="bullets" style="margin:8px 0 0;">
+        <li><strong>קודם כל:</strong> כנסו איברים דומים בכל אגף בנפרד.</li>
+        <li><strong>אחר כך:</strong> בטלו את המספר החופשי מהאגף שבו יש <span class="m">x</span> (חסרו/הוסיפו).</li>
+        <li><strong>לבסוף:</strong> חלקו שני האגפים במקדם של <span class="m">x</span>.</li>
+        <li><strong>⚠️ טעות נפוצה:</strong> לחלק לפני שמכנסים. תמיד מפשטים קודם!</li>
+      </ul>
+    </div>
+
+    <div class="btnrow">
       <button class="btn" onclick="state.sequence=2;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
@@ -807,50 +936,65 @@ function renderLearn3(){
   return `<div class="panel">
     <h2 class="qtitle">משוואות מורכבות — כמה שלבים</h2>
 
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 130" style="display:block;margin:10px auto 14px;max-width:320px;">
-      <!-- step boxes -->
-      <rect x="10" y="20" width="68" height="34" rx="6" fill="rgba(239,169,74,0.15)" stroke="#EFA94A" stroke-width="1.5"/>
-      <text x="44" y="42" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#EFA94A" direction="ltr">2x+3=11</text>
-      <line x1="82" y1="37" x2="98" y2="37" stroke="rgba(234,244,241,0.4)" stroke-width="1.5" marker-end="url(#u5a1)"/>
-      <defs><marker id="u5a1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="rgba(234,244,241,0.4)"/></marker></defs>
-      <text x="90" y="28" text-anchor="middle" font-family="Rubik" font-size="9" fill="rgba(234,244,241,0.5)">−3</text>
-      <rect x="101" y="20" width="58" height="34" rx="6" fill="rgba(139,92,246,0.15)" stroke="#8B5CF6" stroke-width="1.5"/>
-      <text x="130" y="42" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#8B5CF6" direction="ltr">2x = 8</text>
-      <line x1="163" y1="37" x2="179" y2="37" stroke="rgba(234,244,241,0.4)" stroke-width="1.5" marker-end="url(#u5a1)"/>
-      <text x="171" y="28" text-anchor="middle" font-family="Rubik" font-size="9" fill="rgba(234,244,241,0.5)">÷2</text>
-      <rect x="182" y="20" width="58" height="34" rx="6" fill="rgba(72,176,140,0.15)" stroke="#48B08C" stroke-width="1.5"/>
-      <text x="211" y="42" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#48B08C" direction="ltr">x = 4</text>
-      <!-- check -->
-      <text x="260" y="42" font-family="Rubik" font-size="18" fill="#48B08C">✓</text>
-      <!-- labels -->
-      <text x="44" y="72" text-anchor="middle" font-family="Rubik" font-size="10" fill="rgba(234,244,241,0.45)">התחלה</text>
-      <text x="130" y="72" text-anchor="middle" font-family="Rubik" font-size="10" fill="rgba(234,244,241,0.45)">שלב 1</text>
-      <text x="211" y="72" text-anchor="middle" font-family="Rubik" font-size="10" fill="rgba(234,244,241,0.45)">שלב 2</text>
-      <!-- second example row -->
-      <rect x="10" y="90" width="88" height="28" rx="5" fill="rgba(239,169,74,0.1)" stroke="rgba(239,169,74,0.3)" stroke-width="1"/>
-      <text x="54" y="109" text-anchor="middle" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.6)" direction="ltr">3x+2 = x+10</text>
-      <text x="108" y="107" font-family="Rubik" font-size="13" fill="rgba(234,244,241,0.35)">→</text>
-      <rect x="120" y="90" width="68" height="28" rx="5" fill="rgba(139,92,246,0.1)" stroke="rgba(139,92,246,0.3)" stroke-width="1"/>
-      <text x="154" y="109" text-anchor="middle" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.6)" direction="ltr">2x+2 = 10</text>
-      <text x="198" y="107" font-family="Rubik" font-size="13" fill="rgba(234,244,241,0.35)">→</text>
-      <rect x="210" y="90" width="50" height="28" rx="5" fill="rgba(72,176,140,0.1)" stroke="rgba(72,176,140,0.3)" stroke-width="1"/>
-      <text x="235" y="109" text-anchor="middle" font-family="Rubik" font-size="11" fill="#48B08C" direction="ltr">x = 4</text>
-    </svg>
+    <p style="font-size:15px;line-height:1.75;margin-bottom:14px;">
+      כשה-<span class="m">x</span> מופיע בשני האגפים — מרכזים אותו בצד אחד לפני הכל.
+    </p>
 
-    <div class="gold-box" style="font-size:15px;text-align:right;padding:12px 16px;">
-      <div style="font-weight:800;margin-bottom:6px;text-align:center;">סדר פתרון</div>
-      <div><span style="color:var(--gold);font-weight:800;">1.</span> העבירו מספרים לאגף שמאל (חישוב), נעלמים לאגף ימין</div>
-      <div style="margin-top:4px;"><span style="color:var(--gold);font-weight:800;">2.</span> כנסו איברים דומים</div>
-      <div style="margin-top:4px;"><span style="color:var(--gold);font-weight:800;">3.</span> חלקו בציפר של x</div>
+    <!-- steps summary table -->
+    <div style="font-size:15px;font-weight:700;color:var(--gold);margin-bottom:8px;">תוכנית עבודה — שלבים קבועים</div>
+    <div style="overflow-x:auto;margin-bottom:16px;">
+      <table style="border-collapse:collapse;font-size:14px;width:100%;text-align:right;">
+        <thead>
+          <tr style="background:rgba(234,244,241,0.08);">
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 12px;font-family:Rubik;width:60px;">שלב</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 12px;font-family:Rubik;">פעולה</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 12px;font-family:Rubik;text-align:center;font-weight:700;color:var(--gold);">1</td><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 12px;font-family:Rubik;">כנסו איברים דומים בכל אגף בנפרד</td></tr>
+          <tr style="background:rgba(234,244,241,0.03);"><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 12px;font-family:Rubik;text-align:center;font-weight:700;color:var(--gold);">2</td><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 12px;font-family:Rubik;">העבירו את כל ה-x לאגף אחד (הגדול)</td></tr>
+          <tr><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 12px;font-family:Rubik;text-align:center;font-weight:700;color:var(--gold);">3</td><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 12px;font-family:Rubik;">העבירו את המספרים החופשיים לאגף השני</td></tr>
+          <tr style="background:rgba(234,244,241,0.03);"><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 12px;font-family:Rubik;text-align:center;font-weight:700;color:var(--gold);">4</td><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 12px;font-family:Rubik;">חלקו שני האגפים במקדם של x</td></tr>
+        </tbody>
+      </table>
     </div>
 
-    <div class="learn-note" style="margin-top:12px;border-right-color:var(--coral);">
-      <strong>כמה פתרונות?</strong><br>
-      <span style="color:var(--coral);">אין פתרון:</span> <span class="m">2x+5 = 2x+8</span> → מחסירים 2x → <span class="m">5=8</span> — שקר תמיד<br>
-      <span style="color:var(--seafoam);">אינסוף פתרונות:</span> <span class="m">2x+4 = 2x+4</span> → נכון לכל x
+    <!-- example 1: x on both sides -->
+    <div class="example-box" style="text-align:right;margin-bottom:10px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 1 — x בשני האגפים</div>
+      <div style="font-size:14px;margin-bottom:8px;">פתרו: <span class="m">5x − 4 = 2x + 11</span></div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2.2;text-align:left;">
+        5x − 2x − 4 = 11 &nbsp;<span style="font-size:12px;opacity:.65;">(חיסור 2x)</span><br>
+        3x − 4 = 11<br>
+        3x = 15 &nbsp;<span style="font-size:12px;opacity:.65;">(חיסור 4→ימין נהפך לחיבור)</span><br>
+        x = <span style="color:var(--gold);font-weight:700;">5</span>
+      </div>
+      <div style="font-size:13px;margin-top:8px;text-align:right;color:#6ee7c0;">בדיקה: 25−4=21 | 10+11=21 ✓</div>
     </div>
 
-    <div class="btnrow" style="margin-top:20px;">
+    <!-- example 2: negative coefficient -->
+    <div class="example-box" style="text-align:right;margin-bottom:16px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 2 — מקדם שלילי</div>
+      <div style="font-size:14px;margin-bottom:8px;">פתרו: <span class="m">3x + 14 = 7x − 2</span></div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2.2;text-align:left;">
+        3x − 7x + 14 = −2 &nbsp;<span style="font-size:12px;opacity:.65;">(חיסור 7x)</span><br>
+        −4x + 14 = −2<br>
+        −4x = −16 &nbsp;<span style="font-size:12px;opacity:.65;">(חיסור 14)</span><br>
+        x = −16 ÷ (−4) = <span style="color:var(--gold);font-weight:700;">4</span> &nbsp;<span style="font-size:12px;opacity:.65;">(מינוס ÷ מינוס = פלוס)</span>
+      </div>
+    </div>
+
+    <!-- summary -->
+    <div class="learn-note" style="background:rgba(72,176,140,0.1);border-color:var(--seafoam);">
+      <strong>לסיכום:</strong>
+      <ul class="bullets" style="margin:8px 0 0;">
+        <li><strong>עדיף לרכז x בצד עם המקדם הגדול</strong> — כדי לקבל מקדם חיובי ולהימנע מחלוקה במינוס.</li>
+        <li><strong>הסימן הולך עם האיבר:</strong> כשמעבירים <span class="m">+2x</span> לשמאל, מחסרים <span class="m">2x</span> משני האגפים.</li>
+        <li><strong>⚠️ טעות נפוצה:</strong> <span class="m">3x − 7x = 4x</span> — לא נכון! <span class="m">3x − 7x = −4x</span>.</li>
+      </ul>
+    </div>
+
+    <div class="btnrow">
       <button class="btn" onclick="state.sequence=3;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
@@ -861,55 +1005,76 @@ function renderLearn4(){
   return `<div class="panel">
     <h2 class="qtitle">משוואות עם פתיחת סוגריים</h2>
 
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" style="display:block;margin:10px auto 14px;max-width:320px;">
-      <!-- rectangle area model: 2(x+3) -->
-      <rect x="20" y="20" width="50" height="60" rx="4" fill="rgba(72,176,140,0.2)" stroke="#48B08C" stroke-width="1.5"/>
-      <rect x="75" y="20" width="80" height="60" rx="4" fill="rgba(239,169,74,0.2)" stroke="#EFA94A" stroke-width="1.5"/>
-      <!-- height label -->
-      <text x="11" y="54" font-family="Rubik" font-size="14" font-weight="700" fill="rgba(234,244,241,0.7)" text-anchor="middle">2</text>
-      <!-- width labels -->
-      <text x="45" y="95" font-family="Rubik" font-size="12" fill="#48B08C" text-anchor="middle">x</text>
-      <text x="115" y="95" font-family="Rubik" font-size="12" fill="#EFA94A" text-anchor="middle">3</text>
-      <!-- bracket above -->
-      <line x1="20" y1="15" x2="155" y2="15" stroke="rgba(234,244,241,0.3)" stroke-width="1"/>
-      <text x="87" y="12" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.5)" text-anchor="middle">x + 3</text>
-      <!-- equals arrow -->
-      <text x="172" y="54" font-family="Rubik" font-size="18" fill="rgba(234,244,241,0.5)">=</text>
-      <!-- result boxes -->
-      <rect x="190" y="25" width="42" height="26" rx="4" fill="rgba(72,176,140,0.15)" stroke="#48B08C" stroke-width="1.5"/>
-      <text x="211" y="43" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#48B08C" direction="ltr">2x</text>
-      <text x="238" y="43" font-family="Rubik" font-size="14" fill="rgba(234,244,241,0.4)">+</text>
-      <rect x="246" y="25" width="42" height="26" rx="4" fill="rgba(239,169,74,0.15)" stroke="#EFA94A" stroke-width="1.5"/>
-      <text x="267" y="43" text-anchor="middle" font-family="Rubik" font-size="13" font-weight="700" fill="#EFA94A" direction="ltr">6</text>
-      <!-- formula -->
-      <text x="255" y="80" text-anchor="middle" font-family="Rubik" font-size="11" fill="rgba(234,244,241,0.5)" direction="ltr">2(x+3) = 2x+6</text>
-    </svg>
+    <p style="font-size:15px;line-height:1.75;margin-bottom:14px;">
+      כשמשוואה כוללת סוגריים, פותחים אותם תמיד ראשונה — ורק אחר כך מתקדמים לפתרון.
+    </p>
 
-    <div class="gold-box">פתיחת סוגריים: מכפילים כל איבר בתוך הסוגריים בגורם שמחוצה להם</div>
+    <!-- steps table -->
+    <div style="overflow-x:auto;margin-bottom:16px;">
+      <table style="border-collapse:collapse;font-size:13.5px;width:100%;text-align:right;">
+        <thead>
+          <tr style="background:rgba(234,244,241,0.08);">
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;width:50px;">שלב</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;">פעולה</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;">דוגמה</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;text-align:center;font-weight:700;color:var(--gold);font-family:Rubik;">1</td><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;">פתיחת סוגריים (חוק הפילוג)</td><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;unicode-bidi:isolate;font-size:13px;">2(x+3)=10 → 2x+6=10</td></tr>
+          <tr style="background:rgba(234,244,241,0.03);"><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;text-align:center;font-weight:700;color:var(--gold);font-family:Rubik;">2</td><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;">כינוס איברים דומים בכל אגף</td><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;unicode-bidi:isolate;font-size:13px;">2x+3x+6=10 → 5x+6=10</td></tr>
+          <tr><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;text-align:center;font-weight:700;color:var(--gold);font-family:Rubik;">3</td><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;">העברת אגפים</td><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;unicode-bidi:isolate;font-size:13px;">5x=10−6 → 5x=4</td></tr>
+          <tr style="background:rgba(234,244,241,0.03);"><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;text-align:center;font-weight:700;color:var(--gold);font-family:Rubik;">4</td><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;">חילוק במקדם של x</td><td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;unicode-bidi:isolate;font-size:13px;">x = 4/5</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-    <ul class="bullets">
-      <li><span class="m">a(b + c) = ab + ac</span></li>
-      <li>שומרים על הסימן: <span class="m">3(x − 2) = 3x − 6</span> (לא <span class="m">3x + 6</span>!)</li>
-      <li>מינוס לפני סוגריים: <span class="m">−(x + 4) = −x − 4</span> — הסימן מתהפך</li>
-      <li>אחרי פתיחה — פותרים כרגיל (כמה שלבים)</li>
-    </ul>
-
-    <div class="examples-row">
-      <div class="example-box" style="text-align:right;font-size:14px;font-weight:400;padding:12px 14px;">
-        <div style="font-weight:700;color:var(--gold);text-align:center;margin-bottom:6px;"><span class="m">2(x + 3) = 14</span></div>
-        <div>פותחים: <span class="m">2x + 6 = 14</span></div>
-        <div>מחסירים 6: <span class="m">2x = 8</span></div>
-        <div style="color:var(--seafoam);">x = 4 ✓</div>
-      </div>
-      <div class="example-box" style="text-align:right;font-size:14px;font-weight:400;padding:12px 14px;">
-        <div style="font-weight:700;color:var(--gold);text-align:center;margin-bottom:6px;"><span class="m">4(x − 1) = 2x + 6</span></div>
-        <div>פותחים: <span class="m">4x − 4 = 2x + 6</span></div>
-        <div>מחסירים 2x: <span class="m">2x − 4 = 6</span></div>
-        <div style="color:var(--seafoam);">x = 5 ✓</div>
+    <!-- example 1 -->
+    <div class="example-box" style="text-align:right;margin-bottom:10px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 1</div>
+      <div style="font-size:14px;margin-bottom:8px;">פתרו: <span class="m">4(x+2) + 3x = 22</span></div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2.2;text-align:left;">
+        4x + 8 + 3x = 22 &nbsp;<span style="font-size:12px;opacity:.65;">(פתיחת סוגריים)</span><br>
+        7x + 8 = 22 &nbsp;<span style="font-size:12px;opacity:.65;">(כינוס)</span><br>
+        7x = 14<br>
+        x = <span style="color:var(--gold);font-weight:700;">2</span>
       </div>
     </div>
 
-    <div class="btnrow" style="margin-top:20px;">
+    <!-- example 2 -->
+    <div class="example-box" style="text-align:right;margin-bottom:10px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 2 — שני זוגות סוגריים</div>
+      <div style="font-size:14px;margin-bottom:8px;">פתרו: <span class="m">5(x−3) − 2(x−1) = 1</span></div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2.2;text-align:left;">
+        5x − 15 − 2x + 2 = 1 &nbsp;<span style="font-size:12px;opacity:.65;">(−2·(−1)=+2)</span><br>
+        3x − 13 = 1<br>
+        3x = 14<br>
+        x = <span style="color:var(--gold);font-weight:700;">14/3</span>
+      </div>
+    </div>
+
+    <!-- example 3 -->
+    <div class="example-box" style="text-align:right;margin-bottom:16px;padding:14px 18px;">
+      <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 3 — x בשני האגפים</div>
+      <div style="font-size:14px;margin-bottom:8px;">פתרו: <span class="m">6x − 2(x+4) = x + 7</span></div>
+      <div style="direction:ltr;unicode-bidi:isolate;font-size:16px;line-height:2.2;text-align:left;">
+        6x − 2x − 8 = x + 7<br>
+        4x − 8 = x + 7<br>
+        3x = 15<br>
+        x = <span style="color:var(--gold);font-weight:700;">5</span>
+      </div>
+    </div>
+
+    <!-- summary -->
+    <div class="learn-note" style="background:rgba(72,176,140,0.1);border-color:var(--seafoam);">
+      <strong>לסיכום:</strong>
+      <ul class="bullets" style="margin:8px 0 0;">
+        <li><strong>קודם תמיד פותחים סוגריים</strong> — לפני כינוס ולפני העברת אגפים.</li>
+        <li><strong>מינוס לפני סוגריים הופך הכל:</strong> <span class="m">−2(x−1) = −2x+2</span>, לא <span class="m">−2x−2</span>.</li>
+        <li><strong>⚠️ טעות נפוצה:</strong> <span class="m">−3(x−4) = −3x−12</span> — שגוי! הנכון: <span class="m">−3x+12</span>.</li>
+      </ul>
+    </div>
+
+    <div class="btnrow">
       <button class="btn" onclick="state.sequence=4;startGame()">לתרגול ←</button>
       <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
     </div>
