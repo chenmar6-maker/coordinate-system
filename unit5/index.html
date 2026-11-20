@@ -568,9 +568,9 @@ function renderLearn1(){
       <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 1: בדיקת פתרון נכון</div>
       <p style="font-size:14px;margin-bottom:8px;">נתונה המשוואה <span class="m">3x − 4 = 14</span>. נבדוק האם המספר <span class="m">x = 6</span> הוא פתרון של המשוואה.</p>
       <p style="font-size:14px;margin-bottom:6px;">נציב <span class="m">6</span> במקום <span class="m">x</span> באגף שמאל:</p>
-      <div style="direction:ltr;unicode-bidi:isolate;font-size:15px;line-height:2.1;text-align:left;margin-bottom:6px;">
-        אגף שמאל: 3·6 − 4 = 18 − 4 = 14<br>
-        אגף ימין: 14
+      <div style="font-size:15px;line-height:2.1;margin-bottom:6px;">
+        <div>אגף שמאל: <span class="m">3·6 − 4 = 18 − 4 = 14</span></div>
+        <div>אגף ימין: <span class="m">14</span></div>
       </div>
       <p style="font-size:14px;margin-bottom:4px;">קיבלנו שוויון בין האגפים (<span class="m">14 = 14</span>), ולכן קיבלנו פסוק אמת.</p>
       <p style="font-size:14px;color:#6ee7c0;font-weight:700;">מסקנה: המספר <span class="m">x = 6</span> הוא אכן פתרון המשוואה.</p>
@@ -580,9 +580,9 @@ function renderLearn1(){
     <div class="example-box" style="text-align:right;margin-bottom:10px;padding:14px 18px;">
       <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 2: בדיקת מספר שאינו פתרון</div>
       <p style="font-size:14px;margin-bottom:8px;">נתונה המשוואה <span class="m">5(x − 1) = 2x + 7</span>. נבדוק האם המספר <span class="m">x = 3</span> הוא פתרון.</p>
-      <div style="direction:ltr;unicode-bidi:isolate;font-size:15px;line-height:2.1;text-align:left;margin-bottom:6px;">
-        אגף שמאל: 5·(3 − 1) = 5·2 = 10<br>
-        אגף ימין: 2·3 + 7 = 6 + 7 = 13
+      <div style="font-size:15px;line-height:2.1;margin-bottom:6px;">
+        <div>אגף שמאל: <span class="m">5·(3 − 1) = 5·2 = 10</span></div>
+        <div>אגף ימין: <span class="m">2·3 + 7 = 6 + 7 = 13</span></div>
       </div>
       <p style="font-size:14px;margin-bottom:4px;">השוואה: אגף שמאל יצא <span class="m">10</span>, ואילו אגף ימין יצא <span class="m">13</span>.</p>
       <p style="font-size:14px;margin-bottom:4px;">מכיוון ש-<span class="m">10 ≠ 13</span>, קיבלנו פסוק שקר.</p>
@@ -594,9 +594,9 @@ function renderLearn1(){
       <div style="font-size:13px;color:rgba(234,244,241,0.6);margin-bottom:6px;">דוגמה 3: הצבה עם מספר שלילי</div>
       <p style="font-size:14px;margin-bottom:8px;">נתונה המשוואה <span class="m">4 − 2x = 10</span>. נבדוק האם המספר <span class="m">x = −3</span> הוא פתרון.</p>
       <p style="font-size:14px;margin-bottom:6px;">נציב באגף שמאל תוך שמירה על כללי כפל מספרים מכוונים:</p>
-      <div style="direction:ltr;unicode-bidi:isolate;font-size:15px;line-height:2.1;text-align:left;margin-bottom:6px;">
-        אגף שמאל: 4 − 2·(−3) = 4 − (−6) = 4 + 6 = 10<br>
-        אגף ימין: 10
+      <div style="font-size:15px;line-height:2.1;margin-bottom:6px;">
+        <div>אגף שמאל: <span class="m">4 − 2·(−3) = 4 − (−6) = 4 + 6 = 10</span></div>
+        <div>אגף ימין: <span class="m">10</span></div>
       </div>
       <p style="font-size:14px;margin-bottom:4px;">מכיוון ש-<span class="m">10 = 10</span>, קיבלנו פסוק אמת.</p>
       <p style="font-size:14px;color:#6ee7c0;font-weight:700;">מסקנה: <span class="m">x = −3</span> הוא פתרון המשוואה.</p>
@@ -608,33 +608,33 @@ function renderLearn1(){
       <table style="border-collapse:collapse;font-size:13px;width:100%;text-align:center;">
         <thead>
           <tr style="background:rgba(234,244,241,0.08);">
-            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;direction:ltr;">ערך x לבדיקה</th>
-            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;direction:ltr;">חישוב אגף שמאל</th>
-            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;direction:ltr;">ערך אגף ימין</th>
-            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;direction:ltr;">שוויון אגפים?</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;">ערך <span class="m">x</span> לבדיקה</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;">חישוב אגף שמאל</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;">ערך אגף ימין</th>
+            <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;">שוויון אגפים?</th>
             <th style="border:1px solid rgba(234,244,241,0.2);padding:7px 10px;font-family:Rubik;">האם פתרון?</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;">x = 1</td>
-            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;">4 − 2·1 = 2</td>
-            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;">10</td>
-            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;">2 ≠ 10</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;"><span class="m">x = 1</span></td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;"><span class="m">4 − 2·1 = 2</span></td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;"><span class="m">10</span></td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;"><span class="m">2 ≠ 10</span></td>
             <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;color:var(--coral);">לא</td>
           </tr>
           <tr style="background:rgba(72,176,140,0.06);">
-            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;">x = −3</td>
-            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;">4 − 2·(−3) = 10</td>
-            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;">10</td>
-            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;">10 = 10</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;"><span class="m">x = −3</span></td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;"><span class="m">4 − 2·(−3) = 10</span></td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;"><span class="m">10</span></td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;"><span class="m">10 = 10</span></td>
             <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;color:#6ee7c0;font-weight:700;">כן</td>
           </tr>
           <tr>
-            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;">x = 0</td>
-            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;">4 − 2·0 = 4</td>
-            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;">10</td>
-            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;direction:ltr;">4 ≠ 10</td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;"><span class="m">x = 0</span></td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;"><span class="m">4 − 2·0 = 4</span></td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;"><span class="m">10</span></td>
+            <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;"><span class="m">4 ≠ 10</span></td>
             <td style="border:1px solid rgba(234,244,241,0.15);padding:6px 10px;font-family:Rubik;color:var(--coral);">לא</td>
           </tr>
         </tbody>
