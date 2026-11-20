@@ -74,7 +74,7 @@
   .dot:hover{opacity:.75;}
 
   .mc-options{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:16px auto 0;}
-  .mc-btn{background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;cursor:pointer;font-family:'Rubik',sans-serif;text-align:center;direction:ltr;unicode-bidi:isolate;}
+  .mc-btn{background:rgba(234,244,241,0.08);border:1.5px solid rgba(234,244,241,0.3);color:var(--foam);padding:12px 16px;border-radius:8px;font-size:16px;cursor:pointer;font-family:'Rubik',sans-serif;text-align:center;direction:rtl;}
   .mc-btn:hover{border-color:var(--gold);}
   .mc-btn.correct{background:rgba(72,176,140,0.3);border-color:var(--seafoam);}
   .mc-btn.wrong{background:rgba(226,96,79,0.3);border-color:var(--coral);}
@@ -143,42 +143,42 @@ const gameLevels1 = [
     question:'מהו אגף ימין של המשוואה <span class="m">3x − 1 = 8</span>?',
     options:['3x − 1','8','3x','−1'],
     correct:'8',
-    explain:'סימן השוויון מחלק את המשוואה: אגף שמאל הוא 3x − 1, אגף ימין הוא 8' },
+    explain:'סימן השוויון מחלק את המשוואה: אגף שמאל הוא <span class="m">3x − 1</span>, אגף ימין הוא <span class="m">8</span>' },
   { id:'mc', title:'אגף שמאל',
     question:'מהו אגף שמאל של המשוואה <span class="m">5 = 2x + 1</span>?',
     options:['5','2x + 1','2x','1'],
     correct:'5',
-    explain:'האגף שמשמאל לסימן השוויון הוא 5' },
+    explain:'האגף שמשמאל לסימן השוויון הוא <span class="m">5</span>' },
   { id:'mc', title:'מה מפריד בין האגפים?',
     question:'מה הסימן שמפריד בין אגף שמאל לאגף ימין במשוואה?',
     options:['סימן חיבור +','סימן חיסור −','סימן שוויון =','סימן כפל ·'],
     correct:'סימן שוויון =',
-    explain:'המשוואה היא טענה על שוויון — הסימן = מחלק אותה לשני אגפים' },
+    explain:'המשוואה היא טענה על שוויון — הסימן <span class="m">=</span> מחלק אותה לשני אגפים' },
   { id:'mc', title:'זיהוי פתרון',
     question:'האם <span class="m">x = 3</span> פתרון של המשוואה <span class="m">2x + 1 = 7</span>?',
     options:['כן','לא'],
     correct:'כן',
-    explain:'מציבים: 2·3 + 1 = 6 + 1 = 7. קיבלנו שוויון — זהו פתרון' },
+    explain:'מציבים: <span class="m">2·3 + 1 = 6 + 1 = 7</span>. קיבלנו שוויון — זהו פתרון' },
   { id:'mc', title:'בדיקת הצבה',
     question:'האם <span class="m">x = 4</span> פתרון של המשוואה <span class="m">3x − 2 = 8</span>?',
     options:['כן','לא'],
     correct:'לא',
-    explain:'מציבים: 3·4 − 2 = 12 − 2 = 10. קיבלנו 10 ≠ 8 — פסוק שקר, לא פתרון' },
+    explain:'מציבים: <span class="m">3·4 − 2 = 12 − 2 = 10</span>. קיבלנו <span class="m">10 ≠ 8</span> — פסוק שקר, לא פתרון' },
   { id:'mc', title:'הצבה עם אפס',
     question:'האם <span class="m">x = 0</span> פתרון של המשוואה <span class="m">4x = 0</span>?',
     options:['כן','לא'],
     correct:'כן',
-    explain:'מציבים: 4·0 = 0. קיבלנו 0 = 0 — שוויון נכון, x = 0 הוא פתרון' },
+    explain:'מציבים: <span class="m">4·0 = 0</span>. קיבלנו <span class="m">0 = 0</span> — שוויון נכון, <span class="m">x = 0</span> הוא פתרון' },
   { id:'mc', title:'איזה ערך הוא פתרון?',
     question:'איזה ערך של <span class="m">x</span> הופך את המשוואה <span class="m">x + 5 = 9</span> לנכונה?',
     options:['x = 3','x = 4','x = 14','x = 5'],
     correct:'x = 4',
-    explain:'מציבים x = 4: 4 + 5 = 9. קיבלנו שוויון' },
+    explain:'מציבים <span class="m">x = 4</span>: <span class="m">4 + 5 = 9</span>. קיבלנו שוויון' },
   { id:'mc', title:'הצבת מספר שלילי',
     question:'האם <span class="m">x = −2</span> פתרון של המשוואה <span class="m">x + 7 = 5</span>?',
     options:['כן','לא'],
     correct:'כן',
-    explain:'מציבים: (−2) + 7 = 5. קיבלנו 5 = 5 — פתרון נכון' },
+    explain:'מציבים: <span class="m">(−2) + 7 = 5</span>. קיבלנו <span class="m">5 = 5</span> — פתרון נכון' },
 ];
 
 /* seq 2 — משוואות פשוטות (פעולה אחת) */
@@ -446,7 +446,13 @@ function shuffleArr(arr){
 }
 
 function escOpt(s){ return s.replace(/'/g,"\\'"); }
-function wrapOpt(s){ return s; }
+function wrapOpt(s){
+  // If the option looks like a math expression (contains digits, operators, x/y, =, ≠, ·, −)
+  // but is not pure Hebrew text, wrap it in a math span for LTR rendering.
+  if(/[0-9x=≠·+\-\/\^]/.test(s) && !/^[\u05D0-\u05EA\s]+$/.test(s))
+    return '<span class="m">'+s+'</span>';
+  return s;
+}
 function wrapMath(s){ return s; }
 
 /* ============ RENDER ============ */
