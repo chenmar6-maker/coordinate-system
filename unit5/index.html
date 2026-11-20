@@ -137,6 +137,50 @@ const state = {
 
 /* ============ GAME LEVELS ============ */
 
+/* seq 1 — מבוא למשוואות — זיהוי פתרון */
+const gameLevels1 = [
+  { id:'mc', title:'אגף ימין',
+    question:'מהו אגף ימין של המשוואה <span class="m">3x − 1 = 8</span>?',
+    options:['3x − 1','8','3x','−1'],
+    correct:'8',
+    explain:'סימן השוויון מחלק את המשוואה: אגף שמאל הוא 3x − 1, אגף ימין הוא 8' },
+  { id:'mc', title:'אגף שמאל',
+    question:'מהו אגף שמאל של המשוואה <span class="m">5 = 2x + 1</span>?',
+    options:['5','2x + 1','2x','1'],
+    correct:'5',
+    explain:'האגף שמשמאל לסימן השוויון הוא 5' },
+  { id:'mc', title:'מה מפריד בין האגפים?',
+    question:'מה הסימן שמפריד בין אגף שמאל לאגף ימין במשוואה?',
+    options:['סימן חיבור +','סימן חיסור −','סימן שוויון =','סימן כפל ·'],
+    correct:'סימן שוויון =',
+    explain:'המשוואה היא טענה על שוויון — הסימן = מחלק אותה לשני אגפים' },
+  { id:'mc', title:'זיהוי פתרון',
+    question:'האם <span class="m">x = 3</span> פתרון של המשוואה <span class="m">2x + 1 = 7</span>?',
+    options:['כן','לא'],
+    correct:'כן',
+    explain:'מציבים: 2·3 + 1 = 6 + 1 = 7. קיבלנו שוויון — זהו פתרון' },
+  { id:'mc', title:'בדיקת הצבה',
+    question:'האם <span class="m">x = 4</span> פתרון של המשוואה <span class="m">3x − 2 = 8</span>?',
+    options:['כן','לא'],
+    correct:'לא',
+    explain:'מציבים: 3·4 − 2 = 12 − 2 = 10. קיבלנו 10 ≠ 8 — פסוק שקר, לא פתרון' },
+  { id:'mc', title:'הצבה עם אפס',
+    question:'האם <span class="m">x = 0</span> פתרון של המשוואה <span class="m">4x = 0</span>?',
+    options:['כן','לא'],
+    correct:'כן',
+    explain:'מציבים: 4·0 = 0. קיבלנו 0 = 0 — שוויון נכון, x = 0 הוא פתרון' },
+  { id:'mc', title:'איזה ערך הוא פתרון?',
+    question:'איזה ערך של <span class="m">x</span> הופך את המשוואה <span class="m">x + 5 = 9</span> לנכונה?',
+    options:['x = 3','x = 4','x = 14','x = 5'],
+    correct:'x = 4',
+    explain:'מציבים x = 4: 4 + 5 = 9. קיבלנו שוויון' },
+  { id:'mc', title:'הצבת מספר שלילי',
+    question:'האם <span class="m">x = −2</span> פתרון של המשוואה <span class="m">x + 7 = 5</span>?',
+    options:['כן','לא'],
+    correct:'כן',
+    explain:'מציבים: (−2) + 7 = 5. קיבלנו 5 = 5 — פתרון נכון' },
+];
+
 /* seq 2 — משוואות פשוטות (פעולה אחת) */
 const gameLevels2 = [
   { id:'typedSum', title:'איקס בצד ימין', expr:'16 = x + 9',
@@ -381,6 +425,7 @@ function skipLevel(){
 }
 
 function currentGameLevels(){
+  if(state.sequence===1) return gameLevels1;
   if(state.sequence===2) return gameLevels2;
   if(state.sequence===3) return gameLevels3;
   if(state.sequence===4) return gameLevels4;
