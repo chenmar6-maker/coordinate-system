@@ -342,12 +342,11 @@
   </div>
 </div>
 
-<!-- ═══ שאלה 4 — אתגר ═══ -->
-<div class="q-card challenge" id="card-4">
+<!-- ═══ שאלה 4 ═══ -->
+<div class="q-card" id="card-4">
   <div class="q-title">
-    <span class="q-num-challenge">4.</span>
+    <span class="q-num">4.</span>
     <span>תרגיל ד׳</span>
-    <span class="challenge-badge">★ אתגר</span>
   </div>
   <div class="img-wrap"><img src="angle_4.png" alt="זווית 4"></div>
 
@@ -358,6 +357,19 @@
       <div class="chip" data-val="לא" onclick="selectChip(this,'q4a')">לא</div>
     </div>
     <input type="hidden" id="q4a" value="">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ב. סוג הזווית:</span>
+    <div class="chips" id="q4b-chips">
+      <div class="chip" data-val="חדה" onclick="selectChip(this,'q4b')">חדה</div>
+      <div class="chip" data-val="קהה" onclick="selectChip(this,'q4b')">קהה</div>
+      <div class="chip" data-val="ישרה" onclick="selectChip(this,'q4b')">ישרה</div>
+    </div>
+    <input type="hidden" id="q4b" value="">
+  </div>
+  <div class="sub-row">
+    <span class="sub-lbl">ג. גודל הזווית:</span>
+    <span class="input-wrap"><input class="ans-input" id="q4c" type="text" placeholder="?"><span class="deg-unit">°</span></span>
   </div>
 </div>
 
@@ -462,8 +474,8 @@
 
 <script>
 // ─── Correct answers ────────────────────────────────────────────────
-// deg tolerance ±5°
-const DEG_TOL = 5;
+// deg tolerance ±1°
+const DEG_TOL = 1;
 const ANSWERS = {
   1: { canMeasure:'כן',  type:'חדה', deg:30  },
   2: { canMeasure:'כן',  type:'קהה', deg:120 },
