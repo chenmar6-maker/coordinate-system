@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבדק שליטה — מדידה בעזרת מד זווית</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    direction: rtl;
+    background: #F0F2F8;
+    min-height: 100vh;
+    padding: 24px 16px 100px;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: linear-gradient(135deg, #1E1B2E 0%, #2D2A45 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px 22px 14px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header-title { font-size: 20px; font-weight: 700; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .brand { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+  .intro-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 13px 16px;
+    margin-bottom: 18px;
+    border-right: 4px solid #10B981;
+    font-size: 13.5px;
+    line-height: 1.7;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  }
+  .intro-box strong { color: #065F46; }
+
+  .q-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-right: 4px solid #10B981;
+  }
+  .q-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .q-num { color: #10B981; font-size: 16px; }
+
+  .sub-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+  .sub-lbl {
+    font-weight: 700;
+    color: #555;
+    min-width: 50px;
+    flex-shrink: 0;
+  }
+
+  .ans-input {
+    border: none;
+    border-bottom: 2px solid #aaa;
+    background: transparent;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    direction: rtl;
+    text-align: center;
+    width: 100px;
+    padding: 2px 4px;
+    outline: none;
+    color: #1a1a2e;
+    transition: border-color .15s;
+  }
+  .ans-input:focus { border-color: #10B981; }
+  .ans-input.wide { width: 140px; }
+  .ans-input.narrow { width: 60px; }
+  .input-wrap { display: inline-flex; align-items: center; gap: 3px; direction: ltr; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .chip {
+    border: 1.5px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+    transition: all .15s;
+    background: #fafafa;
+    direction: rtl;
+  }
+  .chip:hover { border-color: #10B981; background: #ECFDF5; }
+  .chip.selected {
+    border-color: #10B981;
+    background: #ECFDF5;
+    color: #065F46;
+    font-weight: 700;
+  }
+
+  .check-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #10B981, #059669);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(16,185,129,0.35);
+    transition: transform .12s, box-shadow .12s;
+    margin-top: 6px;
+  }
+  .check-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(16,185,129,0.4); }
+  .check-btn:active { transform: translateY(0); }
+
+  #score-card {
+    display: none;
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 24px 22px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  #score-card.show { display: block; }
+
+  .score-big { font-size: 64px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .score-out-of { font-size: 16px; color: #888; margin-bottom: 18px; }
+  .score-msg { font-size: 18px; font-weight: 700; padding: 10px 24px; border-radius: 24px; display: inline-block; }
+  .score-great  { color: #065F46; background: #ECFDF5; }
+  .score-ok     { color: #92400E; background: #FEF3C7; }
+  .score-retry  { color: #991B1B; background: #FEF2F2; }
+
+  .score-bar-wrap { background: #f0f0f0; border-radius: 99px; height: 10px; margin: 16px 0 10px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
+
+  .retry-btn {
+    margin-top: 16px;
+    background: transparent;
+    border: 1.5px solid #ccc;
+    border-radius: 20px;
+    padding: 8px 22px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #555;
+    transition: border-color .15s, color .15s;
+  }
+  .retry-btn:hover { border-color: #10B981; color: #065F46; }
+
+  .ans-input.wrong   { border-bottom-color: #DC2626; background: #FEF2F2; color: #991B1B; }
+  .ans-input.correct { border-bottom-color: #065F46; background: #ECFDF5; color: #065F46; }
+  .chip.chip-wrong   { border-color: #DC2626 !important; background: #FEF2F2 !important; color: #991B1B !important; font-weight: 700; }
+  .chip.chip-correct { border-color: #065F46 !important; background: #ECFDF5 !important; color: #065F46 !important; font-weight: 700; }
+
+  .wrong-list-wrap { margin-top: 18px; text-align: right; }
+  .wrong-list-title { font-size: 13px; font-weight: 700; color: #991B1B; margin-bottom: 8px; }
+  .wrong-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .wrong-tag { background: #FEF2F2; border: 1.5px solid #FCA5A5; border-radius: 16px; padding: 4px 12px; font-size: 13px; font-weight: 600; color: #991B1B; }
+  .all-correct-note { margin-top: 14px; font-size: 14px; color: #065F46; font-weight: 600; }
+
+  .nav-btn { position: fixed; border: none; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; padding: 9px 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  .nav-back { bottom: 62px; right: 18px; background: #374151; color: #fff; }
+  .nav-exam { bottom: 18px; right: 18px; background: #065F46; color: #fff; }
+
+  /* Angle SVG sub-blocks */
+  .angle-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    padding: 10px 12px;
+    background: #F9FAFB;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+  }
+  .angle-label {
+    font-weight: 700;
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 6px;
+  }
+  .angle-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+  }
+  .angle-row svg { flex-shrink: 0; }
+  .angle-inputs { display: flex; flex-direction: column; gap: 8px; }
+  .deg-label { font-size: 13px; color: #374151; }
+
+  /* Interactive protractor */
+  #protractor-section {
+    margin-top: 10px;
+    text-align: center;
+  }
+  #protractor-container {
+    display: inline-block;
+    position: relative;
+    cursor: grab;
+    touch-action: none;
+  }
+  #protractor-container:active { cursor: grabbing; }
+  #proto-feedback {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    min-height: 24px;
+  }
+  .proto-hint {
+    font-size: 12px;
+    color: #6B7280;
+    margin-top: 6px;
+  }
+  .proto-score-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  @media print { .no-print { display: none; } }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="header">
+  <div>
+    <div class="header-title">מבדק שליטה — מדידה בעזרת מד זווית</div>
+    <div class="header-sub">הכניסו את תשובותיכם ולחצו "בדוק"</div>
+  </div>
+  <div class="brand">חן מרגלית למידה אקטיבית</div>
+</div>
+
+<div id="score-card">
+  <div class="score-big" id="score-num">—</div>
+  <div class="score-out-of" id="score-denom">מתוך תשובות</div>
+  <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:0%;background:#ccc;"></div></div>
+  <div class="score-msg" id="score-msg"></div>
+  <div id="wrong-list-container"></div>
+  <br>
+  <button class="retry-btn" onclick="resetForm()">נסו שוב ←</button>
+</div>
+
+<div class="intro-box">
+  <strong>הוראות:</strong> ענו על שלוש השאלות — קראו את הזוויות מהציור, היעזרו במד הזווית האינטראקטיבי, ובחרו את התשובות הנכונות.
+</div>
+
+<!-- שאלה 1 -->
+<div class="q-card" id="q1-card">
+  <div class="q-title"><span class="q-num">1.</span> קראו את גודל הזווית וסווגו אותה</div>
+  <p style="font-size:13px;color:#555;margin-bottom:12px;">לכל זווית: כתבו את גודלה במעלות ובחרו את הסוג הנכון.</p>
+
+  <!-- Angle A: 40° -->
+  <div class="angle-block">
+    <div class="angle-label">זווית א׳</div>
+    <div class="angle-row">
+      <svg width="160" height="120" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- vertex at (140,95), base ray goes LEFT, second ray 40° above base -->
+        <line x1="140" y1="95" x2="10" y2="95" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
+        <!-- direction 180°−40°=140° from pos-x: cos140°≈−0.766, sin140°≈0.643, length 110 -->
+        <line x1="140" y1="95" x2="56" y2="24" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
+        <!-- arc: from (110,95) CCW to (117,75.7) -->
+        <path d="M 110 95 A 30 30 0 0 0 117 76" fill="none" stroke="#10B981" stroke-width="1.8"/>
+        <circle cx="140" cy="95" r="3" fill="#1a1a2e"/>
+      </svg>
+      <div class="angle-inputs">
+        <div class="deg-label">גודל הזווית:
+          <span class="input-wrap">
+            <input class="ans-input narrow" id="q1a-deg" type="text" placeholder="°">
+            <span>°</span>
+          </span>
+        </div>
+        <div>
+          <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">סוג הזווית:</div>
+          <div class="chips" id="q1a-type-chips">
+            <div class="chip" data-val="חדה" onclick="selectChip(this,'q1a-type')">חדה</div>
+            <div class="chip" data-val="ישרה" onclick="selectChip(this,'q1a-type')">ישרה</div>
+            <div class="chip" data-val="קהה" onclick="selectChip(this,'q1a-type')">קהה</div>
+          </div>
+          <input type="hidden" id="q1a-type" value="">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Angle B: 115° -->
+  <div class="angle-block">
+    <div class="angle-label">זווית ב׳</div>
+    <div class="angle-row">
+      <svg width="180" height="120" viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- vertex at (110,95), base ray goes LEFT, second ray 115° above base -->
+        <line x1="110" y1="95" x2="10" y2="95" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
+        <!-- direction 180°−115°=65° from pos-x: cos65°≈0.423, sin65°≈0.906, length 85 -->
+        <line x1="110" y1="95" x2="146" y2="18" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
+        <!-- arc 115°: from (75,95) CCW to (124.8,63.3) -->
+        <path d="M 75 95 A 35 35 0 0 0 125 63" fill="none" stroke="#10B981" stroke-width="1.8"/>
+        <circle cx="110" cy="95" r="3" fill="#1a1a2e"/>
+      </svg>
+      <div class="angle-inputs">
+        <div class="deg-label">גודל הזווית:
+          <span class="input-wrap">
+            <input class="ans-input narrow" id="q1b-deg" type="text" placeholder="°">
+            <span>°</span>
+          </span>
+        </div>
+        <div>
+          <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">סוג הזווית:</div>
+          <div class="chips" id="q1b-type-chips">
+            <div class="chip" data-val="חדה" onclick="selectChip(this,'q1b-type')">חדה</div>
+            <div class="chip" data-val="ישרה" onclick="selectChip(this,'q1b-type')">ישרה</div>
+            <div class="chip" data-val="קהה" onclick="selectChip(this,'q1b-type')">קהה</div>
+          </div>
+          <input type="hidden" id="q1b-type" value="">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Angle C: 90° -->
+  <div class="angle-block">
+    <div class="angle-label">זווית ג׳</div>
+    <div class="angle-row">
+      <svg width="160" height="120" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- vertex at (140,95), base ray goes LEFT, second ray straight UP -->
+        <line x1="140" y1="95" x2="10" y2="95" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
+        <line x1="140" y1="95" x2="140" y2="10" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
+        <!-- right-angle square: upper-left of vertex -->
+        <polyline points="120,95 120,75 140,75" fill="none" stroke="#10B981" stroke-width="1.8"/>
+        <circle cx="140" cy="95" r="3" fill="#1a1a2e"/>
+      </svg>
+      <div class="angle-inputs">
+        <div class="deg-label">גודל הזווית:
+          <span class="input-wrap">
+            <input class="ans-input narrow" id="q1c-deg" type="text" placeholder="°">
+            <span>°</span>
+          </span>
+        </div>
+        <div>
+          <div style="font-size:12px;color:#6B7280;margin-bottom:4px;">סוג הזווית:</div>
+          <div class="chips" id="q1c-type-chips">
+            <div class="chip" data-val="חדה" onclick="selectChip(this,'q1c-type')">חדה</div>
+            <div class="chip" data-val="ישרה" onclick="selectChip(this,'q1c-type')">ישרה</div>
+            <div class="chip" data-val="קהה" onclick="selectChip(this,'q1c-type')">קהה</div>
+          </div>
+          <input type="hidden" id="q1c-type" value="">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- שאלה 2 -->
+<div class="q-card" id="q2-card">
+  <div class="q-title"><span class="q-num">2.</span> מד זווית אינטראקטיבי — כיילו ומדדו</div>
+  <p style="font-size:13px;color:#374151;margin-bottom:4px;">
+    להלן זווית. גררו את מד הזווית כדי ליישר אותו עם הזווית ולקרוא את גודלה.
+    כשהמדידה קרובה לערך הנכון — תופיע אימות ירוק!
+  </p>
+  <div class="proto-hint">גררו את המד (עיגול) ימינה / שמאלה כדי לסובב אותו.</div>
+  <div id="protractor-section">
+    <svg id="angle-fixed-svg" width="300" height="220" viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 8px;">
+      <!-- fixed 65° angle, vertex at RIGHT (240,185), base goes LEFT -->
+      <line x1="240" y1="185" x2="30" y2="185" stroke="#1a1a2e" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- second ray: 180°−65°=115° from pos-x, cos115°≈−0.423, sin115°≈0.906, length 185 -->
+      <line x1="240" y1="185" x2="162" y2="17" stroke="#1a1a2e" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="240" cy="185" r="4" fill="#1a1a2e"/>
+    </svg>
+
+    <div id="protractor-container">
+      <svg id="protractor-svg" width="300" height="160" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg">
+        <g id="proto-group">
+          <!-- semicircle body -->
+          <path id="proto-arc" d="" fill="rgba(254,243,199,0.92)" stroke="#D97706" stroke-width="2"/>
+          <!-- diameter base line -->
+          <line id="proto-base" x1="" y1="" x2="" y2="" stroke="#D97706" stroke-width="2"/>
+          <!-- center dot -->
+          <circle id="proto-center" cx="" cy="" r="4" fill="#D97706"/>
+          <!-- tick marks and labels rendered by JS -->
+          <g id="proto-ticks"></g>
+          <!-- reading line -->
+          <line id="proto-reading-line" x1="" y1="" x2="" y2="" stroke="#DC2626" stroke-width="2" stroke-dasharray="4,3"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="proto-score-row">
+      <span id="proto-reading-text" style="font-size:14px;color:#374151;font-weight:600;font-family:Rubik,sans-serif;">מדידה: — °</span>
+      <span id="proto-feedback" style="font-size:22px;min-width:28px;display:inline-block;"></span>
+    </div>
+    <!-- hidden field for scoring -->
+    <input type="hidden" id="q2-proto" value="0">
+  </div>
+</div>
+
+<!-- שאלה 3 -->
+<div class="q-card" id="q3-card">
+  <div class="q-title"><span class="q-num">3.</span> שאלות בחירה מרובה</div>
+
+  <div style="margin-bottom:10px;font-size:13.5px;font-weight:600;">א. זווית שגודלה 95° היא:</div>
+  <div class="chips" id="q3a-chips">
+    <div class="chip" data-val="חדה"   onclick="selectChip(this,'q3a')">חדה</div>
+    <div class="chip" data-val="ישרה"  onclick="selectChip(this,'q3a')">ישרה</div>
+    <div class="chip" data-val="קהה"   onclick="selectChip(this,'q3a')">קהה</div>
+    <div class="chip" data-val="שטוחה" onclick="selectChip(this,'q3a')">שטוחה</div>
+  </div>
+  <input type="hidden" id="q3a" value="">
+
+  <div style="margin-top:16px;margin-bottom:10px;font-size:13.5px;font-weight:600;">ב. מד זווית מודד זוויות ביחידות של:</div>
+  <div class="chips" id="q3b-chips">
+    <div class="chip" data-val="סנטימטר" onclick="selectChip(this,'q3b')">סנטימטר</div>
+    <div class="chip" data-val="מעלות"   onclick="selectChip(this,'q3b')">מעלות</div>
+    <div class="chip" data-val="מילימטר" onclick="selectChip(this,'q3b')">מילימטר</div>
+    <div class="chip" data-val="קילוגרם" onclick="selectChip(this,'q3b')">קילוגרם</div>
+  </div>
+  <input type="hidden" id="q3b" value="">
+</div>
+
+<button class="check-btn no-print" onclick="checkAnswers()">בדוק ←</button>
+
+</div>
+
+<button class="nav-btn nav-back no-print" onclick="if(window.parent!==window){window.parent.hideWorksheet();}else if(window.opener){window.close();}else{history.back();}">← חזרה</button>
+
+<script>
+/* ── Chip helper ─────────────────────────────────────────── */
+function selectChip(el, fieldId) {
+  const container = document.getElementById(fieldId + '-chips');
+  container.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById(fieldId).value = el.getAttribute('data-val');
+}
+
+function normNum(s) {
+  return parseFloat(String(s).trim().replace(/°/g,'').replace(/\s+/g,''));
+}
+
+/* ── Interactive protractor ──────────────────────────────── */
+(function() {
+  const CX = 150, CY = 150, R = 130;  // center and radius in SVG coords
+  let rotationDeg = 0; // current rotation of protractor (degrees, clockwise from "0 aligned to right")
+
+  const container = document.getElementById('protractor-container');
+  const svg = document.getElementById('protractor-svg');
+  const protoArc = document.getElementById('proto-arc');
+  const protoBase = document.getElementById('proto-base');
+  const protoCenterEl = document.getElementById('proto-center');
+  const protoTicks = document.getElementById('proto-ticks');
+  const protoReadingLine = document.getElementById('proto-reading-line');
+  const protoReadingText = document.getElementById('proto-reading-text');
+  const protoFeedback = document.getElementById('proto-feedback');
+  const q2ProtoInput = document.getElementById('q2-proto');
+
+  const TARGET = 65;
+
+  function degToRad(d) { return d * Math.PI / 180; }
+
+  function buildProtractor(rot) {
+    // rot = rotation of the protractor in degrees (the 0° mark direction offset)
+    // The protractor semicircle: flat edge along a diameter, arc on top.
+    // We rotate the whole thing.
+    const startAngle = rot;           // direction of 0° mark
+    const endAngle = rot + 180;       // direction of 180° mark
+
+    // Arc path: from startAngle to endAngle going counterclockwise (upward sweep)
+    const sx = CX + R * Math.cos(degToRad(startAngle));
+    const sy = CY - R * Math.sin(degToRad(startAngle));  // SVG y is flipped
+    const ex = CX + R * Math.cos(degToRad(endAngle));
+    const ey = CY - R * Math.sin(degToRad(endAngle));
+
+    // Large arc (180°), sweep direction: going counterclockwise in math = clockwise in SVG (sweep=0)
+    protoArc.setAttribute('d',
+      `M ${sx} ${sy} A ${R} ${R} 0 0 0 ${ex} ${ey} Z`
+    );
+
+    // Base line
+    protoBase.setAttribute('x1', sx);
+    protoBase.setAttribute('y1', sy);
+    protoBase.setAttribute('x2', ex);
+    protoBase.setAttribute('y2', ey);
+
+    // Center
+    protoCenterEl.setAttribute('cx', CX);
+    protoCenterEl.setAttribute('cy', CY);
+
+    // Ticks and labels
+    protoTicks.innerHTML = '';
+    const labelAngles = [0, 30, 60, 90, 120, 150, 180];
+    for (let a = 0; a <= 180; a += 10) {
+      const isMajor = (a % 30 === 0);
+      const tickLen = isMajor ? 16 : 8;
+      const tickAngle = rot + a;  // actual angle in SVG space
+      const cosA = Math.cos(degToRad(tickAngle));
+      const sinA = -Math.sin(degToRad(tickAngle)); // SVG y flip
+
+      const outerX = CX + R * cosA;
+      const outerY = CY + R * sinA;
+      const innerX = CX + (R - tickLen) * cosA;
+      const innerY = CY + (R - tickLen) * sinA;
+
+      const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      tick.setAttribute('x1', outerX); tick.setAttribute('y1', outerY);
+      tick.setAttribute('x2', innerX); tick.setAttribute('y2', innerY);
+      tick.setAttribute('stroke', isMajor ? '#92400E' : '#B45309');
+      tick.setAttribute('stroke-width', isMajor ? 1.8 : 1.2);
+      protoTicks.appendChild(tick);
+
+      if (labelAngles.includes(a)) {
+        const labelR = R - 26;
+        const lx = CX + labelR * cosA;
+        const ly = CY + labelR * sinA;
+        const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        txt.setAttribute('x', lx);
+        txt.setAttribute('y', ly);
+        txt.setAttribute('text-anchor', 'middle');
+        txt.setAttribute('dominant-baseline', 'middle');
+        txt.setAttribute('font-family', 'Rubik,sans-serif');
+        txt.setAttribute('font-size', '10');
+        txt.setAttribute('fill', '#92400E');
+        txt.setAttribute('font-weight', '600');
+        txt.textContent = a;
+        protoTicks.appendChild(txt);
+      }
+    }
+
+    // Reading line: from center, pointing in direction of 0° of the fixed angle (horizontal right = 0°)
+    // The reading = angle between protractor's 0° mark direction and horizontal right (0°).
+    // We show a red dashed line pointing right (the fixed reference), and the student aligns
+    // the protractor so the fixed angle's arm crosses the right scale value.
+    // Actually: show a line pointing in the "current 0° mark" direction reversed so it's visible inside.
+    const rLineX = CX + (R - 5) * Math.cos(degToRad(rot));
+    const rLineY = CY - (R - 5) * Math.sin(degToRad(rot));
+    protoReadingLine.setAttribute('x1', CX);
+    protoReadingLine.setAttribute('y1', CY);
+    protoReadingLine.setAttribute('x2', rLineX);
+    protoReadingLine.setAttribute('y2', rLineY);
+
+    // Reading: how many degrees from the protractor's 0° to pointing straight right (0°)?
+    // "straight right" in SVG is angle 0. The protractor's 0° mark is at direction `rot`.
+    // If we align the protractor so 0° mark points along the bottom ray (right), rot=0.
+    // The student measures angle by rotating until the second ray of the fixed angle
+    // falls on the correct scale value.
+    // For simplicity: reading = ((0 - rot) % 360 + 360) % 360
+    // But we want reading in 0..180.
+    let reading = ((-rot) % 360 + 360) % 360;
+    if (reading > 180) reading = 360 - reading;
+    reading = Math.round(reading);
+
+    protoReadingText.textContent = `מדידה: ${reading}°`;
+    q2ProtoInput.value = reading;
+
+    const diff = Math.abs(reading - TARGET);
+    if (diff <= 5) {
+      protoFeedback.textContent = '✓';
+      protoFeedback.style.color = '#065F46';
+    } else {
+      protoFeedback.textContent = '';
+    }
+  }
+
+  // Initial draw
+  buildProtractor(rotationDeg);
+
+  // Drag logic
+  let dragging = false;
+  let lastX = 0;
+
+  function onPointerDown(e) {
+    dragging = true;
+    lastX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+    e.preventDefault();
+  }
+  function onPointerMove(e) {
+    if (!dragging) return;
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+    const dx = clientX - lastX;
+    lastX = clientX;
+    rotationDeg += dx * 0.5;  // sensitivity
+    buildProtractor(rotationDeg);
+    e.preventDefault();
+  }
+  function onPointerUp() { dragging = false; }
+
+  container.addEventListener('mousedown', onPointerDown);
+  window.addEventListener('mousemove', onPointerMove);
+  window.addEventListener('mouseup', onPointerUp);
+  container.addEventListener('touchstart', onPointerDown, { passive: false });
+  window.addEventListener('touchmove', onPointerMove, { passive: false });
+  window.addEventListener('touchend', onPointerUp);
+})();
+
+/* ── Answer checking ─────────────────────────────────────── */
+// Q1: degree ±2 and correct type
+const Q1_ANSWERS = {
+  'q1a-deg':  { val: 40,  tol: 2 },
+  'q1b-deg':  { val: 115, tol: 2 },
+  'q1c-deg':  { val: 90,  tol: 2 },
+};
+const Q1_TYPES = {
+  'q1a-type': 'חדה',
+  'q1b-type': 'קהה',
+  'q1c-type': 'ישרה',
+};
+// Q2: protractor reading within ±5° of 65
+const Q2_TARGET = 65;
+// Q3: MC chips
+const Q3_KEY = {
+  q3a: 'קהה',
+  q3b: 'מעלות',
+};
+
+const LABELS = {
+  'q1a-deg':'1א-מעלות','q1a-type':'1א-סוג',
+  'q1b-deg':'1ב-מעלות','q1b-type':'1ב-סוג',
+  'q1c-deg':'1ג-מעלות','q1c-type':'1ג-סוג',
+  'q2-proto':'2-מד זווית',
+  'q3a':'3א', 'q3b':'3ב',
+};
+
+const TOTAL = 8; // 3 deg + 3 type + 1 proto + 2 MC (but proto is bonus-ish, still counted) → actually 3+3+1+2=9... let's use 9
+// Recount: 3 angle degrees + 3 angle types + 1 protractor + 2 MC = 9
+const TOTAL_REAL = 9;
+
+function checkAnswers() {
+  let correct = 0;
+  const wrong = [];
+
+  // Q1 degrees
+  Object.keys(Q1_ANSWERS).forEach(id => {
+    const el = document.getElementById(id);
+    const v = normNum(el.value);
+    const { val, tol } = Q1_ANSWERS[id];
+    const ok = !isNaN(v) && Math.abs(v - val) <= tol;
+    el.classList.toggle('correct', ok);
+    el.classList.toggle('wrong', !ok);
+    if (ok) correct++; else wrong.push(id);
+  });
+
+  // Q1 types (chips / hidden inputs)
+  Object.keys(Q1_TYPES).forEach(id => {
+    const val = document.getElementById(id).value;
+    const ok = val === Q1_TYPES[id];
+    const selChip = document.querySelector('#' + id + '-chips .chip.selected');
+    if (selChip) {
+      selChip.classList.toggle('chip-correct', ok);
+      selChip.classList.toggle('chip-wrong', !ok);
+    }
+    if (ok) correct++; else wrong.push(id);
+  });
+
+  // Q2 protractor
+  const protoVal = parseInt(document.getElementById('q2-proto').value, 10);
+  const protoOk = !isNaN(protoVal) && Math.abs(protoVal - Q2_TARGET) <= 5;
+  if (protoOk) correct++; else wrong.push('q2-proto');
+
+  // Q3 chips
+  Object.keys(Q3_KEY).forEach(id => {
+    const val = document.getElementById(id).value;
+    const ok = val === Q3_KEY[id];
+    const selChip = document.querySelector('#' + id + '-chips .chip.selected');
+    if (selChip) {
+      selChip.classList.toggle('chip-correct', ok);
+      selChip.classList.toggle('chip-wrong', !ok);
+    }
+    if (ok) correct++; else wrong.push(id);
+  });
+
+  showScore(correct, TOTAL_REAL, wrong);
+}
+
+function showScore(correct, total, wrong) {
+  const pct = correct / total;
+  document.getElementById('score-num').textContent = correct;
+  document.getElementById('score-denom').textContent = 'מתוך ' + total + ' תשובות';
+  const bar = document.getElementById('score-bar');
+  bar.style.width = (pct * 100) + '%';
+  let msg, cls, barColor;
+  if (pct >= 0.85) { msg = 'מעולה! שולטים בחומר 💪'; cls = 'score-great'; barColor = '#065F46'; }
+  else if (pct >= 0.54) { msg = 'טוב! עוד קצת אימון ✏️'; cls = 'score-ok'; barColor = '#D97706'; }
+  else { msg = 'כדאי לחזור על החומר 🔄'; cls = 'score-retry'; barColor = '#DC2626'; }
+  bar.style.background = barColor;
+  const msgEl = document.getElementById('score-msg');
+  msgEl.textContent = msg;
+  msgEl.className = 'score-msg ' + cls;
+  const wc = document.getElementById('wrong-list-container');
+  if (wrong.length === 0) {
+    wc.innerHTML = '<div class="all-correct-note">כל התשובות נכונות!</div>';
+  } else {
+    wc.innerHTML = '<div class="wrong-list-wrap"><div class="wrong-list-title">לתקן:</div><div class="wrong-tags">' +
+      wrong.map(id => '<span class="wrong-tag">שאלה ' + (LABELS[id] || id) + '</span>').join('') +
+      '</div></div>';
+  }
+  const card = document.getElementById('score-card');
+  card.classList.add('show');
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetForm() {
+  // Clear degree inputs
+  ['q1a-deg','q1b-deg','q1c-deg'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.value = ''; el.classList.remove('wrong','correct'); }
+  });
+  // Clear hidden chip inputs
+  ['q1a-type','q1b-type','q1c-type','q2-proto','q3a','q3b'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && id !== 'q2-proto') el.value = '';
+  });
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected','chip-wrong','chip-correct'));
+  document.getElementById('wrong-list-container').innerHTML = '';
+  document.getElementById('score-card').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+<footer style="text-align:center;padding:24px 0 14px;font-size:11px;color:#9CA3AF;font-family:Rubik,sans-serif;">© כל הזכויות שמורות לחן מרגלית</footer>
+</body>
+</html>
