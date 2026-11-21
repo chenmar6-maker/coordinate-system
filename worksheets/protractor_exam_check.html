@@ -284,15 +284,7 @@
   <div class="angle-block">
     <div class="angle-label">זווית א׳</div>
     <div class="angle-row">
-      <svg width="160" height="120" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
-        <!-- vertex at (140,95), base ray goes LEFT, second ray 40° above base -->
-        <line x1="140" y1="95" x2="10" y2="95" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
-        <!-- direction 180°−40°=140° from pos-x: cos140°≈−0.766, sin140°≈0.643, length 110 -->
-        <line x1="140" y1="95" x2="56" y2="24" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
-        <!-- arc: from (110,95) CCW to (117,75.7) -->
-        <path d="M 110 95 A 30 30 0 0 0 117 76" fill="none" stroke="#10B981" stroke-width="1.8"/>
-        <circle cx="140" cy="95" r="3" fill="#1a1a2e"/>
-      </svg>
+      <svg id="proto-a" width="300" height="175" viewBox="0 0 300 175" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"></svg>
       <div class="angle-inputs">
         <div class="deg-label">גודל הזווית:
           <span class="input-wrap">
@@ -317,15 +309,7 @@
   <div class="angle-block">
     <div class="angle-label">זווית ב׳</div>
     <div class="angle-row">
-      <svg width="180" height="120" viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg">
-        <!-- vertex at (110,95), base ray goes LEFT, second ray 115° above base -->
-        <line x1="110" y1="95" x2="10" y2="95" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
-        <!-- direction 180°−115°=65° from pos-x: cos65°≈0.423, sin65°≈0.906, length 85 -->
-        <line x1="110" y1="95" x2="146" y2="18" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
-        <!-- arc 115°: from (75,95) CCW to (124.8,63.3) -->
-        <path d="M 75 95 A 35 35 0 0 0 125 63" fill="none" stroke="#10B981" stroke-width="1.8"/>
-        <circle cx="110" cy="95" r="3" fill="#1a1a2e"/>
-      </svg>
+      <svg id="proto-b" width="300" height="175" viewBox="0 0 300 175" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"></svg>
       <div class="angle-inputs">
         <div class="deg-label">גודל הזווית:
           <span class="input-wrap">
@@ -350,14 +334,7 @@
   <div class="angle-block">
     <div class="angle-label">זווית ג׳</div>
     <div class="angle-row">
-      <svg width="160" height="120" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
-        <!-- vertex at (140,95), base ray goes LEFT, second ray straight UP -->
-        <line x1="140" y1="95" x2="10" y2="95" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
-        <line x1="140" y1="95" x2="140" y2="10" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
-        <!-- right-angle square: upper-left of vertex -->
-        <polyline points="120,95 120,75 140,75" fill="none" stroke="#10B981" stroke-width="1.8"/>
-        <circle cx="140" cy="95" r="3" fill="#1a1a2e"/>
-      </svg>
+      <svg id="proto-c" width="300" height="175" viewBox="0 0 300 175" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"></svg>
       <div class="angle-inputs">
         <div class="deg-label">גודל הזווית:
           <span class="input-wrap">
@@ -463,6 +440,95 @@ function selectChip(el, fieldId) {
 function normNum(s) {
   return parseFloat(String(s).trim().replace(/°/g,'').replace(/\s+/g,''));
 }
+
+/* ── Protractor SVG builder (Question 1) ────────────────── */
+function buildProtoAngle(svgId, angleDeg) {
+  const svg = document.getElementById(svgId);
+  if (!svg) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const CX = 150, CY = 158, R = 128;
+
+  function el(tag, attrs, text) {
+    const e = document.createElementNS(NS, tag);
+    Object.entries(attrs).forEach(([k,v]) => e.setAttribute(k, v));
+    if (text !== undefined) e.textContent = text;
+    return e;
+  }
+  function pt(deg, r) {
+    const rad = deg * Math.PI / 180;
+    return { x: CX + r * Math.cos(rad), y: CY - r * Math.sin(rad) };
+  }
+
+  // Protractor body (semicircle + flat edge)
+  const p0 = pt(0, R), p180 = pt(180, R);
+  svg.appendChild(el('path', {
+    d: `M ${p0.x} ${p0.y} A ${R} ${R} 0 0 1 ${p180.x} ${p180.y} Z`,
+    fill: 'rgba(254,243,199,0.75)', stroke: '#D97706', 'stroke-width': '1.5'
+  }));
+
+  // Tick marks and labels
+  const labelAt = [0, 30, 60, 90, 120, 150, 180];
+  for (let a = 0; a <= 180; a += 10) {
+    const major = a % 30 === 0;
+    const tickLen = major ? 15 : 7;
+    const o = pt(a, R), i = pt(a, R - tickLen);
+    svg.appendChild(el('line', {
+      x1: o.x, y1: o.y, x2: i.x, y2: i.y,
+      stroke: major ? '#B45309' : '#D97706',
+      'stroke-width': major ? 1.6 : 1
+    }));
+    if (labelAt.includes(a)) {
+      const lp = pt(a, R - 27);
+      svg.appendChild(el('text', {
+        x: lp.x, y: lp.y,
+        'text-anchor': 'middle', 'dominant-baseline': 'middle',
+        'font-family': 'Rubik,sans-serif', 'font-size': '9',
+        fill: '#92400E', 'font-weight': '700'
+      }, a));
+    }
+  }
+
+  // Center marker on flat edge
+  svg.appendChild(el('line', {x1: CX-7, y1: CY, x2: CX+7, y2: CY, stroke: '#D97706', 'stroke-width': '2'}));
+
+  // Base ray (0°) — extend slightly past protractor edge
+  const baseEnd = pt(0, R + 12);
+  svg.appendChild(el('line', {
+    x1: CX, y1: CY, x2: baseEnd.x, y2: baseEnd.y,
+    stroke: '#1a1a2e', 'stroke-width': '2.5', 'stroke-linecap': 'round'
+  }));
+
+  // Second ray at angleDeg
+  const rayEnd = pt(angleDeg, R + 12);
+  svg.appendChild(el('line', {
+    x1: CX, y1: CY, x2: rayEnd.x, y2: rayEnd.y,
+    stroke: '#1a1a2e', 'stroke-width': '2.5', 'stroke-linecap': 'round'
+  }));
+
+  // Arc highlighting the angle (radius 44)
+  const aS = pt(0, 44), aE = pt(angleDeg, 44);
+  const laf = angleDeg > 180 ? 1 : 0;
+  svg.appendChild(el('path', {
+    d: `M ${aS.x} ${aS.y} A 44 44 0 ${laf} 1 ${aE.x} ${aE.y}`,
+    fill: 'none', stroke: '#10B981', 'stroke-width': '2.2'
+  }));
+
+  // Right-angle square for 90°
+  if (angleDeg === 90) {
+    const sq = 16;
+    const sqPts = `${CX+sq},${CY} ${CX+sq},${CY-sq} ${CX},${CY-sq}`;
+    svg.appendChild(el('polyline', {
+      points: sqPts, fill: 'none', stroke: '#10B981', 'stroke-width': '2'
+    }));
+  }
+
+  // Vertex dot
+  svg.appendChild(el('circle', { cx: CX, cy: CY, r: '4', fill: '#1a1a2e' }));
+}
+
+buildProtoAngle('proto-a', 40);
+buildProtoAngle('proto-b', 115);
+buildProtoAngle('proto-c', 90);
 
 /* ── Interactive protractor ──────────────────────────────── */
 (function() {
