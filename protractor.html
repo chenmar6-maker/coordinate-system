@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מדידת זוויות במד זווית</title>
+<style>
+  :root{
+    --bg:#f5f3ee; --card:#ffffff; --ink:#1f2933; --muted:#5f6b76; --line:#e3ded4;
+    --blue:#1d4e89; --red:#c0392b; --accent:#e8912d; --ok:#2e7d4f; --bad:#b3332a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:"Assistant","Rubik","Segoe UI",Arial,sans-serif;
+    background:var(--bg); color:var(--ink); direction:rtl; text-align:right;
+  }
+  header{
+    max-width:1180px; margin:0 auto; padding:18px 20px 6px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  }
+  h1{margin:0; font-size:1.6rem; text-align:right}
+  .progress{display:flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--line); border-radius:999px; padding:6px 16px; font-size:.95rem}
+  .dots{display:flex; gap:6px; align-items:center}
+  .dot{width:14px; height:14px; border-radius:50%; background:#ddd7cb; border:2px solid transparent}
+  .dot.done{background:var(--ok)}
+  .dot.help{background:var(--accent)}
+  .dot.cur{background:#fff; border-color:var(--blue)}
+  .dots .sep{width:2px; height:16px; background:var(--line); margin:0 3px}
+  .stage{font-size:.85rem; font-weight:700; color:var(--blue); margin-bottom:4px; text-align:right}
+  .summary{font-size:1.05rem; line-height:1.6; text-align:right}
+  .wrap{
+    max-width:1180px; margin:0 auto; padding:10px 20px 30px;
+    display:grid; grid-template-columns:340px 1fr; gap:18px; align-items:start;
+  }
+  .panel,.board-wrap{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px}
+  .question{font-size:1.25rem; font-weight:700; margin:6px 0 10px; text-align:right; line-height:1.4}
+  .question small{display:block; font-weight:400; font-size:.92rem; color:var(--muted); margin-top:4px}
+  .answer-row{display:flex; align-items:center; gap:8px; margin-bottom:10px}
+  .answer-row label{font-weight:600}
+  #ans{font:inherit; font-size:1.3rem; width:100px; padding:6px 8px; border:2px solid var(--line); border-radius:10px; text-align:center}
+  #ans:focus{outline:none; border-color:var(--blue)}
+  .deg{font-size:1.3rem}
+  .actions{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px}
+  button.primary,button.secondary,.toolbar button{
+    font:inherit; cursor:pointer; border-radius:10px; padding:8px 16px; font-size:1rem; font-weight:700;
+  }
+  button.primary{background:var(--blue); color:#fff; border:2px solid var(--blue)}
+  button.secondary{background:#fff; color:var(--blue); border:2px solid var(--blue)}
+  button[hidden]{display:none}
+  .feedback{min-height:48px; border-radius:10px; padding:0; font-size:1rem; line-height:1.5; text-align:right}
+  .feedback.ok{background:#e8f5ec; color:var(--ok); padding:10px 12px}
+  .feedback.bad{background:#fbeceb; color:var(--bad); padding:10px 12px}
+  .feedback.info{background:#eef3fa; color:var(--blue); padding:10px 12px}
+  .howto{margin-top:12px; border-top:1px solid var(--line); padding-top:10px}
+  .howto summary{cursor:pointer; font-weight:700; color:var(--blue)}
+  .howto ul{padding-right:20px; padding-left:0; margin:8px 0 0; line-height:1.6}
+  .howto li{text-align:right}
+  .c-blue{color:var(--blue); font-weight:700}
+  .c-red{color:var(--red); font-weight:700}
+
+  #board{width:100%; height:auto; display:block; touch-action:none; user-select:none; -webkit-user-select:none; background:#fdfcf9; border-radius:12px}
+  .toolbar{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:10px}
+  .toolbar .lbl{font-weight:600; color:var(--muted)}
+  .toolbar button{background:#faf8f4; border:2px solid var(--line); color:var(--ink); padding:6px 12px}
+  .toolbar label{display:flex; align-items:center; gap:6px; margin-right:auto}
+
+  /* SVG */
+  svg text{font-family:Arial,Helvetica,sans-serif}
+  .ray{stroke:#222; stroke-width:3; stroke-linecap:round}
+  .angle-arc{fill:rgba(232,145,45,.28); stroke:var(--accent); stroke-width:1.5}
+  .vertex{fill:#222}
+  .ray-end{fill:#222}
+  .prot-body{fill:rgba(170,208,235,.38); stroke:#5b86ad; stroke-width:1.5; cursor:move}
+  .prot .ticks line,.prot .deco,.prot text,.prot .baseline,.prot .cross,.read-mark{pointer-events:none}
+  .prot .ticks line{stroke:#24425f; stroke-width:1}
+  .prot .ticks line.t10{stroke-width:1.6}
+  .prot .ring{fill:none; stroke:#5b86ad; stroke-width:1}
+  .prot .guide{stroke:#5b86ad; stroke-width:1; stroke-dasharray:3 4}
+  .prot .baseline{stroke:#24425f; stroke-width:1.6}
+  .prot .cross{stroke:#24425f; stroke-width:1.6}
+  .prot .center-dot{fill:#fff; stroke:#24425f; stroke-width:1.6; pointer-events:none}
+  .lbl-outer text{fill:var(--blue); font-size:12.5px; letter-spacing:-.6px; font-weight:700; text-anchor:middle; dominant-baseline:middle}
+  .lbl-inner text{fill:var(--red); font-size:10.5px; letter-spacing:-.6px; font-weight:600; text-anchor:middle; dominant-baseline:middle}
+  .hl-outer .lbl-outer text{font-weight:900}
+  .hl-outer .lbl-inner{opacity:.2}
+  .hl-inner .lbl-inner text{font-weight:900}
+  .hl-inner .lbl-outer{opacity:.2}
+  .read-mark{fill:var(--accent); stroke:#fff; stroke-width:2}
+  .rot-handle .knob{fill:#5b86ad; stroke:#fff; stroke-width:3; cursor:grab}
+  .rot-handle .hit{fill:transparent; cursor:grab}
+  .rot-handle .icon{fill:none; stroke:#fff; stroke-width:2; pointer-events:none}
+  .handle-stem{stroke:#5b86ad; stroke-width:2; pointer-events:none}
+
+  @media (max-width:860px){
+    .wrap{grid-template-columns:1fr}
+    .board-wrap{order:-1}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>מדידת זוויות במד זווית</h1>
+  <div class="progress"><span id="progText"></span><div class="dots" id="dots"></div></div>
+</header>
+
+<main class="wrap">
+  <section class="panel">
+    <div class="stage" id="stage"></div>
+
+    <div class="question" id="question"></div>
+
+    <div class="answer-row" id="answerRow">
+      <label for="ans">התשובה שלי:</label>
+      <input id="ans" type="number" inputmode="numeric" min="0" max="180" autocomplete="off">
+      <span class="deg">°</span>
+    </div>
+
+    <div class="actions">
+      <button id="checkBtn" class="primary">בדיקה</button>
+      <button id="showBtn" class="secondary" hidden>הראה לי</button>
+      <button id="nextBtn" class="primary" hidden>לתרגיל הבא</button>
+    </div>
+
+    <div id="feedback" class="feedback" aria-live="polite"></div>
+
+    <details class="howto">
+      <summary>איך מודדים עם מד זווית?</summary>
+      <ul>
+        <li>גוררים את מד הזווית כך שהנקודה שבמרכז הקו התחתון תשב בדיוק על קודקוד הזווית.</li>
+        <li>מסובבים (בעזרת העיגול הכחול או הכפתורים) עד שהקו התחתון מונח על אחת הצלעות.</li>
+        <li>מחפשים את השורה שבה הצלע הזו מצביעה על 0 — רק בשורה הזו קוראים.</li>
+        <li>עוקבים בשורה הזו עד הצלע השנייה וקוראים את המספר.</li>
+        <li>בדיקת היגיון: זווית חדה קטנה מ־90, זווית קהה גדולה מ־90.</li>
+      </ul>
+    </details>
+  </section>
+
+  <section class="board-wrap">
+    <svg id="board" viewBox="0 0 800 600" aria-label="לוח מדידה"></svg>
+    <div class="toolbar">
+      <span class="lbl">סיבוב:</span>
+      <button data-rot="10" title="סיבוב נגד כיוון השעון">↺ 10°</button>
+      <button data-rot="1" title="סיבוב נגד כיוון השעון">↺ 1°</button>
+      <button data-rot="-1" title="סיבוב עם כיוון השעון">1° ↻</button>
+      <button data-rot="-10" title="סיבוב עם כיוון השעון">10° ↻</button>
+      <button id="resetProt">החזרת מד הזווית</button>
+      <label><input type="checkbox" id="magnet" checked> עזרת מגנט</label>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  const NS = "http://www.w3.org/2000/svg";
+  const W = 800, H = 600, RAY = 230, PR = 180;
+  const HOME = {x:200, y:572, rot:0};
+  const svg = document.getElementById('board');
+
+  const $ = id => document.getElementById(id);
+  const qEl = $('question'), ans = $('ans'), fb = $('feedback');
+  const checkBtn = $('checkBtn'), showBtn = $('showBtn'), nextBtn = $('nextBtn');
+  const dotsEl = $('dots'), progText = $('progText'), stageEl = $('stage'), answerRow = $('answerRow');
+  const TOTAL = 8, PER_LEVEL = 4;
+  const magnetBox = $('magnet');
+
+  const S = {
+    level:1, A:0, th0:0, vx:400, vy:300,
+    px:HOME.x, py:HOME.y, rot:HOME.rot,
+    solved:false, shown:false, idx:0, results:[], used:[], drag:null, anim:null
+  };
+
+  // ---------- helpers ----------
+  function el(tag, attrs, parent){
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  const rad = d => d*Math.PI/180;
+  const deg = r => r*180/Math.PI;
+  const n360 = d => ((d%360)+360)%360;
+  const n180 = d => { d = n360(d); return d > 180 ? d-360 : d; };
+  const randInt = (a,b) => a + Math.floor(Math.random()*(b-a+1));
+  function pt(cx,cy,r,d){ return [cx + r*Math.cos(rad(d)), cy - r*Math.sin(rad(d))]; }
+  function svgPt(e){
+    const p = svg.createSVGPoint(); p.x = e.clientX; p.y = e.clientY;
+    return p.matrixTransform(svg.getScreenCTM().inverse());
+  }
+
+  // ---------- layers ----------
+  const gAngle = el('g', {}, svg);
+  const gProt  = el('g', {class:'prot'}, svg);
+  let readMark;
+
+  function label(g, d, r, txt){
+    const [x,y] = pt(0,0,r,d);
+    const t = el('text', {x:x.toFixed(2), y:y.toFixed(2), transform:`rotate(${90-d} ${x.toFixed(2)} ${y.toFixed(2)})`}, g);
+    t.textContent = txt;
+  }
+
+  function buildProtractor(){
+    const R = PR + 12;
+    el('path', {class:'prot-body', d:`M ${-R} 14 L ${R} 14 L ${R} 0 A ${R} ${R} 0 0 0 ${-R} 0 Z`}, gProt);
+    const deco = el('g', {class:'deco'}, gProt);
+    el('path', {class:'ring', d:`M ${-(PR-62)} 0 A ${PR-62} ${PR-62} 0 0 1 ${PR-62} 0`}, deco);
+    el('path', {class:'ring', d:`M -38 0 A 38 38 0 0 1 38 0`}, deco);
+    el('line', {class:'guide', x1:0, y1:-38, x2:0, y2:-(PR-62)}, deco);
+    const ticks = el('g', {class:'ticks'}, gProt);
+    for (let d=0; d<=180; d++){
+      const len = d%10===0 ? 18 : d%5===0 ? 11 : 6;
+      const [x1,y1] = pt(0,0,PR,d), [x2,y2] = pt(0,0,PR-len,d);
+      el('line', {x1:x1.toFixed(2), y1:y1.toFixed(2), x2:x2.toFixed(2), y2:y2.toFixed(2), class: d%10===0 ? 't10' : 't1'}, ticks);
+    }
+    const outer = el('g', {class:'lbl-outer'}, gProt);
+    const inner = el('g', {class:'lbl-inner'}, gProt);
+    for (let d=0; d<=180; d+=10){
+      label(outer, d, PR-31, d);
+      label(inner, d, PR-51, 180-d);
+    }
+    el('line', {class:'baseline', x1:-R, y1:0, x2:R, y2:0}, gProt);
+    el('line', {class:'cross', x1:0, y1:-12, x2:0, y2:10}, gProt);
+    el('circle', {class:'center-dot', cx:0, cy:0, r:4.5}, gProt);
+    readMark = el('circle', {class:'read-mark', r:8, cx:0, cy:0, style:'display:none'}, gProt);
+    el('line', {class:'handle-stem', x1:0, y1:-R, x2:0, y2:-R-16}, gProt);
+    const h = el('g', {class:'rot-handle'}, gProt);
+    el('circle', {class:'hit', cx:0, cy:-R-30, r:26}, h);
+    el('circle', {class:'knob', cx:0, cy:-R-30, r:14}, h);
+    el('path', {class:'icon', d:`M -6 ${-R-30} A 6 6 0 1 1 0 ${-R-24}`}, h);
+  }
+
+  function updateProt(){
+    gProt.setAttribute('transform', `translate(${S.px.toFixed(2)} ${S.py.toFixed(2)}) rotate(${(-S.rot).toFixed(3)})`);
+  }
+
+  function clearHighlight(){
+    gProt.classList.remove('hl-outer','hl-inner');
+    readMark.style.display = 'none';
+  }
+
+  // ---------- angle drawing ----------
+  function arcPath(cx,cy,r,a1,a2){
+    const [x1,y1] = pt(cx,cy,r,a1), [x2,y2] = pt(cx,cy,r,a2);
+    return `M ${cx} ${cy} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 0 0 ${x2.toFixed(2)} ${y2.toFixed(2)} Z`;
+  }
+
+  function renderAngle(){
+    gAngle.innerHTML = '';
+    const {vx,vy,th0} = S;
+    const second = th0 + S.A;
+    el('path', {class:'angle-arc', d:arcPath(vx,vy,40,th0,second)}, gAngle);
+    const [x1,y1] = pt(vx,vy,RAY,th0);
+    const [x2,y2] = pt(vx,vy,RAY,second);
+    el('line', {class:'ray', x1:vx, y1:vy, x2:x1, y2:y1}, gAngle);
+    el('circle', {class:'ray-end', cx:x1, cy:y1, r:4}, gAngle);
+    el('line', {class:'ray', x1:vx, y1:vy, x2:x2, y2:y2}, gAngle);
+    el('circle', {class:'ray-end', cx:x2, cy:y2, r:4}, gAngle);
+    el('circle', {class:'vertex', cx:vx, cy:vy, r:5}, gAngle);
+  }
+
+  // ---------- questions ----------
+  function level(){ return S.idx < PER_LEVEL ? 1 : 2; }
+
+  function renderProgress(){
+    let h = '';
+    for (let i = 0; i < TOTAL; i++){
+      if (i === PER_LEVEL) h += '<span class="sep"></span>';
+      const r = S.results[i];
+      const cls = r === 'ok' ? 'done' : r === 'help' ? 'help' : i === S.idx ? 'cur' : '';
+      h += `<span class="dot ${cls}"></span>`;
+    }
+    dotsEl.innerHTML = h;
+    progText.textContent = S.idx < TOTAL ? `תרגיל ${S.idx + 1} מתוך ${TOTAL}` : 'סיימתם!';
+  }
+
+  function startOver(){
+    S.idx = 0; S.results = []; S.used = [];
+    newQuestion();
+  }
+
+  function newQuestion(){
+    S.solved = false; S.shown = false;
+    const L = level();
+    S.vx = 400 + randInt(-30,30);
+    S.vy = 300 + randInt(-20,20);
+    let a;
+    if (L === 1){
+      // exercises 1,3: round tens; exercise 2: any whole number (e.g. 67); exercise 4: ends in 5 (e.g. 55)
+      const kind = S.idx % 2 === 0 ? 'tens' : S.idx === 1 ? 'any' : 'fives';
+      do {
+        if (kind === 'tens') a = 10*randInt(1,8);
+        else if (kind === 'fives') a = 10*randInt(1,8) + 5;
+        else a = randInt(12,88);
+      } while (S.used.includes(a) || (kind === 'any' && a % 5 === 0));
+      S.A = a;
+      S.th0 = Math.random() < .5 ? 0 : 180 - S.A;
+    } else {
+      // alternate acute and obtuse angles across the 4 questions
+      const obtuse = (S.idx - PER_LEVEL) % 2 === 1;
+      do { a = obtuse ? randInt(95,175) : randInt(5,85); } while (S.used.some(u => Math.abs(u - a) < 8));
+      S.A = a;
+      S.th0 = randInt(0,359);
+    }
+    S.used.push(S.A);
+    answerRow.style.display = '';
+    checkBtn.hidden = false; nextBtn.hidden = true;
+    nextBtn.textContent = S.idx === TOTAL - 1 ? 'סיום' : 'לתרגיל הבא';
+    stageEl.textContent = L === 1 ? 'שלב א׳ — זוויות חדות, צלע אחת ישרה' : 'שלב ב׳ — זוויות בכל גודל ובכל כיוון';
+    renderProgress();
+    clearHighlight();
+    resetProt(false);
+    renderAngle();
+    ans.value = '';
+    setFeedback('', '');
+    showBtn.hidden = true;
+    qEl.innerHTML = `מה גודל הזווית המסומנת?<small>הציבו את מד הזווית על הזווית, קראו את המידה והקלידו אותה.</small>`;
+    if (window.matchMedia('(min-width:861px)').matches) ans.focus({preventScroll:true});
+  }
+
+  function setFeedback(cls, html){
+    fb.className = 'feedback' + (cls ? ' ' + cls : '');
+    fb.innerHTML = html;
+  }
+
+  function next(){
+    if (!S.solved) return;
+    S.idx++;
+    if (S.idx < TOTAL){ newQuestion(); return; }
+    finish();
+  }
+
+  function finish(){
+    renderProgress();
+    const first = S.results.filter(r => r === 'ok').length;
+    stageEl.textContent = '';
+    qEl.innerHTML = 'כל הכבוד, סיימתם את כל 8 הזוויות!';
+    answerRow.style.display = 'none';
+    checkBtn.hidden = true; showBtn.hidden = true; nextBtn.hidden = true;
+    const extra = first === TOTAL ? 'כל התשובות היו נכונות בלי עזרה — מצוין!' :
+      'הנקודות הכתומות בפס ההתקדמות הן זוויות שבהן נעזרתם בכפתור "הראה לי".';
+    setFeedback('ok', `<div class="summary">${first} מתוך ${TOTAL} זוויות נמדדו בלי עזרה. ${extra}</div><div style="margin-top:10px"><button class="secondary" id="againBtn">להתחיל מחדש</button></div>`);
+    $('againBtn').addEventListener('click', startOver);
+    clearHighlight();
+  }
+
+  function dg(n){ return `<bdi dir="ltr">${n}&deg;</bdi>`; }
+  function kindText(a){ return a < 90 ? 'חדה' : a > 90 ? 'קהה' : 'ישרה'; }
+
+  function check(){
+    if (S.solved){ next(); return; }
+    if (S.idx >= TOTAL) return;
+    const L = level();
+    const v = parseFloat(String(ans.value).replace(',', '.'));
+    if (isNaN(v)){ setFeedback('info', 'הקלידו מספר — כמה מעלות יש בזווית?'); return; }
+    const tol = L === 1 ? 1 : 2;
+    const A = S.A;
+    if (Math.abs(v - A) <= tol){
+      S.solved = true;
+      S.results[S.idx] = S.shown ? 'help' : 'ok';
+      renderProgress();
+      setFeedback('ok', `מצוין! הזווית היא ${dg(A)}.`);
+      showBtn.hidden = true; checkBtn.hidden = true; nextBtn.hidden = false;
+      nextBtn.focus({preventScroll:true});
+      return;
+    }
+    let msg;
+    if (v > 180){
+      msg = 'מד הזווית מגיע רק עד 180 מעלות, והזווית כאן קטנה מ־180 מעלות. נסו שוב.';
+    } else if (Math.abs(v - (180 - A)) <= tol){
+      msg = `נראה שקראתם את השורה הלא נכונה. ${v} ועוד התשובה הנכונה נותנים יחד 180. בדקו באיזו שורה הצלע מצביעה על 0 — וקראו רק בה.`;
+    } else {
+      msg = 'לא מדויק. בדקו שהנקודה שבמרכז מד הזווית יושבת בדיוק על הקודקוד, ושהקו התחתון מונח בדיוק על אחת הצלעות.';
+      if ((A < 90 && v > 90) || (A > 90 && v < 90)){
+        msg += ` שימו לב: הזווית הזאת ${kindText(A)}, אז התשובה צריכה להיות ${A < 90 ? 'קטנה' : 'גדולה'} מ־90.`;
+      }
+    }
+    setFeedback('bad', msg);
+    showBtn.hidden = false;
+  }
+
+  function showMe(){
+    const A = S.A;
+    const lowRay = S.th0; // rays: th0 and th0 + A (counterclockwise)
+    const c1 = n180(lowRay);              // zero at right -> outer (blue) scale
+    const c2 = n180(lowRay + A - 180);    // zero at left  -> inner (red) scale
+    const useOuter = Math.abs(c1) <= Math.abs(c2);
+    const target = useOuter ? c1 : c2;
+    clearHighlight();
+    animateTo(S.vx, S.vy, target, 800, null, () => {
+      gProt.classList.add(useOuter ? 'hl-outer' : 'hl-inner');
+      const local = useOuter ? A : 180 - A;
+      const [mx,my] = pt(0,0,PR-4,local);
+      readMark.setAttribute('cx', mx.toFixed(2)); readMark.setAttribute('cy', my.toFixed(2));
+      readMark.style.display = '';
+    });
+    S.shown = true;
+    const row = useOuter ? '<span class="c-blue">הכחולה (החיצונית)</span>' : '<span class="c-red">האדומה (הפנימית)</span>';
+    setFeedback('info', `ככה מודדים: המרכז על הקודקוד, הקו התחתון על צלע אחת. הצלע הזו מצביעה על 0 בשורה ${row} — לכן קוראים רק בה. הנקודה הכתומה מראה איפה הצלע השנייה חוצה את השורה: ${dg(A)}.`);
+    showBtn.hidden = true;
+  }
+
+  // ---------- protractor motion ----------
+  function animateTo(tx, ty, trot, dur, onStep, onDone){
+    if (S.anim) cancelAnimationFrame(S.anim);
+    const sx = S.px, sy = S.py, sr = S.rot, dr = n180(trot - sr);
+    const t0 = performance.now();
+    function step(now){
+      const t = Math.min(1, (now - t0)/dur);
+      const e = t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2)/2;
+      S.px = sx + (tx - sx)*e; S.py = sy + (ty - sy)*e; S.rot = sr + dr*e;
+      updateProt();
+      if (onStep) onStep(e);
+      if (t < 1) S.anim = requestAnimationFrame(step);
+      else { S.anim = null; S.rot = n180(S.rot); updateProt(); if (onDone) onDone(); }
+    }
+    S.anim = requestAnimationFrame(step);
+  }
+
+  function resetProt(animate){
+    clearHighlight();
+    if (animate) animateTo(HOME.x, HOME.y, HOME.rot, 450);
+    else { S.px = HOME.x; S.py = HOME.y; S.rot = HOME.rot; updateProt(); }
+  }
+
+  function rayDirections(){
+    return [S.th0, S.th0 + S.A];
+  }
+  function atVertex(){ return Math.hypot(S.px - S.vx, S.py - S.vy) < 0.5; }
+
+  function snapRotation(){
+    if (!magnetBox.checked || !atVertex()) return;
+    for (const d of rayDirections()){
+      for (const c of [d, d - 180]){
+        if (Math.abs(n180(S.rot - c)) < 2.5){ S.rot = n180(c); return; }
+      }
+    }
+  }
+
+  // ---------- pointer interaction ----------
+  gProt.addEventListener('pointerdown', e => {
+    if (S.anim) return;
+    e.preventDefault();
+    const p = svgPt(e);
+    clearHighlight();
+    if (e.target.closest('.rot-handle')){
+      S.drag = {mode:'rotate'};
+    } else {
+      S.drag = {mode:'move', ox:p.x - S.px, oy:p.y - S.py};
+    }
+    svg.setPointerCapture(e.pointerId);
+  });
+
+  svg.addEventListener('pointermove', e => {
+    if (!S.drag) return;
+    const p = svgPt(e);
+    if (S.drag.mode === 'move'){
+      let nx = Math.max(0, Math.min(W, p.x - S.drag.ox));
+      let ny = Math.max(0, Math.min(H, p.y - S.drag.oy));
+      if (magnetBox.checked && Math.hypot(nx - S.vx, ny - S.vy) < 14){ nx = S.vx; ny = S.vy; }
+      S.px = nx; S.py = ny;
+      snapRotation();
+      updateProt();
+    } else if (S.drag.mode === 'rotate'){
+      const a = deg(Math.atan2(-(p.y - S.py), p.x - S.px));
+      S.rot = n180(a - 90);
+      snapRotation();
+      updateProt();
+    }
+  });
+
+  function endDrag(e){
+    if (!S.drag) return;
+    S.drag = null;
+    try { svg.releasePointerCapture(e.pointerId); } catch(_){}
+  }
+  svg.addEventListener('pointerup', endDrag);
+  svg.addEventListener('pointercancel', endDrag);
+
+  // ---------- controls ----------
+  document.querySelectorAll('.toolbar [data-rot]').forEach(b => {
+    b.addEventListener('click', () => {
+      if (S.anim) return;
+      clearHighlight();
+      S.rot = n180(S.rot + Number(b.dataset.rot));
+      updateProt();
+    });
+  });
+  $('resetProt').addEventListener('click', () => resetProt(true));
+
+  checkBtn.addEventListener('click', check);
+  showBtn.addEventListener('click', showMe);
+  nextBtn.addEventListener('click', next);
+  ans.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); check(); } });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && S.solved && document.activeElement !== ans && document.activeElement !== nextBtn){ next(); }
+  });
+
+  // ---------- start ----------
+  buildProtractor();
+  updateProt();
+  newQuestion();
+})();
+</script>
+</body>
+</html>
