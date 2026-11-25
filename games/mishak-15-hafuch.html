@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>המשחק 15 הפוך</title>
+<title>המשחק 18 הפוך</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
@@ -151,17 +151,17 @@
 <div class="wrap" dir="rtl">
 
   <header>
-    <h1>המשחק <span class="num">15</span> הפוך</h1>
-    <p class="tagline">אותם חוקים, מטרה הפוכה — הפעם צריך להימנע מ־15</p>
+    <h1>המשחק <span class="num">18</span> הפוך</h1>
+    <p class="tagline">אותם חוקים, מטרה הפוכה — הפעם צריך להימנע מ־18</p>
   </header>
 
   <section class="card">
     <p><b>איך משחקים?</b></p>
     <ul>
-      <li>כל שחקן בתורו בוחר מספר מ־1 עד 9 שעוד לא נבחר.</li>
-      <li>מי שהראשון שיש לו <b>שלושה מספרים שסכומם בדיוק 15 — מפסיד</b>.</li>
-      <li>גם כאן, מספיק ששלושה מתוך המספרים שלך יסתכמו ל־15, אפילו אם יש לך יותר משלושה.</li>
-      <li>אם כל המספרים נבחרו ואף אחד לא הגיע ל־15 — תיקו.</li>
+      <li>כל שחקן בתורו בוחר מספר מ־2 עד 10 שעוד לא נבחר.</li>
+      <li>מי שהראשון שיש לו <b>שלושה מספרים שסכומם בדיוק 18 — מפסיד</b>.</li>
+      <li>גם כאן, מספיק ששלושה מתוך המספרים שלך יסתכמו ל־18, אפילו אם יש לך יותר משלושה.</li>
+      <li>אם כל המספרים נבחרו ואף אחד לא הגיע ל־18 — תיקו.</li>
     </ul>
   </section>
 
@@ -188,7 +188,7 @@
   <div class="status" id="status" aria-live="polite"></div>
 
   <div class="board" id="board"></div>
-  <p class="note" id="dangerNote">המספרים עם המסגרת האדומה מסוכנים לך — אם תבחר/י בהם, תגיע/י ל־15.</p>
+  <p class="note" id="dangerNote">המספרים עם המסגרת האדומה מסוכנים לך — אם תבחר/י בהם, תגיע/י ל־18.</p>
 
   <div class="actions">
     <button class="btn" id="newGame">משחק חדש</button>
@@ -197,19 +197,19 @@
   </div>
 
   <section class="card secret hidden" id="secret">
-    <h2>הסוד של 15 הפוך</h2>
-    <p>כמו במשחק הרגיל, מסדרים את המספרים 1 עד 9 בריבוע קסם:</p>
+    <h2>הסוד של 18 הפוך</h2>
+    <p>כמו במשחק הרגיל, מסדרים את המספרים 2 עד 10 בריבוע קסם:</p>
     <div class="magic" id="magic"></div>
-    <p>בכל שורה, עמודה ואלכסון הסכום הוא 15, ואלה בדיוק כל השלשות שסכומן 15. לכן גם המשחק הזה הוא איקס־עיגול בתחפושת — אבל איקס־עיגול הפוך: מי שמשלים שורה, מפסיד.</p>
+    <p>בכל שורה, עמודה ואלכסון הסכום הוא 18, ואלה בדיוק כל השלשות שסכומן 18. לכן גם המשחק הזה הוא איקס־עיגול בתחפושת — אבל איקס־עיגול הפוך: מי שמשלים שורה, מפסיד.</p>
 
     <h3>אסטרטגיה שלא מפסידה לעולם</h3>
-    <p>השחקן הראשון בוחר 5. מעכשיו, בכל פעם שהיריב בוחר מספר, הוא בוחר את <b>10 פחות המספר הזה</b>. אם היריב בחר 3, הוא בוחר 7. אם היריב בחר 8, הוא בוחר 2.</p>
+    <p>השחקן הראשון בוחר 6. מעכשיו, בכל פעם שהיריב בוחר מספר, הוא בוחר את <b>12 פחות המספר הזה</b>. אם היריב בחר 4, הוא בוחר 8. אם היריב בחר 9, הוא בוחר 3.</p>
     <p>על ריבוע הקסם, זו בדיוק המשבצת שממול, מהצד השני של המרכז. בדקנו את כל המשחקים האפשריים: מי שמשחק כך לעולם לא מפסיד.</p>
 
     <h3>לחשוב</h3>
     <ul>
-      <li>במשחק הרגיל, 5 היה המספר הכי טוב. האם גם כאן כדאי לקחת אותו? למה זה מפתיע?</li>
-      <li>למה הבחירה ב־"10 פחות המספר של היריב" אף פעם לא משלימה לך שלשה של 15? רמז: מה הסכום של 5, של המספר של היריב, ושל המספר שלך?</li>
+      <li>במשחק הרגיל, 6 הוא המספר הכי טוב. מה מיוחד במספר הזה?</li>
+      <li>למה הבחירה ב־"12 פחות המספר של היריב" אף פעם לא משלימה לך שלשה של 18? רמז: מה הסכום של 6, של המספר של היריב, ושל המספר שלך?</li>
       <li>האם השחקן השני יכול לנצח, אם הראשון משחק לפי האסטרטגיה?</li>
     </ul>
   </section>
@@ -217,14 +217,14 @@
 </div>
 
 <script>
-  const MAGIC = [2,7,6, 9,5,1, 4,3,8];
+  const MAGIC = [3,8,7, 10,6,2, 5,4,9];
   const LINES = [
-    [2,7,6],[9,5,1],[4,3,8],
-    [2,9,4],[7,5,3],[6,1,8],
-    [2,5,8],[6,5,4]
+    [3,8,7],[10,6,2],[5,4,9],
+    [3,10,5],[8,6,4],[7,2,9],
+    [3,6,9],[7,6,5]
   ];
 
-  let owner = Array(10).fill(0);
+  let owner = Array(11).fill(0);
   let current = 1, starter = 1;
   let over = false, thinking = false;
   let mode = "pvp";
@@ -235,7 +235,7 @@
   const $ = id => document.getElementById(id);
   const board = $("board"), magic = $("magic");
 
-  for (let n = 1; n <= 9; n++) {
+  for (let n = 2; n <= 10; n++) {
     const b = document.createElement("button");
     b.className = "num-btn"; b.textContent = n; b.dataset.n = n;
     b.addEventListener("click", () => humanPick(n));
@@ -253,7 +253,7 @@
   }
   function freeNums(o) {
     const r = [];
-    for (let n = 1; n <= 9; n++) if (!o[n]) r.push(n);
+    for (let n = 2; n <= 10; n++) if (!o[n]) r.push(n);
     return r;
   }
   function isDanger(o, p, n) {
@@ -357,7 +357,7 @@
     [1, 2].forEach(p => {
       const tray = $("tray" + p);
       tray.innerHTML = "";
-      for (let n = 1; n <= 9; n++) if (owner[n] === p) {
+      for (let n = 2; n <= 10; n++) if (owner[n] === p) {
         const c = document.createElement("div");
         c.className = "chip" + (loseSet.has(n) ? " lose" : "");
         c.textContent = n;
@@ -371,15 +371,15 @@
       const t = loseInfo.line.slice().sort((a, b) => a - b);
       const loser = loseInfo.p, winner = loser === 1 ? 2 : 1;
       let msg;
-      if (mode === "pvp") msg = nm[loser] + " הגיע ל־15 והפסיד! " + nm[winner] + " ניצח.";
-      else msg = loser === 1 ? "הגעת ל־15… המחשב ניצח." : "המחשב הגיע ל־15 — ניצחת!";
-      st.innerHTML = msg + " &nbsp; <span class='eq'>" + t.join(" + ") + " = 15</span>";
+      if (mode === "pvp") msg = nm[loser] + " הגיע ל־18 והפסיד! " + nm[winner] + " ניצח.";
+      else msg = loser === 1 ? "הגעת ל־18… המחשב ניצח." : "המחשב הגיע ל־18 — ניצחת!";
+      st.innerHTML = msg + " &nbsp; <span class='eq'>" + t.join(" + ") + " = 18</span>";
     } else if (over) {
-      st.textContent = "תיקו! כל המספרים נבחרו ואף אחד לא הגיע ל־15.";
+      st.textContent = "תיקו! כל המספרים נבחרו ואף אחד לא הגיע ל־18.";
     } else if (thinking) {
       st.textContent = "המחשב חושב…";
     } else if (mode !== "pvp") {
-      st.textContent = "התור שלך — בחר/י מספר, והיזהר/י מ־15";
+      st.textContent = "התור שלך — בחר/י מספר, והיזהר/י מ־18";
     } else {
       st.textContent = "התור של " + nm[current];
     }
