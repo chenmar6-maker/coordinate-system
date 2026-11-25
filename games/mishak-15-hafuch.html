@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>המשחק 15 הפוך</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f4ee;
+    --card: #ffffff;
+    --ink: #1f2430;
+    --muted: #6b7080;
+    --line: #e4ded2;
+    --p1: #2563eb;
+    --p1-soft: #dbe7ff;
+    --p2: #e0590f;
+    --p2-soft: #ffe3d2;
+    --bad: #e03131;
+    --bad-soft: #ffe0e0;
+    --gold: #f2b705;
+    --shadow: 0 2px 0 rgba(0,0,0,.06), 0 8px 24px rgba(31,36,48,.07);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15171d; --card: #1f222b; --ink: #f1efe9; --muted: #a2a6b3; --line: #333744;
+      --p1: #6c9bff; --p1-soft: #1f2d4d; --p2: #ff8a4c; --p2-soft: #4a2a1a;
+      --bad: #ff6b6b; --bad-soft: #4a1f1f; --gold: #ffd43b;
+      --shadow: 0 2px 0 rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15171d; --card: #1f222b; --ink: #f1efe9; --muted: #a2a6b3; --line: #333744;
+    --p1: #6c9bff; --p1-soft: #1f2d4d; --p2: #ff8a4c; --p2-soft: #4a2a1a;
+    --bad: #ff6b6b; --bad-soft: #4a1f1f; --gold: #ffd43b;
+    --shadow: 0 2px 0 rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: "Rubik", system-ui, sans-serif;
+    direction: rtl; text-align: right; line-height: 1.55;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { text-align: center; margin-bottom: 18px; }
+  h1 { font-size: clamp(2.2rem, 9vw, 3.4rem); font-weight: 800; margin: 0; letter-spacing: -1px; }
+  h1 .num {
+    display: inline-block; background: var(--bad); color: #fff;
+    border-radius: 14px; padding: 0 14px; transform: rotate(180deg);
+  }
+  .tagline { color: var(--muted); margin: 6px 0 0; text-align: center; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+    box-shadow: var(--shadow); padding: 18px; margin-bottom: 16px;
+  }
+  .card p { margin: 0 0 8px; text-align: right; }
+  .card ul { margin: 0; padding-right: 20px; padding-left: 0; }
+  .card li { margin-bottom: 4px; text-align: right; }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px; }
+  .seg {
+    display: inline-flex; flex-wrap: wrap; justify-content: center;
+    background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px; gap: 4px;
+  }
+  .seg button {
+    border: 0; background: transparent; color: var(--ink); font: inherit; font-weight: 500;
+    padding: 8px 14px; border-radius: 999px; cursor: pointer;
+  }
+  .seg button.on { background: var(--ink); color: var(--bg); }
+
+  .score { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; margin-bottom: 14px; }
+  .player {
+    border-radius: 16px; padding: 12px 14px; border: 2px solid transparent;
+    background: var(--card); box-shadow: var(--shadow);
+    transition: border-color .2s, transform .2s; text-align: right;
+  }
+  .player.p1 { --c: var(--p1); --soft: var(--p1-soft); }
+  .player.p2 { --c: var(--p2); --soft: var(--p2-soft); }
+  .player.active { border-color: var(--c); transform: translateY(-2px); }
+  .player .name { font-weight: 700; color: var(--c); display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+  .player .pts {
+    background: var(--soft); color: var(--c); border-radius: 999px;
+    padding: 0 10px; font-weight: 800; min-width: 2em; text-align: center;
+  }
+  .tray { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; min-height: 34px; }
+  .chip {
+    width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+    background: var(--soft); color: var(--c); font-weight: 800;
+  }
+  .chip.lose { background: var(--bad); color: #fff; }
+  .draws {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    color: var(--muted); font-size: .9rem; padding: 0 4px; text-align: center;
+  }
+  .draws b { font-size: 1.3rem; color: var(--ink); }
+
+  .status { text-align: center; font-size: 1.2rem; font-weight: 700; min-height: 2.2em; margin: 6px 0 12px; }
+  .status .eq { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+
+  .board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 360px; margin: 0 auto 18px; }
+  .num-btn {
+    aspect-ratio: 1; border-radius: 18px; border: 2px solid var(--line);
+    background: var(--card); color: var(--ink); font: inherit;
+    font-size: clamp(1.8rem, 9vw, 2.6rem); font-weight: 800; cursor: pointer;
+    box-shadow: var(--shadow); transition: transform .12s, background .2s, border-color .2s;
+  }
+  .num-btn:hover:not(:disabled) { transform: translateY(-3px); border-color: var(--ink); }
+  .num-btn:disabled { cursor: default; }
+  .num-btn.p1 { background: var(--p1-soft); color: var(--p1); border-color: var(--p1); }
+  .num-btn.p2 { background: var(--p2-soft); color: var(--p2); border-color: var(--p2); }
+  .num-btn.lose { background: var(--bad); color: #fff; border-color: var(--bad); animation: shake .45s ease; }
+  .num-btn.fade { opacity: .45; }
+  .num-btn.danger { box-shadow: 0 0 0 3px var(--bad) inset, var(--shadow); }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+
+  .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px; }
+  .btn {
+    font: inherit; font-weight: 700; border-radius: 14px; padding: 12px 20px;
+    border: 2px solid var(--ink); background: var(--ink); color: var(--bg); cursor: pointer;
+  }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn.on { background: var(--bad); border-color: var(--bad); color: #fff; }
+
+  .secret h2 { margin: 0 0 8px; font-size: 1.3rem; text-align: right; }
+  .secret h3 { margin: 14px 0 6px; font-size: 1.05rem; text-align: right; }
+  .magic {
+    display: grid; grid-template-columns: repeat(3, 64px); gap: 6px;
+    justify-content: center; direction: ltr; margin: 14px auto;
+  }
+  .magic div {
+    height: 64px; border-radius: 12px; display: grid; place-items: center;
+    font-size: 1.6rem; font-weight: 800; background: var(--bg); border: 2px solid var(--line);
+  }
+  .magic .p1 { background: var(--p1-soft); color: var(--p1); border-color: var(--p1); }
+  .magic .p2 { background: var(--p2-soft); color: var(--p2); border-color: var(--p2); }
+  .magic .lose { background: var(--bad); color: #fff; border-color: var(--bad); }
+  .hidden { display: none; }
+  .note { color: var(--muted); font-size: .92rem; text-align: center; margin: -8px 0 16px; }
+
+  @media (max-width: 480px) {
+    .score { grid-template-columns: 1fr 1fr; }
+    .draws { grid-column: 1 / -1; flex-direction: row; gap: 6px; order: 3; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap" dir="rtl">
+
+  <header>
+    <h1>המשחק <span class="num">15</span> הפוך</h1>
+    <p class="tagline">אותם חוקים, מטרה הפוכה — הפעם צריך להימנע מ־15</p>
+  </header>
+
+  <section class="card">
+    <p><b>איך משחקים?</b></p>
+    <ul>
+      <li>כל שחקן בתורו בוחר מספר מ־1 עד 9 שעוד לא נבחר.</li>
+      <li>מי שהראשון שיש לו <b>שלושה מספרים שסכומם בדיוק 15 — מפסיד</b>.</li>
+      <li>גם כאן, מספיק ששלושה מתוך המספרים שלך יסתכמו ל־15, אפילו אם יש לך יותר משלושה.</li>
+      <li>אם כל המספרים נבחרו ואף אחד לא הגיע ל־15 — תיקו.</li>
+    </ul>
+  </section>
+
+  <div class="controls">
+    <div class="seg" id="modeSeg">
+      <button data-mode="pvp" class="on">שני שחקנים</button>
+      <button data-mode="easy">נגד המחשב: קל</button>
+      <button data-mode="hard">נגד המחשב: קשה</button>
+    </div>
+  </div>
+
+  <div class="score">
+    <div class="player p1" id="pl1">
+      <div class="name"><span id="name1">הכחול</span><span class="pts" id="pts1">0</span></div>
+      <div class="tray" id="tray1"></div>
+    </div>
+    <div class="draws">תיקו<b id="ptsD">0</b></div>
+    <div class="player p2" id="pl2">
+      <div class="name"><span id="name2">הכתום</span><span class="pts" id="pts2">0</span></div>
+      <div class="tray" id="tray2"></div>
+    </div>
+  </div>
+
+  <div class="status" id="status" aria-live="polite"></div>
+
+  <div class="board" id="board"></div>
+  <p class="note" id="dangerNote">המספרים עם המסגרת האדומה מסוכנים לך — אם תבחר/י בהם, תגיע/י ל־15.</p>
+
+  <div class="actions">
+    <button class="btn" id="newGame">משחק חדש</button>
+    <button class="btn ghost" id="dangerBtn">סימון מספרים מסוכנים</button>
+    <button class="btn ghost" id="secretBtn">רוצים לגלות סוד?</button>
+  </div>
+
+  <section class="card secret hidden" id="secret">
+    <h2>הסוד של 15 הפוך</h2>
+    <p>כמו במשחק הרגיל, מסדרים את המספרים 1 עד 9 בריבוע קסם:</p>
+    <div class="magic" id="magic"></div>
+    <p>בכל שורה, עמודה ואלכסון הסכום הוא 15, ואלה בדיוק כל השלשות שסכומן 15. לכן גם המשחק הזה הוא איקס־עיגול בתחפושת — אבל איקס־עיגול הפוך: מי שמשלים שורה, מפסיד.</p>
+
+    <h3>אסטרטגיה שלא מפסידה לעולם</h3>
+    <p>השחקן הראשון בוחר 5. מעכשיו, בכל פעם שהיריב בוחר מספר, הוא בוחר את <b>10 פחות המספר הזה</b>. אם היריב בחר 3, הוא בוחר 7. אם היריב בחר 8, הוא בוחר 2.</p>
+    <p>על ריבוע הקסם, זו בדיוק המשבצת שממול, מהצד השני של המרכז. בדקנו את כל המשחקים האפשריים: מי שמשחק כך לעולם לא מפסיד.</p>
+
+    <h3>לחשוב</h3>
+    <ul>
+      <li>במשחק הרגיל, 5 היה המספר הכי טוב. האם גם כאן כדאי לקחת אותו? למה זה מפתיע?</li>
+      <li>למה הבחירה ב־"10 פחות המספר של היריב" אף פעם לא משלימה לך שלשה של 15? רמז: מה הסכום של 5, של המספר של היריב, ושל המספר שלך?</li>
+      <li>האם השחקן השני יכול לנצח, אם הראשון משחק לפי האסטרטגיה?</li>
+    </ul>
+  </section>
+
+</div>
+
+<script>
+  const MAGIC = [2,7,6, 9,5,1, 4,3,8];
+  const LINES = [
+    [2,7,6],[9,5,1],[4,3,8],
+    [2,9,4],[7,5,3],[6,1,8],
+    [2,5,8],[6,5,4]
+  ];
+
+  let owner = Array(10).fill(0);
+  let current = 1, starter = 1;
+  let over = false, thinking = false;
+  let mode = "pvp";
+  let loseInfo = null;
+  let showDanger = false;
+  let score = {1: 0, 2: 0, d: 0};
+
+  const $ = id => document.getElementById(id);
+  const board = $("board"), magic = $("magic");
+
+  for (let n = 1; n <= 9; n++) {
+    const b = document.createElement("button");
+    b.className = "num-btn"; b.textContent = n; b.dataset.n = n;
+    b.addEventListener("click", () => humanPick(n));
+    board.appendChild(b);
+  }
+  MAGIC.forEach(n => {
+    const d = document.createElement("div");
+    d.textContent = n; d.dataset.n = n;
+    magic.appendChild(d);
+  });
+
+  function lineOf(o, p) {
+    for (const l of LINES) if (l.every(n => o[n] === p)) return l;
+    return null;
+  }
+  function freeNums(o) {
+    const r = [];
+    for (let n = 1; n <= 9; n++) if (!o[n]) r.push(n);
+    return r;
+  }
+  function isDanger(o, p, n) {
+    o[n] = p;
+    const bad = !!lineOf(o, p);
+    o[n] = 0;
+    return bad;
+  }
+
+  // ערך המצב מנקודת המבט של המחשב (שחקן 2): חיובי = המחשב מנצח
+  function minimax(o, player, depth) {
+    const f = freeNums(o);
+    if (!f.length) return 0;
+    let best = player === 2 ? -Infinity : Infinity;
+    for (const n of f) {
+      o[n] = player;
+      let s;
+      if (lineOf(o, player)) s = player === 2 ? depth - 10 : 10 - depth;
+      else s = minimax(o, player === 2 ? 1 : 2, depth + 1);
+      o[n] = 0;
+      best = player === 2 ? Math.max(best, s) : Math.min(best, s);
+    }
+    return best;
+  }
+
+  function computerMove() {
+    const o = owner.slice();
+    const f = freeNums(o);
+    if (mode === "easy") {
+      const safe = f.filter(n => !isDanger(o, 2, n));
+      const pool = safe.length && Math.random() < 0.6 ? safe : f;
+      return pool[Math.floor(Math.random() * pool.length)];
+    }
+    let bestScore = -Infinity, bests = [];
+    for (const n of f) {
+      o[n] = 2;
+      const s = lineOf(o, 2) ? -100 : minimax(o, 1, 1);
+      o[n] = 0;
+      if (s > bestScore) { bestScore = s; bests = [n]; }
+      else if (s === bestScore) bests.push(n);
+    }
+    return bests[Math.floor(Math.random() * bests.length)];
+  }
+
+  function humanPick(n) {
+    if (over || owner[n] || thinking) return;
+    if (mode !== "pvp" && current === 2) return;
+    play(n);
+  }
+
+  function play(n) {
+    owner[n] = current;
+    const l = lineOf(owner, current);
+    if (l) {
+      over = true;
+      loseInfo = {p: current, line: l};
+      score[current === 1 ? 2 : 1]++;
+    } else if (!freeNums(owner).length) {
+      over = true; score.d++;
+    } else {
+      current = current === 1 ? 2 : 1;
+    }
+    render();
+    if (!over && mode !== "pvp" && current === 2) {
+      thinking = true; render();
+      setTimeout(() => { thinking = false; play(computerMove()); }, 700);
+    }
+  }
+
+  function names() {
+    return mode === "pvp" ? {1: "הכחול", 2: "הכתום"} : {1: "את/ה", 2: "המחשב"};
+  }
+
+  function render() {
+    const nm = names();
+    $("name1").textContent = nm[1];
+    $("name2").textContent = nm[2];
+    $("pts1").textContent = score[1];
+    $("pts2").textContent = score[2];
+    $("ptsD").textContent = score.d;
+
+    const loseSet = new Set(loseInfo ? loseInfo.line : []);
+    const humanTurn = !over && !thinking && !(mode !== "pvp" && current === 2);
+
+    board.querySelectorAll(".num-btn").forEach(b => {
+      const n = +b.dataset.n;
+      b.className = "num-btn";
+      if (owner[n]) b.classList.add("p" + owner[n]);
+      if (loseSet.has(n)) b.classList.add("lose");
+      else if (over && loseInfo && owner[n]) b.classList.add("fade");
+      if (showDanger && humanTurn && !owner[n] && isDanger(owner, current, n)) b.classList.add("danger");
+      b.disabled = !humanTurn || !!owner[n];
+    });
+    magic.querySelectorAll("div").forEach(d => {
+      const n = +d.dataset.n;
+      d.className = "";
+      if (owner[n]) d.classList.add("p" + owner[n]);
+      if (loseSet.has(n)) d.className = "lose";
+    });
+
+    [1, 2].forEach(p => {
+      const tray = $("tray" + p);
+      tray.innerHTML = "";
+      for (let n = 1; n <= 9; n++) if (owner[n] === p) {
+        const c = document.createElement("div");
+        c.className = "chip" + (loseSet.has(n) ? " lose" : "");
+        c.textContent = n;
+        tray.appendChild(c);
+      }
+      $("pl" + p).classList.toggle("active", !over && current === p);
+    });
+
+    const st = $("status");
+    if (loseInfo) {
+      const t = loseInfo.line.slice().sort((a, b) => a - b);
+      const loser = loseInfo.p, winner = loser === 1 ? 2 : 1;
+      let msg;
+      if (mode === "pvp") msg = nm[loser] + " הגיע ל־15 והפסיד! " + nm[winner] + " ניצח.";
+      else msg = loser === 1 ? "הגעת ל־15… המחשב ניצח." : "המחשב הגיע ל־15 — ניצחת!";
+      st.innerHTML = msg + " &nbsp; <span class='eq'>" + t.join(" + ") + " = 15</span>";
+    } else if (over) {
+      st.textContent = "תיקו! כל המספרים נבחרו ואף אחד לא הגיע ל־15.";
+    } else if (thinking) {
+      st.textContent = "המחשב חושב…";
+    } else if (mode !== "pvp") {
+      st.textContent = "התור שלך — בחר/י מספר, והיזהר/י מ־15";
+    } else {
+      st.textContent = "התור של " + nm[current];
+    }
+    st.style.color = over ? "var(--ink)" : (current === 1 ? "var(--p1)" : "var(--p2)");
+    $("dangerNote").classList.toggle("hidden", !showDanger);
+  }
+
+  function newGame() {
+    owner = Array(10).fill(0);
+    over = false; loseInfo = null; thinking = false;
+    current = starter;
+    starter = starter === 1 ? 2 : 1;
+    render();
+    if (mode !== "pvp" && current === 2) {
+      thinking = true; render();
+      setTimeout(() => { thinking = false; play(computerMove()); }, 700);
+    }
+  }
+
+  $("newGame").addEventListener("click", newGame);
+  $("dangerBtn").addEventListener("click", () => {
+    showDanger = !showDanger;
+    $("dangerBtn").classList.toggle("on", showDanger);
+    $("dangerBtn").textContent = showDanger ? "בלי סימון מספרים מסוכנים" : "סימון מספרים מסוכנים";
+    render();
+  });
+  $("secretBtn").addEventListener("click", () => {
+    const s = $("secret");
+    const hidden = s.classList.toggle("hidden");
+    $("secretBtn").textContent = hidden ? "רוצים לגלות סוד?" : "להסתיר את הסוד";
+    if (!hidden) s.scrollIntoView({behavior: "smooth", block: "start"});
+  });
+  document.querySelectorAll("#modeSeg button").forEach(b => {
+    b.addEventListener("click", () => {
+      if (thinking) return;
+      document.querySelectorAll("#modeSeg button").forEach(x => x.classList.remove("on"));
+      b.classList.add("on");
+      mode = b.dataset.mode;
+      score = {1: 0, 2: 0, d: 0};
+      starter = 1;
+      newGame();
+    });
+  });
+
+  newGame();
+</script>
+</body>
+</html>
