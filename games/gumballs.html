@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>כמה מסטיקים בצנצנת?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f4ee;
+    --card: #ffffff;
+    --ink: #1f2430;
+    --muted: #6b7080;
+    --line: #e4ded2;
+    --act1: #2563eb;
+    --act1-soft: #dbe7ff;
+    --act2: #d97706;
+    --act2-soft: #fef3c7;
+    --act3: #059669;
+    --act3-soft: #d1fae5;
+    --shadow: 0 2px 0 rgba(0,0,0,.06), 0 8px 24px rgba(31,36,48,.07);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171d; --card: #1f222b; --ink: #f1efe9; --muted: #a2a6b3; --line: #333744;
+      --act1: #6c9bff; --act1-soft: #1f2d4d;
+      --act2: #fbbf24; --act2-soft: #3a2a0a;
+      --act3: #34d399; --act3-soft: #0a2a1f;
+      --shadow: 0 2px 0 rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: "Rubik", system-ui, sans-serif;
+    direction: rtl; text-align: right; line-height: 1.6;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  header { text-align: center; margin-bottom: 28px; }
+  h1 { font-size: clamp(1.8rem, 7vw, 2.8rem); font-weight: 800; margin: 0 0 6px; letter-spacing: -0.5px; }
+  .tagline { color: var(--muted); font-size: 1rem; }
+
+  /* ── Act blocks ── */
+  .act {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .act-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 20px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .act-badge {
+    font-size: 11px; font-weight: 800; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 4px 12px; border-radius: 999px;
+  }
+  .act1 .act-badge { background: var(--act1-soft); color: var(--act1); }
+  .act2 .act-badge { background: var(--act2-soft); color: var(--act2); }
+  .act3 .act-badge { background: var(--act3-soft); color: var(--act3); }
+
+  .act-title { font-size: 1.1rem; font-weight: 700; }
+  .act-body { padding: 18px 20px 20px; }
+
+  /* ── Video ── */
+  .video-wrap {
+    position: relative; width: 100%; padding-bottom: 56.25%;
+    border-radius: 12px; overflow: hidden; margin-bottom: 14px;
+    background: #000;
+  }
+  .video-wrap iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+  }
+  .video-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 6px;
+  }
+
+  /* ── Image ── */
+  .img-wrap {
+    border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--line); margin-bottom: 14px;
+  }
+  .img-wrap img { width: 100%; display: block; }
+
+  /* ── Image grid ── */
+  .img-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  @media (max-width: 500px) { .img-grid { grid-template-columns: 1fr; } }
+  .img-grid-item { }
+  .img-grid-item .img-wrap { margin-bottom: 4px; }
+  .img-caption {
+    font-size: 12px; font-weight: 600; color: var(--muted);
+    text-align: center; margin-bottom: 10px;
+  }
+
+  /* ── Guess box ── */
+  .guess-box {
+    background: var(--act1-soft);
+    border: 2px solid var(--act1);
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin: 6px 0 2px;
+    text-align: center;
+  }
+  .guess-box p { margin: 0 0 12px; font-weight: 700; font-size: 1rem; color: var(--act1); }
+  .guess-row { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; }
+  .guess-input {
+    font: inherit; font-size: 1.5rem; font-weight: 800;
+    width: 120px; text-align: center;
+    border: 2px solid var(--act1); border-radius: 12px;
+    padding: 8px 12px; background: var(--card); color: var(--ink);
+    outline: none;
+  }
+  .guess-input:focus { border-color: var(--act1); box-shadow: 0 0 0 3px rgba(37,99,235,.2); }
+  .guess-btn {
+    font: inherit; font-weight: 700; font-size: 1rem;
+    background: var(--act1); color: #fff; border: 0;
+    border-radius: 12px; padding: 10px 22px; cursor: pointer;
+    transition: opacity .15s;
+  }
+  .guess-btn:hover { opacity: .88; }
+  .guess-result {
+    margin-top: 12px; font-size: 1rem; font-weight: 700;
+    color: var(--act1); min-height: 1.5em;
+  }
+  .guess-list {
+    margin-top: 10px; font-size: 0.9rem; color: var(--muted);
+    max-height: 100px; overflow-y: auto;
+  }
+
+  /* ── Reveal button ── */
+  .reveal-wrap { text-align: center; margin-top: 6px; }
+  .reveal-btn {
+    font: inherit; font-weight: 700; font-size: 1rem;
+    border: 2px solid var(--ink); background: transparent; color: var(--ink);
+    border-radius: 14px; padding: 11px 26px; cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .reveal-btn:hover { background: var(--ink); color: var(--bg); }
+  .act2 .reveal-btn { border-color: var(--act2); color: var(--act2); }
+  .act2 .reveal-btn:hover { background: var(--act2); color: #fff; }
+  .act3 .reveal-btn { border-color: var(--act3); color: var(--act3); }
+  .act3 .reveal-btn:hover { background: var(--act3); color: #fff; }
+
+  .hidden { display: none; }
+
+  .back-link {
+    display: inline-block; margin-top: 10px;
+    color: var(--muted); text-decoration: none; font-size: 0.95rem; font-weight: 600;
+  }
+  .back-link:hover { color: var(--ink); }
+
+  .divider { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>🍬 כמה מסטיקים בצנצנת?</h1>
+    <p class="tagline">משימת שלוש מערכות — הערכה, חישוב, חשיפה</p>
+  </header>
+
+  <!-- ══════════════════════════════
+       מערכה ראשונה
+  ══════════════════════════════ -->
+  <div class="act act1">
+    <div class="act-header">
+      <span class="act-badge">מערכה ראשונה</span>
+      <span class="act-title">הצגת הבעיה</span>
+    </div>
+    <div class="act-body">
+
+      <div class="img-wrap">
+        <img src="https://tapintoteenminds.com/wp-content/uploads/2014/12/Guessing-Gumballs-Act1.png" alt="צנצנת מסטיקים">
+      </div>
+
+      <div class="video-label">סרטון פתיחה</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/J7PSzzut3e8" title="Guessing Gumballs Act 1" allowfullscreen></iframe>
+      </div>
+
+      <hr class="divider">
+
+      <div class="video-label">שלב הניחושים — נסו לנחש לפני שמודדים</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/XDhUr6PQr0U" title="Guessing Gumballs - Estimates" allowfullscreen></iframe>
+      </div>
+
+      <div class="guess-box">
+        <p>מה הניחוש שלך? כמה מסטיקים יש בצנצנת?</p>
+        <div class="guess-row">
+          <input class="guess-input" id="guessInput" type="number" min="1" placeholder="?">
+          <button class="guess-btn" onclick="submitGuess()">שלח ניחוש</button>
+        </div>
+        <div class="guess-result" id="guessResult"></div>
+        <div class="guess-list" id="guessList"></div>
+      </div>
+
+      <div class="reveal-wrap" style="margin-top:18px;">
+        <button class="reveal-btn" onclick="revealAct2()">המשך למערכה השנייה ←</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       מערכה שנייה
+  ══════════════════════════════ -->
+  <div class="act act2 hidden" id="act2">
+    <div class="act-header">
+      <span class="act-badge">מערכה שנייה</span>
+      <span class="act-title">הנתונים</span>
+    </div>
+    <div class="act-body">
+
+      <div class="video-label">סרטון הנתונים</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/QiOhK1xLBHg" title="Guessing Gumballs Act 2" allowfullscreen></iframe>
+      </div>
+
+      <div class="img-grid">
+        <div class="img-grid-item">
+          <div class="img-wrap">
+            <img src="https://tapintoteenminds.com/wp-content/uploads/2014/12/guessinggumballs-act2-jarheight.jpg" alt="גובה הצנצנת">
+          </div>
+          <div class="img-caption">גובה הצנצנת</div>
+        </div>
+        <div class="img-grid-item">
+          <div class="img-wrap">
+            <img src="https://tapintoteenminds.com/wp-content/uploads/2014/12/guessinggumballs-act2-jardiameter.jpg" alt="קוטר הצנצנת">
+          </div>
+          <div class="img-caption">קוטר הצנצנת</div>
+        </div>
+        <div class="img-grid-item">
+          <div class="img-wrap">
+            <img src="https://tapintoteenminds.com/wp-content/uploads/2014/12/guessinggumballs-act2-gumdiameter.jpg" alt="קוטר מסטיק אחד">
+          </div>
+          <div class="img-caption">קוטר מסטיק אחד</div>
+        </div>
+        <div class="img-grid-item">
+          <div class="img-wrap">
+            <img src="https://tapintoteenminds.com/wp-content/uploads/2014/12/Guessing-Gumballs-Task-Images-Etc..007.jpg" alt="מספר המסטיקים בשקית">
+          </div>
+          <div class="img-caption">מספר המסטיקים בשקית</div>
+        </div>
+      </div>
+
+      <div class="reveal-wrap">
+        <button class="reveal-btn" onclick="revealAct3()">חשיפת התשובה ←</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       מערכה שלישית
+  ══════════════════════════════ -->
+  <div class="act act3 hidden" id="act3">
+    <div class="act-header">
+      <span class="act-badge">מערכה שלישית</span>
+      <span class="act-title">חשיפת התשובה</span>
+    </div>
+    <div class="act-body">
+
+      <div class="video-label">סרטון א׳</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/U4qPe7pAHHo" title="Guessing Gumballs Act 3a" allowfullscreen></iframe>
+      </div>
+
+      <div class="video-label">סרטון ב׳</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/2Umf5qekufY" title="Guessing Gumballs Act 3b" allowfullscreen></iframe>
+      </div>
+
+      <div id="compareBox" style="margin-top:4px;"></div>
+
+    </div>
+  </div>
+
+  <a class="back-link" href="./index.html">← חזרה למשחקתמטיקה</a>
+
+</div>
+
+<script>
+  const guesses = [];
+
+  function submitGuess() {
+    const input = document.getElementById('guessInput');
+    const val = parseInt(input.value);
+    if (!val || val < 1) {
+      document.getElementById('guessResult').textContent = 'הכניסו מספר חיובי';
+      return;
+    }
+    guesses.push(val);
+    input.value = '';
+    document.getElementById('guessResult').textContent = 'הניחוש שלך נרשם: ' + val + ' מסטיקים!';
+    updateGuessList();
+  }
+
+  document.getElementById('guessInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') submitGuess();
+  });
+
+  function updateGuessList() {
+    const el = document.getElementById('guessList');
+    if (guesses.length < 2) { el.textContent = ''; return; }
+    const avg = Math.round(guesses.reduce((a,b) => a+b, 0) / guesses.length);
+    el.textContent = 'ניחושים שהוגשו: ' + guesses.join(', ') + ' — ממוצע: ' + avg;
+  }
+
+  function revealAct2() {
+    const el = document.getElementById('act2');
+    el.classList.remove('hidden');
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function revealAct3() {
+    const el = document.getElementById('act3');
+    el.classList.remove('hidden');
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Show comparison with guesses after a moment
+    if (guesses.length > 0) {
+      setTimeout(() => {
+        const avg = Math.round(guesses.reduce((a,b) => a+b, 0) / guesses.length);
+        document.getElementById('compareBox').innerHTML =
+          '<div style="background:var(--act3-soft);border:2px solid var(--act3);border-radius:14px;padding:14px 18px;margin-top:8px;text-align:center;">' +
+          '<div style="font-weight:800;color:var(--act3);font-size:1rem;margin-bottom:6px;">הניחושים שלכם</div>' +
+          '<div style="font-size:0.95rem;">ממוצע הניחושים: <b>' + avg + '</b> מסטיקים</div>' +
+          '<div style="font-size:0.9rem;color:var(--muted);margin-top:4px;">כל הניחושים: ' + guesses.join(', ') + '</div>' +
+          '</div>';
+      }, 800);
+    }
+  }
+</script>
+</body>
+</html>
