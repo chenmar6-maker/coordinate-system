@@ -434,9 +434,11 @@ function seqRow(seqNum, label, opts={}){
   let cards = '';
   if(isOpen){
     const hasGame = !opts.noGame;
-    const gameCard = hasGame
-      ? `<div class="flow-arrow">←</div><div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>`
-      : `<div class="flow-arrow">←</div><div class="card game" style="opacity:.4;cursor:default;"><h3>תרגול — בקרוב</h3></div>`;
+    const gameCard = opts.gameUrl
+      ? `<div class="flow-arrow">←</div><div class="card game" onclick="window.open('${opts.gameUrl}','_blank')"><h3>תרגול</h3></div>`
+      : hasGame
+        ? `<div class="flow-arrow">←</div><div class="card game" onclick="state.sequence=${seqNum};startGame()"><h3>תרגול</h3></div>`
+        : `<div class="flow-arrow">←</div><div class="card game" style="opacity:.4;cursor:default;"><h3>תרגול — בקרוב</h3></div>`;
     const quizCard = opts.worksheetUrl
       ? `<div class="flow-arrow">←</div><div class="card quiz" onclick="window.open('${opts.worksheetUrl}','_blank')"><h3>מבדק שליטה</h3></div>`
       : opts.noQuiz ? ''
@@ -485,7 +487,7 @@ function renderHome(){
     <div class="section-block">
       <div style="${SH}">יסודות הזוויות</div>
       ${seqRow(0,  '0. סוגי זוויות',           {noGame:true, worksheetUrl:'../worksheets/angles_seq1_exam.html', checkUrl:'../worksheets/angles_seq1_exam_check.html', answersUrl:'../worksheets/angles_seq1_exam_answers.html'})}
-      ${seqRow(1,  '1. מדידת זוויות',          {noGame:true, checkUrl:'../worksheets/protractor_exam_check.html'})}
+      ${seqRow(1,  '1. מדידת זוויות',          {gameUrl:'../protractor.html', worksheetUrl:'../worksheets/protractor_exam_check.html'})}
       ${seqRow(2,  '2. כתיב מתמטי של זוויות', {worksheetUrl:'../worksheets/angles_seq2_exam.html', checkUrl:'../worksheets/angles_seq2_exam_check.html', answersUrl:'../worksheets/angles_seq2_exam_answers.html'})}
 
       <div style="${SH}">פעולות עם זוויות</div>
