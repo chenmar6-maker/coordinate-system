@@ -348,7 +348,7 @@ const gameLevelsPlaceholder = [
 ];
 
 function currentLevels(){
-  if(state.sequence===1) return gameLevels1;
+  if(state.sequence===0) return gameLevels1;
   if(state.sequence===2) return gameLevels2;
   if(state.sequence===3) return gameLevels3;
   if(state.sequence===4) return gameLevels4;
@@ -484,7 +484,8 @@ function renderHome(){
     </div>
     <div class="section-block">
       <div style="${SH}">יסודות הזוויות</div>
-      ${seqRow(1,  '1. סוגי זוויות',           {noGame:true, worksheetUrl:'../worksheets/angles_seq1_exam.html', checkUrl:'../worksheets/angles_seq1_exam_check.html', answersUrl:'../worksheets/angles_seq1_exam_answers.html'})}
+      ${seqRow(0,  '0. סוגי זוויות',           {noGame:true, worksheetUrl:'../worksheets/angles_seq1_exam.html', checkUrl:'../worksheets/angles_seq1_exam_check.html', answersUrl:'../worksheets/angles_seq1_exam_answers.html'})}
+      ${seqRow(1,  '1. מדידת זוויות',          {noGame:true, checkUrl:'../worksheets/protractor_exam_check.html'})}
       ${seqRow(2,  '2. כתיב מתמטי של זוויות', {worksheetUrl:'../worksheets/angles_seq2_exam.html', checkUrl:'../worksheets/angles_seq2_exam_check.html', answersUrl:'../worksheets/angles_seq2_exam_answers.html'})}
 
       <div style="${SH}">פעולות עם זוויות</div>
@@ -508,7 +509,8 @@ function renderHome(){
 ══════════════════════════════════════ */
 
 function renderLearn(){
-  if(state.sequence===1) return renderLearn1();
+  if(state.sequence===0) return renderLearn1();
+  if(state.sequence===1) return renderLearnMeas();
   if(state.sequence===2) return renderLearn2();
   if(state.sequence===3) return renderLearn3();
   if(state.sequence===4) return renderLearn4();
@@ -522,6 +524,21 @@ function renderLearn(){
 }
 
 const SEP = '<div style="border-top:1px solid rgba(234,244,241,0.15);margin:20px 0 10px;"></div><div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:rgba(234,244,241,0.38);text-transform:uppercase;margin-bottom:12px;">תכונות ומשפטים</div>';
+
+function renderLearnMeas(){
+  return `<div class="panel">
+    <h2 class="qtitle">מדידת זוויות בעזרת מד זווית</h2>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/gc0X9Kt_nlo" title="מדידה בעזרת מד זווית" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="gold-box" style="margin-top:16px;">מד זווית מודד זוויות במעלות. יש לכוון את המרכז לקודקוד ואת הקו הבסיסי לאחת הצלעות — ואז לקרוא את המדרגות על הצלע השנייה.</div>
+    <div class="btnrow">
+      <button class="btn" onclick="window.open('../protractor.html','_blank')">לאפליקציית התרגול ←</button>
+      <button class="btn" onclick="window.open('../worksheets/protractor_exam_check.html','_blank')">למבדק שליטה ←</button>
+      <button class="btn secondary" onclick="goHome()">חזרה לתפריט</button>
+    </div>
+  </div>`;
+}
 
 function renderLearn1(){
   return `<div class="panel">
